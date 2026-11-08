@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Atelier Lumen 3D</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,500&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Prototype : nouveaux personnages et accessoires en relief, logo et écran de lancement. Look Bonbon, sombre. */
+:root{
+  --bg:#241544; --bg2:#3B1E68; --surface:#3A2468; --surface-2:#4A2F80; --line:#5D3E99;
+  --fg:#FFF0FA; --muted:#CBB5E8; --lamp:#FF5FA2; --accent2:#FFD23F; --edge:#1A0E33; --press:#9C2F62;
+  --f-display:"Bricolage Grotesque",system-ui,sans-serif; --f-text:"Literata",Georgia,serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 50% at 50% 0%,var(--bg2),var(--bg) 70%) fixed,var(--bg);color:var(--fg);font-family:var(--f-text);line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left)) 64px;display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
+h1 em{font-style:normal;color:var(--lamp)}
+h2{font-size:1.4rem;font-weight:800;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2 small{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{color:var(--muted);max-width:68ch;margin:6px 0 0}
+section{display:flex;flex-direction:column;gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.tile{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:2px solid var(--line);border-radius:22px;box-shadow:0 6px 0 var(--edge);padding:10px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.tile svg{width:100%;height:auto;max-width:150px}
+.tile b{font-family:var(--f-display);font-weight:800;font-size:1.02rem}
+.tile span{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.acc{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:2px solid var(--line);border-radius:18px;box-shadow:0 4px 0 var(--edge);padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--fg);font:inherit;transition:transform .08s,box-shadow .08s}
+.acc:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.acc[aria-pressed="true"]{border-color:var(--lamp);background:linear-gradient(180deg,#5A2E78,#45246A)}
+.acc svg{width:80px;height:70px}
+.acc small{font-family:var(--f-display);font-weight:700;font-size:.78rem;line-height:1.15}
+.cab{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.cab{grid-template-columns:1fr}}
+.stage{background:radial-gradient(80% 70% at 50% 35%,#5A2E8E,#2C1852);border:2px solid var(--line);border-radius:26px;box-shadow:0 6px 0 var(--edge);padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px;position:sticky;top:12px}
+.stage svg{width:100%;max-width:260px;height:auto}
+.picker{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{font-family:var(--f-display);font-weight:700;font-size:.82rem;padding:6px 10px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--lamp);border-color:var(--lamp);color:#241634}
+.slotname{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:6px 0 2px}
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.logo{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:2px solid var(--line);border-radius:24px;box-shadow:0 6px 0 var(--edge);padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.logo .ic{width:132px;height:132px;border-radius:30px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.logo .ic svg{width:100%;height:100%;display:block}
+.logo p{margin:0;color:var(--muted);font-size:.92rem}
+.logo b{font-family:var(--f-display);font-weight:800;font-size:1.1rem}
+.splashwrap{display:grid;grid-template-columns:minmax(240px,300px) 1fr;gap:20px;align-items:start}
+@media (max-width:720px){.splashwrap{grid-template-columns:1fr;justify-items:center}}
+.phone{width:100%;max-width:300px;aspect-ratio:9/18.5;border-radius:38px;border:8px solid #120A22;box-shadow:0 18px 40px rgba(0,0,0,.45);overflow:hidden;position:relative;background:radial-gradient(90% 60% at 50% 38%,#4A2470 0%,#2A1546 55%,#170C2C 100%)}
+.phone .glow{position:absolute;left:50%;top:38%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%) scale(.2);border-radius:50%;background:radial-gradient(circle,rgba(255,196,110,.55),rgba(255,140,90,.18) 40%,transparent 68%);opacity:0}
+.phone .lant{position:absolute;left:50%;top:38%;width:46%;transform:translate(-50%,-50%) scale(.6);opacity:0}
+.phone .word{position:absolute;left:0;right:0;top:60%;text-align:center;font-family:var(--f-text);font-weight:600;font-size:2.5rem;letter-spacing:-.02em;color:#FFF3E2;opacity:0;text-shadow:0 0 18px rgba(255,190,110,.55)}
+.phone .word i{font-style:normal;color:#FFB45A}
+.phone .motto{position:absolute;left:0;right:0;top:calc(60% + 3.4rem);text-align:center;font-family:var(--f-text);font-style:italic;font-size:1rem;color:#F3D9B8;opacity:0;letter-spacing:.04em}
+.phone .bar{position:absolute;left:30%;right:30%;bottom:12%;height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden;opacity:0}
+.phone .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FFD23F,#FF9A3D,#FF5FA2);border-radius:4px}
+.phone .crew{position:absolute;left:0;right:0;bottom:18%;display:flex;justify-content:center;gap:2px;opacity:0}
+.phone .crew svg{width:16%;height:auto}
+.phone.play .glow{animation:glowIn 1.6s .2s ease-out forwards}
+.phone.play .lant{animation:pop .7s .1s cubic-bezier(.3,1.6,.5,1) forwards}
+.phone.play .word{animation:fadeUp .7s .8s ease-out forwards}
+.phone.play .motto{animation:fadeUp .7s 1.25s ease-out forwards}
+.phone.play .crew{animation:fadeUp .6s 1.6s ease-out forwards}
+.phone.play .bar{animation:fadeUp .3s 1.8s forwards}
+.phone.play .bar i{animation:load 1.2s 1.9s ease-in-out forwards}
+@keyframes glowIn{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes pop{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes fadeUp{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes load{to{width:100%}}
+.mottos{display:flex;flex-direction:column;gap:8px}
+.motto-opt{display:flex;gap:10px;align-items:flex-start;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:10px 12px;cursor:pointer;color:var(--fg);font:inherit}
+.motto-opt[aria-pressed="true"]{border-color:var(--lamp);background:#4A2766}
+.motto-opt b{font-family:var(--f-text);font-style:italic;font-weight:600;font-size:1.05rem}
+.motto-opt span{display:block;color:var(--muted);font-size:.88rem}
+.btn{font-family:var(--f-display);font-weight:800;border:0;border-radius:14px;padding:10px 16px;background:var(--lamp);color:#241634;box-shadow:0 4px 0 var(--press);cursor:pointer;align-self:flex-start}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--press)}
+.note{background:rgba(255,210,63,.1);border:2px dashed rgba(255,210,63,.45);border-radius:16px;padding:12px 14px;color:#FBE7B0;font-size:.95rem}
+button:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.phone *{opacity:1!important;transform:translate(-50%,-50%)!important}}
+.float{animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}
+</style>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs">
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+  <filter id="blur6" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6"/></filter>
+  <radialGradient id="eyeW" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#F1ECF8"/><stop offset="1" stop-color="#C9BEDD"/></radialGradient>
+  <radialGradient id="glass" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset=".5" stop-color="#CFEFFF" stop-opacity=".18"/><stop offset="1" stop-color="#9FD8FF" stop-opacity=".35"/></radialGradient>
+</defs></svg>
+
+<div class="wrap">
+  <header>
+    <div class="slotname">Lumen · prototype à valider</div>
+    <h1>L'atelier <em>en relief</em></h1>
+    <p class="lead">Nouvelle direction artistique : des petits monstres trapus et déguisés, avec volume, reflets brillants et ombres douces. Chaque personnage est original et rattaché à un thème de Lumen. Rien n'est encore dans l'appli : tu valides, puis j'intègre.</p>
+  </header>
+
+  <section>
+    <h2>1 · Les personnages <small>9 exemples originaux</small></h2>
+    <div class="grid" id="crew"></div>
+  </section>
+
+  <section>
+    <h2>2 · La cabine d'essayage <small>32 accessoires</small></h2>
+    <p class="lead">Choisis un personnage, puis touche les accessoires pour les essayer. Un seul par emplacement (tête, visage, cou, main).</p>
+    <div class="cab">
+      <div class="stage">
+        <svg id="stageSvg" viewBox="-6 -40 132 172" role="img" aria-label="Personnage avec ses accessoires"></svg>
+        <div class="picker" id="who"></div>
+        <button class="btn" id="random" type="button">Tenue au hasard</button>
+      </div>
+      <div id="accs"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 · Le logo <small>3 propositions plus chaleureuses</small></h2>
+    <div class="logos" id="logos"></div>
+  </section>
+
+  <section>
+    <h2>4 · L'écran de lancement <small>animé, avec une devise latine</small></h2>
+    <div class="splashwrap">
+      <div class="phone" id="phone">
+        <div class="glow"></div>
+        <svg class="lant" id="splashLant" viewBox="0 0 120 124" aria-hidden="true"></svg>
+        <div class="word">L<i>u</i>men</div>
+        <div class="motto" id="mottoTxt">Fiat lux</div>
+        <div class="crew" id="splashCrew"></div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="mottos">
+        <p class="lead" style="margin:0">La lanterne s'allume, le halo chaud se diffuse, puis le nom et la devise apparaissent. Choisis la devise :</p>
+        <div id="mottoList" class="mottos"></div>
+        <button class="btn" id="replay" type="button">Rejouer l'animation</button>
+        <div class="note">Le logo choisi deviendra aussi l'icône de l'appli sur le téléphone.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------- Kit de relief : dégradés partagés, contours teintés, reflets ---------- */
+const DEFS = document.getElementById("defs");
+const made = new Set();
+const hx = c => [1,3,5].map(i => parseInt(c.slice(i,i+2),16));
+const toHex = a => "#" + a.map(v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,"0")).join("");
+// t > 0 : vers une lumière chaude ; t < 0 : vers une ombre violette (jamais du noir pur)
+function sh(c, t){ const a = hx(c), to = t > 0 ? [255,250,236] : [34,12,46]; const k = Math.abs(t); return toHex(a.map((v,i) => v + (to[i]-v)*k)); }
+function addDef(id, svg){ if (!made.has(id)) { made.add(id); DEFS.insertAdjacentHTML("beforeend", svg); } return `url(#${id})`; }
+const lin = c => addDef("l"+c.slice(1), `<linearGradient id="l${c.slice(1)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sh(c,.38)}"/><stop offset=".5" stop-color="${c}"/><stop offset="1" stop-color="${sh(c,-.32)}"/></linearGradient>`);
+const rad = c => addDef("r"+c.slice(1), `<radialGradient id="r${c.slice(1)}" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="${sh(c,.42)}"/><stop offset=".45" stop-color="${c}"/><stop offset="1" stop-color="${sh(c,-.42)}"/></radialGradient>`);
+const ink = c => sh(c, -.62);
+// Une pièce en volume : remplissage radial + contour teinté + reflet
+function part(d, c, o = {}){
+  const g = o.g ? `<ellipse cx="${o.g[0]}" cy="${o.g[1]}" rx="${o.g[2]}" ry="${o.g[3]}" fill="#fff" opacity="${o.go||.6}" filter="url(#soft)" ${o.g[4]?`transform="rotate(${o.g[4]} ${o.g[0]} ${o.g[1]})"`:""}/>` : "";
+  return `<path d="${d}" fill="${o.lin ? lin(c) : rad(c)}" stroke="${ink(c)}" stroke-width="${o.w||2.2}" stroke-linejoin="round" stroke-linecap="round"/>${g}`;
+}
+const ell = (cx,cy,rx,ry,c,o={}) => part(`M${cx-rx} ${cy}a${rx} ${ry} 0 1 0 ${rx*2} 0a${rx} ${ry} 0 1 0 ${-rx*2} 0Z`, c, o);
+const gloss = (x,y,rx,ry,op=.65,rot=0) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity="${op}" filter="url(#soft)" transform="rotate(${rot} ${x} ${y})"/>`;
+const shadow = (cx=60, cy=114, rx=34) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="6.5" fill="#12061F" opacity=".35" filter="url(#soft)"/>`;
+// Grands yeux brillants
+function eye(x, y, r, look = 0, col = "#24133A"){
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#eyeW)" stroke="${col}" stroke-width="1.6"/>
+  <circle cx="${x+look}" cy="${y+r*.12}" r="${r*.62}" fill="${col}"/>
+  <circle cx="${x+look-r*.22}" cy="${y-r*.2}" r="${r*.24}" fill="#fff"/><circle cx="${x+look+r*.24}" cy="${y+r*.32}" r="${r*.1}" fill="#fff" opacity=".9"/>`;
+}
+const cheeks = (x1, x2, y) => `<ellipse cx="${x1}" cy="${y}" rx="5" ry="2.8" fill="#FF7FA8" opacity=".55" filter="url(#soft)"/><ellipse cx="${x2}" cy="${y}" rx="5" ry="2.8" fill="#FF7FA8" opacity=".55" filter="url(#soft)"/>`;
+const mouth = (x, y, w, c = "#3A1630") => `<path d="M${x-w} ${y} q${w} ${w*.9} ${w*2} 0" fill="#7A2A4A" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M${x-w*.4} ${y+w*.42} q${w*.4} ${w*.25} ${w*.8} 0" fill="#FF8AA8" opacity=".9"/>`;
+const feet = (c, xs = [42,78], y = 104) => xs.map(x => ell(x, y, 9, 6, c, {g:[x-3,y-3,3,1.5]})).join("");
+
+/* ---------- Personnages originaux ---------- */
+// head : point d'accroche des chapeaux [x, y, largeur] ; face : y des yeux ; neck : y du cou ; hand : [x, y]
+const CREW = [
+ {n:"Lumi", th:"Mascotte · Lumière", head:[60,30,44], face:66, neck:92, hand:[100,80], draw(){
+   const body = "M32 38 Q60 26 88 38 Q102 66 88 96 Q60 106 32 96 Q18 66 32 38Z";
+   return `<ellipse cx="60" cy="66" rx="52" ry="48" fill="#FFB45A" opacity=".45" filter="url(#blur6)"/>` + shadow()
+   + feet("#C8463C", [46,74], 104)
+   + part(body, "#FF9A3D", {g:[46,48,10,6,-20]})
+   + `<g fill="none" stroke="${sh("#FF9A3D",-.35)}" stroke-width="1.6" opacity=".55"><path d="M46 31 Q38 66 46 101"/><path d="M60 29 Q60 66 60 104"/><path d="M74 31 Q82 66 74 101"/></g>`
+   + `<ellipse cx="60" cy="72" rx="20" ry="16" fill="#FFE7A0" opacity=".55" filter="url(#blur6)"/>`
+   + part("M38 30 Q60 22 82 30 L80 38 Q60 32 40 38Z", "#C8323A", {lin:1}) + part("M38 96 Q60 104 82 96 L80 104 Q60 110 40 104Z", "#C8323A", {lin:1})
+   + `<path d="M60 22 Q60 12 66 10" fill="none" stroke="#5A2A1A" stroke-width="2.4" stroke-linecap="round"/>`
+   + eye(49,64,7.5,.6) + eye(71,64,7.5,.6) + cheeks(40,80,76) + mouth(60,76,5);
+ }},
+ {n:"Maki", th:"Cuisine", head:[60,36,46], face:62, neck:90, hand:[100,82], draw(){
+   return shadow() + feet("#2F4A3A")
+   + part("M24 52 Q24 34 60 34 Q96 34 96 52 L96 92 Q96 106 60 106 Q24 106 24 92Z", "#FBF1E2", {g:[40,46,10,4,-10]})
+   + part("M24 64 L96 64 L96 92 Q96 106 60 106 Q24 106 24 92Z", "#2C4A3C", {lin:1, g:[36,74,4,10,0], go:.25})
+   + `<path d="M24 64 L96 64" stroke="${ink("#2C4A3C")}" stroke-width="2.2"/>`
+   + part("M34 44 Q60 30 86 44 Q88 50 80 52 Q60 44 40 52 Q32 50 34 44Z", "#FF8A5E", {lin:1, g:[52,40,8,2]})
+   + `<path d="M44 46 Q54 40 64 44 M58 48 Q68 42 78 46" stroke="#FFE0D0" stroke-width="2" fill="none" stroke-linecap="round"/>`
+   + eye(48,56,6.5) + eye(72,56,6.5) + cheeks(38,82,62) + `<path d="M56 62 q4 4 8 0" fill="none" stroke="#3A1630" stroke-width="1.8" stroke-linecap="round"/>`;
+ }},
+ {n:"Orbi", th:"Espace", head:[60,30,42], face:62, neck:92, hand:[102,80], draw(){
+   return shadow() + `<path d="M8 74 Q60 52 112 74" fill="none" stroke="${sh("#FFD23F",-.4)}" stroke-width="7" stroke-linecap="round"/><path d="M8 74 Q60 52 112 74" fill="none" stroke="#FFD23F" stroke-width="4" stroke-linecap="round"/>`
+   + feet("#3E5ACF")
+   + part("M26 74 Q22 34 60 30 Q98 34 94 74 Q96 104 60 106 Q24 104 26 74Z", "#5B8CFF", {g:[44,46,11,7,-25]})
+   + [[40,88,1.6],[78,92,1.2],[84,50,1.4],[34,60,1]].map(([x,y,r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#DDE8FF" opacity=".85"/>`).join("")
+   + `<path d="M8 74 Q60 98 112 74" fill="none" stroke="${sh("#FFD23F",-.4)}" stroke-width="7" stroke-linecap="round"/><path d="M8 74 Q60 98 112 74" fill="none" stroke="#FFD23F" stroke-width="4" stroke-linecap="round"/><path d="M20 79 Q40 86 56 87" stroke="#FFF6C0" stroke-width="1.6" fill="none" stroke-linecap="round"/>`
+   + `<path d="M48 32 Q44 18 36 14 M72 32 Q76 18 84 14" fill="none" stroke="#2E3F8E" stroke-width="2.4" stroke-linecap="round"/>`
+   + part("M36 8 l2 4 4 .6 -3 2.8 .8 4 -3.8 -2 -3.8 2 .8 -4 -3 -2.8 4 -.6Z", "#FFD23F", {w:1.4}) + part("M84 8 l2 4 4 .6 -3 2.8 .8 4 -3.8 -2 -3.8 2 .8 -4 -3 -2.8 4 -.6Z", "#FFD23F", {w:1.4})
+   + eye(49,60,7) + eye(71,60,7) + cheeks(39,81,70) + mouth(60,68,4);
+ }},
+ {n:"Fiole", th:"Sciences", head:[60,18,30], face:76, neck:52, hand:[100,84], draw(){
+   const glass = "M48 18 L72 18 L72 44 Q98 54 98 80 Q98 108 60 108 Q22 108 22 80 Q22 54 48 44Z";
+   return shadow(60,114,38)
+   + `<path d="M27 78 Q60 66 93 78 Q96 104 60 105 Q24 104 27 78Z" fill="${rad("#5FE0A0")}"/>`
+   + [[44,94,3],[70,98,2.4],[58,86,2],[78,88,1.6]].map(([x,y,r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#D8FFE9" opacity=".75"/>`).join("")
+   + eye(50,82,6.5,0,"#1E4A36") + eye(70,82,6.5,0,"#1E4A36") + `<path d="M57 92 q3 3 6 0" fill="none" stroke="#1E4A36" stroke-width="1.8" stroke-linecap="round"/>`
+   + `<path d="${glass}" fill="url(#glass)" stroke="#BFE6FF" stroke-width="2.6" stroke-linejoin="round"/>`
+   + gloss(36,72,4,14,.7,20) + gloss(66,28,2,7,.6)
+   + part("M46 6 L74 6 L72 20 L48 20Z", "#C8925A", {lin:1, g:[54,10,6,1.5]});
+ }},
+ {n:"Pixou", th:"Jeux vidéo", head:[56,30,46], face:66, neck:94, hand:[98,84], draw(){
+   const s = (x,y,w,h,c) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${lin(c)}" stroke="${ink(c)}" stroke-width="2"/>`;
+   return shadow() + s(36,100,12,8,"#B83A7A") + s(66,100,12,8,"#B83A7A")
+   + `<path d="M30 40 L44 28 L96 28 L82 40Z" fill="${sh("#FF5FA2",.35)}" stroke="${ink("#FF5FA2")}" stroke-width="2.2" stroke-linejoin="round"/>`
+   + `<path d="M82 40 L96 28 L96 88 L82 100Z" fill="${sh("#FF5FA2",-.3)}" stroke="${ink("#FF5FA2")}" stroke-width="2.2" stroke-linejoin="round"/>`
+   + `<rect x="30" y="40" width="52" height="60" fill="${lin("#FF5FA2")}" stroke="${ink("#FF5FA2")}" stroke-width="2.2"/>`
+   + `<rect x="34" y="44" width="10" height="4" fill="#fff" opacity=".55"/><rect x="34" y="50" width="4" height="8" fill="#fff" opacity=".45"/>`
+   + s(38,58,12,14,"#FFFFFF") + s(62,58,12,14,"#FFFFFF") + `<rect x="43" y="63" width="6" height="8" fill="#241634"/><rect x="67" y="63" width="6" height="8" fill="#241634"/><rect x="43" y="63" width="3" height="3" fill="#fff"/><rect x="67" y="63" width="3" height="3" fill="#fff"/>`
+   + `<rect x="48" y="80" width="16" height="4" fill="#5A1838"/><rect x="44" y="76" width="4" height="4" fill="#5A1838"/><rect x="64" y="76" width="4" height="4" fill="#5A1838"/>`
+   + s(52,16,8,12,"#FFD23F") + s(48,8,16,8,"#FFD23F");
+ }},
+ {n:"Bulle", th:"BD & mangas", head:[60,22,40], face:64, neck:92, hand:[102,82], draw(){
+   return shadow()
+   + part("M14 64 Q14 36 60 34 Q106 36 106 64 Q106 92 66 94 L52 110 L54 94 Q14 92 14 64Z", "#FFFFFF", {g:[40,46,14,6,-12]})
+   + part("M28 44 L34 18 L44 36 L52 10 L60 32 L70 8 L76 34 L88 16 L90 42 Q60 30 28 44Z", "#3A3F8E", {lin:1, g:[56,22,3,8,10]})
+   + eye(46,62,9.5,.8,"#2A2F7E") + eye(74,62,9.5,.8,"#2A2F7E")
+   + `<path d="M40 52 l8 3 M80 52 l-8 3" stroke="#2A2F7E" stroke-width="2.4" stroke-linecap="round"/>`
+   + cheeks(34,86,76) + `<path d="M55 78 q5 5 10 0" fill="#7A2A4A" stroke="#3A1630" stroke-width="1.8" stroke-linecap="round"/>`
+   + part("M96 40 Q102 50 98 54 Q92 56 92 50 Q92 46 96 40Z", "#8FD8FF", {w:1.6, g:[95,48,1.2,2.4]});
+ }},
+ {n:"Amphore", th:"Histoire & mythes", head:[60,22,30], face:62, neck:40, hand:[104,80], draw(){
+   const c = "#D9774A";
+   return shadow(60,114,26) + part("M46 100 L74 100 L70 108 L50 108Z", c, {lin:1})
+   + `<path d="M40 40 Q20 42 22 60 Q24 70 34 66" fill="none" stroke="${ink(c)}" stroke-width="7" stroke-linecap="round"/><path d="M40 40 Q20 42 22 60 Q24 70 34 66" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/>`
+   + `<path d="M80 40 Q100 42 98 60 Q96 70 86 66" fill="none" stroke="${ink(c)}" stroke-width="7" stroke-linecap="round"/><path d="M80 40 Q100 42 98 60 Q96 70 86 66" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/>`
+   + part("M46 22 L74 22 L72 34 Q96 46 92 72 Q88 96 74 100 L46 100 Q32 96 28 72 Q24 46 48 34Z", c, {g:[44,50,8,12,-15]})
+   + `<path d="M30 80 Q60 88 90 80 L88 88 Q60 96 32 88Z" fill="#2A1A20" opacity=".85"/>`
+   + `<path d="M36 84 h6 v-3 h-4 M48 87 h6 v-3 h-4 M60 88 h6 v-3 h-4 M72 87 h6 v-3 h-4" fill="none" stroke="${c}" stroke-width="1.4"/>`
+   + part("M44 18 L76 18 L74 24 L46 24Z", sh(c,-.15), {lin:1})
+   + eye(50,60,6.5) + eye(70,60,6.5) + cheeks(40,80,70) + mouth(60,70,3.6);
+ }},
+ {n:"Vinyle", th:"Musique", head:[60,30,44], face:60, neck:92, hand:[100,80], draw(){
+   return shadow() + feet("#2A2238")
+   + part("M24 70 Q22 32 60 30 Q98 32 96 70 Q98 104 60 106 Q22 104 24 70Z", "#2E2640", {g:[42,46,10,7,-25], go:.45})
+   + [30,25,20].map(r => `<ellipse cx="60" cy="72" rx="${r}" ry="${r*.92}" fill="none" stroke="#4A3E66" stroke-width="1.2" opacity=".8"/>`).join("")
+   + ell(60, 70, 16, 15, "#FF5FA2", {g:[54,64,4,2.4]})
+   + eye(53,68,5) + eye(67,68,5) + `<circle cx="60" cy="78" r="1.6" fill="#3A1630"/>`
+   + `<path d="M22 54 Q22 22 60 20 Q98 22 98 54" fill="none" stroke="${ink("#FFD23F")}" stroke-width="6.5" stroke-linecap="round"/><path d="M22 54 Q22 22 60 20 Q98 22 98 54" fill="none" stroke="#FFD23F" stroke-width="3.6" stroke-linecap="round"/>`
+   + part("M14 50 Q14 44 20 44 L26 44 L26 66 L20 66 Q14 66 14 60Z", "#FFD23F", {lin:1}) + part("M106 50 Q106 44 100 44 L94 44 L94 66 L100 66 Q106 66 106 60Z", "#FFD23F", {lin:1});
+ }},
+ {n:"Grimoire", th:"Littérature", head:[58,26,48], face:58, neck:96, hand:[100,82], draw(){
+   const c = "#7A3FD1";
+   return shadow(60,114,36) + feet("#4A2690", [40,74], 106)
+   + `<path d="M84 30 L94 36 L94 102 L84 104Z" fill="#FFF3DC" stroke="${ink("#FFF3DC")}" stroke-width="2" stroke-linejoin="round"/>` + [44,56,68,80,92].map(y => `<path d="M85 ${y} L93 ${y+2}" stroke="#D8C6A8" stroke-width="1"/>`).join("")
+   + part("M26 30 Q26 24 32 24 L84 24 Q88 24 88 30 L88 100 Q88 106 82 106 L32 106 Q26 106 26 100Z", c, {lin:1, g:[38,36,8,3]})
+   + `<rect x="34" y="32" width="46" height="66" rx="5" fill="none" stroke="#FFD23F" stroke-width="2" opacity=".85"/>`
+   + [[30,28],[84,28],[30,102],[84,102]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="4" fill="${rad("#FFD23F")}" stroke="${ink("#FFD23F")}" stroke-width="1.2"/>`).join("")
+   + eye(46,56,7) + eye(68,56,7) + cheeks(38,76,68) + mouth(57,68,4)
+   + part("M54 104 L54 118 L58 114 L62 118 L62 104Z", "#E8344A", {w:1.6});
+ }}
+];
+function charSVG(c){ return `<g>${c.draw()}</g>`; }
+
+/* ---------- Accessoires (dessinés autour de 0,0 : bas-centre pour la tête) ---------- */
+const S = (d, c, o) => part(d, c, o);
+const ACC = [
+ // Tête
+ {id:"casquette", n:"Casquette", slot:"tete", d:() => S("M-18 0 C-19 -20 17 -22 18 -2Z","#3E8AE8",{g:[-6,-14,6,3]}) + S("M8 -2 Q26 -4 32 2 Q20 6 6 2Z","#2E6AC8",{lin:1}) + ell(0,-19,2.4,2,"#FFFFFF",{w:1})},
+ {id:"bonnet", n:"Bonnet à pompon", slot:"tete", d:() => S("M-20 0 C-22 -26 22 -26 20 0Z","#E8445A",{g:[-8,-14,5,3]}) + S("M-22 -4 L22 -4 L22 4 L-22 4Z","#FFF3E6",{lin:1}) + ell(0,-26,6,6,"#FFF3E6",{g:[-2,-28,2,1.5]})},
+ {id:"sorcier", n:"Chapeau de sorcier", slot:"tete", d:() => S("M-16 -2 L-2 -44 Q2 -48 5 -42 L16 -2Z","#6A3AD8",{g:[-4,-24,2.5,10,15]}) + ell(0,-1,26,5.5,"#5A2AB8") + S("M-15 -8 L15 -8 L14 -3 L-14 -3Z","#FFD23F",{lin:1,w:1.4}) + S("M3 -30 l1.6 3.2 3.5 .5 -2.5 2.4 .6 3.5 -3.2 -1.7 -3.2 1.7 .6 -3.5 -2.5 -2.4 3.5 -.5Z","#FFD23F",{w:1})},
+ {id:"couronne", n:"Couronne", slot:"tete", d:() => S("M-19 0 L-21 -20 L-10 -11 L0 -25 L10 -11 L21 -20 L19 0Z","#FFC93A",{g:[-8,-10,4,2]}) + ell(0,-25,3,3,"#FF4A7A",{w:1.2}) + ell(-21,-20,2.4,2.4,"#4AC8FF",{w:1}) + ell(21,-20,2.4,2.4,"#4AC8FF",{w:1}) + ell(0,-5,3,2.4,"#FF4A7A",{w:1})},
+ {id:"helice", n:"Casquette à hélice", slot:"tete", d:() => S("M-18 0 C-18 -20 18 -20 18 0Z","#FFD23F",{g:[-6,-12,5,3]}) + S("M-18 0 C-18 -20 0 -20 0 -18 L0 0Z","#4AC8FF",{lin:1}) + `<path d="M0 -18 V-24" stroke="#5A4A2A" stroke-width="2.4"/>` + S("M0 -25 Q-12 -30 -20 -25 Q-12 -22 0 -25Z","#FF5FA2",{w:1.4}) + S("M0 -25 Q12 -20 20 -25 Q12 -28 0 -25Z","#5FE0A0",{w:1.4}) + ell(0,-25,2.4,2.4,"#E8445A",{w:1})},
+ {id:"toque", n:"Toque de chef", slot:"tete", d:() => S("M-14 0 L-14 -12 L14 -12 L14 0Z","#FFFFFF",{lin:1}) + S("M-16 -12 Q-24 -24 -12 -28 Q-8 -38 2 -34 Q12 -40 18 -30 Q28 -24 16 -12Z","#FFFFFF",{g:[-6,-28,6,3]})},
+ {id:"pirate", n:"Tricorne de pirate", slot:"tete", d:() => S("M-28 -2 Q-26 -14 -16 -12 Q-10 -30 0 -28 Q10 -30 16 -12 Q26 -14 28 -2 Q0 6 -28 -2Z","#2E2A3E",{g:[-4,-20,6,3]}) + ell(0,-15,5,4.4,"#F2EEE6",{w:1.2}) + `<path d="M-2.5 -15.5 h1.6 M1 -15.5 h1.6 M-2 -12.5 h4" stroke="#2E2A3E" stroke-width="1.2"/>` + `<path d="M-26 -3 Q0 4 26 -3" fill="none" stroke="#FFD23F" stroke-width="1.6"/>`},
+ {id:"cowboy", n:"Chapeau de cowboy", slot:"tete", d:() => S("M-30 -4 Q-30 4 -18 2 L18 2 Q30 4 30 -4 Q24 0 18 -2 L-18 -2 Q-24 0 -30 -4Z","#B87A44",{lin:1}) + S("M-16 -2 Q-18 -26 -6 -24 Q0 -20 6 -24 Q18 -26 16 -2Z","#C88A50",{g:[-8,-16,3,5]}) + S("M-16 -6 L16 -6 L16 -2 L-16 -2Z","#6A3A20",{lin:1,w:1.4})},
+ {id:"viking", n:"Casque à cornes", slot:"tete", d:() => S("M-20 0 C-20 -26 20 -26 20 0Z","#9AA8C0",{g:[-6,-14,5,4]}) + S("M-22 -4 L22 -4 L22 2 L-22 2Z","#C8A040",{lin:1}) + S("M-19 -10 Q-30 -12 -32 -30 Q-24 -20 -16 -18Z","#FFF3DC",{w:1.6}) + S("M19 -10 Q30 -12 32 -30 Q24 -20 16 -18Z","#FFF3DC",{w:1.6})},
+ {id:"haut", n:"Haut-de-forme", slot:"tete", d:() => ell(0,-2,24,5,"#2E2640") + S("M-14 -2 L-14 -34 Q0 -38 14 -34 L14 -2Z","#3A3050",{lin:1,g:[-7,-20,2.5,9]}) + S("M-14 -10 L14 -10 L14 -4 L-14 -4Z","#E8445A",{lin:1,w:1.4})},
+ {id:"beret", n:"Béret", slot:"tete", d:() => S("M-22 -2 C-24 -18 -8 -22 2 -21 C18 -20 26 -12 22 -4 C14 2 -16 2 -22 -2Z","#E0445A",{g:[-8,-14,8,3]}) + `<path d="M2 -21 l1 -5" stroke="${ink("#E0445A")}" stroke-width="2.6" stroke-linecap="round"/>`},
+ {id:"paille", n:"Chapeau de paille", slot:"tete", d:() => ell(0,-2,30,6,"#F2C66A") + S("M-14 -2 Q-16 -22 0 -22 Q16 -22 14 -2Z","#F6D07A",{g:[-5,-14,4,3]}) + S("M-14 -7 L14 -7 L14 -3 L-14 -3Z","#E8445A",{lin:1,w:1.2}) + `<path d="M-24 -1 l3 2 M-12 2 l2 2 M8 2 l2 2 M20 -1 l3 2" stroke="#C89A3A" stroke-width="1.2"/>`},
+ {id:"chantier", n:"Casque de chantier", slot:"tete", d:() => S("M-24 0 Q-26 -6 -18 -4 C-18 -26 18 -26 18 -4 Q26 -6 24 0Z","#FFC21A",{g:[-6,-14,6,4]}) + S("M-3 -24 L3 -24 L3 -6 L-3 -6Z","#FFD84A",{lin:1,w:1.2})},
+ {id:"laureat", n:"Toque de lauréat", slot:"tete", d:() => S("M-13 -2 Q0 4 13 -2 L13 -11 L-13 -11Z","#2E2A4A",{lin:1}) + S("M0 -22 L28 -13 L0 -4 L-28 -13Z","#3E3A66",{g:[-8,-15,6,2]}) + ell(0,-13,2.4,2,"#FFD23F",{w:1}) + `<path d="M0 -13 Q18 -11 20 -1" fill="none" stroke="#FFD23F" stroke-width="2"/>` + S("M18 -2 l2 8 2 -8Z","#FFD23F",{w:1})},
+ {id:"aureole", n:"Auréole", slot:"tete", d:() => `<ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="#FFE27A" stroke-width="7" opacity=".35" filter="url(#soft)"/><ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="${ink("#FFD23F")}" stroke-width="5.6"/><ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="#FFE27A" stroke-width="3.2"/>`},
+ {id:"antennes", n:"Antennes", slot:"tete", d:() => `<path d="M-8 0 Q-12 -16 -18 -24 M8 0 Q12 -16 18 -24" fill="none" stroke="#3A2A50" stroke-width="2.4" stroke-linecap="round"/>` + ell(-18,-26,5,5,"#5FE0A0",{g:[-20,-28,1.6,1.2]}) + ell(18,-26,5,5,"#5FE0A0",{g:[16,-28,1.6,1.2]})},
+ {id:"chat", n:"Oreilles de chat", slot:"tete", d:() => S("M-24 0 Q-24 -10 -20 -10 L20 -10 Q24 -10 24 0Z","#2E2A3E",{lin:1,w:1.6}) + S("M-20 -8 L-16 -30 L-4 -12Z","#FFB0D0",{g:[-15,-18,2,4]}) + S("M20 -8 L16 -30 L4 -12Z","#FFB0D0",{g:[13,-18,2,4]})},
+ {id:"champi", n:"Chapeau champignon", slot:"tete", d:() => S("M-26 0 Q-28 -30 0 -30 Q28 -30 26 0 Q0 6 -26 0Z","#E8344A",{g:[-10,-20,7,4]}) + [[-12,-16,4],[6,-22,3.4],[14,-8,3],[-2,-8,2.6]].map(([x,y,r]) => ell(x,y,r,r*.85,"#FFF3E6",{w:1})).join("")},
+ {id:"glace", n:"Cornet glacé", slot:"tete", d:() => S("M-10 -2 L10 -2 L0 -30Z","#E8B060",{lin:1}) + `<path d="M-6 -8 L4 -22 M6 -8 L-3 -22" stroke="#B8803A" stroke-width="1"/>` + S("M-16 -26 Q-18 -44 0 -42 Q18 -44 16 -26 Q10 -22 6 -26 Q0 -20 -6 -26 Q-12 -22 -16 -26Z","#FFB0D0",{g:[-6,-36,5,3]}) + ell(0,-46,4,4,"#E8344A",{g:[-1,-48,1.4,1]})},
+ {id:"ninja", n:"Bandeau ninja", slot:"tete", d:() => S("M-22 4 L22 4 L22 12 L-22 12Z","#E8344A",{lin:1,w:1.6}) + S("M22 6 Q34 2 38 10 Q30 8 24 12Z","#E8344A",{w:1.4}) + S("M22 9 Q32 12 34 20 Q28 14 22 12Z","#C8243A",{w:1.4}) + ell(0,8,4,3.4,"#C8D0E0",{w:1})},
+ {id:"fleurs", n:"Couronne de fleurs", slot:"tete", d:() => [-18,-9,0,9,18].map((x,i) => { const c = ["#FFB0D0","#FFD23F","#9FD8FF","#FF8A6A","#C9A2FF"][i]; return [0,72,144,216,288].map(a => `<ellipse cx="${x}" cy="${-8-Math.abs(x)*.1}" rx="3" ry="4.6" transform="rotate(${a} ${x} ${-4-Math.abs(x)*.1})" fill="${rad(c)}" stroke="${ink(c)}" stroke-width="1"/>`).join("") + ell(x,-4-Math.abs(x)*.1,2,2,"#FFF3B0",{w:.8}); }).join("")},
+ {id:"casque", n:"Casque audio", slot:"tete", d:() => `<path d="M-26 8 C-26 -26 26 -26 26 8" fill="none" stroke="${ink("#FF5FA2")}" stroke-width="7.5" stroke-linecap="round"/><path d="M-26 8 C-26 -26 26 -26 26 8" fill="none" stroke="#FF5FA2" stroke-width="4.4" stroke-linecap="round"/>` + S("M-33 2 Q-33 -4 -27 -4 L-21 -4 L-21 18 L-27 18 Q-33 18 -33 12Z","#FF5FA2",{lin:1}) + S("M33 2 Q33 -4 27 -4 L21 -4 L21 18 L27 18 Q33 18 33 12Z","#FF5FA2",{lin:1})},
+ // Visage
+ {id:"lunettes", n:"Lunettes rondes", slot:"visage", d:() => `<circle cx="-11" cy="0" r="9" fill="url(#glass)" stroke="#5A3A20" stroke-width="2.6"/><circle cx="11" cy="0" r="9" fill="url(#glass)" stroke="#5A3A20" stroke-width="2.6"/><path d="M-2 -1 Q0 -3 2 -1" fill="none" stroke="#5A3A20" stroke-width="2.4"/>` + gloss(-14,-3,2,3.4,.7) + gloss(8,-3,2,3.4,.7)},
+ {id:"soleil", n:"Lunettes de soleil", slot:"visage", d:() => S("M-22 -6 L-2 -6 Q-2 8 -12 8 Q-22 8 -22 -6Z","#2A2238",{lin:1}) + S("M2 -6 L22 -6 Q22 8 12 8 Q2 8 2 -6Z","#2A2238",{lin:1}) + `<path d="M-2 -4 L2 -4" stroke="#2A2238" stroke-width="2.4"/>` + `<path d="M-18 -3 l6 6 M6 -3 l6 6" stroke="#9A86C8" stroke-width="2" opacity=".7"/>`},
+ {id:"plongee", n:"Masque de plongée", slot:"visage", d:() => S("M-24 -8 Q-24 -12 -18 -12 L18 -12 Q24 -12 24 -8 L24 6 Q24 12 16 12 Q8 12 4 6 L-4 6 Q-8 12 -16 12 Q-24 12 -24 6Z","#4AC8FF",{lin:1,w:2}) + `<path d="M-19 -7 L19 -7 L19 4 Q19 7 15 7 Q9 7 6 2 L-6 2 Q-9 7 -15 7 Q-19 7 -19 4Z" fill="url(#glass)" stroke="#2A7AB8" stroke-width="1.4"/>` + gloss(-12,-3,4,2,.75)},
+ {id:"monocle", n:"Monocle", slot:"visage", d:() => `<circle cx="11" cy="0" r="9" fill="url(#glass)" stroke="${ink("#FFD23F")}" stroke-width="4"/><circle cx="11" cy="0" r="9" fill="none" stroke="#FFD23F" stroke-width="2"/><path d="M19 4 Q24 16 18 26" fill="none" stroke="#FFD23F" stroke-width="1.2"/>` + gloss(8,-3,2,3.4,.7)},
+ {id:"moustache", n:"Moustache", slot:"visage", d:() => S("M0 12 Q-6 8 -14 12 Q-22 16 -26 10 Q-24 20 -14 19 Q-6 18 0 14 Q6 18 14 19 Q24 20 26 10 Q22 16 14 12 Q6 8 0 12Z","#5A3A26",{g:[-12,13,4,1.2]})},
+ // Cou
+ {id:"noeud", n:"Nœud papillon", slot:"cou", d:() => S("M0 0 L-16 -8 Q-20 0 -16 8Z","#E8344A",{g:[-12,-3,2,1.5]}) + S("M0 0 L16 -8 Q20 0 16 8Z","#E8344A",{g:[12,-3,2,1.5]}) + ell(0,0,4.6,4.6,"#FF5A6A",{w:1.6})},
+ {id:"echarpe", n:"Écharpe", slot:"cou", d:() => S("M-26 -4 Q0 6 26 -4 L26 4 Q0 14 -26 4Z","#5FB8E8",{lin:1}) + S("M10 4 L22 6 L20 28 L10 26Z","#5FB8E8",{lin:1,g:[14,10,1.5,5]}) + `<path d="M-18 0 L-18 6 M-8 3 L-8 9 M4 3 L4 9 M12 12 L20 13 M11 19 L20 20" stroke="#FFFFFF" stroke-width="2.4" opacity=".7"/>`},
+ {id:"medaille", n:"Médaille", slot:"cou", d:() => `<path d="M-12 -6 L-2 14 M12 -6 L2 14" stroke="#E8344A" stroke-width="5" stroke-linecap="round"/>` + ell(0,20,9,9,"#FFC93A",{g:[-3,16,3,2]}) + S("M0 15 l1.6 3.2 3.5 .5 -2.5 2.4 .6 3.5 -3.2 -1.7 -3.2 1.7 .6 -3.5 -2.5 -2.4 3.5 -.5Z","#FFF3B0",{w:1})},
+ // Main
+ {id:"baguette", n:"Baguette magique", slot:"main", d:() => `<path d="M-10 14 L8 -8" stroke="${ink("#3A2A50")}" stroke-width="5" stroke-linecap="round"/><path d="M-10 14 L8 -8" stroke="#4A3A66" stroke-width="3" stroke-linecap="round"/>` + S("M10 -20 l2.6 5.2 5.8 .8 -4.2 4 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.2 -4 5.8 -.8Z","#FFD23F",{w:1.4,g:[8,-14,2,1.4]})},
+ {id:"livre", n:"Livre", slot:"main", d:() => S("M-14 -10 L12 -12 L14 10 L-12 12Z","#4AA86A",{lin:1,g:[-6,-6,4,2]}) + `<path d="M12 -12 L16 -9 L18 12 L14 10" fill="#FFF3DC" stroke="${ink("#FFF3DC")}" stroke-width="1.4"/>` + ell(0,0,5,5,"#FFD23F",{w:1})},
+ {id:"manette", n:"Manette", slot:"main", d:() => S("M-16 -4 Q-16 -10 -9 -10 L9 -10 Q16 -10 16 -4 L18 6 Q18 12 12 11 L6 5 L-6 5 L-12 11 Q-18 12 -18 6Z","#6A4AE8",{g:[-6,-6,6,2]}) + `<path d="M-10 -3 v6 M-13 0 h6" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>` + ell(9,-3,2,2,"#FF5A7A",{w:1}) + ell(12,1,2,2,"#5AE88A",{w:1})}
+];
+const SLOTS = {tete:"Tête", visage:"Visage", cou:"Cou", main:"Main"};
+const SLOT_POS = (c, slot) => slot === "tete" ? [c.head[0], c.head[1], c.head[2]/44] : slot === "visage" ? [60, c.face, 1] : slot === "cou" ? [60, c.neck, 1] : [c.hand[0], c.hand[1], .95];
+
+/* ---------- Rendu ---------- */
+document.getElementById("crew").innerHTML = CREW.map(c => `<div class="tile"><svg viewBox="0 0 120 124" class="float" role="img" aria-label="${c.n}">${charSVG(c)}</svg><b>${c.n}</b><span>${c.th}</span></div>`).join("");
+
+let cur = 0, worn = {tete:"couronne", visage:"lunettes"};
+function dress(){
+  const c = CREW[cur];
+  const layer = slot => { const a = ACC.find(x => x.id === worn[slot]); if (!a) return ""; const [x,y,s] = SLOT_POS(c, slot); return `<g transform="translate(${x} ${y}) scale(${s})">${a.d()}</g>`; };
+  document.getElementById("stageSvg").innerHTML = `<g class="float">${charSVG(c)}${layer("cou")}${layer("visage")}${layer("tete")}${layer("main")}</g>`;
+  document.getElementById("who").innerHTML = CREW.map((x,i) => `<button class="chip" data-who="${i}" aria-pressed="${i===cur}" type="button">${x.n}</button>`).join("");
+  document.querySelectorAll(".acc").forEach(b => b.setAttribute("aria-pressed", String(worn[b.dataset.slot] === b.dataset.id)));
+}
+document.getElementById("accs").innerHTML = Object.entries(SLOTS).map(([k, n]) => `<div class="slotname">${n}</div><div class="agrid">${ACC.filter(a => a.slot === k).map(a => {
+  return `<button class="acc" type="button" data-id="${a.id}" data-slot="${k}" aria-pressed="false"><svg viewBox="-36 -52 72 60" aria-hidden="true"><g>${a.d()}</g></svg><small>${a.n}</small></button>`; }).join("")}</div>`).join("");
+// Cadre chaque accessoire sur sa propre taille, pour qu'il remplisse sa case
+document.querySelectorAll(".acc svg").forEach(s => { try { const b = s.firstElementChild.getBBox(), p = 4, w = Math.max(b.width, b.height*1.15) + p*2, h = w/1.15; s.setAttribute("viewBox", `${b.x + b.width/2 - w/2} ${b.y + b.height/2 - h/2} ${w} ${h}`); } catch(e){} });
+document.addEventListener("click", e => {
+  const a = e.target.closest(".acc"); if (a) { worn[a.dataset.slot] = worn[a.dataset.slot] === a.dataset.id ? null : a.dataset.id; return dress(); }
+  const w = e.target.closest("[data-who]"); if (w) { cur = +w.dataset.who; return dress(); }
+});
+document.getElementById("random").onclick = () => { for (const k of Object.keys(SLOTS)) { const list = ACC.filter(a => a.slot === k); worn[k] = Math.random() < .75 ? list[Math.floor(Math.random()*list.length)].id : null; } cur = Math.floor(Math.random()*CREW.length); dress(); };
+dress();
+
+/* ---------- Logos ---------- */
+const lumi = CREW[0];
+const LOGOS = [
+ {n:"La lanterne", p:"Lumi, la petite lanterne, sur un fond prune et ambre. Chaleureux et mignon, il devient la mascotte de l'appli.",
+  svg:`<svg viewBox="0 0 120 120"><defs><radialGradient id="lg1" cx=".5" cy=".42" r=".75"><stop offset="0" stop-color="#7A3A6A"/><stop offset=".6" stop-color="#4A1F52"/><stop offset="1" stop-color="#2A1034"/></radialGradient></defs><rect width="120" height="120" fill="url(#lg1)"/><circle cx="60" cy="58" r="44" fill="#FFB45A" opacity=".35" filter="url(#blur6)"/><g transform="translate(6 2) scale(.9)">${lumi.draw()}</g></svg>`},
+ {n:"La bougie et le livre", p:"Une bougie allumée posée sur un livre ouvert : la culture au coin du lit, avec une flamme bien chaude.",
+  svg:`<svg viewBox="0 0 120 120"><defs><linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A2A4A"/><stop offset="1" stop-color="#2A1230"/></linearGradient></defs><rect width="120" height="120" fill="url(#lg2)"/><ellipse cx="60" cy="40" rx="40" ry="34" fill="#FFB45A" opacity=".4" filter="url(#blur6)"/>${part("M14 86 Q38 74 60 84 Q82 74 106 86 L106 98 Q82 88 60 98 Q38 88 14 98Z","#FFF3DC",{lin:1})}<path d="M60 84 L60 98" stroke="${ink("#FFF3DC")}" stroke-width="2"/><path d="M22 88 Q38 82 52 88 M68 88 Q82 82 98 88" stroke="#D8C6A8" stroke-width="1.4" fill="none"/>${part("M50 50 L70 50 L70 84 Q60 88 50 84Z","#FFE4D0",{lin:1,g:[55,58,2,8]})}<path d="M60 50 V44" stroke="#3A2020" stroke-width="2"/><path d="M60 22 Q70 34 66 42 Q62 48 58 46 Q50 42 54 34 Q56 28 60 22Z" fill="#FFB43A"/><path d="M60 30 Q65 37 63 42 Q60 45 58 43 Q55 40 57 36Z" fill="#FFEFA0"/></svg>`},
+ {n:"Le L lumineux", p:"Un « L » doré et bombé avec un halo ambre, façon néon chaleureux. Plus sobre, il reste lisible même tout petit.",
+  svg:`<svg viewBox="0 0 120 120"><defs><radialGradient id="lg3" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="#6A2E5E"/><stop offset="1" stop-color="#22102E"/></radialGradient></defs><rect width="120" height="120" fill="url(#lg3)"/><circle cx="60" cy="56" r="38" fill="#FF9A3D" opacity=".38" filter="url(#blur6)"/>${part("M40 24 Q40 18 46 18 L54 18 Q60 18 60 24 L60 78 L84 78 Q90 78 90 84 L90 92 Q90 98 84 98 L46 98 Q40 98 40 92Z","#FFC14A",{g:[48,30,3,10],w:3})}<path d="M76 30 l2.6 5.2 5.8 .8 -4.2 4 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.2 -4 5.8 -.8Z" fill="#FFF3B0"/></svg>`}
+];
+document.getElementById("logos").innerHTML = LOGOS.map((l,i) => `<div class="logo"><div class="ic">${l.svg}</div><b>${String.fromCharCode(65+i)} · ${l.n}</b><p>${l.p}</p></div>`).join("");
+
+/* ---------- Écran de lancement ---------- */
+document.getElementById("splashLant").innerHTML = lumi.draw();
+document.getElementById("splashCrew").innerHTML = [1,2,5,7].map(i => `<svg viewBox="0 0 120 124">${CREW[i].draw()}</svg>`).join("");
+const MOTTOS = [
+ ["Fiat lux", "« Que la lumière soit. » Parfait pour une appli qui s'appelle Lumen."],
+ ["Sapere aude", "« Ose savoir. » Devise d'Horace reprise par les Lumières."],
+ ["Lux mentis", "« La lumière de l'esprit. »"],
+ ["Nox docet", "« La nuit instruit. » Clin d'œil au jeu du soir."],
+ ["", "Sans devise : juste le nom."]
+];
+let motto = 0;
+function paintMottos(){
+  document.getElementById("mottoList").innerHTML = MOTTOS.map(([m,d],i) => `<button class="motto-opt" type="button" data-m="${i}" aria-pressed="${i===motto}"><div><b>${m || "—"}</b><span>${d}</span></div></button>`).join("");
+  document.getElementById("mottoTxt").textContent = MOTTOS[motto][0];
+}
+function replay(){ const p = document.getElementById("phone"); p.classList.remove("play"); void p.offsetWidth; p.classList.add("play"); }
+document.getElementById("mottoList").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (b) { motto = +b.dataset.m; paintMottos(); replay(); } });
+document.getElementById("replay").onclick = replay;
+paintMottos(); replay();
+</script>
+</body></html>

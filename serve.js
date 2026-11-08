@@ -5,8 +5,10 @@ const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", "
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p.endsWith("/")) p += "index.html";
-  const f = path.join(root, path.normalize(p));
-  if (!f.startsWith(root)) { res.writeHead(403); return res.end(); }
+  // /prototypes/... : pages à valider (jamais publiées), servies depuis le dossier prototypes/
+  const base = p.startsWith("/prototypes/") ? __dirname : root;
+  const f = path.join(base, path.normalize(p));
+  if (!f.startsWith(base)) { res.writeHead(403); return res.end(); }
   fs.readFile(f, (err, data) => {
     if (err) { res.writeHead(404); return res.end("Introuvable"); }
     res.writeHead(200, { "Content-Type": types[path.extname(f)] || "application/octet-stream", "Cache-Control": "no-store" });

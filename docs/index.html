@@ -1802,6 +1802,13 @@ function load(){
   if (S.session && S.session.mode === "daily") { S.pausedDaily = S.session; S.session = null; }
   if (S.pausedDaily && S.pausedDaily.date !== today()) S.pausedDaily = null;
   delete S.paused;
+  applyTheme();
+}
+// Thème d'affichage : "auto" suit le téléphone, sinon clair ou sombre forcé
+function applyTheme(){
+  const t = S.settings.theme;
+  if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+  else delete document.documentElement.dataset.theme;
 }
 function save(){ if (S && S.admin && S.admin.inf) S.coins = Math.max(S.coins, 99999); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
 
@@ -2301,7 +2308,10 @@ function renderProfile(){
   let body;
   if (profSeg==="badges") body = renderBadges();
   else if (profSeg==="biblio") body = renderLibrary();
-  else if (profSeg==="reglages") body = `<div class="card stack"><div class="label">Musique</div>
+  else if (profSeg==="reglages") body = `<div class="card stack"><div class="label">Affichage</div>
+      <div class="row between"><span>Thème</span><div class="row" role="group" aria-label="Thème">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,n]) => { const on = (S.settings.theme || "auto") === k; return `<button class="btn small ${on?"":"ghost"}" data-theme-set="${k}" aria-pressed="${on}">${n}</button>`; }).join("")}</div></div>
+      <p class="muted" style="font-size:13.5px">« Auto » suit le réglage de ton téléphone.</p></div>
+    <div class="card stack"><div class="label">Musique</div>
       <div class="row between"><span>Musique d'ambiance</span><button class="btn small ${S.settings.music?"":"ghost"}" data-music="toggle" aria-pressed="${S.settings.music}">${S.settings.music?"Activée":"Coupée"}</button></div>
       <div class="row between"><label for="mvol">Volume</label><input id="mvol" type="range" min="0" max="100" value="${S.settings.vol}" style="accent-color:var(--lamp);flex:1;max-width:220px"></div>
       <div class="row between"><span>Effets sonores</span><button class="btn small ${S.settings.sfx!==false?"":"ghost"}" data-sfx aria-pressed="${S.settings.sfx!==false}">${S.settings.sfx!==false?"Activés":"Coupés"}</button></div>
@@ -2506,6 +2516,7 @@ function onClick(e){
   if (d.adminAdd) { S.coins += +d.adminAdd; save(); toasts.push(`<b>+${d.adminAdd} pièces</b>`); return render(); }
   if (d.adminInf !== undefined) { S.admin.inf = !S.admin.inf; save(); return render(); }
   if (d.adminOff !== undefined) { S.admin = null; adminTaps = 0; save(); return render(); }
+  if (d.themeSet) { S.settings.theme = d.themeSet; applyTheme(); save(); return render(); }
   if (d.sfx !== undefined) { S.settings.sfx = S.settings.sfx === false; save(); return render(); }
   if (d.music) { S.settings.music = !S.settings.music; save(); S.settings.music ? Music.start() : Music.stop(); return render(); }
   if (d.reset !== undefined) {
