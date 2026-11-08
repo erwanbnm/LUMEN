@@ -152,3 +152,23 @@
 3|Qu'est-ce qu'un leitmotiv en musique ?|Un thème qui revient pour évoquer un personnage ou une idée|Un instrument ancien|Une danse lente|Une erreur de rythme|Wagner l'a beaucoup utilisé. La musique des Dents de la mer annonce ainsi toujours le requin.
 3|Que signifie « pianissimo » sur une partition ?|Très doucement|Très vite|Au piano seulement|Très fort|On l'abrège « pp ». « Fortissimo », abrégé « ff », veut dire très fort.
 2|Quel instrument aborigène d'Australie est un long tube de bois qu'on fait vibrer avec les lèvres ?|Le didgeridoo|La flûte de Pan|Le cor des Alpes|Le tuba|Il est souvent creusé naturellement par des termites dans un tronc d'eucalyptus. Les joueurs respirent par le nez sans interrompre le son.
+1|Combien de musiciens joue un trio ?|Trois|Deux|Quatre|Cinq|Avec un piano, un violon et un violoncelle, c'est un trio avec piano, une formation très classique.
+1|Quelle chanson de Noël parle d'un renne au nez rouge qui guide le traîneau ?|Rudolph le petit renne|Vive le vent|Petit Papa Noël|Douce nuit|Le personnage a été inventé en 1939 pour une brochure publicitaire d'un grand magasin américain.
+1|Quelle note vient juste après « do » dans la gamme ?|Ré|Mi|Si|Fa|Do, ré, mi, fa, sol, la, si, puis on revient à do, une octave plus haut.
+1|Quel instrument se frappe avec des baguettes sur une peau tendue ?|Le tambour|La flûte|La harpe|Le violon|C'est l'un des plus vieux instruments du monde.
+1|Dans quel pays est né Mozart ?|L'Autriche|L'Allemagne|L'Italie|La Suisse|Il est né à Salzbourg en 1756. On y vend encore des chocolats à son effigie, les Mozartkugeln.
+2|Dans Pierre et le Loup, quel instrument joue le chat ?|La clarinette|La flûte|Le hautbois|Le basson|La flûte joue l'oiseau, le hautbois le canard et le basson le grand-père.
+2|Quel chanteur belge a chanté « Ça plane pour moi » en 1977 ?|Plastic Bertrand|Jacques Brel|Arno|Stromae|Le tube punk a fait le tour du monde, alors que les paroles en français étaient souvent incomprises.
+2|Quel pionnier du rock'n'roll a chanté « Johnny B. Goode » en 1958 ?|Chuck Berry|Elvis Presley|Little Richard|Buddy Holly|La chanson voyage même dans l'espace, sur le disque d'or des sondes Voyager.
+2|Quelle chanteuse australienne a chanté « Can't Get You Out of My Head » ?|Kylie Minogue|Sia|Dua Lipa|Shakira|Ce tube de 2001 a été numéro 1 dans une quarantaine de pays.
+2|Quel groupe britannique a chanté « Wonderwall » en 1995 ?|Oasis|Blur|Radiohead|Coldplay|Il était mené par les frères Liam et Noel Gallagher, célèbres pour leurs disputes.
+2|Quelle chanteuse était surnommée « la reine de la soul » ?|Aretha Franklin|Diana Ross|Nina Simone|Tina Turner|Sa chanson « Respect » est devenue un hymne des droits civiques et des femmes.
+2|Quel chanteur a chanté « Les Lacs du Connemara » ?|Michel Sardou|Johnny Hallyday|Julien Clerc|Alain Souchon|Le Connemara est une région de l'ouest de l'Irlande. La chanson est un classique des fins de soirées.
+2|Quelle chanteuse américaine a fait partie du groupe Destiny's Child ?|Beyoncé|Rihanna|Alicia Keys|Mariah Carey|Le groupe a chanté « Survivor ». Elle a ensuite fait une immense carrière solo.
+2|Quelle clé utilise-t-on le plus souvent pour écrire les notes aiguës ?|La clé de sol|La clé de fa|La clé d'ut|La clé de mi|La clé de fa sert aux notes graves, par exemple pour la main gauche du piano.
+3|Qui a écrit et chanté « Hallelujah » en 1984 ?|Leonard Cohen|Jeff Buckley|Bob Dylan|Paul Simon|La reprise de Jeff Buckley, en 1994, l'a rendue encore plus célèbre.
+3|Pour quel pays Céline Dion a-t-elle gagné l'Eurovision en 1988 ?|La Suisse|Le Canada|La France|La Belgique|Elle a chanté « Ne partez pas sans moi », en français. Le Canada ne participe pas au concours.
+3|Quel compositeur norvégien a écrit la musique de Peer Gynt ?|Edvard Grieg|Jean Sibelius|Carl Nielsen|Antonín Dvořák|On y trouve le célèbre « Dans l'antre du roi de la montagne », qui accélère sans cesse.
+3|Quel compositeur finlandais a écrit Finlandia, devenue un symbole national ?|Jean Sibelius|Edvard Grieg|Carl Nielsen|Bedřich Smetana|L'œuvre, écrite en 1899, était un acte de résistance face à la domination russe.
+3|Combien de noires vaut une ronde ?|4|2|8|1|Une blanche vaut 2 noires, une noire vaut 2 croches.
+3|Quel compositeur français a écrit La Mer, une œuvre pour orchestre de 1905 ?|Claude Debussy|Maurice Ravel|Camille Saint-Saëns|Gabriel Fauré|La couverture de la première partition reprenait La Grande Vague d'Hokusai.

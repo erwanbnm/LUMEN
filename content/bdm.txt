@@ -1,0 +1,106 @@
+1|Comment s'appelle le journaliste meilleur ami de Spirou ?|Fantasio|Gaston|Zorglub|Seccotine|Toujours en quête d'un scoop, il est aussi un inventeur maladroit. Zorglub, lui, est un savant fou.
+1|Quel écolier suisse à la mèche blonde dit « Tchô ! » ?|Titeuf|Le Petit Spirou|Kid Paddle|Boule|Créé par Zep en 1992, il découvre la vie avec un regard d'enfant plein d'humour.
+1|Comment s'appelle le druide du village d'Astérix ?|Panoramix|Abraracourcix|Assurancetourix|Agecanonix|C'est lui qui prépare la potion magique. Il cueille le gui avec une serpe d'or.
+1|Dans quelle région se trouve le village d'Astérix ?|L'Armorique|La Provence|L'Auvergne|La Bourgogne|L'Armorique correspond à peu près à l'actuelle Bretagne. Le village résiste « encore et toujours à l'envahisseur ».
+1|Dans quoi Obélix est-il tombé quand il était petit ?|La marmite de potion magique|Un tonneau de cervoise|Une fontaine|La mer|C'est pour cela qu'il n'a pas le droit d'en reboire : l'effet est permanent chez lui.
+1|Quel héros de manga veut devenir le roi des pirates ?|Monkey D. Luffy|Naruto|Son Goku|Ichigo|C'est le héros de One Piece, publié depuis 1997 par Eiichirō Oda.
+1|Quel jeune ninja rêve de devenir Hokage, le chef de son village ?|Naruto|Luffy|Kakashi|Sasuke|Créé par Masashi Kishimoto en 1999, il a été l'un des mangas les plus lus au monde.
+1|Comment s'appelle le héros de Dragon Ball ?|Son Goku|Vegeta|Piccolo|Krilin|Créé par Akira Toriyama en 1984, il s'inspire du Singe, héros du roman chinois « La Pérégrination vers l'Ouest ».
+1|Comment s'appelle la célèbre attaque d'énergie de Son Goku ?|Le Kamehameha|Le Rasengan|Le Gomu Gomu|Le Getsuga|Le nom vient d'un roi d'Hawaï, Kamehameha. Toriyama trouvait qu'il sonnait comme une attaque.
+1|Dans Pokémon, avec quel objet capture-t-on les Pokémon ?|Une Poké Ball|Un Pokédex|Un filet|Une cage dorée|Le Pokédex, lui, est l'encyclopédie qui décrit chaque espèce rencontrée.
+1|De quel pays vient le manga ?|Le Japon|La Corée du Sud|La Chine|La Thaïlande|La Corée a le manhwa et la Chine le manhua, deux cousins du manga.
+1|Dans quel sens lit-on un manga traditionnel ?|De droite à gauche|De gauche à droite|De bas en haut|En diagonale|C'est le sens de lecture japonais. La plupart des éditions françaises le conservent.
+1|Comment appelle-t-on un dessin animé japonais ?|Un animé|Un cartoon|Un comics|Un webtoon|Le mot vient de l'anglais animation, prononcé à la japonaise.
+1|Quel chat orange adore les lasagnes et déteste le lundi ?|Garfield|Félix|Grosminet|Tom|Créé par Jim Davis en 1978, il a longtemps été le comic strip le plus diffusé au monde.
+1|Quel petit garçon a pour ami un tigre en peluche qui prend vie ?|Calvin|Charlie Brown|Titeuf|Boule|C'est « Calvin et Hobbes », de Bill Watterson. Pour les autres, Hobbes n'est qu'une peluche.
+1|Quelle bande dessinée met en scène de petits êtres bleus ?|Les Schtroumpfs|Les Barbapapa|Les Bisounours|Les Minikeums|Créés par le Belge Peyo en 1958, ils vivent dans des maisons-champignons.
+1|Quel petit Gaulois porte un casque à ailes et une moustache blonde ?|Astérix|Obélix|Abraracourcix|Panoramix|La potion magique lui donne une force surhumaine. Son nom vient d'astérisque.
+1|Comment s'appellent les quatre frères bandits qui affrontent Lucky Luke ?|Les Dalton|Les Rapetou|Les Bonnot|Les James|Ils sont rangés du plus petit, Joe, le plus colérique, au plus grand, Averell, le plus gourmand.
+1|Que transporte Obélix sur son dos ?|Un menhir|Un tonneau|Un sanglier|Un bouclier|Il est livreur de menhirs. Son plat préféré, ce sont les sangliers rôtis.
+1|Quels détectives moustachus et maladroits suivent Tintin ?|Dupond et Dupont|Laurel et Hardy|Les Dalton|Bouvard et Pécuchet|On les distingue par la moustache : droite pour Dupond, légèrement retroussée pour Dupont.
+1|Quel est le métier de Tintin ?|Reporter|Policier|Détective|Marin|On ne le voit pourtant presque jamais écrire un article.
+1|Quel employé de bureau est champion des gaffes ?|Gaston Lagaffe|Spirou|Fantasio|Achille Talon|Créé par André Franquin en 1957, il travaille à la rédaction du journal de Spirou.
+1|Quel héros de BD belge porte un costume rouge de groom ?|Spirou|Tintin|Fantasio|Ric Hochet|Il a été créé en 1938 pour le journal qui porte son nom. Un groom est un employé d'hôtel.
+1|Quel super-héros est surnommé « l'Homme d'acier » ?|Superman|Iron Man|Batman|Captain America|Il vient de la planète Krypton. Son seul point faible est la kryptonite.
+1|Quel est le vrai nom de Spider-Man ?|Peter Parker|Bruce Wayne|Clark Kent|Tony Stark|Il a obtenu ses pouvoirs après la morsure d'une araignée radioactive.
+1|Quel ennemi de Spider-Man a quatre bras de métal ?|Docteur Octopus|Le Bouffon vert|Venom|Le Vautour|Le savant Otto Octavius s'est retrouvé soudé à ses bras mécaniques après un accident.
+1|Quel clown maléfique est l'ennemi juré de Batman ?|Le Joker|Le Pingouin|Double-Face|L'Épouvantail|Il est apparu dès 1940, dans le tout premier numéro consacré à Batman.
+1|Quel super-héros porte un bouclier rond étoilé ?|Captain America|Iron Man|Thor|Hawkeye|Il a été créé en 1941 : sur la première couverture, il frappe Hitler, avant même l'entrée en guerre des États-Unis.
+1|Quel super-héros vole dans une armure inventée par Tony Stark ?|Iron Man|Batman|Hulk|Thor|Apparu en 1963, Tony Stark est un milliardaire génie de la mécanique.
+1|Comment s'appelle la jeune sorcière qui fait des livraisons sur son balai chez Ghibli ?|Kiki|Chihiro|Ponyo|Nausicaä|« Kiki la petite sorcière » est sorti en 1989. Son chat noir s'appelle Jiji.
+1|Quelle héroïne combat le mal « au nom de la Lune » ?|Sailor Moon|Sakura|Nausicaä|Lady Oscar|Créée par Naoko Takeuchi en 1991, elle a fait connaître le genre des magical girls dans le monde entier.
+1|Quel chat robot bleu venu du futur sort des gadgets de sa poche ?|Doraemon|Hello Kitty|Pikachu|Totoro|Créé en 1969, il est si populaire au Japon qu'il a été nommé ambassadeur de l'animation japonaise.
+1|Quel nuage magique transporte Son Goku dans Dragon Ball ?|Le nuage Kinto-un|Un tapis volant|Un dragon|Une moto|Seules les personnes au cœur pur peuvent monter dessus sans passer à travers.
+2|Qui a créé Tintin ?|Hergé|Franquin|Uderzo|Peyo|Hergé, c'est la prononciation des initiales inversées de son vrai nom, Georges Remi : R.G.
+2|En quelle année Tintin est-il apparu pour la première fois ?|1929|1946|1912|1961|Il est né dans « Le Petit Vingtième », le supplément pour la jeunesse d'un journal belge.
+2|Quel album fait marcher Tintin sur la Lune, 15 ans avant les astronautes ?|On a marché sur la Lune|Le Lotus bleu|Tintin au Tibet|Le Temple du Soleil|Publié en album en 1954, il suit « Objectif Lune ». La fusée rouge et blanche est devenue culte.
+2|Comment s'appelle le savant un peu sourd ami de Tintin ?|Tryphon Tournesol|Séraphin Lampion|Philémon Siclone|Nestor|Il a inventé la fusée lunaire. Il ne supporte pas qu'on le dise « dur de la feuille ».
+2|Qui dessinait Astérix pendant que René Goscinny écrivait les histoires ?|Albert Uderzo|Morris|Hergé|Franquin|Le duo a créé Astérix en 1959 dans le magazine « Pilote ».
+2|Comment s'appelle le chef du village d'Astérix ?|Abraracourcix|Panoramix|Cétautomatix|Ordralfabétix|Il ne craint qu'une chose : que le ciel lui tombe sur la tête.
+2|Quel personnage chante si faux qu'on l'attache pendant les banquets ?|Assurancetourix|Abraracourcix|Agecanonix|Cétautomatix|C'est le barde du village. Son nom joue sur « assurance tous risques ».
+2|Qui répète « Ils sont fous, ces Romains ! » ?|Obélix|Astérix|Panoramix|Idéfix|En italien, elle est devenue « Sono Pazzi Questi Romani », dont les initiales forment SPQR, la devise de Rome.
+2|Comment s'appelle le cheval de Lucky Luke ?|Jolly Jumper|Rantanplan|Tornado|Silver|Il joue aux échecs et parle volontiers. Tornado est le cheval de Zorro.
+2|Quel chien est réputé le plus bête de l'Ouest ?|Rantanplan|Jolly Jumper|Milou|Idéfix|Il garde le pénitencier où sont enfermés les Dalton, sans jamais rien comprendre.
+2|Quel manga suit Tanjirō, qui chasse les démons pour sauver sa sœur ?|Demon Slayer|Bleach|Berserk|Chainsaw Man|Son film « Le Train de l'infini » est devenu en 2020 le plus gros succès de l'histoire du cinéma japonais.
+2|Qui a créé One Piece ?|Eiichirō Oda|Akira Toriyama|Masashi Kishimoto|Hayao Miyazaki|Le manga paraît chaque semaine depuis 1997 dans le magazine japonais Weekly Shōnen Jump.
+2|Quelle est la série de manga la plus vendue au monde ?|One Piece|Dragon Ball|Naruto|Détective Conan|Elle détient le record Guinness du plus grand nombre d'exemplaires publiés pour une BD d'un seul auteur.
+2|Combien de boules faut-il réunir pour invoquer le dragon dans Dragon Ball ?|Sept|Cinq|Neuf|Douze|Le dragon sacré Shenron exauce alors un vœu, puis les boules s'éparpillent sur Terre.
+2|Qui est le prince des Saiyans, rival de Son Goku ?|Vegeta|Piccolo|Freezer|Krilin|D'abord ennemi, il devient un allié, sans jamais cesser de vouloir surpasser Goku.
+2|Quel démon est scellé dans le corps de Naruto ?|Un renard à neuf queues|Un dragon à trois têtes|Un loup géant|Un serpent blanc|Le démon renard avait attaqué le village le jour de sa naissance.
+2|Quel pouvoir a donné le fruit du démon mangé par Luffy ?|Un corps élastique comme du caoutchouc|L'invisibilité|Le pouvoir de voler|L'immortalité|Mais les utilisateurs de ces fruits ne peuvent plus nager, un comble pour un pirate.
+2|Comment s'appelle l'équipage de Luffy ?|L'équipage du Chapeau de paille|L'équipage de Barbe Noire|L'équipage du Roux|Le Hollandais volant|Son chapeau de paille lui a été confié par le pirate Shanks le Roux.
+2|Qui est surnommé « le dieu du manga » ?|Osamu Tezuka|Hayao Miyazaki|Akira Toriyama|Rumiko Takahashi|Il a créé Astro le petit robot en 1952 et inventé de nombreux codes du manga moderne.
+2|Quel robot géant venu de l'espace a été un énorme succès à la télévision française en 1978 ?|Goldorak|Gundam|Mazinger Z|Evangelion|Diffusé dans l'émission Récré A2, il a lancé la vague des dessins animés japonais en France.
+2|Sous quel nom a-t-on connu « Captain Tsubasa » en France ?|Olive et Tom|Les Champions|Jeanne et Serge|Ben le footballeur|Ce manga de foot a inspiré de futurs joueurs pros, au Japon comme en Europe.
+2|Sous quel nom connaît-on « City Hunter » en France ?|Nicky Larson|Cobra|Lupin|Cat's Eye|Ce détective dragueur a été adapté en film en France par Philippe Lacheau en 2019.
+2|Quel héros lance « Tu ne le sais pas encore, mais tu es déjà mort » ?|Ken le Survivant|Son Goku|Cobra|Saitama|Il maîtrise un art martial qui frappe les points vitaux. La réplique est devenue un mème.
+2|Quel héros chauve bat tous ses adversaires d'un seul coup de poing ?|Saitama|Krilin|Kenshiro|Vegeta|C'est One Punch Man. Son problème : il s'ennuie, car plus aucun combat n'est un défi.
+2|Dans « L'Attaque des Titans », comment les humains se protègent-ils des Titans ?|Ils vivent derrière d'immenses murs|Ils vivent sous terre|Ils vivent sur des îles|Ils vivent dans des tours de verre|Le manga de Hajime Isayama, terminé en 2021, est l'un des plus grands succès des années 2010.
+2|Que se passe-t-il quand on écrit un nom dans le Death Note ?|La personne meurt|Elle perd la mémoire|Elle devient riche|Elle disparaît dans le passé|Le carnet appartient à Ryuk, un dieu de la mort qui s'ennuyait.
+2|Quelle armure porte Seiya dans « Les Chevaliers du Zodiaque » ?|Celle de Pégase|Celle du Dragon|Celle du Phénix|Celle du Cygne|Ces chevaliers protègent la déesse Athéna. Le dessin animé a été un énorme succès en France dans les années 1980.
+2|Quel sport pratique Hanamichi Sakuragi dans « Slam Dunk » ?|Le basket|Le volley|Le football|Le baseball|Ce manga de Takehiko Inoue a fait découvrir le basket à des millions de jeunes Japonais dans les années 1990.
+2|Quel film de Miyazaki a reçu l'Ours d'or au festival de Berlin en 2002 ?|Le Voyage de Chihiro|Princesse Mononoké|Mon voisin Totoro|Ponyo sur la falaise|C'est un des rares films d'animation récompensés par ce grand prix. Il a aussi eu un Oscar.
+2|Quel manga de volley suit le petit mais très bondissant Shōyō Hinata ?|Haikyū!!|Slam Dunk|Olive et Tom|Kuroko's Basket|Haruichi Furudate l'a lancé en 2012. Il a relancé l'intérêt pour le volley au Japon.
+2|Quel éditeur a créé Spider-Man et les X-Men ?|Marvel|DC Comics|Image Comics|Dark Horse|Spider-Man est né en 1962 sous la plume de Stan Lee et Steve Ditko.
+2|Quel auteur de Marvel faisait une courte apparition dans presque tous les films de super-héros ?|Stan Lee|Jack Kirby|Bob Kane|Steve Ditko|Il a cocréé Spider-Man, les X-Men, Iron Man ou Hulk. Il est mort en 2018.
+2|Comment s'appelle le majordome de Batman ?|Alfred|Jarvis|Nestor|Sébastien|Il a élevé le jeune Bruce Wayne après la mort de ses parents. Nestor est le majordome du capitaine Haddock.
+2|Quelle petite Argentine de BD déteste la soupe et s'inquiète pour le monde ?|Mafalda|Lou|Zita|Nadia|Créée par Quino en 1964, elle pose des questions bien trop sérieuses pour son âge.
+2|Quelle BD de Julien Neel suit une collégienne et sa mère un peu fantasque ?|Lou !|Les Nombrils|Cédric|Mafalda|La série a commencé en 2004 et a été adaptée au cinéma en 2014.
+2|Comment appelle-t-on une page entière de bande dessinée ?|Une planche|Une case|Une vignette|Un cartouche|Une planche contient plusieurs cases. Les originaux des grands auteurs se vendent très cher aux enchères.
+2|Comment appelle-t-on la bande dessinée coréenne ?|Le manhwa|Le manhua|Le fumetti|Le comics|Le manhua est chinois et les fumetti sont italiens.
+2|Dans quelle ville se tient chaque hiver le grand festival de la BD en France ?|Angoulême|Cannes|Avignon|Lyon|Le Festival international de la bande dessinée y a lieu depuis 1974.
+2|Sur quel support lit-on surtout les webtoons ?|Sur un téléphone, en faisant défiler vers le bas|Dans des albums cartonnés|Dans les journaux du dimanche|Sur des affiches|Ce format est né en Corée du Sud au début des années 2000, pensé pour les écrans.
+2|Quelle BD de Marjane Satrapi raconte son enfance en Iran ?|Persepolis|L'Arabe du futur|Maus|Blacksad|Son adaptation en dessin animé a reçu le prix du jury au festival de Cannes en 2007.
+3|Quel est le premier album des aventures de Tintin ?|Tintin au pays des Soviets|Tintin au Congo|Le Lotus bleu|Les Cigares du pharaon|Il a été publié en 1930, en noir et blanc. Hergé lui-même le trouvait raté.
+3|Quel album de Tintin est resté inachevé à la mort d'Hergé ?|Tintin et l'Alph-Art|Tintin et les Picaros|Vol 714 pour Sydney|Coke en stock|Hergé est mort en 1983. Ses esquisses ont été publiées telles quelles en 1986.
+3|Quelle expression désigne le style net d'Hergé, aux contours précis et sans hachures ?|La ligne claire|Le trait gras|Le style franc|La plume lisse|L'expression a été inventée en 1977 par le dessinateur néerlandais Joost Swarte.
+3|Où se trouve le Centre belge de la bande dessinée ?|À Bruxelles|À Liège|À Anvers|À Charleroi|Il occupe d'anciens grands magasins dessinés par l'architecte Victor Horta.
+3|En quelle année Astérix est-il apparu pour la première fois ?|1959|1946|1968|1975|Il est né dans le premier numéro du magazine « Pilote », en octobre 1959.
+3|Qui a créé Spirou en 1938 ?|Rob-Vel|André Franquin|Hergé|Jijé|Franquin n'a repris la série qu'en 1946, mais c'est lui qui a imaginé le Marsupilami et le comte de Champignac.
+3|Dans quel pays imaginaire vit le Marsupilami ?|La Palombie|La Syldavie|Le Wakanda|La Bordurie|Ce pays d'Amérique du Sud a été inventé par Franquin. La Syldavie et la Bordurie viennent de Tintin.
+3|Qui a créé les aventures de Blake et Mortimer ?|Edgar P. Jacobs|Hergé|Jacques Martin|Bob de Moor|Jacobs avait été l'assistant d'Hergé avant de lancer sa propre série en 1946.
+3|Quel héros de BD, créé par Jean Van Hamme et William Vance, a perdu la mémoire ?|XIII|Largo Winch|Thorgal|Blueberry|Il découvre au premier album qu'on l'accuse d'avoir tué le président des États-Unis.
+3|Sous quel pseudonyme Jean Giraud signait-il ses BD de science-fiction ?|Moebius|Druillet|Bilal|Enki|Pour la série western « Blueberry », il signait Gir.
+3|Quelle BD de science-fiction a inspiré un film de Luc Besson en 2017 ?|Valérian et Laureline|Blake et Mortimer|Thorgal|Yoko Tsuno|Créée par Pierre Christin et Jean-Claude Mézières en 1967, elle aurait aussi influencé Star Wars.
+3|Quelle héroïne de Jacques Tardi enquête dans le Paris des années 1910 ?|Adèle Blanc-Sec|Natacha|Yoko Tsuno|Agrippine|Elle affronte momies, monstres préhistoriques et savants fous.
+3|Qui a dessiné la famille Bidochon ?|Christian Binet|Claire Bretécher|Gotlib|Cabu|Robert et Raymonde Bidochon se moquent avec tendresse de la vie de couple française depuis 1977.
+3|Quel roman graphique d'Art Spiegelman a reçu un prix Pulitzer spécial en 1992 ?|Maus|Watchmen|Persepolis|Sandman|Il raconte la Shoah vécue par son père, en dessinant les Juifs en souris et les nazis en chats.
+3|Quel roman graphique d'Alan Moore met en scène des super-héros vieillissants dans une Amérique alternative ?|Watchmen|V pour Vendetta|Sandman|The Dark Knight Returns|Dessiné par Dave Gibbons en 1986, c'est la seule BD du classement des meilleurs romans du magazine Time.
+3|Qui a créé Superman en 1938 ?|Jerry Siegel et Joe Shuster|Stan Lee et Jack Kirby|Bob Kane et Bill Finger|Steve Ditko et Stan Lee|Ils étaient deux jeunes de Cleveland. Ils ont vendu les droits du personnage pour seulement 130 dollars.
+3|Quel super-héros a été créé par Bob Kane et Bill Finger en 1939 ?|Batman|Superman|Flash|Green Lantern|Bill Finger, longtemps oublié, a enfin été reconnu comme cocréateur en 2015.
+3|De quelle couleur était Hulk lors de sa toute première apparition, en 1962 ?|Gris|Bleu|Rouge|Orange|Il est devenu vert dès le deuxième numéro, en partie parce que l'imprimeur avait du mal à rendre le gris de façon régulière.
+3|Quel mangaka a créé « Akira » ?|Katsuhiro Otomo|Osamu Tezuka|Akira Toriyama|Naoki Urasawa|Le manga débute en 1982. Son adaptation en film, en 1988, a fait découvrir l'animation japonaise adulte à l'Occident.
+3|Quelle mangaka, créatrice de « Ranma ½ », a reçu le Grand Prix d'Angoulême en 2019 ?|Rumiko Takahashi|Naoko Takeuchi|Moto Hagio|Ai Yazawa|Elle a aussi créé « Lamu » et « Inu-Yasha », et compte parmi les autrices les plus vendues au monde.
+3|Qui a créé Goldorak ?|Gō Nagai|Osamu Tezuka|Leiji Matsumoto|Hayao Miyazaki|Il avait déjà imaginé Mazinger Z, l'un des tout premiers robots géants pilotés de l'animation.
+3|Quel réalisateur japonais a signé « Perfect Blue » et « Paprika » ?|Satoshi Kon|Makoto Shinkai|Mamoru Oshii|Isao Takahata|Ses films, qui brouillent rêve et réalité, ont influencé des réalisateurs comme Christopher Nolan.
+3|Quel film du studio Ghibli raconte la survie de deux enfants pendant la guerre ?|Le Tombeau des lucioles|Le Château dans le ciel|Princesse Mononoké|Pompoko|Réalisé par Isao Takahata en 1988, il est adapté d'un récit en partie autobiographique.
+3|Comment s'appelle le village de Naruto ?|Konoha, le village caché de la Feuille|Suna, le village caché du Sable|Kiri, le village caché de la Brume|Ame, le village caché de la Pluie|Chaque village caché a son chef, appelé Kage. Celui de Konoha porte le titre de Hokage.
+3|Quel détective excentrique traque Light Yagami dans Death Note ?|L|Near|Ryuk|Misa|Il se tient toujours accroupi sur sa chaise et ne mange presque que des sucreries.
+3|Qui se cache derrière le petit Détective Conan ?|Shinichi Kudo|Kogoro Mouri|Kid l'insaisissable|Heiji Hattori|Un poison expérimental a rajeuni le lycéen détective en enfant de 7 ans.
+3|Comment appelle-t-on les super-pouvoirs dans « My Hero Academia » ?|Les Alters|Les Chakras|Les Nen|Les Stands|En anglais, on dit Quirks. Environ 80 % de l'humanité en possède un.
+3|Que voulait dire à l'origine le mot japonais « manga » ?|Des images dérisoires, dessinées librement|Des héros en papier|Une histoire en couleur|Un livre pour enfants|Le mot a été popularisé au XIXe siècle par les carnets de croquis du peintre Hokusai.
+3|Quel mot savant désigne une bulle de bande dessinée ?|Le phylactère|Le cartouche|L'onomatopée|La planche|Au Moyen Âge, il désignait les banderoles où l'on écrivait les paroles des personnages peints.
+3|Comment appelle-t-on la bande dessinée italienne ?|Les fumetti|Le manhwa|Les comics|Les tebeos|Le mot vient de fumetto, « petite fumée », à cause de la forme des bulles. Les tebeos sont espagnols.
+3|Quelle BD de Riad Sattouf raconte son enfance entre la France, la Libye et la Syrie ?|L'Arabe du futur|Persepolis|Les Cahiers d'Esther|Retour au collège|Le premier tome a reçu le Fauve d'or à Angoulême en 2015.
+3|Vrai ou faux : Hergé a dessiné Tintin pendant plus de cinquante ans.|Vrai|Faux|De 1929 à sa mort en 1983, soit 54 ans. Il a refusé que quelqu'un d'autre continue la série après lui.
+2|Vrai ou faux : le Marsupilami a été créé par Hergé.|Faux|Vrai|C'est André Franquin qui l'a imaginé en 1952, dans les aventures de Spirou et Fantasio.

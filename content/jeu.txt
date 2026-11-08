@@ -148,3 +148,24 @@
 3|Comment appelle-t-on aux échecs une ouverture où l'on sacrifie un pion pour prendre l'avantage ?|Un gambit|Un roque|Un pat|Un zugzwang|La série Le Jeu de la dame, en 2020, porte en anglais le nom d'un célèbre gambit : The Queen's Gambit.
 3|Quel champion du monde d'échecs a été battu par l'ordinateur Deep Blue en 1997 ?|Garry Kasparov|Bobby Fischer|Magnus Carlsen|Anatoli Karpov|C'était la première fois qu'un ordinateur battait un champion du monde en titre dans un match en plusieurs parties.
 3|Quel jeu de Valve en 5 contre 5 est né d'une carte créée par des fans pour Warcraft III ?|Dota 2|League of Legends|Overwatch|Team Fortress 2|Ses tournois mondiaux, « The International », ont distribué des dizaines de millions de dollars de prix.
+1|Dans quel jeu de société faut-il aligner quatre jetons de sa couleur ?|Puissance 4|Othello|Le morpion|Les dames|On fait tomber les jetons dans une grille verticale de 7 colonnes.
+1|Aux échecs, quelle couleur joue toujours en premier ?|Les blancs|Les noirs|Celle choisie au hasard|Le plus jeune joueur|Ce petit avantage fait que les blancs gagnent un peu plus souvent au haut niveau.
+1|Dans quel jeu de cartes faut-il approcher 21 sans le dépasser ?|Le blackjack|Le poker|La belote|Le tarot|Un as et une figure dès le départ, c'est un blackjack, la meilleure main.
+1|Comment s'appellent les ennemis qui poursuivent Pac-Man ?|Des fantômes|Des zombies|Des robots|Des pirates|Ils s'appellent Blinky, Pinky, Inky et Clyde, et chacun a sa façon de chasser.
+1|Quelle est la pièce la plus puissante aux échecs ?|La dame|Le roi|La tour|Le fou|Elle peut se déplacer d'autant de cases qu'elle veut, en ligne droite ou en diagonale.
+1|Dans quel jeu musical joue-t-on avec une manette en forme de guitare ?|Guitar Hero|Just Dance|SingStar|Rock Band Kids|Lancé en 2005, il a donné envie à beaucoup de joueurs d'apprendre la vraie guitare.
+2|Combien de dés lance-t-on au Yam's ?|Cinq|Deux|Trois|Six|On peut relancer deux fois pour faire des combinaisons, comme une suite ou un Yam's : cinq dés identiques.
+2|Dans quel jeu de société construit-on des colonies sur une île en échangeant des ressources ?|Catan|Carcassonne|Les Aventuriers du rail|Risk|Créé en Allemagne en 1995, il a relancé la mode des jeux de société modernes.
+2|Combien de pions a chaque joueur au début d'une partie de dames internationales ?|20|12|16|24|Le plateau compte 100 cases. Aux dames anglaises, on joue avec 12 pions sur 64 cases.
+2|Dans quel jeu de société fait-on deviner des mots en les dessinant ?|Pictionary|Taboo|Time's Up|Dixit|Il a été inventé en 1985 par un serveur américain, Rob Angel.
+2|Quel animal est Crash Bandicoot ?|Un bandicoot, un petit marsupial|Un renard|Un raton laveur|Un chien|Le bandicoot est un vrai animal d'Australie. Crash a été une mascotte de la première PlayStation.
+2|Comment s'appelle le petit dragon violet héros d'une série de jeux de plateforme ?|Spyro|Dragonite|Smaug|Elliot|Il est apparu en 1998 sur la première PlayStation.
+2|Quel jeu Zelda de 2023 permet de fabriquer des véhicules en assemblant des objets ?|Tears of the Kingdom|Breath of the Wild|Ocarina of Time|Skyward Sword|C'est la suite directe de Breath of the Wild, dans le même royaume d'Hyrule.
+2|Que veut dire « FPS » pour un jeu vidéo ?|Un jeu de tir à la première personne|Un jeu de foot|Un jeu de stratégie|Un jeu de plateforme|On voit l'action par les yeux du personnage. FPS veut aussi dire « images par seconde ».
+2|Que veut dire « MMO » dans le jeu vidéo ?|Massivement multijoueur en ligne|Mode multijoueur hors ligne|Mission majeure ouverte|Monde magique original|Des milliers de joueurs partagent le même monde en même temps.
+2|Quel jeu de rôle sur table, né en 1974, se joue avec des dés à 20 faces ?|Donjons et Dragons|Le Monopoly|Magic|Warhammer|Un joueur, le maître du jeu, raconte l'histoire et décide de ce qui arrive aux autres.
+3|Comment s'appelle le héros de la série Kingdom Hearts ?|Sora|Cloud|Link|Riku|Il voyage dans les mondes de Disney avec Donald et Dingo, armé d'une Keyblade.
+3|Sous quel nom la NES de Nintendo est-elle sortie au Japon ?|Famicom|Game Boy|Super Nintendo|Virtual Boy|C'est l'abréviation de Family Computer. Elle est sortie en 1983.
+3|Quel jeu de cartes à collectionner a été lancé en 1993 par Richard Garfield ?|Magic : l'Assemblée|Pokémon|Yu-Gi-Oh!|Hearthstone|C'est le premier jeu de cartes à collectionner moderne. Il compte des dizaines de milliers de cartes.
+3|Combien de faces a le dé le plus emblématique de Donjons et Dragons ?|20|12|10|100|On le lance pour savoir si une action réussit. Un 20 naturel est une réussite éclatante.
+3|Dans quel pays est né le jeu de go ?|La Chine|Le Japon|La Corée|L'Inde|Il a plus de 2 500 ans. En 2016, l'ordinateur AlphaGo a battu l'un des meilleurs joueurs du monde.

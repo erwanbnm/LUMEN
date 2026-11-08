@@ -130,3 +130,23 @@
 3|Quelle épice est la fine enveloppe rouge qui entoure la noix de muscade ?|Le macis|La cardamome|La badiane|Le curcuma|Le muscadier vient des îles Banda, en Indonésie. Pour garder le contrôle d'une de ces îles, les Hollandais ont laissé Manhattan aux Anglais en 1667.
 3|Que sont les clous de girofle ?|Des boutons de fleurs séchés|Des graines grillées|Des morceaux d'écorce|Des racines coupées|On les cueille avant qu'ils fleurissent. Le giroflier vient des îles Moluques, en Indonésie, longtemps surnommées les « îles aux épices ».
 3|Quel champignon, rare et cher, a un chapeau creusé d'alvéoles comme une éponge ?|La morille|La truffe|La girolle|Le cèpe|Elle pousse au printemps. Elle doit toujours être bien cuite, car crue elle est toxique.
+1|De quel pays viennent les tacos ?|Le Mexique|L'Espagne|Le Brésil|Le Pérou|Ce sont des galettes de maïs, les tortillas, pliées et garnies.
+1|Quel légume vert ressemble à un petit arbre ?|Le brocoli|Le chou-fleur|L'artichaut|Le poireau|C'est une cousine du chou, riche en vitamine C.
+1|Quelle volaille mange-t-on traditionnellement à Thanksgiving, aux États-Unis ?|La dinde|Le poulet|Le canard|L'oie|Chaque année, le président américain « gracie » une dinde, qui finit sa vie dans une ferme.
+1|Quel est l'ingrédient principal de la tapenade ?|Les olives|Les tomates|Les poivrons|Les aubergines|Son nom vient de « tapena », le mot provençal pour la câpre, autre ingrédient de la recette.
+1|Quel fruit tropical porte une couronne de feuilles piquantes ?|L'ananas|La mangue|La papaye|Le litchi|Il peut mettre jusqu'à deux ans à pousser. On peut même en replanter la couronne.
+2|Quel fromage bleu vient d'Italie ?|Le gorgonzola|Le roquefort|La fourme d'Ambert|Le stilton|Le roquefort et la fourme d'Ambert sont français, le stilton anglais.
+2|Quel gâteau allemand associe chocolat, crème chantilly et cerises ?|La forêt-noire|Le strudel|Le kouglof|Le stollen|Il porte le nom d'une région boisée du sud-ouest de l'Allemagne.
+2|Comment s'appellent les petites bouchées chinoises souvent cuites à la vapeur dans des paniers en bambou ?|Les dim sum|Les sushis|Les nems|Les samoussas|On les déguste traditionnellement avec du thé, le matin ou à midi.
+2|De quel pays vient le goulasch ?|La Hongrie|La Pologne|L'Autriche|La Roumanie|C'est un ragoût de bœuf très parfumé au paprika, l'épice nationale hongroise.
+2|De quel pays vient le strudel aux pommes ?|L'Autriche|L'Italie|La Suisse|La Belgique|Sa pâte doit être si fine qu'on pourrait, dit-on, lire un journal à travers.
+2|D'où vient la poutine, un plat de frites, de fromage en grains et de sauce brune ?|Du Québec|De Belgique|D'Irlande|De Suisse|Elle est apparue dans les années 1950 dans des restaurants de campagne.
+2|Avec quelle plante fabrique-t-on la tequila ?|L'agave|Le cactus|La canne à sucre|Le maïs|Seule l'agave bleue de certaines régions du Mexique a droit au nom de tequila.
+2|Quelle boisson japonaise est fabriquée avec du riz fermenté ?|Le saké|Le matcha|Le shōchū|La bière Asahi|Au Japon, on dit plutôt nihonshu. Le matcha est un thé vert en poudre.
+2|Combien d'étoiles un restaurant peut-il obtenir au maximum au guide Michelin ?|Trois|Cinq|Quatre|Deux|Trois étoiles signifient, selon le guide, « une cuisine unique qui vaut le voyage ».
+2|Avec quoi prépare-t-on la polenta ?|De la farine de maïs|De la semoule de blé|Des pommes de terre|De la farine de riz|Ce plat du nord de l'Italie se mange en bouillie ou en tranches grillées.
+3|Dans quelle graisse cuit-on traditionnellement les frites belges ?|Le blanc de bœuf|L'huile d'olive|Le beurre|L'huile de coco|Cette graisse animale leur donne leur goût et leur croustillant. Beaucoup de friteries l'utilisent encore.
+3|Quel fromage bourguignon à croûte orange est célèbre pour sa forte odeur ?|L'époisses|Le munster|Le maroilles|Le langres|Sa croûte est lavée régulièrement au marc de Bourgogne pendant l'affinage.
+3|Que veut dire « émincer » en cuisine ?|Couper en tranches très fines|Hacher très menu|Faire griller|Laisser reposer|Hacher, c'est couper en tout petits morceaux. Ciseler, c'est inciser ou couper finement des herbes.
+3|Que veut dire « déglacer » une poêle ?|Dissoudre les sucs de cuisson avec un liquide|La faire refroidir|La laver à l'eau froide|Faire fondre du sucre|On verse un peu de vin, de bouillon ou d'eau pour récupérer les sucs et faire une sauce.
+3|Quel jour sort chaque année le beaujolais nouveau ?|Le troisième jeudi de novembre|Le 1er novembre|Le premier lundi d'octobre|Le 14 juillet|C'est le premier vin de l'année. « Le beaujolais nouveau est arrivé ! » annoncent les bistrots.

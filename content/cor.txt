@@ -139,3 +139,22 @@
 3|En combien de temps environ l'épiderme se renouvelle-t-il entièrement ?|Environ un mois|Environ un jour|Environ dix ans|Il ne se renouvelle jamais|On perd chaque jour des millions de cellules de peau mortes, qui forment une bonne partie de la poussière des maisons.
 3|Pourquoi chaque œil a-t-il un « point aveugle » ?|Le nerf optique y part, sans cellules qui captent la lumière|Une paupière le cache|Il y a une tache de sang|Il manque d'iris|On ne s'en rend pas compte, car le cerveau comble le trou et l'autre œil voit cette zone.
 2|Pourquoi la voix des garçons mue-t-elle à l'adolescence ?|Les cordes vocales s'allongent et s'épaississent|Les poumons rétrécissent|La langue grandit|Les dents changent|Sous l'effet des hormones, le larynx grandit et la voix descend souvent d'une octave. Elle peut « dérailler » pendant quelques mois.
+1|Comment s'appelle l'articulation entre le bras et l'avant-bras ?|Le coude|Le poignet|L'épaule|Le genou|Le petit choc électrique qu'on ressent en s'y cognant vient d'un nerf qui passe juste sous la peau.
+1|Quel instrument le médecin utilise-t-il pour écouter le cœur et les poumons ?|Le stéthoscope|Le tensiomètre|Le thermomètre|L'otoscope|Le tensiomètre mesure la tension, l'otoscope sert à regarder dans les oreilles.
+1|Combien de temps dure environ une grossesse humaine ?|Environ 9 mois|Environ 6 mois|Environ 12 mois|Environ 4 mois|On compte souvent en semaines : environ 40, à partir des dernières règles.
+1|Comment s'appelle le médecin spécialiste des enfants ?|Le pédiatre|Le gériatre|Le podologue|L'orthophoniste|Le gériatre soigne les personnes âgées et le podologue les pieds.
+1|Quel minéral rend les os et les dents solides ?|Le calcium|Le fer|Le sodium|Le potassium|On le trouve surtout dans les produits laitiers, mais aussi dans certains légumes verts et eaux minérales.
+1|Où se trouve le tibia ?|Dans la jambe, sous le genou|Dans le bras|Dans le dos|Dans le pied|C'est l'os qu'on sent sous la peau à l'avant de la jambe. Le péroné est son voisin, plus fin.
+1|Combien de dents de sagesse peut-on avoir au maximum ?|4|2|6|8|Elles poussent souvent entre 17 et 25 ans. Certaines personnes n'en ont aucune.
+2|Quelle maladie est due à un manque d'insuline ou à une insuline qui agit mal ?|Le diabète|L'anémie|L'asthme|L'hypertension|Le taux de sucre dans le sang devient alors trop élevé.
+2|Combien de temps faut-il environ pour qu'un os cassé se ressoude chez l'adulte ?|Environ 6 semaines|Environ 3 jours|Environ 1 an|Environ 6 mois|Chez l'enfant, c'est souvent plus rapide. Le plâtre sert à garder l'os immobile pendant ce temps.
+2|Comment s'appelle la peur des araignées ?|L'arachnophobie|La claustrophobie|L'agoraphobie|L'acrophobie|La claustrophobie est la peur des lieux fermés, l'acrophobie celle du vide.
+2|Quel médecin soigne les yeux ?|L'ophtalmologue|L'orthodontiste|Le dermatologue|Le cardiologue|L'orthodontiste redresse les dents et le cardiologue soigne le cœur.
+2|Quel médecin soigne les maladies de la peau ?|Le dermatologue|Le pneumologue|L'ophtalmologue|Le neurologue|Il surveille aussi les grains de beauté, pour repérer d'éventuels cancers.
+2|Quel organe peut-on donner de son vivant à un proche ?|Un rein|Le cœur|Le pancréas|Les poumons|On peut vivre normalement avec un seul rein.
+2|Que fabriquent certains globules blancs pour neutraliser les microbes ?|Des anticorps|Des hormones|Des plaquettes|Des globules rouges|Les vaccins apprennent au corps à fabriquer les bons anticorps avant même d'être malade.
+3|Quel médecin grec de l'Antiquité est considéré comme le père de la médecine ?|Hippocrate|Galien|Aristote|Pythagore|Le serment que prêtent encore les médecins porte son nom.
+3|Comment appelle-t-on le taux de sucre dans le sang ?|La glycémie|La glycérine|La lipémie|L'hématocrite|À jeun, elle tourne autour de 1 gramme par litre.
+3|Quel scientifique a découvert les groupes sanguins, en 1901 ?|Karl Landsteiner|Louis Pasteur|Robert Koch|Alexander Fleming|Cette découverte a rendu les transfusions sûres. Elle lui a valu le prix Nobel en 1930.
+3|Quelle est la plus grosse cellule du corps humain ?|L'ovule|Le neurone|Le globule rouge|La cellule de la peau|Elle mesure environ 0,1 mm : on peut presque la voir à l'œil nu.
+3|Combien de fois environ le cœur bat-il en une journée ?|Environ 100 000|Environ 10 000|Environ 1 million|Environ 1 000|Cela fait plus de 2,5 milliards de battements au cours d'une vie.

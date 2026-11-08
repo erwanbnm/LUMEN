@@ -132,3 +132,23 @@
 3|Quel est le plus grand État des États-Unis ?|L'Alaska|Le Texas|La Californie|Le Montana|Il est plus de deux fois plus grand que le Texas. Les États-Unis l'ont acheté à la Russie en 1867, pour 7,2 millions de dollars.
 1|Quelle chaîne de montagnes se trouve entre la France et l'Italie ?|Les Alpes|Les Pyrénées|Les Vosges|Le Jura|Elles s'étendent sur huit pays, de la France à la Slovénie. Le tunnel du Mont-Blanc les traverse.
 2|Quelle est la préfecture de la Corse-du-Sud, ville natale de Napoléon ?|Ajaccio|Bastia|Calvi|Porto-Vecchio|Bastia est la préfecture de la Haute-Corse. Napoléon y est né en 1769, un an après que la Corse est devenue française.
+1|Au large de quel pays se trouve la Grande Barrière de corail ?|L'Australie|L'Indonésie|Les Philippines|Le Brésil|C'est le plus grand ensemble de récifs coralliens du monde, visible depuis l'espace.
+1|Quel pays d'Amérique du Sud porte le nom de la ligne qui le traverse ?|L'Équateur|Le Pérou|La Colombie|Le Venezuela|L'équateur, cette ligne imaginaire qui coupe la Terre en deux, passe juste au nord de sa capitale, Quito.
+1|Quel est le plus grand pays d'Océanie ?|L'Australie|La Nouvelle-Zélande|La Papouasie-Nouvelle-Guinée|Les Fidji|Il est si grand qu'on le considère presque comme un continent à lui tout seul.
+1|Quel pays d'Europe est célèbre pour ses champs de tulipes et ses moulins à vent ?|Les Pays-Bas|La Belgique|Le Danemark|L'Autriche|Une grande partie du pays se trouve sous le niveau de la mer, protégée par des digues.
+1|Quel océan borde la côte de la Californie ?|L'océan Pacifique|L'océan Atlantique|L'océan Indien|L'océan Arctique|San Francisco et Los Angeles sont sur ses rives.
+2|Quelle chaîne de montagnes traverse le Maroc et l'Algérie ?|L'Atlas|Le Caucase|L'Oural|Les Carpates|Elle sépare la côte méditerranéenne du désert du Sahara.
+2|Quel pays a la plus longue côte du monde ?|Le Canada|L'Indonésie|La Russie|L'Australie|Avec ses milliers d'îles arctiques, il compte plus de 200 000 km de côtes.
+2|Dans quel pays se trouve le désert du Namib, célèbre pour ses dunes orange ?|La Namibie|Le Maroc|L'Égypte|Le Niger|C'est peut-être le plus vieux désert du monde. Certaines dunes dépassent 300 m de haut.
+2|Quel grand lac est partagé entre la France et la Suisse ?|Le lac Léman|Le lac d'Annecy|Le lac de Constance|Le lac Majeur|Genève, Lausanne et Évian sont sur ses rives.
+2|Dans quel pays se trouve la baie d'Halong et ses milliers d'îlots ?|Le Viêt Nam|La Thaïlande|La Chine|Les Philippines|Ces pitons de calcaire qui sortent de l'eau sont inscrits au patrimoine mondial de l'Unesco.
+2|Quel fleuve forme une partie de la frontière entre la France et l'Allemagne ?|Le Rhin|La Moselle|La Meuse|Le Danube|Strasbourg est construite sur ses bords. C'est l'un des fleuves les plus fréquentés par les péniches.
+2|Quelle mer borde la Roumanie, la Bulgarie et l'Ukraine ?|La mer Noire|La mer Caspienne|La mer Égée|La mer Baltique|Elle communique avec la Méditerranée par le Bosphore.
+2|Dans quelle région française se trouvent les gorges du Verdon ?|La Provence|L'Auvergne|La Bretagne|L'Alsace|Ce canyon aux eaux turquoise est l'un des plus grands d'Europe.
+2|Dans quel pays se trouve la Toscane, avec Florence et Pise ?|L'Italie|L'Espagne|Le Portugal|La Grèce|Ses collines couvertes de cyprès et de vignes en ont fait l'un des paysages les plus célèbres d'Europe.
+3|Quelle est la plus longue frontière terrestre du monde ?|Celle entre le Canada et les États-Unis|Celle entre la Russie et la Chine|Celle entre l'Argentine et le Chili|Celle entre le Brésil et la Bolivie|Elle mesure près de 9 000 km en comptant celle de l'Alaska.
+3|Quel est le seul pays traversé à la fois par l'équateur et par un tropique ?|Le Brésil|L'Inde|L'Indonésie|Le Mexique|L'équateur passe en Amazonie, le tropique du Capricorne près de São Paulo.
+3|Quel pays d'Afrique s'appelait autrefois l'Abyssinie ?|L'Éthiopie|La Somalie|Le Soudan|Le Kenya|C'est l'un des seuls pays d'Afrique à n'avoir jamais été vraiment colonisé.
+3|Quelle île des Caraïbes est partagée entre Haïti et la République dominicaine ?|Hispaniola|Cuba|La Jamaïque|Porto Rico|Christophe Colomb y a débarqué dès 1492.
+3|Quel est le plus grand glacier des Alpes ?|Le glacier d'Aletsch|La mer de Glace|Le glacier du Rhône|Le glacier d'Argentière|Il se trouve en Suisse et mesure environ 20 km, mais il recule chaque année.
+3|Quel est le plus haut sommet du Maroc et de l'Afrique du Nord ?|Le Toubkal|Le Kilimandjaro|L'Emi Koussi|Le mont Cameroun|Il culmine à 4 167 m, dans le Haut Atlas, non loin de Marrakech.

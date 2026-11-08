@@ -141,3 +141,24 @@
 3|Quel réalisateur mexicain a tourné Le Labyrinthe de Pan et La Forme de l'eau ?|Guillermo del Toro|Alfonso Cuarón|Alejandro González Iñárritu|Pedro Almodóvar|Passionné de monstres, il a reçu l'Oscar du meilleur film en 2018 pour La Forme de l'eau.
 3|Dans quel pays se trouve l'industrie du cinéma surnommée « Nollywood » ?|Le Nigeria|L'Inde|La Norvège|La Nouvelle-Zélande|Elle produit des centaines de films par an, souvent tournés en quelques jours. « Bollywood » désigne le cinéma de Bombay, en Inde.
 3|Quel acteur incarne Vito Corleone dans Le Parrain, en 1972 ?|Marlon Brando|Al Pacino|Robert De Niro|James Caan|Il a refusé son Oscar pour protester contre la façon dont Hollywood représentait les Amérindiens. De Niro a joué Vito jeune dans Le Parrain II.
+1|Comment s'appelle le petit monstre vert à un seul œil de Monstres et Cie ?|Bob|Sulli|Léon|Shrek|En version originale, il s'appelle Mike Wazowski. Son ami Sulli est un grand monstre bleu.
+1|Quel animal est Baloo dans Le Livre de la jungle ?|Un ours|Une panthère|Un tigre|Un singe|Il chante « Il en faut peu pour être heureux ». La panthère, c'est Bagheera.
+1|Quelle héroïne Disney navigue sur l'océan avec le demi-dieu Maui ?|Vaiana|Moana|Pocahontas|Raiponce|Ailleurs dans le monde, elle s'appelle Moana. En France, le nom a été changé pour une question de marque déposée.
+1|Comment s'appelle la voiture de course rouge héros du film Cars ?|Flash McQueen|Martin|Doc Hudson|Speedy|Son numéro est le 95, l'année de sortie de Toy Story, le premier film Pixar.
+1|Quel faon de Disney perd sa mère dans la forêt ?|Bambi|Rox|Dumbo|Simba|Le film date de 1942. Son meilleur ami est un lapin nommé Panpan.
+1|À quel sport joue-t-on sur des balais volants dans Harry Potter ?|Le Quidditch|Le Croquet|Le Bavboule|Le Polo magique|Le match se termine quand l'attrapeur saisit le Vif d'or.
+1|Quel personnage de dessin animé est une éponge qui vit dans un ananas sous la mer ?|Bob l'éponge|Patrick|Carlo|Gary|Patrick est son ami l'étoile de mer, et Gary son escargot.
+2|Quelle actrice joue Amélie Poulain ?|Audrey Tautou|Marion Cotillard|Sophie Marceau|Juliette Binoche|Le film de 2001 a fait connaître le quartier de Montmartre dans le monde entier.
+2|Qui a réalisé Bienvenue chez les Ch'tis ?|Dany Boon|Kad Merad|Gad Elmaleh|Philippe Lacheau|Il y joue aussi le facteur Antoine Bailleul, aux côtés de Kad Merad.
+2|Quel film de 1982 met en scène des robots humanoïdes appelés « réplicants » ?|Blade Runner|Terminator|Robocop|Tron|Réalisé par Ridley Scott, il a eu une suite en 2017, Blade Runner 2049.
+2|Quelle actrice a gagné l'Oscar pour La La Land ?|Emma Stone|Natalie Portman|Jennifer Lawrence|Margot Robbie|Elle l'a remporté en 2017, puis une deuxième fois en 2024 pour Pauvres Créatures.
+2|Quel film de Steven Spielberg raconte comment un industriel a sauvé plus d'un millier de Juifs ?|La Liste de Schindler|Il faut sauver le soldat Ryan|Le Pianiste|La vie est belle|Tourné presque entièrement en noir et blanc, il a reçu sept Oscars en 1994.
+2|Comment s'appelle la chouette blanche de Harry Potter ?|Hedwige|Coquecigrue|Errol|Buck|Errol est le vieux hibou de la famille Weasley.
+2|Quelle saga raconte l'amour d'une lycéenne, Bella, et d'un vampire ?|Twilight|Hunger Games|Divergente|Vampire Diaries|Les films, sortis entre 2008 et 2012, sont adaptés des romans de Stephenie Meyer.
+2|Quelle série suit les médecins d'un hôpital de Seattle ?|Grey's Anatomy|Urgences|Dr House|Scrubs|Lancée en 2005, c'est l'une des séries médicales les plus longues de la télévision américaine.
+2|Quelle série britannique suit une famille aristocrate et ses domestiques au début du XXe siècle ?|Downton Abbey|The Crown|Peaky Blinders|Bridgerton|Le château qui sert de décor existe vraiment : Highclere Castle, en Angleterre.
+3|Qui a réalisé Les Tontons flingueurs, en 1963 ?|Georges Lautner|Henri Verneuil|Gérard Oury|Jean-Pierre Melville|Les dialogues cultes sont signés Michel Audiard.
+3|Dans quel film Jacques Tati invente-t-il son personnage de Monsieur Hulot ?|Les Vacances de M. Hulot|Mon oncle|Playtime|Jour de fête|Le film de 1953 a été tourné à Saint-Marc-sur-Mer, en Loire-Atlantique, où une statue de Hulot regarde la mer.
+3|Quel réalisateur canadien a adapté Dune au cinéma en 2021 ?|Denis Villeneuve|David Lynch|Christopher Nolan|Ridley Scott|David Lynch en avait tiré une première version en 1984.
+3|Quel film de Justine Triet a remporté la Palme d'or en 2023 ?|Anatomie d'une chute|Titane|La Vie d'Adèle|Les Misérables|Elle est la troisième femme à recevoir la Palme d'or. Le film a aussi eu un Oscar du scénario.
+3|Qui a composé la musique du Parrain ?|Nino Rota|Ennio Morricone|John Williams|Hans Zimmer|Il a aussi écrit les musiques de nombreux films de Federico Fellini.

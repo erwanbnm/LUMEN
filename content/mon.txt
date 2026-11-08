@@ -132,3 +132,23 @@
 3|Combien de cantons compte la Suisse ?|26|12|20|50|Chaque canton a sa propre constitution et une grande autonomie. Le plus récent, le Jura, a été créé en 1979.
 3|Combien de Länder compte l'Allemagne ?|16|10|22|8|Trois sont des villes-États : Berlin, Hambourg et Brême.
 1|Quelle fête venue des pays anglo-saxons célèbre-t-on le 31 octobre ?|Halloween|La Toussaint|Thanksgiving|Pâques|Elle vient d'une ancienne fête celte, Samain. La Toussaint, fête catholique, a lieu le lendemain, le 1er novembre.
+1|Comment s'appelle le chef de l'Église catholique ?|Le pape|Le patriarche|L'archevêque|Le cardinal|Il vit au Vatican, à Rome. Il est élu par les cardinaux lors d'un conclave.
+1|Comment s'appelle le mois pendant lequel les musulmans jeûnent du lever au coucher du soleil ?|Le ramadan|L'Aïd|Le hajj|Le chabbat|Il se termine par la fête de l'Aïd el-Fitr. Le hajj est le pèlerinage à La Mecque.
+1|Quelle fête chrétienne célèbre la résurrection de Jésus ?|Pâques|Noël|La Pentecôte|L'Ascension|Sa date change chaque année : c'est le dimanche qui suit la première pleine lune du printemps.
+1|Comment s'appelle le livre sacré de l'islam ?|Le Coran|La Torah|La Bible|Les Védas|La Torah est le texte sacré du judaïsme et les Védas ceux de l'hindouisme.
+1|Quel jour fête-t-on Noël ?|Le 25 décembre|Le 24 décembre|Le 31 décembre|Le 6 janvier|Le réveillon a lieu la veille au soir. Le 6 janvier, c'est l'Épiphanie et sa galette des rois.
+2|Comment s'appelle la fête juive des lumières, où l'on allume un chandelier à neuf branches ?|Hanoucca|Yom Kippour|Pessa'h|Pourim|Elle dure huit jours, en hiver. Pessa'h est la Pâque juive.
+2|Dans quel bâtiment siège l'Assemblée nationale ?|Le palais Bourbon|Le palais du Luxembourg|Le palais de l'Élysée|L'hôtel Matignon|Le Sénat siège au palais du Luxembourg, le président à l'Élysée et le Premier ministre à Matignon.
+2|Quelle langue parle-t-on en Autriche ?|L'allemand|L'autrichien|L'italien|Le hongrois|Avec un accent et quelques mots bien à elle. Mozart et Freud étaient autrichiens.
+2|Qui est le chef de l'État au Royaume-Uni ?|Le roi Charles III|Le Premier ministre|Le prince William|Le président du Parlement|Il a succédé à sa mère Élisabeth II en 2022. Le Premier ministre dirige le gouvernement.
+2|Combien de régions compte la France, outre-mer compris ?|18|13|22|27|13 en métropole et 5 en outre-mer : Guadeloupe, Martinique, Guyane, La Réunion et Mayotte.
+2|Qu'est-ce qu'un référendum ?|Un vote où les citoyens répondent directement à une question|Une élection du président|Une loi votée par le Sénat|Un sondage d'opinion|En 2005, les Français ont dit non par référendum au projet de Constitution européenne.
+2|Dans quelle ville se trouve le mur des Lamentations ?|Jérusalem|Tel-Aviv|Le Caire|Istanbul|C'est un vestige du Second Temple juif, détruit par les Romains en 70.
+2|Quelle est la religion majoritaire en Inde ?|L'hindouisme|Le bouddhisme|L'islam|Le sikhisme|Environ huit Indiens sur dix sont hindous. Le bouddhisme est pourtant né en Inde.
+2|Sous quel nom la Croix-Rouge agit-elle dans la plupart des pays musulmans ?|Le Croissant-Rouge|L'Étoile-Rouge|Le Cercle-Rouge|La Croix-Verte|Les deux emblèmes sont protégés par les conventions de Genève.
+2|Que signifie le sigle SNCF ?|Société nationale des chemins de fer français|Service national de circulation ferroviaire|Société nouvelle des cars et ferries|Syndicat national des conducteurs de France|Elle a été créée en 1938 en réunissant plusieurs compagnies privées.
+2|À partir de quel âge peut-on passer le permis de conduire en France, depuis 2024 ?|17 ans|16 ans|18 ans|15 ans|Avant 2024, il fallait avoir 18 ans. Avec la conduite accompagnée, on peut commencer à apprendre dès 15 ans.
+3|Quelle est la plus haute juridiction de l'ordre administratif en France ?|Le Conseil d'État|La Cour de cassation|Le Conseil constitutionnel|La Cour des comptes|La Cour de cassation est au sommet de l'ordre judiciaire.
+3|Quel pays a pour hymne national « La Brabançonne » ?|La Belgique|La Suisse|Le Luxembourg|Le Canada|Il a été écrit en 1830, l'année de l'indépendance du pays. Il existe en français, en néerlandais et en allemand.
+3|Qui est le chef de l'État en Belgique ?|Le roi Philippe|Le président de la République|Le Premier ministre|Le roi Albert II|Il a succédé à son père Albert II en 2013. La Belgique est une monarchie parlementaire.
+3|Quel pays a l'un des plus anciens parlements du monde, l'Althing, fondé en 930 ?|L'Islande|La Norvège|L'Angleterre|Le Danemark|Les chefs vikings se réunissaient chaque été en plein air, dans la plaine de Thingvellir.

@@ -141,3 +141,21 @@
 3|Quelle rue est réputée être la plus étroite de Paris ?|La rue du Chat-qui-Pêche|La rue de Rivoli|La rue des Rosiers|La rue Mouffetard|Elle mesure environ 1,80 m de large par endroits, près de la Seine, dans le 5e arrondissement.
 3|Qui a retrouvé la Coupe du monde de football, volée à Londres en 1966 ?|Un chien nommé Pickles|Un policier de Scotland Yard|Un enfant à l'école|Un chauffeur de taxi|Elle était emballée dans du papier journal, sous une haie. Pickles a même été invité à la fête de l'équipe d'Angleterre, victorieuse.
 2|Pourquoi les pneus sont-ils noirs ?|On y ajoute du noir de carbone qui les rend plus solides|Le caoutchouc est noir naturellement|Pour cacher la saleté|C'est une règle de sécurité routière|Le caoutchouc naturel est plutôt blanc laiteux. Les premiers pneus étaient clairs, et s'usaient beaucoup plus vite.
+1|Vrai ou faux : chaque zèbre a un dessin de rayures unique.|Vrai|Faux|Comme nos empreintes digitales : aucun zèbre n'a exactement les mêmes rayures qu'un autre.
+1|Combien de bras a une pieuvre ?|8|6|10|12|Les deux tiers de ses neurones se trouvent dans ses bras, qui peuvent presque « réfléchir » seuls.
+1|Vrai ou faux : les Vikings portaient des casques à cornes.|Faux|Vrai|Aucun casque viking à cornes n'a été retrouvé. Cette image vient surtout des costumes d'opéra du XIXe siècle.
+1|Vrai ou faux : Albert Einstein était mauvais en mathématiques à l'école.|Faux|Vrai|Il excellait en maths dès l'enfance. La rumeur viendrait d'un malentendu sur un système de notes suisse.
+1|Vrai ou faux : il y a plus de gauchers que de droitiers dans le monde.|Faux|Vrai|Environ 10 % des gens sont gauchers, une proportion assez stable dans toutes les cultures.
+2|De quelle couleur est réellement le Soleil, vu depuis l'espace ?|Blanc|Jaune|Orange|Rouge|C'est notre atmosphère, qui diffuse le bleu, qui le fait paraître jaune depuis le sol.
+2|À quoi correspond le nom « Big Ben », à Londres ?|À la grosse cloche|À la tour|À l'horloge|Au quartier|La tour s'appelle officiellement Elizabeth Tower depuis 2012.
+2|Combien de temps une girafe dort-elle environ par jour, dans la nature ?|Moins de 2 heures|Environ 8 heures|Environ 12 heures|Environ 20 heures|Elle dort par petites siestes, souvent debout, pour pouvoir fuir rapidement.
+2|Quelle part d'eau contient environ une pastèque ?|Plus de 90 %|Environ 50 %|Environ 25 %|Environ 70 %|D'où son nom anglais, watermelon : « melon d'eau ».
+2|Pourquoi un grain de maïs éclate-t-il en pop-corn ?|L'eau qu'il contient se transforme en vapeur et le fait exploser|Il contient de l'air|Le sucre gonfle|Le sel le fait éclater|La pression monte dans le grain jusqu'à ce que son enveloppe cède, vers 180 °C.
+2|Comment appelle-t-on la peur d'être séparé de son téléphone ?|La nomophobie|La téléphobie|L'agoraphobie|La claustrophobie|Le mot vient de l'anglais « no mobile phobia ».
+2|Que signifient les lettres « SOS » ?|Rien de précis : elles sont simples à taper en morse|Save Our Souls|Sauvez nos âmes|Secours On Sea|Trois points, trois traits, trois points : un signal impossible à confondre. « Save Our Souls » a été inventé après coup.
+3|Quelle lettre n'apparaît dans aucun nom d'État américain ?|Le Q|Le Z|Le X|Le J|Le Z apparaît dans Arizona, le X dans Texas et le J dans New Jersey.
+3|Lequel a été inventé en premier ?|Le briquet|L'allumette à friction|Les deux en même temps|Aucun des deux avant 1900|Le briquet de Döbereiner date de 1823, l'allumette à friction de 1826.
+3|Quel est le nom complet de Hello Kitty ?|Kitty White|Kitty Cat|Kitty Sanrio|Kitty Pink|Selon son histoire officielle, elle vit dans la banlieue de Londres et a une sœur jumelle, Mimmy.
+3|Quelle grande ville est réputée la plus froide du monde, avec des hivers sous −40 °C ?|Iakoutsk|Moscou|Oulan-Bator|Anchorage|Cette ville de Sibérie compte plus de 300 000 habitants. Elle est construite sur le pergélisol.
+3|Quelle entreprise japonaise, fondée en 578, a longtemps été la plus vieille du monde ?|Kongō Gumi|Nintendo|Toyota|Mitsubishi|Elle construisait des temples bouddhistes. Elle a été rachetée en 2006, après plus de 1 400 ans d'existence.
+3|Quand le tout premier SMS a-t-il été envoyé ?|En 1992|En 1975|En 2001|En 1985|Il disait « Merry Christmas » et a été envoyé depuis un ordinateur vers un téléphone.

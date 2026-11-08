@@ -5,7 +5,8 @@ const THEMES = {
   mon:{n:"Monde & société",h:55}, cor:{n:"Corps humain",h:350}, per:{n:"Grandes figures",h:40}, cin:{n:"Cinéma & séries",h:300},
   mus:{n:"Musique",h:170}, ins:{n:"Insolite",h:75},
   gas:{n:"Cuisine & gastronomie",h:18}, lan:{n:"Langue française",h:210}, myt:{n:"Mythologie",h:258},
-  tec:{n:"Inventions & tech",h:182}, cap:{n:"Capitales & drapeaux",h:122}, eco:{n:"Économie & marques",h:88}
+  tec:{n:"Inventions & tech",h:182}, cap:{n:"Capitales & drapeaux",h:122}, eco:{n:"Économie & marques",h:88},
+  bdm:{n:"BD, mangas & animés",h:312}
 };
 const ORDER = Object.keys(THEMES);
 const RANKS = ["Curieux","Apprenti","Initié","Connaisseur","Érudit","Expert","Savant","Maître","Sage","Légende"];

@@ -141,3 +141,24 @@
 3|Comment s'appelle le trophée de la Coupe du monde de rugby ?|La coupe Webb Ellis|Le bouclier de Brennus|La coupe Calcutta|La coupe Bledisloe|Elle porte le nom d'un élève qui, selon la légende, aurait inventé le rugby en prenant le ballon à la main en 1823. Le bouclier de Brennus récompense le champion de France.
 3|Quelle course d'athlétisme comporte des haies et une fosse remplie d'eau ?|Le 3 000 m steeple|Le 400 m haies|Le 110 m haies|Le cross-country|Son nom vient des courses de chevaux anglaises, qui se dirigeaient vers un clocher, « steeple ».
 3|Quel coureur kényan a couru un marathon en moins de deux heures, en 2019, dans un essai non officiel ?|Eliud Kipchoge|Kenenisa Bekele|Haile Gebreselassie|Paul Tergat|En 1 h 59 min 40 s, à Vienne, avec des lièvres qui se relayaient. Le record n'est pas homologué à cause de ces conditions spéciales.
+1|Dans quel sport fait-on sauter des obstacles à un cheval ?|L'équitation|Le polo|Le pentathlon|Le rodéo|L'épreuve s'appelle le saut d'obstacles. Le cheval et son cavalier forment un couple.
+1|Quel sport consiste à grimper sur des murs couverts de prises ?|L'escalade|Le parkour|La gymnastique|L'alpinisme|Elle est entrée aux Jeux olympiques en 2021, à Tokyo.
+1|Comment appelle-t-on le terrain sur lequel on joue au tennis ?|Un court|Un ring|Un green|Un tatami|Le ring est pour la boxe, le green pour le golf et le tatami pour le judo.
+1|Comment s'appelle l'espace carré entouré de cordes où combattent les boxeurs ?|Le ring|Le dojo|L'arène|Le tatami|Bien qu'il soit carré, son nom anglais veut dire « anneau » : autrefois, les spectateurs formaient un cercle.
+1|Dans quel sport vise-t-on une cible avec des flèches ?|Le tir à l'arc|Le javelot|Les fléchettes|La pétanque|Aux Jeux olympiques, la cible est placée à 70 mètres.
+1|Dans quel sport le Français Tony Parker a-t-il brillé ?|Le basket|Le tennis|Le football|Le handball|Il a gagné quatre titres de NBA avec les San Antonio Spurs.
+2|Dans quel pays le rugby est-il né, selon la légende de William Webb Ellis ?|L'Angleterre|La Nouvelle-Zélande|L'Afrique du Sud|La France|En 1823, cet élève de l'école de Rugby aurait pris le ballon à la main en plein match de football.
+2|Combien de temps dure un round de boxe professionnelle ?|3 minutes|1 minute|5 minutes|10 minutes|Une minute de repos sépare deux rounds.
+2|Quel est le sport national du Japon, où deux lutteurs s'affrontent dans un cercle ?|Le sumo|Le judo|Le karaté|Le kendo|Le premier qui sort du cercle ou touche le sol avec autre chose que ses pieds a perdu.
+2|Combien de points rapporte une transformation au rugby à XV ?|2|1|3|5|On la tente après un essai, qui vaut 5 points. Une pénalité réussie vaut 3 points.
+2|Dans quel sport marque-t-on un « touchdown » ?|Le football américain|Le rugby|Le baseball|Le hockey sur glace|Il vaut 6 points. Le Super Bowl est la finale de ce championnat.
+2|Quel biathlète français a gagné sept fois de suite la Coupe du monde ?|Martin Fourcade|Quentin Fillon Maillet|Raphaël Poirée|Jean-Claude Killy|Il a aussi remporté cinq titres olympiques. Jean-Claude Killy était skieur alpin.
+2|Quelle distance fait un semi-marathon ?|Environ 21 km|Environ 10 km|Environ 30 km|Environ 15 km|C'est la moitié d'un marathon, soit 21,0975 km.
+2|Quel boxeur était surnommé « Iron Mike » ?|Mike Tyson|Muhammad Ali|George Foreman|Floyd Mayweather|Il est devenu en 1986, à 20 ans, le plus jeune champion du monde des poids lourds.
+2|Quel pays a remporté la toute première Coupe du monde de football, en 1930 ?|L'Uruguay|Le Brésil|L'Italie|L'Argentine|Il organisait aussi la compétition, et a battu l'Argentine en finale.
+2|Quel joueur français a remporté Roland-Garros en 1983 ?|Yannick Noah|Henri Leconte|Guy Forget|Gaël Monfils|C'est le dernier Français à avoir gagné ce tournoi chez les hommes. Il est ensuite devenu chanteur.
+3|Quel numéro porte le demi de mêlée au rugby à XV ?|9|10|7|15|Il fait le lien entre les avants et les arrières. Le numéro 10 est l'ouvreur.
+3|Quelle est la hauteur du filet de tennis en son centre ?|Environ 91 cm|Environ 1,20 m|Environ 70 cm|Environ 1,50 m|Il est un peu plus haut sur les côtés, à environ 1,07 m.
+3|Qui a remporté le premier Tour de France, en 1903 ?|Maurice Garin|Lucien Petit-Breton|Henri Desgrange|Eugène Christophe|Henri Desgrange était l'organisateur. Garin a été disqualifié de l'édition suivante pour tricherie.
+3|Combien de temps dure un match de handball, hors arrêts ?|Deux mi-temps de 30 minutes|Deux mi-temps de 45 minutes|Quatre quarts de 10 minutes|Trois tiers de 20 minutes|Les quarts-temps sont pour le basket, les tiers-temps pour le hockey sur glace.
+3|Combien de fois l'équipe de France masculine a-t-elle été championne du monde de handball ?|6|2|4|8|Elle a gagné en 1995, 2001, 2009, 2011, 2015 et 2017. On surnomme ses joueurs les Experts.

@@ -125,3 +125,24 @@
 3|Quelle est la règle de la suite de Fibonacci (1, 1, 2, 3, 5, 8…) ?|Chaque nombre est la somme des deux précédents|Chaque nombre est doublé|On ajoute 1 à chaque fois|On multiplie par 3|On la retrouve dans la nature, par exemple dans les spirales des tournesols et des pommes de pin.
 3|Qu'est-ce qu'un nombre irrationnel ?|Un nombre qui ne peut pas s'écrire comme une fraction|Un nombre négatif|Un nombre très grand|Un nombre sans chiffre après la virgule|Pi et la racine carrée de 2 en sont des exemples : leurs décimales continuent à l'infini sans jamais se répéter.
 3|À quelle température environ le fer fond-il ?|Environ 1 500 °C|Environ 100 °C|Environ 500 °C|Environ 5 000 °C|Exactement 1 538 °C. Les hauts fourneaux doivent donc atteindre des températures énormes.
+1|Que se passe-t-il quand on approche les pôles nord de deux aimants ?|Ils se repoussent|Ils s'attirent|Rien du tout|Ils perdent leur aimantation|Les pôles opposés s'attirent, les pôles identiques se repoussent.
+1|Combien font 7 × 8 ?|56|54|63|48|C'est l'une des multiplications sur lesquelles on se trompe le plus. Astuce : 5, 6, 7, 8 donne 56 = 7 × 8.
+1|Combien de secondes y a-t-il dans une heure ?|3 600|360|6 000|1 440|60 secondes fois 60 minutes. Une journée en compte 86 400.
+1|Comment s'appelle un polygone à cinq côtés ?|Un pentagone|Un hexagone|Un heptagone|Un octogone|Le siège du ministère de la Défense des États-Unis a cette forme, d'où son surnom.
+1|Que mesure un pluviomètre ?|La quantité de pluie tombée|La force du vent|La température|La pression de l'air|On l'exprime en millimètres : 1 mm correspond à 1 litre d'eau par mètre carré.
+2|Que fabrique une plante grâce à la photosynthèse, en plus de l'oxygène ?|Du sucre|Du sel|De l'azote|Du calcaire|Elle utilise la lumière, l'eau et le dioxyde de carbone pour produire du glucose, sa nourriture.
+2|Avec quoi fabrique-t-on principalement le verre ?|Du sable|Du sel|De la craie|De l'argile|On fait fondre le sable, riche en silice, à environ 1 500 °C.
+2|En chimie, comment appelle-t-on le contraire d'un acide ?|Une base|Un sel|Un métal|Un ion|Le savon et la soude sont des bases. Mélangés, un acide et une base se neutralisent.
+2|Comment s'appelle le plus long côté d'un triangle rectangle ?|L'hypoténuse|La médiane|La hauteur|La bissectrice|C'est le côté opposé à l'angle droit. Le théorème de Pythagore permet de calculer sa longueur.
+2|Quel savant américain a inventé le paratonnerre ?|Benjamin Franklin|Thomas Edison|Alessandro Volta|André-Marie Ampère|Il l'a mis au point après ses expériences sur l'électricité des orages, vers 1750.
+2|Combien vaut 2 puissance 10 ?|1 024|1 000|100|2 048|C'est pour cela qu'en informatique, un kilooctet a longtemps valu 1 024 octets.
+2|Pourquoi un bâton plongé dans l'eau semble-t-il cassé ?|À cause de la réfraction de la lumière|À cause de la réflexion|Parce que l'eau le tord|À cause des reflets du ciel|La lumière change de vitesse, donc de direction, en passant de l'eau à l'air.
+2|Pourquoi voit-on l'éclair avant d'entendre le tonnerre ?|La lumière va bien plus vite que le son|Le tonnerre part plus tard|Le son se perd dans les nuages|Nos yeux sont plus rapides que nos oreilles|En comptant les secondes et en divisant par 3, on obtient à peu près la distance de l'orage en kilomètres.
+2|Quelle unité mesure la pression ?|Le pascal|Le watt|Le newton|Le volt|Elle porte le nom de Blaise Pascal. La météo parle souvent en hectopascals.
+2|Quelle formule donne l'aire d'un disque de rayon r ?|π × r²|2 × π × r|π × r|2 × r²|2 × π × r, c'est le périmètre du cercle.
+3|Quel médecin allemand a découvert le bacille de la tuberculose en 1882 ?|Robert Koch|Louis Pasteur|Alexander Fleming|Edward Jenner|Ce bacille porte souvent son nom : le bacille de Koch. Il a reçu le prix Nobel en 1905.
+3|Quel nombre, environ égal à 2,718, est la base du logarithme naturel ?|Le nombre e|Pi|Le nombre d'or|Le nombre i|On l'appelle aussi constante d'Euler ou de Neper.
+3|Combien vaut i² en mathématiques ?|-1|1|0|i|Le nombre i a été inventé pour pouvoir prendre la racine carrée d'un nombre négatif.
+3|Quel physicien a découvert l'électron en 1897 ?|J. J. Thomson|Ernest Rutherford|Niels Bohr|John Dalton|Il imaginait l'atome comme un pudding parsemé de raisins : les électrons.
+3|Quel scientifique a découvert en 1911 que l'atome a un petit noyau très dense ?|Ernest Rutherford|J. J. Thomson|Albert Einstein|Max Planck|En bombardant une feuille d'or, il a vu que la plupart des particules la traversaient sans être déviées.
+3|À combien de degrés Fahrenheit correspond 0 °C ?|32 °F|0 °F|100 °F|212 °F|L'eau bout à 212 °F. Cette échelle est encore utilisée aux États-Unis.

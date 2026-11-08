@@ -224,5 +224,15 @@ lumen(){ // Lumen, l'ultra secret : un astre doré entouré de rayons qui tourne
   + tShine("M36 56 Q38 42 48 35") + tEyes(48, 72, 64) + tBlush(40, 80, 74) + tMouth(60, 78);
 }
 };
+// Skin du thème « BD, mangas & animés » : une bulle de BD aux cheveux de héros de manga
+SHOP_SKINS.push({ id:"bdm", th:"bdm", n:"Bullo", p:350, toy:true, anim:"", draw(){
+  return `<g class="ta-spore" style="animation-delay:-.4s"><text x="96" y="30" font-size="16" font-weight="800" fill="#FFE27A" stroke="${TD}" stroke-width="2.4" paint-order="stroke" font-family="Bricolage Grotesque, sans-serif">!</text></g>`
+  + tArms(18, 102, 66, -12, 6, "#FFFFFF", "#DCD8EE", "#8A84A8")
+  + toy("M14 64 Q14 34 60 32 Q106 34 106 64 Q106 92 66 94 L50 110 L54 94 Q14 92 14 64Z", "#FFFFFF", "#DCD8EE", "#8A84A8")
+  + toy("M26 46 L30 16 L42 34 L50 6 L60 30 L70 4 L76 32 L88 14 L92 44 Q60 32 26 46Z", "#6A70E0", "#2E3398", "#181A5A", {dy:3})
+  + tShine("M22 64 Q24 50 34 44") + `<path d="M38 52 l9 3 M82 52 l-9 3" stroke="${TD}" stroke-width="2.6" stroke-linecap="round"/>`
+  + `<g class="tblink">${tEye(46, 64, 1.25)}${tEye(74, 64, 1.25)}</g>` + tBlush(34, 86, 78) + tMouth(60, 80)
+  + toy("M96 40 Q102 50 98 54 Q92 56 92 50 Q92 46 96 40Z", "#C8F0FF", "#5AB8F0", "#1D5AA8", {dy:1, w:2});
+} });
 const TOY_SKIN_ANIM = { cor:"beat", spo:"bounce", cap:"bounce", dede:"jelly" };
 SHOP_SKINS.concat(SECRET_SKINS, [ULTRA_SKIN]).forEach(s => { if (TOY_SKINS[s.id]) { s.draw = TOY_SKINS[s.id]; s.toy = true; s.anim = TOY_SKIN_ANIM[s.id] || ""; delete s.hat; } });

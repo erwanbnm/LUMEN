@@ -142,3 +142,22 @@
 3|Comment s'appelle le chien qui reconnaît Ulysse à son retour, après vingt ans ?|Argos|Cerbère|Orthos|Laelaps|Vieux et abandonné, il remue la queue en reconnaissant son maître déguisé, puis meurt aussitôt.
 3|Comment s'appelle le navire de Jason et de ses compagnons ?|L'Argo|L'Odyssée|Le Nautilus|L'Olympe|C'est de lui que vient le nom des Argonautes. La déesse Athéna aurait aidé à le construire.
 3|Quel dieu grec du sommeil est le frère jumeau de Thanatos, la mort ?|Hypnos|Morphée|Éros|Chronos|Il a donné le mot « hypnose ». Morphée, dieu des rêves, est présenté comme l'un de ses fils.
+1|Quelle cité a été assiégée pendant dix ans par les Grecs, selon la légende ?|Troie|Athènes|Sparte|Carthage|Ses ruines ont été retrouvées en Turquie au XIXe siècle par l'archéologue Heinrich Schliemann.
+1|Comment s'appellent les petits assistants qui aident le Père Noël à fabriquer les jouets ?|Les lutins|Les nains|Les farfadets|Les elfes de maison|Dans de nombreux pays, on les imagine travaillant toute l'année au pôle Nord.
+1|Quel monstre marin géant des légendes nordiques ressemble à une énorme pieuvre ?|Le kraken|Le Léviathan|Le Nessie|La Scylla|Il aurait pu engloutir des navires entiers. Les calmars géants ont peut-être inspiré la légende.
+1|Quel personnage accompagne saint Nicolas pour gronder les enfants désobéissants ?|Le Père Fouettard|Le Croque-mitaine|Le marchand de sable|Le Grand Méchant Loup|Saint Nicolas est fêté le 6 décembre, surtout dans l'est de la France et en Belgique.
+2|Quel dieu grec est le maître des vents ?|Éole|Hermès|Héphaïstos|Apollon|Il a offert à Ulysse une outre contenant les vents, que ses compagnons ont ouverte par curiosité.
+2|Quelles créatures mi-femmes mi-oiseaux volaient la nourriture dans la mythologie grecque ?|Les harpies|Les sirènes|Les gorgones|Les nymphes|Dans les plus anciens récits, les sirènes aussi étaient mi-femmes mi-oiseaux.
+2|Comment s'appelle la nourriture des dieux grecs, qui rend immortel ?|L'ambroisie|Le nectar|La manne|L'hydromel|Le nectar est leur boisson. L'ambroisie est aussi le nom d'une plante très allergisante.
+2|Quelle déesse grecque ailée personnifie la victoire ?|Niké|Athéna|Iris|Héra|Une célèbre marque de sport lui a emprunté son nom. Sa statue, la Victoire de Samothrace, est au Louvre.
+2|Quel arbre Athéna a-t-elle offert aux habitants d'Athènes ?|L'olivier|Le chêne|Le laurier|Le figuier|Grâce à ce cadeau, elle a gagné contre Poséidon le droit de donner son nom à la ville.
+2|Quelle île légendaire, décrite par Platon, aurait été engloutie en une journée ?|L'Atlantide|Avalon|Lémurie|Ys|Platon la place au-delà des colonnes d'Hercule, c'est-à-dire au-delà du détroit de Gibraltar.
+2|Que désigne l'expression « pomme de discorde » ?|Un sujet de dispute|Un cadeau empoisonné|Un fruit défendu|Un mauvais présage|Elle vient de la pomme d'or « pour la plus belle », jetée par Éris entre trois déesses.
+2|Quelle bête mystérieuse a semé la terreur dans la région de la Lozère au XVIIIe siècle ?|La bête du Gévaudan|La Tarasque|Le Drac|La Vouivre|On lui attribue plus d'une centaine de victimes. On pense aujourd'hui à un ou plusieurs grands loups.
+3|Quelle déesse grecque veille sur le foyer et la maison ?|Hestia|Héra|Déméter|Artémis|Chez les Romains, elle s'appelle Vesta. Ses prêtresses, les vestales, entretenaient un feu sacré.
+3|Quel dieu nordique est lié à la fertilité, au soleil et aux récoltes ?|Freyr|Tyr|Heimdall|Baldr|Sa sœur Freyja est la déesse de l'amour. Il possède un sanglier aux soies d'or.
+3|Comment s'appelle le dieu du Soleil chez les Incas ?|Inti|Râ|Hélios|Tonatiuh|L'empereur inca était considéré comme son fils. Tonatiuh est le dieu soleil des Aztèques.
+3|Comment s'appellent les géants à cent bras et cinquante têtes de la mythologie grecque ?|Les Hécatonchires|Les Cyclopes|Les Titans|Les Gigantes|Ils ont aidé Zeus à vaincre les Titans.
+3|Quel roi légendaire de Mésopotamie part à la recherche de l'immortalité ?|Gilgamesh|Hammurabi|Sargon|Nabuchodonosor|Son épopée, gravée sur des tablettes d'argile, est l'un des plus anciens récits du monde.
+3|Quel héros des contes japonais est né d'une pêche géante ?|Momotarō|Kintarō|Urashima Tarō|Issun-bōshi|Avec un chien, un singe et un faisan, il part combattre des ogres sur une île.
+3|Quelle fée du Poitou se change en serpent le samedi ?|Mélusine|Viviane|Morgane|La fée Carabosse|Selon la légende, elle aurait bâti le château de Lusignan. Elle est le symbole de la ville de Lusignan.

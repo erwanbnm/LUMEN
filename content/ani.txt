@@ -131,3 +131,23 @@
 3|Quel oiseau pond l'œuf le plus gros par rapport à sa taille ?|Le kiwi|L'autruche|Le manchot|La poule|Son œuf représente environ 20 % du poids de la femelle. Pour une femme, ce serait comme accoucher d'un enfant de 12 kg.
 2|Combien de dents un requin peut-il user au cours de sa vie ?|Des dizaines de milliers|Une trentaine|Environ 100|Aucune, elles ne tombent jamais|Ses dents sont rangées en plusieurs rangées : dès qu'une tombe, celle de derrière avance pour la remplacer.
 2|Quel oiseau peut rester en vol pendant des mois sans se poser ?|Le martinet|L'hirondelle|Le pigeon|Le goéland|Le martinet noir mange, boit et dort même en volant. Certains restent dix mois en l'air.
+1|Comment s'appelle le petit du mouton ?|L'agneau|Le chevreau|Le veau|Le poulain|Le chevreau est le petit de la chèvre. On dit aussi que la brebis « agnelle » quand elle met bas.
+1|Quel animal peut rentrer la tête et les pattes dans sa carapace ?|La tortue|Le hérisson|Le tatou|L'escargot|Sa carapace est soudée à sa colonne vertébrale : elle ne peut pas en sortir.
+1|Quel insecte s'illumine la nuit pour attirer un partenaire ?|Le ver luisant|La coccinelle|Le grillon|La libellule|Malgré son nom, ce n'est pas un ver mais un petit coléoptère, cousin de la luciole.
+1|Comment s'appelle l'abri creusé dans le sol où vit le lapin de garenne ?|Le terrier|Le nid|La tanière|La bauge|Plusieurs terriers reliés forment une garenne. La bauge est l'abri boueux du sanglier.
+1|Quel arbre produit les glands ?|Le chêne|Le hêtre|Le châtaignier|Le noisetier|Les écureuils et les geais en enterrent pour l'hiver, et en oublient une partie, qui germe.
+1|Comment s'appelle la femelle du cheval ?|La jument|La pouliche|L'ânesse|La génisse|La pouliche est une jeune jument, la génisse une jeune vache.
+1|Combien de bosses a le chameau ?|Deux|Une|Trois|Aucune|Le dromadaire n'en a qu'une. Ces bosses stockent de la graisse, pas de l'eau.
+2|Qu'est-ce qui distingue en général un hibou d'une chouette ?|Le hibou a des aigrettes de plumes, comme des oreilles|Le hibou est toujours plus grand|La chouette ne vole pas la nuit|Le hibou n'a pas de bec|Ces aigrettes ne servent pas à entendre : les vraies oreilles sont cachées sur les côtés de la tête.
+2|Comment appelle-t-on un animal qui mange à la fois des plantes et de la viande ?|Omnivore|Herbivore|Carnivore|Insectivore|L'ours, le cochon et l'être humain sont omnivores.
+2|Quel est le plus grand rongeur du monde ?|Le capybara|Le castor|Le ragondin|Le porc-épic|Il vit en Amérique du Sud près de l'eau et peut dépasser 60 kg.
+2|Quel est le plus grand marsupial vivant ?|Le kangourou roux|Le koala|Le wombat|Le diable de Tasmanie|Un grand mâle peut mesurer près de 2 m debout et faire des bonds de plus de 8 m.
+2|Quel animal des Andes donne une laine très douce et chaude ?|L'alpaga|Le yack|Le mouton mérinos|Le bison|Cousin du lama, il est élevé depuis des milliers d'années par les peuples andins.
+2|De quoi se nourrit principalement la baleine bleue ?|De krill|De phoques|De gros poissons|D'algues|Elle avale de minuscules crevettes, jusqu'à plusieurs tonnes par jour, en filtrant l'eau avec ses fanons.
+2|Quel mammifère marin dort avec une moitié du cerveau éveillée ?|Le dauphin|Le requin blanc|Le phoque|La loutre de mer|Il doit remonter respirer à la surface de façon volontaire : il ne peut donc jamais dormir complètement.
+3|Combien de temps peut vivre une reine des abeilles ?|Plusieurs années|Quelques semaines|Un seul été|Plus de 20 ans|Elle peut vivre 4 ou 5 ans, alors qu'une ouvrière ne vit que quelques semaines en été.
+3|Comment appelle-t-on les animaux, comme les lézards, dont la température dépend du milieu ?|Les ectothermes|Les endothermes|Les homéothermes|Les poïkilocytes|On dit souvent « à sang froid », même si leur sang peut être chaud au soleil.
+3|Quel félin ne peut pas rentrer complètement ses griffes ?|Le guépard|Le lion|Le lynx|Le jaguar|Ses griffes lui servent de crampons pour accélérer, comme les chaussures à pointes d'un sprinteur.
+3|Quel oiseau a été observé volant à plus de 11 000 m d'altitude ?|Le vautour de Rüppell|Le condor des Andes|L'aigle royal|L'oie à tête barrée|En 1973, l'un d'eux a percuté un avion de ligne au-dessus de la Côte d'Ivoire.
+3|Quel mammifère a l'une des gestations les plus courtes, environ 12 jours ?|L'opossum de Virginie|La souris|Le lapin|Le hamster doré|Ses petits naissent minuscules et finissent leur développement dans la poche de leur mère.
+3|Quel insecte d'Amérique du Nord passe 13 ou 17 ans sous terre avant de sortir ?|La cigale périodique|Le hanneton|La luciole|Le criquet|Des milliards sortent alors en même temps, ce qui empêche les prédateurs de tous les manger.

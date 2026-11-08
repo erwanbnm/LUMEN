@@ -131,3 +131,23 @@
 1|Dans quel pays se trouve New York ?|Les États-Unis|Le Canada|Le Royaume-Uni|L'Australie|C'est la plus grande ville du pays, mais pas sa capitale : c'est Washington.
 1|Dans quel pays se trouve la ville de Québec ?|Le Canada|La France|Les États-Unis|La Belgique|Fondée en 1608 par le Français Samuel de Champlain, c'est une des rares villes fortifiées d'Amérique du Nord.
 1|Dans quel pays se trouve Shanghai ?|La Chine|Le Japon|La Corée du Sud|Le Viêt Nam|C'est la plus grande ville de Chine, avec plus de 24 millions d'habitants, et un des plus grands ports du monde.
+1|Dans quel pays se trouve Naples ?|L'Italie|L'Espagne|La Grèce|Le Portugal|La ville est dominée par le Vésuve. C'est la patrie de la pizza.
+1|Dans quel pays se trouve Los Angeles ?|Les États-Unis|Le Mexique|Le Canada|L'Espagne|Son nom espagnol veut dire « les anges ». C'est la ville d'Hollywood.
+1|Dans quel pays se trouve Kyoto ?|Le Japon|La Chine|La Corée du Sud|Le Viêt Nam|Ancienne capitale impériale, elle compte plus de 1 600 temples bouddhistes.
+1|Dans quel pays se trouve Casablanca ?|Le Maroc|L'Algérie|La Tunisie|L'Égypte|C'est la plus grande ville du pays, mais pas sa capitale, qui est Rabat.
+1|Dans quel pays se trouve Liverpool ?|Le Royaume-Uni|L'Irlande|L'Australie|Les États-Unis|C'est la ville des Beatles et d'un célèbre club de football.
+2|Dans quel pays se trouve Bruges, surnommée la Venise du Nord ?|La Belgique|Les Pays-Bas|Le Danemark|L'Allemagne|Son centre médiéval, sillonné de canaux, est inscrit au patrimoine mondial.
+2|Quelle est la capitale du pays de Galles ?|Cardiff|Swansea|Édimbourg|Belfast|Édimbourg est la capitale de l'Écosse et Belfast celle de l'Irlande du Nord.
+2|Quelle est la capitale de la Malaisie ?|Kuala Lumpur|Singapour|Jakarta|Bangkok|Ses tours jumelles Petronas ont été les plus hautes du monde de 1998 à 2004.
+2|Quelle est la capitale de la Jordanie ?|Amman|Damas|Beyrouth|Bagdad|Damas est la capitale de la Syrie, Beyrouth celle du Liban et Bagdad celle de l'Irak.
+2|Quelle est la capitale de la Syrie ?|Damas|Alep|Amman|Bagdad|C'est l'une des plus anciennes villes habitées sans interruption au monde.
+2|Quelle est la capitale du Cambodge ?|Phnom Penh|Siem Reap|Vientiane|Hanoï|Siem Reap est la ville proche des temples d'Angkor. Vientiane est la capitale du Laos.
+2|Quelle est la capitale de la Biélorussie ?|Minsk|Kiev|Vilnius|Riga|Le pays est aussi appelé Bélarus. Vilnius est la capitale de la Lituanie, Riga celle de la Lettonie.
+2|Quelle est la capitale des Émirats arabes unis ?|Abou Dabi|Dubaï|Doha|Mascate|Dubaï est la ville la plus connue, mais pas la capitale. Doha est au Qatar, Mascate à Oman.
+2|Quelle est la capitale de la Bosnie-Herzégovine ?|Sarajevo|Belgrade|Zagreb|Skopje|L'assassinat de l'archiduc François-Ferdinand, qui a déclenché la Première Guerre mondiale, y a eu lieu en 1914.
+3|Quelle est la capitale du Honduras ?|Tegucigalpa|San Salvador|Managua|Guatemala|San Salvador est la capitale du Salvador, Managua celle du Nicaragua.
+3|Quelle est la capitale de la Mauritanie ?|Nouakchott|Dakar|Bamako|Niamey|Petit village en 1960, elle compte aujourd'hui plus d'un million d'habitants.
+3|Quelle est la capitale de la Namibie ?|Windhoek|Gaborone|Lusaka|Harare|Gaborone est la capitale du Botswana, Lusaka celle de la Zambie et Harare celle du Zimbabwe.
+3|Quelle est la capitale de l'Ouzbékistan ?|Tachkent|Samarcande|Boukhara|Bichkek|Samarcande et Boukhara sont des villes célèbres de la route de la soie. Bichkek est au Kirghizistan.
+3|Quelle est la capitale de la Moldavie ?|Chișinău|Bucarest|Tiraspol|Odessa|Bucarest est la capitale de la Roumanie voisine, avec qui la Moldavie partage la langue.
+3|Quelle est la capitale officielle du Bénin ?|Porto-Novo|Cotonou|Lomé|Ouagadougou|Le gouvernement siège pourtant surtout à Cotonou, la plus grande ville. Lomé est la capitale du Togo.
