@@ -176,7 +176,12 @@ const CREATURES = [
   ${dotEye(66,42,3)}${dotEye(80,44,3)}${blush(62,52)}${blush(86,54)}${smile(70,53,3.5)}`; } }
 ];
 
+// Décalage du clignement par personnage, pour qu'ils ne clignent pas tous en même temps
+const blinkDelay = c => -((c.n.split("").reduce((a, ch) => a + ch.charCodeAt(0), 0) % 47) / 10).toFixed(1);
 function creatureSVG(c, size){
+  if (c.toy) return `<svg class="toyc ${c.anim ? "t-" + c.anim : ""}" style="--bd:${blinkDelay(c)}s" viewBox="0 0 120 116" width="${size}" height="${size*116/120}" role="img" aria-label="${c.n}">
+  <ellipse cx="60" cy="${c.float?110:107}" rx="${c.float?24:36}" ry="4.5" fill="rgba(10,6,24,.3)"/>
+  <g class="${c.float?"fl":""}"><g class="tbreath">${c.draw()}</g></g></svg>`;
   return `<svg viewBox="0 0 120 116" width="${size}" height="${size*116/120}" role="img" aria-label="${c.n}">
   <ellipse cx="60" cy="${c.float?110:106}" rx="${c.float?22:32}" ry="4.5" fill="rgba(10,6,24,.28)"/>
   <g class="${c.float?"fl":""}"><g filter="url(#paint)">${c.draw()}</g></g></svg>`;

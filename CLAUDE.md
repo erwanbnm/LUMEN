@@ -21,6 +21,9 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
 - `music.js` : musique et effets sonores générés (Web Audio).
 - `splash.js`, `extra.js` : animation de lancement, données supplémentaires (faits du jour, événements datés…).
 - `atelier/` : dessins SVG en code (personnages, skins, accessoires, badges, icônes `gicons.js` avec `GI` et les icônes en relief `GI3`).
+  - `atelier/toy.js` : **style « jouet » validé par Erwan** pour les personnages (même recette que `GI3` : contour `#2B1D3A` épais, copie sombre décalée vers le bas, dégradés verticaux, reflets blancs nets, silhouette trapue et déguisée). Contient le kit (`toy`, `tEyes`, `tGlow`…), les 15 personnages de base redessinés (`TOY_DRAW`, mêmes noms et même ordre pour ne pas casser les sauvegardes) et Somni (ajouté à la fin de `CHARS`). Tout nouveau personnage ou skin doit suivre ce style.
+  - Animations des personnages : classes CSS dans `app.html` (section « Personnages animés ») : `tblink` (clignement), `tbreath` (respiration), `ta-*` (pluie, flamme, queue qui remue…), `so-*` (Somni s'endort avec des zzz). Les effets animés sont exclus du calcul de placement des accessoires (`charBox` dans `acc.js`).
+  - Encore dans l'ancien style (à refaire) : les skins de boutique et secrets (`skins.js`) et les accessoires (`acc.js`).
 - `parc/game.js` + `parc/games.js` : le parc 3D (Three.js r128 via CDN). `make_parc.py` les transforme en `parc_app.js`, qui est intégré à l'appli.
 - `content/*.txt` : un fichier par thème (20 thèmes). Une ligne par question :
   - `niveau|question|bonne réponse|faux 1|faux 2|faux 3|explication` (7 champs), ou

@@ -109,6 +109,51 @@ p{margin:0}
 @keyframes lvBadge{from{transform:scale(.2) rotate(-25deg)}}
 @keyframes lvBit{0%{opacity:1;transform:translate(0,0) rotate(0)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 60px)) rotate(var(--r))}}
 @media (prefers-reduced-motion:reduce){.lvup,.lv-card,.lv-badge,.lv-rays,.lv-bits i{animation:none!important}.lv-bits{display:none}}
+/* Personnages animés (atelier/toy.js) */
+.toyc .fl{animation:tfloat 3.4s ease-in-out infinite}
+@keyframes tfloat{50%{transform:translateY(-4px)}}
+.toyc .tbreath{animation:tbreath 3.6s ease-in-out infinite;transform-origin:60px 104px}
+@keyframes tbreath{50%{transform:scale(1.025,.975)}}
+.toyc.t-jelly .tbreath{animation:tjelly 2.4s ease-in-out infinite}
+@keyframes tjelly{0%,100%{transform:scale(1,1)}30%{transform:scale(1.07,.93)}60%{transform:scale(.96,1.04)}}
+.tblink{animation:tblink 4.8s infinite;animation-delay:var(--bd,0s);transform-box:fill-box;transform-origin:center}
+@keyframes tblink{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.08)}}
+.ta-sway{animation:tsway 2.8s ease-in-out infinite alternate}
+@keyframes tsway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.ta-wag{animation:twag .45s ease-in-out infinite alternate}
+@keyframes twag{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
+.ta-ear{animation:tear 3.2s ease-in-out infinite}
+@keyframes tear{0%,80%,100%{transform:rotate(0)}88%{transform:rotate(-8deg)}}
+.ta-flap{animation:tflap .16s ease-in-out infinite alternate}
+@keyframes tflap{to{transform:scaleY(.72)}}
+.ta-wing{animation:twing 3s ease-in-out infinite}
+@keyframes twing{0%,70%,100%{transform:rotate(0)}78%,86%{transform:rotate(-10deg)}82%{transform:rotate(4deg)}}
+.ta-pulse{animation:tpulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tpulse{50%{opacity:.1;transform:scale(.86)}}
+.ta-flick{animation:tflick .32s ease-in-out infinite alternate}
+@keyframes tflick{to{transform:scale(.92,1.07) skewX(3deg)}}
+.ta-ember{animation:tember 2.2s ease-out infinite}
+@keyframes tember{0%{transform:translateY(8px);opacity:0}30%{opacity:1}100%{transform:translateY(-16px);opacity:0}}
+.ta-rain{animation:train 1.15s linear infinite}
+@keyframes train{0%{transform:translateY(-6px);opacity:0}20%{opacity:1}100%{transform:translateY(17px);opacity:0}}
+.ta-spike{animation:tspike 2.6s ease-in-out infinite}
+@keyframes tspike{50%{transform:scale(1.06) rotate(5deg)}}
+.ta-twinkle{animation:ttw 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ttw{50%{transform:scale(.3);opacity:.3}}
+.ta-look{animation:tlook 5.2s ease-in-out infinite}
+@keyframes tlook{0%,18%{transform:translateX(0)}28%,44%{transform:translateX(-2.6px)}54%,70%{transform:translate(2.6px,1px)}80%,100%{transform:translateX(0)}}
+.ta-spore{animation:tspore 3.2s ease-out infinite}
+@keyframes tspore{0%{transform:translateY(6px) scale(.5);opacity:0}25%{opacity:.95}100%{transform:translateY(-22px) scale(1.1);opacity:0}}
+/* Somni : reste éveillé un moment, pique du nez, puis s'endort avec des zzz */
+.so-open{animation:soOpen 11s infinite}
+.so-closed,.so-zzz{opacity:0;animation:soSleep 11s infinite}
+@keyframes soOpen{0%,50%{opacity:1}53%,94%{opacity:0}97%,100%{opacity:1}}
+@keyframes soSleep{0%,50%{opacity:0}53%,94%{opacity:1}97%,100%{opacity:0}}
+.so-z{animation:soZ 2.4s ease-out infinite;font-family:var(--f-display);font-weight:800}
+@keyframes soZ{0%{transform:translate(0,4px) scale(.6);opacity:0}20%{opacity:1}100%{transform:translate(-8px,-20px) scale(1.15);opacity:0}}
+.so-head{animation:soNod 11s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes soNod{0%,50%{transform:rotate(0)}56%,92%{transform:rotate(-5deg) translateY(2px)}97%{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){.toyc *,.toyc .fl,.toyc .tbreath{animation:none!important}.so-closed,.so-zzz{opacity:0}.so-open{opacity:1}}
 
 .score{font-family:var(--f-display);font-weight:800;font-size:64px;line-height:1;color:var(--lamp);font-variant-numeric:tabular-nums}
 .list{display:flex;flex-direction:column;border-top:1px solid var(--line)}

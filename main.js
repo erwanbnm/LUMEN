@@ -22,7 +22,7 @@ const UPGRADES = {
 };
 
 /* ---------- Personnages ---------- */
-const CHARS = CREATURES.concat([RIXY]);
+const CHARS = CREATURES.concat([RIXY, SOMNI]);
 const avatarSVG = (i, size) => creatureSVG(CHARS[i] || CHARS[0], size);
 const SECRETS = SECRET_SKINS.concat([ULTRA_SKIN]);
 const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS).find(s => s.id===id);

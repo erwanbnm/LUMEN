@@ -43,6 +43,8 @@ function charBox(c){
     svg.innerHTML = `<g>${c.draw()}</g>`; document.body.appendChild(svg);
     // On mesure les formes pleines (sans halos ni ombres flous)
     const g = svg.firstChild; [...g.querySelectorAll("[filter],[opacity]")].forEach(el => { if (+el.getAttribute("opacity") < .6 || /glow|soft/.test(el.getAttribute("filter")||"")) el.remove(); });
+    // Effets animés (zzz, lueurs, pluie, spores, étincelles) : hors de la silhouette
+    g.querySelectorAll(".so-zzz,.ta-pulse,.ta-rain,.ta-spore,.ta-ember,.ta-twinkle").forEach(el => el.remove());
     const r = g.getBBox(); if (r.width > 4) b = {x:r.x, y:r.y, w:r.width, h:r.height};
     svg.remove();
   } catch(e){}
@@ -61,6 +63,7 @@ function dressedSVG(c, acc, size){
   else if (hat) front += `<g transform="translate(${hx} ${hy}) scale(${hat.wide?1:k})">${hat.draw(b.w*.86)}</g>`;
   if (hand) front += `<g transform="translate(${Math.min(108, b.x+b.w+4)} ${b.y+b.h*.62}) rotate(8)">${hand.draw(b)}</g>`;
   const shadow = `<ellipse cx="60" cy="${c.float?110:106}" rx="${c.float?22:32}" ry="4.5" fill="rgba(10,6,24,.28)"/>`;
-  return `<svg viewBox="-12 -16 144 140" width="${size}" height="${Math.round(size*140/144)}" aria-hidden="true" style="overflow:visible">${back}${shadow}
-  <g class="${c.float?"fl":""}"><g filter="url(#paint)">${c.draw()}</g>${front}</g></svg>`;
+  const body = c.toy ? `<g class="tbreath">${c.draw()}</g>` : `<g filter="url(#paint)">${c.draw()}</g>`;
+  return `<svg class="${c.toy ? "toyc " + (c.anim ? "t-" + c.anim : "") : ""}" style="overflow:visible${c.toy ? ";--bd:" + blinkDelay(c) + "s" : ""}" viewBox="-12 -16 144 140" width="${size}" height="${Math.round(size*140/144)}" aria-hidden="true">${back}${shadow}
+  <g class="${c.float?"fl":""}">${body}${front}</g></svg>`;
 }
