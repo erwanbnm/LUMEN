@@ -1,0 +1,50 @@
+1|Une année n'y dure que 88 jours. Sans atmosphère pour garder la chaleur, on passe de plus de 400 °C le jour à environ -180 °C la nuit.
+2|Elle tourne en plus dans le sens inverse des autres planètes : sur Vénus, le Soleil se lève à l'ouest.
+3|La lumière de la Lune, elle, ne met qu'environ 1,3 seconde à nous parvenir.
+4|Sa Grande Tache rouge est une tempête plus large que la Terre, observée depuis plus de 150 ans.
+5|Pluton a été découverte en 1930 par Clyde Tombaugh, alors âgé de 24 ans. Une partie de ses cendres voyage à bord de la sonde New Horizons, qui a survolé Pluton en 2015.
+6|Sa phrase : « C'est un petit pas pour l'homme, un bond de géant pour l'humanité. » Sans vent ni pluie, ses empreintes sont sans doute toujours là.
+7|Il mesurait 1,57 m, un vrai atout dans la minuscule capsule.
+8|Elle a deux petites lunes, Phobos et Deimos : « peur » et « terreur » en grec, les fils d'Arès, le dieu de la guerre.
+9|Saturne est si peu dense qu'elle flotterait dans une baignoire géante.
+10|Son nom vient de la mythologie grecque : du lait de la déesse Héra, répandu dans le ciel. Le mot « galaxie » vient d'ailleurs du grec gala, le lait.
+11|Par une nuit bien noire, on la voit à l'œil nu : c'est l'un des objets les plus lointains visibles sans instrument.
+12|La lumière va si vite qu'elle ferait sept fois et demie le tour de la Terre en une seconde.
+13|Le Soleil représente à lui seul 99,8 % de la masse de tout le Système solaire.
+14|Surnommée l'étoile du Chien, elle appartient à la constellation du Grand Chien. Pour les Égyptiens, son retour dans le ciel annonçait la crue du Nil. Le mot « canicule » vient de canicula, son nom latin.
+15|Ce n'est pas éternel : l'axe de la Terre oscille lentement, et dans environ 12 000 ans, ce sera l'étoile Véga qui indiquera le nord.
+16|La Lune s'éloigne de nous d'environ 3,8 cm par an. On le mesure grâce à des miroirs laissés sur place par les astronautes d'Apollo.
+17|La face cachée n'est pas plus sombre : elle reçoit autant de soleil. On l'a vue pour la première fois en 1959, photographiée par une sonde soviétique.
+18|En un même endroit, une éclipse totale ne dure jamais plus de 7 minutes et demie environ.
+19|L'ordinateur de bord d'Apollo 11 avait moins de puissance de calcul qu'une calculatrice d'aujourd'hui.
+20|La base a été construite dans les années 1960, après l'indépendance de l'Algérie, où la France faisait jusque-là ses essais de fusées.
+21|En 1988, il devient le premier astronaute ni américain ni soviétique à faire une sortie dans l'espace.
+22|Elle est grande comme un terrain de football, et souvent visible à l'œil nu : un point très brillant qui traverse le ciel en quelques minutes.
+23|À cette altitude, la gravité est encore à 90 %. Les astronautes flottent parce qu'ils sont en chute libre permanente autour de la Terre.
+24|Près d'un trou noir, le temps s'écoule plus lentement que loin de lui, comme le prévoit la relativité d'Einstein.
+25|En 2022, une deuxième image a montré le trou noir du centre de notre propre galaxie, Sagittarius A*.
+26|Il est si large, environ 600 km, que depuis ses pentes on ne verrait pas son sommet : il serait caché par la courbure de la planète.
+27|La sonde européenne JUICE, lancée en 2023, et la sonde américaine Europa Clipper, lancée en 2024, sont en route pour l'étudier.
+28|Elle connaît les vents les plus rapides du Système solaire, à plus de 2 000 km/h.
+29|C'est la première planète découverte au télescope, par William Herschel en 1781.
+30|Chaque seconde, le Soleil transforme environ 4 millions de tonnes de matière en énergie.
+31|La Terre et les autres planètes se sont formées presque en même temps que lui, à partir du même nuage de gaz et de poussière.
+32|L'Univers observable mesure pourtant environ 93 milliards d'années-lumière de diamètre, car l'espace lui-même s'est étiré pendant le voyage de la lumière.
+33|L'idée a été proposée dès 1927 par un prêtre et physicien belge, Georges Lemaître.
+34|Les Perséides, chaque mois d'août, sont des poussières laissées par la comète Swift-Tuttle.
+35|Elle apparaît sur la tapisserie de Bayeux : elle était passée en 1066, peu avant la conquête de l'Angleterre.
+36|Philae a rebondi à l'atterrissage et s'est coincé à l'ombre d'une falaise, sans assez de soleil pour recharger ses batteries.
+37|Son pare-soleil a la taille d'un court de tennis : il garde les instruments à environ -230 °C.
+38|Il porte le nom d'Edwin Hubble, qui a montré dans les années 1920 que les autres galaxies s'éloignent de la nôtre.
+39|Les explosions bruyantes des films de science-fiction sont donc une pure invention.
+40|Les astronautes d'Apollo avançaient souvent en sautillant comme des kangourous : c'était plus facile que de marcher.
+41|Le dernier en date est Eugene Cernan, en décembre 1972 avec Apollo 17. Personne n'y est retourné depuis.
+42|La célèbre phrase de l'équipage : « Houston, on a eu un problème. »
+43|C'était une sphère d'à peine 58 cm de diamètre. Des radioamateurs du monde entier pouvaient capter son bip.
+44|Laïka était une chienne errante, recueillie dans les rues de Moscou.
+45|En 2021, le petit hélicoptère Ingenuity y a réalisé le premier vol motorisé sur une autre planète.
+46|Il n'a publié son livre qu'en 1543, l'année de sa mort, en partie par crainte des réactions.
+47|Il a aussi écrit l'un des premiers récits de science-fiction, « Le Songe », un voyage imaginaire vers la Lune.
+48|Dans l'hémisphère Sud, on parle d'aurores australes. Il y en a aussi sur Jupiter et Saturne.
+49|En 2021, il a été le premier Français commandant de la Station spatiale internationale.
+50|La Lune stabilise l'inclinaison de l'axe de la Terre, ce qui rend notre climat plus stable sur le long terme.

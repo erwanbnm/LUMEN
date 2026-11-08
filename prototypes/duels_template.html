@@ -1,0 +1,432 @@
+<title>Lumen Duels</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout : une colonne façon jeu mobile, cartes en relief qui s'enfoncent, onglets en bas de l'en-tête */
+:root{
+  --bg:#241544; --bg2:#3B1E68; --surface:#3A2468; --surface-2:#4A2F80; --line:#5D3E99;
+  --fg:#FFF0FA; --muted:#CBB5E8; --lamp:#FF5FA2; --lamp-ink:#241634; --accent2:#FFD23F;
+  --good:#6FE0A6; --bad:#FF7B6E; --edge:#1A0E33; --press:#9C2F62;
+  --f-display:"Bricolage Grotesque",system-ui,sans-serif; --f-text:"Literata",Georgia,serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#FFF0F7; --bg2:#FBDDEC; --surface:#FFFFFF; --surface-2:#FBE3F0; --line:#F2BFD8;
+  --fg:#3A1650; --muted:#7E5A93; --lamp:#D81F6E; --lamp-ink:#FFFFFF; --accent2:#B07D00;
+  --good:#1D8657; --bad:#C23A2E; --edge:#E2A6C4; --press:#8E1046; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#FFF0F7; --bg2:#FBDDEC; --surface:#FFFFFF; --surface-2:#FBE3F0; --line:#F2BFD8;
+  --fg:#3A1650; --muted:#7E5A93; --lamp:#D81F6E; --lamp-ink:#FFFFFF; --accent2:#B07D00;
+  --good:#1D8657; --bad:#C23A2E; --edge:#E2A6C4; --press:#8E1046; color-scheme:light}
+*{box-sizing:border-box}
+body{background:radial-gradient(120% 60% at 50% 0%,var(--bg2),var(--bg) 70%) fixed,var(--bg);color:var(--fg);font-family:var(--f-text);font-size:16px;line-height:1.5;min-height:100vh}
+.wrap{max-width:540px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.15}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--lamp)}
+h2{font-size:1.2rem;font-weight:700}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.me-chip{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:700;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;max-width:100%}
+.dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:800;color:#241634;flex:none}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tab{font-family:var(--f-display);font-weight:700;font-size:.95rem;padding:10px 6px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--lamp);border-color:var(--lamp);color:var(--lamp-ink)}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;box-shadow:0 5px 0 var(--edge);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.btn{font-family:var(--f-display);font-weight:800;font-size:1rem;border:0;border-radius:16px;padding:13px 18px;background:var(--lamp);color:var(--lamp-ink);box-shadow:0 5px 0 var(--press);cursor:pointer;transition:transform .08s,box-shadow .08s;touch-action:manipulation}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--press)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.alt{background:var(--surface-2);color:var(--fg);box-shadow:0 5px 0 var(--edge)}
+.btn.gold{background:var(--accent2);color:#241634;box-shadow:0 5px 0 #A07800}
+.btn.sm{font-size:.88rem;padding:8px 12px;border-radius:12px;box-shadow:0 3px 0 var(--press)}
+.btn.sm.alt{box-shadow:0 3px 0 var(--edge)}
+.btn:focus-visible,.tab:focus-visible,.choice:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>.grow{flex:1 1 160px;min-width:0}
+.list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:var(--surface-2);min-width:0}
+.item .name{font-family:var(--f-display);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .grow{flex:1;min-width:0}
+.pill{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--bg2);color:var(--muted);white-space:nowrap}
+.pill.win{background:color-mix(in srgb,var(--good) 22%,transparent);color:var(--good)}
+.pill.lose{background:color-mix(in srgb,var(--bad) 22%,transparent);color:var(--bad)}
+.pill.live{background:color-mix(in srgb,var(--lamp) 25%,transparent);color:var(--lamp)}
+.online{width:10px;height:10px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 25%,transparent);flex:none}
+input,select{font:inherit;font-family:var(--f-display);font-weight:700;width:100%;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--fg)}
+.empty{color:var(--muted);font-style:italic;padding:4px 2px}
+.banner{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 14%,var(--surface))}
+.note{font-size:.9rem;color:var(--muted)}
+table.rank{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rank th{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;padding:6px 4px;font-weight:500}
+.rank th:nth-child(2){text-align:left}
+.rank td{padding:9px 4px;text-align:right;border-top:1px solid var(--line)}
+.rank td:nth-child(2){text-align:left;font-family:var(--f-display);font-weight:700;max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank td.pos{font-family:var(--f-display);font-weight:800;color:var(--muted);width:2.2em}
+.rank tr.top1 td.pos{color:var(--accent2)}
+.rank tr.me td:nth-child(2){color:var(--lamp)}
+.rank .pts{font-family:var(--f-display);font-weight:800;font-size:1.05rem}
+/* Écran de quiz */
+.quiz{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.quiz .wrap{min-height:100%}
+.scorebar{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.side{display:flex;flex-direction:column;gap:2px;min-width:0}
+.side.r{text-align:right}
+.side .who{font-family:var(--f-display);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side .sc{font-family:var(--f-display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.vs{font-family:var(--f-mono);color:var(--muted);font-size:.8rem}
+.timer{height:10px;border-radius:999px;background:var(--surface);overflow:hidden;border:2px solid var(--line)}
+.timer>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--lamp));transform-origin:left}
+.qtext{font-family:var(--f-display);font-weight:700;font-size:1.35rem;line-height:1.25;text-wrap:balance}
+.choices{display:grid;gap:10px}
+.choice{font-family:var(--f-display);font-weight:700;font-size:1.02rem;text-align:left;padding:14px 16px;border-radius:16px;border:2px solid var(--line);background:var(--surface);color:var(--fg);box-shadow:0 5px 0 var(--edge);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.choice:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--edge)}
+.choice:disabled{cursor:default}
+.choice.ok{background:color-mix(in srgb,var(--good) 28%,var(--surface));border-color:var(--good)}
+.choice.ko{background:color-mix(in srgb,var(--bad) 28%,var(--surface));border-color:var(--bad)}
+.explain{font-size:.95rem;color:var(--muted)}
+.pips{display:flex;gap:5px;flex-wrap:wrap}
+.pips b{width:14px;height:14px;border-radius:5px;background:var(--surface-2);border:2px solid var(--line)}
+.pips b.ok{background:var(--good);border-color:var(--good)}
+.pips b.ko{background:var(--bad);border-color:var(--bad)}
+.big{font-family:var(--f-display);font-weight:800;font-size:2.4rem;text-align:center}
+.center{text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);font-family:var(--f-display);font-weight:700;padding:10px 16px;border-radius:14px;z-index:40;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Lumen · prototype multijoueur</div>
+      <h1>Lumen <em>Duels</em></h1>
+    </div>
+    <div class="me-chip" id="meChip" hidden></div>
+  </header>
+  <div id="status" class="card note" hidden></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-jouer" aria-selected="true">Jouer</button>
+    <button class="tab" role="tab" id="tab-classement" aria-selected="false">Classement</button>
+    <button class="tab" role="tab" id="tab-historique" aria-selected="false">Historique</button>
+  </nav>
+  <main id="view"></main>
+</div>
+<div class="quiz" id="quiz" hidden><div class="wrap" id="quizInner"></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const QS = /*__Q__*/[];
+const QN = 10, QT = 15000, GAP = 2600;
+const COLORS = ["#FF5FA2","#FFD23F","#6FE0A6","#7FC8FF","#C9A2FF","#FF9E6E","#5FE3D8","#F7A8FF"];
+const byId = Object.fromEntries(QS.map(q => [q.id, q]));
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pickQ = () => { const lv = [1,1,1,2,2,2,2,3,3,3]; const out = []; for (const l of lv) { const pool = QS.filter(q => q.l === l && !out.includes(q.id)); out.push((pool.length ? pool : QS)[Math.floor(Math.random() * (pool.length || QS.length))].id); } return shuffle(out); };
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+
+let tab = "jouer", db = null, user = null, room = null, myId = null;
+let players = {}, duels = [], online = new Map(), invite = null, pendingInvite = null, playing = false, loaded = false;
+let challengeTo = "";
+
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2600); }
+const nameOf = id => (players[id] && players[id].pseudo) || "Joueur mystère";
+const colorOf = id => (players[id] && COLORS[players[id].c % COLORS.length]) || COLORS[0];
+const dotHtml = id => `<span class="dot" style="background:${colorOf(id)}">${esc(nameOf(id).slice(0,1).toUpperCase())}</span>`;
+const resOf = d => d.res || {};
+const isDone = d => Object.keys(resOf(d)).length >= 2;
+const totalOf = r => r ? r.score : 0;
+
+// ---------- Classement : calculé à partir des duels terminés ----------
+function ranking(){
+  const t = {};
+  const row = id => t[id] ||= {id, pts:0, w:0, d:0, l:0, ok:0, n:0};
+  for (const id of Object.keys(players)) row(id);
+  for (const d of duels) {
+    if (!isDone(d)) continue;
+    const [a, b] = Object.keys(d.res); const ra = d.res[a], rb = d.res[b];
+    const A = row(a), B = row(b);
+    A.ok += ra.correct; A.n += QN; B.ok += rb.correct; B.n += QN;
+    if (ra.score > rb.score) { A.pts += 3; A.w++; B.l++; }
+    else if (rb.score > ra.score) { B.pts += 3; B.w++; A.l++; }
+    else { A.pts++; B.pts++; A.d++; B.d++; }
+  }
+  return Object.values(t).sort((x, y) => y.pts - x.pts || y.w - x.w || (y.n ? y.ok / y.n : 0) - (x.n ? x.ok / x.n : 0));
+}
+
+// ---------- Rendu ----------
+function render(){
+  for (const k of ["jouer","classement","historique"]) $("tab-" + k).setAttribute("aria-selected", String(tab === k));
+  const chip = $("meChip");
+  if (myId && players[myId]) { chip.hidden = false; chip.innerHTML = dotHtml(myId) + `<span>${esc(nameOf(myId))}</span>`; } else chip.hidden = true;
+  const v = $("view");
+  if (tab === "jouer") v.innerHTML = viewPlay();
+  else if (tab === "classement") v.innerHTML = viewRank();
+  else v.innerHTML = viewHistory();
+}
+
+function viewPlay(){
+  if (!db || !myId) return `
+    <section class="card">
+      <h2>Partie solo</h2>
+      <p class="muted">10 questions, 15 secondes chacune. Réponds vite pour gagner des points bonus.</p>
+      <button class="btn" data-act="solo">Jouer une partie</button>
+    </section>`;
+  if (!loaded) return `<section class="card"><p class="muted">Chargement des joueurs et des défis…</p></section>`;
+  if (!players[myId]) return `
+    <section class="card">
+      <h2>Choisis ton pseudo</h2>
+      <p class="muted">C'est le nom que tes amis verront dans le classement et les défis.</p>
+      <div class="row"><input class="grow" id="pseudo" maxlength="18" placeholder="Ton pseudo" value="${esc(store.get("lumen.pseudo") || "")}"><button class="btn" data-act="savePseudo">C'est parti</button></div>
+    </section>`;
+  const others = Object.keys(players).filter(id => id !== myId);
+  const received = duels.filter(d => d.mode === "async" && d.from !== myId && (d.to === myId || !d.to) && !resOf(d)[myId]);
+  const waiting = duels.filter(d => d.from === myId && d.mode === "async" && !isDone(d));
+  const onl = [...online.values()].filter(p => p.uid !== myId);
+  let h = "";
+  if (invite) h += `
+    <section class="card banner">
+      <div class="eyebrow">Duel en direct</div>
+      <h2>${esc(nameOf(invite.from))} te défie maintenant !</h2>
+      <div class="row"><button class="btn" data-act="acceptLive">Accepter</button><button class="btn alt" data-act="refuseLive">Refuser</button></div>
+    </section>`;
+  if (pendingInvite) h += `
+    <section class="card banner">
+      <div class="eyebrow">Duel en direct</div>
+      <h2>En attente de ${esc(nameOf(pendingInvite.to))}…</h2>
+      <button class="btn alt sm" data-act="cancelLive">Annuler</button>
+    </section>`;
+  h += `
+    <section class="card">
+      <div class="row"><h2 class="grow">En ligne maintenant</h2><span class="pill live">Direct</span></div>
+      ${room ? (onl.length ? `<ul class="list">${onl.map(p => `<li class="item"><span class="online"></span>${dotHtml(p.uid)}<span class="grow name">${esc(nameOf(p.uid))}</span>${p.st === "busy" ? `<span class="pill">En partie</span>` : `<button class="btn sm" data-act="inviteLive" data-id="${esc(p.uid)}" ${pendingInvite || playing ? "disabled" : ""}>Défier</button>`}</li>`).join("")}</ul>` : `<p class="empty">Personne d'autre n'est connecté. Envoie un défi en différé, ou reviens plus tard.</p>`) : `<p class="empty">Le direct n'est pas disponible sur cet appareil.</p>`}
+    </section>
+    <section class="card">
+      <h2>Défi en différé</h2>
+      <p class="muted">Tu joues 10 questions maintenant. Ton ami joue les mêmes quand il veut, et le meilleur score gagne.</p>
+      <div class="row">
+        <select class="grow" id="opp" aria-label="Adversaire">
+          <option value="">Ouvert à tous</option>
+          ${others.map(id => `<option value="${esc(id)}" ${challengeTo === id ? "selected" : ""}>${esc(nameOf(id))}</option>`).join("")}
+        </select>
+        <button class="btn" data-act="newAsync">Lancer le défi</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Défis reçus</h2>
+      ${received.length ? `<ul class="list">${received.map(d => `<li class="item">${dotHtml(d.from)}<span class="grow"><span class="name">${esc(nameOf(d.from))}</span><br><span class="note">${d.to ? "te défie" : "défi ouvert à tous"} · score à battre : ${totalOf(resOf(d)[d.from])}</span></span><button class="btn sm gold" data-act="playAsync" data-id="${esc(d.id)}">Relever</button></li>`).join("")}</ul>` : `<p class="empty">Aucun défi en attente.</p>`}
+    </section>`;
+  if (waiting.length) h += `
+    <section class="card">
+      <h2>Tes défis envoyés</h2>
+      <ul class="list">${waiting.map(d => `<li class="item"><span class="grow"><span class="name">${d.to ? esc(nameOf(d.to)) : "Ouvert à tous"}</span><br><span class="note">Ton score : ${totalOf(resOf(d)[myId])}</span></span><span class="pill">En attente</span></li>`).join("")}</ul>
+    </section>`;
+  return h;
+}
+
+function viewRank(){
+  if (!db || !myId) return `<section class="card"><h2>Classement</h2><p class="empty">Le classement apparaît quand la page est ouverte sur Claude par un ami invité.</p></section>`;
+  const r = ranking();
+  if (!r.length) return `<section class="card"><h2>Classement</h2><p class="empty">Pas encore de joueurs. Choisis ton pseudo dans « Jouer » pour apparaître ici.</p></section>`;
+  return `<section class="card">
+    <div class="row"><h2 class="grow">Classement</h2><span class="eyebrow">3 pts victoire · 1 pt nul</span></div>
+    <div style="overflow-x:auto"><table class="rank">
+      <thead><tr><th>#</th><th>Joueur</th><th>Pts</th><th>V</th><th>N</th><th>D</th><th>Réussite</th></tr></thead>
+      <tbody>${r.map((p, i) => `<tr class="${i === 0 && p.pts ? "top1" : ""} ${p.id === myId ? "me" : ""}"><td class="pos">${i + 1}</td><td>${esc(nameOf(p.id))}</td><td class="pts">${p.pts}</td><td>${p.w}</td><td>${p.d}</td><td>${p.l}</td><td>${p.n ? Math.round(100 * p.ok / p.n) + " %" : "–"}</td></tr>`).join("")}</tbody>
+    </table></div>
+  </section>`;
+}
+
+function viewHistory(){
+  if (!db || !myId) return `<section class="card"><h2>Historique</h2><p class="empty">Tes duels apparaîtront ici.</p></section>`;
+  const mine = duels.filter(d => resOf(d)[myId] && isDone(d));
+  if (!mine.length) return `<section class="card"><h2>Historique</h2><p class="empty">Aucun duel terminé pour l'instant.</p></section>`;
+  return `<section class="card"><h2>Historique</h2><ul class="list">${mine.map(d => {
+    const opp = Object.keys(d.res).find(k => k !== myId); const a = d.res[myId].score, b = d.res[opp].score;
+    const tag = a > b ? `<span class="pill win">Victoire</span>` : a < b ? `<span class="pill lose">Défaite</span>` : `<span class="pill">Égalité</span>`;
+    return `<li class="item">${dotHtml(opp)}<span class="grow"><span class="name">${esc(nameOf(opp))}</span><br><span class="note">${d.mode === "live" ? "En direct" : "En différé"} · ${a} – ${b}</span></span>${tag}</li>`;
+  }).join("")}</ul></section>`;
+}
+
+// ---------- Moteur de quiz ----------
+// live = { startAt, room, oppId } : timing commun aux deux joueurs
+function playQuiz(qids, opts = {}){
+  return new Promise(resolve => {
+    playing = true; setBusy(true);
+    const res = { score:0, correct:0, answers:[] };
+    let opp = { score:0, answers:[] };
+    const box = $("quizInner"); $("quiz").hidden = false;
+    const live = opts.live;
+    let unsub = null, gone = false;
+    if (live) {
+      unsub = live.room.on("ans", m => { if (m.isMe || !m.data) return; const d = m.data; if (typeof d.i === "number" && typeof d.score === "number") { opp.answers[d.i] = !!d.ok; opp.score = d.score; paintScores(); } });
+      live.room.onPeers(ch => { if (ch.left.some(p => !p.isMe)) { gone = true; paintScores(); } });
+    }
+    const target = opts.target; // score à battre (différé)
+    const oppName = live ? nameOf(live.oppId) : target ? nameOf(target.id) : "";
+    function paintScores(){
+      const el = $("scores"); if (!el) return;
+      el.innerHTML = `<div class="side"><span class="who">${esc(myId ? nameOf(myId) : "Toi")}</span><span class="sc">${res.score}</span><div class="pips">${pips(res.answers)}</div></div>
+        <span class="vs">${live ? (gone ? "parti" : "direct") : target ? "à battre" : "solo"}</span>
+        <div class="side r"><span class="who">${esc(oppName)}</span><span class="sc">${live ? opp.score : target ? target.score : ""}</span>${live ? `<div class="pips" style="justify-content:flex-end">${pips(opp.answers)}</div>` : ""}</div>`;
+    }
+    const pips = arr => Array.from({length:QN}, (_, i) => `<b class="${arr[i] === true ? "ok" : arr[i] === false ? "ko" : ""}"></b>`).join("");
+    let i = 0;
+    function show(){
+      if (i >= qids.length) return finish();
+      const q = byId[qids[i]]; const choices = shuffle([q.a, ...q.w]);
+      box.innerHTML = `<div class="scorebar" id="scores"></div>
+        <div class="row"><span class="eyebrow grow">Question ${i + 1} / ${qids.length} · ${["","facile","moyen","pointu"][q.l]}</span></div>
+        <div class="timer"><i id="bar"></i></div>
+        <div class="qtext">${esc(q.q)}</div>
+        <div class="choices">${choices.map((c, k) => `<button class="choice" data-k="${k}">${esc(c)}</button>`).join("")}</div>
+        <p class="explain" id="exp" hidden></p>`;
+      paintScores();
+      const t0 = live ? live.startAt + i * (QT + GAP) : performance.now();
+      const now = () => live ? Date.now() : performance.now();
+      let answered = false, raf;
+      const tick = () => { const left = Math.max(0, QT - (now() - t0)); const b = $("bar"); if (b) b.style.transform = `scaleX(${left / QT})`; if (left <= 0 && !answered) answer(-1); else if (!answered) raf = requestAnimationFrame(tick); };
+      raf = requestAnimationFrame(tick);
+      function answer(k){
+        if (answered) return; answered = true; cancelAnimationFrame(raf);
+        const left = Math.max(0, QT - (now() - t0));
+        const ok = k >= 0 && choices[k] === q.a;
+        if (ok) { res.correct++; res.score += 100 + Math.round(left / 200); }
+        res.answers[i] = ok;
+        box.querySelectorAll(".choice").forEach((b, kk) => { b.disabled = true; if (choices[kk] === q.a) b.classList.add("ok"); else if (kk === k) b.classList.add("ko"); });
+        const e = $("exp"); e.hidden = false; e.textContent = (k < 0 ? "Temps écoulé. " : "") + q.e;
+        paintScores();
+        if (live) live.room.emit("ans", {i, ok, score:res.score}).catch(() => {});
+        const qi = i;
+        const wait = live ? Math.max(1200, t0 + QT + GAP - Date.now()) : 2400;
+        setTimeout(() => { if (i === qi) { i++; show(); } }, wait);
+      }
+      box.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => answer(+b.dataset.k)));
+    }
+    function finish(){
+      if (unsub) unsub();
+      const theirs = live ? opp.score : target ? target.score : null;
+      const verdict = theirs == null ? "" : res.score > theirs ? "Victoire !" : res.score < theirs ? "Perdu…" : "Égalité";
+      box.innerHTML = `<div class="eyebrow center">Partie terminée</div>
+        <div class="big">${res.score} pts</div>
+        <p class="center muted">${res.correct} bonne${res.correct > 1 ? "s" : ""} réponse${res.correct > 1 ? "s" : ""} sur ${qids.length}${theirs != null ? ` · ${esc(oppName)} : ${theirs} pts${live && !gone && opp.answers.filter(x => x !== undefined).length < QN ? " (en cours)" : ""}` : ""}</p>
+        ${verdict ? `<h2 class="center">${verdict}</h2>` : ""}
+        <button class="btn" id="back">Retour</button>`;
+      $("back").addEventListener("click", () => { $("quiz").hidden = true; playing = false; setBusy(false); render(); });
+      resolve(res);
+    }
+    show();
+  });
+}
+
+// ---------- Actions ----------
+async function savePseudo(){
+  const v = ($("pseudo").value || "").trim().slice(0, 18);
+  if (!v) return toast("Écris un pseudo d'abord.");
+  store.set("lumen.pseudo", v);
+  try { await db.doc("players/" + myId).set({pseudo:v, c:Math.floor(Math.random() * COLORS.length), since:Date.now()}); }
+  catch(e){ toast("Impossible d'enregistrer : demande à Erwan de t'inviter comme éditeur."); }
+}
+async function newAsync(){
+  const to = $("opp").value || ""; challengeTo = to;
+  const qids = pickQ();
+  const r = await playQuiz(qids);
+  try { await db.collection("duels").add({mode:"async", from:myId, to, qids, createdAt:Date.now(), res:{[myId]:r}}); toast("Défi envoyé !"); }
+  catch(e){ toast("Le défi n'a pas pu être enregistré."); }
+}
+async function playAsync(id){
+  const d = duels.find(x => x.id === id); if (!d) return;
+  const ref = db.doc("duels/" + id);
+  try { if (!d.to) await ref.update({to:myId}); } catch(e){}
+  const r = await playQuiz(d.qids, {target:{id:d.from, score:totalOf(resOf(d)[d.from])}});
+  try { await ref.update({res:{[myId]:r}, doneAt:Date.now()}); } catch(e){ toast("Ton score n'a pas pu être enregistré."); }
+}
+async function solo(){ await playQuiz(pickQ()); }
+
+// ---------- Direct ----------
+function setBusy(b){ if (room && myId) room.presence({uid:myId, st:b ? "busy" : "free"}).catch(() => {}); }
+function setupRoom(){
+  room.presence({uid:myId, st:"free"}).catch(() => {});
+  room.onPeers(ch => {
+    online = new Map();
+    for (const p of ch.peers) { const uid = p.by || (p.presence && p.presence.uid); if (uid && typeof uid === "string") online.set(uid, {uid, st:p.presence && p.presence.st}); }
+    if (!playing) render();
+  }, () => {});
+  room.on("invite", m => {
+    const d = m.data || {};
+    if (m.isMe || d.to !== myId || playing || !m.by || !Array.isArray(d.qids) || typeof d.code !== "string") return;
+    if (!d.qids.every(q => byId[q])) return;
+    invite = {from:m.by, code:d.code, qids:d.qids}; render();
+  }, () => {});
+  room.on("cancel", m => { if (invite && m.data && m.data.code === invite.code) { invite = null; render(); } }, () => {});
+  room.on("reply", async m => {
+    const d = m.data || {};
+    if (!pendingInvite || d.code !== pendingInvite.code || m.by !== pendingInvite.to) return;
+    const p = pendingInvite; pendingInvite = null;
+    if (!d.ok) { toast(nameOf(p.to) + " a refusé le duel."); return render(); }
+    try {
+      const r = await room.join(p.code);
+      await db.doc("duels/" + p.code).set({mode:"live", from:myId, to:p.to, qids:p.qids, createdAt:Date.now(), res:{}});
+      startLive(r, p.qids, p.to);
+      setTimeout(() => r.emit("start", {delay:3500}).catch(() => {}), 400);
+    } catch(e){ toast("Le duel n'a pas pu démarrer."); render(); }
+  }, () => {});
+}
+function startLive(r, qids, oppId){
+  const off = r.on("start", async m => {
+    off();
+    const delay = Math.min(6000, Math.max(1000, (m.data && m.data.delay) || 3000));
+    const startAt = Date.now() + delay;
+    const box = $("quizInner"); $("quiz").hidden = false;
+    box.innerHTML = `<div class="eyebrow center">Duel en direct contre ${esc(nameOf(oppId))}</div><div class="big" id="cd">3</div>`;
+    const cd = setInterval(() => { const s = Math.ceil((startAt - Date.now()) / 1000); const el = $("cd"); if (el) el.textContent = s > 0 ? s : "Go !"; if (s <= 0) clearInterval(cd); }, 200);
+    await new Promise(ok => setTimeout(ok, delay));
+    const res = await playQuiz(qids, {live:{startAt, room:r, oppId}});
+    try { await db.doc("duels/" + r.name).update({res:{[myId]:res}}); } catch(e){ toast("Ton score n'a pas pu être enregistré."); }
+    r.leave().catch(() => {});
+  });
+}
+async function inviteLive(uid){
+  const code = "d" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  pendingInvite = {to:uid, code, qids:pickQ()}; render();
+  try { await room.emit("invite", {to:uid, code, qids:pendingInvite.qids}); }
+  catch(e){ pendingInvite = null; toast("L'invitation n'est pas partie."); render(); }
+  setTimeout(() => { if (pendingInvite && pendingInvite.code === code) { pendingInvite = null; toast("Pas de réponse."); render(); } }, 45000);
+}
+async function acceptLive(){
+  const inv = invite; invite = null; render();
+  try { const r = await room.join(inv.code); startLive(r, inv.qids, inv.from); await room.emit("reply", {code:inv.code, ok:true}); }
+  catch(e){ toast("Impossible de rejoindre le duel."); }
+}
+function refuseLive(){ const inv = invite; invite = null; render(); room.emit("reply", {code:inv.code, ok:false}).catch(() => {}); }
+function cancelLive(){ const p = pendingInvite; pendingInvite = null; render(); room.emit("cancel", {code:p.code}).catch(() => {}); }
+
+// ---------- Événements ----------
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-act],.tab"); if (!t) return;
+  if (t.classList.contains("tab")) { tab = t.id.slice(4); return render(); }
+  const a = t.dataset.act, id = t.dataset.id;
+  ({savePseudo, newAsync, solo, acceptLive, refuseLive, cancelLive, playAsync:() => playAsync(id), inviteLive:() => inviteLive(id)})[a]?.();
+});
+document.addEventListener("change", e => { if (e.target.id === "opp") challengeTo = e.target.value; });
+
+// ---------- Démarrage ----------
+async function boot(){
+  render();
+  const c = window.claude;
+  if (!c || !c.use) return showStatus();
+  [user, db, room] = await Promise.all([c.use("user"), c.use("db"), c.use("room")]);
+  myId = user ? await user.id() : null;
+  if (!db || !myId) { db = null; room = null; showStatus(); return render(); }
+  const timer = setTimeout(() => { if (!loaded) { $("status").hidden = false; $("status").textContent = "Les données mettent du temps à arriver. Vérifie ta connexion."; } }, 10000);
+  let gotP = false, gotD = false;
+  const ready = () => { if (gotP && gotD && !loaded) { loaded = true; clearTimeout(timer); $("status").hidden = true; } };
+  db.collection("players").onSnapshot(s => { players = {}; s.docs.forEach(d => players[d.id] = d.data()); gotP = true; ready(); if (!playing) render(); }, () => { gotP = true; ready(); });
+  db.collection("duels").orderBy("createdAt", "desc").limit(400).onSnapshot(s => { duels = s.docs.map(d => Object.assign({id:d.id}, d.data())); gotD = true; ready(); if (!playing) render(); }, () => { gotD = true; ready(); });
+  if (room) setupRoom();
+  if (!store.get("lumen.pseudo")) { const n = user && await user.name(); if (n) store.set("lumen.pseudo", n.split(" ")[0]); }
+}
+function showStatus(){ const s = $("status"); s.hidden = false; s.textContent = "Mode solo : pour le classement et les duels, ouvre cette page sur Claude après avoir été invité par Erwan."; }
+boot();
+</script>

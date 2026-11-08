@@ -1,0 +1,21 @@
+<!doctype html>
+<!-- Icône de Lumen : le logo « Lu » (u rose) sous un halo de lampe, sur le violet de l'appli.
+     Rendue en PNG par web/make_icons.js. Taille passée dans l'URL : icon.html?s=512 -->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&display=swap">
+<style>
+html,body{margin:0;background:transparent}
+.ic{position:relative;overflow:hidden;background:radial-gradient(70% 70% at 50% 34%,#5A2E8E 0%,#3B1E68 45%,#241544 100%);display:grid;place-items:center}
+.halo{position:absolute;left:50%;top:38%;width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,140,.55) 0%,rgba(255,190,120,.22) 38%,rgba(255,95,162,0) 70%)}
+.t{position:relative;font-family:Literata,Georgia,serif;font-weight:600;color:#FFF0FA;letter-spacing:-.04em;line-height:1;text-shadow:0 0 .12em rgba(255,214,140,.55)}
+.t b{font-weight:600;color:#FF5FA2}
+.spark{position:absolute;width:9%;aspect-ratio:1;background:#FFD23F;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+</style></head><body>
+<div class="ic" id="ic"><div class="halo"></div><div class="t" id="t">L<b>u</b></div><div class="spark" style="left:72%;top:20%"></div><div class="spark" style="left:20%;top:70%;width:6%"></div></div>
+<script>
+const s = +new URLSearchParams(location.search).get("s") || 512;
+const ic = document.getElementById("ic");
+ic.style.width = ic.style.height = s + "px";
+document.getElementById("t").style.fontSize = (s * 0.5) + "px";
+</script>
+</body></html>

@@ -1,0 +1,432 @@
+<title>Lumen Duels</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout : une colonne façon jeu mobile, cartes en relief qui s'enfoncent, onglets en bas de l'en-tête */
+:root{
+  --bg:#241544; --bg2:#3B1E68; --surface:#3A2468; --surface-2:#4A2F80; --line:#5D3E99;
+  --fg:#FFF0FA; --muted:#CBB5E8; --lamp:#FF5FA2; --lamp-ink:#241634; --accent2:#FFD23F;
+  --good:#6FE0A6; --bad:#FF7B6E; --edge:#1A0E33; --press:#9C2F62;
+  --f-display:"Bricolage Grotesque",system-ui,sans-serif; --f-text:"Literata",Georgia,serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#FFF0F7; --bg2:#FBDDEC; --surface:#FFFFFF; --surface-2:#FBE3F0; --line:#F2BFD8;
+  --fg:#3A1650; --muted:#7E5A93; --lamp:#D81F6E; --lamp-ink:#FFFFFF; --accent2:#B07D00;
+  --good:#1D8657; --bad:#C23A2E; --edge:#E2A6C4; --press:#8E1046; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#FFF0F7; --bg2:#FBDDEC; --surface:#FFFFFF; --surface-2:#FBE3F0; --line:#F2BFD8;
+  --fg:#3A1650; --muted:#7E5A93; --lamp:#D81F6E; --lamp-ink:#FFFFFF; --accent2:#B07D00;
+  --good:#1D8657; --bad:#C23A2E; --edge:#E2A6C4; --press:#8E1046; color-scheme:light}
+*{box-sizing:border-box}
+body{background:radial-gradient(120% 60% at 50% 0%,var(--bg2),var(--bg) 70%) fixed,var(--bg);color:var(--fg);font-family:var(--f-text);font-size:16px;line-height:1.5;min-height:100vh}
+.wrap{max-width:540px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.15}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--lamp)}
+h2{font-size:1.2rem;font-weight:700}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.me-chip{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:700;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;max-width:100%}
+.dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:800;color:#241634;flex:none}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tab{font-family:var(--f-display);font-weight:700;font-size:.95rem;padding:10px 6px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--lamp);border-color:var(--lamp);color:var(--lamp-ink)}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;box-shadow:0 5px 0 var(--edge);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.btn{font-family:var(--f-display);font-weight:800;font-size:1rem;border:0;border-radius:16px;padding:13px 18px;background:var(--lamp);color:var(--lamp-ink);box-shadow:0 5px 0 var(--press);cursor:pointer;transition:transform .08s,box-shadow .08s;touch-action:manipulation}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--press)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.alt{background:var(--surface-2);color:var(--fg);box-shadow:0 5px 0 var(--edge)}
+.btn.gold{background:var(--accent2);color:#241634;box-shadow:0 5px 0 #A07800}
+.btn.sm{font-size:.88rem;padding:8px 12px;border-radius:12px;box-shadow:0 3px 0 var(--press)}
+.btn.sm.alt{box-shadow:0 3px 0 var(--edge)}
+.btn:focus-visible,.tab:focus-visible,.choice:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>.grow{flex:1 1 160px;min-width:0}
+.list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:var(--surface-2);min-width:0}
+.item .name{font-family:var(--f-display);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .grow{flex:1;min-width:0}
+.pill{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--bg2);color:var(--muted);white-space:nowrap}
+.pill.win{background:color-mix(in srgb,var(--good) 22%,transparent);color:var(--good)}
+.pill.lose{background:color-mix(in srgb,var(--bad) 22%,transparent);color:var(--bad)}
+.pill.live{background:color-mix(in srgb,var(--lamp) 25%,transparent);color:var(--lamp)}
+.online{width:10px;height:10px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 25%,transparent);flex:none}
+input,select{font:inherit;font-family:var(--f-display);font-weight:700;width:100%;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--fg)}
+.empty{color:var(--muted);font-style:italic;padding:4px 2px}
+.banner{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 14%,var(--surface))}
+.note{font-size:.9rem;color:var(--muted)}
+table.rank{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rank th{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;padding:6px 4px;font-weight:500}
+.rank th:nth-child(2){text-align:left}
+.rank td{padding:9px 4px;text-align:right;border-top:1px solid var(--line)}
+.rank td:nth-child(2){text-align:left;font-family:var(--f-display);font-weight:700;max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank td.pos{font-family:var(--f-display);font-weight:800;color:var(--muted);width:2.2em}
+.rank tr.top1 td.pos{color:var(--accent2)}
+.rank tr.me td:nth-child(2){color:var(--lamp)}
+.rank .pts{font-family:var(--f-display);font-weight:800;font-size:1.05rem}
+/* Écran de quiz */
+.quiz{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.quiz .wrap{min-height:100%}
+.scorebar{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.side{display:flex;flex-direction:column;gap:2px;min-width:0}
+.side.r{text-align:right}
+.side .who{font-family:var(--f-display);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side .sc{font-family:var(--f-display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.vs{font-family:var(--f-mono);color:var(--muted);font-size:.8rem}
+.timer{height:10px;border-radius:999px;background:var(--surface);overflow:hidden;border:2px solid var(--line)}
+.timer>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--lamp));transform-origin:left}
+.qtext{font-family:var(--f-display);font-weight:700;font-size:1.35rem;line-height:1.25;text-wrap:balance}
+.choices{display:grid;gap:10px}
+.choice{font-family:var(--f-display);font-weight:700;font-size:1.02rem;text-align:left;padding:14px 16px;border-radius:16px;border:2px solid var(--line);background:var(--surface);color:var(--fg);box-shadow:0 5px 0 var(--edge);cursor:pointer;transition:transform .08s,box-shadow .08s}
+.choice:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--edge)}
+.choice:disabled{cursor:default}
+.choice.ok{background:color-mix(in srgb,var(--good) 28%,var(--surface));border-color:var(--good)}
+.choice.ko{background:color-mix(in srgb,var(--bad) 28%,var(--surface));border-color:var(--bad)}
+.explain{font-size:.95rem;color:var(--muted)}
+.pips{display:flex;gap:5px;flex-wrap:wrap}
+.pips b{width:14px;height:14px;border-radius:5px;background:var(--surface-2);border:2px solid var(--line)}
+.pips b.ok{background:var(--good);border-color:var(--good)}
+.pips b.ko{background:var(--bad);border-color:var(--bad)}
+.big{font-family:var(--f-display);font-weight:800;font-size:2.4rem;text-align:center}
+.center{text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);font-family:var(--f-display);font-weight:700;padding:10px 16px;border-radius:14px;z-index:40;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Lumen · prototype multijoueur</div>
+      <h1>Lumen <em>Duels</em></h1>
+    </div>
+    <div class="me-chip" id="meChip" hidden></div>
+  </header>
+  <div id="status" class="card note" hidden></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-jouer" aria-selected="true">Jouer</button>
+    <button class="tab" role="tab" id="tab-classement" aria-selected="false">Classement</button>
+    <button class="tab" role="tab" id="tab-historique" aria-selected="false">Historique</button>
+  </nav>
+  <main id="view"></main>
+</div>
+<div class="quiz" id="quiz" hidden><div class="wrap" id="quizInner"></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const QS = [{"id":"gas01","l":1,"q":"De quelle région vient la choucroute ?","a":"L'Alsace","w":["La Bretagne","La Provence","La Normandie"],"e":"Du chou fermenté dans du sel. Les marins en emportaient contre le scorbut, car il garde sa vitamine C."},{"id":"gas02","l":1,"q":"Quel fromage est fabriqué en Normandie dans une boîte ronde en bois ?","a":"Le camembert","w":["Le roquefort","Le comté","Le reblochon"],"e":"Selon la légende, il a été créé en 1791 par Marie Harel. La boîte en bois date de 1890, pour le transporter en train."},{"id":"gas03","l":1,"q":"Quelle ville a donné son nom à une moutarde célèbre ?","a":"Dijon","w":["Lyon","Reims","Bordeaux"],"e":"La « moutarde de Dijon » est une recette, pas une appellation : elle peut être fabriquée ailleurs, et ses graines viennent souvent du Canada."},{"id":"gas04","l":2,"q":"Quel plat provençal est une soupe de poissons de roche ?","a":"La bouillabaisse","w":["La ratatouille","La tapenade","L'aïoli"],"e":"Née à Marseille, chez les pêcheurs qui cuisaient les poissons invendus. Elle se sert avec une rouille."},{"id":"gas05","l":1,"q":"De quel pays vient la paella ?","a":"L'Espagne","w":["L'Italie","Le Portugal","Le Mexique"],"e":"De la région de Valence. Son nom vient de la poêle large et plate dans laquelle on la cuit."},{"id":"gas06","l":1,"q":"De quel pays viennent les sushis ?","a":"Le Japon","w":["La Chine","La Corée","La Thaïlande"],"e":"Le riz servait d'abord à conserver le poisson par fermentation. Le sushi rapide, à la main, est né à Tokyo au XIXe siècle."},{"id":"gas07","l":2,"q":"Quelle ville italienne a vu naître la pizza margherita ?","a":"Naples","w":["Rome","Milan","Venise"],"e":"Selon la tradition, en 1889, en l'honneur de la reine Marguerite. Tomate, mozzarella et basilic rappellent le drapeau italien."},{"id":"gas08","l":2,"q":"Quelle est l'épice la plus chère du monde ?","a":"Le safran","w":["La vanille","La cannelle","Le poivre"],"e":"Il faut environ 150 000 fleurs de crocus, cueillies à la main, pour obtenir 1 kg de safran."},{"id":"gas09","l":2,"q":"De quelle plante vient la vanille ?","a":"Une orchidée","w":["Un arbre","Un cactus","Une fougère"],"e":"Originaire du Mexique. Hors de là, ses fleurs doivent être pollinisées à la main, technique trouvée en 1841 par un esclave réunionnais de 12 ans, Edmond Albius."},{"id":"gas10","l":1,"q":"De quoi est fait le guacamole ?","a":"D'avocat","w":["De pois chiches","D'aubergine","De petits pois"],"e":"Une recette aztèque. Son nom vient du nahuatl ahuacatl (avocat) et molli (sauce)."},{"id":"gas11","l":2,"q":"De quoi est fait le houmous ?","a":"De pois chiches","w":["De lentilles","D'avocat","De fèves"],"e":"Avec de la crème de sésame (tahini), du citron et de l'ail. Son nom veut dire « pois chiche » en arabe."},{"id":"gas12","l":2,"q":"D'où vient le croissant, selon les historiens ?","a":"De Vienne, en Autriche","w":["De Paris","De Lyon","De Bruxelles"],"e":"Il descend du kipferl autrichien. La version feuilletée au beurre a été perfectionnée à Paris au XIXe siècle."},{"id":"gas13","l":2,"q":"Qu'est-ce qui fait lever la pâte à pain ?","a":"La levure ou le levain","w":["Le sel","Le sucre","Le beurre"],"e":"Ces champignons microscopiques mangent les sucres et rejettent du gaz carbonique, qui gonfle la pâte."},{"id":"gas14","l":1,"q":"Quel légume est la base de la ratatouille, avec la tomate et la courgette ?","a":"L'aubergine","w":["La carotte","Le poireau","Le chou"],"e":"Une spécialité niçoise. Les légumes se cuisent idéalement séparément avant d'être réunis."},{"id":"gas15","l":2,"q":"Quelle région est célèbre pour son cassoulet ?","a":"L'Occitanie","w":["L'Alsace","La Bretagne","Les Hauts-de-France"],"e":"Castelnaudary, Carcassonne et Toulouse se disputent la vraie recette. Base : haricots blancs, confit et saucisse."},{"id":"gas16","l":1,"q":"De quelle région viennent les crêpes et les galettes au sarrasin ?","a":"La Bretagne","w":["La Savoie","L'Auvergne","La Lorraine"],"e":"La galette salée se fait avec de la farine de sarrasin, un « blé noir » qui n'est en réalité pas une céréale."},{"id":"gas17","l":1,"q":"Quel fromage est indispensable à une tartiflette ?","a":"Le reblochon","w":["Le comté","Le brie","Le cantal"],"e":"La recette a été popularisée dans les années 1980 par l'interprofession du reblochon pour vendre plus de fromage."},{"id":"gas18","l":2,"q":"Quel fromage français est le plus produit, en volume, sous appellation d'origine ?","a":"Le comté","w":["Le roquefort","Le camembert de Normandie","Le brie de Meaux"],"e":"Une meule pèse environ 40 kg et demande plus de 400 litres de lait."},{"id":"gas19","l":2,"q":"De quel lait est fait le roquefort ?","a":"De brebis","w":["De vache","De chèvre","De bufflonne"],"e":"Il est affiné dans les caves de Roquefort-sur-Soulzon. Ses veines bleues sont un champignon, le Penicillium roqueforti."},{"id":"gas20","l":2,"q":"De quel lait est faite la vraie mozzarella di bufala ?","a":"De bufflonne","w":["De vache","De brebis","De chèvre"],"e":"Elle vient de Campanie, autour de Naples. La plupart des mozzarellas vendues sont pourtant au lait de vache."},{"id":"gas21","l":2,"q":"Quel champignon très recherché pousse sous terre ?","a":"La truffe","w":["Le cèpe","La girolle","La morille"],"e":"On la cherche avec des chiens ou des cochons, qui la sentent à travers la terre. La noire du Périgord peut dépasser 1 000 € le kilo."},{"id":"gas22","l":2,"q":"Quelle boisson est obtenue à partir de pommes fermentées ?","a":"Le cidre","w":["La bière","Le poiré","Le kéfir"],"e":"Le poiré, lui, est fait avec des poires. Distillé, le cidre donne le calvados."},{"id":"gas23","l":2,"q":"Quelle céréale sert surtout à fabriquer la bière ?","a":"L'orge","w":["Le maïs","Le riz","L'avoine"],"e":"On la fait germer pour obtenir du malt. Le houblon donne l'amertume et aide à la conservation."},{"id":"gas24","l":2,"q":"Quelle plante donne le chocolat ?","a":"Le cacaoyer","w":["Le caféier","Le palmier","Le caroubier"],"e":"Ses fèves poussent dans des cabosses accrochées directement au tronc. La Côte d'Ivoire en est le premier producteur."},{"id":"gas25","l":2,"q":"Qui a inventé la tablette de chocolat solide à croquer, au XIXe siècle ?","a":"Des chocolatiers britanniques","w":["Les Aztèques","Louis XIV","Un moine belge"],"e":"Avant, le chocolat se buvait. La société Fry, à Bristol, a vendu l'une des premières tablettes en 1847."},{"id":"gas26","l":1,"q":"Quelle boisson est la plus bue au monde après l'eau ?","a":"Le thé","w":["Le café","Le soda","La bière"],"e":"Le thé vert, noir ou blanc vient de la même plante : seul le traitement des feuilles change."},{"id":"gas27","l":2,"q":"De quel pays vient le café, selon la légende d'un berger et de ses chèvres ?","a":"L'Éthiopie","w":["Le Brésil","La Colombie","L'Italie"],"e":"Les chèvres excitées après avoir mangé des baies auraient mis le berger Kaldi sur la piste. Le Brésil en est aujourd'hui le premier producteur."},{"id":"gas28","l":2,"q":"Que signifie « al dente » pour des pâtes ?","a":"Encore un peu fermes sous la dent","w":["Très cuites","Avec de l'ail","Sans sauce"],"e":"Elles gardent une petite résistance au centre et font monter moins vite le sucre dans le sang."},{"id":"gas29","l":2,"q":"Quelle est la sauce de base d'une vraie carbonara italienne ?","a":"Jaune d'œuf, pecorino et poivre","w":["Crème fraîche et lardons","Tomate et basilic","Beurre et ail"],"e":"La recette romaine utilise du guanciale, de la joue de porc. La crème est une habitude française."},{"id":"gas30","l":2,"q":"Quel plat japonais est un bouillon avec des nouilles de blé ?","a":"Les ramen","w":["Les sushis","Les tempuras","Le tofu"],"e":"D'origine chinoise, ils ont été adoptés au Japon. Les nouilles instantanées ont été inventées en 1958 par Momofuku Ando."},{"id":"gas31","l":2,"q":"Quel aliment est fabriqué avec du lait de soja caillé ?","a":"Le tofu","w":["Le seitan","Le tempeh","Le miso"],"e":"Il est né en Chine il y a environ 2 000 ans. Le seitan est fait de gluten de blé."},{"id":"gas32","l":1,"q":"Quel pays produit le plus de vin au monde, selon les années ?","a":"L'Italie ou la France","w":["Les États-Unis","L'Espagne","L'Argentine"],"e":"Les deux se disputent la première place selon les récoltes. L'Espagne a, elle, la plus grande surface de vignes."},{"id":"gas33","l":2,"q":"Quelle région produit le champagne ?","a":"La Champagne","w":["La Bourgogne","L'Alsace","Le Bordelais"],"e":"Seul le vin effervescent de cette région peut porter ce nom. Les bulles viennent d'une seconde fermentation en bouteille."},{"id":"gas34","l":2,"q":"Quel chef a été surnommé le « cuisinier du siècle » par le guide Gault & Millau ?","a":"Paul Bocuse","w":["Joël Robuchon","Alain Ducasse","Cyril Lignac"],"e":"Le chef lyonnais a donné son nom au Bocuse d'or, un concours mondial de cuisine. Robuchon a reçu le même titre plus tard."},{"id":"gas35","l":2,"q":"Que récompensent les étoiles du guide Michelin ?","a":"Les restaurants","w":["Les hôtels uniquement","Les vins","Les pneus"],"e":"Le guide a été créé en 1900 par le fabricant de pneus pour pousser les gens à rouler… et à user leurs pneus."},{"id":"gas36","l":2,"q":"Qu'est-ce qu'un macaron parisien ?","a":"Deux coques d'amande garnies","w":["Un biscuit à la noix de coco","Une crêpe roulée","Un chou à la crème"],"e":"Les coques sont à base de poudre d'amande, sucre et blancs d'œufs. Ladurée l'a popularisé au XXe siècle."},{"id":"gas37","l":2,"q":"Quel dessert breton signifie « gâteau au beurre » ?","a":"Le kouign-amann","w":["Le far","Le cannelé","Le clafoutis"],"e":"Né à Douarnenez vers 1860. Il est fait de pâte à pain, de beurre et de sucre, en couches."},{"id":"gas38","l":2,"q":"De quelle ville vient le cannelé ?","a":"Bordeaux","w":["Toulouse","Lyon","Nantes"],"e":"Il serait lié aux jaunes d'œufs laissés par les viticulteurs, qui utilisaient les blancs pour clarifier le vin."},{"id":"gas39","l":2,"q":"Pourquoi l'oignon frit devient-il brun et sucré ?","a":"Ses sucres caramélisent","w":["Il perd son eau seulement","Il brûle","Il absorbe l'huile"],"e":"Avec la réaction de Maillard, c'est ce qui donne aussi sa croûte au pain et sa couleur à la viande grillée."},{"id":"gas40","l":2,"q":"Comment s'appelle la réaction qui fait dorer la viande et le pain ?","a":"La réaction de Maillard","w":["La fermentation","L'oxydation","La caramélisation"],"e":"Décrite par le Français Louis-Camille Maillard en 1912. Des sucres et des protéines réagissent à la chaleur."},{"id":"gas41","l":2,"q":"De quel continent la pomme de terre est-elle originaire ?","a":"L'Amérique du Sud","w":["L'Europe","L'Asie","L'Afrique"],"e":"Elle vient des Andes, où les Incas en cultivaient des centaines de variétés. Elle est arrivée en Europe au XVIe siècle."},{"id":"gas42","l":2,"q":"Qui a popularisé la pomme de terre en France au XVIIIe siècle ?","a":"Antoine Parmentier","w":["Louis Pasteur","Jean-Anthelme Brillat-Savarin","Auguste Escoffier"],"e":"Pharmacien militaire, il l'avait découverte comme prisonnier en Prusse. D'où le hachis parmentier."},{"id":"gas43","l":1,"q":"Quel fruit sec est utilisé dans la pâte de pralin ?","a":"La noisette ou l'amande","w":["La cacahuète","La noix de cajou","La pistache"],"e":"Caramélisées puis broyées. Le Paris-Brest est garni d'une crème au praliné."},{"id":"gas44","l":2,"q":"Quel dessert célèbre une course cycliste avec sa forme de roue ?","a":"Le Paris-Brest","w":["L'opéra","Le mille-feuille","Le saint-honoré"],"e":"Créé en 1910 pour la course Paris-Brest-Paris. Sa forme ronde imite une roue de vélo."},{"id":"gas45","l":2,"q":"Quelle crêpe est flambée au Grand Marnier et à l'orange ?","a":"La crêpe Suzette","w":["La crêpe bretonne","La crêpe dentelle","La galette complète"],"e":"Son origine se dispute entre plusieurs chefs de la fin du XIXe siècle."},{"id":"gas46","l":3,"q":"Quel plat est un mélange de semoule, légumes et viandes d'Afrique du Nord, très populaire en France ?","a":"Le couscous","w":["Le tajine","La chorba","La pastilla"],"e":"Il est inscrit au patrimoine immatériel de l'UNESCO depuis 2020, grâce à l'Algérie, le Maroc, la Mauritanie et la Tunisie."},{"id":"gas47","l":2,"q":"Combien de temps environ faut-il pour cuire un œuf dur ?","a":"Environ 9 à 10 minutes","w":["Environ 3 minutes","Environ 20 minutes","Environ 1 minute"],"e":"Un œuf à la coque prend environ 3 minutes, un œuf mollet environ 6."},{"id":"gas48","l":2,"q":"Pourquoi le piment brûle-t-il la bouche ?","a":"Une molécule active les capteurs de chaleur","w":["Il est acide","Il est très chaud","Il contient du sel"],"e":"La capsaïcine. Elle se dissout dans le gras : le lait calme mieux que l'eau."},{"id":"gas49","l":3,"q":"Quelle échelle mesure la force des piments ?","a":"L'échelle de Scoville","w":["L'échelle de Mohs","L'échelle de Richter","L'échelle de Beaufort"],"e":"Un poivron est à 0, le piment d'Espelette autour de 4 000, et les plus forts dépassent 2 millions."},{"id":"gas50","l":2,"q":"Quel poisson fermenté suédois est célèbre pour son odeur très forte ?","a":"Le surströmming","w":["Le gravlax","Le lutefisk","Le rollmops"],"e":"Du hareng fermenté en boîte. Les boîtes gonflent, et on les ouvre souvent dehors."},{"id":"gas51","l":2,"q":"De quel pays vient la feta ?","a":"La Grèce","w":["L'Italie","La Turquie","L'Espagne"],"e":"Elle est faite surtout de lait de brebis, parfois mélangé à du lait de chèvre. Dans l'Union européenne, seule la Grèce peut utiliser ce nom."},{"id":"gas52","l":2,"q":"De quelle ville italienne vient le pesto ?","a":"Gênes","w":["Naples","Rome","Milan"],"e":"Le pesto alla genovese mélange basilic, pignons, ail, parmesan et huile d'olive, traditionnellement pilés au mortier."},{"id":"gas53","l":2,"q":"Quel fromage italien est surnommé le « roi des fromages » ?","a":"Le parmesan","w":["La mozzarella","Le gorgonzola","La ricotta"],"e":"Le Parmigiano Reggiano est affiné au moins 12 mois. Ses meules de près de 40 kg servent même de garantie pour des prêts auprès de certaines banques italiennes."},{"id":"gas54","l":2,"q":"De quel pays vient le kimchi ?","a":"La Corée","w":["Le Japon","La Chine","La Thaïlande"],"e":"Du chou fermenté au piment, servi à presque tous les repas. À l'automne, les familles en préparent de grandes quantités ensemble : c'est le kimjang."},{"id":"gas55","l":2,"q":"Quel plat vietnamien est une soupe parfumée aux nouilles de riz ?","a":"Le phở","w":["Le ramen","Le pad thaï","Le bánh mì"],"e":"On le mange souvent au petit-déjeuner. Le bouillon de bœuf mijote des heures avec de l'anis étoilé et de la cannelle."},{"id":"gas56","l":2,"q":"De quel pays vient le pad thaï ?","a":"La Thaïlande","w":["Le Viêt Nam","La Chine","L'Inde"],"e":"Des nouilles de riz sautées avec des œufs, du tamarin et des cacahuètes. Il a été encouragé par le gouvernement thaïlandais lui-même, au milieu du XXe siècle."},{"id":"gas57","l":1,"q":"Quel condiment salé est fabriqué à partir de soja fermenté ?","a":"La sauce soja","w":["Le wasabi","Le ponzu","Le saké"],"e":"Elle est fabriquée depuis plus de mille ans avec du soja, du blé, du sel et des ferments. Le miso est une pâte fermentée de la même famille."},{"id":"gas58","l":3,"q":"De quoi est fait le vrai wasabi ?","a":"D'une racine japonaise","w":["De moutarde","De piment vert","D'algues"],"e":"Le vrai wasabi est rare et cher. Celui servi dans la plupart des restaurants est souvent un mélange de raifort, de moutarde et de colorant vert."},{"id":"gas59","l":2,"q":"De quel pays vient le taboulé ?","a":"Le Liban","w":["Le Maroc","La Turquie","La Grèce"],"e":"Le vrai taboulé libanais est surtout fait de persil, avec un peu de boulgour. La version française, pleine de semoule, est très différente."},{"id":"gas60","l":1,"q":"Quel plat marocain mijote dans un plat en terre au couvercle en forme de cône ?","a":"Le tajine","w":["Le couscous","La pastilla","La harira"],"e":"Le plat a donné son nom à la recette. Son couvercle conique fait retomber la vapeur sur les aliments, qui restent moelleux."},{"id":"gas61","l":1,"q":"De quelle région vient la quiche lorraine ?","a":"La Lorraine","w":["L'Alsace","La Bourgogne","La Normandie"],"e":"La recette traditionnelle n'a ni fromage ni oignon : des œufs, de la crème et des lardons. Le mot quiche viendrait de l'allemand Kuchen, gâteau."},{"id":"gas62","l":1,"q":"De quelle région vient le bœuf bourguignon ?","a":"La Bourgogne","w":["Le Lyonnais","L'Auvergne","La Franche-Comté"],"e":"Le bœuf mijote longuement dans du vin rouge, avec des lardons, des oignons et des champignons."},{"id":"gas63","l":1,"q":"Quel plat consiste à faire fondre une demi-meule de fromage et à la racler ?","a":"La raclette","w":["La fondue","La tartiflette","La croziflette"],"e":"Le mot vient du verbe racler. On la sert avec des pommes de terre et de la charcuterie, en Suisse comme en Savoie."},{"id":"gas64","l":2,"q":"Dans quelle ville appelle-t-on « bouchons » les restaurants traditionnels ?","a":"Lyon","w":["Marseille","Bordeaux","Toulouse"],"e":"On y mange quenelles, saucisson brioché ou tablier de sapeur. Lyon est souvent surnommée la capitale de la gastronomie."},{"id":"gas65","l":3,"q":"Quel fromage a été élu « roi des fromages » au congrès de Vienne en 1815 ?","a":"Le brie de Meaux","w":["Le camembert","Le roquefort","Le comté"],"e":"Selon la légende, le diplomate Talleyrand l'aurait fait goûter aux représentants des pays européens pendant les négociations."},{"id":"gas66","l":1,"q":"Comment appelle-t-on le pain au chocolat dans le Sud-Ouest ?","a":"La chocolatine","w":["Le croissant au chocolat","La couque","Le petit pain"],"e":"Le débat entre « pain au chocolat » et « chocolatine » divise la France depuis longtemps. Les deux noms sont corrects."},{"id":"gas67","l":2,"q":"Quel dessert italien signifie « tire-moi vers le haut » ?","a":"Le tiramisu","w":["La panna cotta","Le cannolo","La sfogliatella"],"e":"Avec du café, du mascarpone, des biscuits et du cacao. Plusieurs régions d'Italie se disputent son invention, au milieu du XXe siècle."},{"id":"gas68","l":2,"q":"Quel dessert est fait de blancs d'œufs posés sur une crème anglaise ?","a":"L'île flottante","w":["La mousse au chocolat","La crème brûlée","Le clafoutis"],"e":"Quand les blancs sont pochés en petites boules, on parle plutôt d'œufs à la neige."},{"id":"gas69","l":2,"q":"Quel gâteau du Limousin contient traditionnellement des cerises avec leurs noyaux ?","a":"Le clafoutis","w":["La tarte Tatin","Le far breton","Le kouign-amann"],"e":"Les noyaux donnent un léger goût d'amande. Avec d'autres fruits que les cerises, on parle plutôt de flaugnarde."},{"id":"gas70","l":1,"q":"Quelle tarte aux pommes est cuite à l'envers ?","a":"La tarte Tatin","w":["La tarte normande","La tarte bourdaloue","Le crumble"],"e":"Elle serait née d'une maladresse des sœurs Tatin, qui tenaient un hôtel en Sologne à la fin du XIXe siècle."},{"id":"gas71","l":1,"q":"Quel gâteau mange-t-on à l'Épiphanie, en janvier ?","a":"La galette des rois","w":["La bûche","Le panettone","Le kouglof"],"e":"Celui qui trouve la fève devient roi ou reine. Dans le Sud, on mange plutôt une couronne briochée aux fruits confits."},{"id":"gas72","l":1,"q":"Quel dessert en forme de bûche mange-t-on à Noël en France ?","a":"La bûche de Noël","w":["La galette des rois","Le stollen","Le pudding"],"e":"Il rappelle la tradition de la grosse bûche qu'on faisait brûler dans la cheminée pendant la veillée de Noël."},{"id":"gas73","l":2,"q":"Quelle pâtisserie allongée est fourrée de crème et couverte de fondant ?","a":"L'éclair","w":["Le chou à la crème","Le mille-feuille","La religieuse"],"e":"Son nom viendrait du fait qu'on le mange « en un éclair ». Les plus classiques sont au café ou au chocolat."},{"id":"gas74","l":2,"q":"Quelle pâte légère sert à faire les éclairs et les chouquettes ?","a":"La pâte à choux","w":["La pâte feuilletée","La pâte brisée","La pâte sablée"],"e":"Elle gonfle à la cuisson grâce à l'eau qui se transforme en vapeur, ce qui laisse un creux à l'intérieur."},{"id":"gas75","l":2,"q":"Quelle pâtisserie superpose pâte feuilletée et crème pâtissière ?","a":"Le mille-feuille","w":["L'éclair","Le fraisier","Le saint-honoré"],"e":"La pâte feuilletée est pliée de nombreuses fois avec du beurre, ce qui crée des centaines de fines couches."},{"id":"gas76","l":1,"q":"Qu'est-ce que la crème chantilly ?","a":"De la crème fouettée sucrée","w":["Une crème anglaise","Une crème au beurre","Du lait concentré"],"e":"Son nom vient du château de Chantilly, mais son invention exacte reste discutée."},{"id":"gas77","l":1,"q":"Comment fait-on monter des blancs en neige ?","a":"On les fouette","w":["On les chauffe","On les congèle","On y ajoute de l'eau"],"e":"Le fouet emprisonne des bulles d'air dans les protéines. Une seule trace de jaune ou de gras peut tout faire rater."},{"id":"gas78","l":1,"q":"Qu'est-ce qui recouvre une crème brûlée ?","a":"Du sucre caramélisé","w":["Du chocolat","De la chantilly","Des amandes"],"e":"On caramélise le sucre au chalumeau ou sous le gril, pour obtenir une fine croûte qui craque sous la cuillère."},{"id":"gas79","l":2,"q":"Quelle épice donne sa couleur jaune au curry ?","a":"Le curcuma","w":["Le safran","Le paprika","Le cumin"],"e":"Le curry n'est pas une épice, mais un mélange d'épices. Le curcuma est une racine de la même famille que le gingembre."},{"id":"gas80","l":2,"q":"Quelle épice vient de l'écorce d'un arbre ?","a":"La cannelle","w":["La muscade","Le poivre","La vanille"],"e":"On récolte l'écorce de jeunes branches, qui s'enroule en séchant pour former de petits bâtons."},{"id":"gas81","l":2,"q":"De quel pays le poivre noir est-il originaire ?","a":"L'Inde","w":["Le Mexique","La Chine","L'Espagne"],"e":"Il pousse sur une liane, sur la côte sud-ouest de l'Inde. Au Moyen Âge, il était si cher qu'on l'appelait l'« or noir »."},{"id":"gas82","l":2,"q":"De quel continent viennent la tomate, le maïs et le cacao ?","a":"L'Amérique","w":["L'Asie","L'Afrique","L'Europe"],"e":"Ils sont arrivés en Europe après les voyages de Christophe Colomb. Les Européens ont longtemps cru la tomate toxique."},{"id":"gas83","l":2,"q":"Quelle boisson au café porte le nom de la couleur de l'habit de certains moines ?","a":"Le cappuccino","w":["Le ristretto","L'americano","Le café noisette"],"e":"Elle mêle espresso et lait mousseux. Son nom vient des moines capucins et de leur robe brune."},{"id":"gas84","l":1,"q":"Quel pain est le plus vendu en France ?","a":"La baguette","w":["La ficelle","Le pain de campagne","La flûte"],"e":"Environ six milliards de baguettes sont vendues chaque année. Son savoir-faire est inscrit au patrimoine immatériel de l'UNESCO depuis 2022."},{"id":"gas85","l":1,"q":"Que mange-t-on traditionnellement à la Chandeleur, le 2 février ?","a":"Des crêpes","w":["Des gaufres","Une galette des rois","Des beignets"],"e":"La tradition veut qu'on fasse sauter la première crêpe en tenant une pièce dans l'autre main, pour avoir de la chance toute l'année."},{"id":"gas86","l":2,"q":"Quelle région française produit le plus de foie gras ?","a":"Le Sud-Ouest","w":["L'Alsace","La Bretagne","La Normandie"],"e":"La France est le premier producteur mondial. Le foie gras fait partie du patrimoine gastronomique protégé par la loi française."},{"id":"gas87","l":2,"q":"Quel plat péruvien est fait de poisson cru mariné dans du citron vert ?","a":"Le ceviche","w":["Le sashimi","Le tartare","Le poke"],"e":"C'est le plat national du Pérou. L'acidité du citron « cuit » légèrement le poisson, sans chaleur."},{"id":"gas88","l":2,"q":"Quel plat hawaïen de poisson cru en dés, servi en bol, est devenu à la mode ?","a":"Le poke","w":["Le ceviche","Le sushi","Le carpaccio"],"e":"Son nom veut dire « couper en morceaux » en hawaïen. On le sert souvent sur du riz avec des légumes."},{"id":"gas89","l":3,"q":"Qu'est-ce qu'un carpaccio ?","a":"De fines tranches de viande ou de poisson crus","w":["Une pizza très fine","Un gâteau italien","Une soupe froide"],"e":"Inventé à Venise vers 1950, il porte le nom du peintre Vittore Carpaccio, connu pour ses rouges vifs."},{"id":"gas90","l":2,"q":"Quelle soupe froide espagnole est faite de tomates crues ?","a":"Le gaspacho","w":["La garbure","Le minestrone","La soupe à l'oignon"],"e":"Spécialité de l'Andalousie, idéale en été. On mixe tomates, concombre, poivron, ail, huile d'olive et un peu de pain."},{"id":"gas91","l":2,"q":"De quel pays vient la moussaka ?","a":"La Grèce","w":["L'Italie","L'Espagne","Le Portugal"],"e":"Des couches d'aubergines, de viande hachée et de béchamel gratinée. On en trouve des versions dans tous les Balkans et au Proche-Orient."},{"id":"gas92","l":2,"q":"Quelle sauce est faite de beurre, de farine et de lait ?","a":"La béchamel","w":["La hollandaise","La mayonnaise","La béarnaise"],"e":"C'est l'une des grandes sauces de base de la cuisine française. Elle sert pour les lasagnes, les croque-monsieur ou les gratins."},{"id":"gas93","l":2,"q":"Quelle sauce froide mélange jaune d'œuf et huile ?","a":"La mayonnaise","w":["La vinaigrette","La béchamel","La sauce tomate"],"e":"Son nom viendrait de la prise de Port-Mahon, à Minorque, en 1756. L'aïoli est sa cousine provençale, à l'ail."},{"id":"gas94","l":1,"q":"Comment appelle-t-on un croque-monsieur avec un œuf au plat dessus ?","a":"Un croque-madame","w":["Un croque-provençal","Un croque-bœuf","Un croque-roi"],"e":"Le croque-monsieur serait apparu dans un café parisien en 1910. L'œuf évoquerait le chapeau des dames de l'époque."},{"id":"gas95","l":2,"q":"Quel fruit à peau rose et chair blanche à graines noires vient d'un cactus ?","a":"Le fruit du dragon","w":["Le kiwi","La goyave","Le litchi"],"e":"Aussi appelé pitaya. Il pousse surtout en Amérique centrale et en Asie du Sud-Est."},{"id":"gas96","l":3,"q":"Quelle variété de banane représente presque toutes celles qu'on mange en Europe ?","a":"La Cavendish","w":["La Gros Michel","La plantain","La Pink"],"e":"Ce sont presque des clones, sans vraies graines. La variété précédente, la Gros Michel, a été presque anéantie par une maladie dans les années 1950."},{"id":"gas97","l":1,"q":"Que signifie « bio » sur un aliment ?","a":"Issu de l'agriculture biologique","w":["Sans sucre ajouté","Fabriqué en France","Pauvre en calories"],"e":"Il garantit notamment l'absence de pesticides et d'engrais chimiques de synthèse. En France, le logo vert « AB » l'indique."},{"id":"gas98","l":2,"q":"Que signifie le sigle AOP sur un fromage ?","a":"Appellation d'origine protégée","w":["Aliment d'origine paysanne","Affiné ou pasteurisé","Agriculture ordinaire et propre"],"e":"Le produit doit être fabriqué dans une région précise, selon un savoir-faire reconnu. Le roquefort et le camembert de Normandie en ont une."},{"id":"gas99","l":1,"q":"Quel logo note les aliments de A à E selon leur qualité nutritionnelle ?","a":"Le Nutri-Score","w":["Le Label Rouge","L'AOP","Le logo AB"],"e":"Créé en France et affiché sur les emballages depuis 2017. Le A, vert foncé, est la meilleure note."},{"id":"gas100","l":1,"q":"Quel plat britannique associe poisson pané et frites ?","a":"Le fish and chips","w":["Le pudding","Le haggis","Le roast beef"],"e":"Il était traditionnellement vendu enveloppé dans du papier journal. Le haggis, panse de brebis farcie, est un plat écossais."},{"id":"gas101","l":1,"q":"De quelle ville allemande vient le nom du hamburger ?","a":"Hambourg","w":["Berlin","Munich","Francfort"],"e":"Des émigrants venus de ce port ont apporté aux États-Unis le « steak de Hambourg », qu'on a ensuite glissé dans un pain."},{"id":"gas102","l":1,"q":"Quel légume orange les lapins de dessin animé adorent-ils ?","a":"La carotte","w":["Le potiron","Le poivron","La patate douce"],"e":"Autrefois, les carottes étaient surtout violettes ou jaunes. La carotte orange s'est imposée aux Pays-Bas au XVIIe siècle."},{"id":"gas103","l":1,"q":"Avec quel légume fait-on les frites ?","a":"La pomme de terre","w":["La carotte","La courgette","Le navet"],"e":"Belges et Français se disputent leur invention. Les meilleures frites sont souvent cuites deux fois."},{"id":"gas104","l":1,"q":"Quel fromage suisse est célèbre pour ses trous ?","a":"L'emmental","w":["Le comté","Le gruyère","La raclette"],"e":"Les trous viennent de bulles de gaz produites par des bactéries. Le vrai gruyère suisse, lui, n'a presque pas de trous."},{"id":"gas105","l":1,"q":"De quel animal vient le jambon ?","a":"Du porc","w":["Du bœuf","Du mouton","Du poulet"],"e":"C'est la cuisse arrière du cochon. Le jambon de Bayonne ou le jambon de Parme sont séchés pendant des mois."},{"id":"gas106","l":2,"q":"De quel pays vient le gouda ?","a":"Des Pays-Bas","w":["De la Suisse","Du Danemark","De la Belgique"],"e":"Il porte le nom d'une ville près de Rotterdam. C'est un des fromages les plus consommés au monde."},{"id":"gas107","l":2,"q":"Quelle ville est célèbre pour son nougat ?","a":"Montélimar","w":["Nice","Nancy","Dijon"],"e":"On le prépare avec du miel, des blancs d'œufs et des amandes de Provence."},{"id":"gas108","l":2,"q":"Quelle confiserie en forme de losange est une spécialité d'Aix-en-Provence ?","a":"Le calisson","w":["Le nougat","La bêtise","Le berlingot"],"e":"Il est fait de pâte d'amande et de melon confit, recouverte d'un glaçage blanc."},{"id":"gas109","l":2,"q":"De quelle ville viennent les bêtises, des bonbons à la menthe ?","a":"Cambrai","w":["Vichy","Carpentras","Nancy"],"e":"Selon la légende, un apprenti confiseur se serait trompé dans sa recette, et sa « bêtise » a plu à tout le monde."},{"id":"gas110","l":2,"q":"Quelle spécialité alsacienne est une pâte fine garnie de crème, d'oignons et de lardons ?","a":"La flammekueche","w":["La choucroute","Le baeckeoffe","Le kouglof"],"e":"Son nom signifie « gâteau à la flamme » : on la cuisait dans le four à bois, quand il était encore très chaud."},{"id":"gas111","l":2,"q":"Quelle eau-de-vie normande est obtenue en distillant du cidre ?","a":"Le calvados","w":["Le cognac","L'armagnac","Le pommeau"],"e":"Elle porte le nom d'un département. Le pommeau est un mélange de jus de pomme et de calvados."},{"id":"gas112","l":2,"q":"Avec quel fruit fait-on le kirsch ?","a":"La cerise","w":["La prune","La poire","La framboise"],"e":"« Kirsch » veut dire cerise en allemand. On en met dans la forêt-noire et dans certaines fondues."},{"id":"gas113","l":2,"q":"Quelle herbe aromatique est la base du pesto ?","a":"Le basilic","w":["Le persil","La menthe","La coriandre"],"e":"Avec de l'huile d'olive, des pignons, de l'ail et du parmesan. On l'écrasait autrefois au mortier, d'où son nom."},{"id":"gas114","l":3,"q":"Que signifie « à la florentine » pour un plat ?","a":"Préparé avec des épinards","w":["Cuit au barbecue","Servi avec des truffes","Flambé à l'alcool"],"e":"L'expression ferait référence à Catherine de Médicis, née à Florence, qui aimait ce légume."},{"id":"gas115","l":3,"q":"Que veut dire « blanchir » un légume en cuisine ?","a":"Le plonger quelques minutes dans l'eau bouillante","w":["Le peindre en blanc","Le saupoudrer de farine","Le peler entièrement"],"e":"On le passe ensuite souvent dans l'eau glacée pour garder sa couleur et son croquant."},{"id":"gas116","l":3,"q":"Quelle variété de riz utilise-t-on pour le risotto ?","a":"L'arborio","w":["Le basmati","Le riz thaï","Le riz sauvage"],"e":"Ce riz rond relâche de l'amidon pendant la cuisson, ce qui donne le côté crémeux."},{"id":"gas117","l":3,"q":"Quel pays boit le plus de café par habitant ?","a":"La Finlande","w":["L'Italie","Le Brésil","Les États-Unis"],"e":"Plus de 10 kg de café par personne et par an. Les pauses café sont même prévues dans certains accords de travail."},{"id":"gas118","l":3,"q":"De quel pays vient l'huile d'argan ?","a":"Du Maroc","w":["De la Grèce","De la Tunisie","Du Liban"],"e":"L'arganier ne pousse presque qu'au sud-ouest du Maroc. On raconte que des chèvres grimpent dans ces arbres pour manger les fruits."},{"id":"gas119","l":3,"q":"Quelle sauce est faite de beurre, de jaune d'œuf, d'échalote et d'estragon ?","a":"La béarnaise","w":["La hollandaise","La mayonnaise","La béchamel"],"e":"Elle accompagne souvent la viande grillée. La hollandaise, elle, est au citron, sans estragon."},{"id":"gas120","l":3,"q":"Comment s'appelle le pain plat italien cuit avec de l'huile d'olive ?","a":"La focaccia","w":["La ciabatta","Le grissini","La piadina"],"e":"Elle vient de Ligurie, la région de Gênes. On creuse sa surface avec les doigts avant la cuisson."},{"id":"gas121","l":3,"q":"Quel chef a publié en 1903 « Le Guide culinaire », la bible de la cuisine française ?","a":"Auguste Escoffier","w":["Paul Bocuse","Marie-Antoine Carême","Fernand Point"],"e":"Il y rassemble près de 5 000 recettes. On lui doit aussi l'organisation des cuisines en « brigade », avec un chef pour chaque poste."},{"id":"gas122","l":3,"q":"Qui a écrit « Physiologie du goût » en 1825 ?","a":"Jean-Anthelme Brillat-Savarin","w":["Grimod de La Reynière","Auguste Escoffier","Marie-Antoine Carême"],"e":"On lui doit la phrase : « Dis-moi ce que tu manges, je te dirai ce que tu es. » Un fromage normand porte son nom."},{"id":"gas123","l":3,"q":"Comment s'appelle le cinquième goût, après le sucré, le salé, l'acide et l'amer ?","a":"L'umami","w":["Le piquant","L'astringent","Le métallique"],"e":"Identifié en 1908 par le chimiste japonais Kikunae Ikeda dans un bouillon d'algue. Il vient surtout du glutamate, présent dans le parmesan ou la tomate."},{"id":"gas124","l":3,"q":"Quel fromage du Haut-Doubs est vendu cerclé d'une bande d'écorce d'épicéa ?","a":"Le mont-d'or","w":["Le munster","L'époisses","Le saint-nectaire"],"e":"On ne le fabrique qu'en hiver. Très coulant, il se mange souvent chaud, directement dans sa boîte, à la cuillère."},{"id":"gas125","l":3,"q":"Qu'était le garum, très apprécié des Romains ?","a":"Une sauce de poisson fermenté","w":["Un vin épicé au miel","Un pain aux olives","Un fromage de chèvre"],"e":"On le mettait dans presque tous les plats, comme du sel. Les sauces de poisson d'Asie du Sud-Est, comme le nuoc-mâm, lui ressemblent beaucoup."},{"id":"gas126","l":3,"q":"Quelle volaille AOP aux couleurs du drapeau français a les pattes bleues, les plumes blanches et la crête rouge ?","a":"Le poulet de Bresse","w":["Le poulet de Loué","Le poulet des Landes","Le chapon de Bourgogne"],"e":"C'est la seule volaille à avoir une appellation d'origine, depuis 1957. Les poulets doivent vivre en plein air, sur de grands prés."},{"id":"gas127","l":3,"q":"De quelle ville vient la lentille verte qui a été le premier légume sec à obtenir une appellation d'origine ?","a":"Le Puy-en-Velay","w":["Clermont-Ferrand","Castelnaudary","Dijon"],"e":"Elle a obtenu son AOC en 1996. Le climat sec et le sol volcanique de la Haute-Loire lui donnent sa peau fine."},{"id":"gas128","l":3,"q":"Quel pays est le premier producteur mondial d'huile d'olive ?","a":"L'Espagne","w":["L'Italie","La Grèce","La Tunisie"],"e":"Il produit souvent près de la moitié de l'huile d'olive mondiale, surtout en Andalousie, où les oliviers s'étendent à perte de vue."},{"id":"gas129","l":3,"q":"Quel titre récompense les meilleurs artisans de France, qui portent ensuite un col bleu-blanc-rouge ?","a":"Meilleur ouvrier de France","w":["Chef étoilé","Toque d'or","Grand cordon"],"e":"Le concours existe depuis 1924. Pâtissiers, bouchers ou fromagers passent des épreuves de plusieurs jours pour décrocher le col tricolore."},{"id":"gas130","l":3,"q":"Quelle épice est la fine enveloppe rouge qui entoure la noix de muscade ?","a":"Le macis","w":["La cardamome","La badiane","Le curcuma"],"e":"Le muscadier vient des îles Banda, en Indonésie. Pour garder le contrôle d'une de ces îles, les Hollandais ont laissé Manhattan aux Anglais en 1667."},{"id":"gas131","l":3,"q":"Que sont les clous de girofle ?","a":"Des boutons de fleurs séchés","w":["Des graines grillées","Des morceaux d'écorce","Des racines coupées"],"e":"On les cueille avant qu'ils fleurissent. Le giroflier vient des îles Moluques, en Indonésie, longtemps surnommées les « îles aux épices »."},{"id":"gas132","l":3,"q":"Quel champignon, rare et cher, a un chapeau creusé d'alvéoles comme une éponge ?","a":"La morille","w":["La truffe","La girolle","Le cèpe"],"e":"Elle pousse au printemps. Elle doit toujours être bien cuite, car crue elle est toxique."}];
+const QN = 10, QT = 15000, GAP = 2600;
+const COLORS = ["#FF5FA2","#FFD23F","#6FE0A6","#7FC8FF","#C9A2FF","#FF9E6E","#5FE3D8","#F7A8FF"];
+const byId = Object.fromEntries(QS.map(q => [q.id, q]));
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pickQ = () => { const lv = [1,1,1,2,2,2,2,3,3,3]; const out = []; for (const l of lv) { const pool = QS.filter(q => q.l === l && !out.includes(q.id)); out.push((pool.length ? pool : QS)[Math.floor(Math.random() * (pool.length || QS.length))].id); } return shuffle(out); };
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+
+let tab = "jouer", db = null, user = null, room = null, myId = null;
+let players = {}, duels = [], online = new Map(), invite = null, pendingInvite = null, playing = false, loaded = false;
+let challengeTo = "";
+
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2600); }
+const nameOf = id => (players[id] && players[id].pseudo) || "Joueur mystère";
+const colorOf = id => (players[id] && COLORS[players[id].c % COLORS.length]) || COLORS[0];
+const dotHtml = id => `<span class="dot" style="background:${colorOf(id)}">${esc(nameOf(id).slice(0,1).toUpperCase())}</span>`;
+const resOf = d => d.res || {};
+const isDone = d => Object.keys(resOf(d)).length >= 2;
+const totalOf = r => r ? r.score : 0;
+
+// ---------- Classement : calculé à partir des duels terminés ----------
+function ranking(){
+  const t = {};
+  const row = id => t[id] ||= {id, pts:0, w:0, d:0, l:0, ok:0, n:0};
+  for (const id of Object.keys(players)) row(id);
+  for (const d of duels) {
+    if (!isDone(d)) continue;
+    const [a, b] = Object.keys(d.res); const ra = d.res[a], rb = d.res[b];
+    const A = row(a), B = row(b);
+    A.ok += ra.correct; A.n += QN; B.ok += rb.correct; B.n += QN;
+    if (ra.score > rb.score) { A.pts += 3; A.w++; B.l++; }
+    else if (rb.score > ra.score) { B.pts += 3; B.w++; A.l++; }
+    else { A.pts++; B.pts++; A.d++; B.d++; }
+  }
+  return Object.values(t).sort((x, y) => y.pts - x.pts || y.w - x.w || (y.n ? y.ok / y.n : 0) - (x.n ? x.ok / x.n : 0));
+}
+
+// ---------- Rendu ----------
+function render(){
+  for (const k of ["jouer","classement","historique"]) $("tab-" + k).setAttribute("aria-selected", String(tab === k));
+  const chip = $("meChip");
+  if (myId && players[myId]) { chip.hidden = false; chip.innerHTML = dotHtml(myId) + `<span>${esc(nameOf(myId))}</span>`; } else chip.hidden = true;
+  const v = $("view");
+  if (tab === "jouer") v.innerHTML = viewPlay();
+  else if (tab === "classement") v.innerHTML = viewRank();
+  else v.innerHTML = viewHistory();
+}
+
+function viewPlay(){
+  if (!db || !myId) return `
+    <section class="card">
+      <h2>Partie solo</h2>
+      <p class="muted">10 questions, 15 secondes chacune. Réponds vite pour gagner des points bonus.</p>
+      <button class="btn" data-act="solo">Jouer une partie</button>
+    </section>`;
+  if (!loaded) return `<section class="card"><p class="muted">Chargement des joueurs et des défis…</p></section>`;
+  if (!players[myId]) return `
+    <section class="card">
+      <h2>Choisis ton pseudo</h2>
+      <p class="muted">C'est le nom que tes amis verront dans le classement et les défis.</p>
+      <div class="row"><input class="grow" id="pseudo" maxlength="18" placeholder="Ton pseudo" value="${esc(store.get("lumen.pseudo") || "")}"><button class="btn" data-act="savePseudo">C'est parti</button></div>
+    </section>`;
+  const others = Object.keys(players).filter(id => id !== myId);
+  const received = duels.filter(d => d.mode === "async" && d.from !== myId && (d.to === myId || !d.to) && !resOf(d)[myId]);
+  const waiting = duels.filter(d => d.from === myId && d.mode === "async" && !isDone(d));
+  const onl = [...online.values()].filter(p => p.uid !== myId);
+  let h = "";
+  if (invite) h += `
+    <section class="card banner">
+      <div class="eyebrow">Duel en direct</div>
+      <h2>${esc(nameOf(invite.from))} te défie maintenant !</h2>
+      <div class="row"><button class="btn" data-act="acceptLive">Accepter</button><button class="btn alt" data-act="refuseLive">Refuser</button></div>
+    </section>`;
+  if (pendingInvite) h += `
+    <section class="card banner">
+      <div class="eyebrow">Duel en direct</div>
+      <h2>En attente de ${esc(nameOf(pendingInvite.to))}…</h2>
+      <button class="btn alt sm" data-act="cancelLive">Annuler</button>
+    </section>`;
+  h += `
+    <section class="card">
+      <div class="row"><h2 class="grow">En ligne maintenant</h2><span class="pill live">Direct</span></div>
+      ${room ? (onl.length ? `<ul class="list">${onl.map(p => `<li class="item"><span class="online"></span>${dotHtml(p.uid)}<span class="grow name">${esc(nameOf(p.uid))}</span>${p.st === "busy" ? `<span class="pill">En partie</span>` : `<button class="btn sm" data-act="inviteLive" data-id="${esc(p.uid)}" ${pendingInvite || playing ? "disabled" : ""}>Défier</button>`}</li>`).join("")}</ul>` : `<p class="empty">Personne d'autre n'est connecté. Envoie un défi en différé, ou reviens plus tard.</p>`) : `<p class="empty">Le direct n'est pas disponible sur cet appareil.</p>`}
+    </section>
+    <section class="card">
+      <h2>Défi en différé</h2>
+      <p class="muted">Tu joues 10 questions maintenant. Ton ami joue les mêmes quand il veut, et le meilleur score gagne.</p>
+      <div class="row">
+        <select class="grow" id="opp" aria-label="Adversaire">
+          <option value="">Ouvert à tous</option>
+          ${others.map(id => `<option value="${esc(id)}" ${challengeTo === id ? "selected" : ""}>${esc(nameOf(id))}</option>`).join("")}
+        </select>
+        <button class="btn" data-act="newAsync">Lancer le défi</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Défis reçus</h2>
+      ${received.length ? `<ul class="list">${received.map(d => `<li class="item">${dotHtml(d.from)}<span class="grow"><span class="name">${esc(nameOf(d.from))}</span><br><span class="note">${d.to ? "te défie" : "défi ouvert à tous"} · score à battre : ${totalOf(resOf(d)[d.from])}</span></span><button class="btn sm gold" data-act="playAsync" data-id="${esc(d.id)}">Relever</button></li>`).join("")}</ul>` : `<p class="empty">Aucun défi en attente.</p>`}
+    </section>`;
+  if (waiting.length) h += `
+    <section class="card">
+      <h2>Tes défis envoyés</h2>
+      <ul class="list">${waiting.map(d => `<li class="item"><span class="grow"><span class="name">${d.to ? esc(nameOf(d.to)) : "Ouvert à tous"}</span><br><span class="note">Ton score : ${totalOf(resOf(d)[myId])}</span></span><span class="pill">En attente</span></li>`).join("")}</ul>
+    </section>`;
+  return h;
+}
+
+function viewRank(){
+  if (!db || !myId) return `<section class="card"><h2>Classement</h2><p class="empty">Le classement apparaît quand la page est ouverte sur Claude par un ami invité.</p></section>`;
+  const r = ranking();
+  if (!r.length) return `<section class="card"><h2>Classement</h2><p class="empty">Pas encore de joueurs. Choisis ton pseudo dans « Jouer » pour apparaître ici.</p></section>`;
+  return `<section class="card">
+    <div class="row"><h2 class="grow">Classement</h2><span class="eyebrow">3 pts victoire · 1 pt nul</span></div>
+    <div style="overflow-x:auto"><table class="rank">
+      <thead><tr><th>#</th><th>Joueur</th><th>Pts</th><th>V</th><th>N</th><th>D</th><th>Réussite</th></tr></thead>
+      <tbody>${r.map((p, i) => `<tr class="${i === 0 && p.pts ? "top1" : ""} ${p.id === myId ? "me" : ""}"><td class="pos">${i + 1}</td><td>${esc(nameOf(p.id))}</td><td class="pts">${p.pts}</td><td>${p.w}</td><td>${p.d}</td><td>${p.l}</td><td>${p.n ? Math.round(100 * p.ok / p.n) + " %" : "–"}</td></tr>`).join("")}</tbody>
+    </table></div>
+  </section>`;
+}
+
+function viewHistory(){
+  if (!db || !myId) return `<section class="card"><h2>Historique</h2><p class="empty">Tes duels apparaîtront ici.</p></section>`;
+  const mine = duels.filter(d => resOf(d)[myId] && isDone(d));
+  if (!mine.length) return `<section class="card"><h2>Historique</h2><p class="empty">Aucun duel terminé pour l'instant.</p></section>`;
+  return `<section class="card"><h2>Historique</h2><ul class="list">${mine.map(d => {
+    const opp = Object.keys(d.res).find(k => k !== myId); const a = d.res[myId].score, b = d.res[opp].score;
+    const tag = a > b ? `<span class="pill win">Victoire</span>` : a < b ? `<span class="pill lose">Défaite</span>` : `<span class="pill">Égalité</span>`;
+    return `<li class="item">${dotHtml(opp)}<span class="grow"><span class="name">${esc(nameOf(opp))}</span><br><span class="note">${d.mode === "live" ? "En direct" : "En différé"} · ${a} – ${b}</span></span>${tag}</li>`;
+  }).join("")}</ul></section>`;
+}
+
+// ---------- Moteur de quiz ----------
+// live = { startAt, room, oppId } : timing commun aux deux joueurs
+function playQuiz(qids, opts = {}){
+  return new Promise(resolve => {
+    playing = true; setBusy(true);
+    const res = { score:0, correct:0, answers:[] };
+    let opp = { score:0, answers:[] };
+    const box = $("quizInner"); $("quiz").hidden = false;
+    const live = opts.live;
+    let unsub = null, gone = false;
+    if (live) {
+      unsub = live.room.on("ans", m => { if (m.isMe || !m.data) return; const d = m.data; if (typeof d.i === "number" && typeof d.score === "number") { opp.answers[d.i] = !!d.ok; opp.score = d.score; paintScores(); } });
+      live.room.onPeers(ch => { if (ch.left.some(p => !p.isMe)) { gone = true; paintScores(); } });
+    }
+    const target = opts.target; // score à battre (différé)
+    const oppName = live ? nameOf(live.oppId) : target ? nameOf(target.id) : "";
+    function paintScores(){
+      const el = $("scores"); if (!el) return;
+      el.innerHTML = `<div class="side"><span class="who">${esc(myId ? nameOf(myId) : "Toi")}</span><span class="sc">${res.score}</span><div class="pips">${pips(res.answers)}</div></div>
+        <span class="vs">${live ? (gone ? "parti" : "direct") : target ? "à battre" : "solo"}</span>
+        <div class="side r"><span class="who">${esc(oppName)}</span><span class="sc">${live ? opp.score : target ? target.score : ""}</span>${live ? `<div class="pips" style="justify-content:flex-end">${pips(opp.answers)}</div>` : ""}</div>`;
+    }
+    const pips = arr => Array.from({length:QN}, (_, i) => `<b class="${arr[i] === true ? "ok" : arr[i] === false ? "ko" : ""}"></b>`).join("");
+    let i = 0;
+    function show(){
+      if (i >= qids.length) return finish();
+      const q = byId[qids[i]]; const choices = shuffle([q.a, ...q.w]);
+      box.innerHTML = `<div class="scorebar" id="scores"></div>
+        <div class="row"><span class="eyebrow grow">Question ${i + 1} / ${qids.length} · ${["","facile","moyen","pointu"][q.l]}</span></div>
+        <div class="timer"><i id="bar"></i></div>
+        <div class="qtext">${esc(q.q)}</div>
+        <div class="choices">${choices.map((c, k) => `<button class="choice" data-k="${k}">${esc(c)}</button>`).join("")}</div>
+        <p class="explain" id="exp" hidden></p>`;
+      paintScores();
+      const t0 = live ? live.startAt + i * (QT + GAP) : performance.now();
+      const now = () => live ? Date.now() : performance.now();
+      let answered = false, raf;
+      const tick = () => { const left = Math.max(0, QT - (now() - t0)); const b = $("bar"); if (b) b.style.transform = `scaleX(${left / QT})`; if (left <= 0 && !answered) answer(-1); else if (!answered) raf = requestAnimationFrame(tick); };
+      raf = requestAnimationFrame(tick);
+      function answer(k){
+        if (answered) return; answered = true; cancelAnimationFrame(raf);
+        const left = Math.max(0, QT - (now() - t0));
+        const ok = k >= 0 && choices[k] === q.a;
+        if (ok) { res.correct++; res.score += 100 + Math.round(left / 200); }
+        res.answers[i] = ok;
+        box.querySelectorAll(".choice").forEach((b, kk) => { b.disabled = true; if (choices[kk] === q.a) b.classList.add("ok"); else if (kk === k) b.classList.add("ko"); });
+        const e = $("exp"); e.hidden = false; e.textContent = (k < 0 ? "Temps écoulé. " : "") + q.e;
+        paintScores();
+        if (live) live.room.emit("ans", {i, ok, score:res.score}).catch(() => {});
+        const qi = i;
+        const wait = live ? Math.max(1200, t0 + QT + GAP - Date.now()) : 2400;
+        setTimeout(() => { if (i === qi) { i++; show(); } }, wait);
+      }
+      box.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => answer(+b.dataset.k)));
+    }
+    function finish(){
+      if (unsub) unsub();
+      const theirs = live ? opp.score : target ? target.score : null;
+      const verdict = theirs == null ? "" : res.score > theirs ? "Victoire !" : res.score < theirs ? "Perdu…" : "Égalité";
+      box.innerHTML = `<div class="eyebrow center">Partie terminée</div>
+        <div class="big">${res.score} pts</div>
+        <p class="center muted">${res.correct} bonne${res.correct > 1 ? "s" : ""} réponse${res.correct > 1 ? "s" : ""} sur ${qids.length}${theirs != null ? ` · ${esc(oppName)} : ${theirs} pts${live && !gone && opp.answers.filter(x => x !== undefined).length < QN ? " (en cours)" : ""}` : ""}</p>
+        ${verdict ? `<h2 class="center">${verdict}</h2>` : ""}
+        <button class="btn" id="back">Retour</button>`;
+      $("back").addEventListener("click", () => { $("quiz").hidden = true; playing = false; setBusy(false); render(); });
+      resolve(res);
+    }
+    show();
+  });
+}
+
+// ---------- Actions ----------
+async function savePseudo(){
+  const v = ($("pseudo").value || "").trim().slice(0, 18);
+  if (!v) return toast("Écris un pseudo d'abord.");
+  store.set("lumen.pseudo", v);
+  try { await db.doc("players/" + myId).set({pseudo:v, c:Math.floor(Math.random() * COLORS.length), since:Date.now()}); }
+  catch(e){ toast("Impossible d'enregistrer : demande à Erwan de t'inviter comme éditeur."); }
+}
+async function newAsync(){
+  const to = $("opp").value || ""; challengeTo = to;
+  const qids = pickQ();
+  const r = await playQuiz(qids);
+  try { await db.collection("duels").add({mode:"async", from:myId, to, qids, createdAt:Date.now(), res:{[myId]:r}}); toast("Défi envoyé !"); }
+  catch(e){ toast("Le défi n'a pas pu être enregistré."); }
+}
+async function playAsync(id){
+  const d = duels.find(x => x.id === id); if (!d) return;
+  const ref = db.doc("duels/" + id);
+  try { if (!d.to) await ref.update({to:myId}); } catch(e){}
+  const r = await playQuiz(d.qids, {target:{id:d.from, score:totalOf(resOf(d)[d.from])}});
+  try { await ref.update({res:{[myId]:r}, doneAt:Date.now()}); } catch(e){ toast("Ton score n'a pas pu être enregistré."); }
+}
+async function solo(){ await playQuiz(pickQ()); }
+
+// ---------- Direct ----------
+function setBusy(b){ if (room && myId) room.presence({uid:myId, st:b ? "busy" : "free"}).catch(() => {}); }
+function setupRoom(){
+  room.presence({uid:myId, st:"free"}).catch(() => {});
+  room.onPeers(ch => {
+    online = new Map();
+    for (const p of ch.peers) { const uid = p.by || (p.presence && p.presence.uid); if (uid && typeof uid === "string") online.set(uid, {uid, st:p.presence && p.presence.st}); }
+    if (!playing) render();
+  }, () => {});
+  room.on("invite", m => {
+    const d = m.data || {};
+    if (m.isMe || d.to !== myId || playing || !m.by || !Array.isArray(d.qids) || typeof d.code !== "string") return;
+    if (!d.qids.every(q => byId[q])) return;
+    invite = {from:m.by, code:d.code, qids:d.qids}; render();
+  }, () => {});
+  room.on("cancel", m => { if (invite && m.data && m.data.code === invite.code) { invite = null; render(); } }, () => {});
+  room.on("reply", async m => {
+    const d = m.data || {};
+    if (!pendingInvite || d.code !== pendingInvite.code || m.by !== pendingInvite.to) return;
+    const p = pendingInvite; pendingInvite = null;
+    if (!d.ok) { toast(nameOf(p.to) + " a refusé le duel."); return render(); }
+    try {
+      const r = await room.join(p.code);
+      await db.doc("duels/" + p.code).set({mode:"live", from:myId, to:p.to, qids:p.qids, createdAt:Date.now(), res:{}});
+      startLive(r, p.qids, p.to);
+      setTimeout(() => r.emit("start", {delay:3500}).catch(() => {}), 400);
+    } catch(e){ toast("Le duel n'a pas pu démarrer."); render(); }
+  }, () => {});
+}
+function startLive(r, qids, oppId){
+  const off = r.on("start", async m => {
+    off();
+    const delay = Math.min(6000, Math.max(1000, (m.data && m.data.delay) || 3000));
+    const startAt = Date.now() + delay;
+    const box = $("quizInner"); $("quiz").hidden = false;
+    box.innerHTML = `<div class="eyebrow center">Duel en direct contre ${esc(nameOf(oppId))}</div><div class="big" id="cd">3</div>`;
+    const cd = setInterval(() => { const s = Math.ceil((startAt - Date.now()) / 1000); const el = $("cd"); if (el) el.textContent = s > 0 ? s : "Go !"; if (s <= 0) clearInterval(cd); }, 200);
+    await new Promise(ok => setTimeout(ok, delay));
+    const res = await playQuiz(qids, {live:{startAt, room:r, oppId}});
+    try { await db.doc("duels/" + r.name).update({res:{[myId]:res}}); } catch(e){ toast("Ton score n'a pas pu être enregistré."); }
+    r.leave().catch(() => {});
+  });
+}
+async function inviteLive(uid){
+  const code = "d" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  pendingInvite = {to:uid, code, qids:pickQ()}; render();
+  try { await room.emit("invite", {to:uid, code, qids:pendingInvite.qids}); }
+  catch(e){ pendingInvite = null; toast("L'invitation n'est pas partie."); render(); }
+  setTimeout(() => { if (pendingInvite && pendingInvite.code === code) { pendingInvite = null; toast("Pas de réponse."); render(); } }, 45000);
+}
+async function acceptLive(){
+  const inv = invite; invite = null; render();
+  try { const r = await room.join(inv.code); startLive(r, inv.qids, inv.from); await room.emit("reply", {code:inv.code, ok:true}); }
+  catch(e){ toast("Impossible de rejoindre le duel."); }
+}
+function refuseLive(){ const inv = invite; invite = null; render(); room.emit("reply", {code:inv.code, ok:false}).catch(() => {}); }
+function cancelLive(){ const p = pendingInvite; pendingInvite = null; render(); room.emit("cancel", {code:p.code}).catch(() => {}); }
+
+// ---------- Événements ----------
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-act],.tab"); if (!t) return;
+  if (t.classList.contains("tab")) { tab = t.id.slice(4); return render(); }
+  const a = t.dataset.act, id = t.dataset.id;
+  ({savePseudo, newAsync, solo, acceptLive, refuseLive, cancelLive, playAsync:() => playAsync(id), inviteLive:() => inviteLive(id)})[a]?.();
+});
+document.addEventListener("change", e => { if (e.target.id === "opp") challengeTo = e.target.value; });
+
+// ---------- Démarrage ----------
+async function boot(){
+  render();
+  const c = window.claude;
+  if (!c || !c.use) return showStatus();
+  [user, db, room] = await Promise.all([c.use("user"), c.use("db"), c.use("room")]);
+  myId = user ? await user.id() : null;
+  if (!db || !myId) { db = null; room = null; showStatus(); return render(); }
+  const timer = setTimeout(() => { if (!loaded) { $("status").hidden = false; $("status").textContent = "Les données mettent du temps à arriver. Vérifie ta connexion."; } }, 10000);
+  let gotP = false, gotD = false;
+  const ready = () => { if (gotP && gotD && !loaded) { loaded = true; clearTimeout(timer); $("status").hidden = true; } };
+  db.collection("players").onSnapshot(s => { players = {}; s.docs.forEach(d => players[d.id] = d.data()); gotP = true; ready(); if (!playing) render(); }, () => { gotP = true; ready(); });
+  db.collection("duels").orderBy("createdAt", "desc").limit(400).onSnapshot(s => { duels = s.docs.map(d => Object.assign({id:d.id}, d.data())); gotD = true; ready(); if (!playing) render(); }, () => { gotD = true; ready(); });
+  if (room) setupRoom();
+  if (!store.get("lumen.pseudo")) { const n = user && await user.name(); if (n) store.set("lumen.pseudo", n.split(" ")[0]); }
+}
+function showStatus(){ const s = $("status"); s.hidden = false; s.textContent = "Mode solo : pour le classement et les duels, ouvre cette page sur Claude après avoir été invité par Erwan."; }
+boot();
+</script>
