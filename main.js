@@ -354,7 +354,7 @@ function newSession(mode, extra){
   } else if (mode === "survie") {
     s.maxLives = 3 + (S.up.life||0); s.lives = s.maxLives; s.joker = 1; s.steps = [qStep(nextFor(s))];
   } else if (mode === "avap") {
-    s.score = 0; s.used = []; s.a = Math.floor(r()*EV.length); s.used.push(s.a); s.b = nextEvent(s);
+    s.score = 0; s.used = []; s.a = Math.floor(r()*EV.length); s.used.push(s.a); s.b = nextEvent(s); s.kind = "cmp";
   }
   return s;
 }
@@ -369,6 +369,10 @@ function nextFor(s){
   const c = pool.filter(id => !used.has(id));
   return c[Math.floor(r()*c.length)] || pool[0];
 }
+// Avant ou après : une manche sur quatre, on donne l'année soi-même
+const avKind = s => (s.used.length % 4 === 0 ? "year" : "cmp");
+// Marge acceptée selon l'ancienneté : ±5 ans pour un événement récent, beaucoup plus pour l'Antiquité
+const yearTol = y => Math.max(5, Math.min(300, Math.round((new Date().getFullYear() - y) * 0.06)));
 function nextEvent(s){
   const r = rng(s.seed + s.used.length*53), ya = EV[s.a][1];
   const c = EV.map((_,i)=>i).filter(i => !s.used.includes(i) && EV[i][1] !== ya);
@@ -699,6 +703,7 @@ function renderAvap(){
   if (s.done) {
     return head+`<section class="stack"><div class="score">${s.score}</div>
       <h1 class="big" style="font-size:28px">${s.newRec?"Nouveau record !":"Fin de la série."}</h1>
+      ${s.lastMissY ? `<div class="list"><div class="item"><span class="mk ko">✗</span><div><b>${esc(EV[s.lastMissY[0]][0])}</b><span>${yearTxt(EV[s.lastMissY[0]][1])} (tu avais dit ${yearTxt(s.lastMissY[1])})</span></div></div></div>` : ""}
       ${s.lastMiss ? `<div class="list"><div class="item"><span class="mk ko">✗</span><div><b>${esc(EV[s.lastMiss[0]][0])}</b><span>${yearTxt(EV[s.lastMiss[0]][1])}, donc ${s.lastMiss[1]} l'événement d'avant</span></div></div><div class="item"><span class="mk f">★</span><div><b>${esc(EV[s.lastMiss[2]][0])}</b><span>${yearTxt(EV[s.lastMiss[2]][1])}</span></div></div></div>` : ""}
       <div class="row"><span class="chip lamp">+${s.xp||0} XP</span><span class="chip lamp">${coinIco}+${s.score}</span></div>
       <button class="btn" data-again>Rejouer</button><button class="btn ghost" data-end>Continuer</button></section>`;
@@ -706,7 +711,14 @@ function renderAvap(){
   const B = EV[s.b], shown = s.ans !== undefined;
   const ev = (e, showY) => `<div class="ev"><div class="yr ${showY?"":"hid"}">${showY?yearTxt(e[1]):"?"}</div><h2>${esc(e[0])}</h2><div class="row" style="margin-top:8px"><span class="chip">${dot(e[2])}${esc(THEMES[e[2]].n)}</span></div></div>`;
   let ctrl;
-  if (!shown) ctrl = `<div class="label" style="text-align:center">L'événement du bas a eu lieu…</div><div class="vs"><button class="btn" data-av="before">Avant</button><button class="btn" data-av="after">Après</button></div>`;
+  if (s.kind === "year" && !shown) ctrl = `<div class="yearq"><div class="label" style="text-align:center">Manche bonus · en quelle année ?</div>
+      <div class="yrow"><input id="avyear" class="yin" type="text" inputmode="numeric" maxlength="5" placeholder="Année" value="${esc(s.yv||"")}" aria-label="Année de l'événement">
+      <button class="btn small ${s.bc?"":"ghost"}" data-era aria-pressed="${!!s.bc}">${s.bc?"av. J.-C.":"apr. J.-C."}</button></div>
+      <p class="muted" style="font-size:13.5px;text-align:center;margin:0">${s.yerr?"<b>Écris une année avec des chiffres.</b> ":""}Accepté à ±${yearTol(B[1])} ans près. Pile dans le mille : bonus !</p>
+      <button class="btn" data-avyear>Valider</button></div>`;
+  else if (s.kind === "year") ctrl = `<div class="verdict ${s.ok?"ok":"ko"}" role="status"><b>${s.exact?"Pile dans le mille !":s.ok?"Bien vu, à "+s.diff+" an"+(s.diff>1?"s":"")+" près.":"Raté."}</b><p>${esc(B[0])} : ${yearTxt(B[1])}. Tu as dit ${yearTxt(s.guess)}${s.exact?"":" (écart de "+s.diff+" an"+(s.diff>1?"s":"")+")"}.</p></div>
+    <button class="btn" data-avnext>${s.ok?"Suivant":"Voir le bilan"}</button>`;
+  else if (!shown) ctrl = `<div class="label" style="text-align:center">L'événement du bas a eu lieu…</div><div class="vs"><button class="btn" data-av="before">Avant</button><button class="btn" data-av="after">Après</button></div>`;
   else ctrl = `<div class="verdict ${s.ok?"ok":"ko"}" role="status"><b>${s.ok?"Exact.":"Raté."}</b><p>${esc(B[0])} : ${yearTxt(B[1])}, soit ${Math.abs(B[1]-A[1])} ans ${B[1]<A[1]?"avant":"après"}.</p></div>
     <button class="btn" data-avnext>${s.ok?"Suivant":"Voir le bilan"}</button>`;
   return head+`<section class="avap">${ev(A,true)}${ev(B,shown)}${ctrl}</section>`;
@@ -833,6 +845,8 @@ function shareText(){
   const dt = new Date();
   return `Lumen · Défi du ${dt.getDate()}/${dt.getMonth()+1} · ${THEMES[dailyTheme()].n}\n${(d.items||[]).filter(i=>"id" in i).map(i=>i.ok?"🟩":"🟥").join("")} ${d.ok}/${d.n}`;
 }
+// Avant ou après, manche « année » : Entrée valide la réponse
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target && e.target.id === "avyear") { e.preventDefault(); const v = document.querySelector("[data-avyear]"); if (v) v.click(); } });
 document.addEventListener("click", e => {
   try { onClick(e); } catch(err) { console.error(err); try { save(); render(); } catch(e2){} }
 });
@@ -841,6 +855,10 @@ function onClick(e){
   const d = b.dataset, s = S.session;
   if (d.avPick !== undefined) { draft.avatar = +d.avPick; formErr = ""; const keep = readDraft(); return render(), keep; }
   const fromBar = !!b.closest("#tabs");
+  // Sons de navigation : « pop » sur les onglets du bas, petit clic sur les autres boutons (les réponses ont leur propre son)
+  if (S.settings && S.settings.sfx !== false && d.ans === undefined && !d.av && d.avyear === undefined) {
+    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","boutique","parc","profil"].indexOf(d.tab) : "tap"); } catch(err){}
+  }
   if (d.tab === "parc") { leaveSession(); save(); if (fromBar) { tabFx("parc"); setTimeout(() => Parc.open(), 480); } else Parc.open(); return; }
   if (d.tab) {
     if (d.tab !== "jouer") leaveSession();
@@ -895,12 +913,28 @@ function onClick(e){
       s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5; s.xp = (s.xp||0)+5; S.coins += 1;
       if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMiss = [s.b, B[1] < A[1] ? "avant" : "après", s.a];
+    feedback(s.ok, s.score);
+    save(); return render();
+  }
+  if (d.era !== undefined) { const el = document.getElementById("avyear"); s.yv = el ? el.value : ""; s.bc = !s.bc; save(); return render(); }
+  if (d.avyear !== undefined) {
+    if (s.ans !== undefined) return;
+    const el = document.getElementById("avyear"), raw = el ? el.value.trim() : "", v = parseInt(raw.replace(/[^\d]/g, ""), 10);
+    if (!raw || isNaN(v)) { s.yerr = true; s.yv = raw; return render(); }
+    const B = EV[s.b], y = s.bc ? -v : v, diff = Math.abs(y - B[1]), tol = yearTol(B[1]);
+    s.ans = "year"; s.guess = y; s.diff = diff; s.ok = diff <= tol; s.exact = diff <= 1; delete s.yerr; delete s.yv;
+    if (s.ok) {
+      s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L, gain = s.exact ? 15 : 8;
+      S.xp[th] = (S.xp[th]||0)+gain; s.xp = (s.xp||0)+gain; S.coins += s.exact ? 5 : 2;
+      if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
+    } else s.lastMissY = [s.b, y];
+    if (S.settings.sfx !== false) { try { Music.sfx(s.exact ? "exact" : s.ok ? "ok" : "ko"); } catch(err){} }
     save(); return render();
   }
   if (d.avnext !== undefined) {
     const endAvap = () => { s.done = true; if (s.score > (S.rec.avap||0)) { S.rec.avap = s.score; s.newRec = true; } S.games = (S.games||0)+1; checkBadges(); };
     if (!s.ok) { endAvap(); save(); return render(); }
-    s.a = s.b; s.used.push(s.b); delete s.ans; s.b = nextEvent(s);
+    s.a = s.b; s.used.push(s.b); delete s.ans; s.b = nextEvent(s); s.kind = avKind(s); s.bc = false;
     if (s.b < 0) endAvap();
     save(); return render();
   }
