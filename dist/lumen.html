@@ -145,6 +145,28 @@ p{margin:0}
 @keyframes tlook{0%,18%{transform:translateX(0)}28%,44%{transform:translateX(-2.6px)}54%,70%{transform:translate(2.6px,1px)}80%,100%{transform:translateX(0)}}
 .ta-spore{animation:tspore 3.2s ease-out infinite}
 @keyframes tspore{0%{transform:translateY(6px) scale(.5);opacity:0}25%{opacity:.95}100%{transform:translateY(-22px) scale(1.1);opacity:0}}
+.toyc.t-beat .tbreath{animation:tbeat 1.3s ease-in-out infinite}
+@keyframes tbeat{0%,40%,100%{transform:scale(1)}10%,30%{transform:scale(1.07)}20%{transform:scale(1.02)}}
+.toyc.t-bounce .tbreath{animation:tbounce 1.6s cubic-bezier(.3,0,.5,1) infinite}
+@keyframes tbounce{0%,100%{transform:translateY(0) scale(1.04,.96)}12%{transform:translateY(0) scale(.97,1.03)}50%{transform:translateY(-12px) scale(1)}}
+.ta-globe{animation:tglobe 7s linear infinite}
+@keyframes tglobe{from{transform:translateX(0)}to{transform:translateX(-80px)}}
+.ta-bubble{animation:tbubble 2.4s ease-in infinite}
+@keyframes tbubble{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-22px);opacity:0}}
+.ta-blinkb{animation:tblinkb 1.4s steps(2,jump-none) infinite}
+@keyframes tblinkb{50%{opacity:.35}}
+.ta-pulse2{animation:tpulse2 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tpulse2{50%{transform:scale(1.15)}}
+.ta-pop{animation:tpop 2.2s ease-out infinite}
+@keyframes tpop{0%,60%,100%{transform:translateY(0)}75%{transform:translateY(-12px) rotate(20deg)}}
+.ta-drip{animation:tdrip 2.6s ease-in infinite}
+@keyframes tdrip{0%,40%{transform:translateY(-8px);opacity:0}50%{opacity:1}100%{transform:translateY(6px);opacity:0}}
+.ta-coin{animation:tcoin 2.8s ease-in infinite}
+@keyframes tcoin{0%{transform:translateY(-10px);opacity:0}20%{opacity:1}55%{transform:translateY(18px);opacity:1}62%,100%{transform:translateY(20px);opacity:0}}
+.ta-rays{animation:spin 14s linear infinite}
+.ta-propel{animation:tprop .35s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tprop{50%{transform:scaleX(-1)}}
+.ta-float2{animation:tfloat 2.6s ease-in-out infinite}
 /* Somni : reste éveillé un moment, pique du nez, puis s'endort avec des zzz */
 .so-open{animation:soOpen 11s infinite}
 .so-closed,.so-zzz{opacity:0;animation:soSleep 11s infinite}
@@ -1686,6 +1708,303 @@ const SOMNI = { n:"Somni", e:"Sommeil", tag:"veilleur en pyjama", toy:true, anim
 // Applique les nouveaux dessins aux personnages existants (noms et ordre inchangés : les sauvegardes restent valides)
 const TOY_ANIM = { Plouf:"jelly", Nimbus:"rain", Braise:"fire", Somni:"sleep" };
 CREATURES.concat([RIXY]).forEach(c => { if (TOY_DRAW[c.n]) { c.draw = TOY_DRAW[c.n]; c.toy = true; c.anim = TOY_ANIM[c.n] || ""; delete c.hat; } });
+
+/* ---------- Skins de la boutique et skins secrets, style « jouet » (voir atelier/toy.js) ----------
+   Mêmes identifiants, prix et conditions de déblocage : seuls le dessin et les animations changent. */
+const tArm = (x, y, dx, dy, a, b, dark) => tLimb(`M${x} ${y} q${(dx*.55).toFixed(1)} ${(dy*.1).toFixed(1)} ${dx} ${dy}`, b, 9) + toy(tC(x+dx, y+dy, 4.6), a, b, dark, {dy:1.5, w:2.4});
+const tArms = (xl, xr, y, dyl, dyr, a, b, dark) => tArm(xl, y, -12, dyl, a, b, dark) + tArm(xr, y, 12, dyr, a, b, dark);
+
+const TOY_SKINS = {
+cor(){ // Cœurio : un cœur qui bat
+  const P = ["#FF9AAE", "#E8344E", "#9A1830"];
+  return tFeet(48, 72, 102, ...P, 8) + tArms(26, 94, 62, -14, 6, ...P)
+  + toy("M60 100 C30 80 16 62 20 46 C24 30 44 26 54 36 L60 42 L66 36 C76 26 96 30 100 46 C104 62 90 80 60 100Z", ...P)
+  + tShine("M28 50 Q30 38 42 35") + `<path d="M72 78 l10 -6 M76 82 l6 4" stroke="#FFD0DA" stroke-width="3" stroke-linecap="round" opacity=".7"/>`
+  + tEyes(49, 71, 58) + tBlush(40, 80, 68) + tMouth(60, 68);
+},
+geo(){ // Globi : un globe dont les continents défilent
+  const id = "tgc" + (TU++), land = "M10 50 Q20 40 30 46 Q36 56 28 62 Q22 70 14 66 Z M42 30 Q56 26 62 36 Q56 44 48 42 Z M52 76 Q64 70 72 78 Q68 88 58 86 Z";
+  return tFeet(46, 74, 101, "#7FC8FF", "#2E86E0", "#1D56A8", 9) + tArms(30, 90, 70, -12, 8, "#7FC8FF", "#2E86E0", "#1D56A8")
+  + toy(tC(60, 64, 32), "#9ADCFF", "#2E86E0", "#1D56A8")
+  + `<defs><clipPath id="${id}"><path d="${tC(60, 64, 30)}"/></clipPath></defs><g clip-path="url(#${id})"><g class="ta-globe">${[0, 80].map(dx => `<path d="${land}" transform="translate(${20+dx} 8)" fill="#6CD87A" stroke="#2E7A3A" stroke-width="2"/>`).join("")}</g></g>`
+  + tShine("M38 52 Q42 40 52 35") + tEyes(50, 70, 62) + tBlush(41, 79, 72) + tMouth(60, 73, "cat");
+},
+esp(){ // Jupi : une planète à anneau
+  const ring = (front) => `<path d="M8 72 Q60 ${front ? 98 : 52} 112 72" fill="none" stroke="${TD}" stroke-width="9" stroke-linecap="round"/><path d="M8 72 Q60 ${front ? 98 : 52} 112 72" fill="none" stroke="#F4E2BC" stroke-width="5" stroke-linecap="round"/>`;
+  return ring(false) + tArms(32, 88, 66, -12, -4, "#FFD4A0", "#E8955A", "#9A5A2A")
+  + toy(tC(60, 64, 30), "#FFD8A8", "#E8955A", "#9A5A2A")
+  + `<path d="M31 56 H89 M30 72 H90" stroke="#D8763A" stroke-width="5" opacity=".55"/><ellipse cx="74" cy="80" rx="6" ry="3.6" fill="#C8503A" opacity=".85"/>`
+  + ring(true) + tShine("M38 50 Q42 40 52 36") + tEyes(50, 70, 60, .9) + tBlush(41, 79, 69) + tMouth(60, 69, "o")
+  + tStar(16, 26, 4, "#FFF3A0", "ta-twinkle") + tStar(102, 22, 3.4, "#FFFFFF", "ta-twinkle");
+},
+sci(){ // Fiolo : une fiole avec des bulles qui montent
+  const bub = [[46,92,3.2,0],[66,96,2.6,-.7],[56,88,2,-1.3],[74,90,1.8,-.4]].map(([x, y, r, d]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#E0FFF0" stroke="${TD}" stroke-width="1.2" class="ta-bubble" style="animation-delay:${d}s"/>`).join("");
+  return tFeet(44, 76, 104, "#9ADCFF", "#5A9ADA", "#2E5A9A", 8) + tArms(30, 90, 74, -12, -6, "#CFEFFF", "#7AB8E8", "#3A6AA0")
+  + toy("M48 20 L72 20 L72 44 Q98 54 98 80 Q98 106 60 106 Q22 106 22 80 Q22 54 48 44Z", "#F0FAFF", "#A8D8F0", "#5A8AB0")
+  + `<path d="M27 78 Q60 66 93 78 Q95 102 60 103 Q25 102 27 78Z" fill="#6FE0A6" stroke="${TD}" stroke-width="2.4"/>` + bub
+  + tEyes(50, 70, 60, .9) + tBlush(40, 80, 68) + tMouth(60, 68) + tShine("M30 82 Q30 62 44 52") + tShine("M52 26 V40", 2.6)
+  + toy("M45 8 L75 8 L73 22 L47 22Z", "#E8B47A", "#B87A3A", "#7A4A1E", {dy:2.5, w:2.6});
+},
+his(){ // Chevalino : un petit chevalier en armure, plumet au vent
+  const M = ["#E8EEF8", "#8E9AB0", "#4E5A70"];
+  return tFeet(44, 76, 102, ...M, 9) + tArms(28, 92, 70, -10, 8, ...M)
+  + `<g class="ta-sway" style="transform-origin:60px 24px">${toy("M60 24 Q52 6 64 2 Q80 0 82 14 Q72 10 66 24Z", "#FF8A9A", "#D8243A", "#8A1020", {dy:2, w:2.6})}</g>`
+  + toy("M26 98 Q20 64 30 44 Q42 24 60 24 Q78 24 90 44 Q100 64 94 98 Q60 106 26 98Z", ...M)
+  + toy("M36 52 Q60 44 84 52 L84 76 Q60 84 36 76Z", "#2A2440", "#1A1430", "#0A0614", {dy:0, w:2.6})
+  + `<path d="M60 26 V98" stroke="${TD}" stroke-width="2" opacity=".35"/><g class="tblink"><ellipse cx="50" cy="64" rx="4" ry="5.4" fill="#8AF8E8"/><ellipse cx="70" cy="64" rx="4" ry="5.4" fill="#8AF8E8"/><circle cx="51.4" cy="62" r="1.4" fill="#fff"/><circle cx="71.4" cy="62" r="1.4" fill="#fff"/></g>`
+  + tShine("M33 80 Q31 56 42 40") + toy(tC(60, 90, 6), "#FFE98A", "#F0A61C", "#A8650C", {dy:1.5, w:2.2});
+},
+ani(){ // Pandou : un panda tout rond
+  const W = ["#FFFFFF", "#DCD8E6", "#9A94A8"], K = ["#4A4458", "#1E1A28", "#0A0810"];
+  return tFeet(44, 76, 102, ...K, 9) + tArms(28, 92, 70, -12, 8, ...K)
+  + toy(tC(36, 28, 10), ...K, {dy:2}) + toy(tC(84, 28, 10), ...K, {dy:2})
+  + toy("M60 24 Q94 24 98 60 Q100 98 60 100 Q20 98 22 60 Q26 24 60 24Z", ...W)
+  + `<ellipse cx="47" cy="60" rx="10" ry="12" transform="rotate(-20 47 60)" fill="#2A2436"/><ellipse cx="73" cy="60" rx="10" ry="12" transform="rotate(20 73 60)" fill="#2A2436"/>`
+  + `<g class="tblink"><ellipse cx="48" cy="60" rx="4" ry="5.2" fill="#fff"/><ellipse cx="72" cy="60" rx="4" ry="5.2" fill="#fff"/><circle cx="48.8" cy="61" r="2.6" fill="${TD}"/><circle cx="72.8" cy="61" r="2.6" fill="${TD}"/></g>`
+  + `<ellipse cx="60" cy="72" rx="4.4" ry="3" fill="${TD}"/>` + tMouth(60, 76, "cat") + tBlush(38, 82, 74) + tShine("M30 64 Q30 42 44 32");
+},
+jeu(){ // Manetto : une manette aux boutons qui clignotent
+  const P = ["#B8A4FF", "#6E4BEA", "#3A2498"];
+  return tFeet(42, 78, 101, ...P, 9)
+  + toy("M18 44 Q18 34 30 34 H90 Q102 34 102 44 L108 76 Q112 96 94 92 L80 80 H40 L26 92 Q8 96 12 76Z", ...P)
+  + tShine("M24 44 Q26 38 34 38 H48")
+  + `<path d="M24 56 h6 v-6 h6 v6 h6 v6 h-6 v6 h-6 v-6 h-6z" fill="#fff" ${tS(2.2)}/>`
+  + [[88,52,"#FF6A8A",0],[96,60,"#5AE8A0",-.4],[80,60,"#7FC8FF",-.8],[88,68,"#FFD23F",-1.2]].map(([x, y, c, d]) => `<circle cx="${x}" cy="${y}" r="4" fill="${c}" ${tS(2)} class="ta-blinkb" style="animation-delay:${d}s"/>`).join("")
+  + tEyes(52, 68, 56, .75) + tBlush(46, 74, 65) + tMouth(60, 65);
+},
+art(){ // Palette : des taches de peinture qui pulsent
+  return tFeet(44, 76, 102, "#E8B47A", "#B87A3A", "#7A4A1E", 9)
+  + `<g class="ta-sway" style="transform-origin:100px 86px">${tLimb("M100 86 L112 52", "#C8925A", 6)}${toy("M112 52 Q108 40 114 34 Q120 40 116 52Z", "#5AB8FF", "#2E6AC8", "#1D3A8A", {dy:1.5, w:2})}</g>`
+  + toy("M16 64 Q14 32 50 26 Q90 20 104 48 Q112 70 92 72 Q80 72 82 84 Q84 100 58 100 Q20 98 16 64Z", "#F6D4A0", "#D8A060", "#8A5A2A")
+  + `<ellipse cx="88" cy="58" rx="7" ry="5.4" fill="#2B1D3A" opacity=".85"/>`
+  + [[30,48,"#FF5A6A"],[48,36,"#FFD23F"],[70,34,"#5AE8A0"],[28,72,"#5AB8FF"]].map(([x, y, c], i) => `<g class="ta-pulse2" style="animation-delay:${-i*.5}s">${toy(tC(x, y, 6.5), c, c, "#2B1D3A", {dy:1.5, w:2.2})}</g>`).join("")
+  + tShine("M22 60 Q22 44 34 36") + tEyes(50, 68, 70, .85) + tBlush(42, 76, 79) + tMouth(59, 79);
+},
+spo(){ // Ballon : un ballon qui rebondit
+  return toy(tC(60, 62, 34), "#FFFFFF", "#D8D8E4", "#8A8AA0")
+  + `<path d="M60 46 L72 55 L68 69 L52 69 L48 55Z" fill="#2B2440" ${tS(2)}/><path d="M60 46 V30 M72 55 L88 50 M68 69 L78 84 M52 69 L42 84 M48 55 L32 50" stroke="${TD}" stroke-width="2"/>`
+  + `<path d="M30 46 L36 38 L44 40 M88 82 L82 92 L74 92 M96 60 L92 70" fill="none" stroke="${TD}" stroke-width="2"/>`
+  + tShine("M36 44 Q42 32 54 29") + tEyes(48, 72, 80, .8) + tBlush(40, 80, 88) + tMouth(60, 88)
+  + tArms(30, 90, 66, -14, -14, "#FFFFFF", "#D8D8E4", "#8A8AA0");
+},
+mon(){ // Valise : une valise couverte d'autocollants
+  const B = ["#E8A466", "#B86A2E", "#6A3A14"];
+  return toy(tE(42, 104, 6, 6), "#5A5070", "#2A2440", "#120E1E", {dy:1}) + toy(tE(78, 104, 6, 6), "#5A5070", "#2A2440", "#120E1E", {dy:1})
+  + tLimb("M46 30 Q46 18 60 18 Q74 18 74 30", "#5A3A1E", 9)
+  + toy("M18 36 Q18 30 26 30 H94 Q102 30 102 36 V94 Q102 100 94 100 H26 Q18 100 18 94Z", ...B)
+  + `<path d="M18 52 H102 M18 84 H102" stroke="${TD}" stroke-width="2" opacity=".35"/>`
+  + toy(tC(30, 42, 6), "#FFE98A", "#F0A61C", "#A8650C", {dy:1, w:2}) + toy("M84 80 l12 -4 l-2 12 l-10 2z", "#7FC8FF", "#2E86E0", "#1D56A8", {dy:1, w:2}) + toy("M86 38 h12 v9 h-12z", "#FF8AB8", "#E2427A", "#8A1A40", {dy:1, w:2})
+  + tShine("M24 46 V80") + tEyes(50, 70, 64) + tBlush(41, 79, 74) + tMouth(60, 74);
+},
+per(){ // Buste : un buste de marbre couronné de laurier
+  const M = ["#FFFFFF", "#D8D2E8", "#8A84A0"];
+  return toy("M30 106 H90 L86 94 H34Z", "#C8C0D8", "#8A84A0", "#5A5470", {dy:2, w:2.6})
+  + toy("M28 94 Q30 74 46 70 L74 70 Q90 74 92 94Z", ...M)
+  + toy("M60 14 Q86 14 88 44 Q88 70 60 74 Q32 70 32 44 Q34 14 60 14Z", ...M)
+  + `<path d="M40 82 Q60 90 80 82" fill="none" stroke="#A8A0C0" stroke-width="2"/>`
+  + [-1, 1].map(s => [0,1,2,3].map(i => `<ellipse cx="${60 + s*(26-i*3)}" cy="${30-i*5}" rx="5.4" ry="2.6" transform="rotate(${s*(-60+i*20)} ${60 + s*(26-i*3)} ${30-i*5})" fill="#8BD050" ${tS(1.6)}/>`).join("")).join("")
+  + tShine("M38 40 Q40 24 52 18") + tEyes(50, 70, 46, .85) + tBlush(42, 78, 55) + tMouth(60, 56, "cat");
+},
+cin(){ // Popcorn : des grains qui sautent
+  const pop = [[34,22,0],[60,12,-.5],[86,22,-1]].map(([x, y, d]) => `<g class="ta-pop" style="animation-delay:${d}s">${toy(tC(x, y, 6), "#FFFBE8", "#F6E0A0", "#B89A5A", {dy:1, w:2})}</g>`).join("");
+  return pop + tFeet(46, 74, 103, "#FF8A9A", "#D8243A", "#8A1020", 8)
+  + [[32,34],[46,26],[60,24],[74,26],[88,34],[40,40],[80,40]].map(([x, y]) => toy(tC(x, y, 10), "#FFFBE8", "#F6E0A0", "#B89A5A", {dy:2, w:2.4})).join("")
+  + toy("M22 42 H98 L88 100 H32Z", "#FFFFFF", "#E8E0EC", "#8A84A0")
+  + [0,1,2,3].map(i => `<path d="M${30+i*20} 42 L${36+i*17} 100 H${44+i*17} L${40+i*20} 42Z" fill="#E8344E"/>`).join("") + `<path d="M22 42 H98 L88 100 H32Z" fill="none" ${tS(3)}/>`
+  + toy("M36 56 H84 Q86 74 80 82 H40 Q34 74 36 56Z", "#FFFFFF", "#F0ECF6", "#8A84A0", {dy:0, w:2.4})
+  + tEyes(51, 69, 66, .8) + tBlush(44, 76, 74) + tMouth(60, 74);
+},
+mus(){ // Croche : une note de musique qui se dandine
+  const notes = [[18,30,0],[100,20,-1]].map(([x, y, d]) => `<g class="ta-spore" style="animation-delay:${d}s"><path d="M${x} ${y} v-12 l8 -3 v12" fill="none" stroke="#C9A2FF" stroke-width="2.4"/><circle cx="${x-2}" cy="${y}" r="3" fill="#C9A2FF"/><circle cx="${x+6}" cy="${y-3}" r="3" fill="#C9A2FF"/></g>`).join("");
+  return notes + `<g class="ta-sway" style="transform-origin:60px 100px">`
+  + tFeet(46, 74, 104, "#5A5070", "#2A2440", "#120E1E", 8)
+  + tLimb("M80 74 V18", "#3A3450", 9) + toy("M80 14 Q102 22 100 46 Q92 32 80 34Z", "#5A5070", "#2A2440", "#120E1E", {dy:2})
+  + toy(tE(58, 76, 26, 22), "#6A6088", "#2A2440", "#120E1E")
+  + tShine("M38 70 Q40 60 50 56") + tEyes(50, 68, 76, .85) + tBlush(42, 76, 85) + tMouth(59, 85) + `</g>`;
+},
+ins(){ // Soucoupe : une soucoupe volante et son rayon
+  return `<path d="M44 84 L30 112 H90 L76 84Z" fill="#AFFFE0" opacity=".35" class="ta-pulse"/>`
+  + toy(tE(60, 52, 22, 20), "#D8F8FF", "#7AC8E8", "#3A7AA0", {dy:0, w:2.6})
+  + toy(tE(60, 74, 46, 12), "#C8D0E8", "#7A84A8", "#4A5070")
+  + [26, 44, 60, 76, 94].map((x, i) => `<circle cx="${x}" cy="${i % 2 ? 80 : 77}" r="3" fill="#FFE27A" ${tS(1.4)} class="ta-blinkb" style="animation-delay:${-i*.25}s"/>`).join("")
+  + `<path d="M40 52 Q42 38 54 34" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>`
+  + `<g>${toy(tE(60, 56, 12, 10), "#9AF08A", "#4EB84A", "#2A7A2A", {dy:0, w:2.4})}</g>` + tEyes(55, 65, 55, .55) + `<path d="M58 60 q2 2 4 0" fill="none" stroke="${TD}" stroke-width="1.8" stroke-linecap="round"/>`
+  + tShine("M22 72 Q34 66 48 65", 2.8);
+},
+gas(){ // Croissant : bien doré, avec un peu de vapeur
+  const steam = [44, 60, 76].map((x, i) => `<path d="M${x} 30 q-4 -6 0 -12 q4 -6 0 -12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".6" class="ta-spore" style="animation-delay:${-i*.7}s"/>`).join("");
+  return steam + tFeet(42, 78, 101, "#E8A050", "#B86A20", "#7A420A", 8)
+  + toy("M8 74 Q14 44 42 38 Q60 34 78 38 Q106 44 112 74 Q100 64 90 70 Q96 92 60 96 Q24 92 30 70 Q20 64 8 74Z", "#FFD088", "#D8862E", "#8A4E12")
+  + `<path d="M36 44 Q42 66 40 90 M60 38 V96 M84 44 Q78 66 80 90" fill="none" stroke="#B86A20" stroke-width="2.6" opacity=".7"/>`
+  + tShine("M18 66 Q24 52 36 46") + tEyes(50, 70, 64, .85) + tBlush(42, 78, 74) + tMouth(60, 74);
+},
+lan(){ // Encrier : une plume qui se balance et une goutte d'encre
+  return `<path class="ta-drip" d="M40 102 q-3 5 0 7 q3 -2 0 -7z" fill="#5A4AE8" ${tS(1.4)}/>`
+  + tFeet(44, 76, 103, "#5A5070", "#2A2440", "#120E1E", 8)
+  + toy("M26 56 Q26 46 38 46 H82 Q94 46 94 56 V92 Q94 102 82 102 H38 Q26 102 26 92Z", "#8A7AF0", "#3A2AA0", "#1E146A")
+  + toy("M42 30 H78 V46 H42Z", "#3A3450", "#1E1A28", "#0A0810", {dy:2, w:2.6})
+  + `<g class="ta-sway" style="transform-origin:66px 34px">${toy("M66 34 Q76 6 102 2 Q94 20 72 36Z", "#FFFFFF", "#D8D0EC", "#8A84A0", {dy:2, w:2.4})}<path d="M70 32 Q82 16 98 6" fill="none" stroke="#A8A0C0" stroke-width="1.6"/></g>`
+  + tShine("M32 60 V88") + tEyes(50, 70, 72) + tBlush(41, 79, 82) + tMouth(60, 82);
+},
+myt(){ // Cyclo : un cyclope au grand œil
+  const S = ["#B4E88A", "#5EAA44", "#2E6A26"];
+  return tFeet(44, 76, 102, ...S, 9) + tArms(28, 92, 72, -14, 6, ...S)
+  + toy("M52 28 L58 8 L64 28Z", "#FFF3DC", "#E8CFA0", "#B89A6A", {dy:2, w:2.4})
+  + toy("M60 26 Q94 26 96 62 Q98 100 60 100 Q22 100 24 62 Q26 26 60 26Z", ...S)
+  + toy("M30 80 Q60 92 90 80 L92 98 Q60 106 28 98Z", "#FFFFFF", "#E8E0EC", "#8A84A0", {dy:0, w:2.4})
+  + `<g class="tblink"><circle cx="60" cy="56" r="15" fill="#fff" ${tS(2.6)}/><g class="ta-look"><circle cx="60" cy="58" r="8" fill="#5AB8FF" stroke="${TD}" stroke-width="2"/><circle cx="60" cy="58" r="4" fill="${TD}"/><circle cx="63" cy="55" r="2.2" fill="#fff"/></g></g>`
+  + tShine("M30 70 Q30 46 44 34") + tMouth(60, 76) + tBlush(38, 82, 70);
+},
+tec(){ // Robotik : un robot à l'antenne qui clignote
+  const M = ["#D8E6F8", "#7A8EB0", "#3E4A68"];
+  return tFeet(44, 76, 102, ...M, 9) + tArms(24, 96, 74, -14, 4, ...M)
+  + tLimb("M60 24 V10", "#7A8EB0", 7) + `<circle cx="60" cy="8" r="5" fill="#FF5A6A" ${tS(2.2)} class="ta-blinkb"/>`
+  + toy("M22 32 Q22 24 30 24 H90 Q98 24 98 32 V96 Q98 102 90 102 H30 Q22 102 22 96Z", ...M)
+  + toy("M32 36 H88 V70 H32Z", "#2A3A5A", "#121A2E", "#060A14", {dy:0, w:2.6})
+  + `<g class="tblink"><rect x="44" y="46" width="9" height="11" rx="2" fill="#7FF0E0"/><rect x="67" y="46" width="9" height="11" rx="2" fill="#7FF0E0"/></g><path d="M52 62 q8 5 16 0" fill="none" stroke="#7FF0E0" stroke-width="2.4" stroke-linecap="round"/>`
+  + [[36,84,"#FF6A8A"],[48,84,"#FFD23F"],[60,84,"#5AE8A0"]].map(([x, y, c], i) => `<circle cx="${x}" cy="${y}" r="4" fill="${c}" ${tS(2)} class="ta-blinkb" style="animation-delay:${-i*.35}s"/>`).join("")
+  + `<path d="M72 80 h16 M72 88 h12" stroke="${TD}" stroke-width="3" stroke-linecap="round"/>` + tShine("M27 40 V64");
+},
+cap(){ // Punaise : une épingle de carte qui sautille
+  const R = ["#FF8A8A", "#E2323A", "#8A1018"];
+  return `<path d="M60 84 L60 108" stroke="#8A94A8" stroke-width="4" stroke-linecap="round"/><path d="M60 84 L60 108" stroke="${TD}" stroke-width="1.4" opacity=".4"/>`
+  + tArms(30, 90, 52, -12, -10, ...R)
+  + toy("M60 88 Q30 72 28 46 Q28 18 60 16 Q92 18 92 46 Q90 72 60 88Z", ...R)
+  + `<circle cx="60" cy="44" r="16" fill="#fff" opacity=".25"/>` + tShine("M36 42 Q38 28 50 22") + tEyes(50, 70, 46) + tBlush(41, 79, 56) + tMouth(60, 56);
+},
+eco(){ // Tirelou : un cochon tirelire, une pièce tombe dans la fente
+  const P = ["#FFC4DA", "#F07AA8", "#A83A64"];
+  return `<g class="ta-coin">${toy(tE(60, 8, 7, 7), "#FFE98A", "#F0A61C", "#A8650C", {dy:1, w:2})}</g>`
+  + toy("M30 92 v12 h10 v-12Z", ...P, {dy:1.5, w:2.4}) + toy("M80 92 v12 h10 v-12Z", ...P, {dy:1.5, w:2.4})
+  + toy("M28 36 L32 22 L44 32Z", ...P, {dy:2, w:2.4}) + toy("M92 36 L88 22 L76 32Z", ...P, {dy:2, w:2.4})
+  + `<g class="ta-wag" style="transform-origin:104px 66px"><path d="M104 66 q10 -2 8 6 q-2 6 6 4" fill="none" stroke="${TD}" stroke-width="5" stroke-linecap="round"/><path d="M104 66 q10 -2 8 6 q-2 6 6 4" fill="none" stroke="#F07AA8" stroke-width="2.4" stroke-linecap="round"/></g>`
+  + toy("M60 26 Q100 26 104 62 Q104 96 60 96 Q16 96 16 62 Q20 26 60 26Z", ...P)
+  + `<rect x="50" y="27" width="20" height="4" rx="2" fill="${TD}"/>`
+  + toy(tE(60, 68, 12, 8.5), "#FFD8E8", "#F09ABC", "#A83A64", {dy:0, w:2.4}) + `<ellipse cx="56" cy="68" rx="2" ry="3" fill="${TD}"/><ellipse cx="64" cy="68" rx="2" ry="3" fill="${TD}"/>`
+  + tShine("M24 56 Q26 40 40 33") + tEyes(44, 76, 52, .85) + tBlush(32, 88, 62);
+},
+// ---- Skins secrets
+etoile(){
+  return `<path d="M30 74 C10 84 2 98 -2 110 C12 98 22 92 36 88Z" fill="#FFE7A0" opacity=".6" class="ta-pulse"/>`
+  + tArms(30, 90, 54, -12, -12, "#FFF3A0", "#F0B81E", "#A8740A")
+  + toy("M60 12 L72 40 L102 42 L78 62 L86 92 L60 76 L34 92 L42 62 L18 42 L48 40Z", "#FFF3A0", "#F0B81E", "#A8740A")
+  + tShine("M50 36 L56 22") + tEyes(51, 69, 56, .8) + tBlush(44, 76, 64) + tMouth(60, 65);
+},
+trefle(){
+  const G = ["#A8F09A", "#3EA04A", "#1E6A26"];
+  return tLimb("M60 88 Q62 98 72 106", "#3EA04A", 7)
+  + `<g class="ta-sway" style="transform-origin:60px 90px">${tArms(30, 90, 66, -10, -12, ...G)}`
+  + [[60,40],[40,62],[80,62],[60,82]].map(([x, y]) => toy(tC(x, y, 20), ...G, {dy:3})).join("") + toy(tC(60, 62, 14), ...G, {dy:0})
+  + tShine("M50 30 Q52 24 58 22") + tEyes(52, 68, 62, .8) + tBlush(45, 75, 70) + tMouth(60, 70) + `</g>`;
+},
+dede(){ // Dédé : un dé qui roule des yeux
+  return tFeet(44, 76, 104, "#E8E8F0", "#B4B4C8", "#6A6A80", 8) + tArms(24, 96, 70, -14, -8, "#FFFFFF", "#D8D8E4", "#8A8AA0")
+  + `<path d="M24 44 L60 28 L96 44 L60 60Z" fill="#FFFFFF" ${tS(3)}/><path d="M24 44 L60 60 V100 L24 84Z" fill="#E8E8F2" ${tS(3)}/><path d="M96 44 L60 60 V100 L96 84Z" fill="#C8C8D8" ${tS(3)}/>`
+  + `<ellipse cx="60" cy="44" rx="4.4" ry="2.6" fill="#E2323A"/>` + [[84,60],[72,82],[78,71]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="${TD}"/>`).join("")
+  + tEyes(36, 50, 68, .6) + `<path d="M39 79 q4 3 8 0" fill="none" stroke="${TD}" stroke-width="2" stroke-linecap="round"/>` + tShine("M30 52 L52 42", 3);
+},
+lingot(){
+  const Gd = ["#FFF0A0", "#F2B81E", "#A8740A"];
+  return tFeet(40, 80, 102, ...Gd, 9) + tArms(22, 98, 80, -14, -14, ...Gd)
+  + toy("M32 52 H88 L104 96 H16Z", ...Gd) + toy("M32 52 H88 L84 62 H36Z", "#FFFBE0", "#FFE070", "#A8740A", {dy:0, w:2.4})
+  + tShine("M30 72 L24 90") + tEyes(50, 70, 76, .85) + tBlush(41, 79, 86) + tMouth(60, 86)
+  + tStar(90, 40, 6, "#FFFFFF", "ta-twinkle") + tStar(22, 44, 4, "#FFF3A0", "ta-twinkle");
+},
+veinard(){ // Veinard : un fer à cheval porte-bonheur
+  const M = ["#F0F4FA", "#9AA4B8", "#4E5870"];
+  return tFeet(30, 90, 104, ...M, 8)
+  + toy("M28 102 Q14 74 20 48 Q28 18 60 16 Q92 18 100 48 Q106 74 92 102 L74 102 Q84 76 80 54 Q76 36 60 36 Q44 36 40 54 Q36 76 46 102Z", ...M)
+  + [[28,48],[24,66],[30,84],[92,48],[96,66],[90,84]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.8" fill="#4E5870"/>`).join("")
+  + tShine("M28 40 Q38 24 54 20") + tEyes(52, 68, 26, .65) + tBlush(46, 74, 32) + `<path d="M56 31 q4 3 8 0" fill="none" stroke="${TD}" stroke-width="2" stroke-linecap="round"/>`
+  + tStar(60, 62, 8, "#FFE27A", "ta-twinkle") + tStar(14, 20, 4, "#FFFFFF", "ta-twinkle");
+},
+comete(){
+  return `<path d="M84 44 C100 30 112 12 118 2 C108 20 104 36 96 52Z M86 60 C104 56 114 46 120 38 C112 54 104 62 92 70Z" fill="#B8ECFF" opacity=".65" class="ta-pulse"/>`
+  + tArms(32, 88, 72, -6, 4, "#C8F0FF", "#3E9AD8", "#123A6A")
+  + toy(tC(60, 66, 28), "#C8F0FF", "#3E9AD8", "#123A6A")
+  + `<circle cx="74" cy="80" r="5" fill="#5AB8F0" opacity=".7"/><circle cx="44" cy="84" r="3" fill="#5AB8F0" opacity=".7"/>`
+  + tShine("M40 56 Q44 44 54 40") + tEyes(50, 70, 64, .85) + tBlush(42, 78, 73) + tMouth(60, 74, "o");
+},
+lumen(){ // Lumen, l'ultra secret : un astre doré entouré de rayons qui tournent
+  return tGlow(60, 60, 58, "#FFD06A", .7)
+  + `<g class="ta-rays" style="transform-origin:60px 60px">${[0,1,2,3,4,5,6,7].map(i => { const a = i*Math.PI/4, p = r => (60+Math.cos(a)*r).toFixed(1) + " " + (60+Math.sin(a)*r).toFixed(1); return `<path d="M${p(40)} L${p(52)}" stroke="${TD}" stroke-width="7" stroke-linecap="round"/><path d="M${p(40)} L${p(52)}" stroke="#FFE36A" stroke-width="3.6" stroke-linecap="round"/>`; }).join("")}</g>`
+  + `<ellipse cx="60" cy="16" rx="16" ry="4.5" fill="none" stroke="${TD}" stroke-width="6"/><ellipse cx="60" cy="16" rx="16" ry="4.5" fill="none" stroke="#FFE36A" stroke-width="3"/>`
+  + tArms(32, 88, 66, -14, -14, "#FFF6C8", "#F2B83B", "#A8740A")
+  + toy("M60 26 C80 26 92 42 92 62 C92 84 78 96 60 96 C42 96 28 84 28 62 C28 42 40 26 60 26Z", "#FFF6C8", "#F2B83B", "#A8740A")
+  + `<g class="ta-flick" style="transform-origin:60px 50px"><path d="M60 50 C55 44 56 38 60 32 C64 38 65 44 60 50Z" fill="#FF9A3D" ${tS(2)}/><path d="M60 48 C58 45 58.5 42 60 39 C61.5 42 62 45 60 48Z" fill="#FFE27A"/></g>`
+  + tShine("M36 56 Q38 42 48 35") + tEyes(48, 72, 64) + tBlush(40, 80, 74) + tMouth(60, 78);
+}
+};
+const TOY_SKIN_ANIM = { cor:"beat", spo:"bounce", cap:"bounce", dede:"jelly" };
+SHOP_SKINS.concat(SECRET_SKINS, [ULTRA_SKIN]).forEach(s => { if (TOY_SKINS[s.id]) { s.draw = TOY_SKINS[s.id]; s.toy = true; s.anim = TOY_SKIN_ANIM[s.id] || ""; delete s.hat; } });
+
+/* ---------- Accessoires en style « jouet » (voir atelier/toy.js) ----------
+   Les 21 accessoires d'origine gardent leur identifiant, leur prix et leur thème (les achats restent valides) ;
+   seul le dessin change. De nouveaux accessoires sont ajoutés à la fin de la liste.
+   Chapeaux : dessinés autour de (0,0) = bas-centre. Objets : centrés sur (0,0). Auras et socles : voir acc.js. */
+const aT = (d, a, b, dark, o = {}) => toy(d, a, b, dark, Object.assign({dy:2.5, w:2.4}, o));
+const aStar = (x, y, r, c) => tStar(x, y, r, c || "#FFE36A");
+const ACC_TOY = {
+  // ---- Chapeaux (existants)
+  couronne:() => aT("M-19 0 L-21 -20 L-10 -11 L0 -25 L10 -11 L21 -20 L19 0Z", "#FFF0A0", "#F2B81E", "#A8740A") + aT(tC(0, -25, 3.2), "#FF8AAE", "#E2324E", "#8A1030", {dy:1, w:1.6}) + aT(tC(-21, -20, 2.6), "#9ADCFF", "#2E86E0", "#1D56A8", {dy:1, w:1.4}) + aT(tC(21, -20, 2.6), "#9ADCFF", "#2E86E0", "#1D56A8", {dy:1, w:1.4}) + tShine("M-14 -5 L-15 -14", 2.4),
+  mortier:() => aT("M-13 -2 Q0 4 13 -2 L13 -11 L-13 -11Z", "#5A5480", "#2E2A4A", "#16142A") + aT("M0 -22 L28 -13 L0 -4 L-28 -13Z", "#6A64A0", "#3E3A66", "#1E1A3A") + `<circle cx="0" cy="-13" r="2.6" fill="#FFD23F" ${tS(1.4)}/><path d="M0 -13 Q18 -11 20 -1" fill="none" stroke="${TD}" stroke-width="4"/><path d="M0 -13 Q18 -11 20 -1" fill="none" stroke="#FFD23F" stroke-width="2"/>` + aT("M18 -2 l2 8 2 -8Z", "#FFF0A0", "#F2B81E", "#A8740A", {dy:0, w:1.4}),
+  beret:() => aT("M-22 -2 C-24 -18 -8 -22 2 -21 C18 -20 26 -12 22 -4 C14 2 -16 2 -22 -2Z", "#FF8A9A", "#E0344A", "#8A1428") + `<path d="M2 -21 l1 -5" stroke="${TD}" stroke-width="3" stroke-linecap="round"/>` + tShine("M-14 -12 Q-6 -17 4 -17", 2.6),
+  laurier:() => [-1, 1].map(s => [0,1,2,3].map(i => `<ellipse cx="${s*(19-i*1.6)}" cy="${-2-i*4.6}" rx="5.4" ry="2.6" transform="rotate(${s*(-60+i*22)} ${s*(19-i*1.6)} ${-2-i*4.6})" fill="#9AE07A" ${tS(1.6)}/>`).join("")).join(""),
+  casquette:() => aT("M-18 0 C-19 -20 17 -22 18 -2Z", "#7FC8FF", "#2E6AC8", "#1D3A8A") + aT("M8 -2 Q26 -4 32 2 Q20 6 6 2Z", "#5A9AE8", "#1E4AA0", "#0E2A6A", {dy:1.5}) + aT(tC(0, -19, 2.4), "#FFFFFF", "#D8D8E4", "#8A8AA0", {dy:0, w:1.2}) + tShine("M-12 -8 Q-10 -15 -4 -17", 2.6),
+  casque:(w) => `<path d="M${-w/2-2} 8 C${-w/2-2} -26 ${w/2+2} -26 ${w/2+2} 8" fill="none" stroke="${TD}" stroke-width="8" stroke-linecap="round"/><path d="M${-w/2-2} 8 C${-w/2-2} -26 ${w/2+2} -26 ${w/2+2} 8" fill="none" stroke="#FF7AB0" stroke-width="4" stroke-linecap="round"/>` + aT(`M${-w/2-9} 4 Q${-w/2-9} -2 ${-w/2-3} -2 L${-w/2+3} -2 L${-w/2+3} 20 L${-w/2-3} 20 Q${-w/2-9} 20 ${-w/2-9} 14Z`, "#FFA4CE", "#E2427A", "#8A1A40") + aT(`M${w/2+9} 4 Q${w/2+9} -2 ${w/2+3} -2 L${w/2-3} -2 L${w/2-3} 20 L${w/2+3} 20 Q${w/2+9} 20 ${w/2+9} 14Z`, "#FFA4CE", "#E2427A", "#8A1A40"),
+  fleur:() => tLimb("M0 0 Q2 -6 0 -10", "#4E9A3A", 5) + [0,72,144,216,288].map(a => `<ellipse cx="0" cy="-18" rx="4.4" ry="6.4" transform="rotate(${a} 0 -12)" fill="#FFB4D8" ${tS(1.6)}/>`).join("") + aT(tC(0, -12, 3.8), "#FFF3A0", "#F2B81E", "#A8740A", {dy:0, w:1.6}),
+  noeud:() => aT("M0 -8 L-16 -17 Q-21 -8 -16 1Z", "#FF9AC0", "#E2427A", "#8A1A40") + aT("M0 -8 L16 -17 Q21 -8 16 1Z", "#FF9AC0", "#E2427A", "#8A1A40") + aT(tC(0, -8, 4.6), "#FFB4D8", "#F06A9A", "#8A1A40", {dy:1}),
+  magicien:() => aT("M-15 -2 L-3 -42 Q1 -47 4 -40 L15 -2Z", "#9A7AF8", "#5A3AC8", "#2E1A7A") + aT(tE(0, -1, 23, 5), "#7A5AE0", "#4A2AA8", "#24125A", {dy:1.5}) + aStar(-3, -14, 3.6) + aStar(4, -26, 2.8) + tShine("M-8 -8 L0 -34", 2.4),
+  // ---- Objets (existants)
+  carte:() => `<g transform="rotate(-10)">${aT("M-12 -10 L12 -10 L12 10 L-12 10Z", "#FFF3D0", "#E8C880", "#9A7A3A")}<path d="M-7 4 Q-2 -2 2 1 Q5 4 7 -4" fill="none" stroke="#B84A2A" stroke-width="1.6" stroke-dasharray="2 2"/><path d="M5 -6 l4 4 M9 -6 l-4 4" stroke="#E0303A" stroke-width="2.4" stroke-linecap="round"/></g>`,
+  manette:() => aT("M-16 -4 Q-16 -10 -9 -10 L9 -10 Q16 -10 16 -4 L18 6 Q18 12 12 11 L6 5 L-6 5 L-12 11 Q-18 12 -18 6Z", "#B8A4FF", "#6E4BEA", "#3A2498") + `<path d="M-10 -3 v6 M-13 0 h6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="9" cy="-3" r="2.2" fill="#FF6A8A" ${tS(1)}/><circle cx="12" cy="1" r="2.2" fill="#5AE8A0" ${tS(1)}/>`,
+  clap:() => aT("M-13 -4 H13 V12 H-13Z", "#4A4458", "#1E1A28", "#0A0810") + `<g transform="rotate(-14 -13 -4)">${aT("M-13 -12 H13 V-4 H-13Z", "#FFFFFF", "#D8D8E4", "#8A8AA0", {dy:1})}<path d="M-8 -12 l4 8 M0 -12 l4 8 M8 -12 l4 8" stroke="${TD}" stroke-width="3"/></g>`,
+  livre:() => aT("M0 -8 Q-8 -12 -16 -9 L-16 10 Q-8 7 0 11Z", "#FFFFFF", "#E8E0EC", "#8A84A0") + aT("M0 -8 Q8 -12 16 -9 L16 10 Q8 7 0 11Z", "#FFF8E8", "#F0E0C0", "#9A8A6A") + `<path d="M-12 -4 h7 M-12 0 h7 M5 -4 h7 M5 0 h5" stroke="#9A8AB0" stroke-width="1.6" stroke-linecap="round"/>`,
+  loupe:() => tLimb("M5 6 L14 16", "#C8925A", 7) + `<circle cx="-2" cy="-1" r="10" fill="#D8F4FF" fill-opacity=".6" stroke="${TD}" stroke-width="5"/><circle cx="-2" cy="-1" r="10" fill="none" stroke="#FFD23F" stroke-width="2.4"/>` + tShine("M-7 -5 Q-5 -8 -2 -8", 2.4),
+  ballon:() => `<path d="M0 8 Q-4 16 2 24" fill="none" stroke="${TD}" stroke-width="1.6"/>` + aT(tE(0, -6, 10, 12), "#AEE4FF", "#3E9AE8", "#1D5AA8") + aT("M-2 6 l2 -2 l2 2z", "#3E9AE8", "#3E9AE8", "#1D5AA8", {dy:0, w:1.2}) + tShine("M-5 -12 Q-4 -15 -1 -16", 2.4),
+  piece:() => aT(tC(0, 0, 11), "#FFF0A0", "#F2B81E", "#A8740A") + `<circle r="7.5" fill="none" stroke="#C88A10" stroke-width="2"/><path d="M0 -5 v10" stroke="#C88A10" stroke-width="2.6" stroke-linecap="round"/>` + tShine("M-7 -5 Q-5 -8 -1 -9", 2.4),
+  // ---- Auras et socles (existants)
+  etincelles:(b) => [[b.x-6,b.y+10,6],[b.x+b.w+6,b.y+20,5],[b.x+4,b.y+b.h-14,4.4],[b.x+b.w-2,b.y-2,5.4],[b.cx+2,b.y-10,4]].map(([x, y, r], i) => `<g class="ta-twinkle" style="animation-delay:${-i*.35}s">${aStar(x, y, r)}</g>`).join(""),
+  bulles:(b) => [[b.x-4,b.y+18,5],[b.x+b.w+4,b.y+8,4],[b.x+b.w+8,b.y+30,3],[b.x-8,b.y+36,3.4]].map(([x, y, r], i) => `<g class="ta-bubble" style="animation-delay:${-i*.6}s"><circle cx="${x}" cy="${y}" r="${r}" fill="#CFF4FF" fill-opacity=".5" stroke="${TD}" stroke-width="1.6"/><circle cx="${x-r*.35}" cy="${y-r*.35}" r="${r*.28}" fill="#fff"/></g>`).join(""),
+  coeurs:(b) => [[b.x-6,b.y+14,1],[b.x+b.w+6,b.y+6,.8],[b.x+b.w+2,b.y+34,.7]].map(([x, y, k], i) => `<g class="ta-spore" style="animation-delay:${-i*.9}s"><path transform="translate(${x} ${y}) scale(${k})" d="M0 5 C-9 -2 -7 -10 0 -5 C7 -10 9 -2 0 5Z" fill="#FF7AA8" ${tS(1.6)}/></g>`).join(""),
+  nuage:() => aT("M-30 4 Q-34 -4 -24 -6 Q-22 -13 -12 -10 Q-6 -16 4 -11 Q14 -15 20 -8 Q32 -8 30 2 Q32 10 20 9 L-22 9 Q-34 10 -30 4Z", "#FFFFFF", "#C8D2EC", "#8592C4"),
+  tapis:() => aT("M-32 0 Q-16 -6 0 0 Q16 6 32 0 L30 8 Q14 14 0 8 Q-16 2 -30 8Z", "#FF8A9A", "#C8344A", "#7A1428") + `<path d="M-26 3 Q-14 -1 0 4 Q14 9 26 4" fill="none" stroke="#FFD23F" stroke-width="1.8" stroke-dasharray="3 2"/>`
+};
+// Nouveaux accessoires
+const ACC_NEW = [
+  // Chapeaux
+  {id:"bonnet", n:"Bonnet à pompon", slot:"tete", p:120, draw:() => aT("M-20 0 C-22 -26 22 -26 20 0Z", "#FF8A9A", "#E0344A", "#8A1428") + aT("M-22 -5 L22 -5 L22 3 L-22 3Z", "#FFFFFF", "#E8E0EC", "#8A84A0", {dy:1.5}) + aT(tC(0, -27, 6), "#FFFFFF", "#E8E0EC", "#8A84A0", {dy:1.5}) + tShine("M-12 -10 Q-10 -18 -4 -20", 2.6)},
+  {id:"pirate", n:"Tricorne de pirate", slot:"tete", p:190, th:"his", draw:() => aT("M-28 -2 Q-26 -14 -16 -12 Q-10 -30 0 -28 Q10 -30 16 -12 Q26 -14 28 -2 Q0 6 -28 -2Z", "#5A5470", "#2E2A3E", "#16141E") + aT(tE(0, -15, 5, 4.4), "#FFFFFF", "#E8E0EC", "#8A84A0", {dy:0, w:1.4}) + `<path d="M-2.4 -16 h1.6 M1 -16 h1.6 M-2 -12.6 h4" stroke="${TD}" stroke-width="1.2"/><path d="M-26 -3 Q0 4 26 -3" fill="none" stroke="#FFD23F" stroke-width="1.8"/>`},
+  {id:"cowboy", n:"Chapeau de cowboy", slot:"tete", p:170, th:"cin", draw:() => aT("M-31 -4 Q-31 4 -18 2 L18 2 Q31 4 31 -4 Q24 0 18 -2 L-18 -2 Q-24 0 -31 -4Z", "#D8A06A", "#A86A30", "#5A3410", {dy:1.5}) + aT("M-16 -2 Q-18 -26 -6 -24 Q0 -20 6 -24 Q18 -26 16 -2Z", "#E8B47A", "#B87A3A", "#6A3E14") + aT("M-16 -6 L16 -6 L16 -2 L-16 -2Z", "#8A4A2A", "#5A2A12", "#2A1406", {dy:0, w:1.6})},
+  {id:"viking", n:"Casque à cornes", slot:"tete", p:200, th:"myt", draw:() => aT("M-19 -10 Q-30 -12 -32 -30 Q-24 -20 -16 -18Z", "#FFFBEC", "#E8D4A8", "#9A8A6A", {dy:1.5}) + aT("M19 -10 Q30 -12 32 -30 Q24 -20 16 -18Z", "#FFFBEC", "#E8D4A8", "#9A8A6A", {dy:1.5}) + aT("M-20 0 C-20 -26 20 -26 20 0Z", "#D8E2F0", "#8E9AB0", "#4E5A70") + aT("M-22 -4 L22 -4 L22 2 L-22 2Z", "#FFE08A", "#C8A040", "#7A5A14", {dy:1.5}) + tShine("M-12 -10 Q-10 -18 -4 -20", 2.6)},
+  {id:"haut", n:"Haut-de-forme", slot:"tete", p:180, draw:() => aT(tE(0, -2, 24, 5), "#5A5470", "#2E2A3E", "#16141E", {dy:1.5}) + aT("M-14 -2 L-14 -34 Q0 -38 14 -34 L14 -2Z", "#6A6488", "#2E2A3E", "#16141E") + aT("M-14 -10 L14 -10 L14 -4 L-14 -4Z", "#FF8A9A", "#E0344A", "#8A1428", {dy:0, w:1.6}) + tShine("M-9 -14 V-30", 2.6)},
+  {id:"paille", n:"Chapeau de paille", slot:"tete", p:110, th:"ani", draw:() => aT(tE(0, -2, 31, 6), "#FFE7A0", "#E8B84A", "#9A7414", {dy:1.5}) + aT("M-14 -2 Q-16 -22 0 -22 Q16 -22 14 -2Z", "#FFEDB0", "#F0C25A", "#9A7414") + aT("M-14 -7 L14 -7 L14 -3 L-14 -3Z", "#FF8A9A", "#E0344A", "#8A1428", {dy:0, w:1.4})},
+  {id:"chantier", n:"Casque de chantier", slot:"tete", p:130, th:"tec", draw:() => aT("M-24 0 Q-26 -6 -18 -4 C-18 -26 18 -26 18 -4 Q26 -6 24 0Z", "#FFE27A", "#F2B81E", "#A8740A") + aT("M-3 -24 L3 -24 L3 -6 L-3 -6Z", "#FFF0A0", "#FFD23F", "#A8740A", {dy:0, w:1.4}) + tShine("M-14 -8 Q-12 -16 -6 -19", 2.6)},
+  {id:"toque", n:"Toque de chef", slot:"tete", p:140, th:"gas", draw:() => aT("M-14 0 L-14 -12 L14 -12 L14 0Z", "#FFFFFF", "#E8E0EC", "#8A84A0") + aT("M-16 -12 Q-25 -24 -12 -29 Q-8 -39 2 -35 Q12 -41 18 -31 Q28 -24 16 -12Z", "#FFFFFF", "#E8E0EC", "#8A84A0") + tShine("M-12 -24 Q-8 -30 -2 -31", 2.4)},
+  {id:"helice", n:"Casquette à hélice", slot:"tete", p:150, th:"jeu", draw:() => aT("M-18 0 C-18 -20 18 -20 18 0Z", "#FFE27A", "#F2B81E", "#A8740A") + `<path d="M-18 0 C-18 -20 0 -20 0 -18 L0 0Z" fill="#5AB8FF" opacity=".85"/>` + `<path d="M0 -18 V-25" stroke="${TD}" stroke-width="2.6"/><g class="ta-propel">${aT("M0 -26 Q-13 -31 -21 -26 Q-13 -23 0 -26Z", "#FF8AB8", "#E2427A", "#8A1A40", {dy:0, w:1.6})}${aT("M0 -26 Q13 -21 21 -26 Q13 -29 0 -26Z", "#9AF0B8", "#3EB86A", "#1E6A3A", {dy:0, w:1.6})}</g>` + aT(tC(0, -26, 2.4), "#FF8A9A", "#E0344A", "#8A1428", {dy:0, w:1.2})},
+  {id:"aureole", n:"Auréole", slot:"tete", p:220, draw:() => `<g class="ta-float2"><ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="#FFE27A" stroke-width="9" opacity=".3"/><ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="${TD}" stroke-width="6"/><ellipse cx="0" cy="-16" rx="18" ry="5" fill="none" stroke="#FFE27A" stroke-width="3.2"/></g>`},
+  {id:"antennes", n:"Antennes", slot:"tete", p:120, th:"esp", draw:() => tLimb("M-8 0 Q-12 -16 -18 -24", "#5A4A70", 5) + tLimb("M8 0 Q12 -16 18 -24", "#5A4A70", 5) + `<g class="ta-blinkb">${aT(tC(-18, -26, 5), "#9AF0B8", "#3EB86A", "#1E6A3A", {dy:1})}</g><g class="ta-blinkb" style="animation-delay:-.7s">${aT(tC(18, -26, 5), "#9AF0B8", "#3EB86A", "#1E6A3A", {dy:1})}</g>`},
+  {id:"chat", n:"Oreilles de chat", slot:"tete", p:110, draw:() => aT("M-24 0 Q-24 -10 -20 -10 L20 -10 Q24 -10 24 0Z", "#5A5470", "#2E2A3E", "#16141E", {dy:1}) + aT("M-21 -8 L-16 -31 L-4 -12Z", "#5A5470", "#2E2A3E", "#16141E") + aT("M21 -8 L16 -31 L4 -12Z", "#5A5470", "#2E2A3E", "#16141E") + `<path d="M-16 -12 L-15 -24 L-9 -14Z M16 -12 L15 -24 L9 -14Z" fill="#FFB4D8"/>`},
+  {id:"champi", n:"Chapeau champignon", slot:"tete", p:140, draw:() => aT("M-26 0 Q-28 -30 0 -30 Q28 -30 26 0 Q0 6 -26 0Z", "#FF907A", "#D8343A", "#982030") + [[-12,-16,4],[6,-22,3.4],[14,-8,3],[-2,-8,2.6]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*.85}" fill="#FFF6EC" ${tS(1.2)}/>`).join("")},
+  {id:"glace", n:"Cornet glacé", slot:"tete", p:120, th:"gas", draw:() => aT("M-10 -2 L10 -2 L0 -30Z", "#F6C680", "#D8963A", "#8A5A14") + `<path d="M-6 -8 L4 -22 M6 -8 L-3 -22" stroke="#A86A20" stroke-width="1.2"/>` + aT("M-16 -26 Q-18 -44 0 -42 Q18 -44 16 -26 Q10 -22 6 -26 Q0 -20 -6 -26 Q-12 -22 -16 -26Z", "#FFC8E0", "#F07AA8", "#A83A64") + aT(tC(0, -46, 4), "#FF8A9A", "#E0344A", "#8A1428", {dy:1})},
+  {id:"fleurs", n:"Couronne de fleurs", slot:"tete", p:150, draw:() => [-18,-9,0,9,18].map((x, i) => { const c = ["#FFB4D8","#FFE27A","#9ADCFF","#FF9A7A","#D4B4FF"][i], y = -4 - Math.abs(x)*.12; return [0,72,144,216,288].map(a => `<ellipse cx="${x}" cy="${y-4.4}" rx="3" ry="4.6" transform="rotate(${a} ${x} ${y})" fill="${c}" ${tS(1.1)}/>`).join("") + `<circle cx="${x}" cy="${y}" r="2.2" fill="#FFF6B0" ${tS(1)}/>`; }).join("")},
+  // Objets
+  {id:"baguette", n:"Baguette magique", slot:"main", p:160, draw:() => tLimb("M-10 14 L8 -8", "#5A4A80", 6) + `<g class="ta-twinkle">${aStar(10, -12, 7)}</g>`},
+  {id:"trophee", n:"Trophée", slot:"main", p:240, th:"spo", draw:() => `<path d="M-12 -12 Q-20 -12 -18 -4 Q-16 2 -8 2 M12 -12 Q20 -12 18 -4 Q16 2 8 2" fill="none" stroke="${TD}" stroke-width="5"/><path d="M-12 -12 Q-20 -12 -18 -4 Q-16 2 -8 2 M12 -12 Q20 -12 18 -4 Q16 2 8 2" fill="none" stroke="#F2B81E" stroke-width="2.4"/>` + aT("M-13 -14 H13 Q13 6 0 8 Q-13 6 -13 -14Z", "#FFF0A0", "#F2B81E", "#A8740A") + aT("M-3 8 H3 V13 H-3Z", "#F2B81E", "#C88A10", "#7A5004", {dy:0, w:1.6}) + aT("M-9 13 H9 V18 H-9Z", "#8A5A2A", "#5A3410", "#2A1406", {dy:1, w:1.8}) + aStar(0, -4, 4, "#FFFFFF")},
+  {id:"sucette", n:"Sucette", slot:"main", p:90, draw:() => tLimb("M0 4 V20", "#FFFFFF", 5) + `<g class="ta-rays" style="transform-origin:0px -6px">${aT(tC(0, -6, 11), "#FFB4D8", "#F06A9A", "#8A1A40", {dy:0})}<path d="M0 -6 m-7 0 a7 7 0 1 1 7 7 a5 5 0 1 1 -5 -5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>`},
+  {id:"parapluie", n:"Parapluie", slot:"main", p:130, draw:() => tLimb("M0 -8 V14 Q0 19 5 19", "#5A4A70", 4.6) + aT("M-20 -6 Q-20 -24 0 -26 Q20 -24 20 -6 Q15 -10 10 -6 Q5 -10 0 -6 Q-5 -10 -10 -6 Q-15 -10 -20 -6Z", "#9ADCFF", "#3E86E8", "#1D4AA8") + tShine("M-14 -12 Q-12 -20 -4 -22", 2.4)},
+  {id:"micro", n:"Micro", slot:"main", p:140, th:"mus", draw:() => tLimb("M0 2 L4 18", "#5A5470", 6) + aT(tC(0, -6, 8), "#E8EEF8", "#8E9AB0", "#4E5A70") + `<path d="M-6 -9 h12 M-7 -5 h14 M-6 -1 h12" stroke="${TD}" stroke-width="1" opacity=".45"/>` + tShine("M-4 -11 Q-2 -13 1 -13", 2)},
+  // Auras
+  {id:"notes", n:"Notes de musique", slot:"aura", p:150, th:"mus", draw:(b) => [[b.x-8,b.y+18],[b.x+b.w+6,b.y+10],[b.x+b.w+2,b.y+40]].map(([x, y], i) => `<g class="ta-spore" style="animation-delay:${-i*1.1}s"><path d="M${x} ${y} v-12 l9 -3 v12" fill="none" stroke="${TD}" stroke-width="4.4"/><path d="M${x} ${y} v-12 l9 -3 v12" fill="none" stroke="#D4B4FF" stroke-width="2"/>${aT(tE(x-2.6, y, 3.6, 3), "#D4B4FF", "#9A6AE8", "#4A2AA0", {dy:0, w:1.4})}${aT(tE(x+6.4, y-3, 3.6, 3), "#D4B4FF", "#9A6AE8", "#4A2AA0", {dy:0, w:1.4})}</g>`).join("")},
+  {id:"flocons", n:"Flocons", slot:"aura", p:130, draw:(b) => [[b.x-6,b.y+6],[b.x+b.w+6,b.y+18],[b.x-2,b.y+40],[b.x+b.w,b.y-6]].map(([x, y], i) => `<g class="ta-rain" style="animation-duration:3s;animation-delay:${-i*.75}s"><path d="M${x-5} ${y} h10 M${x} ${y-5} v10 M${x-3.6} ${y-3.6} l7.2 7.2 M${x+3.6} ${y-3.6} l-7.2 7.2" stroke="${TD}" stroke-width="3.6" stroke-linecap="round"/><path d="M${x-5} ${y} h10 M${x} ${y-5} v10 M${x-3.6} ${y-3.6} l7.2 7.2 M${x+3.6} ${y-3.6} l-7.2 7.2" stroke="#E6F6FF" stroke-width="1.6" stroke-linecap="round"/></g>`).join("")},
+  {id:"lucioles", n:"Lucioles", slot:"aura", p:160, draw:(b) => [[b.x-6,b.y+20],[b.x+b.w+8,b.y+12],[b.cx,b.y-8],[b.x+b.w+2,b.y+44]].map(([x, y], i) => `<g class="ta-pulse" style="animation-delay:${-i*.5}s">${tGlow(x, y, 9, "#FFE680", .9)}<circle cx="${x}" cy="${y}" r="2.6" fill="#FFF6B0" ${tS(1.2)}/></g>`).join("")},
+  // Socles
+  {id:"skate", n:"Skateboard", slot:"sol", p:170, th:"spo", draw:() => aT("M-30 -2 Q-34 -2 -34 2 Q-34 6 -30 6 H30 Q34 6 34 2 Q34 -2 30 -2Z", "#FF9A7A", "#E0503A", "#8A2410", {dy:1.5}) + aT(tC(-20, 10, 4), "#FFE27A", "#F2B81E", "#A8740A", {dy:0, w:1.8}) + aT(tC(20, 10, 4), "#FFE27A", "#F2B81E", "#A8740A", {dy:0, w:1.8})},
+  {id:"nenuphar", n:"Nénuphar", slot:"sol", p:150, th:"ani", draw:() => aT("M-34 2 Q-34 -6 0 -7 Q34 -6 34 2 Q34 10 0 10 Q-14 10 -6 2 L-12 9 Q-34 10 -34 2Z", "#A4E884", "#3EA04A", "#1E6A26") + [0,60,120].map(a => `<ellipse cx="22" cy="-8" rx="3" ry="5" transform="rotate(${a-60} 22 -4)" fill="#FFC8E0" ${tS(1.2)}/>`).join("")},
+  {id:"coussin", n:"Coussin moelleux", slot:"sol", p:110, draw:() => aT("M-32 4 Q-34 -6 -24 -6 H24 Q34 -6 32 4 Q34 12 24 12 H-24 Q-34 12 -32 4Z", "#D4B4FF", "#9A6AE8", "#4A2AA0") + `<circle cx="0" cy="3" r="2" fill="${TD}" opacity=".5"/>` + tShine("M-24 -2 H-8", 2.4)}
+];
+ACC.forEach(a => { if (ACC_TOY[a.id]) a.draw = ACC_TOY[a.id]; });
+ACC_NEW.forEach(a => { if (!ACC.some(x => x.id === a.id)) ACC.push(a); });
 
 /* ---------- Icônes « jeu mobile » : pleines, colorées, contour sombre, reflet ---------- */
 const GO = "#2B1D3A";
