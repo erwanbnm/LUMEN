@@ -251,6 +251,41 @@ const masteredIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th &&
 ORDER.forEach(k => [["bronze",5,5],["argent",10,10],["or",20,20],["platine",30,30],["diamant",40,40]].forEach(([t,n,c]) => BADGES.push({id:k+"_"+n, g:"Thèmes", th:k, tier:t, icon:k, name:`${THEMES[k].n} · ${TIER_N[t]}`, desc:`${n} bonnes réponses différentes en ${THEMES[k].n}`, coins:c, goal:n, cur:()=>correctIn(k)}))
   || BADGES.push({id:k+"_maitre", g:"Thèmes", th:k, tier:"maitre", icon:k, name:`${THEMES[k].n} · Maître`, desc:`Maîtriser 50 questions de ${THEMES[k].n} (chacune réussie trois fois)`, coins:100, goal:50, cur:()=>masteredIn(k)}));
 let toasts = [];
+
+/* ---------- Fête de passage de niveau : carte animée, confettis, fanfare ---------- */
+// Posée sur document.body (pas dans #app) pour survivre aux rendus ; une à la fois, dans l'ordre.
+const lvQueue = []; let lvOpen = false;
+function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); if (!lvOpen) setTimeout(showLevelUp, 350); lvOpen = true; }
+function lvBadge(n){
+  const D = "#2B1D3A", u = "lv" + Math.random().toString(36).slice(2, 7);
+  return `<svg viewBox="0 0 120 124" aria-hidden="true"><defs><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0A0"/><stop offset="1" stop-color="#F2A41E"/></linearGradient><linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8AB8"/><stop offset="1" stop-color="#E2427A"/></linearGradient></defs>
+  <ellipse cx="60" cy="118" rx="30" ry="5" fill="#000" opacity=".25"/>
+  <path d="M38 78 L28 116 L44 108 L52 120 L60 84Z M82 78 L92 116 L76 108 L68 120 L60 84Z" fill="url(#${u}r)" stroke="${D}" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="60" cy="58" r="40" fill="#B8740E" stroke="${D}" stroke-width="3.2" transform="translate(0 5)"/>
+  <circle cx="60" cy="58" r="40" fill="url(#${u}g)" stroke="${D}" stroke-width="3.2"/>
+  <circle cx="60" cy="58" r="30" fill="none" stroke="#D48A12" stroke-width="2.6" opacity=".7"/>
+  <path d="M30 42 Q36 28 50 22" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity=".8"/>
+  <text x="60" y="${n > 9 ? 72 : 74}" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="${n > 9 ? 38 : 46}" fill="#fff" stroke="${D}" stroke-width="7" paint-order="stroke" stroke-linejoin="round">${n}</text></svg>`;
+}
+function showLevelUp(){
+  const x = lvQueue.shift(); if (!x) { lvOpen = false; return; }
+  if (S.settings.sfx !== false) { try { Music.sfx("level"); } catch(e){} try { navigator.vibrate && navigator.vibrate([30,50,30,50,90]); } catch(e){} }
+  const cols = ["#FF5FA2","#FFD23F","#5AE8A0","#7FC8FF","#C9A2FF","#FF9E6E"];
+  const bits = Array.from({length:22}, (_, i) => `<i style="--x:${Math.round(Math.cos(i/22*6.283)*(120+Math.random()*90))}px;--y:${Math.round(Math.sin(i/22*6.283)*(110+Math.random()*80)-40)}px;--r:${Math.round(Math.random()*540-270)}deg;--c:${cols[i%cols.length]};--d:${(Math.random()*.15).toFixed(2)}s"></i>`).join("");
+  const el = document.createElement("div");
+  el.className = "lvup"; el.setAttribute("role", "alertdialog"); el.setAttribute("aria-label", `Niveau ${x.n} en ${x.what}`);
+  el.innerHTML = `<div class="lv-card"><div class="lv-rays" aria-hidden="true"></div><div class="lv-bits" aria-hidden="true">${bits}</div>
+    <div class="lv-badge">${lvBadge(x.n)}</div><span class="lv-kicker">Niveau supérieur !</span>
+    <b class="lv-title">${esc(x.what)} · niveau ${x.n}</b><span class="lv-sub">${esc(x.sub)}</span>
+    <button class="btn lv-ok" type="button">Trop bien !</button></div>`;
+  document.body.appendChild(el);
+  let done = false;
+  const close = () => { if (done) return; done = true; el.classList.add("out"); setTimeout(() => { el.remove(); showLevelUp(); }, 260); };
+  el.querySelector(".lv-ok").addEventListener("click", close);
+  el.addEventListener("click", e => { if (e.target === el) close(); });
+  setTimeout(close, 5200);
+  setTimeout(() => { try { el.querySelector(".lv-ok").focus({preventScroll:true}); } catch(e){} }, 400);
+}
 function checkBadges(){
   if (S.st) checkSecrets();
   checkSucces();
@@ -274,8 +309,8 @@ function answer(id, ok, combo){
   const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1);
   S.xp[th] = (S.xp[th]||0) + xp; S.coins += coins;
   const after = themeLvl(th).L, accAfter = acctLvl().L;
-  if (after > before) toasts.push(`<b>Niveau ${after} en ${esc(THEMES[th].n)}</b> · tu passes ${rank(after)}.`);
-  if (accAfter > accBefore) toasts.push(`<b>Niveau de compte ${accAfter}</b> · continue comme ça.`);
+  if (after > before) levelUp(after, THEMES[th].n, `Tu deviens ${rank(after)}.`);
+  if (accAfter > accBefore) levelUp(accAfter, "Ton profil", "Tu montes en grade. Continue comme ça !");
   checkBadges();
   return {xp, coins};
 }
@@ -858,7 +893,7 @@ function onClick(e){
     s.ok = (d.av==="before") === (B[1] < A[1]);
     if (s.ok) {
       s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5; s.xp = (s.xp||0)+5; S.coins += 1;
-      if (themeLvl(th).L > bef) toasts.push(`<b>Niveau ${themeLvl(th).L} en ${esc(THEMES[th].n)}</b> · tu passes ${rank(themeLvl(th).L)}.`);
+      if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMiss = [s.b, B[1] < A[1] ? "avant" : "après", s.a];
     save(); return render();
   }

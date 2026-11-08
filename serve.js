@@ -6,7 +6,7 @@ http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p.endsWith("/")) p += "index.html";
   // /prototypes/... : pages à valider (jamais publiées), servies depuis le dossier prototypes/
-  const base = p.startsWith("/prototypes/") ? __dirname : root;
+  const base = p.startsWith("/prototypes/") || p.startsWith("/atelier/") ? __dirname : root;
   const f = path.join(base, path.normalize(p));
   if (!f.startsWith(base)) { res.writeHead(403); return res.end(); }
   fs.readFile(f, (err, data) => {

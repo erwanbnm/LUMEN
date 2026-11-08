@@ -10,7 +10,7 @@ head = """<!doctype html>
 <html lang="fr"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#241544">
+<meta name="theme-color" content="#3A1640">
 <meta name="description" content="Lumen : la culture générale pour dormir moins bête le soir.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -34,7 +34,7 @@ manifest = {
     "name": "Lumen", "short_name": "Lumen",
     "description": "La culture générale pour dormir moins bête le soir.",
     "lang": "fr", "start_url": "./", "scope": "./", "display": "standalone",
-    "orientation": "portrait", "background_color": "#241544", "theme_color": "#241544",
+    "orientation": "portrait", "background_color": "#2A1034", "theme_color": "#3A1640",
     "icons": [
         {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
         {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},

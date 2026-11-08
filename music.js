@@ -58,6 +58,7 @@ const Music = (function(){
         g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(gain*v, at+.008); g.gain.exponentialRampToValueAtTime(.0005, at+dur); o.connect(g).connect(out); o.start(at); o.stop(at+dur+.05); };
       if (k === "ok") { blip(76, t, .14, "triangle", .5); blip(83, t+.08, .22, "triangle", .5); }
       else if (k === "combo") { blip(76, t, .12, "triangle", .5); blip(80, t+.06, .12, "triangle", .5); blip(83, t+.12, .14, "triangle", .5); blip(88, t+.18, .28, "sine", .55); }
+      else if (k === "level") { [72,76,79,84].forEach((n,i) => blip(n, t+i*.09, .2, "triangle", .5)); [84,88,91].forEach(n => blip(n, t+.4, .9, "sine", .32)); blip(96, t+.55, .35, "sine", .22); blip(100, t+.68, .5, "sine", .2); }
       else if (k === "ko") { blip(52, t, .18, "square", .18); blip(47, t+.12, .3, "square", .18); }
     } catch(e){}
   }

@@ -90,6 +90,25 @@ p{margin:0}
 .hearts{font-family:var(--f-mono);font-size:13px;color:var(--bad);letter-spacing:2px}
 .toast{background:color-mix(in srgb,var(--lamp) 16%,var(--surface));border:1px solid var(--lamp);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:15px}
 .toast b{font-family:var(--f-display);color:var(--lamp)}
+/* Passage de niveau */
+.lvup{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:rgba(14,6,28,.55);backdrop-filter:blur(3px);animation:lvFade .25s ease-out}
+.lvup.out{animation:lvFadeOut .26s ease-in forwards}
+.lv-card{position:relative;width:min(320px,100%);background:linear-gradient(180deg,var(--surface-2),var(--surface));border:2px solid var(--line);border-radius:28px;box-shadow:0 8px 0 var(--edge),0 24px 60px rgba(0,0,0,.45);padding:22px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:lvPop .55s cubic-bezier(.3,1.7,.5,1)}
+.lv-rays{position:absolute;left:50%;top:84px;width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,210,63,.28) 0 12deg,transparent 12deg 30deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:spin 9s linear infinite;pointer-events:none}
+.lv-badge{position:relative;width:128px;margin-top:-62px;animation:lvBadge .9s .1s cubic-bezier(.3,1.6,.5,1) both}
+.lv-badge svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 18px rgba(255,210,63,.55))}
+.lv-kicker{position:relative;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+.lv-title{position:relative;font-family:var(--f-display);font-weight:800;font-size:22px;line-height:1.15;text-wrap:balance}
+.lv-sub{position:relative;color:var(--muted);font-size:15px;margin-bottom:8px}
+.lv-ok{position:relative;min-width:150px}
+.lv-bits{position:absolute;left:50%;top:84px;width:0;height:0;pointer-events:none}
+.lv-bits i{position:absolute;width:9px;height:14px;border-radius:3px;background:var(--c);border:2px solid #2B1D3A;opacity:0;animation:lvBit 1.1s var(--d) cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes lvFade{from{opacity:0}}
+@keyframes lvFadeOut{to{opacity:0}}
+@keyframes lvPop{from{transform:scale(.6) translateY(30px);opacity:0}}
+@keyframes lvBadge{from{transform:scale(.2) rotate(-25deg)}}
+@keyframes lvBit{0%{opacity:1;transform:translate(0,0) rotate(0)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 60px)) rotate(var(--r))}}
+@media (prefers-reduced-motion:reduce){.lvup,.lv-card,.lv-badge,.lv-rays,.lv-bits i{animation:none!important}.lv-bits{display:none}}
 
 .score{font-family:var(--f-display);font-weight:800;font-size:64px;line-height:1;color:var(--lamp);font-variant-numeric:tabular-nums}
 .list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
@@ -384,16 +403,19 @@ body.in-parc .app, body.in-parc .tabs{visibility:hidden}
 @media (max-width:520px){#parc .bcard{width:104px}
 #parc .bcard img{width:80px;height:80px}}
 /* Lancement */
-#splash{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,#2A2A6A 0%,#141530 55%,#0A0A1A 100%);transition:opacity .7s ease}
+#splash{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#6A2E5E 0%,#3A1640 50%,#170A1E 100%);transition:opacity .7s ease}
+.emb{position:relative;width:108px;height:108px;border-radius:26px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 40px rgba(255,170,80,.35);opacity:0;transform:scale(.4) rotate(-12deg);animation:emb .7s .15s cubic-bezier(.25,1.6,.45,1) forwards}
+.emb svg{width:100%;height:100%;display:block}
+@keyframes emb{to{opacity:1;transform:none}}
 #splash.out{opacity:0;pointer-events:none}
 .sp{display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 20px;text-align:center}
 .halo{position:absolute;width:340px;height:340px;max-width:90vw;max-height:90vw;border-radius:50%;background:radial-gradient(circle,rgba(255,214,120,.55),rgba(255,180,70,.12) 45%,transparent 70%);animation:halo 2.2s ease-out both}
 @keyframes halo{0%{transform:scale(.2);opacity:0}60%{opacity:1}100%{transform:scale(1);opacity:.85}}
 .logo{position:relative;font-size:clamp(56px,16vw,96px);font-weight:800;letter-spacing:-.04em;color:#FFF3D6;text-shadow:0 0 28px rgba(255,200,100,.65)}
 .logo span{display:inline-block;opacity:0;transform:translateY(18px) scale(.8);animation:letter .55s cubic-bezier(.2,1.6,.4,1) forwards}
-.logo span.u{color:#FF5FA2}
+.logo span.u{color:#FFB45A}
 @keyframes letter{to{opacity:1;transform:none}}
-.tag{position:relative;font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#C8C2E8;opacity:0;animation:fadein .6s 1.2s forwards}
+.tag{position:relative;font-family:var(--f-text);font-style:italic;font-size:19px;letter-spacing:.06em;color:#F3D9B8;opacity:0;animation:fadein .6s 1.2s forwards}
 @keyframes fadein{to{opacity:1}}
 .crew{position:relative;display:flex;gap:6px;align-items:flex-end;height:84px}
 .crew > div{opacity:0;transform:translateY(30px) scale(.6);animation:pop .5s cubic-bezier(.2,1.7,.4,1) forwards}
@@ -401,7 +423,7 @@ body.in-parc .app, body.in-parc .tabs{visibility:hidden}
 .load{position:relative;width:200px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;opacity:0;animation:fadein .4s 1.4s forwards}
 .load i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,#FF5FA2,#FFD23F);border-radius:3px;transition:width .5s ease}
 
-@media (prefers-reduced-motion:reduce){ .logo span,.crew > div,.halo,.tag,.load{animation:none;opacity:1;transform:none} .bdg *{animation:none!important} }
+@media (prefers-reduced-motion:reduce){ .logo span,.crew > div,.halo,.tag,.load,.emb{animation:none;opacity:1;transform:none} .bdg *{animation:none!important} }
 
 /* ================= Habillage « jeu mobile » ================= */
 :root{--press:color-mix(in srgb,var(--lamp) 62%,#000);--edge:color-mix(in srgb,var(--surface) 55%,#000);--r:20px}
@@ -556,9 +578,9 @@ svg.g3 .smoke circle,svg.g3 .pop{opacity:0}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
-  <div class="crew" id="crew"></div>
+  <div class="emb" id="emb"></div>
   <div class="logo" id="logo"></div>
-  <div class="tag">Dors moins bête ce soir</div>
+  <div class="tag" lang="la">Sapere aude</div>
   <div class="load"><i id="loadbar"></i></div></div></div>
 
 
@@ -1600,6 +1622,7 @@ const Music = (function(){
         g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(gain*v, at+.008); g.gain.exponentialRampToValueAtTime(.0005, at+dur); o.connect(g).connect(out); o.start(at); o.stop(at+dur+.05); };
       if (k === "ok") { blip(76, t, .14, "triangle", .5); blip(83, t+.08, .22, "triangle", .5); }
       else if (k === "combo") { blip(76, t, .12, "triangle", .5); blip(80, t+.06, .12, "triangle", .5); blip(83, t+.12, .14, "triangle", .5); blip(88, t+.18, .28, "sine", .55); }
+      else if (k === "level") { [72,76,79,84].forEach((n,i) => blip(n, t+i*.09, .2, "triangle", .5)); [84,88,91].forEach(n => blip(n, t+.4, .9, "sine", .32)); blip(96, t+.55, .35, "sine", .22); blip(100, t+.68, .5, "sine", .2); }
       else if (k === "ko") { blip(52, t, .18, "square", .18); blip(47, t+.12, .3, "square", .18); }
     } catch(e){}
   }
@@ -1860,6 +1883,41 @@ const masteredIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th &&
 ORDER.forEach(k => [["bronze",5,5],["argent",10,10],["or",20,20],["platine",30,30],["diamant",40,40]].forEach(([t,n,c]) => BADGES.push({id:k+"_"+n, g:"Thèmes", th:k, tier:t, icon:k, name:`${THEMES[k].n} · ${TIER_N[t]}`, desc:`${n} bonnes réponses différentes en ${THEMES[k].n}`, coins:c, goal:n, cur:()=>correctIn(k)}))
   || BADGES.push({id:k+"_maitre", g:"Thèmes", th:k, tier:"maitre", icon:k, name:`${THEMES[k].n} · Maître`, desc:`Maîtriser 50 questions de ${THEMES[k].n} (chacune réussie trois fois)`, coins:100, goal:50, cur:()=>masteredIn(k)}));
 let toasts = [];
+
+/* ---------- Fête de passage de niveau : carte animée, confettis, fanfare ---------- */
+// Posée sur document.body (pas dans #app) pour survivre aux rendus ; une à la fois, dans l'ordre.
+const lvQueue = []; let lvOpen = false;
+function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); if (!lvOpen) setTimeout(showLevelUp, 350); lvOpen = true; }
+function lvBadge(n){
+  const D = "#2B1D3A", u = "lv" + Math.random().toString(36).slice(2, 7);
+  return `<svg viewBox="0 0 120 124" aria-hidden="true"><defs><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0A0"/><stop offset="1" stop-color="#F2A41E"/></linearGradient><linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8AB8"/><stop offset="1" stop-color="#E2427A"/></linearGradient></defs>
+  <ellipse cx="60" cy="118" rx="30" ry="5" fill="#000" opacity=".25"/>
+  <path d="M38 78 L28 116 L44 108 L52 120 L60 84Z M82 78 L92 116 L76 108 L68 120 L60 84Z" fill="url(#${u}r)" stroke="${D}" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="60" cy="58" r="40" fill="#B8740E" stroke="${D}" stroke-width="3.2" transform="translate(0 5)"/>
+  <circle cx="60" cy="58" r="40" fill="url(#${u}g)" stroke="${D}" stroke-width="3.2"/>
+  <circle cx="60" cy="58" r="30" fill="none" stroke="#D48A12" stroke-width="2.6" opacity=".7"/>
+  <path d="M30 42 Q36 28 50 22" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity=".8"/>
+  <text x="60" y="${n > 9 ? 72 : 74}" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="${n > 9 ? 38 : 46}" fill="#fff" stroke="${D}" stroke-width="7" paint-order="stroke" stroke-linejoin="round">${n}</text></svg>`;
+}
+function showLevelUp(){
+  const x = lvQueue.shift(); if (!x) { lvOpen = false; return; }
+  if (S.settings.sfx !== false) { try { Music.sfx("level"); } catch(e){} try { navigator.vibrate && navigator.vibrate([30,50,30,50,90]); } catch(e){} }
+  const cols = ["#FF5FA2","#FFD23F","#5AE8A0","#7FC8FF","#C9A2FF","#FF9E6E"];
+  const bits = Array.from({length:22}, (_, i) => `<i style="--x:${Math.round(Math.cos(i/22*6.283)*(120+Math.random()*90))}px;--y:${Math.round(Math.sin(i/22*6.283)*(110+Math.random()*80)-40)}px;--r:${Math.round(Math.random()*540-270)}deg;--c:${cols[i%cols.length]};--d:${(Math.random()*.15).toFixed(2)}s"></i>`).join("");
+  const el = document.createElement("div");
+  el.className = "lvup"; el.setAttribute("role", "alertdialog"); el.setAttribute("aria-label", `Niveau ${x.n} en ${x.what}`);
+  el.innerHTML = `<div class="lv-card"><div class="lv-rays" aria-hidden="true"></div><div class="lv-bits" aria-hidden="true">${bits}</div>
+    <div class="lv-badge">${lvBadge(x.n)}</div><span class="lv-kicker">Niveau supérieur !</span>
+    <b class="lv-title">${esc(x.what)} · niveau ${x.n}</b><span class="lv-sub">${esc(x.sub)}</span>
+    <button class="btn lv-ok" type="button">Trop bien !</button></div>`;
+  document.body.appendChild(el);
+  let done = false;
+  const close = () => { if (done) return; done = true; el.classList.add("out"); setTimeout(() => { el.remove(); showLevelUp(); }, 260); };
+  el.querySelector(".lv-ok").addEventListener("click", close);
+  el.addEventListener("click", e => { if (e.target === el) close(); });
+  setTimeout(close, 5200);
+  setTimeout(() => { try { el.querySelector(".lv-ok").focus({preventScroll:true}); } catch(e){} }, 400);
+}
 function checkBadges(){
   if (S.st) checkSecrets();
   checkSucces();
@@ -1883,8 +1941,8 @@ function answer(id, ok, combo){
   const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1);
   S.xp[th] = (S.xp[th]||0) + xp; S.coins += coins;
   const after = themeLvl(th).L, accAfter = acctLvl().L;
-  if (after > before) toasts.push(`<b>Niveau ${after} en ${esc(THEMES[th].n)}</b> · tu passes ${rank(after)}.`);
-  if (accAfter > accBefore) toasts.push(`<b>Niveau de compte ${accAfter}</b> · continue comme ça.`);
+  if (after > before) levelUp(after, THEMES[th].n, `Tu deviens ${rank(after)}.`);
+  if (accAfter > accBefore) levelUp(accAfter, "Ton profil", "Tu montes en grade. Continue comme ça !");
   checkBadges();
   return {xp, coins};
 }
@@ -2467,7 +2525,7 @@ function onClick(e){
     s.ok = (d.av==="before") === (B[1] < A[1]);
     if (s.ok) {
       s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5; s.xp = (s.xp||0)+5; S.coins += 1;
-      if (themeLvl(th).L > bef) toasts.push(`<b>Niveau ${themeLvl(th).L} en ${esc(THEMES[th].n)}</b> · tu passes ${rank(themeLvl(th).L)}.`);
+      if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMiss = [s.b, B[1] < A[1] ? "avant" : "après", s.a];
     save(); return render();
   }
@@ -3214,10 +3272,19 @@ return {open, close};
 })();
 
 /* --- Lancement --- */
+// Emblème de Lumen : un « L » doré et bombé sous un halo ambre (même dessin que web/icon.html)
+const LUMEN_MARK = `<svg viewBox="0 0 120 120" aria-hidden="true"><defs>
+  <radialGradient id="lmBg" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="#6A2E5E"/><stop offset="1" stop-color="#22102E"/></radialGradient>
+  <radialGradient id="lmGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FF9A3D" stop-opacity=".6"/><stop offset="1" stop-color="#FF9A3D" stop-opacity="0"/></radialGradient>
+  <linearGradient id="lmL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0A0"/><stop offset="1" stop-color="#F2A41E"/></linearGradient></defs>
+  <rect width="120" height="120" fill="url(#lmBg)"/><circle cx="60" cy="58" r="50" fill="url(#lmGlow)"/>
+  <path d="M40 24 Q40 18 46 18 L54 18 Q60 18 60 24 L60 78 L84 78 Q90 78 90 84 L90 92 Q90 98 84 98 L46 98 Q40 98 40 92Z" transform="translate(0 5)" fill="#A8650C" stroke="#2B1D3A" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M40 24 Q40 18 46 18 L54 18 Q60 18 60 24 L60 78 L84 78 Q90 78 90 84 L90 92 Q90 98 84 98 L46 98 Q40 98 40 92Z" fill="url(#lmL)" stroke="#2B1D3A" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M47 28 V70" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+  <path d="M77 26 l2.6 5.2 5.8 .8 -4.2 4 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.2 -4 5.8 -.8Z" fill="#FFF3B0" stroke="#2B1D3A" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 (function(){
   document.body.insertAdjacentHTML("afterbegin", GLOBAL_DEFS + BADGE_DEFS);
-  const list = ["Voile","Plouf","Braise","Hulotte"].map(n => CREATURES.find(c => c.n === n)).filter(Boolean).concat([RIXY]);
-  document.getElementById("crew").innerHTML = list.map((c,i) => `<div style="animation-delay:${.25+i*.12}s">${creatureSVG(c, i===2?84:66)}</div>`).join("");
+  document.getElementById("emb").innerHTML = LUMEN_MARK;
   document.getElementById("logo").innerHTML = "Lumen".split("").map((ch,i) => `<span class="${i===1?"u":""}" style="animation-delay:${.55+i*.09}s">${ch}</span>`).join("");
   const bar = document.getElementById("loadbar");
   setTimeout(() => { bar.style.width = "45%"; }, 1500);

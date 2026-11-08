@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Somni</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Prototype : un seul personnage dans la DA des icônes du jeu (contour épais, épaisseur de jouet, reflets nets). */
+:root{--bg:#241544;--bg2:#3B1E68;--surface:#3A2468;--surface-2:#4A2F80;--line:#5D3E99;--fg:#FFF0FA;--muted:#CBB5E8;--lamp:#FF5FA2;--edge:#1A0E33;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 60% at 50% 0%,var(--bg2),var(--bg) 70%) fixed,var(--bg);color:var(--fg);font-family:"Literata",Georgia,serif;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left)) 56px;display:flex;flex-direction:column;gap:26px}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0}
+h1{font-size:2.2rem;font-weight:800}h1 em{font-style:normal;color:var(--lamp)}
+h2{font-size:1.2rem;font-weight:800}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:66ch;margin:6px 0 0}
+.hero{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:24px;align-items:center}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+.stage{border-radius:30px;border:2px solid var(--line);box-shadow:0 6px 0 var(--edge);background:radial-gradient(80% 70% at 50% 40%,#5A2E8E,#2C1852);padding:18px}
+.stage svg{width:100%;height:auto;display:block}
+.bob{animation:bob 3s ease-in-out infinite;transform-origin:60px 112px}
+@keyframes bob{50%{transform:translateY(-3px) scale(1.01,.99)}}
+.flame{animation:fl 1.1s ease-in-out infinite alternate;transform-origin:108px 60px}
+@keyframes fl{to{transform:scale(1.08,.94) rotate(3deg)}}
+ul{margin:8px 0 0;padding-left:20px;color:var(--muted)}li{margin:4px 0}li b{color:var(--fg)}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px;border-radius:20px;border:2px solid var(--line);background:linear-gradient(180deg,var(--surface-2),var(--surface));box-shadow:0 5px 0 var(--edge)}
+.cell span{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.light{background:#FFF0F7;border-color:#F2BFD8;box-shadow:0 5px 0 #E2A6C4}
+.light span{color:#7E5A93}
+@media (prefers-reduced-motion:reduce){.bob,.flame{animation:none}}
+</style>
+</head><body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Lumen · prototype personnage</div>
+    <h1>Somni, <em>le veilleur</em></h1>
+    <p class="lead">Un petit monstre en pyjama étoilé et bonnet de nuit, qui tient une bougie pour lire avant de dormir. Dessiné avec la même recette que les icônes du jeu.</p>
+  </header>
+
+  <div class="hero">
+    <div class="stage"><svg id="big" viewBox="0 -6 128 136" role="img" aria-label="Somni"></svg></div>
+    <div>
+      <h2>La recette des icônes, appliquée au personnage</h2>
+      <ul>
+        <li><b>Contour foncé épais</b> partout, le même que sur Jouer, Boutique, Parc.</li>
+        <li><b>Épaisseur de jouet</b> : chaque grosse forme a une copie plus sombre décalée vers le bas, comme un objet en plastique moulé.</li>
+        <li><b>Reflets nets</b> : un trait blanc franc en haut à gauche, pas de flou.</li>
+        <li><b>Dégradés verticaux bonbon</b>, clairs en haut et saturés en bas.</li>
+        <li><b>Silhouette trapue et déguisée</b> : le monstre est dans un costume, et son visage passe par l'ouverture de la capuche.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <h2>À côté des icônes du jeu</h2>
+    <p class="lead">Pour vérifier que tout parle le même langage.</p>
+    <div class="row" id="compare"></div>
+  </section>
+
+  <section>
+    <h2>Aux tailles de l'appli</h2>
+    <div class="row" id="sizes"></div>
+  </section>
+</div>
+
+<script src="/atelier/gicons.js"></script>
+<script>
+const D = "#2B1D3A";
+let n = 0;
+const lg = (a, b) => { const id = "g" + (n++); return [id, `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`]; };
+const S = (w = 3) => `stroke="${D}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+const shine = (d, w = 3.6, o = .8) => `<path d="${d}" fill="none" stroke="#fff" stroke-width="${w}" stroke-linecap="round" opacity="${o}"/>`;
+// Une forme « jouet » : copie sombre décalée + forme en dégradé + contour
+const toy = (d, grad, dark, dy = 5, w = 3) => `<path d="${d}" transform="translate(0 ${dy})" fill="${dark}" ${S(w)}/><path d="${d}" fill="url(#${grad})" ${S(w)}/>`;
+const star = (x, y, r, c = "#FFD84A") => { let d = ""; for (let i = 0; i < 10; i++) { const a = Math.PI * i / 5 - Math.PI / 2, rr = i % 2 ? r * .45 : r; d += (i ? "L" : "M") + (x + rr * Math.cos(a)).toFixed(1) + " " + (y + rr * Math.sin(a)).toFixed(1); } return `<path d="${d}Z" fill="${c}" stroke="${D}" stroke-width="1.6" stroke-linejoin="round"/>`; };
+
+function somni(){
+  const [pj, pjD] = lg("#9AA8FF", "#4A52D6");
+  const [cap, capD] = lg("#B4BEFF", "#5A63E0");
+  const [skin, skinD] = lg("#FFEDE2", "#F6B39C");
+  const [cream, creamD] = lg("#FFFBF0", "#F3DDB0");
+  const [gold, goldD] = lg("#FFE98A", "#F0A61C");
+  const [ft, ftD] = lg("#7C88F2", "#3B42B8");
+  const body = "M22 104 C16 74 24 42 60 38 C96 42 104 74 98 104 Q96 113 85 113 H35 Q24 113 22 104Z";
+  const capP = "M38 50 Q42 20 70 13 Q96 8 108 28 Q100 25 92 28 Q86 30 84 38 Q82 46 82 50Z";
+  return `<defs>${pjD}${capD}${skinD}${creamD}${goldD}${ftD}
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD46A" stop-opacity=".75"/><stop offset="1" stop-color="#FFB040" stop-opacity="0"/></radialGradient></defs>
+  <ellipse cx="60" cy="127" rx="40" ry="5.5" fill="#000" opacity=".28"/>
+  <g class="bob">
+    <circle cx="108" cy="58" r="24" fill="url(#glow)"/>
+    <g transform="translate(0 7)">
+    ${toy("M31 108 Q31 101 42 101 Q53 101 53 108 Q53 117 42 117 Q31 117 31 108Z", ft, "#2A2F8A", 3)}
+    ${toy("M67 108 Q67 101 78 101 Q89 101 89 108 Q89 117 78 117 Q67 117 67 108Z", ft, "#2A2F8A", 3)}
+    <path d="M37 115 v-4 M42 116 v-5 M73 115 v-4 M78 116 v-5" stroke="${D}" stroke-width="1.8" stroke-linecap="round" opacity=".55"/></g>
+    <path d="M24 84 Q12 88 13 100" fill="none" stroke="${D}" stroke-width="10" stroke-linecap="round"/><path d="M24 84 Q12 88 13 100" fill="none" stroke="#6E78EC" stroke-width="5.5" stroke-linecap="round"/>
+    ${toy(body, pj, "#262A86", 5)}
+    <path d="M36 92 Q60 104 84 92 Q86 106 60 108 Q34 106 36 92Z" fill="#fff" opacity=".18"/>
+    ${star(34, 96, 4.4)}${star(86, 98, 3.6)}${star(54, 104, 3)}${star(92, 70, 3.4)}${star(28, 66, 3)}
+    ${shine("M28 82 Q28 64 37 54")}
+    <ellipse cx="60" cy="70" rx="29.5" ry="24.5" fill="none" stroke="${D}" stroke-width="10"/>
+    <ellipse cx="60" cy="70" rx="29.5" ry="24.5" fill="none" stroke="#C7CEFF" stroke-width="5.5"/>
+    <ellipse cx="60" cy="70" rx="26" ry="21" fill="url(#${skin})" ${S(3)}/>
+    <path d="M35 66 Q37 51 60 49 Q83 51 85 66 Q74 57 60 57 Q46 57 35 66Z" fill="#E59C86" opacity=".45"/>
+    <g class="eyes"><ellipse cx="49" cy="69" rx="4.8" ry="6.2" fill="${D}"/><ellipse cx="71" cy="69" rx="4.8" ry="6.2" fill="${D}"/>
+    <circle cx="50.6" cy="66.6" r="1.9" fill="#fff"/><circle cx="72.6" cy="66.6" r="1.9" fill="#fff"/><circle cx="47.6" cy="71.6" r=".9" fill="#fff"/><circle cx="69.6" cy="71.6" r=".9" fill="#fff"/></g>
+    <ellipse cx="41" cy="79" rx="4.6" ry="2.6" fill="#FF6A8A" opacity=".55"/><ellipse cx="79" cy="79" rx="4.6" ry="2.6" fill="#FF6A8A" opacity=".55"/>
+    <path d="M54.5 78.5 Q60 84.5 65.5 78.5" fill="#B8344E" stroke="${D}" stroke-width="2.4" stroke-linejoin="round"/><path d="M58 79.6 h4 v2.2 h-4z" fill="#fff"/>
+    ${shine("M41 63 Q43 57 49 55", 3, .7)}
+    ${toy(capP, cap, "#3036A8", 4)}
+    <path d="M58 21 L64 44 M76 14 L78 40 M92 16 L88 30" stroke="#E8ECFF" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+    ${star(66, 30, 3.4)}
+    ${shine("M47 40 Q51 26 63 20")}
+    ${toy("M36 53 Q60 36 84 53 L83 60 Q60 45 37 60Z", cream, "#C9A76A", 3, 2.8)}
+    ${toy("M101 30 a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0Z", cream, "#C9A76A", 3, 2.8)}
+    ${shine("M105 26 Q107 23 110 23", 2.4, .9)}
+    <path d="M96 86 Q104 84 106 76" fill="none" stroke="${D}" stroke-width="10" stroke-linecap="round"/>
+    ${toy("M96 82 Q108 78 120 82 Q120 88 108 88 Q96 88 96 82Z", gold, "#B8740E", 3, 2.6)}
+    ${toy("M103 64 Q103 61 108 61 Q113 61 113 64 L113 81 Q108 83 103 81Z", cream, "#C9A76A", 2, 2.6)}
+    <path d="M96 86 Q104 84 106 76" fill="none" stroke="#6E78EC" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M108 61 V57" stroke="${D}" stroke-width="2"/>
+    <g class="flame"><path d="M108 40 Q117 50 113 56 Q110 60 106 59 Q100 56 103 49 Q105 45 108 40Z" fill="#FF8A2A" ${S(2.4)}/><path d="M108 47 Q112 52 110.5 55.5 Q108.5 57 106.6 55.8 Q105 53.5 106.5 51Z" fill="#FFE27A"/></g>
+    ${shine("M105.5 66 V75", 2.2, .85)}
+  </g>`;
+}
+
+document.getElementById("big").innerHTML = somni();
+const mini = (s, cls = "") => `<svg viewBox="0 -6 128 136" width="${s}" height="${s * 136 / 128}">${somni()}</svg>`;
+document.getElementById("compare").innerHTML =
+  ["play", "shop", "parc", "user", "daily"].map(k => `<div class="cell"><svg viewBox="0 0 64 64" width="84" height="84">${GI3[k]()}</svg><span>${k}</span></div>`).join("")
+  + `<div class="cell">${mini(84)}<span>Somni</span></div>`;
+document.getElementById("sizes").innerHTML = [[150,"Profil"],[96,"Boutique"],[56,"Liste"],[36,"Classement"]].map(([s,l]) => `<div class="cell">${mini(s)}<span>${l} · ${s}px</span></div>`).join("")
+  + `<div class="cell light">${mini(96)}<span>Thème clair</span></div>`;
+</script>
+</body></html>

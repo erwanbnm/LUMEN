@@ -1,21 +1,19 @@
 <!doctype html>
-<!-- Icône de Lumen : le logo « Lu » (u rose) sous un halo de lampe, sur le violet de l'appli.
+<!-- Icône de Lumen : le « L » doré et bombé sous un halo ambre (logo C, même dessin que LUMEN_MARK dans splash.js).
      Rendue en PNG par web/make_icons.js. Taille passée dans l'URL : icon.html?s=512 -->
 <html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&display=swap">
-<style>
-html,body{margin:0;background:transparent}
-.ic{position:relative;overflow:hidden;background:radial-gradient(70% 70% at 50% 34%,#5A2E8E 0%,#3B1E68 45%,#241544 100%);display:grid;place-items:center}
-.halo{position:absolute;left:50%;top:38%;width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,140,.55) 0%,rgba(255,190,120,.22) 38%,rgba(255,95,162,0) 70%)}
-.t{position:relative;font-family:Literata,Georgia,serif;font-weight:600;color:#FFF0FA;letter-spacing:-.04em;line-height:1;text-shadow:0 0 .12em rgba(255,214,140,.55)}
-.t b{font-weight:600;color:#FF5FA2}
-.spark{position:absolute;width:9%;aspect-ratio:1;background:#FFD23F;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
-</style></head><body>
-<div class="ic" id="ic"><div class="halo"></div><div class="t" id="t">L<b>u</b></div><div class="spark" style="left:72%;top:20%"></div><div class="spark" style="left:20%;top:70%;width:6%"></div></div>
+<style>html,body{margin:0;background:transparent}#ic{display:block}</style></head><body>
+<svg id="ic" viewBox="0 0 120 120"><defs>
+  <radialGradient id="lmBg" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="#6A2E5E"/><stop offset="1" stop-color="#22102E"/></radialGradient>
+  <radialGradient id="lmGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FF9A3D" stop-opacity=".6"/><stop offset="1" stop-color="#FF9A3D" stop-opacity="0"/></radialGradient>
+  <linearGradient id="lmL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0A0"/><stop offset="1" stop-color="#F2A41E"/></linearGradient></defs>
+  <rect width="120" height="120" fill="url(#lmBg)"/><circle cx="60" cy="58" r="50" fill="url(#lmGlow)"/>
+  <path d="M40 24 Q40 18 46 18 L54 18 Q60 18 60 24 L60 78 L84 78 Q90 78 90 84 L90 92 Q90 98 84 98 L46 98 Q40 98 40 92Z" transform="translate(0 5)" fill="#A8650C" stroke="#2B1D3A" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M40 24 Q40 18 46 18 L54 18 Q60 18 60 24 L60 78 L84 78 Q90 78 90 84 L90 92 Q90 98 84 98 L46 98 Q40 98 40 92Z" fill="url(#lmL)" stroke="#2B1D3A" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M47 28 V70" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+  <path d="M77 26 l2.6 5.2 5.8 .8 -4.2 4 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.2 -4 5.8 -.8Z" fill="#FFF3B0" stroke="#2B1D3A" stroke-width="1.6" stroke-linejoin="round"/></svg>
 <script>
 const s = +new URLSearchParams(location.search).get("s") || 512;
-const ic = document.getElementById("ic");
-ic.style.width = ic.style.height = s + "px";
-document.getElementById("t").style.fontSize = (s * 0.5) + "px";
+const ic = document.getElementById("ic"); ic.setAttribute("width", s); ic.setAttribute("height", s);
 </script>
 </body></html>
