@@ -14,7 +14,7 @@ const MODE = process.argv[2] || "auto";
 const APP = "https://erwanbnm.github.io/LUMEN/";
 
 // Date et heure à Paris
-const parts = Object.fromEntries(new Intl.DateTimeFormat("fr-FR", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hour12: false })
+const parts = Object.fromEntries(new Intl.DateTimeFormat("fr-FR", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false })
   .formatToParts(new Date()).map(p => [p.type, p.value]));
 const DATE = `${parts.year}-${parts.month}-${parts.day}`, HOUR = +parts.hour % 24;
 
@@ -26,6 +26,17 @@ function dailyTheme(){
   const [y, m, d] = DATE.split("-").map(Number), n = Math.round(Date.UTC(y, m - 1, d) / 864e5);
   return themes[n % themes.length];
 }
+
+// Ouverture du Portail : même calcul que l'appli (main.js : rng, PORTAL_FORCE, portalPlan)
+function portalPlan(){
+  const src = fs.readFileSync(path.join(__dirname, "..", "main.js"), "utf8");
+  const rng = eval("(" + src.match(/function rng\(seed\)\{[^\n]*\}/)[0] + ")");
+  const force = JSON.parse(src.match(/const PORTAL_FORCE = (\{[^\n]*?\});/)[1]);
+  if (force[DATE] !== undefined) return { open: true, at: force[DATE] };
+  const [y, m, d] = DATE.split("-").map(Number), r = rng(Math.round(Date.UTC(y, m - 1, d) / 864e5) * 7919);
+  return { open: r() < .6, at: 9*60 + Math.floor(r() * 13*60) };
+}
+const MINUTES = HOUR * 60 + +parts.minute;
 
 // Envoie un message à tous les appareils d'un joueur, et oublie les adresses périmées
 async function send(uid, t, msg){
@@ -71,6 +82,16 @@ async function send(uid, t, msg){
       sent += await send(uid, toks[uid], { title: "Lumen t'attend 📚", body: "Viens te cultiver si tu veux pas finir comme Dwayne !", url: "./", tag: "remind" });
     }
     console.log(`après-midi : ${sent}`);
+  }
+
+  // Le Portail vient de s'ouvrir : on prévient tout le monde (une fois par jour)
+  const plan = portalPlan();
+  if (plan.open && MINUTES >= plan.at && meta.portal !== DATE) {
+    await metaRef.set({ portal: DATE }, { merge: true });
+    let n = 0;
+    for (const uid of Object.keys(toks)) if (pref(uid, "portal"))
+      n += await send(uid, toks[uid], { title: "🌀 Le portail s'est ouvert !", body: "10 questions très difficiles, un seul essai, et un personnage secret à gagner. Il se referme à minuit.", url: "./", tag: "portal" });
+    sent += n; console.log(`portail : ${n}`);
   }
 
   // Défis des amis lancés depuis moins de 6 heures et pas encore signalés

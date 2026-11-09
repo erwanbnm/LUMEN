@@ -152,7 +152,7 @@ const Amis = (function(){
      défis des amis (avec quelques minutes de retard). */
   const VAPID = "BMQcXZtdaWMx7i6whc7SsDDysk_hmAJ1laF7PD2xdCyls7SnEXOR43LJFDxu57Ye99AA2sg8R7EGRFqKI55i8Fo"; // clé publique « Certificats Web Push » (console Firebase > Paramètres > Cloud Messaging)
   const notifOK = () => "Notification" in window && "serviceWorker" in navigator && "PushManager" in window;
-  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappel pour venir jouer (vers 16 h)", duels:"Quand un ami me défie"};
+  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappel pour venir jouer (vers 16 h)", duels:"Quand un ami me défie", portal:"Ouverture du Portail"};
   let msgLoaded = false;
   async function saveToken(prefs){
     if (!msgLoaded) { await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-messaging-compat.js`); msgLoaded = true; }
@@ -166,7 +166,7 @@ const Amis = (function(){
     if (!VAPID) throw "Les notifications arrivent très bientôt.";
     const perm = await Notification.requestPermission();
     if (perm !== "granted") throw "Les notifications sont bloquées. Autorise-les dans les réglages de ton navigateur, puis réessaie.";
-    const prefs = {daily:true, remind:true, duels:true};
+    const prefs = {daily:true, remind:true, duels:true, portal:true};
     await saveToken(prefs);
     S.amis.notif = prefs; save();
     toasts.push("<b>Notifications activées !</b>");

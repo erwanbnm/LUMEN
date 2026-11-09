@@ -878,16 +878,22 @@ function renderLibrary(){
    ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
 const PORTAL_GOAL = 7;
 const portalIds = () => Object.keys(Q).filter(id => Q[id][6] && Q[id][6].t === "portal");
+// Le même portail pour tout le monde : il dépend seulement de la date (notifs/send.js fait le même calcul pour prévenir).
+// PORTAL_FORCE : jours où Erwan ouvre le portail lui-même, avec l'heure d'ouverture en minutes (14 h 50 = 890).
+const PORTAL_FORCE = {"2026-11-09": 890};
+function portalPlan(d){
+  if (PORTAL_FORCE[d] !== undefined) return {open:true, at:PORTAL_FORCE[d]};
+  const r = rng(dayNum(d) * 7919);
+  return {open:r() < .6, at:9*60 + Math.floor(r() * 13*60)};
+}
 function portalToday(){
   const d = today();
-  if (!S.portal || S.portal.day !== d) {
-    const r = rng(dayNum(d) * 7919 + hash(S.profile ? S.profile.name : "x"));
-    S.portal = {day:d, open:r() < .6, at:9*60 + Math.floor(r() * 13*60), seen:false, tried:false};
-    save();
-  }
+  if (!S.portal || S.portal.day !== d) { S.portal = {day:d, seen:false, tried:false}; save(); }
+  Object.assign(S.portal, portalPlan(d));
+  if (S.portal.force) S.portal.at = 0; // ouverture forcée par le mode admin
   return S.portal;
 }
-const portalOpen = () => { if (!S.profile) return false; const p = portalToday(), n = new Date();
+const portalOpen = () => { if (!S.profile) return false; const p = portalToday(), n = new Date(); // tried : un seul essai par ouverture
   return (p.open || p.force) && !p.tried && n.getHours()*60 + n.getMinutes() >= p.at; };
 function portalBanner(){
   if (window.__noPortal || !portalOpen() || S.portal.seen || (S.session && !S.session.done && S.tab === "jouer") || document.querySelector(".am-inv.portal")) return;
@@ -1062,7 +1068,7 @@ function onClick(e){
   if (d.adminAdd) { S.coins += +d.adminAdd; save(); toasts.push(`<b>+${d.adminAdd} pièces</b>`); return render(); }
   if (d.adminInf !== undefined) { S.admin.inf = !S.admin.inf; save(); return render(); }
   if (d.adminPortal !== undefined) { portalToday(); Object.assign(S.portal, {force:true, at:0, seen:false, tried:false}); save(); render(); return portalBanner(); }
-  if (d.portalGo !== undefined) { document.querySelectorAll(".am-inv.portal").forEach(e => e.remove()); if (!portalOpen()) return render(); return start("portail"); }
+  if (d.portalGo !== undefined) { document.querySelectorAll(".am-inv.portal").forEach(e => e.remove()); if (!portalOpen()) return render(); S.portal.tried = true; save(); return start("portail"); }
   if (d.portalClose !== undefined) { document.querySelectorAll(".am-inv.portal").forEach(e => e.remove()); return; }
   if (d.adminOff !== undefined) { S.admin = null; adminTaps = 0; save(); return render(); }
   if (d.themeSet) { S.settings.theme = d.themeSet; applyTheme(); save(); return render(); }
