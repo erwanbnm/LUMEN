@@ -59,13 +59,11 @@ async function send(uid, t, msg){
     console.log(`matin (${th}) : ${sent}`);
   }
 
-  // Rappel de l'après-midi, entre 16 h et 19 h, seulement si le défi du jour n'est pas fait
+  // Rappel de l'après-midi, entre 16 h et 19 h, à tout le monde (choix d'Erwan)
   if (HOUR >= 16 && HOUR < 19 && meta.aprem !== DATE) {
     await metaRef.set({ aprem: DATE }, { merge: true });
     for (const uid of Object.keys(toks)) {
       if (!pref(uid, "remind")) continue;
-      const s = await db.doc("saves/" + uid).get();
-      try { if (s.exists && (JSON.parse(s.data().data).days || {})[DATE]) continue; } catch(e){}
       sent += await send(uid, toks[uid], { title: "Lumen t'attend 📚", body: "Viens te cultiver si tu veux pas finir comme Dwayne !", url: "./", tag: "remind" });
     }
     console.log(`après-midi : ${sent}`);
