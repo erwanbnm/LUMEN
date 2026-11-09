@@ -76,11 +76,11 @@
 1|Quel cow-boy de BD tire plus vite que son ombre ?|Lucky Luke|Blueberry|Tintin|Spirou|Créé par le Belge Morris en 1946. Dans les années 1980, sa cigarette a été remplacée par un brin d'herbe.
 2|Qui a créé Gaston Lagaffe ?|André Franquin|Hergé|Morris|Peyo|Le gaffeur le plus célèbre de la BD travaille au journal de Spirou. Franquin a aussi inventé le Marsupilami.
 2|Qui a créé les Schtroumpfs ?|Peyo|Franquin|Hergé|Goscinny|Ces petits êtres bleus apparaissent en 1958 dans une autre série de Peyo, Johan et Pirlouit. En anglais, on les appelle les Smurfs.
-1|Comment s'appelle le chien de Tintin ?|Milou|Idéfix|Rantanplan|Bill|En anglais, il s'appelle Snowy. Le capitaine Haddock, lui, jure avec des expressions comme « Mille sabords ! ».
-1|Comment s'appelle le chien d'Obélix ?|Idéfix|Milou|Rantanplan|Pif|Il apparaît dans Le Tour de Gaule d'Astérix, en 1963. Il pleure quand on abat un arbre.
-1|Comment appelle-t-on la bande dessinée japonaise ?|Le manga|Le comics|Le webtoon|La ligne claire|Elle se lit de droite à gauche. La France est l'un des plus grands pays lecteurs de mangas au monde, après le Japon.
-1|Quel manga suit Luffy, un pirate au chapeau de paille ?|One Piece|Naruto|Dragon Ball|Bleach|Commencé en 1997 par Eiichirō Oda, c'est l'un des mangas les plus vendus de l'histoire.
-1|Quel manga suit Son Goku à la recherche de sept boules magiques ?|Dragon Ball|One Piece|Naruto|Pokémon|Créé par Akira Toriyama en 1984. Il s'inspire librement d'un grand roman chinois, La Pérégrination vers l'Ouest.
+1|Dans la fable de La Fontaine, quel animal se moque de la tortue avant de perdre la course ?|Le lièvre|Le renard|Le corbeau|Le loup|La morale : « Rien ne sert de courir ; il faut partir à point. »
+2|Quel est le titre du tout premier album d'Astérix ?|Astérix le Gaulois|La Serpe d'or|Astérix et Cléopâtre|Le Tour de Gaule|Il paraît en album en 1961, deux ans après les débuts du héros dans le journal Pilote.
+2|Dans quel roman de Jules Verne un courrier du tsar traverse-t-il la Sibérie ?|Michel Strogoff|Cinq Semaines en ballon|Mathias Sandorf|Le Château des Carpathes|Publié en 1876, il raconte la mission d'un messager envoyé d'Irkoutsk à Moscou en pleine révolte tatare.
+2|Quel poète a écrit Le Dormeur du val ?|Arthur Rimbaud|Paul Verlaine|Charles Baudelaire|Stéphane Mallarmé|Il l'a écrit à 16 ans, en 1870. Le soldat qui semble dormir est en réalité mort.
+2|Quel personnage de Molière est un avare obsédé par sa cassette ?|Harpagon|Tartuffe|Alceste|Sganarelle|C'est le héros de L'Avare, joué pour la première fois en 1668.
 2|Quel tableau de Botticelli montre une déesse sortant d'un coquillage ?|La Naissance de Vénus|Le Printemps|La Joconde|Le Radeau de la Méduse|Peint vers 1485, il se trouve au musée des Offices, à Florence.
 2|Qui a peint La Liberté guidant le peuple ?|Eugène Delacroix|Jacques-Louis David|Théodore Géricault|Gustave Courbet|Il représente la révolution de juillet 1830, et non celle de 1789. La femme au drapeau a inspiré l'image de Marianne.
 2|Qui a peint Le Radeau de la Méduse ?|Théodore Géricault|Eugène Delacroix|Jacques-Louis David|Ingres|Il raconte un naufrage réel de 1816 et le scandale qui a suivi. Le tableau mesure plus de 7 m de large et se trouve au Louvre.
@@ -101,12 +101,12 @@
 3|Qui a écrit Les Liaisons dangereuses ?|Choderlos de Laclos|Marivaux|Diderot|Beaumarchais|Un roman fait de lettres, paru en 1782, sur les manipulations amoureuses de deux aristocrates.
 3|Qui a écrit Le Mariage de Figaro ?|Beaumarchais|Marivaux|Molière|Musset|Jouée en 1784, la pièce se moque des privilèges de la noblesse. Mozart en a tiré un opéra deux ans plus tard.
 3|Quel peintre flamand a peint Les Époux Arnolfini, en 1434 ?|Jan van Eyck|Rubens|Bruegel l'Ancien|Jérôme Bosch|Le petit miroir rond au fond du tableau reflète toute la scène, et peut-être le peintre lui-même.
-1|Quel héros gaulois boit une potion magique ?|Astérix|Tintin|Lucky Luke|Spirou|Préparée par le druide Panoramix, elle donne une force surhumaine. Obélix, lui, est tombé dedans quand il était petit.
-1|Quel jeune reporter à la houppe voyage avec son chien ?|Tintin|Spirou|Astérix|Gaston|Créé par le Belge Hergé en 1929. Dans les albums de 1953-1954, il marche sur la Lune quinze ans avant les vrais astronautes.
+2|Dans quelle pièce de Molière un faux dévot trompe-t-il le naïf Orgon ?|Tartuffe|L'Avare|Le Misanthrope|Les Fourberies de Scapin|La pièce a été interdite pendant cinq ans par crainte de la colère de l'Église.
+2|Quel écrivain anglais a imaginé des humains fabriqués en laboratoire dans Le Meilleur des mondes ?|Aldous Huxley|George Orwell|H. G. Wells|Ray Bradbury|Publié en 1932, ce roman imagine une société où chacun est conditionné dès sa naissance.
 1|Dans quel musée est exposée la Vénus de Milo ?|Le Louvre|Le musée d'Orsay|Le centre Pompidou|Le musée Rodin|Cette statue grecque a été découverte en 1820 sur l'île de Milos. Personne ne sait exactement ce que tenaient ses bras disparus.
 1|Comment s'appelle l'art japonais du papier plié ?|L'origami|Le kirigami|L'ikebana|Le manga|Le mot vient de ori, « plier », et kami, « papier ». L'ikebana, lui, est l'art japonais des bouquets.
 1|Quel est le métier de Sherlock Holmes ?|Détective|Médecin|Policier|Journaliste|Il se présente comme « détective consultant ». Son ami, le docteur Watson, raconte ses enquêtes.
-1|Quel personnage de conte perd une pantoufle de verre au bal ?|Cendrillon|Blanche-Neige|La Belle au bois dormant|Raiponce|Dans la version de Perrault, la pantoufle est bien en verre, même si certains ont cru à une confusion avec le « vair », une fourrure.
+1|Quel conte de Perrault raconte l'histoire d'un homme qui interdit à sa femme d'ouvrir une petite pièce ?|Barbe-Bleue|Le Chat botté|Riquet à la houppe|Peau d'Âne|Elle désobéit et découvre les corps des épouses précédentes. La clé tachée de sang la trahit.
 1|Comment s'appelle le pantin de bois dont le nez s'allonge quand il ment ?|Pinocchio|Gepetto|Guignol|Polichinelle|Créé par l'Italien Carlo Collodi en 1881. Gepetto est le menuisier qui l'a sculpté.
 1|Quel musée parisien ressemble à une usine aux gros tuyaux colorés ?|Le centre Pompidou|Le Louvre|Le musée d'Orsay|Le Grand Palais|Ouvert en 1977. Ses tuyaux sont peints selon leur rôle : bleu pour l'air, vert pour l'eau, jaune pour l'électricité.
 1|Sur quoi le peintre pose-t-il sa toile pour peindre ?|Un chevalet|Une palette|Un pupitre|Un tréteau|La palette, elle, sert à mélanger les couleurs. Le mot « chevalet » vient de « cheval », car il porte la toile comme un cheval porte son cavalier.
