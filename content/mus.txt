@@ -6,7 +6,7 @@
 2|Quel compositeur français a écrit le Boléro ?|Maurice Ravel|Claude Debussy|Erik Satie|Georges Bizet|En 1928. Le même rythme est répété du début à la fin, avec un crescendo de 15 minutes.
 2|Quel opéra de Bizet contient l'air « L'amour est un oiseau rebelle » ?|Carmen|La Traviata|Don Giovanni|Aida|Créé à Paris en 1875, il a d'abord été un échec. Bizet est mort trois mois plus tard.
 1|Combien de cordes a une guitare classique ?|6|4|5|12|La basse électrique en a généralement 4. Il existe aussi des guitares à 12 cordes.
-1|Combien de touches a un piano standard ?|88|64|100|72|52 blanches et 36 noires, sur un peu plus de sept octaves.
+2|Combien de touches noires compte un piano standard ?|36|52|24|40|Il a 88 touches en tout : 52 blanches et 36 noires.
 2|Combien de notes compte la gamme de do majeur ?|7|8|5|12|Do, ré, mi, fa, sol, la, si. Le do suivant recommence la gamme une octave plus haut.
 2|D'où viennent les noms des notes do, ré, mi ?|D'un chant latin médiéval|Du grec ancien|De l'italien moderne|Des chiffres arabes|Le moine Guido d'Arezzo a utilisé les premières syllabes d'un hymne à saint Jean, vers l'an 1000.
 2|Quel instrument a inventé Adolphe Sax ?|Le saxophone|La trompette|Le trombone|La clarinette|Vers 1840. Ce Belge a déposé de nombreux brevets d'instruments à vent.
@@ -26,7 +26,7 @@
 2|Dans quelle ville le jazz est-il né ?|La Nouvelle-Orléans|New York|Chicago|Memphis|Au début du XXe siècle, mélange de blues, de musiques africaines et de fanfares.
 2|De quel pays vient le reggae ?|La Jamaïque|Cuba|Haïti|Le Brésil|Bob Marley l'a fait connaître dans le monde entier dans les années 1970.
 2|De quel pays vient la samba ?|Le Brésil|L'Argentine|Cuba|Le Mexique|Elle est le cœur du carnaval de Rio.
-2|De quel pays vient le tango ?|L'Argentine et l'Uruguay|L'Espagne|Le Brésil|Le Portugal|Né à la fin du XIXe siècle dans les quartiers populaires de Buenos Aires et Montevideo.
+2|De quel pays vient le tango ?|L'Argentine|L'Espagne|Le Brésil|Le Portugal|Il est né à la fin du XIXe siècle dans les quartiers populaires de Buenos Aires, et aussi à Montevideo, en Uruguay.
 2|De quel pays vient le flamenco ?|L'Espagne|Le Portugal|L'Italie|Le Mexique|D'Andalousie. Il mêle chant, guitare, danse et claquements de mains.
 2|De quel pays vient la K-pop ?|La Corée du Sud|Le Japon|La Chine|Taïwan|Le groupe BTS a été le premier groupe coréen à atteindre la première place du classement américain.
 2|Quelle chanteuse a sorti l'album 1989 et des tournées record ?|Taylor Swift|Beyoncé|Rihanna|Lady Gaga|Sa tournée Eras Tour (2023-2024) est devenue la plus rentable de l'histoire.
@@ -48,7 +48,7 @@
 3|Quel violoniste italien était si virtuose qu'on le disait lié au diable ?|Niccolò Paganini|Antonio Vivaldi|Arcangelo Corelli|Giuseppe Tartini|Ses 24 Caprices restent parmi les pièces les plus difficiles du répertoire.
 2|Quel groupe français a chanté « L'Aventurier » en 1982 ?|Indochine|Téléphone|Noir Désir|Trust|Le groupe de Nicola Sirkis tourne toujours et remplit les stades plus de 40 ans après.
 2|Quel instrument est associé à la musique bretonne et écossaise ?|La cornemuse|L'accordéon|Le banjo|La harpe|En Bretagne, on l'appelle le biniou. Il est souvent joué avec la bombarde.
-1|Combien de musiciens joue un quatuor ?|4|3|5|8|Le quatuor à cordes classique réunit deux violons, un alto et un violoncelle. Un trio en compte trois, un quintette cinq.
+3|Quel compositeur a écrit le quatuor à cordes « La Jeune Fille et la Mort » ?|Franz Schubert|Mozart|Joseph Haydn|Beethoven|Il reprend la mélodie d'un de ses propres lieder, écrit sept ans plus tôt.
 2|Qui dirige un orchestre symphonique ?|Le chef d'orchestre|Le premier violon|Le soliste|Le compositeur|Avec sa baguette, il donne le tempo et les départs. Le premier violon, appelé « violon solo », accorde l'orchestre avant le concert.
 2|Quelle note l'orchestre utilise-t-il pour s'accorder ?|Le la|Le do|Le mi|Le sol|C'est le hautbois qui la donne en général, car son son est très stable. Le la de référence vibre à 440 Hz.
 2|Quel compositeur allemand a écrit la Toccata et fugue en ré mineur pour orgue ?|Jean-Sébastien Bach|Haendel|Mozart|Beethoven|Il a eu vingt enfants, dont plusieurs sont devenus compositeurs. Il a été presque oublié après sa mort, avant d'être redécouvert au XIXe siècle.
@@ -57,12 +57,12 @@
 3|Quel compositeur a écrit la musique du ballet Le Sacre du printemps, qui a provoqué une bagarre en 1913 ?|Igor Stravinsky|Claude Debussy|Maurice Ravel|Erik Satie|Lors de la première à Paris, les spectateurs, choqués par la musique et la danse, se sont insultés et battus.
 2|Quel compositeur français a écrit Clair de lune ?|Claude Debussy|Maurice Ravel|Erik Satie|Gabriel Fauré|Un morceau pour piano de 1890 environ, très utilisé au cinéma. Debussy s'inspirait de la peinture impressionniste et de musiques venues d'Asie.
 2|Quel compositeur a écrit Les Gymnopédies, au piano très calme ?|Erik Satie|Claude Debussy|Frédéric Chopin|Franz Liszt|Original et plein d'humour, il donnait à ses œuvres des titres comme « Morceaux en forme de poire ».
-1|Quel instrument a des touches noires et blanches ?|Le piano|Le violon|La flûte|La batterie|Son vrai nom est « pianoforte », car il peut jouer doucement (piano) et fort (forte), contrairement au clavecin.
-1|Quel instrument se joue avec un archet ?|Le violon|La guitare|La harpe|Le piano|L'archet est tendu de crins de cheval. Le violon a quatre cordes, accordées sol, ré, la, mi.
+2|Combien de pédales compte en général un piano à queue ?|Trois|Une|Deux|Quatre|À droite, elle prolonge les sons ; à gauche, elle les adoucit ; celle du milieu prolonge seulement certaines notes.
+2|Quel luthier italien a fabriqué les violons les plus célèbres au monde ?|Antonio Stradivari|Andrea Amati|Giuseppe Guarneri|Niccolò Paganini|Ses instruments, fabriqués à Crémone, se vendent plusieurs millions d'euros. Paganini, lui, était violoniste.
 2|Dans quelle famille d'instruments classe-t-on la trompette ?|Les cuivres|Les bois|Les cordes|Les percussions|On fait vibrer ses lèvres dans l'embouchure. Le trombone, le cor et le tuba sont aussi des cuivres.
 2|Quel instrument de percussion a des lames de bois qu'on frappe avec des baguettes ?|Le xylophone|Le triangle|La timbale|Le tambourin|Son nom vient du grec xylon, le bois. Quand les lames sont en métal, on parle souvent de métallophone ou de glockenspiel.
 2|Quel est l'instrument le plus grave de la famille des bois dans l'orchestre ?|Le contrebasson|La clarinette|Le hautbois|La flûte|Son tube mesure près de 6 m, replié sur lui-même. Le basson, plus petit, est déjà très grave.
-1|Quel instrument joue Jimi Hendrix ?|La guitare électrique|La batterie|Le piano|La basse|Gaucher, il jouait sur une guitare de droitier retournée. Il est considéré comme l'un des plus grands guitaristes de l'histoire.
+1|Quel instrument joue Jimi Hendrix ?|La guitare électrique|La batterie|Le piano|La basse électrique|Gaucher, il jouait sur une guitare de droitier retournée.
 2|Quel groupe a chanté « Smells Like Teen Spirit » ?|Nirvana|Metallica|Green Day|Pearl Jam|Sorti en 1991, il a fait connaître le grunge dans le monde entier. Le chanteur, Kurt Cobain, est mort en 1994.
 2|Quel groupe de rock australien a chanté « Highway to Hell » ?|AC/DC|Metallica|Guns N' Roses|Kiss|Son guitariste Angus Young joue en costume d'écolier. Le groupe est l'un des plus vendus de l'histoire du rock.
 2|Quel groupe a chanté « Hotel California » ?|Eagles|Queen|The Doors|Pink Floyd|Sorti en 1976, connu pour son long solo de guitare à deux voix. Les paroles sont encore aujourd'hui sujettes à interprétation.
@@ -120,20 +120,20 @@
 3|Quel guitariste a créé le jazz manouche malgré une main gauche gravement brûlée ?|Django Reinhardt|Jimi Hendrix|Paco de Lucía|Eric Clapton|Après l'incendie de sa roulotte, il ne pouvait plus utiliser que deux doigts : il a réinventé sa technique.
 3|Quel instrument électronique se joue sans le toucher, en bougeant les mains dans l'air ?|Le thérémine|Le synthétiseur|Les ondes Martenot|Le vocodeur|Inventé en 1920 par le Russe Léon Theremin. Son son étrange a souvent été utilisé dans les vieux films de science-fiction.
 1|Avec quoi gratte-t-on souvent les cordes d'une guitare électrique ?|Un médiator|Un archet|Une baguette|Un marteau|Ce petit triangle de plastique permet de gratter les cordes avec précision.
-1|Quel instrument a des cymbales, des toms et une grosse caisse ?|La batterie|Le piano|La guitare|La harpe|Le batteur donne le rythme au groupe. La grosse caisse se joue au pied, grâce à une pédale.
-1|Combien de musiciens compte un duo ?|2|3|4|1|Un trio en compte trois, un quatuor quatre. Daft Punk était un duo célèbre.
-1|Quel grand instrument à cordes se joue en les pinçant, souvent assis ?|La harpe|Le piano|La guitare|Le violon|La harpe de concert a environ 47 cordes et 7 pédales qui permettent de changer les notes.
-1|Quel instrument simple apprend-on souvent à l'école en soufflant et en bouchant des trous ?|La flûte à bec|La trompette|Le tuba|L'accordéon|Elle est simple et peu chère, idéale pour débuter. On en jouait déjà au Moyen Âge.
+1|Quel Beatles chantait « Yellow Submarine » ?|Ringo Starr|John Lennon|Paul McCartney|George Harrison|C'était le batteur du groupe, qui chantait en général une chanson par album.
+1|Comment s'appelle la voix d'homme la plus grave dans un chœur ?|La basse|Le ténor|Le baryton|L'alto|Le ténor est la plus aiguë des voix d'homme habituelles. L'alto est une voix grave de femme ou d'enfant.
+1|Quel tambour africain en forme de calice se joue à mains nues ?|Le djembé|Le bongo|La darbouka|Le cajón|Il vient d'Afrique de l'Ouest. La darbouka vient du Maghreb et du Moyen-Orient.
+2|Comment s'appelle la petite flûte très aiguë de l'orchestre ?|Le piccolo|Le fifre|Le flageolet|Le galoubet|Il joue une octave au-dessus de la flûte traversière.
 1|Quel instrument à soufflet est le roi des bals musette ?|L'accordéon|L'harmonica|La cornemuse|L'orgue|Inventé au XIXe siècle, il est devenu un symbole de la chanson populaire française.
 1|Quel instrument à tuyaux trouve-t-on dans les églises ?|L'orgue|Le piano|La harpe|Le xylophone|Certains orgues ont des milliers de tuyaux. Le son est produit par de l'air envoyé dans chacun d'eux.
-1|Quelle chanson chante-t-on à un anniversaire ?|Joyeux anniversaire|Frère Jacques|Au clair de la lune|Une souris verte|La mélodie vient d'une chanson américaine de 1893, écrite pour saluer les écoliers le matin.
-1|Quelle comptine parle d'un moine qui dort pendant que les cloches sonnent ?|Frère Jacques|Au clair de la lune|Une souris verte|Alouette|On la chante souvent en canon : chaque groupe commence un peu après l'autre.
+1|Quelle chanteuse a écrit les paroles de « La Vie en rose » ?|Édith Piaf|Juliette Gréco|Barbara|Dalida|Elle l'a écrite en 1945. La chanson a ensuite été reprise par des artistes du monde entier.
+2|Quelle comptine française a la même mélodie que « Twinkle, Twinkle, Little Star » ?|« Ah ! vous dirai-je, maman »|« Au clair de la lune »|« Frère Jacques »|« Il était une bergère »|Mozart a aussi composé des variations pour piano sur cet air.
 1|Quel chant de Noël s'appelle « Stille Nacht » en allemand ?|Douce nuit|Mon beau sapin|Vive le vent|Il est né le divin enfant|Il a été chanté pour la première fois en 1818 dans une église autrichienne, accompagné à la guitare.
 1|Quelle chanteuse a chanté « Bad Guy » en chuchotant presque ?|Billie Eilish|Taylor Swift|Dua Lipa|Ariana Grande|Elle a enregistré ses premiers titres avec son frère Finneas, dans sa chambre. Elle a aussi chanté le thème d'un film de James Bond.
 1|Quel groupe coréen de sept garçons a chanté « Dynamite » ?|BTS|Blackpink|EXO|Twice|En 2020, ils sont devenus le premier groupe sud-coréen numéro un des ventes aux États-Unis.
-1|Combien de cordes a un violon ?|4|6|8|12|Elles sont accordées sol, ré, la, mi. Le violoncelle et l'alto en ont aussi quatre.
-1|Quel petit instrument de percussion en métal a la forme d'une figure géométrique ?|Le triangle|Le carré|Le cercle|Le losange|On le frappe avec une baguette en métal. Il est ouvert dans un coin pour mieux résonner.
-1|De quel film Disney vient la chanson « Libérée, délivrée » ?|La Reine des neiges|Raiponce|Vaiana|Encanto|Sortie en 2013, elle a été traduite dans plus de 40 langues. En anglais, elle s'appelle « Let It Go ».
+1|Combien de cordes a un ukulélé ?|Quatre|Six|Trois|Cinq|Ce petit instrument hawaïen descend d'une guitare apportée par des immigrés portugais.
+1|Quel instrument est formé de deux disques de métal qu'on frappe l'un contre l'autre ?|Les cymbales|Le triangle|Les castagnettes|Le gong|Les meilleures sont fabriquées en Turquie depuis des siècles.
+2|Quelle chanteuse prête sa voix à Elsa dans la version française de La Reine des neiges ?|Anaïs Delva|Lorie|Louane|Elsa Lunghini|C'est elle qui chante « Libérée, délivrée », l'une des chansons les plus écoutées de Disney.
 2|Quel instrument fait de tubes de longueurs différentes est typique des Andes ?|La flûte de Pan|L'accordéon|La cornemuse|Le didgeridoo|On souffle dans les tubes par le haut. Son nom vient du dieu grec Pan, qui en jouait.
 2|Quelle chanteuse a donné à la France sa dernière victoire à l'Eurovision, en 1977 ?|Marie Myriam|Patricia Kaas|Barbara Pravi|France Gall|Avec « L'Oiseau et l'Enfant ». Depuis, la France est arrivée plusieurs fois deuxième, comme Barbara Pravi en 2021.
 2|Quel groupe britannique a chanté « Yellow » et « Viva la Vida » ?|Coldplay|Oasis|Muse|Radiohead|Le groupe s'est formé à l'université de Londres en 1996. Ses tournées font partie des plus suivies de l'histoire.
@@ -149,13 +149,13 @@
 3|Combien de cordes compte environ une harpe de concert ?|47|12|24|88|Les cordes rouges indiquent les do, les noires ou bleues les fa, pour s'y retrouver.
 3|Quel compositeur tchèque a écrit la Symphonie du Nouveau Monde ?|Antonín Dvořák|Bedřich Smetana|Leoš Janáček|Franz Liszt|Il l'a écrite aux États-Unis, en 1893. Neil Armstrong en aurait emporté un enregistrement vers la Lune.
 3|Quel compositeur allemand a écrit Carmina Burana ?|Carl Orff|Richard Wagner|Johannes Brahms|Robert Schumann|Son ouverture, « O Fortuna », est utilisée dans d'innombrables films et publicités.
-3|Qu'est-ce qu'un leitmotiv en musique ?|Un thème qui revient pour évoquer un personnage ou une idée|Un instrument ancien|Une danse lente|Une erreur de rythme|Wagner l'a beaucoup utilisé. La musique des Dents de la mer annonce ainsi toujours le requin.
+3|Qu'est-ce qu'un leitmotiv en musique ?|Un thème qui revient|Un instrument ancien|Une danse lente|Une erreur de rythme|Il évoque un personnage ou une idée. Wagner en a fait un usage célèbre.
 3|Que signifie « pianissimo » sur une partition ?|Très doucement|Très vite|Au piano seulement|Très fort|On l'abrège « pp ». « Fortissimo », abrégé « ff », veut dire très fort.
 2|Quel instrument aborigène d'Australie est un long tube de bois qu'on fait vibrer avec les lèvres ?|Le didgeridoo|La flûte de Pan|Le cor des Alpes|Le tuba|Il est souvent creusé naturellement par des termites dans un tronc d'eucalyptus. Les joueurs respirent par le nez sans interrompre le son.
-1|Combien de musiciens joue un trio ?|Trois|Deux|Quatre|Cinq|Avec un piano, un violon et un violoncelle, c'est un trio avec piano, une formation très classique.
-1|Quelle chanson de Noël parle d'un renne au nez rouge qui guide le traîneau ?|Rudolph le petit renne|Vive le vent|Petit Papa Noël|Douce nuit|Le personnage a été inventé en 1939 pour une brochure publicitaire d'un grand magasin américain.
-1|Quelle note vient juste après « do » dans la gamme ?|Ré|Mi|Si|Fa|Do, ré, mi, fa, sol, la, si, puis on revient à do, une octave plus haut.
-1|Quel instrument se frappe avec des baguettes sur une peau tendue ?|Le tambour|La flûte|La harpe|Le violon|C'est l'un des plus vieux instruments du monde.
+2|Quel compositeur allemand a écrit le célèbre Canon en ré majeur ?|Johann Pachelbel|Jean-Sébastien Bach|Antonio Vivaldi|Georg Friedrich Haendel|Écrit vers 1700, il a été redécouvert au XXe siècle et passe dans d'innombrables mariages.
+2|Quel chanteur a rendu célèbre « Petit Papa Noël » en 1946 ?|Tino Rossi|Charles Trenet|Yves Montand|Luis Mariano|C'est l'un des disques les plus vendus de l'histoire en France.
+2|Comment s'appelait la note « do » au Moyen Âge ?|Ut|La|Sol|Mi|On a remplacé « ut » par « do », plus facile à chanter. On dit encore « clé d'ut ».
+2|Quel instrument joue le canard dans Pierre et le Loup ?|Le hautbois|La clarinette|Le basson|La flûte|Le basson joue le grand-père et la flûte l'oiseau.
 1|Dans quel pays est né Mozart ?|L'Autriche|L'Allemagne|L'Italie|La Suisse|Il est né à Salzbourg en 1756. On y vend encore des chocolats à son effigie, les Mozartkugeln.
 2|Dans Pierre et le Loup, quel instrument joue le chat ?|La clarinette|La flûte|Le hautbois|Le basson|La flûte joue l'oiseau, le hautbois le canard et le basson le grand-père.
 2|Quel chanteur belge a chanté « Ça plane pour moi » en 1977 ?|Plastic Bertrand|Jacques Brel|Arno|Stromae|Le tube punk a fait le tour du monde, alors que les paroles en français étaient souvent incomprises.

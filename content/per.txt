@@ -114,7 +114,7 @@
 2|Quel appareil Jacques-Yves Cousteau a-t-il mis au point pour respirer sous l'eau ?|Le scaphandre autonome|Le sous-marin de poche|Le sonar|La cloche de plongée|Avec l'ingénieur Émile Gagnan, en 1943 : on peut enfin plonger sans être relié à la surface.
 1|De quel pays vient Usain Bolt ?|La Jamaïque|Les États-Unis|Le Kenya|Trinité-et-Tobago|Il a gagné huit médailles d'or olympiques en sprint entre 2008 et 2016.
 2|Que tentait de réussir Amelia Earhart quand elle a disparu en 1937 ?|Le tour du monde en avion|La traversée de l'Antarctique|Un record d'altitude|La traversée du Sahara|Son avion a disparu au-dessus du Pacifique et n'a jamais été retrouvé.
-2|Dans quelle ville est né Jules Verne ?|Nantes|Amiens|Paris|Le Havre|Il a passé la seconde moitié de sa vie à Amiens, où il a été conseiller municipal.
+1|Dans quelle ville est né Jules Verne ?|Nantes|Amiens|Paris|Le Havre|Il a passé la seconde moitié de sa vie à Amiens, où il a été conseiller municipal.
 1|Dans quel pays est née Marie Curie ?|La Pologne|La France|La Russie|L'Autriche|Elle est née à Varsovie en 1867. Elle a appelé le polonium en hommage à son pays natal.
 1|Sur quel geste Zinédine Zidane a-t-il quitté le football, en finale de 2006 ?|Un coup de tête|Un but de la tête|Un penalty raté|Une blessure|Expulsé en prolongation contre l'Italie, il n'a pas pu tirer au but, et la France a perdu.
 2|Comment s'appelait la première mission de Thomas Pesquet dans l'ISS, en 2016 ?|Proxima|Alpha|Apollo|Gemini|Le nom vient de l'étoile la plus proche du Soleil. Sa deuxième mission, en 2021, s'appelait Alpha.
