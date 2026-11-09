@@ -180,7 +180,7 @@ const Salons = (() => {
   function bombAnswer(v){
     const g = room.g; if (!g || g.phase !== "ask" || g.holder !== uid() || (g.ans && g.ans.turn === g.turn)) return;
     room.g.ans = {u:uid(), v, turn:g.turn}; // affichage immédiat
-    try { answer(g.qid, v === 0, 0); } catch(e){}
+    try { answer(g.qid, v === 0, 0); noteAnswer(v === 0); } catch(e){}
     db().doc("rooms/" + code).update({"g.ans":{u:uid(), v, turn:g.turn}}).catch(() => {});
     repaint();
   }
@@ -191,8 +191,12 @@ const Salons = (() => {
 
   /* --- Quiz à plusieurs : même rythme pour tous, calculé depuis l'heure de départ --- */
   const PER = (Q_TIME + QUIZ_SHOW) * 1000;
-  const PM_TIME = 30, PM_SHOW = 6, PM_PER = (PM_TIME + PM_SHOW) * 1000;
-  const per = () => room && room.mode === "pm" ? PM_PER : PER, qWin = () => (room && room.mode === "pm" ? PM_TIME : Q_TIME) * 1000;
+  // Mode Dates : surtout des « Avant ou après ? » (10 s), et environ une fois sur cinq un « Plus ou moins » (30 s)
+  const PM_TIME = 30, PM_SHOW = 6, AV_TIME = 10, AV_SHOW = 4;
+  const kindOf = id => String(id).startsWith("dt") ? "p" : "a";
+  const dur = k => (k === "p" ? PM_TIME + PM_SHOW : AV_TIME + AV_SHOW) * 1000, win = k => (k === "p" ? PM_TIME : AV_TIME) * 1000;
+  const evOf = id => EV[+id.slice(2)];
+  const yr = y => y < 0 ? -y + " av. J.-C." : String(y);
   function startQuiz(){
     const ids = seats(), used = new Set(), qids = [];
     const avoid = avoidSet(); let pool = fresh(room.diff, avoid); if (pool.length < room.nq) pool = fresh(room.diff);
@@ -202,63 +206,103 @@ const Salons = (() => {
     return upd({state:"play", gid:(room.gid || 0) + 1, sc, g:{qids, start:now() + 3500, seats:ids, ords:qids.map(() => shuffle4().join("")), over:false}}); // Firestore refuse les listes dans des listes : l'ordre est stocké en texte (« 2031 »)
   }
   function startPM(){
-    const ids = seats(), avoid = avoidSet();
-    let pool = DATES.map((_, i) => "dt" + i).filter(id => !avoid.has(id)); if (pool.length < room.nq) pool = DATES.map((_, i) => "dt" + i);
-    pool.sort(() => Math.random() - .5);
-    return upd({state:"play", gid:(room.gid || 0) + 1, fd:{}, g:{qids:pool.slice(0, room.nq), start:now() + 3500, seats:ids, over:false}});
+    const ids = seats(), avoid = avoidSet(), n = Math.min(30, room.nq || 10);
+    // Environ 20 % de « Plus ou moins » (au moins un), jamais en première manche
+    const np = Math.max(1, Math.round(n * .2)), kinds = Array(n).fill("a");
+    const spots = Array.from({length:n - 1}, (_, i) => i + 1).sort(() => Math.random() - .5).slice(0, np); spots.forEach(i => kinds[i] = "p");
+    let dts = DATES.map((_, i) => "dt" + i).filter(id => !avoid.has(id)); if (dts.length < np) dts = DATES.map((_, i) => "dt" + i);
+    dts.sort(() => Math.random() - .5);
+    // Avant / Après : deux événements d'années différentes, paire jamais vue par les joueurs si possible
+    const pairs = [], usedEv = new Set();
+    const pair = () => { for (let k = 0; k < 400; k++) { const x = Math.floor(Math.random()*EV.length), y = Math.floor(Math.random()*EV.length);
+      if (x === y || EV[x][1] === EV[y][1] || usedEv.has(x) && usedEv.has(y)) continue; const id = "ev" + x + "-ev" + y;
+      if (avoid.has(id) && k < 300) continue; usedEv.add(x); usedEv.add(y); return id; } return "ev0-ev1"; };
+    const qids = kinds.map(k => k === "p" ? dts.pop() : pair());
+    return upd({state:"play", gid:(room.gid || 0) + 1, fd:{}, g:{qids, start:now() + 3500, seats:ids, over:false}});
   }
-  // Plus ou moins : mes essais pour la manche en cours (sur ce téléphone)
-  let pm = {k:"", tries:[], found:false};
+  // Mes réponses pour la manche en cours (sur ce téléphone)
+  let pm = {k:"", tries:[], found:false, av:undefined};
+  const pmKey = i => room.gid + ":" + i, pmCur = i => { const k = pmKey(i); if (pm.k !== k) pm = {k, tries:[], found:false, av:undefined}; return pm; };
   function pmGuess(v){
-    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ) return;
-    const k = room.gid + ":" + p.i; if (pm.k !== k) pm = {k, tries:[], found:false};
-    if (pm.found || !Number.isFinite(v)) return;
+    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || kindOf(g.qids[p.i]) !== "p") return;
+    const st = pmCur(p.i); if (st.found || !Number.isFinite(v)) return;
     const y = DATES[+g.qids[p.i].slice(2)][2];
-    pm.tries.push(v);
-    if (v === y) { pm.found = true; try { Music.sfx("ok"); } catch(e){}
-      db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.e % PM_PER}).catch(() => {}); }
+    st.tries.push(v);
+    if (v === y) { st.found = true; try { Music.sfx("ok"); } catch(e){}
+      db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.r}).catch(() => {}); }
     else try { Music.sfx("tap"); } catch(e){}
     pmDraft = ""; repaint(); setTimeout(() => { const i = document.getElementById("sl-guess"); if (i) i.focus(); }, 30);
   }
+  // Avant / Après : v = 0 (avant) ou 1 (après) ; une bonne réponse est enregistrée avec son temps
+  function avAnswer(v){
+    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || kindOf(g.qids[p.i]) !== "a") return;
+    const st = pmCur(p.i); if (st.av !== undefined) return; st.av = v;
+    const [x, y] = g.qids[p.i].split("-").map(evOf), good = (y[1] < x[1] ? 0 : 1) === v;
+    if (good) db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.r}).catch(() => {});
+    noteAnswer(good);
+    repaint();
+  }
   let pmDraft = "";
-  // Points d'une manche : 1er à trouver 3 pts, 2e 2 pts, les autres 1 pt
-  function pmRound(i){ const f = (room.fd && room.fd[i]) || {}; return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:k === 0 ? 3 : k === 1 ? 2 : 1})); }
+  // Points d'une manche. Plus ou moins : 1er 3 pts, 2e 2 pts, les autres 1 pt. Avant/Après : le plus rapide 2 pts, les autres 1 pt.
+  function pmRound(i){ const f = (room.fd && room.fd[i]) || {}, pmK = room.g && room.g.qids && kindOf(room.g.qids[i]) === "p";
+    return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:pmK ? (k === 0 ? 3 : k === 1 ? 2 : 1) : (k === 0 ? 2 : 1)})); }
   function pmView(){
     const g = room.g, p = quizPos(), n = g.qids.length;
     const board = `<div class="sl-board">${ranking().map((r, i) => `<span class="${r.id === uid() ? "me" : ""}">${i + 1}. ${esc(pName(r.id))} <b>${r.a}</b></span>`).join("")}</div>`;
     let body;
-    if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Plus ou moins commence dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${n} dates à trouver · ${PM_TIME} secondes chacune</span></div>`;
+    if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Les dates commencent dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${n} manches · surtout « Avant ou après ? », parfois « Plus ou moins »</span></div>`;
     else {
-      const i = Math.min(p.i, n - 1), d = DATES[+g.qids[i].slice(2)], k = room.gid + ":" + i; if (pm.k !== k) pm = {k, tries:[], found:false};
-      const finders = pmRound(i);
-      const tries = pm.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
+      const i = Math.min(p.i, n - 1), id = g.qids[i], st = pmCur(i), finders = pmRound(i);
+      const left = p.inQ ? p.w - p.r : 0;
+      const head = (chip, lab) => `<div class="row between"><span class="chip">${chip}</span><span class="label" id="sl-left">${p.inQ ? Math.ceil(left/1000) + " s" : ""}</span></div>
+        <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${p.inQ ? left/(p.w/100) : 0}%"></i></div><div class="label" style="margin-top:8px">${lab} · manche ${i + 1}/${n}</div>`;
       const who = finders.length ? `<div class="pm-who">${finders.map(f => `<span>${esc(pName(f.id))} · ${(f.t/1000).toFixed(1)} s · +${f.pts}</span>`).join("")}</div>` : "";
-      body = `<article class="card q sl-q"><div class="row between"><span class="chip">${dot(d[0])}${esc(THEMES[d[0]] ? THEMES[d[0]].n : "")}</span><span class="label" id="sl-left">${p.inQ ? Math.ceil((PM_TIME*1000 - p.e % PM_PER)/1000) + " s" : ""}</span></div>
-        <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${p.inQ ? (PM_TIME*1000 - p.e % PM_PER)/(PM_TIME*10) : 0}%"></i></div>
-        <div class="label" style="margin-top:8px">Date ${i + 1}/${n}</div><h2>${esc(d[1])}</h2>
-        ${p.inQ && !pm.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
-        ${p.inQ && pm.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${pm.tries.length} essai${pm.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
-        ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${pm.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
-        ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
+      if (kindOf(id) === "a") {
+        const [x, y] = id.split("-").map(evOf), right = y[1] < x[1] ? 0 : 1, mine = st.av;
+        const btn = (v, label) => { let c = "choice av-btn"; if (!p.inQ) c += v === right ? " right" : v === mine ? " wrong" : " dim"; else if (mine !== undefined) c += v === mine ? " picked" : " dim";
+          return `<button class="${c}" data-sl="av" data-v="${v}" ${p.inQ && mine === undefined ? "" : "disabled"}>${label}</button>`; };
+        body = `<article class="card q sl-q">${head("⏳ Avant ou après ?", "Avant ou après")}
+          <div class="av-ref"><span>${esc(x[0])}</span><b>${yr(x[1])}</b></div>
+          <h2 style="text-align:center">${esc(y[0])}</h2>
+          <div class="av-row">${btn(0, "⬅ Avant")}${btn(1, "Après ➡")}</div>
+          ${!p.inQ ? `<div class="pm-year">${yr(y[1])}</div><p class="sl-status">${mine === right ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard !" : "Raté !"}</b>`}</p>` : ""}${who}</article>`;
+      } else {
+        const d = DATES[+id.slice(2)];
+        const tries = st.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
+        body = `<article class="card q sl-q pm-bonus">${head("🎯 Plus ou moins · bonus", "Trouve l'année exacte")}<h2>${esc(d[1])}</h2>
+          ${p.inQ && !st.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
+          ${p.inQ && st.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${st.tries.length} essai${st.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
+          ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${st.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
+          ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
+      }
     }
-    return `<section class="stack sl-game"><div class="row between"><span class="label">Plus ou moins · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
+    return `<section class="stack sl-game"><div class="row between"><span class="label">Dates · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }
   let quizMine = {}, quizIdx = -2;
-  function quizPos(){ const g = room.g; const e = now() - g.start; return {i:Math.floor(e / per()), inQ:(e % per()) < qWin(), e}; }
+  // Où en est-on ? i = manche, inQ = on peut encore répondre, r = temps écoulé dans la manche, w = temps pour répondre
+  function quizPos(){
+    const g = room.g, e = now() - g.start;
+    if (room.mode !== "pm") return {i:Math.floor(e / PER), inQ:(e % PER) < Q_TIME*1000, e, r:e % PER, w:Q_TIME*1000};
+    if (e < 0) return {i:-1, inQ:false, e, r:e, w:0};
+    let t = 0;
+    for (let i = 0; i < g.qids.length; i++) { const k = kindOf(g.qids[i]), d = dur(k);
+      if (e < t + d) return {i, inQ:e - t < win(k), e, r:e - t, w:win(k)}; t += d; }
+    return {i:g.qids.length, inQ:false, e, r:0, w:0};
+  }
   function quizTick(){
     const g = room.g; if (!g || !g.qids || g.over) return;
     const p = quizPos();
     if (p.i >= g.qids.length) { if (isHost() && !drive) upd({state:"end", "g.over":true}); return; }
     const k = p.e < 0 ? -1 : p.i * 2 + (p.inQ ? 0 : 1);
     if (k !== quizIdx) { quizIdx = k; repaint(); }
-    if (p.e >= 0) setBar(p.inQ ? qWin() - (p.e % per()) : 0, qWin() / 1000);
+    if (p.e >= 0) setBar(p.inQ ? p.w - p.r : 0, (p.w || 1000) / 1000);
     else { const t = document.getElementById("sl-left"); if (t) t.textContent = Math.ceil(-p.e / 1000) + " s"; }
   }
   function quizAnswer(v){
     const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || quizMine[g.qids[p.i] + room.gid] !== undefined) return;
     quizMine[g.qids[p.i] + room.gid] = v; const ok = v === 0;
-    try { answer(g.qids[p.i], ok, 0); } catch(e){}
+    try { answer(g.qids[p.i], ok, 0); noteAnswer(ok); } catch(e){}
     const cur = (room.sc && room.sc[uid()]) || {ok:0, pos:0};
     db().doc("rooms/" + code).update({["sc." + uid()]: {ok:cur.ok + (ok ? 1 : 0), pos:p.i + 1}}).catch(() => {});
     repaint();
@@ -295,7 +339,7 @@ const Salons = (() => {
     if (!win || g.why) return; // partie interrompue : pas de podium
     const order = rk.length === 3 ? [2, 0, 1] : rk.length === 2 ? [1, 0] : [0];
     const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : room.mode === "pm" ? `<span>${r.a} point${r.a > 1 ? "s" : ""}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
-    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
+    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${A().title(rk[i].id, "xs")}${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
     const colors = ["#FF5FA2", "#FFD23F", "#7FD8BE", "#8FB8F0", "#FFFFFF"];
     const conf = Array.from({length:36}, (_, k) => `<i class="sl-conf" style="left:${Math.random()*100}%;background:${colors[k % 5]};animation-delay:${2.3 + Math.random()*1.4}s;animation-duration:${2.2 + Math.random()*1.6}s"></i>`).join("");
     const el = document.createElement("div"); el.className = "sl-pod"; el.setAttribute("role", "dialog");
@@ -362,12 +406,12 @@ const Salons = (() => {
       ${last}
       <div class="card stack" style="text-align:center;gap:4px"><div class="label">Code du salon</div><div class="sl-code">${room.code}</div><span class="muted" style="font-size:13.5px">Tes amis le tapent dans JcJ › Salons privés.</span></div>
       <div class="card stack"><div class="label">Joueurs (${ids.length}/${MAXP})</div>
-        ${ids.map(id => `<div class="am-row">${A().avatar(id, 40)}<b class="grow">${esc(pName(id))}${id === uid() ? " (toi)" : ""}</b>${id === room.host ? `<span class="chip">Hôte</span>` : ""}</div>`).join("")}
+        ${ids.map(id => `<div class="am-row">${A().avatar(id, 40)}<div class="grow stack" style="gap:3px"><b>${esc(pName(id))}${id === uid() ? " (toi)" : ""}</b>${A().title(id, "xs")}</div>${id === room.host ? `<span class="chip">Hôte</span>` : ""}</div>`).join("")}
         ${isHost() && friends.length && ids.length < MAXP ? `<div class="label" style="margin-top:6px">Inviter</div>${friends.map(id => `<div class="am-row">${A().avatar(id, 34)}<b class="grow">${esc(A().pseudoOf(id))}</b><button class="chip-btn" data-sl="inv" data-v="${id}" ${(room.inv || []).includes(id) ? "disabled" : ""}>${(room.inv || []).includes(id) ? "Invité" : "Inviter"}</button></div>`).join("")}` : ""}
       </div>
-      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz"], ["pm", "Plus ou moins"]])}
-        ${room.mode === "pm" ? `<div class="label">Nombre de dates : ${room.nq}</div><div class="row">${[5,10,15,20].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
-          <p class="muted" style="margin:0;font-size:13.5px">Trouve l'année exacte : à chaque essai, on te dit « c'est plus » ou « c'est moins ». 30 secondes par date. Le 1er qui trouve gagne 3 points, le 2e 2 points, les autres 1 point.</p>`
+      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz"], ["pm", "⏳ Dates"]])}
+        ${room.mode === "pm" ? `<div class="label">Nombre de manches : ${room.nq}</div><div class="row">${[10,15,20,30].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
+          <p class="muted" style="margin:0;font-size:13.5px">Surtout des « Avant ou après ? » : un événement est donné avec son année, dis si l'autre s'est passé avant ou après (10 s, le plus rapide gagne 2 points, les autres 1). Environ une fois sur cinq, un bonus « Plus ou moins » : trouve l'année exacte (30 s, 3, 2 puis 1 point). Tout le monde joue en même temps.</p>`
         : room.mode === "quiz" ? `<div class="label">Nombre de questions : ${room.nq}</div><div class="row">${[10,20,30,40,50].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
           <p class="muted" style="margin:0;font-size:13.5px">Tout le monde répond en même temps aux mêmes questions, 10 secondes chacune. Le plus de bonnes réponses gagne.</p>`
         : `<p class="muted" style="margin:0;font-size:13.5px">Chacun a 3 cœurs. Bonne réponse : tu passes la bombe au suivant. Mauvaise réponse : la mèche brûle. Après 3 erreurs, la suivante fait exploser la bombe et coûte un cœur. 10 secondes pour répondre, puis 8. La partie s'arrête dès qu'un joueur n'a plus de cœur.</p>`}
@@ -379,7 +423,7 @@ const Salons = (() => {
   }
   function resultCard(){
     const rk = ranking(), g = room.g;
-    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : room.mode === "pm" ? "Plus ou moins terminé." : "Quiz terminé.";
+    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : room.mode === "pm" ? "Partie de Dates terminée." : "Quiz terminé.";
     return `<div class="card stack sl-res"><b>${title}</b>${rk.map((r, i) => `<div class="am-row"><span class="am-pos ${i === 0 ? "gold" : ""}">${i + 1}</span>${A().avatar(r.id, 36)}<b class="grow">${esc(pName(r.id))}</b><span class="muted">${room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a)}</span> · ${r.b} justes` : room.mode === "pm" ? r.a + " points" : r.a + " bonnes réponses"}</span></div>`).join("")}</div>`;
   }
   function seatPos(i, n, mine){ const k = (i - mine + n) % n, a = Math.PI/2 + k * 2*Math.PI/n; return [50 + Math.cos(a)*40, 50 + Math.sin(a)*38]; }
@@ -387,7 +431,7 @@ const Salons = (() => {
     const ids = (room.g && room.g.seats) || seats(), n = ids.length, mi = Math.max(0, ids.indexOf(uid()));
     const seatsH = ids.map((id, i) => { const [x, y] = seatPos(i, n, mi), h = hearts ? hearts[id] : null, gone = room.players[id] && room.players[id].out;
       return `<div class="sl-seat ${id === holder ? "hold" : ""} ${h === 0 || gone ? "out" : ""} ${boom && id === holder ? "hit" : ""}" data-seat="${id}" style="left:${x}%;top:calc(${y}% - 52px)">
-        ${h !== null ? `<div class="sl-hp">${"♥".repeat(Math.max(0, h))}<i>${"♥".repeat(3 - Math.max(0, h))}</i></div>` : ""}<div class="sl-nm">${esc(pName(id))}</div>${A().avatar(id, 62)}</div>`; }).join("");
+        ${h !== null ? `<div class="sl-hp">${"♥".repeat(Math.max(0, h))}<i>${"♥".repeat(3 - Math.max(0, h))}</i></div>` : ""}<div class="sl-nm">${esc(pName(id))}</div>${A().title(id, "xs")}${A().avatar(id, 62)}</div>`; }).join("");
     let bomb = "";
     if (holder) { const [hx, hy] = seatPos(ids.indexOf(holder), n, mi), bx = hx + (50 - hx)*.42, by = hy + (50 - hy)*.42;
       bomb = `<div class="sl-bomb" style="left:${bx}%;top:${by}%;--beat:${[.35,.55,.75,1][fuse]}s">${bombSVG(fuse)}</div>`; }
@@ -430,7 +474,7 @@ const Salons = (() => {
       const ans = p.inQ ? mine : (mine === undefined ? -1 : mine);
       const status = p.inQ ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>`
         : mine === 0 ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard" : "Raté"} : ${esc(Q[qid][2][0])}</b>`;
-      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME, p.inQ ? mine : undefined); }
+      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? p.w - p.r : 0, Q_TIME, p.inQ ? mine : undefined); }
     return `<section class="stack sl-game"><div class="row between"><span class="label">Quiz · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }
@@ -452,6 +496,7 @@ const Salons = (() => {
       else if (a === "inv" && isHost()) await upd({inv:FV().arrayUnion(v)});
       else if (a === "start" && isHost() && seats().length >= 2) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : room.mode === "pm" ? startPM() : startQuiz()); }
       else if (a === "ans") { room.mode === "bombe" ? bombAnswer(+v) : quizAnswer(+v); return; }
+      else if (a === "av") { avAnswer(+v); return; }
       else if (a === "emo") return send(null, v);
     } catch(e){ msg = typeof e === "string" ? e : "Impossible de joindre le salon. Vérifie ta connexion."; }
     busy = false; render();
@@ -483,6 +528,6 @@ const Salons = (() => {
  ["bombe10","or",10,"bomb","Artificier","Gagner 10 parties de La Bombe",120],
  ["sangfroid","platine",1,"clean","Sang-froid","Gagner La Bombe sans perdre un seul cœur",150],
  ["quiz1","argent",1,"quiz","Premier de la classe","Gagner un quiz à plusieurs",50],
- ["pm1","argent",1,"pm","Devin","Gagner une partie de Plus ou moins",50],
+ ["pm1","argent",1,"pm","Devin","Gagner une partie de Dates",50],
  ["bavard","bronze",20,"chat","Bavard","Envoyer 20 messages dans le chat d'un salon",20]
 ].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id:"sl_" + id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal, cur:() => (S.salons && S.salons[k]) || 0}));

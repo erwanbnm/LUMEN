@@ -326,6 +326,23 @@ textarea.field{resize:none;font-family:var(--f-mono);font-size:13px}
 .choices.flags .choice svg{width:100%;height:auto;border-radius:4px;box-shadow:0 0 0 1px rgba(0,0,0,.2)}
 .atw{animation:tw 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .seg.s4{grid-template-columns:repeat(4,1fr)}
+.seg.s5{grid-template-columns:repeat(5,1fr)}
+.seg.s5 button{font-size:9.5px;padding:9px 1px}
+/* Titres sous le pseudo : plaque nette, majuscules, dégradé propre à chaque titre */
+.ttl{display:inline-block;align-self:flex-start;max-width:100%;padding:2px 9px 2.5px;border-radius:7px;background:linear-gradient(180deg,var(--ta),var(--tb));color:var(--tf);font:800 10.5px/1.35 "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1.5px solid rgba(43,29,58,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 2px 0 rgba(43,29,58,.35);text-shadow:0 1px 0 rgba(0,0,0,.18)}
+.ttl.sm{font-size:9.5px;padding:1px 7px 1.5px}
+.ttl.xs{font-size:8.5px;padding:1px 6px;border-radius:6px;letter-spacing:.07em}
+.ttl.lg{font-size:13px;padding:5px 12px 5.5px;border-radius:9px}
+.ttl.loser{animation:ttlWob 2.4s ease-in-out infinite}
+@keyframes ttlWob{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.ttl.loser{animation:none}}
+.who-n{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+.ttl-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.ttl-row:last-child{border-bottom:0}
+.ttl-row .btn{width:auto;flex:none}
+.am-f .ttl{align-self:center}
+.sl-seat .ttl{display:block;margin:2px auto 0;width:max-content;max-width:94px}
+.sl-pcol .ttl{align-self:center}
 .seg.s4 button{font-size:10.5px;padding:9px 2px}
 .dress-top{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
 .dress-prev{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--lamp) 22%,var(--surface-2)),var(--surface) 70%)}
@@ -777,6 +794,12 @@ body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index
 .sl-status{margin:10px 0 0;text-align:center}
 .sl-you{color:var(--lamp)}.sl-good{color:#2BB673}.sl-bad{color:#FF4D6D}
 .sl-board{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-size:13.5px}
+.av-ref{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 4px;padding:10px 12px;border-radius:14px;background:var(--surface-2);font-weight:700}
+.av-ref span{min-width:0}.av-ref b{flex:none;font:900 22px "Bricolage Grotesque",sans-serif;color:var(--lamp)}
+.av-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.av-btn{justify-content:center;font:800 18px "Bricolage Grotesque",sans-serif;min-height:64px}
+.av-btn::before{display:none!important}
+.pm-bonus{outline:3px solid var(--accent2);outline-offset:-3px}
 .pm-form{display:flex;gap:8px;margin-top:10px}
 .pm-form input{flex:1;min-width:0;border-radius:14px;border:2px solid var(--line);padding:12px;background:var(--surface);color:var(--ink);font:800 22px "Bricolage Grotesque",sans-serif;text-align:center}
 .pm-form .btn{width:auto;padding:0 18px}
@@ -2289,17 +2312,33 @@ const STAR_SKINS = [
   });
 } },
 { id:"analyste", n:"L'Analyste", e:"Édition séries", free:true, hint:"Finis un Chrono avec 15 bonnes réponses", toy:true, anim:"", draw(){
-  const dots = [[38,90],[50,100],[70,92],[82,104],[44,114],[64,112],[78,82],[56,82]].map(([x, y]) => `<path d="M${x} ${y-3} l3 3 l-3 3 l-3 -3z" fill="#2E5A9A" opacity=".55"/>`).join("");
+  // Clin d'œil à un expert en traces de sang de Miami : coupe courte et nette, regard calme, demi-sourire,
+  // chemisette beige à manches courtes sur un tee-shirt blanc, lame de microscope avec sa goutte, et un beignet pour les collègues.
+  const SK = ["#F4CFB2", "#D9A283", "#000"], SH = ["#D8C79A", "#AE9C68", "#4A3E20"];
+  const leaves = [[38,92],[52,104],[72,94],[84,108],[44,116],[66,114],[80,84]].map(([x, y]) => `<path d="M${x} ${y} q3 -4 6 0 q-3 4 -6 0z" fill="#8E7C4A" opacity=".55"/>`).join("");
   return tPerson({
-    skin:["#FFE8D6", "#F2BCA0", "#000"], torso:["#A8D4F4", "#5A9AD4", "#1E4A80"], shoes:["#5A4A40", "#3A2E28", "#1A1210"], sleeve:"#5A9AD4",
-    gloves:["#C8F0FF", "#5AC0F0", "#1A6A9A"], armR:"M92 88 Q110 84 110 72", handR:[110, 70],
-    body: dots + `<path d="M50 70 L60 80 L70 70" fill="none" stroke="#1E4A80" stroke-width="2.4"/><circle cx="60" cy="88" r="1.8" fill="#FFFFFF" stroke="${TD}"/><circle cx="60" cy="98" r="1.8" fill="#FFFFFF" stroke="${TD}"/>`,
-    held: toy(tC(110, 58, 9.5), "#FF8A7A", "#E2322E", "#8A1414", {dy:2, w:2.6}) + tStar(110, 49, 4.4, "#4AC86A") + tShine("M104 54 Q105 50 108 49", 2.2, .8)
-      + `<g class="ta-bubble" style="animation-delay:-.6s"><path d="M100 74 q-2 4 0 6 q2 -2 0 -6z" fill="#E2322E" stroke="${TD}" stroke-width="1.2"/></g>`,
-    face: `<path d="M41 38 l11 1 M79 36 l-11 3" stroke="#5A3E2E" stroke-width="3" stroke-linecap="round"/>`,
-    mouth: tMouth(62, 58, "cat"),
-    hair: toy("M33 40 Q32 15 60 14 Q88 15 87 40 Q82 28 68 29 Q58 22 46 29 Q37 30 33 40Z", "#8A5E40", "#5A3A24", "#2A1A0E", {dy:2})
-      + tShine("M42 26 Q50 18 62 18", 2.6, .55)
+    skin:SK, torso:SH, shoes:["#5A4636", "#3A2A1E", "#140C06"], sleeve:SK[1],
+    armL:"M28 88 Q14 96 14 108", handL:[14, 110],
+    body: leaves
+      + `<path d="M47 70 L60 92 L73 70Z" fill="#FFFFFF" stroke="${TD}" stroke-width="2"/>`
+      + `<path d="M44 70 L54 86 L60 80 M76 70 L66 86 L60 80" fill="${SH[0]}" stroke="${TD}" stroke-width="2.2" stroke-linejoin="round"/>`
+      + `<path d="M60 92 V124" stroke="${SH[2]}" stroke-width="2" opacity=".6"/><circle cx="62.5" cy="100" r="1.7" fill="#F6F0DC" stroke="${TD}" stroke-width="1.2"/><circle cx="62.5" cy="112" r="1.7" fill="#F6F0DC" stroke="${TD}" stroke-width="1.2"/>`
+      + toy("M22 92 Q22 76 38 72 L42 90 Q32 92 22 92Z", ...SH, {dy:2, w:2.4}) + toy("M98 92 Q98 76 82 72 L78 90 Q88 92 98 92Z", ...SH, {dy:2, w:2.4}),
+    held: `<g transform="rotate(-18 108 104)">${toy("M96 98 H120 V110 H96Z", "#E8F6FF", "#B8DCEE", "#4A7A9A", {dy:1.5, w:2.2})}<path d="M108 100.5 q-3.6 4.4 0 6.6 q3.6 -2.2 0 -6.6z" fill="#D62A2A" stroke="${TD}" stroke-width="1.2"/><path d="M99 100 h4" stroke="#fff" stroke-width="1.6" opacity=".9"/></g>`
+      + toy(tC(14, 112, 9.5), "#F2C27A", "#D8964A", "#7A4A14", {dy:2, w:2.4})
+      + `<path d="M6.5 109 Q14 102 21.5 109 Q14 105 6.5 109Z" fill="#FF8AB8"/><circle cx="14" cy="112" r="3.2" fill="#F4E6D0" stroke="${TD}" stroke-width="1.6"/>`
+      + `<path d="M9 106 l2 -1 M17 105 l2 1 M13 104 l1 -1.6" stroke="#5AC0F0" stroke-width="1.6" stroke-linecap="round"/><path d="M11 108 l1.6 .6 M18 108.5 l1 -1.4" stroke="#FFD23F" stroke-width="1.6" stroke-linecap="round"/>`,
+    face: `<path d="M38 52 Q40 66 52 70 Q60 72 68 70 Q80 66 82 52 Q78 64 60 67 Q42 64 38 52Z" fill="#B97A5C" opacity=".14"/>`
+      + `<path d="M58.5 53.5 Q60 55.5 61.5 53.5" fill="none" stroke="#C48A6A" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>`
+      + `<path d="M42 40.5 Q48 39 55 40.5 M65 40.5 Q72 39 78 40.5" stroke="#3A2618" stroke-width="3.2" stroke-linecap="round" fill="none"/>`,
+    eyes: tEyes(50, 70, 47.5, .82)
+      + `<path d="M45 43.5 Q50 41 55 43.5 L55 46.2 Q50 44.8 45 46.2Z M65 43.5 Q70 41 75 43.5 L75 46.2 Q70 44.8 65 46.2Z" fill="${SK[0]}"/>`
+      + `<path d="M45 46.2 Q50 44.8 55 46.2 M65 46.2 Q70 44.8 75 46.2" stroke="${TD}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+    noBlush:true,
+    mouth: `<path d="M53.5 60.5 Q59 62.5 66.5 58" fill="none" stroke="${TD}" stroke-width="2.3" stroke-linecap="round"/>`,
+    hair: toy("M34 43 Q32 19 60 17 Q88 19 86 43 Q85 33 80 30 Q72 25 63 26.5 Q52 25 44 29 Q37 32 34 43Z", "#6A4A32", "#432C1C", "#1A1008", {dy:1.5})
+      + `<path d="M47 21 Q50 25 48 29" fill="none" stroke="#2A1A0E" stroke-width="2" stroke-linecap="round" opacity=".8"/>`
+      + tShine("M52 22 Q62 19 72 22", 2.2, .45)
   });
 } }
 ];
@@ -3302,7 +3341,7 @@ function tapSparkle(el){
 function header(){
   const p = S.profile;
   const A = acctLvl(), st = streak();
-  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span>${esc(p.name)}</span></button>
+  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
     <div class="pills"><span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
@@ -3436,11 +3475,50 @@ function skinCard(sk, id, mode){
   const sub = sk.th ? `<span class="chip">${dot(sk.th)}${esc(THEMES[sk.th].n)}</span>` : mode==="secret" ? `<span class="muted">${esc(sk.hint)}</span>` : `<span class="muted">${esc(sk.e||"")}</span>`;
   return `<div class="sk ${own?"own":""} ${mode==="secret"?"secret":""} ${id==="lumen"?"ultra":""}">${creatureSVG(sk, 84)}<b>${esc(sk.n)}</b>${sub}${foot}</div>`;
 }
+/* ---------- Titres sous le pseudo (achetés en boutique ; noms choisis par Erwan, novembre 2026) ----------
+   « LOOSER DU JOUR » ne s'achète pas : il tombe tout seul après 4 erreurs d'affilée et dure jusqu'à minuit. */
+const TITLES = [
+  {id:"soumis", n:"SOUMIS", p:200, a:"#F1EEF6", b:"#C4BCD4", f:"#4A3E5A"},
+  {id:"gonneur", n:"GONNEUR", p:300, a:"#FFA45A", b:"#E2431E", f:"#FFFFFF"},
+  {id:"senpai", n:"SENPAI", p:300, a:"#FFC2DA", b:"#FF5FA2", f:"#FFFFFF"},
+  {id:"dessose", n:"DESSOSE", p:400, a:"#D2B4FF", b:"#7A4AD8", f:"#FFFFFF"},
+  {id:"banki", n:"BANKI", p:500, a:"#6EE09A", b:"#16804A", f:"#FFFFFF"},
+  {id:"gorosei", n:"GOROSEI", p:600, a:"#5B3A8C", b:"#1E1236", f:"#FFD23F"},
+  {id:"patapim", n:"BRR BRR PATAPIM", p:600, a:"#A8DC7A", b:"#5A8A2A", f:"#FFFFFF"},
+  {id:"winter", n:"WINTER IS COMING", p:700, a:"#EAF6FF", b:"#86BCEB", f:"#16324E"},
+  {id:"kingnorth", n:"KING OF NORTH", p:800, a:"#4A4A5A", b:"#121218", f:"#E8C25A"}
+];
+const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
+const titleById = id => id === "looser" ? LOSER_TITLE : TITLES.find(t => t.id === id);
+const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
+// Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
+const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
+// Série d'erreurs : 4 d'affilée = LOOSER DU JOUR
+function noteAnswer(ok){
+  S.wrongRun = ok ? 0 : (S.wrongRun || 0) + 1;
+  if (S.wrongRun >= 4 && S.loserDay !== today()) {
+    S.loserDay = today(); toasts.push(`<b>4 erreurs d'affilée…</b> · Tu portes le titre ${titleTag("looser", "sm")} jusqu'à minuit.`);
+    try { Amis.api.ping(); } catch(e){}
+  }
+}
+function renderTitles(){
+  S.titles = S.titles || {};
+  const cur = myTitle();
+  const row = t => { const own = S.titles[t.id], on = S.profile.title === t.id;
+    const foot = on ? `<span class="chip lamp">Porté</span>` : own ? `<button class="btn small ghost" data-tequip="${t.id}">Porter</button>` : `<button class="btn small" data-tbuy="${t.id}" ${S.coins >= t.p ? "" : "disabled"}>${coinIco}${t.p}</button>`;
+    return `<div class="ttl-row ${own ? "own" : ""}">${titleTag(t.id, "lg")}${foot}</div>`; };
+  return `<div class="stack"><p class="muted">Un titre s'affiche sous ton pseudo : en haut de l'écran, dans JcJ, les classements et les salons.</p>
+    <div class="card stack ttl-me"><div class="label">Ton titre en ce moment</div><div class="row" style="align-items:center;gap:10px">${meSVG(44)}<div class="stack" style="gap:4px"><b>${esc(S.profile.name)}</b>${cur ? titleTag(cur) : `<span class="muted">Aucun titre</span>`}</div></div>
+      ${S.loserDay === today() ? `<p class="muted" style="margin:0;font-size:13.5px">LOOSER DU JOUR : 4 erreurs d'affilée aujourd'hui. Il disparaît à minuit.</p>` : ""}
+      ${S.profile.title ? `<button class="btn small ghost" data-tequip="">Ne porter aucun titre</button>` : ""}</div>
+    <div class="card stack">${TITLES.map(row).join("")}</div>
+    <div class="card stack"><div class="label">Titre spécial (ne s'achète pas)</div><div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
+}
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
-  const segs = {skins:"Personnages", acc:"Accessoires", collection:"Collection", ameliorations:"Améliorations"};
-  const SI = {skins:"user", acc:"crown", collection:"book", ameliorations:"up"};
-  const tabs = `<div class="seg gseg s4" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
+  const segs = {skins:"Personnages", acc:"Accessoires", titres:"Titres", collection:"Collection", ameliorations:"Améliorations"};
+  const SI = {skins:"user", acc:"crown", titres:"trophy", collection:"book", ameliorations:"up"};
+  const tabs = `<div class="seg gseg s5" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
   let body;
   if (shopSeg === "collection") {
     const nOwn = CHARS.length + SHOP_SKINS.filter(s=>S.skins[s.id]).length + SECRETS.filter(s=>S.skins[s.id]).length;
@@ -3456,6 +3534,7 @@ function renderShop(){
       <div class="label">Personnages de départ · ${CHARS.length}</div>
       <div class="skgrid">${CHARS.map((c,i) => skinCard(c, "b"+i)).join("")}</div>`;
   } else if (shopSeg === "acc") body = renderAcc();
+  else if (shopSeg === "titres") body = renderTitles();
   else if (shopSeg === "ameliorations") body = `<div class="stack">${UPG}</div>`;
   else body = `<p class="muted">Un personnage par thème. Certains s'achètent avec tes pièces, d'autres se gagnent en réussissant des questions de leur thème.</p>
     ${halloweenSeason() || HALLOWEEN_SKINS.some(s => S.skins[s.id]) ? `<div class="label">🎃 Édition Halloween${halloweenSeason() ? " · jusqu'au 30 novembre" : ""}</div>
@@ -3849,7 +3928,7 @@ document.addEventListener("click", e => {
 // Réponse à une question (v = -1 : temps écoulé en duel, compte comme une erreur)
 function doAnswer(s, v){
     const st = s.steps[s.pos]; if (!st || st.ans !== undefined || s.done) return;
-    st.ans = v; const ok = st.ans === 0;
+    st.ans = v; const ok = st.ans === 0; noteAnswer(ok);
     s.combo = ok ? s.combo+1 : 0; s.best = Math.max(s.best, s.combo);
     st.combo = s.combo; const g = answer(st.id, ok, s.combo); st.xp = g.xp; st.coins = g.coins; s.xp += g.xp; s.coins += g.coins;
     if (s.mode==="chrono" && ok) s.score = (s.score||0)+1;
@@ -3946,6 +4025,10 @@ function onClick(e){
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
+  if (d.tbuy) { const t = titleById(d.tbuy); S.titles = S.titles || {};
+    if (t && t.p && !S.titles[t.id] && S.coins >= t.p) { S.coins -= t.p; S.titles[t.id] = today(); S.profile.title = t.id; spend(t.p); toasts.push(`<b>Nouveau titre</b> · ${titleTag(t.id, "sm")} est affiché sous ton pseudo.`); save(); try { Amis.api.ping(); } catch(e){} }
+    return render(); }
+  if (d.tequip !== undefined) { S.profile.title = d.tequip || ""; save(); try { Amis.api.ping(); } catch(e){} return render(); }
   if (d.buy) { const sk = skinOf(d.buy); if (sk && sk.p && !S.skins[d.buy] && S.coins >= sk.p) { S.coins -= sk.p; S.skins[d.buy] = today(); S.profile.skin = d.buy; spend(sk.p); toasts.push(`<b>${esc(sk.n)} rejoint ta collection</b> · il est équipé.`); save(); } return render(); }
   if (d.accBuy) { const a = ACC.find(x => x.id === d.accBuy); if (a && !S.acc.own[a.id] && S.coins >= a.p && !(a.th && themeLvl(a.th).L < 3)) { S.coins -= a.p; spend(a.p); S.acc.own[a.id] = today(); S.acc.eq[a.slot] = a.id; toasts.push(`<b>${esc(a.n)}</b> · acheté et porté.`); save(); } return render(); }
   if (d.accEq) { const a = ACC.find(x => x.id === d.accEq); if (a && S.acc.own[a.id]) { S.acc.eq[a.slot] = a.id; save(); } return render(); }
@@ -4078,7 +4161,7 @@ const Amis = (function(){
   function ping(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
-    db.doc("users/" + uid()).update({seen:Date.now(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
+    db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
       st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
@@ -4425,7 +4508,7 @@ const Amis = (function(){
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
         <div class="label">1 · Ton adversaire</div>
-        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
+        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${titleOf(id, "xs")}${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
         <div class="label">2 · Le mode de jeu</div>
         <div class="am-modes">${Object.keys(MODES).map(k => `<button class="am-mode ${m === k ? "on" : ""}" data-am="mode" data-v="${k}" aria-pressed="${m === k}">${gIcon(MODES[k].icon, 40)}<b>${MODES[k].n}</b><span>${MODES[k].d}</span></button>`).join("")}</div>
         ${m === "classic" ? `<div class="label">3 · Le thème</div>
@@ -4461,13 +4544,13 @@ const Amis = (function(){
   function viewBoard(){
     const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
     const unit = v => `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
-    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b><span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
+    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
     return `<section class="stack">
       <div class="row between"><button class="quit" data-am="back">Retour</button><span class="label">Entre amis</span></div>
       <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
-      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
       <p class="muted" style="font-size:13px;text-align:center">${ui.board === "semaine" ? "Duels joués depuis lundi : 3 points par victoire, 1 par égalité. Le n°1 porte la couronne 👑 jusqu'à lundi prochain." : ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
@@ -4574,7 +4657,9 @@ const Amis = (function(){
   setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
 
   // Accès partagé pour les salons privés (salons.js)
-  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender};
+  // Titre d'un ami (le LOOSER DU JOUR ne compte que le jour même)
+  const titleOf = (id, cls) => { const u = users[id]; if (!u || !u.ti || (u.ti === "looser" && u.tid !== today())) return ""; return titleTag(u.ti, cls || "sm"); };
+  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
   return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 
@@ -4776,7 +4861,7 @@ const Salons = (() => {
   function bombAnswer(v){
     const g = room.g; if (!g || g.phase !== "ask" || g.holder !== uid() || (g.ans && g.ans.turn === g.turn)) return;
     room.g.ans = {u:uid(), v, turn:g.turn}; // affichage immédiat
-    try { answer(g.qid, v === 0, 0); } catch(e){}
+    try { answer(g.qid, v === 0, 0); noteAnswer(v === 0); } catch(e){}
     db().doc("rooms/" + code).update({"g.ans":{u:uid(), v, turn:g.turn}}).catch(() => {});
     repaint();
   }
@@ -4787,8 +4872,12 @@ const Salons = (() => {
 
   /* --- Quiz à plusieurs : même rythme pour tous, calculé depuis l'heure de départ --- */
   const PER = (Q_TIME + QUIZ_SHOW) * 1000;
-  const PM_TIME = 30, PM_SHOW = 6, PM_PER = (PM_TIME + PM_SHOW) * 1000;
-  const per = () => room && room.mode === "pm" ? PM_PER : PER, qWin = () => (room && room.mode === "pm" ? PM_TIME : Q_TIME) * 1000;
+  // Mode Dates : surtout des « Avant ou après ? » (10 s), et environ une fois sur cinq un « Plus ou moins » (30 s)
+  const PM_TIME = 30, PM_SHOW = 6, AV_TIME = 10, AV_SHOW = 4;
+  const kindOf = id => String(id).startsWith("dt") ? "p" : "a";
+  const dur = k => (k === "p" ? PM_TIME + PM_SHOW : AV_TIME + AV_SHOW) * 1000, win = k => (k === "p" ? PM_TIME : AV_TIME) * 1000;
+  const evOf = id => EV[+id.slice(2)];
+  const yr = y => y < 0 ? -y + " av. J.-C." : String(y);
   function startQuiz(){
     const ids = seats(), used = new Set(), qids = [];
     const avoid = avoidSet(); let pool = fresh(room.diff, avoid); if (pool.length < room.nq) pool = fresh(room.diff);
@@ -4798,63 +4887,103 @@ const Salons = (() => {
     return upd({state:"play", gid:(room.gid || 0) + 1, sc, g:{qids, start:now() + 3500, seats:ids, ords:qids.map(() => shuffle4().join("")), over:false}}); // Firestore refuse les listes dans des listes : l'ordre est stocké en texte (« 2031 »)
   }
   function startPM(){
-    const ids = seats(), avoid = avoidSet();
-    let pool = DATES.map((_, i) => "dt" + i).filter(id => !avoid.has(id)); if (pool.length < room.nq) pool = DATES.map((_, i) => "dt" + i);
-    pool.sort(() => Math.random() - .5);
-    return upd({state:"play", gid:(room.gid || 0) + 1, fd:{}, g:{qids:pool.slice(0, room.nq), start:now() + 3500, seats:ids, over:false}});
+    const ids = seats(), avoid = avoidSet(), n = Math.min(30, room.nq || 10);
+    // Environ 20 % de « Plus ou moins » (au moins un), jamais en première manche
+    const np = Math.max(1, Math.round(n * .2)), kinds = Array(n).fill("a");
+    const spots = Array.from({length:n - 1}, (_, i) => i + 1).sort(() => Math.random() - .5).slice(0, np); spots.forEach(i => kinds[i] = "p");
+    let dts = DATES.map((_, i) => "dt" + i).filter(id => !avoid.has(id)); if (dts.length < np) dts = DATES.map((_, i) => "dt" + i);
+    dts.sort(() => Math.random() - .5);
+    // Avant / Après : deux événements d'années différentes, paire jamais vue par les joueurs si possible
+    const pairs = [], usedEv = new Set();
+    const pair = () => { for (let k = 0; k < 400; k++) { const x = Math.floor(Math.random()*EV.length), y = Math.floor(Math.random()*EV.length);
+      if (x === y || EV[x][1] === EV[y][1] || usedEv.has(x) && usedEv.has(y)) continue; const id = "ev" + x + "-ev" + y;
+      if (avoid.has(id) && k < 300) continue; usedEv.add(x); usedEv.add(y); return id; } return "ev0-ev1"; };
+    const qids = kinds.map(k => k === "p" ? dts.pop() : pair());
+    return upd({state:"play", gid:(room.gid || 0) + 1, fd:{}, g:{qids, start:now() + 3500, seats:ids, over:false}});
   }
-  // Plus ou moins : mes essais pour la manche en cours (sur ce téléphone)
-  let pm = {k:"", tries:[], found:false};
+  // Mes réponses pour la manche en cours (sur ce téléphone)
+  let pm = {k:"", tries:[], found:false, av:undefined};
+  const pmKey = i => room.gid + ":" + i, pmCur = i => { const k = pmKey(i); if (pm.k !== k) pm = {k, tries:[], found:false, av:undefined}; return pm; };
   function pmGuess(v){
-    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ) return;
-    const k = room.gid + ":" + p.i; if (pm.k !== k) pm = {k, tries:[], found:false};
-    if (pm.found || !Number.isFinite(v)) return;
+    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || kindOf(g.qids[p.i]) !== "p") return;
+    const st = pmCur(p.i); if (st.found || !Number.isFinite(v)) return;
     const y = DATES[+g.qids[p.i].slice(2)][2];
-    pm.tries.push(v);
-    if (v === y) { pm.found = true; try { Music.sfx("ok"); } catch(e){}
-      db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.e % PM_PER}).catch(() => {}); }
+    st.tries.push(v);
+    if (v === y) { st.found = true; try { Music.sfx("ok"); } catch(e){}
+      db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.r}).catch(() => {}); }
     else try { Music.sfx("tap"); } catch(e){}
     pmDraft = ""; repaint(); setTimeout(() => { const i = document.getElementById("sl-guess"); if (i) i.focus(); }, 30);
   }
+  // Avant / Après : v = 0 (avant) ou 1 (après) ; une bonne réponse est enregistrée avec son temps
+  function avAnswer(v){
+    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || kindOf(g.qids[p.i]) !== "a") return;
+    const st = pmCur(p.i); if (st.av !== undefined) return; st.av = v;
+    const [x, y] = g.qids[p.i].split("-").map(evOf), good = (y[1] < x[1] ? 0 : 1) === v;
+    if (good) db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.r}).catch(() => {});
+    noteAnswer(good);
+    repaint();
+  }
   let pmDraft = "";
-  // Points d'une manche : 1er à trouver 3 pts, 2e 2 pts, les autres 1 pt
-  function pmRound(i){ const f = (room.fd && room.fd[i]) || {}; return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:k === 0 ? 3 : k === 1 ? 2 : 1})); }
+  // Points d'une manche. Plus ou moins : 1er 3 pts, 2e 2 pts, les autres 1 pt. Avant/Après : le plus rapide 2 pts, les autres 1 pt.
+  function pmRound(i){ const f = (room.fd && room.fd[i]) || {}, pmK = room.g && room.g.qids && kindOf(room.g.qids[i]) === "p";
+    return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:pmK ? (k === 0 ? 3 : k === 1 ? 2 : 1) : (k === 0 ? 2 : 1)})); }
   function pmView(){
     const g = room.g, p = quizPos(), n = g.qids.length;
     const board = `<div class="sl-board">${ranking().map((r, i) => `<span class="${r.id === uid() ? "me" : ""}">${i + 1}. ${esc(pName(r.id))} <b>${r.a}</b></span>`).join("")}</div>`;
     let body;
-    if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Plus ou moins commence dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${n} dates à trouver · ${PM_TIME} secondes chacune</span></div>`;
+    if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Les dates commencent dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${n} manches · surtout « Avant ou après ? », parfois « Plus ou moins »</span></div>`;
     else {
-      const i = Math.min(p.i, n - 1), d = DATES[+g.qids[i].slice(2)], k = room.gid + ":" + i; if (pm.k !== k) pm = {k, tries:[], found:false};
-      const finders = pmRound(i);
-      const tries = pm.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
+      const i = Math.min(p.i, n - 1), id = g.qids[i], st = pmCur(i), finders = pmRound(i);
+      const left = p.inQ ? p.w - p.r : 0;
+      const head = (chip, lab) => `<div class="row between"><span class="chip">${chip}</span><span class="label" id="sl-left">${p.inQ ? Math.ceil(left/1000) + " s" : ""}</span></div>
+        <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${p.inQ ? left/(p.w/100) : 0}%"></i></div><div class="label" style="margin-top:8px">${lab} · manche ${i + 1}/${n}</div>`;
       const who = finders.length ? `<div class="pm-who">${finders.map(f => `<span>${esc(pName(f.id))} · ${(f.t/1000).toFixed(1)} s · +${f.pts}</span>`).join("")}</div>` : "";
-      body = `<article class="card q sl-q"><div class="row between"><span class="chip">${dot(d[0])}${esc(THEMES[d[0]] ? THEMES[d[0]].n : "")}</span><span class="label" id="sl-left">${p.inQ ? Math.ceil((PM_TIME*1000 - p.e % PM_PER)/1000) + " s" : ""}</span></div>
-        <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${p.inQ ? (PM_TIME*1000 - p.e % PM_PER)/(PM_TIME*10) : 0}%"></i></div>
-        <div class="label" style="margin-top:8px">Date ${i + 1}/${n}</div><h2>${esc(d[1])}</h2>
-        ${p.inQ && !pm.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
-        ${p.inQ && pm.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${pm.tries.length} essai${pm.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
-        ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${pm.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
-        ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
+      if (kindOf(id) === "a") {
+        const [x, y] = id.split("-").map(evOf), right = y[1] < x[1] ? 0 : 1, mine = st.av;
+        const btn = (v, label) => { let c = "choice av-btn"; if (!p.inQ) c += v === right ? " right" : v === mine ? " wrong" : " dim"; else if (mine !== undefined) c += v === mine ? " picked" : " dim";
+          return `<button class="${c}" data-sl="av" data-v="${v}" ${p.inQ && mine === undefined ? "" : "disabled"}>${label}</button>`; };
+        body = `<article class="card q sl-q">${head("⏳ Avant ou après ?", "Avant ou après")}
+          <div class="av-ref"><span>${esc(x[0])}</span><b>${yr(x[1])}</b></div>
+          <h2 style="text-align:center">${esc(y[0])}</h2>
+          <div class="av-row">${btn(0, "⬅ Avant")}${btn(1, "Après ➡")}</div>
+          ${!p.inQ ? `<div class="pm-year">${yr(y[1])}</div><p class="sl-status">${mine === right ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard !" : "Raté !"}</b>`}</p>` : ""}${who}</article>`;
+      } else {
+        const d = DATES[+id.slice(2)];
+        const tries = st.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
+        body = `<article class="card q sl-q pm-bonus">${head("🎯 Plus ou moins · bonus", "Trouve l'année exacte")}<h2>${esc(d[1])}</h2>
+          ${p.inQ && !st.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
+          ${p.inQ && st.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${st.tries.length} essai${st.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
+          ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${st.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
+          ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
+      }
     }
-    return `<section class="stack sl-game"><div class="row between"><span class="label">Plus ou moins · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
+    return `<section class="stack sl-game"><div class="row between"><span class="label">Dates · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }
   let quizMine = {}, quizIdx = -2;
-  function quizPos(){ const g = room.g; const e = now() - g.start; return {i:Math.floor(e / per()), inQ:(e % per()) < qWin(), e}; }
+  // Où en est-on ? i = manche, inQ = on peut encore répondre, r = temps écoulé dans la manche, w = temps pour répondre
+  function quizPos(){
+    const g = room.g, e = now() - g.start;
+    if (room.mode !== "pm") return {i:Math.floor(e / PER), inQ:(e % PER) < Q_TIME*1000, e, r:e % PER, w:Q_TIME*1000};
+    if (e < 0) return {i:-1, inQ:false, e, r:e, w:0};
+    let t = 0;
+    for (let i = 0; i < g.qids.length; i++) { const k = kindOf(g.qids[i]), d = dur(k);
+      if (e < t + d) return {i, inQ:e - t < win(k), e, r:e - t, w:win(k)}; t += d; }
+    return {i:g.qids.length, inQ:false, e, r:0, w:0};
+  }
   function quizTick(){
     const g = room.g; if (!g || !g.qids || g.over) return;
     const p = quizPos();
     if (p.i >= g.qids.length) { if (isHost() && !drive) upd({state:"end", "g.over":true}); return; }
     const k = p.e < 0 ? -1 : p.i * 2 + (p.inQ ? 0 : 1);
     if (k !== quizIdx) { quizIdx = k; repaint(); }
-    if (p.e >= 0) setBar(p.inQ ? qWin() - (p.e % per()) : 0, qWin() / 1000);
+    if (p.e >= 0) setBar(p.inQ ? p.w - p.r : 0, (p.w || 1000) / 1000);
     else { const t = document.getElementById("sl-left"); if (t) t.textContent = Math.ceil(-p.e / 1000) + " s"; }
   }
   function quizAnswer(v){
     const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ || quizMine[g.qids[p.i] + room.gid] !== undefined) return;
     quizMine[g.qids[p.i] + room.gid] = v; const ok = v === 0;
-    try { answer(g.qids[p.i], ok, 0); } catch(e){}
+    try { answer(g.qids[p.i], ok, 0); noteAnswer(ok); } catch(e){}
     const cur = (room.sc && room.sc[uid()]) || {ok:0, pos:0};
     db().doc("rooms/" + code).update({["sc." + uid()]: {ok:cur.ok + (ok ? 1 : 0), pos:p.i + 1}}).catch(() => {});
     repaint();
@@ -4891,7 +5020,7 @@ const Salons = (() => {
     if (!win || g.why) return; // partie interrompue : pas de podium
     const order = rk.length === 3 ? [2, 0, 1] : rk.length === 2 ? [1, 0] : [0];
     const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : room.mode === "pm" ? `<span>${r.a} point${r.a > 1 ? "s" : ""}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
-    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
+    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${A().title(rk[i].id, "xs")}${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
     const colors = ["#FF5FA2", "#FFD23F", "#7FD8BE", "#8FB8F0", "#FFFFFF"];
     const conf = Array.from({length:36}, (_, k) => `<i class="sl-conf" style="left:${Math.random()*100}%;background:${colors[k % 5]};animation-delay:${2.3 + Math.random()*1.4}s;animation-duration:${2.2 + Math.random()*1.6}s"></i>`).join("");
     const el = document.createElement("div"); el.className = "sl-pod"; el.setAttribute("role", "dialog");
@@ -4958,12 +5087,12 @@ const Salons = (() => {
       ${last}
       <div class="card stack" style="text-align:center;gap:4px"><div class="label">Code du salon</div><div class="sl-code">${room.code}</div><span class="muted" style="font-size:13.5px">Tes amis le tapent dans JcJ › Salons privés.</span></div>
       <div class="card stack"><div class="label">Joueurs (${ids.length}/${MAXP})</div>
-        ${ids.map(id => `<div class="am-row">${A().avatar(id, 40)}<b class="grow">${esc(pName(id))}${id === uid() ? " (toi)" : ""}</b>${id === room.host ? `<span class="chip">Hôte</span>` : ""}</div>`).join("")}
+        ${ids.map(id => `<div class="am-row">${A().avatar(id, 40)}<div class="grow stack" style="gap:3px"><b>${esc(pName(id))}${id === uid() ? " (toi)" : ""}</b>${A().title(id, "xs")}</div>${id === room.host ? `<span class="chip">Hôte</span>` : ""}</div>`).join("")}
         ${isHost() && friends.length && ids.length < MAXP ? `<div class="label" style="margin-top:6px">Inviter</div>${friends.map(id => `<div class="am-row">${A().avatar(id, 34)}<b class="grow">${esc(A().pseudoOf(id))}</b><button class="chip-btn" data-sl="inv" data-v="${id}" ${(room.inv || []).includes(id) ? "disabled" : ""}>${(room.inv || []).includes(id) ? "Invité" : "Inviter"}</button></div>`).join("")}` : ""}
       </div>
-      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz"], ["pm", "Plus ou moins"]])}
-        ${room.mode === "pm" ? `<div class="label">Nombre de dates : ${room.nq}</div><div class="row">${[5,10,15,20].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
-          <p class="muted" style="margin:0;font-size:13.5px">Trouve l'année exacte : à chaque essai, on te dit « c'est plus » ou « c'est moins ». 30 secondes par date. Le 1er qui trouve gagne 3 points, le 2e 2 points, les autres 1 point.</p>`
+      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz"], ["pm", "⏳ Dates"]])}
+        ${room.mode === "pm" ? `<div class="label">Nombre de manches : ${room.nq}</div><div class="row">${[10,15,20,30].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
+          <p class="muted" style="margin:0;font-size:13.5px">Surtout des « Avant ou après ? » : un événement est donné avec son année, dis si l'autre s'est passé avant ou après (10 s, le plus rapide gagne 2 points, les autres 1). Environ une fois sur cinq, un bonus « Plus ou moins » : trouve l'année exacte (30 s, 3, 2 puis 1 point). Tout le monde joue en même temps.</p>`
         : room.mode === "quiz" ? `<div class="label">Nombre de questions : ${room.nq}</div><div class="row">${[10,20,30,40,50].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
           <p class="muted" style="margin:0;font-size:13.5px">Tout le monde répond en même temps aux mêmes questions, 10 secondes chacune. Le plus de bonnes réponses gagne.</p>`
         : `<p class="muted" style="margin:0;font-size:13.5px">Chacun a 3 cœurs. Bonne réponse : tu passes la bombe au suivant. Mauvaise réponse : la mèche brûle. Après 3 erreurs, la suivante fait exploser la bombe et coûte un cœur. 10 secondes pour répondre, puis 8. La partie s'arrête dès qu'un joueur n'a plus de cœur.</p>`}
@@ -4975,7 +5104,7 @@ const Salons = (() => {
   }
   function resultCard(){
     const rk = ranking(), g = room.g;
-    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : room.mode === "pm" ? "Plus ou moins terminé." : "Quiz terminé.";
+    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : room.mode === "pm" ? "Partie de Dates terminée." : "Quiz terminé.";
     return `<div class="card stack sl-res"><b>${title}</b>${rk.map((r, i) => `<div class="am-row"><span class="am-pos ${i === 0 ? "gold" : ""}">${i + 1}</span>${A().avatar(r.id, 36)}<b class="grow">${esc(pName(r.id))}</b><span class="muted">${room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a)}</span> · ${r.b} justes` : room.mode === "pm" ? r.a + " points" : r.a + " bonnes réponses"}</span></div>`).join("")}</div>`;
   }
   function seatPos(i, n, mine){ const k = (i - mine + n) % n, a = Math.PI/2 + k * 2*Math.PI/n; return [50 + Math.cos(a)*40, 50 + Math.sin(a)*38]; }
@@ -4983,7 +5112,7 @@ const Salons = (() => {
     const ids = (room.g && room.g.seats) || seats(), n = ids.length, mi = Math.max(0, ids.indexOf(uid()));
     const seatsH = ids.map((id, i) => { const [x, y] = seatPos(i, n, mi), h = hearts ? hearts[id] : null, gone = room.players[id] && room.players[id].out;
       return `<div class="sl-seat ${id === holder ? "hold" : ""} ${h === 0 || gone ? "out" : ""} ${boom && id === holder ? "hit" : ""}" data-seat="${id}" style="left:${x}%;top:calc(${y}% - 52px)">
-        ${h !== null ? `<div class="sl-hp">${"♥".repeat(Math.max(0, h))}<i>${"♥".repeat(3 - Math.max(0, h))}</i></div>` : ""}<div class="sl-nm">${esc(pName(id))}</div>${A().avatar(id, 62)}</div>`; }).join("");
+        ${h !== null ? `<div class="sl-hp">${"♥".repeat(Math.max(0, h))}<i>${"♥".repeat(3 - Math.max(0, h))}</i></div>` : ""}<div class="sl-nm">${esc(pName(id))}</div>${A().title(id, "xs")}${A().avatar(id, 62)}</div>`; }).join("");
     let bomb = "";
     if (holder) { const [hx, hy] = seatPos(ids.indexOf(holder), n, mi), bx = hx + (50 - hx)*.42, by = hy + (50 - hy)*.42;
       bomb = `<div class="sl-bomb" style="left:${bx}%;top:${by}%;--beat:${[.35,.55,.75,1][fuse]}s">${bombSVG(fuse)}</div>`; }
@@ -5026,7 +5155,7 @@ const Salons = (() => {
       const ans = p.inQ ? mine : (mine === undefined ? -1 : mine);
       const status = p.inQ ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>`
         : mine === 0 ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard" : "Raté"} : ${esc(Q[qid][2][0])}</b>`;
-      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME, p.inQ ? mine : undefined); }
+      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? p.w - p.r : 0, Q_TIME, p.inQ ? mine : undefined); }
     return `<section class="stack sl-game"><div class="row between"><span class="label">Quiz · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }
@@ -5048,6 +5177,7 @@ const Salons = (() => {
       else if (a === "inv" && isHost()) await upd({inv:FV().arrayUnion(v)});
       else if (a === "start" && isHost() && seats().length >= 2) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : room.mode === "pm" ? startPM() : startQuiz()); }
       else if (a === "ans") { room.mode === "bombe" ? bombAnswer(+v) : quizAnswer(+v); return; }
+      else if (a === "av") { avAnswer(+v); return; }
       else if (a === "emo") return send(null, v);
     } catch(e){ msg = typeof e === "string" ? e : "Impossible de joindre le salon. Vérifie ta connexion."; }
     busy = false; render();
@@ -5079,7 +5209,7 @@ const Salons = (() => {
  ["bombe10","or",10,"bomb","Artificier","Gagner 10 parties de La Bombe",120],
  ["sangfroid","platine",1,"clean","Sang-froid","Gagner La Bombe sans perdre un seul cœur",150],
  ["quiz1","argent",1,"quiz","Premier de la classe","Gagner un quiz à plusieurs",50],
- ["pm1","argent",1,"pm","Devin","Gagner une partie de Plus ou moins",50],
+ ["pm1","argent",1,"pm","Devin","Gagner une partie de Dates",50],
  ["bavard","bronze",20,"chat","Bavard","Envoyer 20 messages dans le chat d'un salon",20]
 ].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id:"sl_" + id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal, cur:() => (S.salons && S.salons[k]) || 0}));
 

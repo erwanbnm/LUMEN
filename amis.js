@@ -70,7 +70,7 @@ const Amis = (function(){
   function ping(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
-    db.doc("users/" + uid()).update({seen:Date.now(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
+    db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
       st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
@@ -417,7 +417,7 @@ const Amis = (function(){
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
         <div class="label">1 · Ton adversaire</div>
-        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
+        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${titleOf(id, "xs")}${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
         <div class="label">2 · Le mode de jeu</div>
         <div class="am-modes">${Object.keys(MODES).map(k => `<button class="am-mode ${m === k ? "on" : ""}" data-am="mode" data-v="${k}" aria-pressed="${m === k}">${gIcon(MODES[k].icon, 40)}<b>${MODES[k].n}</b><span>${MODES[k].d}</span></button>`).join("")}</div>
         ${m === "classic" ? `<div class="label">3 · Le thème</div>
@@ -453,13 +453,13 @@ const Amis = (function(){
   function viewBoard(){
     const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
     const unit = v => `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
-    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b><span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
+    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
     return `<section class="stack">
       <div class="row between"><button class="quit" data-am="back">Retour</button><span class="label">Entre amis</span></div>
       <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
-      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
       <p class="muted" style="font-size:13px;text-align:center">${ui.board === "semaine" ? "Duels joués depuis lundi : 3 points par victoire, 1 par égalité. Le n°1 porte la couronne 👑 jusqu'à lundi prochain." : ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
@@ -566,7 +566,9 @@ const Amis = (function(){
   setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
 
   // Accès partagé pour les salons privés (salons.js)
-  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender};
+  // Titre d'un ami (le LOOSER DU JOUR ne compte que le jour même)
+  const titleOf = (id, cls) => { const u = users[id]; if (!u || !u.ti || (u.ti === "looser" && u.tid !== today())) return ""; return titleTag(u.ti, cls || "sm"); };
+  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
   return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 

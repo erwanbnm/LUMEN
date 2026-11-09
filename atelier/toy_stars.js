@@ -100,17 +100,33 @@ const STAR_SKINS = [
   });
 } },
 { id:"analyste", n:"L'Analyste", e:"Édition séries", free:true, hint:"Finis un Chrono avec 15 bonnes réponses", toy:true, anim:"", draw(){
-  const dots = [[38,90],[50,100],[70,92],[82,104],[44,114],[64,112],[78,82],[56,82]].map(([x, y]) => `<path d="M${x} ${y-3} l3 3 l-3 3 l-3 -3z" fill="#2E5A9A" opacity=".55"/>`).join("");
+  // Clin d'œil à un expert en traces de sang de Miami : coupe courte et nette, regard calme, demi-sourire,
+  // chemisette beige à manches courtes sur un tee-shirt blanc, lame de microscope avec sa goutte, et un beignet pour les collègues.
+  const SK = ["#F4CFB2", "#D9A283", "#000"], SH = ["#D8C79A", "#AE9C68", "#4A3E20"];
+  const leaves = [[38,92],[52,104],[72,94],[84,108],[44,116],[66,114],[80,84]].map(([x, y]) => `<path d="M${x} ${y} q3 -4 6 0 q-3 4 -6 0z" fill="#8E7C4A" opacity=".55"/>`).join("");
   return tPerson({
-    skin:["#FFE8D6", "#F2BCA0", "#000"], torso:["#A8D4F4", "#5A9AD4", "#1E4A80"], shoes:["#5A4A40", "#3A2E28", "#1A1210"], sleeve:"#5A9AD4",
-    gloves:["#C8F0FF", "#5AC0F0", "#1A6A9A"], armR:"M92 88 Q110 84 110 72", handR:[110, 70],
-    body: dots + `<path d="M50 70 L60 80 L70 70" fill="none" stroke="#1E4A80" stroke-width="2.4"/><circle cx="60" cy="88" r="1.8" fill="#FFFFFF" stroke="${TD}"/><circle cx="60" cy="98" r="1.8" fill="#FFFFFF" stroke="${TD}"/>`,
-    held: toy(tC(110, 58, 9.5), "#FF8A7A", "#E2322E", "#8A1414", {dy:2, w:2.6}) + tStar(110, 49, 4.4, "#4AC86A") + tShine("M104 54 Q105 50 108 49", 2.2, .8)
-      + `<g class="ta-bubble" style="animation-delay:-.6s"><path d="M100 74 q-2 4 0 6 q2 -2 0 -6z" fill="#E2322E" stroke="${TD}" stroke-width="1.2"/></g>`,
-    face: `<path d="M41 38 l11 1 M79 36 l-11 3" stroke="#5A3E2E" stroke-width="3" stroke-linecap="round"/>`,
-    mouth: tMouth(62, 58, "cat"),
-    hair: toy("M33 40 Q32 15 60 14 Q88 15 87 40 Q82 28 68 29 Q58 22 46 29 Q37 30 33 40Z", "#8A5E40", "#5A3A24", "#2A1A0E", {dy:2})
-      + tShine("M42 26 Q50 18 62 18", 2.6, .55)
+    skin:SK, torso:SH, shoes:["#5A4636", "#3A2A1E", "#140C06"], sleeve:SK[1],
+    armL:"M28 88 Q14 96 14 108", handL:[14, 110],
+    body: leaves
+      + `<path d="M47 70 L60 92 L73 70Z" fill="#FFFFFF" stroke="${TD}" stroke-width="2"/>`
+      + `<path d="M44 70 L54 86 L60 80 M76 70 L66 86 L60 80" fill="${SH[0]}" stroke="${TD}" stroke-width="2.2" stroke-linejoin="round"/>`
+      + `<path d="M60 92 V124" stroke="${SH[2]}" stroke-width="2" opacity=".6"/><circle cx="62.5" cy="100" r="1.7" fill="#F6F0DC" stroke="${TD}" stroke-width="1.2"/><circle cx="62.5" cy="112" r="1.7" fill="#F6F0DC" stroke="${TD}" stroke-width="1.2"/>`
+      + toy("M22 92 Q22 76 38 72 L42 90 Q32 92 22 92Z", ...SH, {dy:2, w:2.4}) + toy("M98 92 Q98 76 82 72 L78 90 Q88 92 98 92Z", ...SH, {dy:2, w:2.4}),
+    held: `<g transform="rotate(-18 108 104)">${toy("M96 98 H120 V110 H96Z", "#E8F6FF", "#B8DCEE", "#4A7A9A", {dy:1.5, w:2.2})}<path d="M108 100.5 q-3.6 4.4 0 6.6 q3.6 -2.2 0 -6.6z" fill="#D62A2A" stroke="${TD}" stroke-width="1.2"/><path d="M99 100 h4" stroke="#fff" stroke-width="1.6" opacity=".9"/></g>`
+      + toy(tC(14, 112, 9.5), "#F2C27A", "#D8964A", "#7A4A14", {dy:2, w:2.4})
+      + `<path d="M6.5 109 Q14 102 21.5 109 Q14 105 6.5 109Z" fill="#FF8AB8"/><circle cx="14" cy="112" r="3.2" fill="#F4E6D0" stroke="${TD}" stroke-width="1.6"/>`
+      + `<path d="M9 106 l2 -1 M17 105 l2 1 M13 104 l1 -1.6" stroke="#5AC0F0" stroke-width="1.6" stroke-linecap="round"/><path d="M11 108 l1.6 .6 M18 108.5 l1 -1.4" stroke="#FFD23F" stroke-width="1.6" stroke-linecap="round"/>`,
+    face: `<path d="M38 52 Q40 66 52 70 Q60 72 68 70 Q80 66 82 52 Q78 64 60 67 Q42 64 38 52Z" fill="#B97A5C" opacity=".14"/>`
+      + `<path d="M58.5 53.5 Q60 55.5 61.5 53.5" fill="none" stroke="#C48A6A" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>`
+      + `<path d="M42 40.5 Q48 39 55 40.5 M65 40.5 Q72 39 78 40.5" stroke="#3A2618" stroke-width="3.2" stroke-linecap="round" fill="none"/>`,
+    eyes: tEyes(50, 70, 47.5, .82)
+      + `<path d="M45 43.5 Q50 41 55 43.5 L55 46.2 Q50 44.8 45 46.2Z M65 43.5 Q70 41 75 43.5 L75 46.2 Q70 44.8 65 46.2Z" fill="${SK[0]}"/>`
+      + `<path d="M45 46.2 Q50 44.8 55 46.2 M65 46.2 Q70 44.8 75 46.2" stroke="${TD}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+    noBlush:true,
+    mouth: `<path d="M53.5 60.5 Q59 62.5 66.5 58" fill="none" stroke="${TD}" stroke-width="2.3" stroke-linecap="round"/>`,
+    hair: toy("M34 43 Q32 19 60 17 Q88 19 86 43 Q85 33 80 30 Q72 25 63 26.5 Q52 25 44 29 Q37 32 34 43Z", "#6A4A32", "#432C1C", "#1A1008", {dy:1.5})
+      + `<path d="M47 21 Q50 25 48 29" fill="none" stroke="#2A1A0E" stroke-width="2" stroke-linecap="round" opacity=".8"/>`
+      + tShine("M52 22 Q62 19 72 22", 2.2, .45)
   });
 } }
 ];

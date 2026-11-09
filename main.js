@@ -479,7 +479,7 @@ function tapSparkle(el){
 function header(){
   const p = S.profile;
   const A = acctLvl(), st = streak();
-  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span>${esc(p.name)}</span></button>
+  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
     <div class="pills"><span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
@@ -613,11 +613,50 @@ function skinCard(sk, id, mode){
   const sub = sk.th ? `<span class="chip">${dot(sk.th)}${esc(THEMES[sk.th].n)}</span>` : mode==="secret" ? `<span class="muted">${esc(sk.hint)}</span>` : `<span class="muted">${esc(sk.e||"")}</span>`;
   return `<div class="sk ${own?"own":""} ${mode==="secret"?"secret":""} ${id==="lumen"?"ultra":""}">${creatureSVG(sk, 84)}<b>${esc(sk.n)}</b>${sub}${foot}</div>`;
 }
+/* ---------- Titres sous le pseudo (achetés en boutique ; noms choisis par Erwan, novembre 2026) ----------
+   « LOOSER DU JOUR » ne s'achète pas : il tombe tout seul après 4 erreurs d'affilée et dure jusqu'à minuit. */
+const TITLES = [
+  {id:"soumis", n:"SOUMIS", p:200, a:"#F1EEF6", b:"#C4BCD4", f:"#4A3E5A"},
+  {id:"gonneur", n:"GONNEUR", p:300, a:"#FFA45A", b:"#E2431E", f:"#FFFFFF"},
+  {id:"senpai", n:"SENPAI", p:300, a:"#FFC2DA", b:"#FF5FA2", f:"#FFFFFF"},
+  {id:"dessose", n:"DESSOSE", p:400, a:"#D2B4FF", b:"#7A4AD8", f:"#FFFFFF"},
+  {id:"banki", n:"BANKI", p:500, a:"#6EE09A", b:"#16804A", f:"#FFFFFF"},
+  {id:"gorosei", n:"GOROSEI", p:600, a:"#5B3A8C", b:"#1E1236", f:"#FFD23F"},
+  {id:"patapim", n:"BRR BRR PATAPIM", p:600, a:"#A8DC7A", b:"#5A8A2A", f:"#FFFFFF"},
+  {id:"winter", n:"WINTER IS COMING", p:700, a:"#EAF6FF", b:"#86BCEB", f:"#16324E"},
+  {id:"kingnorth", n:"KING OF NORTH", p:800, a:"#4A4A5A", b:"#121218", f:"#E8C25A"}
+];
+const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
+const titleById = id => id === "looser" ? LOSER_TITLE : TITLES.find(t => t.id === id);
+const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
+// Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
+const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
+// Série d'erreurs : 4 d'affilée = LOOSER DU JOUR
+function noteAnswer(ok){
+  S.wrongRun = ok ? 0 : (S.wrongRun || 0) + 1;
+  if (S.wrongRun >= 4 && S.loserDay !== today()) {
+    S.loserDay = today(); toasts.push(`<b>4 erreurs d'affilée…</b> · Tu portes le titre ${titleTag("looser", "sm")} jusqu'à minuit.`);
+    try { Amis.api.ping(); } catch(e){}
+  }
+}
+function renderTitles(){
+  S.titles = S.titles || {};
+  const cur = myTitle();
+  const row = t => { const own = S.titles[t.id], on = S.profile.title === t.id;
+    const foot = on ? `<span class="chip lamp">Porté</span>` : own ? `<button class="btn small ghost" data-tequip="${t.id}">Porter</button>` : `<button class="btn small" data-tbuy="${t.id}" ${S.coins >= t.p ? "" : "disabled"}>${coinIco}${t.p}</button>`;
+    return `<div class="ttl-row ${own ? "own" : ""}">${titleTag(t.id, "lg")}${foot}</div>`; };
+  return `<div class="stack"><p class="muted">Un titre s'affiche sous ton pseudo : en haut de l'écran, dans JcJ, les classements et les salons.</p>
+    <div class="card stack ttl-me"><div class="label">Ton titre en ce moment</div><div class="row" style="align-items:center;gap:10px">${meSVG(44)}<div class="stack" style="gap:4px"><b>${esc(S.profile.name)}</b>${cur ? titleTag(cur) : `<span class="muted">Aucun titre</span>`}</div></div>
+      ${S.loserDay === today() ? `<p class="muted" style="margin:0;font-size:13.5px">LOOSER DU JOUR : 4 erreurs d'affilée aujourd'hui. Il disparaît à minuit.</p>` : ""}
+      ${S.profile.title ? `<button class="btn small ghost" data-tequip="">Ne porter aucun titre</button>` : ""}</div>
+    <div class="card stack">${TITLES.map(row).join("")}</div>
+    <div class="card stack"><div class="label">Titre spécial (ne s'achète pas)</div><div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
+}
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
-  const segs = {skins:"Personnages", acc:"Accessoires", collection:"Collection", ameliorations:"Améliorations"};
-  const SI = {skins:"user", acc:"crown", collection:"book", ameliorations:"up"};
-  const tabs = `<div class="seg gseg s4" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
+  const segs = {skins:"Personnages", acc:"Accessoires", titres:"Titres", collection:"Collection", ameliorations:"Améliorations"};
+  const SI = {skins:"user", acc:"crown", titres:"trophy", collection:"book", ameliorations:"up"};
+  const tabs = `<div class="seg gseg s5" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
   let body;
   if (shopSeg === "collection") {
     const nOwn = CHARS.length + SHOP_SKINS.filter(s=>S.skins[s.id]).length + SECRETS.filter(s=>S.skins[s.id]).length;
@@ -633,6 +672,7 @@ function renderShop(){
       <div class="label">Personnages de départ · ${CHARS.length}</div>
       <div class="skgrid">${CHARS.map((c,i) => skinCard(c, "b"+i)).join("")}</div>`;
   } else if (shopSeg === "acc") body = renderAcc();
+  else if (shopSeg === "titres") body = renderTitles();
   else if (shopSeg === "ameliorations") body = `<div class="stack">${UPG}</div>`;
   else body = `<p class="muted">Un personnage par thème. Certains s'achètent avec tes pièces, d'autres se gagnent en réussissant des questions de leur thème.</p>
     ${halloweenSeason() || HALLOWEEN_SKINS.some(s => S.skins[s.id]) ? `<div class="label">🎃 Édition Halloween${halloweenSeason() ? " · jusqu'au 30 novembre" : ""}</div>
@@ -1026,7 +1066,7 @@ document.addEventListener("click", e => {
 // Réponse à une question (v = -1 : temps écoulé en duel, compte comme une erreur)
 function doAnswer(s, v){
     const st = s.steps[s.pos]; if (!st || st.ans !== undefined || s.done) return;
-    st.ans = v; const ok = st.ans === 0;
+    st.ans = v; const ok = st.ans === 0; noteAnswer(ok);
     s.combo = ok ? s.combo+1 : 0; s.best = Math.max(s.best, s.combo);
     st.combo = s.combo; const g = answer(st.id, ok, s.combo); st.xp = g.xp; st.coins = g.coins; s.xp += g.xp; s.coins += g.coins;
     if (s.mode==="chrono" && ok) s.score = (s.score||0)+1;
@@ -1123,6 +1163,10 @@ function onClick(e){
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
+  if (d.tbuy) { const t = titleById(d.tbuy); S.titles = S.titles || {};
+    if (t && t.p && !S.titles[t.id] && S.coins >= t.p) { S.coins -= t.p; S.titles[t.id] = today(); S.profile.title = t.id; spend(t.p); toasts.push(`<b>Nouveau titre</b> · ${titleTag(t.id, "sm")} est affiché sous ton pseudo.`); save(); try { Amis.api.ping(); } catch(e){} }
+    return render(); }
+  if (d.tequip !== undefined) { S.profile.title = d.tequip || ""; save(); try { Amis.api.ping(); } catch(e){} return render(); }
   if (d.buy) { const sk = skinOf(d.buy); if (sk && sk.p && !S.skins[d.buy] && S.coins >= sk.p) { S.coins -= sk.p; S.skins[d.buy] = today(); S.profile.skin = d.buy; spend(sk.p); toasts.push(`<b>${esc(sk.n)} rejoint ta collection</b> · il est équipé.`); save(); } return render(); }
   if (d.accBuy) { const a = ACC.find(x => x.id === d.accBuy); if (a && !S.acc.own[a.id] && S.coins >= a.p && !(a.th && themeLvl(a.th).L < 3)) { S.coins -= a.p; spend(a.p); S.acc.own[a.id] = today(); S.acc.eq[a.slot] = a.id; toasts.push(`<b>${esc(a.n)}</b> · acheté et porté.`); save(); } return render(); }
   if (d.accEq) { const a = ACC.find(x => x.id === d.accEq); if (a && S.acc.own[a.id]) { S.acc.eq[a.slot] = a.id; save(); } return render(); }
