@@ -20,6 +20,7 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
 - `app.html` : squelette, tout le CSS, le balisage. Contient les emplacements `/*__ART__*/`, etc., remplis par `build.py`.
 - `main.js` : toute la logique de l'appli (état `S` sauvegardé dans localStorage sous `chevet.v2`, rendu, modes, missions, succès, boutique…).
 - `amis.js` : mode en ligne (onglet Amis) avec Firebase : comptes pseudo + mot de passe, classement, défis personnalisés (ami, thème, 5/10/15/20 questions, en différé ou en direct), badges « En ligne ». `FIREBASE_CONFIG` en haut du fichier ; règles de sécurité dans `firestore.rules`. Ajouté après `main.js` par `build.py`.
+- Notifications : `notifs/send.js` (firebase-admin), lancé toutes les 10 min par `.github/workflows/notifs.yml` avec le secret GitHub `FIREBASE_SA` (jamais dans le code). Défi du jour ~8 h, rappel ~16 h (texte « moins débile que Dwayne », voulu par Erwan), défis des amis avec quelques minutes de retard. L'appli enregistre les appareils dans `tokens/{uid}` (clé publique `VAPID` dans `amis.js`) ; `web/sw.js` affiche les notifications. Test : onglet Actions > Notifications > Run workflow (mode test).
 - `music.js` : musique et effets sonores générés (Web Audio).
 - `splash.js`, `extra.js` : animation de lancement, données supplémentaires (faits du jour, événements datés…).
 - `atelier/` : dessins SVG en code (personnages, skins, accessoires, badges, icônes `gicons.js` avec `GI` et les icônes en relief `GI3`).

@@ -5,6 +5,9 @@ name: Notifications
 on:
   schedule:
     - cron: "*/10 * * * *"
+  # Modifier notifs/test.txt et l'envoyer sur GitHub lance une notification de test
+  push:
+    paths: ["notifs/test.txt"]
   workflow_dispatch:
     inputs:
       mode:
@@ -24,7 +27,7 @@ jobs:
           cache-dependency-path: notifs/package-lock.json
       - run: npm ci --no-audit --no-fund
         working-directory: notifs
-      - run: node send.js "${{ github.event.inputs.mode || 'auto' }}"
+      - run: node send.js "${{ github.event_name == 'push' && 'test' || github.event.inputs.mode || 'auto' }}"
         working-directory: notifs
         env:
           FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
