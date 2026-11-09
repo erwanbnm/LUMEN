@@ -1,13 +1,13 @@
 2|Quel a été le premier long métrage entièrement en images de synthèse ?|Toy Story|Shrek|Le Monde de Nemo|Jurassic Park|Sorti en 1995, réalisé par Pixar. Jurassic Park mélangeait images de synthèse et animatroniques.
 2|Quels frères ont organisé la première projection publique payante de cinéma ?|Les frères Lumière|Les frères Warner|Les frères Pathé|Les frères Coen|Le 28 décembre 1895 à Paris. Le film « L'Arrivée d'un train » aurait fait reculer certains spectateurs.
 2|Quel réalisateur français a tourné « Le Voyage dans la Lune » en 1902 ?|Georges Méliès|Louis Lumière|Jean Renoir|Abel Gance|Ancien magicien, il a inventé de nombreux trucages. L'image de la fusée dans l'œil de la Lune est célèbre.
-1|Quel est le nom de la statuette remise aux Oscars ?|Oscar|César|Ours d'or|Palme|L'origine de son nom reste floue. Elle est en bronze recouvert d'or 24 carats.
+2|Quel acteur a incarné James Bond dans le plus grand nombre de films officiels ?|Roger Moore|Sean Connery|Daniel Craig|Pierce Brosnan|Sept films, de 1973 à 1985. Sean Connery en a tourné six, plus un hors de la série officielle.
 1|Comment s'appelle la récompense suprême du Festival de Cannes ?|La Palme d'or|L'Ours d'or|Le Lion d'or|Le César d'honneur|L'Ours d'or est remis à Berlin, le Lion d'or à Venise.
 2|Quelle est la récompense du cinéma français équivalente aux Oscars ?|Les César|Les Molières|Les Victoires|Les Lumières|Créés en 1976. La statuette a été dessinée par le sculpteur César, qui lui a donné son nom.
 2|Quel film français a remporté l'Oscar du meilleur film en 2012 ?|The Artist|Intouchables|Amélie Poulain|La Môme|Un film muet en noir et blanc. Jean Dujardin a aussi gagné l'Oscar du meilleur acteur.
 2|Quel film français a attiré plus de 20 millions de spectateurs en salles en France ?|Bienvenue chez les Ch'tis|Intouchables|Astérix Mission Cléopâtre|Les Visiteurs|Environ 20,5 millions en 2008. Il talonne le record historique de Titanic en France.
 2|Quel acteur incarne le chauffeur dans Intouchables ?|Omar Sy|Jamel Debbouze|Kad Merad|Dany Boon|Il a reçu le César du meilleur acteur en 2012, devant Jean Dujardin.
-1|Quel film de 1997 raconte le naufrage d'un célèbre paquebot ?|Titanic|Pearl Harbor|Poséidon|Le Grand Bleu|Réalisé par James Cameron, il a reçu 11 Oscars, un record partagé avec deux autres films.
+2|Quel acteur prête sa voix originale à Shrek ?|Mike Myers|Eddie Murphy|Jim Carrey|Robin Williams|Eddie Murphy double l'Âne. En France, Shrek a la voix d'Alain Chabat.
 2|Quel réalisateur a signé Avatar et Titanic ?|James Cameron|Steven Spielberg|Peter Jackson|Christopher Nolan|Passionné d'océans, il est aussi descendu seul au fond de la fosse des Mariannes en 2012.
 2|Quel réalisateur a tourné Les Dents de la mer, E.T. et Jurassic Park ?|Steven Spielberg|George Lucas|James Cameron|Ridley Scott|Le requin mécanique des Dents de la mer tombait souvent en panne : il l'a donc peu montré, ce qui a renforcé la peur.
 2|Qui a créé la saga Star Wars ?|George Lucas|Steven Spielberg|J.J. Abrams|Ridley Scott|Le premier film sort en 1977. Lucas a gardé les droits des produits dérivés, qui l'ont rendu milliardaire.
@@ -48,12 +48,12 @@
 2|Quel film a été le premier long métrage parlant ?|Le Chanteur de jazz|Les Temps modernes|Metropolis|Le Kid|En 1927. Ses premières paroles : « Attendez, vous n'avez encore rien entendu ! »
 2|Quel acteur du cinéma muet est célèbre pour son personnage de vagabond à moustache ?|Charlie Chaplin|Buster Keaton|Harold Lloyd|Laurel|Charlot, en français. Dans « Le Dictateur », en 1940, il ridiculise Hitler.
 2|Quel ogre vert vit dans un marais avec un âne bavard ?|Shrek|Hulk|Le Grinch|Yoda|Sorti en 2001, il a remporté le tout premier Oscar du meilleur film d'animation.
-1|Quel film de Disney a pour héroïne une reine des glaces nommée Elsa ?|La Reine des neiges|Raiponce|Vaiana|Rebelle|Sorti en 2013 et inspiré d'un conte d'Andersen. Sa chanson « Libérée, délivrée » a été traduite dans plus de 40 langues.
+1|Comment s'appelle le pirate ennemi de Peter Pan ?|Le capitaine Crochet|Barbe-Noire|Le capitaine Haddock|Jack Sparrow|Il a perdu sa main, avalée par un crocodile qui le poursuit depuis.
 2|Quel film Pixar se passe à l'intérieur de la tête d'une petite fille ?|Vice-versa|Coco|Soul|Là-haut|Ses émotions, Joie, Tristesse, Colère, Peur et Dégoût, sont des personnages. Des psychologues ont conseillé l'équipe pendant l'écriture.
 2|Quel film Pixar se déroule pendant la fête mexicaine des morts ?|Coco|Encanto|Vice-versa|Ratatouille|Le Día de los Muertos, où l'on honore les défunts avec des autels et des fleurs orange. Le film a remporté deux Oscars.
 1|Dans quel film Pixar un vieil homme fait-il voler sa maison avec des ballons ?|Là-haut|Toy Story|Wall-E|Cars|Il faudrait en réalité des dizaines de millions de ballons pour soulever une maison. Les dix premières minutes, presque sans dialogue, sont célèbres pour faire pleurer.
 2|Quel petit robot nettoie une Terre abandonnée dans un film Pixar de 2008 ?|Wall-E|Baymax|R2-D2|Eve|Pendant près de 40 minutes, le film n'a presque aucun dialogue. Le robot qu'il rencontre s'appelle Eve.
-1|Quel poisson-clown est recherché par son père dans un film Pixar ?|Nemo|Dory|Marin|Polochon|Après la sortie du film en 2003, les poissons-clowns sont devenus très demandés en aquarium, au détriment des récifs.
+2|Comment s'appelle la petite fille que protègent Sulli et Bob dans Monstres et Cie ?|Bouh|Agnès|Lilo|Margo|Agnès et Margo sont deux des fillettes de Moi, moche et méchant, et Lilo l'amie de Stitch.
 2|Quel studio a créé Shrek et Kung Fu Panda ?|DreamWorks|Pixar|Disney|Illumination|Fondé en 1994, notamment par Steven Spielberg. Shrek a remporté le tout premier Oscar du meilleur film d'animation, en 2002.
 3|Dans quelle ville sont animés les films avec les Minions ?|Paris|Los Angeles|Tokyo|Londres|Ils sont produits par le studio américain Illumination, mais fabriqués par des équipes françaises à Paris. Les Minions parlent un mélange de plusieurs langues.
 2|Qui a réalisé Mon voisin Totoro ?|Hayao Miyazaki|Isao Takahata|Makoto Shinkai|Akira Toriyama|Il a cofondé le studio Ghibli. Totoro est d'ailleurs devenu le logo du studio.
@@ -66,8 +66,8 @@
 1|Quelle actrice joue Hermione dans Harry Potter ?|Emma Watson|Emma Stone|Keira Knightley|Natalie Portman|Elle a été choisie à 9 ans. Elle est ensuite devenue ambassadrice de l'ONU pour l'égalité entre les femmes et les hommes.
 1|Quel acteur joue Jack dans Titanic ?|Leonardo DiCaprio|Brad Pitt|Matt Damon|Tom Cruise|Face à Kate Winslet. Le film est resté le plus gros succès du box-office mondial jusqu'à Avatar, du même réalisateur.
 2|Quel acteur français a joué Obélix dans les premiers films Astérix ?|Gérard Depardieu|Christian Clavier|Jean Reno|Gérard Jugnot|Dès Astérix et Obélix contre César, en 1999, avec Christian Clavier en Astérix. Il a joué Obélix dans quatre films.
-1|Quel film de Disney raconte l'histoire d'une sirène qui veut devenir humaine ?|La Petite Sirène|Vaiana|Raiponce|Pocahontas|Il s'inspire d'un conte d'Andersen bien plus triste : la sirène y finit changée en écume.
-1|Quel super-héros a été mordu par une araignée radioactive ?|Spider-Man|Ant-Man|Batman|Captain America|Créé en 1962 par Stan Lee et Steve Ditko. Peter Parker est l'un des premiers super-héros adolescents.
+1|Quel oncle de Peter Parker lui apprend qu'« un grand pouvoir implique de grandes responsabilités » ?|L'oncle Ben|L'oncle Sam|L'oncle Picsou|L'oncle Vernon|Sa mort pousse Peter à devenir Spider-Man.
+2|Comment s'appelle le caméléon de Raiponce ?|Pascal|Maximus|Abu|Sébastien|Maximus est le cheval, Abu le singe d'Aladdin et Sébastien le crabe de La Petite Sirène.
 2|Quel méchant de Marvel veut rassembler les six Pierres d'infinité ?|Thanos|Loki|Ultron|Magneto|Dans Avengers : Infinity War, il claque des doigts pour faire disparaître la moitié des êtres vivants. Endgame, la suite, est l'un des plus gros succès de l'histoire du cinéma.
 2|De quel pays imaginaire Black Panther est-il le roi ?|Le Wakanda|Asgard|Le Kenya|La Latvérie|Un royaume africain très avancé grâce à un métal rare, le vibranium. Le film de 2018 a été le premier film de super-héros nommé à l'Oscar du meilleur film.
 2|Dans quel film un adolescent voyage-t-il dans le temps en DeLorean ?|Retour vers le futur|E.T.|Les Goonies|Terminator|Sorti en 1985. La voiture doit atteindre 88 miles à l'heure, environ 140 km/h, pour voyager dans le temps.
@@ -89,9 +89,9 @@
 3|Quel réalisateur de la Nouvelle Vague a tourné Les Quatre Cents Coups ?|François Truffaut|Jean-Luc Godard|Claude Chabrol|Éric Rohmer|Sorti en 1959, il s'inspire de sa propre enfance difficile. La Nouvelle Vague a révolutionné le cinéma français avec des tournages légers, dans la rue.
 2|Quel acteur comique joue avec Bourvil dans La Grande Vadrouille ?|Louis de Funès|Fernandel|Jean Gabin|Coluche|Célèbre pour ses colères et ses grimaces, il a aussi joué Le Gendarme de Saint-Tropez et Les Aventures de Rabbi Jacob.
 3|Quel film de 1995 sur la banlieue a été réalisé par Mathieu Kassovitz ?|La Haine|Les Misérables|Divines|Banlieue 13|Tourné en noir et blanc. Sa phrase « Jusqu'ici tout va bien » est devenue culte.
-2|Qu'est-ce qu'un « blockbuster » ?|Un film à très gros budget et gros succès|Un film d'horreur|Un film muet|Un court métrage|Le mot désignait à l'origine une bombe capable de détruire un pâté de maisons. On l'utilise pour les films depuis Les Dents de la mer, en 1975.
+2|Qu'est-ce qu'un « blockbuster » ?|Un film à très gros budget|Un film d'horreur|Un film muet|Un court métrage|Le mot désignait à l'origine une bombe capable de détruire un pâté de maisons.
 1|Que signifie « VO » sur une affiche de cinéma ?|Version originale|Vidéo officielle|Vue d'ouverture|Version optimisée|Le film est dans sa langue d'origine, souvent sous-titré : on parle alors de VOST. « VF » signifie version française, doublée.
-2|Comment appelle-t-on la personne qui prête sa voix à un acteur étranger ?|Un comédien de doublage|Un bruiteur|Un cascadeur|Un monteur|Certains sont si connus que le public les reconnaît à la voix. Le bruiteur, lui, recrée les bruits du film : pas, portes, coups.
+2|Comment appelle-t-on la personne qui prête sa voix à un acteur étranger ?|Un doubleur|Un bruiteur|Un cascadeur|Un monteur|Le bruiteur, lui, fabrique les sons comme les pas ou les portes qui claquent.
 1|Comment dit-on « spoiler » selon les Québécois, qui ont inventé le mot ?|Divulgâcher|Révéler|Gâchouiller|Dévoiler|De l'anglais « to spoil », gâcher. « Divulgâcheur » mêle divulguer et gâcher.
 2|Quel film d'horreur de Stanley Kubrick se passe dans un hôtel isolé ?|Shining|Psychose|L'Exorciste|Ça|Adapté d'un roman de Stephen King, en 1980. La réplique « Here's Johnny ! » aurait été improvisée par Jack Nicholson.
 2|Comment s'appelle en français le clown terrifiant du roman Ça ?|Grippe-Sou|Le Joker|Krusty|Chucky|Imaginé par Stephen King en 1986. En anglais, il s'appelle Pennywise.
@@ -112,19 +112,19 @@
 3|Quel film de vampire de 1922 était une adaptation non autorisée de Dracula ?|Nosferatu|Frankenstein|Le Golem|Vampyr|Réalisé par F. W. Murnau. Les héritiers de Bram Stoker ont gagné leur procès et les copies devaient être détruites, mais certaines ont survécu.
 3|Quel réalisateur a tourné 2001, l'Odyssée de l'espace et Orange mécanique ?|Stanley Kubrick|Ridley Scott|Steven Spielberg|George Lucas|Perfectionniste, il pouvait faire refaire une scène des dizaines de fois. 2001 a influencé presque tous les films spatiaux qui ont suivi.
 3|Quel film partage avec Titanic et Ben-Hur le record de onze Oscars ?|Le Seigneur des anneaux : le Retour du roi|Avatar|Gladiator|Forrest Gump|En 2004, il a remporté toutes les catégories pour lesquelles il était nommé.
-1|Comment s'appelle la fiancée de Mickey ?|Minnie|Daisy|Clarabelle|Mimi|Elle apparaît en 1928, en même temps que Mickey. Daisy, elle, est la fiancée de Donald.
-1|Quel animal est Dumbo ?|Un éléphant|Une souris|Un âne|Un cerf|Ses immenses oreilles lui permettent de voler. Le film de Disney date de 1941.
-1|Comment s'appelle le cow-boy de Toy Story ?|Woody|Buzz l'Éclair|Rex|Andy|Buzz l'Éclair est le jouet astronaute qui se prend pour un vrai héros de l'espace.
-1|Quel super-héros vert devient énorme quand il se met en colère ?|Hulk|Shrek|Thor|Iron Man|Le scientifique Bruce Banner se transforme après avoir été exposé à des rayons gamma.
+1|Comment s'appelle le renne de Kristoff dans La Reine des neiges ?|Sven|Olaf|Hans|Rudolph|Olaf est le bonhomme de neige et Hans le prince qui trahit Anna.
+2|Avec quel objet Dumbo arrive-t-il à voler la première fois ?|Une plume « magique »|Un parapluie|Un chapeau|Un ballon|Ses amis lui font croire que la plume est magique : en réalité, il vole grâce à ses oreilles.
+1|Quel jouet de Toy Story répète « Vers l'infini et au-delà ! » ?|Buzz l'Éclair|Woody|Rex|Monsieur Patate|Il est persuadé au début d'être un vrai ranger de l'espace.
+2|Quel acteur incarne Hulk dans les films Avengers ?|Mark Ruffalo|Edward Norton|Chris Pratt|Jeremy Renner|Edward Norton l'avait joué juste avant, dans L'Incroyable Hulk en 2008.
 1|Qui dirige l'école de sorcellerie de Poudlard dans Harry Potter ?|Albus Dumbledore|Severus Rogue|Voldemort|Hagrid|Il a une longue barbe et des lunettes en demi-lune. Hagrid est le garde-chasse de l'école.
 1|Quel justicier masqué signe ses exploits d'un Z ?|Zorro|Robin des Bois|Le Fantôme|D'Artagnan|Créé en 1919 par l'écrivain Johnston McCulley, il défend les pauvres en Californie, alors espagnole.
 1|Quelle princesse Disney porte une robe jaune et adore les livres ?|Belle|Cendrillon|Aurore|Ariel|Dans La Belle et la Bête, en 1991, premier film d'animation nommé à l'Oscar du meilleur film.
 1|Comment s'appelle le bonhomme de neige de La Reine des neiges ?|Olaf|Sven|Kristoff|Hans|Il rêve de l'été sans savoir qu'il fondrait. Sven, lui, est le renne de Kristoff.
-1|Quel extraterrestre veut « téléphoner maison » ?|E.T.|Alf|Yoda|Stitch|Le film de 1982 a été le plus gros succès de l'histoire du cinéma jusqu'à Jurassic Park, du même réalisateur.
+1|Sur quoi Elliott et E.T. s'envolent-ils devant la Lune ?|Un vélo|Une moto|Un balai|Une soucoupe|Cette image est devenue le logo de la société de production de Steven Spielberg.
 1|Quelle petite fée accompagne Peter Pan ?|La Fée Clochette|Wendy|La fée Marraine|La fée Bleue|Elle ne parle pas : elle s'exprime par un tintement de clochette. En anglais, elle s'appelle Tinker Bell.
 1|Dans quel film Disney une jeune fille se déguise-t-elle en soldat pour remplacer son père ?|Mulan|Pocahontas|Vaiana|Raiponce|Sorti en 1998, il s'inspire d'une légende chinoise très ancienne. Elle est accompagnée d'un petit dragon, Mushu.
 1|Quelle princesse Disney a de très longs cheveux magiques et vit dans une tour ?|Raiponce|Cendrillon|Aurore|Ariel|Ses cheveux mesurent 21 mètres dans le film de 2010. Le conte original est des frères Grimm.
-1|Quel singe géant grimpe en haut de l'Empire State Building ?|King Kong|Godzilla|César|Donkey Kong|Le film date de 1933. Les scènes du singe étaient animées image par image avec une petite maquette.
+2|En quelle année est sorti le premier film King Kong ?|1933|1925|1954|1976|Ses effets spéciaux image par image ont impressionné les spectateurs de l'époque.
 1|Dans quel film un garçon nommé Mowgli est-il élevé par des loups ?|Le Livre de la jungle|Tarzan|Le Roi lion|Bambi|Il vient d'un livre de Rudyard Kipling. Dans le dessin animé Disney de 1967, il est ami avec l'ours Baloo et la panthère Bagheera.
 1|De quelle couleur est la peau des Na'vi dans Avatar ?|Bleue|Verte|Rouge|Grise|Ces grands êtres de 3 mètres vivent sur Pandora. James Cameron a attendu plus de dix ans que la technologie permette de tourner le film.
 2|Quel acteur incarne le Joker dans The Dark Knight, en 2008 ?|Heath Ledger|Joaquin Phoenix|Jack Nicholson|Jared Leto|Il a reçu un Oscar, à titre posthume : il est mort quelques mois avant la sortie du film.
@@ -141,13 +141,13 @@
 3|Quel réalisateur mexicain a tourné Le Labyrinthe de Pan et La Forme de l'eau ?|Guillermo del Toro|Alfonso Cuarón|Alejandro González Iñárritu|Pedro Almodóvar|Passionné de monstres, il a reçu l'Oscar du meilleur film en 2018 pour La Forme de l'eau.
 3|Dans quel pays se trouve l'industrie du cinéma surnommée « Nollywood » ?|Le Nigeria|L'Inde|La Norvège|La Nouvelle-Zélande|Elle produit des centaines de films par an, souvent tournés en quelques jours. « Bollywood » désigne le cinéma de Bombay, en Inde.
 3|Quel acteur incarne Vito Corleone dans Le Parrain, en 1972 ?|Marlon Brando|Al Pacino|Robert De Niro|James Caan|Il a refusé son Oscar pour protester contre la façon dont Hollywood représentait les Amérindiens. De Niro a joué Vito jeune dans Le Parrain II.
-1|Comment s'appelle le petit monstre vert à un seul œil de Monstres et Cie ?|Bob|Sulli|Léon|Shrek|En version originale, il s'appelle Mike Wazowski. Son ami Sulli est un grand monstre bleu.
+1|Dans Monstres et Cie, qu'est-ce qui alimente la ville des monstres en énergie ?|Les cris des enfants|Le sucre des bonbons|La lumière du soleil|Les rires des adultes|À la fin du film, ils découvrent que les rires des enfants produisent encore plus d'énergie.
 1|Quel animal est Baloo dans Le Livre de la jungle ?|Un ours|Une panthère|Un tigre|Un singe|Il chante « Il en faut peu pour être heureux ». La panthère, c'est Bagheera.
 1|Quelle héroïne Disney navigue sur l'océan avec le demi-dieu Maui ?|Vaiana|Moana|Pocahontas|Raiponce|Ailleurs dans le monde, elle s'appelle Moana. En France, le nom a été changé pour une question de marque déposée.
 1|Comment s'appelle la voiture de course rouge héros du film Cars ?|Flash McQueen|Martin|Doc Hudson|Speedy|Son numéro est le 95, l'année de sortie de Toy Story, le premier film Pixar.
 1|Quel faon de Disney perd sa mère dans la forêt ?|Bambi|Rox|Dumbo|Simba|Le film date de 1942. Son meilleur ami est un lapin nommé Panpan.
 1|À quel sport joue-t-on sur des balais volants dans Harry Potter ?|Le Quidditch|Le Croquet|Le Bavboule|Le Polo magique|Le match se termine quand l'attrapeur saisit le Vif d'or.
-1|Quel personnage de dessin animé est une éponge qui vit dans un ananas sous la mer ?|Bob l'éponge|Patrick|Carlo|Gary|Patrick est son ami l'étoile de mer, et Gary son escargot.
+1|Dans quelle ville sous-marine vit Bob l'éponge ?|Bikini Bottom|Atlantis|Coral City|Aquaville|Il y habite un ananas et travaille au Crabe Croustillant.
 2|Quelle actrice joue Amélie Poulain ?|Audrey Tautou|Marion Cotillard|Sophie Marceau|Juliette Binoche|Le film de 2001 a fait connaître le quartier de Montmartre dans le monde entier.
 2|Qui a réalisé Bienvenue chez les Ch'tis ?|Dany Boon|Kad Merad|Gad Elmaleh|Philippe Lacheau|Il y joue aussi le facteur Antoine Bailleul, aux côtés de Kad Merad.
 2|Quel film de 1982 met en scène des robots humanoïdes appelés « réplicants » ?|Blade Runner|Terminator|Robocop|Tron|Réalisé par Ridley Scott, il a eu une suite en 2017, Blade Runner 2049.
