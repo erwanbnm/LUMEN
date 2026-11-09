@@ -8,7 +8,7 @@
 1|De quoi se nourrit presque exclusivement le koala ?|D'eucalyptus|De bambou|D'acacia|De fougères|Ces feuilles sont toxiques pour la plupart des animaux et très peu nourrissantes : c'est pour ça qu'il dort jusqu'à 20 heures par jour.
 2|Combien de compartiments compte l'estomac d'une vache ?|4|1|2|6|Panse, bonnet, feuillet et caillette. La vache rumine : elle remâche l'herbe une seconde fois.
 3|Quel métal donne au sang de la pieuvre sa couleur bleue ?|Le cuivre|Le fer|Le zinc|Le cobalt|Grâce à l'hémocyanine. Notre sang doit sa couleur rouge au fer de l'hémoglobine.
-2|Combien d'yeux ont la plupart des araignées ?|Huit|Deux|Quatre|Six|Malgré tous ces yeux, beaucoup d'araignées voient mal et se fient surtout aux vibrations.
+2|Quel est le plus grand félin d'Amérique ?|Le jaguar|Le puma|L'ocelot|Le lynx|Sa morsure est l'une des plus puissantes de tous les félins : il peut percer la carapace d'une tortue.
 1|Quel est le plus grand oiseau du monde ?|L'autruche|Le condor|L'albatros|L'aigle royal|Jusqu'à 2,7 m. Elle ne vole pas, mais court à environ 70 km/h.
 2|Quel oiseau a la plus grande envergure ?|L'albatros hurleur|Le condor des Andes|L'aigle royal|Le pélican|Plus de 3 m d'ailes. Il peut planer des heures sans battre des ailes au-dessus des océans.
 2|Quel oiseau est le plus rapide en piqué ?|Le faucon pèlerin|L'aigle royal|Le martinet|L'hirondelle|Plus de 300 km/h en piqué, ce qui en fait l'animal le plus rapide du monde.
