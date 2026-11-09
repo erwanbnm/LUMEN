@@ -103,6 +103,28 @@ const I = {
     <g class="eyes"><ellipse cx="25.5" cy="36" rx="2.7" ry="3.6" fill="${D}"/><ellipse cx="38.5" cy="36" rx="2.7" ry="3.6" fill="${D}"/><circle cx="26.3" cy="34.6" r="1" fill="#fff"/><circle cx="39.3" cy="34.6" r="1" fill="#fff"/></g>
     <ellipse cx="21" cy="42" rx="3.4" ry="2" fill="#FF6A8A" opacity=".55"/><ellipse cx="43" cy="42" rx="3.4" ry="2" fill="#FF6A8A" opacity=".55"/>
     <path d="M28.5 42.5 q3.5 3.5 7 0" fill="none" stroke="${D}" stroke-width="2.2" stroke-linecap="round"/>`; },
+  sword(){ const u=uid++; const blade="M28.5 40 V12 L32 5 L35.5 12 V40Z";
+    return `<defs>${lg("sw"+u,"#F4FBFF","#8FB8E0")}${lg("sg"+u,"#FFE07A","#F0A020")}</defs>${sh(59,15)}
+    <g transform="rotate(40 32 32)">
+    <path d="${blade}" transform="translate(0 2.5)" fill="#4A6E99" ${S}/>
+    <path d="${blade}" fill="url(#sw${u})" ${S}/>
+    <path d="M32 9 V38" stroke="#B9D4EE" stroke-width="1.6"/>
+    ${shine("M30.6 14 V30")}
+    <rect x="21" y="39.5" width="22" height="6.5" rx="3.2" fill="#B86A10" ${S} transform="translate(0 2)"/>
+    <rect x="21" y="39.5" width="22" height="6.5" rx="3.2" fill="url(#sg${u})" ${S}/>
+    <rect x="29" y="46" width="6" height="10" rx="2" fill="#7A3FD0" ${S}/>
+    <path d="M29.5 49 h5 M29.5 52.5 h5" stroke="#5A2AA0" stroke-width="1.4"/>
+    <circle cx="32" cy="59" r="3.6" fill="url(#sg${u})" ${S}/>
+    <circle cx="23.5" cy="41.5" r="1.1" fill="#fff" opacity=".8"/></g>
+    <path class="pop" d="M50 8 l1.6 3.6 3.6 1.6-3.6 1.6L50 18.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFD23F" stroke="${D}" stroke-width="1.6" stroke-linejoin="round"/>`; },
+  amis(){ const u=uid++; const eyes=(x,y)=>`<ellipse cx="${x-5}" cy="${y}" rx="2.2" ry="3" fill="${D}"/><ellipse cx="${x+5}" cy="${y}" rx="2.2" ry="3" fill="${D}"/><circle cx="${x-4.3}" cy="${y-1.2}" r=".9" fill="#fff"/><circle cx="${x+5.7}" cy="${y-1.2}" r=".9" fill="#fff"/>`;
+    return `<defs>${lg("ab"+u,"#9AE0FF","#3A8FE0")}${lg("ap"+u,"#FFB3D0","#F0508E")}</defs>${sh(59,22)}
+    <ellipse cx="22" cy="40" rx="14" ry="14" fill="#1F5FA8" ${S}/><ellipse cx="22" cy="36.5" rx="14" ry="14" fill="url(#ab${u})" ${S}/>
+    ${shine("M12 32 Q14 27 19 25.5")}<g class="eyes">${eyes(22,35)}</g><path d="M19 41 q3 2.5 6 0" fill="none" stroke="${D}" stroke-width="2" stroke-linecap="round"/>
+    <g class="arm"><ellipse cx="42" cy="44" rx="15" ry="14" fill="#B02A62" ${S}/><ellipse cx="42" cy="40.5" rx="15" ry="14" fill="url(#ap${u})" ${S}/>
+    ${shine("M31 36 Q33 31 38 29.5")}<g class="eyes">${eyes(42,39)}</g><ellipse cx="34" cy="45" rx="2.8" ry="1.7" fill="#FF6A8A" opacity=".6"/><ellipse cx="50" cy="45" rx="2.8" ry="1.7" fill="#FF6A8A" opacity=".6"/>
+    <path d="M38.5 45 q3.5 3.5 7 0" fill="none" stroke="${D}" stroke-width="2.2" stroke-linecap="round"/></g>
+    <path d="M32 9 l2 4.5 4.8.4-3.6 3.2 1.1 4.7L32 19.3l-4.3 2.5 1.1-4.7-3.6-3.2 4.8-.4z" fill="#FFD23F" stroke="${D}" stroke-width="2" stroke-linejoin="round" class="pop"/>`; },
   heart(){ const u=uid++; const h="M32 54 S10 41 10 24.5 a11.5 11.5 0 0 1 22 -5.3 a11.5 11.5 0 0 1 22 5.3 C54 41 32 54 32 54Z"; return `<defs>${lg("he"+u,"#FF9AAB","#E8274A")}</defs>${sh(59,14)}
     <path d="${h}" transform="translate(0 4)" fill="#A3132F" ${S}/><path d="${h}" fill="url(#he${u})" ${S}/>${shine("M16.5 23 Q17.5 16.5 24 15.8")}<circle cx="17" cy="30" r="2" fill="#fff" opacity=".7"/>`; },
   chrono(){ const u=uid++; return `<defs>${lg("ch"+u,"#FFDF8F","#F28A1E")}</defs>${sh()}

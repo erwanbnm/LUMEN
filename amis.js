@@ -1,0 +1,414 @@
+/* ---------- Mode en ligne : onglet JcJ (Firebase) ----------
+   Comptes pseudo + mot de passe, défis entre amis dans tous les modes du jeu (Classique par thème,
+   Chrono, Survie, Avant ou après, Qui a dit ?), en différé ou en direct, classements, badges « En ligne ».
+   Données dans Firestore :
+     users/{uid}   : {pseudo, pl, av, since, seen, st:{lvl, ok, avap, streak}}   (seen = dernière activité)
+     pseudos/{pl}  : {uid}                                                       (réserve un pseudo unique)
+     saves/{uid}   : {data, at, lvl}   sauvegarde de toute la progression (lisible par son seul propriétaire)
+     duels/{id}    : {kind:"async"|"live", from, to, mode, theme, n, qids, seed, state, created, start,
+                      res:{uid:{ok, pos, t, done}}}
+   Les règles de sécurité à coller dans la console Firebase sont dans firestore.rules. */
+const FIREBASE_CONFIG = { // projet Firebase « lumen-d206d »
+  apiKey: "AIzaSyCGjpcgIdchJE8ysQ1JPUjQDzphU3oIt8w",
+  authDomain: "lumen-d206d.firebaseapp.com",
+  projectId: "lumen-d206d",
+  storageBucket: "lumen-d206d.firebasestorage.app",
+  messagingSenderId: "743435924468",
+  appId: "1:743435924468:web:a579bb949ed79b1dca3fa1"
+};
+const FB_VER = "10.14.1";
+const Amis = (function(){
+  let fb = null, auth = null, db = null, me = null, loading = false, err = "";
+  let users = {}, duels = [], unsub = [], seenTimer = null;
+  let cloud = {ready:false, offer:null, timer:null, last:"", err:false};
+  const ui = { seg:"signup", friend:"", mode:"classic", theme:"mix", n:10, kind:"async", busy:false, msg:"", view:"main", board:"duels" };
+  // Modes jouables en duel (les règles sont les mêmes pour les deux joueurs : pas d'améliorations de la boutique)
+  const MODES = {
+    classic:{n:"Classique", icon:"mix", d:"Un thème, de 5 à 20 questions"},
+    chrono:{n:"Chrono", icon:"chrono", d:"60 secondes, un joker"},
+    survie:{n:"Survie", icon:"survie", d:"3 vies, un joker"},
+    avap:{n:"Avant ou après ?", icon:"avap", d:"La plus longue série"},
+    qad:{n:"Qui a dit ?", icon:"quote", d:"Des citations, 5 à 20"}
+  };
+  const uid = () => me && me.uid;
+  const pending = () => duels.find(d => d.kind === "live" && d.from === uid() && d.state === "invite" && Date.now() - d.created < 60000);
+  const pseudoOf = id => (users[id] && users[id].pseudo) || "Un ami";
+  const online = id => users[id] && Date.now() - (users[id].seen || 0) < 150000;
+  const enabled = () => !!FIREBASE_CONFIG;
+  const modeOf = d => d.mode || "classic";
+  const hasN = m => m === "classic" || m === "qad";
+  const thName = t => t === "mix" ? "Tous les thèmes" : THEMES[t].n;
+  const duelLabel = d => { const m = modeOf(d); return m === "classic" ? `${d.n} questions · ${thName(d.theme)}` : m === "qad" ? `Qui a dit ? · ${d.n} citations` : MODES[m].n; };
+
+  /* --- Chargement de Firebase (seulement quand on en a besoin) --- */
+  function loadScript(src){ return new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
+  async function boot(){
+    if (fb || loading || !enabled()) return; loading = true;
+    try {
+      for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
+      fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+    } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; }
+    loading = false; rerender();
+  }
+  // Rafraîchit l'écran sans casser une partie en cours
+  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) render(); else updateDuelBar(); }
+
+  /* --- Écoute en temps réel --- */
+  function listen(){
+    stop();
+    unsub.push(db.collection("users").onSnapshot(s => { users = {}; s.forEach(d => { if (!d.data().gone) users[d.id] = d.data(); }); rerender(); }, () => {}));
+    unsub.push(db.collection("duels").orderBy("created", "desc").limit(300).onSnapshot(s => {
+      const before = duels; duels = s.docs.map(d => Object.assign({id:d.id}, d.data()));
+      onDuels(before); rerender();
+    }, () => {}));
+    ping(); seenTimer = setInterval(ping, 90000);
+  }
+  // Présence + statistiques solo publiées pour les classements (rien qui s'achète avec des pièces)
+  function ping(){
+    if (!uid() || document.visibilityState !== "visible") return;
+    db.doc("users/" + uid()).set({seen:Date.now(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
+      st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())}}, {merge:true}).catch(() => {});
+  }
+  document.addEventListener("visibilitychange", ping);
+  function stop(){ unsub.forEach(f => f()); unsub = []; clearInterval(seenTimer); users = {}; duels = []; }
+
+  /* --- Comptes : pseudo (affiché) + e-mail (connexion, mot de passe oublié) + mot de passe ---
+     L'e-mail n'est jamais écrit dans la base : seuls Firebase Authentication et son propriétaire le voient. */
+  const mail = pl => pl + "@joueurs.lumen-amis.app"; // anciens comptes créés avec un pseudo seul
+  const norm = p => p.trim().toLowerCase();
+  const okMail = m => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m.trim());
+  async function signup(pseudo, email, pw){
+    const pl = norm(pseudo);
+    if (!/^[a-z0-9_\-àâçéèêëîïôûùüÿ]{2,16}$/i.test(pseudo.trim())) throw "Pseudo : 2 à 16 lettres ou chiffres, sans espace.";
+    if (!okMail(email)) throw "Cette adresse e-mail ne semble pas valide.";
+    if (pw.length < 6) throw "Le mot de passe doit faire au moins 6 caractères.";
+    const taken = await db.doc("pseudos/" + pl).get();
+    if (taken.exists) throw "Ce pseudo est déjà pris.";
+    const cred = await auth.createUserWithEmailAndPassword(email.trim(), pw).catch(e => { throw e.code === "auth/email-already-in-use" ? "Cette adresse e-mail a déjà un compte : connecte-toi." : e.code === "auth/invalid-email" ? "Cette adresse e-mail ne semble pas valide." : "Création impossible pour le moment."; });
+    try {
+      await db.runTransaction(async t => { const r = db.doc("pseudos/" + pl); if ((await t.get(r)).exists) throw "pris"; t.set(r, {uid:cred.user.uid}); });
+      await db.doc("users/" + cred.user.uid).set({pseudo:pseudo.trim(), pl, since:Date.now(), seen:Date.now()});
+    } catch(e){ await cred.user.delete().catch(() => {}); throw "Ce pseudo est déjà pris."; }
+  }
+  async function login(id, pw){
+    const m = id.includes("@") ? id.trim() : mail(norm(id));
+    await auth.signInWithEmailAndPassword(m, pw).catch(() => { throw "E-mail ou mot de passe incorrect."; });
+  }
+  async function forgot(email){
+    if (!okMail(email)) throw "Écris d'abord ton adresse e-mail dans la case au-dessus.";
+    await auth.sendPasswordResetEmail(email.trim()).catch(() => {}); // même message que le compte existe ou non
+    ui.info = "Si un compte existe avec cette adresse, un e-mail pour changer de mot de passe vient d'être envoyé. Pense à regarder dans les spams.";
+  }
+
+  /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
+     syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
+     c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily"]; // propre à chaque appareil
+  function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
+  async function cloudCheck(){
+    cloud.ready = false;
+    try {
+      const r = await db.doc("saves/" + uid()).get(), remote = r.exists ? r.data() : null;
+      S.amis = S.amis || {};
+      if (!remote) { S.amis.link = uid(); cloud.ready = true; return push(true); }
+      if (S.amis.link !== uid()) { cloud.offer = remote; return rerender(); } // première connexion sur cet appareil : on demande
+      if (remote.at > (S.amis.syncAt || 0)) return restore(remote, true);
+      cloud.ready = true; push(true);
+    } catch(e){ cloud.err = true; rerender(); }
+  }
+  function restore(remote, quiet){
+    const data = JSON.parse(remote.data);
+    LOCAL.forEach(k => { if (k in S) data[k] = S[k]; });
+    data.session = null; data.pausedDaily = null; data.tab = quiet ? S.tab : "accueil";
+    data.amis = Object.assign({}, S.amis, {link:uid(), syncAt:remote.at});
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+    try { sessionStorage.setItem("lumen.restored", quiet ? "sync" : "1"); } catch(e){}
+    location.reload();
+  }
+  function push(now){
+    if (!db || !uid() || !cloud.ready || !S.amis || S.amis.link !== uid()) return;
+    clearTimeout(cloud.timer);
+    cloud.timer = setTimeout(() => {
+      const data = snapshot(); if (data === cloud.last) return;
+      const at = Date.now();
+      db.doc("saves/" + uid()).set({data, at, lvl:acctLvl().L}).then(() => { cloud.last = data; S.amis.syncAt = at; cloud.err = false; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }).catch(() => { cloud.err = true; });
+    }, now ? 0 : 4000);
+  }
+  // Avant de fermer l'appli ou de changer d'onglet : on envoie tout de suite
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") push(true); });
+  try { const r = sessionStorage.getItem("lumen.restored"); if (r) { sessionStorage.removeItem("lumen.restored"); if (r === "1") setTimeout(() => { toasts.push("<b>Progression récupérée !</b> · Bon retour sur Lumen."); render(); }, 2600); } } catch(e){}
+
+  /* --- Choix des questions d'un défi Classique ou Qui a dit ? --- */
+  function pickQids(mode, theme, n){
+    const sh = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    if (mode === "qad") return sh(quoteIds()).slice(0, n);
+    const pool = allIds().filter(id => !isQuote(Q[id]) && (theme === "mix" || Q[id][0] === theme));
+    // Un mélange de niveaux : environ 30 % faciles, 40 % moyennes, 30 % pointues
+    const k = Math.round(n * .3), want = [k, n - 2*k, k];
+    let out = []; [1,2,3].forEach((l, i) => out = out.concat(sh(pool.filter(id => Q[id][1] === l)).slice(0, want[i])));
+    if (out.length < n) out = out.concat(sh(pool.filter(id => !out.includes(id))).slice(0, n - out.length));
+    return sh(out).slice(0, n);
+  }
+
+  /* --- Défis --- */
+  async function challenge(){
+    if (!ui.friend) { ui.msg = "Choisis d'abord un adversaire."; return render(); }
+    if (ui.kind === "live" && !online(ui.friend)) { ui.msg = "Ton ami n'est pas en ligne : envoie-lui plutôt un défi en différé."; return render(); }
+    const m = ui.mode, qids = hasN(m) ? pickQids(m, ui.theme, ui.n) : [];
+    const d = {kind:ui.kind, from:uid(), to:ui.friend, mode:m, theme:m === "classic" ? ui.theme : "mix", n:qids.length, qids, seed:Math.floor(Math.random()*1e7),
+      state:ui.kind === "live" ? "invite" : "open", created:Date.now(), start:0, res:{}};
+    const ref = await db.collection("duels").add(d);
+    ui.msg = "";
+    if (ui.kind === "async") play(Object.assign({id:ref.id}, d));
+    else { setTimeout(() => { const x = duels.find(y => y.id === ref.id); if (x && x.state === "invite") db.doc("duels/" + x.id).update({state:"expired"}).catch(() => {}); }, 60000); render(); }
+  }
+  function play(d){
+    S.amis.left = S.amis.left || {}; S.amis.left[d.id] = 1;
+    const m = modeOf(d), mode = m === "classic" ? (d.theme === "mix" ? "mix" : "serie") : m;
+    const extra = {seed:d.seed || 1, duel:{id:d.id, live:d.kind === "live", start:d.start || 0, opp:d.from === uid() ? d.to : d.from}};
+    if (d.qids && d.qids.length) extra.qids = d.qids;
+    if (mode === "serie") extra.theme = d.theme;
+    start(mode, extra);
+  }
+  async function accept(id){
+    const d = duels.find(x => x.id === id); if (!d) return;
+    if (d.kind === "live") await db.doc("duels/" + id).update({state:"live", start:Date.now() + 5000});
+    else play(d);
+  }
+  // Score d'un joueur pendant/après la partie
+  function score(s){
+    if (s.mode === "avap") return {ok:s.score || 0, pos:Math.max(0, (s.used || []).length - 1) + (s.ans !== undefined ? 1 : 0)};
+    const it = itemsOf(s).filter(i => "id" in i);
+    return {ok:it.filter(i => i.ok).length, pos:it.length};
+  }
+  // Envoie la progression (après chaque réponse) et le score final, une seule fois par changement
+  function sync(s){
+    if (!db || !s || !s.duel) return;
+    const sc = score(s), sig = sc.ok + "|" + sc.pos + "|" + !!s.done;
+    if (s.duel.sig === sig) return; s.duel.sig = sig;
+    const d = duels.find(x => x.id === s.duel.id), opp = d && d.res && d.res[s.duel.opp];
+    const up = {["res." + uid()]: {ok:sc.ok, pos:sc.pos, t:Date.now() - (s.duel.start || s.t0), done:!!s.done}};
+    if (s.done && opp && opp.done) up.state = "done";
+    db.doc("duels/" + s.duel.id).update(up).catch(() => {});
+  }
+  // Résultat d'un duel terminé, du point de vue d'un joueur : 1 victoire, 0 nul, -1 défaite
+  function outcome(d, who){
+    const a = d.res && d.res[who], o = d.res && d.res[who === d.from ? d.to : d.from];
+    if (!a || !o || !a.done || !o.done) return null;
+    if (a.ok !== o.ok) return a.ok > o.ok ? 1 : -1;
+    if (d.kind === "live" && a.t !== o.t) return a.t < o.t ? 1 : -1; // en direct, le plus rapide départage
+    return 0;
+  }
+  const finished = () => duels.filter(d => d.res && Object.values(d.res).filter(r => r.done).length >= 2);
+
+  /* --- Réactions aux changements --- */
+  function onDuels(before){
+    if (!uid()) return;
+    S.amis.left = S.amis.left || {};
+    // Un ami nous défie en direct
+    duels.filter(d => d.kind === "live" && d.to === uid() && d.state === "invite" && Date.now() - d.created < 60000 && !before.some(b => b.id === d.id && b.state === "invite")).forEach(inviteBanner);
+    // Duel en direct accepté : on lance la partie des deux côtés
+    duels.filter(d => d.kind === "live" && d.state === "live" && d.start && (d.from === uid() || d.to === uid()) && !(d.res && d.res[uid()] && d.res[uid()].done) && !S.amis.left[d.id]).forEach(d => {
+      document.querySelectorAll(".am-inv").forEach(e => e.remove()); play(d);
+    });
+    // Un défi vient de se terminer : on prévient
+    S.amis.told = S.amis.told || {};
+    finished().filter(d => (d.from === uid() || d.to === uid()) && !S.amis.told[d.id]).forEach(d => {
+      S.amis.told[d.id] = 1; const o = outcome(d, uid()), opp = pseudoOf(d.from === uid() ? d.to : d.from);
+      if (before.length) toasts.push(`<b>Duel contre ${esc(opp)}</b> · ${o === 1 ? "victoire !" : o === -1 ? "défaite." : "égalité."}`);
+    });
+    S.online = stats(); save(); checkBadges();
+  }
+  function inviteBanner(d){
+    if (S.settings.sfx !== false) { try { Music.sfx("level"); } catch(e){} }
+    const el = document.createElement("div"); el.className = "am-inv"; el.setAttribute("role", "alertdialog");
+    el.innerHTML = `<b>${esc(pseudoOf(d.from))} te défie en direct !</b><span>${esc(duelLabel(d))}</span><div class="row"><button class="btn small" data-am="accept" data-id="${d.id}">Accepter</button><button class="btn small ghost" data-am="refuse" data-id="${d.id}">Refuser</button></div>`;
+    document.body.appendChild(el); setTimeout(() => el.remove(), 60000);
+  }
+
+  /* --- Statistiques et classements --- */
+  function stats(){
+    const mine = finished().filter(d => d.from === uid() || d.to === uid()).sort((a, b) => a.created - b.created);
+    let wins = 0, streak = 0, best = 0, live = 0, perfect = 0, big = 0, modes = {};
+    mine.forEach(d => { const o = outcome(d, uid()), r = d.res[uid()];
+      modes[modeOf(d)] = 1;
+      if (o === 1) { wins++; streak++; best = Math.max(best, streak); if (d.kind === "live") live++; if (modeOf(d) === "classic" && d.n >= 20) big++; } else streak = 0;
+      if (modeOf(d) === "classic" && d.n >= 10 && r.ok === d.n) perfect++; });
+    const top = duelBoard()[0];
+    return {played:mine.length, wins, best, live, perfect, big, modes:Object.keys(modes).length, accepted:mine.filter(d => d.to === uid()).length,
+      top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0)};
+  }
+  function duelBoard(){
+    const t = {}, row = id => t[id] = t[id] || {id, pts:0, w:0, d:0, l:0, n:0};
+    Object.keys(users).forEach(row);
+    finished().forEach(d => [d.from, d.to].filter(p => users[p]).forEach(p => { const o = outcome(d, p), r = row(p); r.n++;
+      if (o === 1) { r.pts += 3; r.w++; } else if (o === 0) { r.pts++; r.d++; } else r.l++; }));
+    return Object.values(t).sort((a, b) => b.pts - a.pts || b.w - a.w);
+  }
+  // Les différents classements : entre amis (duels) et en solo
+  const BOARDS = {
+    duels:{n:"Duels", unit:"pts", rows:() => duelBoard().map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
+    lvl:{n:"Niveau", unit:"", pre:"Niv. ", rows:() => solo(st => st.lvl)},
+    ok:{n:"Bonnes réponses", unit:"", rows:() => solo(st => st.ok)},
+    streak:{n:"Série de jours", unit:"j", rows:() => solo(st => st.streak)},
+    avap:{n:"Avant ou après", unit:"", rows:() => solo(st => st.avap)}
+  };
+  function solo(f){
+    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
+      return {id, v:f(st) || 0}; }).sort((a, b) => b.v - a.v);
+  }
+
+  /* --- Affichage --- */
+  const avatar = (id, z) => { const u = users[id], sk = u && u.av && skinOf(u.av); return creatureSVG(sk || CHARS[0], z || 34); };
+  const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
+  function view(){
+    if (!enabled()) return `<section class="stack"><h1 class="big">JcJ</h1><div class="card stack"><b>Le mode en ligne arrive bientôt.</b><p class="muted">Duels en direct, défis en différé et classements entre amis.</p></div></section>`;
+    if (!fb) { boot(); return `<section class="stack"><h1 class="big">JcJ</h1><div class="card"><p class="muted">${err || "Connexion au serveur…"}</p></div></section>`; }
+    if (!me) return viewLogin();
+    if (cloud.offer) return viewOffer();
+    if (ui.view === "board") return viewBoard();
+    const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
+    const mineDone = d => d.res && d.res[uid()] && d.res[uid()].done;
+    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !mineDone(d) && d.state !== "declined");
+    const sent = duels.filter(d => d.from === uid() && d.kind === "async" && mineDone(d) && !(d.res[d.to] && d.res[d.to].done));
+    const p = pending(), hist = finished().filter(d => d.from === uid() || d.to === uid()).slice(0, 8);
+    const m = ui.mode;
+    return `<section class="stack">
+      <div class="row between"><h1 class="big" style="margin:0">JcJ</h1><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
+      ${p ? `<div class="card stack banner-am"><b>En attente de ${esc(pseudoOf(p.to))}…</b><span class="muted">Le duel démarre dès qu'il accepte.</span><button class="btn small ghost" data-am="cancel" data-id="${p.id}">Annuler</button></div>` : ""}
+      ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
+      <div class="card stack">
+        <div class="label">1 · Ton adversaire</div>
+        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${online(id) ? `<i class="dot-on" title="En ligne"></i>` : ""}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
+        <div class="label">2 · Le mode de jeu</div>
+        <div class="am-modes">${Object.keys(MODES).map(k => `<button class="am-mode ${m === k ? "on" : ""}" data-am="mode" data-v="${k}" aria-pressed="${m === k}">${gIcon(MODES[k].icon, 40)}<b>${MODES[k].n}</b><span>${MODES[k].d}</span></button>`).join("")}</div>
+        ${m === "classic" ? `<div class="label">3 · Le thème</div>
+        <div class="am-themes"><button class="am-th ${ui.theme === "mix" ? "on" : ""}" data-am="theme" data-v="mix" aria-pressed="${ui.theme === "mix"}">${gIcon("mix", 40)}<span>Tous</span></button>${ORDER.map(t => `<button class="am-th ${ui.theme === t ? "on" : ""}" data-am="theme" data-v="${t}" aria-pressed="${ui.theme === t}">${thIcon(t, 40)}<span>${esc(THEMES[t].n)}</span></button>`).join("")}</div>` : ""}
+        ${hasN(m) ? `<div class="label">${m === "classic" ? "4" : "3"} · Nombre de questions</div><div class="row">${[5,10,15,20].map(n => chip("n", n, n, ui.n === n)).join("")}</div>` : ""}
+        <div class="label">Quand ?</div><div class="row">${chip("kind", "async", "En différé", ui.kind === "async")}${chip("kind", "live", "En direct", ui.kind === "live")}</div>
+        <p class="muted" style="font-size:13.5px">${ui.kind === "async" ? "Tu joues maintenant, ton ami joue la même partie quand il veut." : "Vous jouez en même temps la même partie. À score égal, le plus rapide gagne."}</p>
+        ${ui.msg ? `<p class="am-err">${esc(ui.msg)}</p>` : ""}
+        <button class="btn" data-am="go" ${p ? "disabled" : ""}>Lancer le défi</button>
+      </div>
+      ${sent.length ? `<div class="card stack"><div class="label">En attente</div>${sent.map(d => `<div class="am-row">${avatar(d.to)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.to))}</b><span class="muted">${esc(duelLabel(d))} · ton score : ${d.res[uid()].ok}</span></div></div>`).join("")}</div>` : ""}
+      ${hist.length ? `<div class="card stack"><div class="label">Derniers duels</div>${hist.map(d => { const o = outcome(d, uid()), opp = d.from === uid() ? d.to : d.from;
+        return `<div class="am-row">${avatar(opp)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(opp))}</b><span class="muted">${esc(duelLabel(d))} · ${d.res[uid()].ok} – ${d.res[opp].ok}</span></div><span class="chip ${o === 1 ? "lamp" : ""}">${o === 1 ? "Victoire" : o === -1 ? "Défaite" : "Égalité"}</span></div>`; }).join("")}</div>` : ""}
+      <div class="card stack"><div class="label">Mon compte</div>
+        <div class="am-row">${avatar(uid())}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(uid()))}</b><span class="muted" style="font-size:13px">${me.email && !me.email.endsWith("@joueurs.lumen-amis.app") ? esc(me.email) : "Compte sans e-mail"}</span></div></div>
+        <p class="muted" style="font-size:13.5px;margin:0">${cloud.err ? "Sauvegarde impossible pour le moment : elle réessaiera toute seule." : cloud.ready ? "Ta progression est sauvegardée sur ton compte : connecte-toi sur un autre appareil (PC, tablette) pour la retrouver." : "Synchronisation…"}</p>
+        <button class="btn ghost small" data-am="logout">Se déconnecter</button></div>
+    </section>`;
+  }
+  function viewOffer(){
+    const o = cloud.offer, d = new Date(o.at);
+    return `<section class="stack"><h1 class="big">JcJ</h1>
+      <div class="card stack banner-am"><b>Une progression est sauvegardée sur ce compte</b>
+        <p class="muted" style="margin:0">Niveau ${o.lvl || "?"}, sauvegardée le ${d.getDate()} ${MOIS[d.getMonth()]} à ${d.getHours()}h${String(d.getMinutes()).padStart(2, "0")}.</p>
+        <p class="muted" style="margin:0">Cet appareil a sa propre progression (niveau ${acctLvl().L}). Laquelle veux-tu garder ?</p>
+        <button class="btn" data-am="cloudget">Récupérer celle du compte</button>
+        <button class="btn ghost" data-am="cloudkeep">Garder celle de cet appareil</button>
+        <p class="muted" style="font-size:13px;margin:0">« Garder celle de cet appareil » remplace la sauvegarde du compte.</p></div></section>`;
+  }
+  function viewBoard(){
+    const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
+    const unit = v => `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
+    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b><span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
+    return `<section class="stack">
+      <div class="row between"><button class="quit" data-am="back">Retour</button><span class="label">Entre amis</span></div>
+      <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
+      <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
+      <div class="podium">${podium}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <p class="muted" style="font-size:13px;text-align:center">${ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
+    </section>`;
+  }
+  function viewLogin(){
+    const su = ui.seg === "signup";
+    return `<section class="stack"><h1 class="big">JcJ</h1>
+      <p class="muted">Crée ton compte pour défier tes amis dans tous les modes du jeu, en direct ou en différé, et grimper dans les classements.</p>
+      <div class="row">${[["signup","Créer mon compte"],["login","J'ai déjà un compte"]].map(([k, l]) => chip("seg", k, l, ui.seg === k)).join("")}</div>
+      <form id="am-form" class="card stack" novalidate>
+        ${su ? `<label class="label" for="am-p">Pseudo</label><input class="field" id="am-p" maxlength="16" autocomplete="nickname" value="${esc(S.profile ? S.profile.name : "")}">` : ""}
+        <label class="label" for="am-m">${su ? "E-mail" : "E-mail (ou pseudo pour un ancien compte)"}</label><input class="field" id="am-m" type="${su ? "email" : "text"}" inputmode="email" autocomplete="username" value="${esc(ui.mail || "")}" placeholder="toi@exemple.fr">
+        <label class="label" for="am-pw">Mot de passe</label><input class="field" id="am-pw" type="password" autocomplete="${su ? "new-password" : "current-password"}" placeholder="6 caractères minimum">
+        ${su ? `<p class="muted" style="font-size:13.5px">Ton e-mail sert à te connecter et à changer de mot de passe si tu l'oublies. Tes amis ne le voient pas.</p>` : ""}
+        ${ui.msg ? `<p class="am-err">${esc(ui.msg)}</p>` : ""}${ui.info ? `<p class="muted" style="font-size:13.5px;margin:0">${esc(ui.info)}</p>` : ""}
+        <button class="btn" type="submit" ${ui.busy ? "disabled" : ""}>${ui.busy ? "Un instant…" : su ? "Créer mon compte" : "Me connecter"}</button>
+        ${su ? "" : `<button class="btn ghost small" type="button" data-am="forgot">Mot de passe oublié ?</button>`}
+      </form></section>`;
+  }
+  // Pendant un duel : bandeau avec la progression de l'adversaire
+  function duelBar(s){ return `<div id="duelbar" class="duelbar">${duelBarInner(s)}</div>`; }
+  function duelBarInner(s){
+    const d = duels.find(x => x.id === s.duel.id), r = d && d.res && d.res[s.duel.opp];
+    const info = s.duel.live ? (r && r.done ? " <small>(fini)</small>" : "") : (r && r.done ? "" : " <small>(pas encore joué)</small>");
+    return `<span>Toi <b>${score(s).ok}</b></span><span class="vs">contre</span><span>${esc(pseudoOf(s.duel.opp))} <b>${r ? r.ok : 0}</b>${info}</span>`;
+  }
+  function updateDuelBar(){ const s = S.session, el = document.getElementById("duelbar"); if (s && s.duel && el) el.innerHTML = duelBarInner(s); }
+  function countdown(s){
+    const left = Math.ceil((s.duel.start - Date.now()) / 1000);
+    setTimeout(() => { if (S.session === s) render(); }, Math.min(1000, s.duel.start - Date.now() + 30));
+    return `<section class="stack" style="text-align:center;padding-top:40px;align-items:center"><div class="label">${esc(MODE_NAME[s.mode] || (s.mode === "avap" ? "Avant ou après ?" : "Duel"))} · en direct contre ${esc(pseudoOf(s.duel.opp))}</div>${avatar(s.duel.opp, 90)}<div class="score">${Math.max(left, 1)}</div><p class="muted">Prêt ? Le meilleur score gagne, puis le plus rapide.</p></section>`;
+  }
+  function recap(s){
+    const d = duels.find(x => x.id === s.duel.id), o = d && outcome(d, uid()), r = d && d.res && d.res[s.duel.opp];
+    if (o === null || o === undefined) return `<div class="card"><b>${r && !r.done && s.duel.live ? esc(pseudoOf(s.duel.opp)) + " n'a pas encore fini…" : "Ton score est envoyé à " + esc(pseudoOf(s.duel.opp)) + "."}</b><p class="muted">Tu verras le résultat dans l'onglet JcJ.</p></div>`;
+    return `<div class="card banner-am"><b>${o === 1 ? "Victoire !" : o === -1 ? "Défaite…" : "Égalité"}</b><p class="muted">Score de ${esc(pseudoOf(s.duel.opp))} : ${r.ok}.</p></div>`;
+  }
+
+  /* --- Clics et formulaires --- */
+  async function click(b){
+    const a = b.dataset.am, v = b.dataset.v, id = b.dataset.id; ui.msg = ""; ui.info = "";
+    const mEl = document.getElementById("am-m"); if (mEl) ui.mail = mEl.value;
+    try {
+      if (a === "seg") ui.seg = v;
+      else if (a === "friend") ui.friend = ui.friend === v ? "" : v;
+      else if (a === "mode") ui.mode = v;
+      else if (a === "theme") ui.theme = v;
+      else if (a === "n") ui.n = +v;
+      else if (a === "kind") ui.kind = v;
+      else if (a === "board") { ui.view = "board"; render(); return window.scrollTo(0, 0); }
+      else if (a === "back") ui.view = "main";
+      else if (a === "bd") ui.board = v;
+      else if (a === "go") return await challenge();
+      else if (a === "accept") { b.closest(".am-inv") && b.closest(".am-inv").remove(); return await accept(id); }
+      else if (a === "refuse") { b.closest(".am-inv") && b.closest(".am-inv").remove(); await db.doc("duels/" + id).update({state:"declined"}); return; }
+      else if (a === "cancel") await db.doc("duels/" + id).update({state:"cancelled"});
+      else if (a === "logout") { push(true); await auth.signOut(); S.amis = {link:S.amis.link, syncAt:S.amis.syncAt}; save(); }
+      else if (a === "forgot") await forgot(ui.mail || "");
+      else if (a === "cloudget") return restore(cloud.offer, false);
+      else if (a === "cloudkeep") { cloud.offer = null; S.amis.link = uid(); cloud.ready = true; save(); push(true); }
+    } catch(e){ ui.msg = typeof e === "string" ? e : "Une erreur est survenue. Réessaie."; }
+    render();
+  }
+  document.addEventListener("submit", async e => {
+    if (e.target.id !== "am-form") return; e.preventDefault();
+    const pe = document.getElementById("am-p"), p = pe ? pe.value : "", m = document.getElementById("am-m").value, pw = document.getElementById("am-pw").value;
+    ui.mail = m; ui.busy = true; ui.msg = ""; ui.info = ""; render();
+    try { ui.seg === "signup" ? await signup(p, m, pw) : await login(m, pw); }
+    catch(x){ ui.msg = typeof x === "string" ? x : "Une erreur est survenue. Réessaie."; }
+    ui.busy = false; render();
+  });
+
+  // Au démarrage : si on était connecté, on se reconnecte pour recevoir les défis
+  setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
+
+  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false)};
+})();
+
+/* --- Badges « En ligne » --- */
+[["ami1","bronze",1,"played","Premier duel","Jouer ton premier duel contre un ami",20],
+ ["ami10","argent",10,"played","10 duels joués","Jouer 10 duels contre des amis",50],
+ ["win1","bronze",1,"wins","Première victoire","Gagner un duel",30],
+ ["win5","argent",5,"wins","5 victoires","Gagner 5 duels",60],
+ ["win20","or",20,"wins","20 victoires","Gagner 20 duels",120],
+ ["win50","platine",50,"wins","50 victoires","Gagner 50 duels",250],
+ ["serie3","or",3,"best","Invincible","Gagner 3 duels d'affilée",80],
+ ["live1","argent",1,"live","Rapide comme l'éclair","Gagner un duel en direct",50],
+ ["touche","argent",5,"modes","Touche-à-tout","Jouer un duel dans chacun des 5 modes",60],
+ ["parfait","or",1,"perfect","Sans-faute","Faire un sans-faute dans un duel Classique d'au moins 10 questions",80],
+ ["marathon","platine",1,"big","Marathonien","Gagner un duel Classique de 20 questions",100],
+ ["releve10","argent",10,"accepted","Toujours partant","Relever 10 défis lancés par tes amis",50],
+ ["top1","diamant",1,"top1","Numéro 1","Être premier du classement des duels avec au moins 5 duels",150]
+].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id:"on_" + id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal, cur:() => (S.online && S.online[k]) || 0}));

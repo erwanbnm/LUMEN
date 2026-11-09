@@ -14,10 +14,12 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
 - Peu de questions en images (drapeaux, silhouettes) : ne pas en ajouter en masse.
 - Méthode de travail : toute grosse nouveauté ou gros changement visuel est d'abord montré sur une page à part (prototype). Erwan valide, puis on intègre.
 - **Mode admin** (7 touches sur « À propos », pièces infinies) : Erwan a choisi de le garder pour lui dans la version partagée (novembre 2026). Ne pas le retirer sans qu'il le demande, ne pas le rendre plus visible. Il ne doit jamais influencer le classement ni les duels.
+- **JcJ (mode en ligne)** : pas de système de demandes d'ami. Tous les joueurs inscrits se voient automatiquement (choix d'Erwan, novembre 2026 : petit groupe, plus simple). Les duels se jouent dans les vrais modes du jeu, avec les mêmes règles pour les deux joueurs (pas d'améliorations de boutique).
 
 ## Structure
 - `app.html` : squelette, tout le CSS, le balisage. Contient les emplacements `/*__ART__*/`, etc., remplis par `build.py`.
 - `main.js` : toute la logique de l'appli (état `S` sauvegardé dans localStorage sous `chevet.v2`, rendu, modes, missions, succès, boutique…).
+- `amis.js` : mode en ligne (onglet Amis) avec Firebase : comptes pseudo + mot de passe, classement, défis personnalisés (ami, thème, 5/10/15/20 questions, en différé ou en direct), badges « En ligne ». `FIREBASE_CONFIG` en haut du fichier ; règles de sécurité dans `firestore.rules`. Ajouté après `main.js` par `build.py`.
 - `music.js` : musique et effets sonores générés (Web Audio).
 - `splash.js`, `extra.js` : animation de lancement, données supplémentaires (faits du jour, événements datés…).
 - `atelier/` : dessins SVG en code (personnages, skins, accessoires, badges, icônes `gicons.js` avec `GI` et les icônes en relief `GI3`).

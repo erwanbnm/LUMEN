@@ -174,7 +174,7 @@ function load(){
   if (S.profile && !(S.profile.avatar < CHARS.length)) S.profile.avatar = 0;
   if (!S.up) S.up = {life:0, time:0};
   if (!S.frozen) S.frozen = {}; if (!S.acc) S.acc = {own:{}, eq:{}}; if (!S.succ) S.succ = {}; if (!S.mots) S.mots = {}; if (!S.diff) S.diff = "mix"; if (!S.skins) S.skins = {}; if (!S.st) S.st = {spent:0, bj:0, rl:0};
-  if (!["accueil","jouer","boutique","profil"].includes(S.tab)) S.tab = "accueil";
+  if (!["accueil","jouer","amis","boutique","profil"].includes(S.tab)) S.tab = "accueil";
   if (S.session && (S.session.date !== today() || S.session.mode === "chrono")) S.session = null;
   if (S.session && S.session.mode === "daily") { S.pausedDaily = S.session; S.session = null; }
   if (S.pausedDaily && S.pausedDaily.date !== today()) S.pausedDaily = null;
@@ -187,7 +187,7 @@ function applyTheme(){
   if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
   else delete document.documentElement.dataset.theme;
 }
-function save(){ if (S && S.admin && S.admin.inf) S.coins = Math.max(S.coins, 99999); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function save(){ if (S && S.admin && S.admin.inf) S.coins = Math.max(S.coins, 99999); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} if (typeof Amis !== "undefined") Amis.dirty(); }
 
 function streak(){ const fz = S.frozen || {}; let d = S.days[today()] ? T() : T()-1, n = 0; while (S.days[fromNum(d)] || fz[fromNum(d)]) { if (S.days[fromNum(d)]) n++; d--; } return n; }
 function runEndingAt(d){ const fz = S.frozen || {}; let n = 0; while (S.days[fromNum(d)] || fz[fromNum(d)]) { if (S.days[fromNum(d)]) n++; d--; } return n; }
@@ -366,6 +366,13 @@ function newSession(mode, extra){
   } else if (mode === "avap") {
     s.score = 0; s.used = []; s.a = Math.floor(r()*EV.length); s.used.push(s.a); s.b = nextEvent(s); s.kind = "cmp";
   }
+  // Duel entre amis : mêmes questions et mêmes règles pour les deux joueurs (sans les améliorations de la boutique)
+  if (s.duel) {
+    s.t0 = Date.now();
+    if (s.qids) s.steps = s.qids.filter(id => Q[id]).map(qStep);
+    if (mode === "chrono") { s.total = 60; s.ends = Math.max(Date.now(), s.duel.start || 0) + 60000; }
+    if (mode === "survie") { s.maxLives = 3; s.lives = 3; }
+  }
   return s;
 }
 function nextFor(s){
@@ -401,8 +408,8 @@ const TAB_ICONS = {
   profil:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg>'
 };
 TAB_ICONS.boutique = '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
-const GTAB = {accueil:"home", jouer:"play", boutique:"shop", parc:"parc", profil:"user"};
-const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", boutique:"Boutique", parc:"Parc", profil:"Profil"};
+const GTAB = {accueil:"home", jouer:"play", amis:"sword", boutique:"shop", parc:"parc", profil:"user"};
+const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"JcJ", boutique:"Boutique", parc:"Parc", profil:"Profil"};
 let adminTaps = 0, libFilter = "all", libQuery = "", confirmReset = false, tick = null, autoNext = null, profSeg = "progres", shopSeg = "skins", draft = null, formErr = "", copyFallback = "";
 
 function renderTabs(){
@@ -449,9 +456,11 @@ function render(){
   let html = header();
   if (toasts.length) { html += toasts.map(t=>`<div class="toast" role="status">${t}</div>`).join(""); toasts = []; }
   const active = s && S.tab === "jouer";
-  if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
+  if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
+  else if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
   else if (S.tab==="accueil") html += renderHome();
   else if (S.tab==="jouer") html += renderPlay();
+  else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
   else html += renderProfile();
   app.innerHTML = `<div class="fade">${html}</div>`;
@@ -601,12 +610,13 @@ const tense = () => { const s = S.session; if (!s || s.done || S.tab !== "jouer"
   return false; };
 
 /* --- Partie --- */
-const MODE_NAME = {qad:"Qui a dit ?", daily:"Défi du jour", serie:"Série", mix:"Grand mélange", revoir:"Revoir mes erreurs", chrono:"Chrono", survie:"Survie"};
+const MODE_NAME = {qad:"Qui a dit ?", daily:"Défi du jour", serie:"Série", mix:"Grand mélange", revoir:"Revoir mes erreurs", chrono:"Chrono", survie:"Survie", duel:"Duel"};
 function renderGame(){
   const s = S.session;
   if (s.done || (s.pos >= s.steps.length && s.mode !== "chrono" && s.mode !== "survie")) return renderRecap();
   const st = s.steps[s.pos];
   let head = `<div class="row between" style="margin-bottom:10px"><span class="label">${MODE_NAME[s.mode]}${s.mode==="serie"?" · "+esc(THEMES[s.theme].n):""}</span><button class="quit" data-quit>${s.mode==="daily"?"Pause":"Quitter"}</button></div>`;
+  if (s.duel) head += Amis.duelBar(s);
   if (s.mode === "chrono") {
     const left = Math.max(0, s.ends - Date.now());
     head += `<div class="row between" style="margin-bottom:8px"><span class="label">Score ${s.score||0}</span><span class="label" id="tleft">${Math.ceil(left/1000)} s</span></div><div class="timer"><i id="tbar" style="width:${left/(s.total*10)}%"></i></div>`;
@@ -680,7 +690,7 @@ function renderRecap(){
   let big, title;
   if (s.mode === "chrono") { big = ok; title = plural(ok,"bonne réponse")+" en "+s.total+" secondes."; }
   else if (s.mode === "survie") { big = ok; title = "Tu as tenu "+plural(qs.length,"question")+"."; }
-  else { big = ok+"/"+qs.length; title = s.mode==="daily" ? "Défi terminé : tu as appris "+items.length+" choses." : "Série terminée."; }
+  else { big = ok+"/"+qs.length; title = s.mode==="daily" ? "Défi terminé : tu as appris "+items.length+" choses." : s.duel ? "Duel terminé." : "Série terminée."; }
   const msg = s.newRec ? "Nouveau record !" : ok===qs.length && qs.length ? "Sans faute." : "Tes erreurs t'attendent dans Revoir mes erreurs, quand tu veux.";
   return `<section class="stack">
     <div class="label">${MODE_NAME[s.mode]}${s.mode==="serie"?" · "+esc(THEMES[s.theme].n):""} · bilan</div>
@@ -688,9 +698,10 @@ function renderRecap(){
     <h1 class="big" style="font-size:28px">${title}</h1>
     <p class="muted">${msg}</p>
     <div class="row"><span class="chip lamp">+${s.xp} XP</span><span class="chip lamp">${coinIco}+${fmtC(s.coins)}${s.mode==="daily"&&!S.days[s.date]?" (+10 en terminant)":""}</span><span class="chip">Meilleur combo : ${s.best}</span></div>
+    ${s.duel ? Amis.recap(s) : ""}
     ${recapList(items)}
     <button class="btn" data-end>${s.mode==="daily"?"Terminer le défi":"Continuer"}</button>
-    ${s.mode!=="daily"?`<button class="btn ghost" data-again>Rejouer</button>`:""}
+    ${s.mode!=="daily"&&!s.duel?`<button class="btn ghost" data-again>Rejouer</button>`:""}
   </section>`;
 }
 function finish(){
@@ -703,13 +714,14 @@ function finish(){
   const nq = itemsOf(s).filter(i=>"id" in i).length;
   if ((s.mode === "serie" || s.mode === "mix" || s.mode === "qad") && nq >= 10 && ok === nq) winSucces("parfait");
   if (s.diff === "expert" && nq >= 10 && ok >= 8) winSucces("expert");
+  if (s.duel) Amis.sync(s);
   checkBadges(); save(); render();
 }
 
 /* --- Avant ou après --- */
 function renderAvap(){
   const s = S.session, A = EV[s.a];
-  const head = `<div class="row between" style="margin-bottom:12px"><span class="label">Avant ou après ? · série ${s.score}</span><button class="quit" data-quit>Quitter</button></div>`;
+  const head = `<div class="row between" style="margin-bottom:12px"><span class="label">Avant ou après ? · série ${s.score}</span><button class="quit" data-quit>Quitter</button></div>` + (s.duel ? Amis.duelBar(s) : "");
   if (s.b < 0) s.done = true;
   if (s.done) {
     return head+`<section class="stack"><div class="score">${s.score}</div>
@@ -717,7 +729,7 @@ function renderAvap(){
       ${s.lastMissY ? `<div class="list"><div class="item"><span class="mk ko">✗</span><div><b>${esc(EV[s.lastMissY[0]][0])}</b><span>${yearTxt(EV[s.lastMissY[0]][1])} (tu avais dit ${yearTxt(s.lastMissY[1])})</span></div></div></div>` : ""}
       ${s.lastMiss ? `<div class="list"><div class="item"><span class="mk ko">✗</span><div><b>${esc(EV[s.lastMiss[0]][0])}</b><span>${yearTxt(EV[s.lastMiss[0]][1])}, donc ${s.lastMiss[1]} l'événement d'avant</span></div></div><div class="item"><span class="mk f">★</span><div><b>${esc(EV[s.lastMiss[2]][0])}</b><span>${yearTxt(EV[s.lastMiss[2]][1])}</span></div></div></div>` : ""}
       <div class="row"><span class="chip lamp">+${s.xp||0} XP</span><span class="chip lamp">${coinIco}+${s.score}</span></div>
-      <button class="btn" data-again>Rejouer</button><button class="btn ghost" data-end>Continuer</button></section>`;
+      ${s.duel ? Amis.recap(s) + `<button class="btn" data-end>Continuer</button>` : `<button class="btn" data-again>Rejouer</button><button class="btn ghost" data-end>Continuer</button>`}</section>`;
   }
   const B = EV[s.b], shown = s.ans !== undefined;
   const ev = (e, showY) => `<div class="ev"><div class="yr ${showY?"":"hid"}">${showY?yearTxt(e[1]):"?"}</div><h2>${esc(e[0])}</h2><div class="row" style="margin-top:8px"><span class="chip">${dot(e[2])}${esc(THEMES[e[2]].n)}</span></div></div>`;
@@ -839,6 +851,7 @@ function leaveSession(){
   const s = S.session; if (!s) return;
   clearTimeout(autoNext);
   if (s.mode === "daily" && !s.done) S.pausedDaily = s;
+  if (s.duel && !s.done) { s.done = true; Amis.sync(s); } // quitter un duel = rendre sa copie
   S.session = null;
 }
 function goNext(){
@@ -859,16 +872,17 @@ function shareText(){
 // Avant ou après, manche « année » : Entrée valide la réponse
 document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target && e.target.id === "avyear") { e.preventDefault(); const v = document.querySelector("[data-avyear]"); if (v) v.click(); } });
 document.addEventListener("click", e => {
-  try { onClick(e); } catch(err) { console.error(err); try { save(); render(); } catch(e2){} }
+  try { onClick(e); if (S.session && S.session.duel) Amis.sync(S.session); } catch(err) { console.error(err); try { save(); render(); } catch(e2){} }
 });
 function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
+  if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
   if (d.avPick !== undefined) { draft.avatar = +d.avPick; formErr = ""; const keep = readDraft(); return render(), keep; }
   const fromBar = !!b.closest("#tabs");
   // Sons de navigation : « pop » sur les onglets du bas, petit clic sur les autres boutons (les réponses ont leur propre son)
   if (S.settings && S.settings.sfx !== false && d.ans === undefined && !d.av && d.avyear === undefined) {
-    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","boutique","parc","profil"].indexOf(d.tab) : "tap"); } catch(err){}
+    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","parc","profil"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
   }
   if (d.tab === "parc") { leaveSession(); save(); if (fromBar) { tabFx("parc"); setTimeout(() => Parc.open(), 480); } else Parc.open(); return; }
   if (d.tab) {
@@ -912,7 +926,7 @@ function onClick(e){
       if (qs.length >= 10 && qs.every(i=>i.ok)) winSucces("parfait");
       S.bestStreak = Math.max(S.bestStreak||0, streak()); checkBadges();
     }
-    const back = s && s.mode==="daily" ? "accueil" : "jouer";
+    const back = s && s.mode==="daily" ? "accueil" : s && s.duel ? "amis" : "jouer";
     S.session = null; S.tab = back; save(); render(); return window.scrollTo(0,0);
   }
   if (d.again !== undefined) return start(s.mode, s.mode==="serie" ? {theme:s.theme} : null);

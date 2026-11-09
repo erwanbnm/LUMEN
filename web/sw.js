@@ -12,6 +12,9 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET") return;
+  // Mode en ligne (Firebase) : jamais de cache, sinon les duels ne se mettraient plus à jour
+  const host = new URL(req.url).hostname;
+  if (/googleapis\.com$|firebaseio\.com$|firebaseapp\.com$/.test(host) && !/^fonts\./.test(host)) return;
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(r => { const copy = r.clone(); caches.open(CACHE).then(c => c.put("./index.html", copy)); return r; })
       .catch(() => caches.match("./index.html")));
