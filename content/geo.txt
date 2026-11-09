@@ -10,8 +10,8 @@
 1|Quel est le plus haut sommet du monde ?|L'Everest|Le K2|Le mont Blanc|L'Aconcagua|8 849 m, entre le Népal et la Chine. Il grandit encore de quelques millimètres par an.
 1|Quel est le plus haut sommet des Alpes ?|Le mont Blanc|Le Cervin|Le mont Rose|La Meije|Environ 4 805 m. Sa hauteur varie de quelques mètres selon l'épaisseur de neige.
 1|Quel est le plus grand pays du monde par la superficie ?|La Russie|Le Canada|La Chine|Les États-Unis|Plus de 17 millions de km², environ 30 fois la France métropolitaine.
-2|Quel est le plus long fleuve du monde ?|Le Nil ou l'Amazone, selon les mesures|Le Mississippi|Le Yangzi Jiang|Le Danube|Le débat dure toujours : tout dépend d'où l'on fait partir la source. L'Amazone a de loin le plus gros débit.
-1|Quelle est la capitale de l'Espagne ?|Madrid|Barcelone|Séville|Valence|Située presque au centre géographique du pays, elle est capitale depuis 1561.
+2|Quel est le plus long fleuve du monde ?|Le Nil ou l'Amazone|Le Mississippi ou le Missouri|Le Yangzi ou le Mékong|Le Danube ou la Volga|Tout dépend d'où l'on fait partir la source : les deux dépassent 6 400 km et les géographes ne sont pas d'accord.
+1|Quelle est la capitale de la Catalogne ?|Barcelone|Madrid|Valence|Gérone|C'est la deuxième ville d'Espagne. Madrid est la capitale du pays.
 2|Quelle est la capitale du Maroc ?|Rabat|Casablanca|Marrakech|Fès|Casablanca est la plus grande ville, mais Rabat est la capitale politique.
 2|Quelle est la capitale de la Turquie ?|Ankara|Istanbul|Izmir|Antalya|Choisie en 1923 par Atatürk. Istanbul reste la ville la plus peuplée.
 2|Quelle est la capitale de la Suisse ?|Berne|Genève|Zurich|Lausanne|Officiellement, la Suisse n'a pas de capitale : Berne est la « ville fédérale ».
@@ -19,7 +19,7 @@
 3|Quelle est la capitale du Kazakhstan ?|Astana|Almaty|Tachkent|Bichkek|Elle a changé plusieurs fois de nom : Astana, puis Noursoultan, puis à nouveau Astana en 2022.
 1|Combien de continents compte-t-on traditionnellement en France ?|6|5|7|4|Europe, Asie, Afrique, Amérique, Océanie et Antarctique. Les anglophones séparent souvent les deux Amériques.
 2|Quel pays est le plus peuplé du monde depuis 2023 ?|L'Inde|La Chine|Les États-Unis|L'Indonésie|Selon l'ONU, l'Inde a dépassé la Chine en 2023, avec plus de 1,4 milliard d'habitants.
-2|Dans quel pays se trouve le lac Titicaca ?|Entre le Pérou et la Bolivie|Au Chili|Au Mexique|En Argentine|À environ 3 800 m d'altitude, c'est le grand lac navigable le plus haut du monde.
+2|Où se trouve le lac Titicaca ?|Entre le Pérou et la Bolivie|Entre le Chili et l'Argentine|Entre le Mexique et le Guatemala|Entre l'Équateur et la Colombie|À plus de 3 800 m d'altitude, c'est le grand lac navigable le plus haut du monde.
 2|Quel est le lac le plus profond du monde ?|Le Baïkal|Le lac Supérieur|Le lac Victoria|La mer Caspienne|En Sibérie, plus de 1 600 m de profondeur. Il contient environ 20 % de l'eau douce liquide de la planète.
 2|Quelle est la plus grande île du monde ?|Le Groenland|L'Australie|Madagascar|Bornéo|L'Australie est considérée comme un continent. Le Groenland fait environ quatre fois la France.
 3|À quel pays appartient le Groenland ?|Au Danemark|À la Norvège|Au Canada|À l'Islande|Il est autonome, mais fait partie du royaume du Danemark.
@@ -31,11 +31,11 @@
 2|Quel fleuve traverse Londres ?|La Tamise|La Seine|Le Rhin|Le Danube|Elle se jette dans la mer du Nord. Sa marée remonte jusqu'au cœur de Londres.
 2|Quel fleuve traverse le plus de pays en Europe ?|Le Danube|Le Rhin|La Volga|Le Rhône|Il traverse ou longe dix pays, dont quatre capitales : Vienne, Bratislava, Budapest et Belgrade.
 2|Dans quel pays se trouve Tombouctou ?|Le Mali|Le Niger|Le Sénégal|Le Tchad|Ancienne cité commerçante et savante au bord du Sahara, inscrite à l'UNESCO.
-1|Dans quel pays se trouvent les pyramides de Gizeh ?|L'Égypte|Le Soudan|Le Mexique|La Jordanie|Aux portes du Caire. Le Soudan possède pourtant plus de pyramides que l'Égypte.
+2|Sur quel plateau se trouvent les pyramides de Khéops, Khéphren et Mykérinos ?|Gizeh|Saqqarah|Louxor|Assouan|À la sortie du Caire. Saqqarah abrite une pyramide plus ancienne, à degrés.
 2|Quel pays compte le plus de pyramides au monde ?|Le Soudan|L'Égypte|Le Mexique|Le Pérou|Plus de 200 pyramides nubiennes, plus petites et plus pointues que celles d'Égypte.
 3|Quel est le point le plus bas des terres émergées ?|Les rives de la mer Morte|La vallée de la Mort|Le désert du Danakil|La dépression de Qattara|Environ 430 m sous le niveau de la mer, et il baisse encore chaque année.
 2|Quelle est la fosse océanique la plus profonde ?|La fosse des Mariannes|La fosse de Porto Rico|La fosse des Kouriles|La fosse du Japon|Près de 11 000 m. L'Everest y disparaîtrait entièrement sous l'eau.
-1|Quel pays a la forme d'une botte ?|L'Italie|La Grèce|Le Portugal|La Croatie|Avec la Sicile en guise de ballon, comme disent les écoliers.
+2|Quel détroit sépare la Sicile du reste de l'Italie ?|Le détroit de Messine|Le détroit de Bonifacio|Le détroit d'Otrante|Le canal de Corinthe|Il ne mesure que 3 km à son point le plus étroit. Le détroit de Bonifacio sépare la Corse de la Sardaigne.
 2|Combien de pays partagent une frontière terrestre avec la France métropolitaine ?|8|6|5|10|Belgique, Luxembourg, Allemagne, Suisse, Italie, Monaco, Espagne et Andorre.
 3|Avec quel pays la France partage-t-elle sa plus longue frontière terrestre ?|Le Brésil|L'Espagne|La Belgique|La Suisse|Environ 730 km, par la Guyane. Celle avec l'Espagne fait environ 650 km.
 2|Dans quel pays se trouve la ville de Venise ?|L'Italie|La Croatie|La Grèce|La Slovénie|Construite sur plus de 100 îlots reliés par environ 400 ponts.
@@ -48,19 +48,19 @@
 1|Dans quel pays se trouve la ville de Marrakech ?|Le Maroc|La Tunisie|L'Algérie|L'Égypte|Sa place Jemaa el-Fna est classée au patrimoine immatériel de l'UNESCO.
 3|Quel pays est enclavé entièrement dans l'Afrique du Sud ?|Le Lesotho|L'Eswatini|Le Botswana|Le Malawi|Un royaume de montagnes dont tout le territoire est à plus de 1 000 m d'altitude.
 2|Quel désert est le plus aride du monde, hors pôles ?|L'Atacama|Le Sahara|Le Gobi|Le Namib|Au Chili. Certaines stations n'y ont jamais enregistré de pluie.
-1|Quel fleuve traverse Paris ?|La Seine|La Loire|Le Rhône|La Marne|Elle prend sa source sur le plateau de Langres et se jette dans la Manche au Havre. Paris compte 37 ponts sur la Seine.
+2|Près de quelle ville la Seine se jette-t-elle dans la Manche ?|Le Havre|Rouen|Cherbourg|Dieppe|Son estuaire s'ouvre entre Le Havre et Honfleur, après environ 780 km.
 1|Quel fleuve rejoint la Saône à Lyon ?|Le Rhône|La Seine|La Garonne|La Loire|Les deux se rejoignent au « confluent », au sud de la presqu'île. Le Rhône prend sa source dans un glacier suisse et se jette dans la Méditerranée en Camargue.
 2|Quel fleuve passe à Bordeaux ?|La Garonne|La Dordogne|La Loire|Le Lot|Avec la Dordogne, elle forme l'estuaire de la Gironde, le plus grand d'Europe occidentale.
-2|Quel massif montagneux occupe le centre de la France ?|Le Massif central|Le Jura|Les Vosges|Le Morvan|Il est en partie fait d'anciens volcans, comme la chaîne des Puys autour de Clermont-Ferrand. Le puy de Sancy en est le point culminant.
+2|Quel est le point culminant du Massif central ?|Le puy de Sancy|Le puy de Dôme|Le plomb du Cantal|Le mont Mézenc|Il culmine à 1 885 m, dans le massif des monts Dore, en Auvergne.
 2|Quelle île française est surnommée « l'île de Beauté » ?|La Corse|La Sardaigne|Porquerolles|Belle-Île|Elle est française depuis 1768. C'est la quatrième plus grande île de la Méditerranée, après la Sicile, la Sardaigne et Chypre.
 2|Quel département d'outre-mer se trouve dans l'océan Indien, près de Madagascar ?|La Réunion|La Martinique|La Guyane|La Guadeloupe|Elle abrite le piton de la Fournaise, l'un des volcans les plus actifs du monde. Mayotte, autre département, est aussi dans l'océan Indien.
 2|Sur quel continent se trouve la Guyane française ?|L'Amérique du Sud|L'Afrique|L'Amérique du Nord|L'Océanie|Entre le Suriname et le Brésil. Plus de 90 % de son territoire est couvert de forêt amazonienne.
-1|Quelle mer borde le sud de la France ?|La mer Méditerranée|La mer du Nord|La Manche|La mer Baltique|Elle n'a presque pas de marées. Elle communique avec l'Atlantique par le détroit de Gibraltar, large d'à peine 14 km.
+1|Quel fleuve forme la Camargue en se jetant dans la Méditerranée ?|Le Rhône|La Durance|L'Hérault|Le Var|Il se divise en deux bras qui encadrent ce delta, célèbre pour ses chevaux blancs et ses flamants roses.
 2|Quel bras de mer sépare la France de l'Angleterre ?|La Manche|La mer du Nord|La mer d'Irlande|Le golfe de Gascogne|Le tunnel sous la Manche, ouvert en 1994, la traverse sur environ 50 km, dont 38 sous la mer.
 2|Quelle est la plus haute dune d'Europe ?|La dune du Pilat|La dune du Cotentin|La dune de Merzouga|La dune de Bray|Près d'Arcachon, elle mesure un peu plus de 100 m et avance de quelques mètres par an vers la forêt.
 2|Quel est le plus grand lac naturel entièrement français ?|Le lac du Bourget|Le lac Léman|Le lac d'Annecy|Le lac de Serre-Ponçon|En Savoie. Le Léman est plus grand, mais il est partagé avec la Suisse. Serre-Ponçon est un lac artificiel, créé par un barrage.
 3|Quel est le point le plus à l'ouest de la France continentale ?|La pointe de Corsen|La pointe du Raz|Le cap Gris-Nez|La pointe de Grave|En Bretagne, dans le Finistère. On la confond souvent avec la pointe du Raz, plus célèbre. Si l'on compte les îles, Ouessant est encore plus à l'ouest.
-1|Sur quel continent se trouve l'Égypte ?|L'Afrique|L'Asie|L'Europe|L'Océanie|Elle déborde un peu sur l'Asie avec la péninsule du Sinaï, de l'autre côté du canal de Suez.
+3|Quel lac artificiel est né du haut barrage d'Assouan, en Égypte ?|Le lac Nasser|Le lac Victoria|Le lac Tana|Le lac Turkana|Il a fallu déplacer pièce par pièce le temple d'Abou Simbel pour le sauver des eaux.
 2|Quel canal relie la Méditerranée à la mer Rouge ?|Le canal de Suez|Le canal de Panama|Le canal de Corinthe|Le canal du Midi|Inauguré en 1869, il a été conçu par le Français Ferdinand de Lesseps. Il évite aux navires de faire le tour de l'Afrique.
 2|Quel canal relie l'océan Atlantique au Pacifique ?|Le canal de Panama|Le canal de Suez|Le canal de Kiel|Le canal de Corinthe|Ouvert en 1914. Les navires y montent et descendent grâce à des écluses, jusqu'à 26 m au-dessus du niveau de la mer.
 2|Quel est le plus long fleuve d'Europe ?|La Volga|Le Danube|Le Rhin|Le Dniepr|Environ 3 500 km, entièrement en Russie. Elle se jette dans la mer Caspienne.
@@ -70,12 +70,12 @@
 2|Quel fleuve a le plus grand débit du monde ?|L'Amazone|Le Nil|Le Congo|Le Mississippi|Il rejette à lui seul environ un cinquième de l'eau douce qui arrive dans les océans. Aucun pont ne le traverse.
 3|Quelle rivière, affluent du Mississippi, est en fait un peu plus longue que lui ?|Le Missouri|L'Ohio|Le Colorado|L'Hudson|Ensemble, ils forment l'un des plus grands réseaux de cours d'eau du monde, qui draine une grande partie des États-Unis.
 2|Dans quel pays se trouve le Grand Canyon ?|Les États-Unis|Le Mexique|Le Canada|Le Pérou|En Arizona, creusé par le fleuve Colorado pendant des millions d'années. Il atteint environ 1 800 m de profondeur.
-2|Quelle chaîne de montagnes longe l'Amérique du Sud du nord au sud ?|La cordillère des Andes|Les Rocheuses|L'Himalaya|L'Atlas|C'est la plus longue chaîne de montagnes à l'air libre, environ 7 000 km. On y trouve des volcans et des villes à plus de 3 500 m d'altitude.
+2|Quelle chaîne de montagnes longe l'Amérique du Sud du nord au sud ?|Les Andes|Les Rocheuses|L'Himalaya|L'Atlas|C'est la plus longue chaîne de montagnes émergée du monde, avec environ 7 000 km.
 3|Quel est le plus haut sommet d'Amérique du Sud ?|L'Aconcagua|Le Chimborazo|Le Huascarán|Le Cotopaxi|Environ 6 960 m, en Argentine, près du Chili. C'est le plus haut sommet du monde en dehors de l'Asie.
 2|Dans quelle chaîne de montagnes se trouve l'Everest ?|L'Himalaya|Les Andes|Les Rocheuses|Le Caucase|Elle contient les dix plus hauts sommets du monde. Elle grandit encore de quelques millimètres par an, car l'Inde pousse contre le reste de l'Asie.
 2|Quelles montagnes marquent traditionnellement la limite entre l'Europe et l'Asie ?|L'Oural|Le Caucase|Les Carpates|Les Alpes|Elles traversent la Russie du nord au sud. Leurs sommets sont modestes, moins de 2 000 m, car la chaîne est très ancienne et usée par l'érosion.
 3|Quel est le plus haut sommet d'Europe si l'on compte le Caucase ?|L'Elbrouz|Le mont Blanc|Le Cervin|Le mont Olympe|Environ 5 640 m, en Russie. Si l'on s'en tient aux Alpes, c'est le mont Blanc.
-1|Quel océan sépare l'Europe de l'Amérique ?|L'Atlantique|Le Pacifique|L'océan Indien|L'océan Arctique|Il s'élargit de quelques centimètres par an. Charles Lindbergh l'a traversé seul en avion pour la première fois en 1927.
+3|Quelle commune est la plus au nord de la France métropolitaine ?|Bray-Dunes|Dunkerque|Calais|Wissant|Elle touche la frontière belge, sur la côte de la mer du Nord.
 2|Quel est le plus petit continent ?|L'Océanie|L'Europe|L'Antarctique|L'Amérique du Sud|L'Australie, qui en forme la plus grande partie, est parfois appelée « l'île-continent ». C'est aussi le continent habité le plus sec.
 2|Quel pays s'étend sur l'Europe et l'Asie, de part et d'autre du Bosphore ?|La Turquie|La Grèce|L'Égypte|L'Iran|Istanbul est à cheval sur les deux continents. La Russie aussi s'étend sur l'Europe et l'Asie.
 2|Quelle ville est construite sur 118 petites îles reliées par plus de 400 ponts ?|Venise|Amsterdam|Stockholm|Bruges|Elle s'enfonce lentement et subit les grandes marées de l'acqua alta. Des barrières mobiles protègent désormais sa lagune.
@@ -94,10 +94,10 @@
 2|Dans quel pays trouve-t-on les fjords les plus célèbres ?|La Norvège|L'Islande|L'Irlande|Le Portugal|Ces vallées creusées par les glaciers puis envahies par la mer peuvent être très profondes. Le Sognefjord s'enfonce de plus de 200 km dans les terres.
 2|Quel petit pays est entièrement entouré par l'Italie, en plus du Vatican ?|Saint-Marin|Monaco|Andorre|Le Liechtenstein|C'est l'une des plus anciennes républiques du monde, fondée selon la tradition en 301. Elle se trouve près de Rimini, sur le mont Titano.
 2|Entre quels pays se trouve la principauté d'Andorre ?|La France et l'Espagne|La France et l'Italie|L'Espagne et le Portugal|La Suisse et l'Autriche|Dans les Pyrénées. Le président de la République française en est l'un des deux coprinces, avec un évêque espagnol.
-1|Quel océan borde la côte ouest de la France ?|L'Atlantique|Le Pacifique|L'océan Indien|L'océan Arctique|C'est de l'ouest qu'arrivent la plupart des perturbations, d'où le climat océanique doux et humide de la Bretagne.
-2|Où se trouvent les plus grandes marées d'Europe continentale ?|Dans la baie du Mont-Saint-Michel|En Méditerranée|Dans la mer Baltique|À Venise|Jusqu'à 14 m d'écart entre marée basse et marée haute. La mer y remonte très vite, « à la vitesse d'un cheval au galop », dit-on.
+2|Dans quel département se trouve le Mont-Saint-Michel ?|La Manche|L'Ille-et-Vilaine|Le Calvados|Les Côtes-d'Armor|Il est en Normandie, à quelques kilomètres seulement de la Bretagne, d'où une rivalité amusée entre les deux régions.
+2|Où se trouvent les plus grandes marées d'Europe continentale ?|Dans la baie du Mont-Saint-Michel|Sur la Côte d'Azur|Dans le golfe de Gascogne|Sur la côte de la mer du Nord|La différence entre marée haute et marée basse peut y dépasser 14 mètres.
 1|Comment s'appelle la ligne imaginaire qui sépare les hémisphères Nord et Sud ?|L'équateur|Le méridien de Greenwich|Le tropique du Cancer|Le cercle polaire|Elle mesure environ 40 000 km. Le pays qui porte son nom, l'Équateur, est traversé par elle.
-2|Par quel lieu passe le méridien d'origine qui sert de base aux fuseaux horaires ?|Greenwich, près de Londres|Paris|New York|Rome|Il a été choisi en 1884. La France a longtemps utilisé son propre méridien, celui de Paris, qui passe par l'Observatoire.
+2|Par quel lieu passe le méridien d'origine qui sert de base aux fuseaux horaires ?|Greenwich|Paris|New York|Rome|Ce quartier de Londres a été choisi en 1884. La France a longtemps utilisé le méridien de Paris.
 1|Quel est le continent le plus peuplé ?|L'Asie|L'Afrique|L'Europe|L'Amérique|Environ six humains sur dix y vivent. L'Afrique est le continent dont la population augmente le plus vite.
 3|Quel est le plus long fleuve d'Asie ?|Le Yangzi Jiang|Le Mékong|Le Gange|L'Indus|Environ 6 300 km, entièrement en Chine. Le barrage des Trois-Gorges a été construit sur son cours.
 3|Quel grand fleuve d'Afrique de l'Ouest passe près de Tombouctou ?|Le Niger|Le Sénégal|La Gambie|La Volta|Il décrit une grande boucle par le Mali avant de se jeter dans le golfe de Guinée, au Nigeria, pays auquel il a donné son nom.
@@ -106,17 +106,17 @@
 3|Comment appelle-t-on la ceinture de volcans et de séismes qui entoure le Pacifique ?|La ceinture de feu|La dorsale atlantique|Le rift africain|La ligne de Wallace|Une grande partie des volcans actifs du monde s'y trouvent, du Chili au Japon en passant par l'Alaska.
 3|Quelle mer d'Asie centrale a presque disparu à cause de l'irrigation ?|La mer d'Aral|La mer Caspienne|La mer Morte|Le lac Baïkal|Ses rivières ont été détournées pour cultiver le coton. Des bateaux rouillés reposent aujourd'hui en plein désert.
 3|Quel est le plus haut sommet d'Océanie ?|Le Puncak Jaya|Le mont Cook|Le mont Kosciuszko|Le Mauna Kea|Environ 4 880 m, en Nouvelle-Guinée. Le plus haut sommet de l'Australie continentale ne dépasse pas 2 230 m.
-3|Quel sommet d'Alaska est le plus haut d'Amérique du Nord ?|Le Denali, aussi appelé mont McKinley|Le mont Logan|Le mont Whitney|Le mont Rainier|Environ 6 190 m. Il a porté ses deux noms selon les époques : Denali vient d'une langue amérindienne et signifie « le grand ».
+3|Quel sommet d'Alaska est le plus haut d'Amérique du Nord ?|Le Denali|Le mont Logan|Le mont Whitney|Le mont Rainier|Il culmine à 6 190 m. Il s'est longtemps appelé mont McKinley.
 3|Quel est le plus haut sommet de l'Antarctique ?|Le mont Vinson|Le mont Erebus|Le mont Kosciuszko|Le Denali|Environ 4 890 m. Le mont Erebus, lui, est un volcan actif du continent glacé.
 3|Quel détroit traverse Istanbul ?|Le Bosphore|Le détroit d'Ormuz|Le détroit de Messine|Le détroit de Malacca|Il relie la mer Noire à la mer de Marmara et sépare l'Europe de l'Asie. Les Dardanelles mènent ensuite à la Méditerranée.
 3|Quel détroit, entre l'Iran et Oman, voit passer une grande partie du pétrole mondial ?|Le détroit d'Ormuz|Le Bosphore|Le détroit de Gibraltar|Le canal de Suez|Il relie le golfe Persique à l'océan Indien. Environ un cinquième du pétrole transporté par mer y passe.
 3|Quel pays d'Afrique a deux villes espagnoles sur sa côte, Ceuta et Melilla ?|Le Maroc|L'Algérie|La Tunisie|La Mauritanie|Ce sont les seules frontières terrestres entre l'Union européenne et l'Afrique.
 3|Quel fleuve forme une grande partie de la frontière entre les États-Unis et le Mexique ?|Le Rio Grande|Le Colorado|Le Mississippi|Le Missouri|Les Mexicains l'appellent le Río Bravo. Il s'étend sur plus de 3 000 km.
-1|Quel est le plus grand continent ?|L'Asie|L'Afrique|L'Amérique|L'Europe|Elle couvre environ 30 % des terres émergées et abrite près de 60 % des humains.
-1|Sur quel continent se trouve le Brésil ?|L'Amérique du Sud|L'Afrique|L'Amérique du Nord|L'Océanie|C'est le seul pays d'Amérique du Sud où l'on parle portugais.
-1|Quel océan entoure le pôle Nord ?|L'océan Arctique|L'océan Austral|L'océan Indien|L'océan Pacifique|Il est en grande partie couvert de banquise. Le pôle Sud, lui, est sur un continent : l'Antarctique.
+2|Quel continent est traversé à la fois par l'équateur et par les deux tropiques ?|L'Afrique|L'Asie|L'Europe|L'Amérique du Sud|C'est le seul : l'Asie n'atteint pas le tropique du Capricorne et l'Amérique du Sud pas celui du Cancer.
+2|Lequel de ces pays n'a aucun accès à la mer ?|La Bolivie|Le Pérou|Le Chili|La Colombie|Elle a perdu son accès au Pacifique après une guerre contre le Chili à la fin du XIXe siècle, mais garde une marine sur le lac Titicaca.
+1|Quel est le plus petit des océans ?|L'océan Arctique|L'océan Indien|L'océan Austral|L'océan Atlantique|Il entoure le pôle Nord et reste en grande partie couvert de glace.
 1|Combien d'océans compte-t-on en général ?|5|3|7|10|Pacifique, Atlantique, Indien, Arctique et Austral. En réalité, ils forment un seul grand océan mondial relié.
-1|Quel pays est surnommé l'Hexagone, à cause de sa forme ?|La France|L'Espagne|L'Allemagne|La Belgique|Sa forme métropolitaine rappelle grossièrement un polygone à six côtés.
+2|Quel est le plus grand département français ?|La Guyane|La Gironde|Les Landes|La Dordogne|Elle est presque aussi grande que le Portugal. En métropole, le plus grand est la Gironde.
 2|Quel fleuve traverse Rome ?|Le Tibre|Le Pô|L'Arno|Le Rhône|Selon la légende, Romulus et Rémus ont été abandonnés dans un panier sur ce fleuve.
 2|Dans quel pays se trouve le mont Fuji ?|Le Japon|La Chine|La Corée du Sud|L'Indonésie|Ce volcan de 3 776 m, symbole du pays, n'est pas entré en éruption depuis 1707.
 2|Quelle île des Antilles est partagée entre la France et les Pays-Bas ?|Saint-Martin|La Guadeloupe|La Martinique|Saint-Barthélemy|Le nord est français, le sud néerlandais. Selon la légende, la frontière a été fixée par une course entre un Français et un Néerlandais.
@@ -130,13 +130,13 @@
 3|Quelle ville d'Argentine se présente comme la « ville du bout du monde » ?|Ushuaïa|Buenos Aires|Punta Arenas|Mendoza|C'est le point de départ de nombreuses croisières vers l'Antarctique. Punta Arenas est au Chili.
 3|Quel est le point culminant des Pyrénées ?|L'Aneto|Le Vignemale|Le Canigou|Le pic du Midi|Il culmine à 3 404 m, côté espagnol. Le Vignemale est le plus haut sommet côté français.
 3|Quel est le plus grand État des États-Unis ?|L'Alaska|Le Texas|La Californie|Le Montana|Il est plus de deux fois plus grand que le Texas. Les États-Unis l'ont acheté à la Russie en 1867, pour 7,2 millions de dollars.
-1|Quelle chaîne de montagnes se trouve entre la France et l'Italie ?|Les Alpes|Les Pyrénées|Les Vosges|Le Jura|Elles s'étendent sur huit pays, de la France à la Slovénie. Le tunnel du Mont-Blanc les traverse.
+2|Quel tunnel routier relie Chamonix à l'Italie ?|Le tunnel du Mont-Blanc|Le tunnel du Fréjus|Le tunnel du Saint-Gothard|Le tunnel du Simplon|Long de 11,6 km, il a été ouvert en 1965. Le Saint-Gothard et le Simplon sont en Suisse.
 2|Quelle est la préfecture de la Corse-du-Sud, ville natale de Napoléon ?|Ajaccio|Bastia|Calvi|Porto-Vecchio|Bastia est la préfecture de la Haute-Corse. Napoléon y est né en 1769, un an après que la Corse est devenue française.
 1|Au large de quel pays se trouve la Grande Barrière de corail ?|L'Australie|L'Indonésie|Les Philippines|Le Brésil|C'est le plus grand ensemble de récifs coralliens du monde, visible depuis l'espace.
 1|Quel pays d'Amérique du Sud porte le nom de la ligne qui le traverse ?|L'Équateur|Le Pérou|La Colombie|Le Venezuela|L'équateur, cette ligne imaginaire qui coupe la Terre en deux, passe juste au nord de sa capitale, Quito.
 1|Quel est le plus grand pays d'Océanie ?|L'Australie|La Nouvelle-Zélande|La Papouasie-Nouvelle-Guinée|Les Fidji|Il est si grand qu'on le considère presque comme un continent à lui tout seul.
 1|Quel pays d'Europe est célèbre pour ses champs de tulipes et ses moulins à vent ?|Les Pays-Bas|La Belgique|Le Danemark|L'Autriche|Une grande partie du pays se trouve sous le niveau de la mer, protégée par des digues.
-1|Quel océan borde la côte de la Californie ?|L'océan Pacifique|L'océan Atlantique|L'océan Indien|L'océan Arctique|San Francisco et Los Angeles sont sur ses rives.
+2|Quel fleuve français a le plus fort débit ?|Le Rhône|La Loire|La Seine|La Garonne|Il est alimenté par les glaciers des Alpes, via le lac Léman.
 2|Quelle chaîne de montagnes traverse le Maroc et l'Algérie ?|L'Atlas|Le Caucase|L'Oural|Les Carpates|Elle sépare la côte méditerranéenne du désert du Sahara.
 2|Quel pays a la plus longue côte du monde ?|Le Canada|L'Indonésie|La Russie|L'Australie|Avec ses milliers d'îles arctiques, il compte plus de 200 000 km de côtes.
 2|Dans quel pays se trouve le désert du Namib, célèbre pour ses dunes orange ?|La Namibie|Le Maroc|L'Égypte|Le Niger|C'est peut-être le plus vieux désert du monde. Certaines dunes dépassent 300 m de haut.
