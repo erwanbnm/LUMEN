@@ -9,6 +9,23 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
+// Notifications envoyées par notifs/send.js (Firebase Cloud Messaging, données seules)
+self.addEventListener("push", e => {
+  let d = {}; try { d = e.data.json(); } catch(x){}
+  const n = d.notification || {}, data = d.data || d || {};
+  e.waitUntil(self.registration.showNotification(n.title || data.title || "Lumen", {
+    body: n.body || data.body || "", icon: "icons/icon-192.png", badge: "icons/icon-192.png",
+    tag: data.tag || undefined, data: {url: data.url || "./"}
+  }));
+});
+self.addEventListener("notificationclick", e => {
+  e.notification.close();
+  const url = new URL((e.notification.data && e.notification.data.url) || "./", self.registration.scope).href;
+  e.waitUntil(clients.matchAll({type: "window", includeUncontrolled: true}).then(list => {
+    for (const c of list) if (c.url.startsWith(self.registration.scope)) { return c.focus().then(w => w && w.navigate ? w.navigate(url) : w); }
+    return clients.openWindow(url);
+  }));
+});
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET") return;

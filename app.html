@@ -674,7 +674,12 @@ svg.g3 .smoke circle,svg.g3 .pop{opacity:0}
 .am-f{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;width:74px;padding:8px 4px;border-radius:14px;border:2px solid var(--line);background:var(--surface-2);color:inherit;font-size:13px}
 .am-f span{max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .am-f.on{border-color:var(--lamp);box-shadow:0 0 0 3px var(--glow)}
-.dot-on{position:absolute;top:6px;right:8px;width:11px;height:11px;border-radius:50%;background:var(--good);border:2px solid var(--surface-2)}
+.st-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#FF5A5F;border:2px solid #2B1D3A;vertical-align:middle;flex:none}
+.st-dot.on,.am-st.on .st-dot{background:#3DDC84;box-shadow:0 0 0 3px rgba(61,220,132,.25);animation:stPulse 2s ease-in-out infinite}
+@keyframes stPulse{50%{box-shadow:0 0 0 6px rgba(61,220,132,0)}}
+.am-st{display:inline-flex;align-items:center;gap:4px;font:600 9.5px var(--f-mono);text-transform:uppercase;letter-spacing:0;white-space:nowrap;opacity:.9}
+.am-st.off{opacity:.7}.am-f{width:90px}.am-f .am-st{max-width:none;overflow:visible}
+@media (prefers-reduced-motion:reduce){.st-dot.on,.am-st.on .st-dot{animation:none}}
 .am-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
 .am-row:first-of-type{border-top:0}.am-row.me{background:var(--glow);border-radius:10px;padding:6px 8px}
 .am-row svg{flex:none}.grow{flex:1;min-width:0}

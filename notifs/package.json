@@ -1,0 +1,8 @@
+{
+  "name": "lumen-notifs",
+  "private": true,
+  "description": "Envoi des notifications de Lumen (GitHub Actions)",
+  "dependencies": {
+    "firebase-admin": "^12.7.0"
+  }
+}

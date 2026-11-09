@@ -1,0 +1,30 @@
+# Notifications de Lumen : défi du jour (~8 h), rappel (~16 h), défis des amis.
+# GitHub lance ce travail toutes les 10 minutes (avec parfois quelques minutes de retard).
+# Lancement à la main : onglet Actions > Notifications > Run workflow (mode « test » pour essayer).
+name: Notifications
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "auto (normal) ou test (envoie une notification de test)"
+        default: "test"
+concurrency: notifs
+jobs:
+  envoyer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: notifs/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: notifs
+      - run: node send.js "${{ github.event.inputs.mode || 'auto' }}"
+        working-directory: notifs
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}

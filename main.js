@@ -755,7 +755,7 @@ function renderProfile(){
   let body;
   if (profSeg==="badges") body = renderBadges();
   else if (profSeg==="biblio") body = renderLibrary();
-  else if (profSeg==="reglages") body = `<div class="card stack"><div class="label">Affichage</div>
+  else if (profSeg==="reglages") body = (typeof Amis !== "undefined" ? Amis.notifCard() : "") + `<div class="card stack"><div class="label">Affichage</div>
       <div class="row between"><span>Thème</span><div class="row" role="group" aria-label="Thème">${[["auto","Auto"],["light","Clair"],["dark","Sombre"]].map(([k,n]) => { const on = (S.settings.theme || "auto") === k; return `<button class="btn small ${on?"":"ghost"}" data-theme-set="${k}" aria-pressed="${on}">${n}</button>`; }).join("")}</div></div>
       <p class="muted" style="font-size:13.5px">« Auto » suit le réglage de ton téléphone.</p></div>
     <div class="card stack"><div class="label">Musique</div>

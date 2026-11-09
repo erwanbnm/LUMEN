@@ -11,6 +11,9 @@ service cloud.firestore {
       allow read: if true;
       allow create: if signed() && request.resource.data.uid == request.auth.uid;
     }
+    match /tokens/{uid} {
+      allow read, write: if signed() && request.auth.uid == uid;
+    }
     match /saves/{uid} {
       allow read, write: if signed() && request.auth.uid == uid;
     }

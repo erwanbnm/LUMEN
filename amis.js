@@ -47,7 +47,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; }
     loading = false; rerender();
   }
@@ -145,6 +145,56 @@ const Amis = (function(){
   // Avant de fermer l'appli ou de changer d'onglet : on envoie tout de suite
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") push(true); });
   try { const r = sessionStorage.getItem("lumen.restored"); if (r) { sessionStorage.removeItem("lumen.restored"); if (r === "1") setTimeout(() => { toasts.push("<b>Progression récupérée !</b> · Bon retour sur Lumen."); render(); }, 2600); } } catch(e){}
+
+  /* --- Notifications (Firebase Cloud Messaging) ---
+     L'appli enregistre l'adresse de notification de l'appareil dans tokens/{uid} avec les préférences.
+     L'envoi est fait par GitHub Actions (notifs/send.js) : défi du jour vers 8 h, rappel vers 16 h,
+     défis des amis (avec quelques minutes de retard). */
+  const VAPID = "BMQcXZtdaWMx7i6whc7SsDDysk_hmAJ1laF7PD2xdCyls7SnEXOR43LJFDxu57Ye99AA2sg8R7EGRFqKI55i8Fo"; // clé publique « Certificats Web Push » (console Firebase > Paramètres > Cloud Messaging)
+  const notifOK = () => "Notification" in window && "serviceWorker" in navigator && "PushManager" in window;
+  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappel pour venir jouer (vers 16 h)", duels:"Quand un ami me défie"};
+  let msgLoaded = false;
+  async function saveToken(prefs){
+    if (!msgLoaded) { await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-messaging-compat.js`); msgLoaded = true; }
+    const reg = await navigator.serviceWorker.ready;
+    const tok = await fb.messaging().getToken({vapidKey:VAPID, serviceWorkerRegistration:reg});
+    const up = {tokens:fb.firestore.FieldValue.arrayUnion(tok), at:Date.now()};
+    if (prefs) up.prefs = prefs;
+    await db.doc("tokens/" + uid()).set(up, {merge:true});
+  }
+  async function notifEnable(){
+    if (!VAPID) throw "Les notifications arrivent très bientôt.";
+    const perm = await Notification.requestPermission();
+    if (perm !== "granted") throw "Les notifications sont bloquées. Autorise-les dans les réglages de ton navigateur, puis réessaie.";
+    const prefs = {daily:true, remind:true, duels:true};
+    await saveToken(prefs);
+    S.amis.notif = prefs; save();
+    toasts.push("<b>Notifications activées !</b>");
+  }
+  async function notifPref(k){
+    const prefs = Object.assign({daily:true, remind:true, duels:true}, S.amis.notif);
+    prefs[k] = !prefs[k]; S.amis.notif = prefs; save();
+    await db.doc("tokens/" + uid()).set({prefs}, {merge:true});
+  }
+  // À chaque connexion : on rafraîchit l'adresse de notification (elle peut changer)
+  function notifRefresh(){
+    if (!VAPID || !notifOK() || Notification.permission !== "granted" || !S.amis || !S.amis.notif) return;
+    saveToken(null).catch(() => {});
+  }
+  function notifCard(){
+    if (!enabled()) return "";
+    const head = `<div class="label">Notifications</div>`;
+    if (!fb) { boot(); return `<div class="card stack">${head}<p class="muted" style="margin:0">Connexion…</p></div>`; }
+    if (!me) return `<div class="card stack">${head}<p class="muted" style="margin:0">Crée ton compte Lumen (onglet Profil) pour recevoir le défi du jour, un petit rappel l'après-midi et les défis de tes amis.</p></div>`;
+    if (!notifOK()) return `<div class="card stack">${head}<p class="muted" style="margin:0">Sur iPhone et iPad, installe d'abord Lumen sur l'écran d'accueil (bouton Partager, puis « Sur l'écran d'accueil »), puis ouvre l'appli depuis son icône pour activer les notifications.</p></div>`;
+    const on = Notification.permission === "granted" && S.amis && S.amis.notif;
+    if (!on) return `<div class="card stack">${head}<p class="muted" style="margin:0">Reçois le défi du jour le matin, un rappel l'après-midi et une alerte quand un ami te défie.</p>${ui.nmsg ? `<p class="am-err">${esc(ui.nmsg)}</p>` : ""}<button class="btn" data-am="notifon">Activer les notifications</button></div>`;
+    return `<div class="card stack">${head}${Object.keys(NPREFS).map(k => { const v = S.amis.notif[k] !== false;
+      return `<div class="row between"><span>${NPREFS[k]}</span><button class="btn small ${v ? "" : "ghost"}" data-am="notifpref" data-v="${k}" aria-pressed="${v}">${v ? "Activé" : "Coupé"}</button></div>`; }).join("")}
+      <p class="muted" style="font-size:13px;margin:0">Les alertes de défi peuvent arriver avec quelques minutes de retard.</p></div>`;
+  }
+  // Ouverture depuis une notification : ?tab=amis
+  try { const q = new URLSearchParams(location.search).get("tab"); if (q === "amis" && S.profile) { S.tab = "amis"; history.replaceState(null, "", location.pathname); } } catch(e){}
 
   /* --- Choix des questions d'un défi Classique ou Qui a dit ? --- */
   function pickQids(mode, theme, n){
@@ -268,6 +318,8 @@ const Amis = (function(){
 
   /* --- Affichage --- */
   const avatar = (id, z) => { const u = users[id], sk = u && u.av && skinOf(u.av); return creatureSVG(sk || CHARS[0], z || 34); };
+  // Pastille verte « En ligne » ou rouge « Hors ligne »
+  const status = id => `<span class="am-st ${online(id) ? "on" : "off"}"><i class="st-dot"></i>${online(id) ? "En ligne" : "Hors ligne"}</span>`;
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
   function view(){
     if (!enabled()) return `<section class="stack"><h1 class="big">JcJ</h1><div class="card stack"><b>Le mode en ligne arrive bientôt.</b><p class="muted">Duels en direct, défis en différé et classements entre amis.</p></div></section>`;
@@ -287,7 +339,7 @@ const Amis = (function(){
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
         <div class="label">1 · Ton adversaire</div>
-        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${online(id) ? `<i class="dot-on" title="En ligne"></i>` : ""}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
+        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
         <div class="label">2 · Le mode de jeu</div>
         <div class="am-modes">${Object.keys(MODES).map(k => `<button class="am-mode ${m === k ? "on" : ""}" data-am="mode" data-v="${k}" aria-pressed="${m === k}">${gIcon(MODES[k].icon, 40)}<b>${MODES[k].n}</b><span>${MODES[k].d}</span></button>`).join("")}</div>
         ${m === "classic" ? `<div class="label">3 · Le thème</div>
@@ -329,7 +381,7 @@ const Amis = (function(){
       <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
-      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
       <p class="muted" style="font-size:13px;text-align:center">${ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
@@ -412,6 +464,8 @@ const Amis = (function(){
       else if (a === "cancel") await db.doc("duels/" + id).update({state:"cancelled"});
       else if (a === "logout") { push(true); await auth.signOut(); S.amis = {link:S.amis.link, syncAt:S.amis.syncAt}; save(); }
       else if (a === "forgot") await forgot(ui.mail || "");
+      else if (a === "notifon") { ui.nmsg = ""; try { await notifEnable(); } catch(x){ ui.nmsg = typeof x === "string" ? x : "Impossible d'activer les notifications sur cet appareil."; } }
+      else if (a === "notifpref") await notifPref(v);
       else if (a === "welcome") { ui.welcome = true; ui.seg = "login"; boot(); }
       else if (a === "welcomeback") ui.welcome = false;
       else if (a === "cloudget") return restore(cloud.offer, false);
@@ -431,7 +485,7 @@ const Amis = (function(){
   // Au démarrage : si on était connecté, on se reconnecte pour recevoir les défis
   setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
 
-  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, welcome, welcomeView, welcoming:() => !!ui.welcome};
+  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome};
 })();
 
 /* --- Badges « En ligne » --- */
