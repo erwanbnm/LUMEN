@@ -1,10 +1,10 @@
-1|Quelle est la capitale de l'Italie ?|Rome|Milan|Naples|Florence|Le Vatican se trouve en plein cœur de Rome : c'est un pays dans une capitale.
-1|Quelle est la capitale de l'Allemagne ?|Berlin|Munich|Francfort|Hambourg|Bonn était la capitale de l'Allemagne de l'Ouest jusqu'à la réunification de 1990.
-1|Quelle est la capitale du Royaume-Uni ?|Londres|Manchester|Édimbourg|Liverpool|Édimbourg est la capitale de l'Écosse, Cardiff celle du pays de Galles et Belfast celle de l'Irlande du Nord.
+2|Quelle est la capitale de la Macédoine du Nord ?|Skopje|Tirana|Sofia|Podgorica|Mère Teresa y est née en 1910. Tirana est la capitale de l'Albanie et Sofia celle de la Bulgarie.
+3|Quelle est la capitale du Monténégro ?|Podgorica|Skopje|Pristina|Sarajevo|Elle s'appelait Titograd à l'époque de la Yougoslavie.
+1|Quelle est la capitale du Maroc ?|Rabat|Casablanca|Marrakech|Fès|Casablanca est la plus grande ville et le poumon économique du pays.
 1|Quelle est la capitale du Portugal ?|Lisbonne|Porto|Faro|Coimbra|Un tremblement de terre l'a en grande partie détruite en 1755.
 1|Quelle est la capitale de la Belgique ?|Bruxelles|Anvers|Liège|Bruges|Elle accueille aussi la plupart des institutions de l'Union européenne et le siège de l'OTAN.
 1|Quelle est la capitale des États-Unis ?|Washington|New York|Los Angeles|Chicago|Elle se trouve dans le district de Columbia, qui n'appartient à aucun État.
-1|Quelle est la capitale du Japon ?|Tokyo|Kyoto|Osaka|Hiroshima|Kyoto a été la capitale pendant plus de mille ans, jusqu'en 1868.
+1|Quelle est la capitale de l'Égypte ?|Le Caire|Alexandrie|Louxor|Gizeh|C'est l'une des plus grandes villes d'Afrique. Les pyramides de Gizeh sont à sa sortie.
 1|Quelle est la capitale de la Chine ?|Pékin|Shanghai|Hong Kong|Canton|Son nom signifie « capitale du Nord ». Shanghai est la plus grande ville du pays.
 2|Quelle est la capitale de la Russie ?|Moscou|Saint-Pétersbourg|Kiev|Minsk|Saint-Pétersbourg a été capitale de 1712 à 1918. Kiev (Kyiv) est la capitale de l'Ukraine.
 2|Quelle est la capitale de la Grèce ?|Athènes|Thessalonique|Sparte|Héraklion|Elle porte le nom de la déesse Athéna, gagnante d'un concours contre Poséidon selon la légende.
@@ -30,7 +30,7 @@
 3|Quelle est la capitale de l'Islande ?|Reykjavik|Oslo|Akureyri|Nuuk|C'est la capitale d'État la plus au nord du monde. Nuuk est la capitale du Groenland.
 2|Quelle est la capitale de l'Iran ?|Téhéran|Bagdad|Ispahan|Kaboul|Bagdad est la capitale de l'Irak, Kaboul celle de l'Afghanistan.
 3|Quelle est la capitale de la Bolivie, siège du gouvernement ?|La Paz|Sucre|Quito|Lima|Sucre est la capitale constitutionnelle. La Paz, à plus de 3 600 m, est le siège du gouvernement le plus haut du monde.
-1|De quelles couleurs est le drapeau français ?|Bleu, blanc, rouge|Bleu, blanc, vert|Rouge, blanc, noir|Bleu, jaune, rouge|Le blanc du roi entre le bleu et le rouge de Paris, adopté pendant la Révolution.
+2|Quel pays a un aigle noir à deux têtes sur fond rouge pour drapeau ?|L'Albanie|La Serbie|Le Monténégro|La Russie|Les Albanais se surnomment eux-mêmes « le peuple des aigles ».
 1|Quel pays a une feuille d'érable sur son drapeau ?|Le Canada|La Suisse|L'Australie|La Nouvelle-Zélande|Adopté en 1965. La sève d'érable sert à faire le célèbre sirop.
 1|Quel pays a un soleil rouge sur fond blanc pour drapeau ?|Le Japon|La Corée du Sud|Le Bangladesh|La Chine|Il s'appelle Hinomaru, « le disque solaire ». Celui du Bangladesh a un disque rouge sur fond vert.
 2|Quel pays a une croix blanche sur fond rouge, de forme carrée ?|La Suisse|Le Danemark|L'Angleterre|La Norvège|Le Danemark a aussi une croix blanche sur fond rouge, mais décalée vers la gauche et sur un drapeau rectangulaire.
@@ -91,7 +91,7 @@
 2|Quel pays a un drapeau rouge avec une grande étoile jaune au centre ?|Le Viêt Nam|La Chine|La Turquie|Le Maroc|Le drapeau chinois, lui, a une grande étoile et quatre petites dans un coin. Le drapeau marocain a une étoile verte à cinq branches.
 2|Quel pays a une roue bleue au centre de son drapeau orange, blanc et vert ?|L'Inde|L'Irlande|La Côte d'Ivoire|Le Niger|La roue, l'Ashoka Chakra, compte 24 rayons. Elle rappelle un symbole d'un empereur indien du IIIe siècle av. J.-C.
 3|Quel pays a un symbole rouge et bleu du yin et du yang sur son drapeau ?|La Corée du Sud|Le Japon|La Mongolie|Taïwan|Il est entouré de quatre signes noirs tirés d'un ancien livre chinois. Ensemble, ils évoquent l'équilibre de l'univers.
-2|Quels deux pays ont des drapeaux bleus très proches, avec l'Union Jack et la Croix du Sud ?|L'Australie et la Nouvelle-Zélande|Le Canada et les États-Unis|L'Irlande et l'Écosse|Fidji et Tonga|La Croix du Sud est une constellation visible seulement dans l'hémisphère Sud. Les étoiles sont blanches sur le drapeau australien, rouges sur le néo-zélandais.
+2|Quels deux pays ont des drapeaux bleus très proches, avec l'Union Jack et la Croix du Sud ?|L'Australie et la Nouvelle-Zélande|Le Canada et la Jamaïque|L'Inde et le Pakistan|Malte et Chypre|Sur le drapeau néo-zélandais, les étoiles de la Croix du Sud sont rouges.
 3|Quel pays a un drapeau rouge et blanc identique à celui de Monaco, en un peu plus allongé ?|L'Indonésie|La Pologne|Le Japon|Singapour|Les deux drapeaux datent du XIXe siècle pour Monaco et de 1945 pour l'Indonésie. Celui de la Pologne a les mêmes couleurs, mais à l'envers : blanc en haut.
 2|Combien de bandes horizontales le drapeau des États-Unis compte-t-il ?|13|50|7|10|Elles représentent les 13 colonies qui ont déclaré leur indépendance en 1776. Les 50 étoiles représentent les États actuels.
 2|Quel pays a une croix bleue sur fond blanc pour drapeau ?|La Finlande|La Suède|Le Danemark|La Norvège|Elle évoque les lacs et la neige du pays. La croix décalée vers la gauche est typique des drapeaux scandinaves, inspirés du drapeau danois.
@@ -99,8 +99,8 @@
 1|De quelles couleurs est le drapeau de l'Espagne ?|Rouge et jaune|Rouge et blanc|Vert, blanc et rouge|Bleu et jaune|Une large bande jaune entre deux bandes rouges, avec les armoiries du pays. On l'appelle parfois « la rojigualda ».
 2|Quel pays a un drapeau bleu et jaune, une couleur en haut et l'autre en bas ?|L'Ukraine|La Suède|La Roumanie|La Colombie|Le bleu du ciel au-dessus du jaune des champs de blé. La Suède a les mêmes couleurs, mais avec une croix.
 3|Quelle est la capitale de la Birmanie (Myanmar) ?|Naypyidaw|Rangoun|Mandalay|Bangkok|Une ville construite à l'écart et devenue capitale en 2005. Rangoun reste la plus grande ville du pays.
-1|Dans quel pays se trouve Barcelone ?|L'Espagne|L'Italie|Le Portugal|La France|C'est la capitale de la Catalogne, où l'on parle catalan et espagnol. La Sagrada Família de Gaudí y attire des millions de visiteurs.
-1|Dans quel pays se trouve Rio de Janeiro ?|Le Brésil|L'Argentine|Le Portugal|Le Mexique|Elle a été la capitale du Brésil jusqu'en 1960. Le Christ rédempteur domine la ville du haut du Corcovado.
+1|Dans quel pays se trouve Cracovie ?|La Pologne|La Tchéquie|La Hongrie|L'Autriche|C'était la capitale de la Pologne jusqu'à la fin du XVIe siècle.
+1|Dans quel pays se trouve Saint-Jacques-de-Compostelle ?|L'Espagne|Le Portugal|L'Italie|La France|C'est le point d'arrivée d'un célèbre pèlerinage, en Galice.
 1|Dans quel pays se trouve Sydney ?|L'Australie|La Nouvelle-Zélande|Les États-Unis|Le Canada|C'est la plus grande ville d'Australie, mais pas sa capitale : c'est Canberra. Son opéra aux voiles blanches est célèbre.
 1|Dans quel pays se trouve Munich ?|L'Allemagne|L'Autriche|La Suisse|La Pologne|Capitale de la Bavière, elle accueille chaque automne l'Oktoberfest, la plus grande fête de la bière du monde.
 1|Dans quel pays se trouve Genève ?|La Suisse|La France|La Belgique|Le Luxembourg|On y trouve le siège européen de l'ONU et la Croix-Rouge. La capitale de la Suisse, elle, est Berne.
@@ -108,7 +108,7 @@
 1|Dans quel pays se trouve Istanbul ?|La Turquie|La Grèce|L'Égypte|L'Iran|C'est la plus grande ville du pays, à cheval sur l'Europe et l'Asie, mais la capitale est Ankara. Elle s'appelait autrefois Byzance puis Constantinople.
 1|Dans quel pays se trouve Dubaï ?|Les Émirats arabes unis|L'Arabie saoudite|Le Qatar|Oman|La capitale du pays est Abou Dabi. Dubaï est célèbre pour ses gratte-ciel, dont le plus haut du monde.
 1|Dans quel pays se trouve Bombay (Mumbai) ?|L'Inde|Le Pakistan|Le Bangladesh|Le Sri Lanka|C'est la capitale économique de l'Inde et le cœur de Bollywood, son industrie du cinéma. La capitale politique est New Delhi.
-1|Dans quel pays se trouve Milan ?|L'Italie|L'Espagne|La Suisse|La France|Capitale de la mode et de l'économie italienne. Sa cathédrale gothique, le Duomo, a mis près de six siècles à être achevée.
+1|Dans quel pays se trouve Göteborg ?|La Suède|La Norvège|Le Danemark|La Finlande|C'est la deuxième ville du pays et le siège de la marque Volvo.
 1|Dans quel pays se trouve Montréal ?|Le Canada|Les États-Unis|La France|La Belgique|C'est la deuxième ville du Canada et l'une des plus grandes villes francophones du monde. Elle est bâtie sur une île du fleuve Saint-Laurent.
 2|Quelle est la capitale de la Géorgie ?|Tbilissi|Bakou|Erevan|Batoumi|Ce pays du Caucase est coincé entre l'Europe et l'Asie. Tbilissi est connue pour ses bains de soufre, d'où son nom, qui évoque la chaleur.
 3|Quelle est la capitale de l'Azerbaïdjan ?|Bakou|Tbilissi|Achgabat|Gandja|Elle borde la mer Caspienne. Le pétrole y est exploité depuis le XIXe siècle, ce qui en a fait une des villes les plus riches de la région.
@@ -128,14 +128,14 @@
 3|Quelle est la capitale du Bangladesh ?|Dacca|Calcutta|Chittagong|Katmandou|On l'écrit aussi Dhaka. C'est une des villes les plus densément peuplées du monde, célèbre pour ses milliers de cyclo-pousse.
 3|Quelle est la capitale du Laos ?|Vientiane|Phnom Penh|Luang Prabang|Rangoun|Elle est bâtie au bord du Mékong, juste en face de la Thaïlande. Phnom Penh est la capitale du Cambodge.
 2|Quelle est la capitale du Qatar ?|Doha|Dubaï|Manama|Abou Dhabi|Elle a accueilli la Coupe du monde de football 2022, la première organisée dans un pays arabe.
-1|Dans quel pays se trouve New York ?|Les États-Unis|Le Canada|Le Royaume-Uni|L'Australie|C'est la plus grande ville du pays, mais pas sa capitale : c'est Washington.
+2|Dans quel pays se trouve Valparaíso ?|Le Chili|Le Pérou|L'Argentine|La Colombie|Ce grand port aux maisons colorées est classé au patrimoine mondial.
 1|Dans quel pays se trouve la ville de Québec ?|Le Canada|La France|Les États-Unis|La Belgique|Fondée en 1608 par le Français Samuel de Champlain, c'est une des rares villes fortifiées d'Amérique du Nord.
-1|Dans quel pays se trouve Shanghai ?|La Chine|Le Japon|La Corée du Sud|Le Viêt Nam|C'est la plus grande ville de Chine, avec plus de 24 millions d'habitants, et un des plus grands ports du monde.
-1|Dans quel pays se trouve Naples ?|L'Italie|L'Espagne|La Grèce|Le Portugal|La ville est dominée par le Vésuve. C'est la patrie de la pizza.
-1|Dans quel pays se trouve Los Angeles ?|Les États-Unis|Le Mexique|Le Canada|L'Espagne|Son nom espagnol veut dire « les anges ». C'est la ville d'Hollywood.
+1|Dans quel pays se trouve Cusco, ancienne capitale des Incas ?|Le Pérou|La Bolivie|L'Équateur|Le Chili|C'est le point de départ des visites du Machu Picchu.
+1|Dans quel pays se trouve Salzbourg, ville natale de Mozart ?|L'Autriche|L'Allemagne|La Suisse|La Hongrie|Son nom signifie « château du sel » : la ville s'est enrichie grâce aux mines de sel voisines.
+2|Dans quel pays se trouve Bergen ?|La Norvège|La Suède|Le Danemark|La Finlande|C'est l'une des villes les plus pluvieuses d'Europe, entourée de fjords.
 1|Dans quel pays se trouve Kyoto ?|Le Japon|La Chine|La Corée du Sud|Le Viêt Nam|Ancienne capitale impériale, elle compte plus de 1 600 temples bouddhistes.
 1|Dans quel pays se trouve Casablanca ?|Le Maroc|L'Algérie|La Tunisie|L'Égypte|C'est la plus grande ville du pays, mais pas sa capitale, qui est Rabat.
-1|Dans quel pays se trouve Liverpool ?|Le Royaume-Uni|L'Irlande|L'Australie|Les États-Unis|C'est la ville des Beatles et d'un célèbre club de football.
+1|Dans quel pays se trouve Dubrovnik ?|La Croatie|La Slovénie|Le Monténégro|La Grèce|Ses remparts ont servi de décor à de nombreuses scènes de séries télévisées.
 2|Dans quel pays se trouve Bruges, surnommée la Venise du Nord ?|La Belgique|Les Pays-Bas|Le Danemark|L'Allemagne|Son centre médiéval, sillonné de canaux, est inscrit au patrimoine mondial.
 2|Quelle est la capitale du pays de Galles ?|Cardiff|Swansea|Édimbourg|Belfast|Édimbourg est la capitale de l'Écosse et Belfast celle de l'Irlande du Nord.
 2|Quelle est la capitale de la Malaisie ?|Kuala Lumpur|Singapour|Jakarta|Bangkok|Ses tours jumelles Petronas ont été les plus hautes du monde de 1998 à 2004.
