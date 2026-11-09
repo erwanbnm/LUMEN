@@ -50,6 +50,20 @@ const Music = (function(){
         if (heat > .6 && i % 2) noise(next, .04, .03 + .05*heat, 4000);
         next += spb; step++; continue;
       }
+      if (mode === "tower") {
+        // La Tour : épique et médiéval, en ré phrygien. Bourdon grave, timbales, chœur tenu, ostinato de cuivres ;
+        // plus on monte (heat 0 → 1), plus c'est rapide et chargé.
+        const spb = 60/(84 + 44*heat)/2, i = step % 12, bar = Math.floor(step/12);
+        const prog = [[38,41,45],[39,43,46],[38,41,45],[36,40,43]], c = prog[bar % 4];
+        if (i === 0) { tone(c[0]-12, next, spb*12, "sawtooth", .04, .3); tone(c[0]-24, next, spb*12, "sine", .1, .2);
+          c.forEach((n, k) => { tone(n+12, next, spb*12, "triangle", .018, .9); tone(n+12.07, next, spb*12, "sine", .016, 1.1); }); }
+        if (i === 0 || i === 6 || (heat > .35 && i === 9) || (heat > .7 && i === 3)) { thump(next, .2 + .12*heat); noise(next, .18, .05 + .04*heat, 300); }
+        const motif = [50, 50, 51, 50, 48, 50, 53, 51, 50, 48, 46, 48];
+        if (i % 2 === 0 || heat > .5) tone(motif[i] + (bar % 8 >= 4 ? 12 : 0), next, spb*.9, "sawtooth", .022 + .02*heat, .01);
+        if (i === 0 && bar % 2 === 1) tone(74, next, 1.6, "sine", .03, .005);
+        if (heat > .6 && i % 3 === 0) noise(next, .05, .03*heat, 5000);
+        next += spb; step++; continue;
+      }
       if (mode === "bomb") {
         // La Bombe : ostinato grave en la mineur, tic-tac, coups sourds ; tout accélère avec la chaleur (heat 0 → 1)
         const spb = 60/(116 + 74*heat)/2, i = step % 8, bar = Math.floor(step/8), r = [45, 45, 44, 43][bar % 4];

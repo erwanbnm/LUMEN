@@ -741,6 +741,119 @@ body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index
 .am-crowned .am-crown{position:absolute;left:50%;top:calc(var(--z) * -0.16);width:calc(var(--z) * .5);height:auto;transform:translateX(-50%) rotate(-8deg);filter:drop-shadow(0 2px 0 rgba(0,0,0,.25));animation:amCrown 2.4s ease-in-out infinite}
 @keyframes amCrown{0%,100%{transform:translateX(-50%) rotate(-8deg)}50%{transform:translateX(-50%) translateY(-2px) rotate(4deg)}}
 @media (prefers-reduced-motion:reduce){.am-crowned .am-crown{animation:none}}
+
+/* ---------- La Tour (onglet) : univers sombre, ciel d'orage, tour de pierre à étages, portes à rideaux rouges ---------- */
+.tabs nav{grid-template-columns:repeat(7,1fr)}
+.tabs button{font-size:10px}
+.tw{position:relative;isolation:isolate;margin:-6px -4px 0;padding:14px 12px 18px;border-radius:22px;color:#EDE6FF;overflow:hidden;
+  --surface:#2A1D48;--surface-2:#3A2A60;--line:#4E3C7A;--ink:#F3EEFF;--fg:#F3EEFF;--muted:#B8A8DC;
+  background:radial-gradient(120% 60% at 50% 0%,#7A1E3E 0%,#3A1450 32%,#160C2E 70%,#0B0618 100%)}
+.tw .muted,.tw-muted{color:#B8A8DC}
+body.in-tour{background:radial-gradient(140% 70% at 50% 0%,#3A1450,#0B0618 70%) fixed!important}
+body.in-tour .tw{background:transparent}
+.tw-fl,.tw-fl.cp{background-image:repeating-linear-gradient(0deg,transparent 0 12px,rgba(10,6,20,.22) 12px 13.5px),repeating-linear-gradient(90deg,transparent 0 24px,rgba(10,6,20,.16) 24px 25.5px),linear-gradient(90deg,#3A3150 0%,#6A5E86 18%,#7C7098 50%,#6A5E86 82%,#3A3150 100%)}
+.tw-fl.done{background-image:repeating-linear-gradient(0deg,transparent 0 12px,rgba(10,6,20,.2) 12px 13.5px),repeating-linear-gradient(90deg,transparent 0 24px,rgba(10,6,20,.14) 24px 25.5px),linear-gradient(90deg,#4A3A5E 0%,#8A7AA8 18%,#9C8CBA 50%,#8A7AA8 82%,#4A3A5E 100%)}
+.tw-sky{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.tw-sky::before{content:"";position:absolute;left:50%;top:-140px;width:520px;height:300px;margin-left:-260px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,90,140,.55),rgba(170,40,110,.25) 55%,transparent);filter:blur(6px);animation:twVortex 9s linear infinite}
+.tw-sky::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -30%,rgba(255,255,255,.03) 0 2px,transparent 2px 14px)}
+@keyframes twVortex{to{transform:rotate(360deg)}}
+.tw-bolt{position:absolute;top:0;width:3px;height:180px;background:linear-gradient(#fff,#C9A2FF 60%,transparent);filter:drop-shadow(0 0 8px #C9A2FF);opacity:0;animation:twBolt 7s infinite}
+.tw-bolt.b1{left:12%;animation-delay:1.2s}.tw-bolt.b2{right:10%;left:auto;height:140px;animation-delay:4.6s}
+@keyframes twBolt{0%,92%,100%{opacity:0}93%{opacity:1}94%{opacity:.2}95.5%{opacity:.9}97%{opacity:0}}
+.tw-rock{position:absolute;width:22px;height:16px;background:linear-gradient(#5A4A72,#241A38);clip-path:polygon(10% 30%,45% 0,90% 20%,100% 70%,60% 100%,0 80%);animation:twFloat 6s ease-in-out infinite}
+.tw-rock.r1{left:6%;top:180px}.tw-rock.r2{right:7%;top:300px;width:30px;height:20px;animation-delay:-2s}.tw-rock.r3{left:10%;top:520px;width:16px;height:12px;animation-delay:-4s}.tw-rock.r4{right:12%;top:700px;animation-delay:-1s}
+@keyframes twFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
+.tw-head{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px;text-align:center}
+.tw-h1{margin:0;font:900 40px/1 "Bricolage Grotesque",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(#FFE6F2,#FF7AB8 55%,#B03AD8);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #2B1040) drop-shadow(0 0 18px rgba(255,90,170,.45))}
+.tw-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.tw-stats div{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:14px;background:rgba(20,10,40,.6);border:1px solid rgba(201,162,255,.25)}
+.tw-stats span{font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#B8A8DC}
+.tw-stats b{font:900 24px "Bricolage Grotesque",sans-serif;display:flex;align-items:center;gap:4px}
+.tw-panel{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:18px;background:linear-gradient(180deg,rgba(46,28,84,.92),rgba(22,12,44,.92));border:1.5px solid rgba(201,162,255,.3);box-shadow:0 6px 0 rgba(0,0,0,.35);margin-bottom:12px}
+.tw-goal{align-items:center;text-align:center}
+.tw-goal b{font:900 20px "Bricolage Grotesque",sans-serif}
+.tw-band{display:inline-block;font:700 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#FFB0D2;background:rgba(255,95,162,.14);border:1px solid rgba(255,95,162,.35);border-radius:999px;padding:3px 10px}
+.tw-go{margin-top:6px;background:linear-gradient(180deg,#FF6AA8,#C2185B);box-shadow:0 5px 0 #6A0A30,0 0 22px rgba(255,90,160,.45)}
+.tw-shaft{position:relative;max-height:62vh;overflow-y:auto;overscroll-behavior:contain;margin:0 auto 12px;width:min(340px,100%);padding:0 0 4px;scrollbar-width:none;border-radius:16px;-webkit-mask-image:linear-gradient(transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(transparent,#000 6%,#000 94%,transparent)}
+.tw-shaft::-webkit-scrollbar{display:none}
+.tw-fl{position:relative;display:flex;align-items:center;justify-content:space-between;gap:6px;height:52px;margin:0 22px;padding:0 10px;background:linear-gradient(90deg,#3A3150 0%,#6A5E86 18%,#7C7098 50%,#6A5E86 82%,#3A3150 100%);border-left:3px solid #1A1228;border-right:3px solid #1A1228;border-bottom:3px solid #1A1228;box-shadow:inset 0 3px 0 rgba(255,255,255,.12),inset 0 -6px 10px rgba(0,0,0,.35)}
+.tw-fl::before{content:"";position:absolute;left:50%;bottom:0;width:30px;height:38px;margin-left:-15px;border-radius:15px 15px 0 0;background:linear-gradient(90deg,#7A0E22,#D42A3E 25%,#8A1226 50%,#D42A3E 75%,#7A0E22);border:2.5px solid #1A1228;border-bottom:0;box-shadow:inset 0 0 8px rgba(0,0,0,.5)}
+.tw-fl b{position:relative;z-index:1;font:900 15px "Bricolage Grotesque",sans-serif;color:#F3EEFF;text-shadow:0 2px 0 #1A1228;min-width:26px;text-align:center}
+.tw-win{width:14px;height:18px;border-radius:7px 7px 2px 2px;background:#1A1228;border:2px solid #2A1E3E}
+.tw-fl.done .tw-win{background:radial-gradient(circle at 50% 70%,#FFE36A,#F08A1E 70%);box-shadow:0 0 10px rgba(255,200,90,.6)}
+.tw-fl.done{background:linear-gradient(90deg,#4A3A5E 0%,#8A7AA8 18%,#9C8CBA 50%,#8A7AA8 82%,#4A3A5E 100%)}
+.tw-fl.done::before{background:linear-gradient(#FFE9A0,#F2A41E);box-shadow:0 0 14px rgba(255,210,90,.75)}
+.tw-fl.lock{filter:saturate(.45) brightness(.62)}
+.tw-fl.lock::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(0,0,0,.18) 10px 12px);pointer-events:none}
+.tw-fl.here{filter:none;z-index:2;box-shadow:inset 0 3px 0 rgba(255,255,255,.18),0 0 0 3px #FF5FA2,0 0 26px rgba(255,95,162,.75);animation:twHere 2s ease-in-out infinite}
+@keyframes twHere{50%{box-shadow:inset 0 3px 0 rgba(255,255,255,.18),0 0 0 3px #FF8AC0,0 0 38px rgba(255,95,162,.95)}}
+.tw-fl.cp{height:66px;margin:0 6px;background:linear-gradient(90deg,#2E2442 0%,#5E5080 15%,#8274A6 50%,#5E5080 85%,#2E2442 100%);border-top:4px solid #C9A24A}
+.tw-fl.cp::before{width:40px;height:50px;margin-left:-20px;border-radius:20px 20px 0 0}
+.tw-fl-body{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
+.tw-fl-body span{font:700 10.5px "IBM Plex Mono",monospace;letter-spacing:.04em;color:#FFE6A6;background:rgba(20,10,40,.7);padding:3px 7px;border-radius:8px;border:1px solid rgba(255,210,100,.35);margin-right:auto;margin-left:4px}
+.tw-coinic{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4B0,#F2B320 55%,#A8740A);border:2px solid #4A3000;box-shadow:0 0 10px rgba(255,210,90,.6)}
+.tw-ok{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;background:#2BB673;border:2px solid #0E4A2A}
+.tw-fl.top{height:84px;margin:96px 2px 0;background:linear-gradient(90deg,#3A1A3A,#9A5AB8 25%,#E0B8FF 50%,#9A5AB8 75%,#3A1A3A);border-top:5px solid #FFD23F}
+.tw-spire{position:absolute;left:50%;bottom:100%;width:0;height:0;margin-left:-34px;border-left:34px solid transparent;border-right:34px solid transparent;border-bottom:70px solid #5A3A86;filter:drop-shadow(0 0 10px rgba(255,90,170,.6))}
+.tw-spire::after{content:"";position:absolute;left:-3px;bottom:60px;width:6px;height:220px;background:linear-gradient(transparent,rgba(255,200,240,.9));filter:blur(2px);animation:twBeam 3s ease-in-out infinite}
+@keyframes twBeam{50%{opacity:.55}}
+.tw-spire-crown{position:absolute;left:-12px;top:22px;font-size:22px}
+.tw-base{height:26px;margin:0 2px;border-radius:0 0 12px 12px;background:linear-gradient(#2A2038,#120C1E)}
+.tw-me{position:absolute;right:-18px;bottom:2px;z-index:3;filter:drop-shadow(0 0 8px rgba(255,95,162,.9));animation:twBob 1.6s ease-in-out infinite}
+.tw-me.sm{right:-14px}
+@keyframes twBob{50%{transform:translateY(-4px)}}
+.tw-row-h{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tw-rk{display:flex;align-items:center;gap:10px;padding:8px 6px;border-radius:12px}
+.tw-rk.me{background:rgba(255,95,162,.14);outline:1.5px solid rgba(255,95,162,.5)}
+.tw-pos{width:24px;text-align:center;font:900 16px "Bricolage Grotesque",sans-serif;color:#B8A8DC}
+.tw-pos.p1{color:#FFD23F}.tw-pos.p2{color:#E0E4F0}.tw-pos.p3{color:#F0A86A}
+.tw-rk-n{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.tw-rk-n .tw-muted{font-size:12px}
+.tw-rk-f{font:900 15px "Bricolage Grotesque",sans-serif;color:#FFB0D2;white-space:nowrap}
+.tw-play{padding-top:12px}
+.tw-floor{font:800 15px "Bricolage Grotesque",sans-serif;letter-spacing:.04em}
+.tw-floor b{font-size:30px;color:#FF8AC0;margin:0 2px}.tw-floor i{font-style:normal;color:#8A7AB0}
+.tw-climb{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:10px 0}
+.tw-climb i{height:8px;border-radius:4px;background:#2E2250}
+.tw-climb i.ok{background:linear-gradient(90deg,#F08A1E,#FFD23F)}
+.tw-climb i.now{background:#FF5FA2;box-shadow:0 0 10px #FF5FA2}
+.tw-climb i.cp{outline:2px solid #C9A24A;outline-offset:1px}
+.tw-q{margin-top:10px;background:linear-gradient(180deg,#2E1F52,#1C1236)!important;border:1.5px solid rgba(201,162,255,.35);color:#F3EEFF}
+.tw-q .choice{background:#3A2A62;color:#F3EEFF;border-color:#58468A}
+.tw-fx{position:fixed;inset:0;z-index:85;display:grid;place-items:center;overflow:hidden;animation:fade .25s ease both}
+.tw-fx.out{animation:lvFadeOut .28s ease-in forwards}
+.tw-door{background:#0B0618}
+.tw-light{position:absolute;inset:0;background:radial-gradient(closest-side,#FFF2C8,#FFB0D2 40%,transparent 75%);animation:twGlow 1.1s ease-out both}
+@keyframes twGlow{from{transform:scale(.2);opacity:0}to{transform:scale(1.4);opacity:1}}
+.tw-leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#5A0A1A,#C82A3E 30%,#7A0E22 60%,#C82A3E);border:3px solid #1A0810;box-shadow:inset 0 0 40px rgba(0,0,0,.6)}
+.tw-leaf.l{left:0;animation:twLeafL .9s cubic-bezier(.5,0,.3,1) forwards}.tw-leaf.r{right:0;animation:twLeafR .9s cubic-bezier(.5,0,.3,1) forwards}
+@keyframes twLeafL{to{transform:translateX(-100%)}}@keyframes twLeafR{to{transform:translateX(100%)}}
+.tw-door-txt{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;color:#2B1040;opacity:0;animation:podTitle .4s .45s forwards}
+.tw-door-txt span{font:800 18px "Bricolage Grotesque",sans-serif}.tw-door-txt b{font:900 44px "Bricolage Grotesque",sans-serif;text-transform:uppercase}
+.tw-climber{position:absolute;bottom:12%;left:50%;margin-left:-43px;z-index:2;animation:twWalk 1.1s ease-in forwards}
+@keyframes twWalk{0%{transform:translateY(40px)}100%{transform:translateY(-40px) scale(.7);opacity:.3}}
+.tw-cp,.tw-fall,.tw-summit{background:rgba(8,4,18,.82);backdrop-filter:blur(3px);padding:20px}
+.tw-cp-card,.tw-fall-card,.tw-summit-card{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;width:min(360px,100%);padding:22px 18px;border-radius:22px;color:#F3EEFF;background:linear-gradient(180deg,#3A2466,#1A0F34);border:2px solid #C9A24A;box-shadow:0 0 40px rgba(255,170,60,.35),0 10px 0 rgba(0,0,0,.4);animation:podTitle .5s cubic-bezier(.3,1.6,.5,1) both}
+.tw-fall-card{border-color:#FF4D6D;box-shadow:0 0 40px rgba(255,60,90,.35),0 10px 0 rgba(0,0,0,.4)}
+.tw-fall{animation:twShake .5s}
+@keyframes twShake{20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.tw-cp-num{font:900 64px/1 "Bricolage Grotesque",sans-serif;background:linear-gradient(#FFF4B0,#F2B320 60%,#A8740A);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #3A2000)}
+.tw-kicker{font:700 11px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFB0D2}
+.tw-cp-title{font:900 22px "Bricolage Grotesque",sans-serif}
+.tw-cp-sub{font-size:14px;color:#C9BCEA}
+.tw-cp-gain{display:flex;align-items:center;gap:6px;font:900 40px "Bricolage Grotesque",sans-serif;color:#FFD23F;text-shadow:0 3px 0 #3A2000;animation:podTitle .5s .3s cubic-bezier(.3,1.8,.5,1) both}
+.tw-cp-gain .coin{width:30px;height:30px}
+.tw-cp-next{font:700 12px "IBM Plex Mono",monospace;color:#B8A8DC}
+.tw-cp-card .btn,.tw-fall-card .btn,.tw-summit-card .btn{max-width:300px}
+.tw-coin{position:absolute;top:-30px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4B0,#F2B320 55%,#A8740A);border:2px solid #4A3000;animation:podConf 2s linear forwards}
+.tw-beam{position:absolute;left:50%;top:0;bottom:0;width:140px;margin-left:-70px;background:linear-gradient(90deg,transparent,rgba(255,220,250,.7),transparent);filter:blur(8px);animation:twBeam 2.4s ease-in-out infinite}
+.tw-summit-card{border-color:#FFD23F;box-shadow:0 0 60px rgba(255,210,90,.6),0 10px 0 rgba(0,0,0,.4)}
+.tw-summit-title{font:900 44px "Bricolage Grotesque",sans-serif;letter-spacing:.06em;background:linear-gradient(#FFF6C8,#FFD23F 50%,#E08A00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #3A2000)}
+.tw-crown{font-size:44px;animation:podJoy .7s ease-in-out infinite}
+.tw-summit-av{animation:podDrop .9s cubic-bezier(.35,1.5,.5,1) both}
+.tw-ic-bolt{animation:twIcBolt 3s infinite}
+@keyframes twIcBolt{0%,85%,100%{opacity:0}88%,94%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.tw-sky::before,.tw-bolt,.tw-rock,.tw-fl.here,.tw-me,.tw-spire::after,.tw-leaf,.tw-climber,.tw-fall,.tw-coin,.tw-beam,.tw-crown{animation:none!important}}
 /* ---------- Salons privés : La Bombe et le Quiz à plusieurs ---------- */
 .sl-code{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;letter-spacing:.18em;color:var(--lamp)}
 .sl-seg{display:flex;gap:6px;flex-wrap:wrap}

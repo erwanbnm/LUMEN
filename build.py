@@ -64,6 +64,14 @@ for i, l in enumerate(open(os.path.join(base, "content", "extra", "qad.txt"), en
     th, lvl, cit, a1, w1, w2, w3, exp = l.split("|")
     assert len({a1, w1, w2, w3}) == 4, l
     Q[f"qad{i+1:02d}"] = [th, int(lvl), [a1, w1, w2, w3], exp.strip(), cit.strip(), "", {"t":"quote"}]
+# Questions de la Tour : tranche|thème|question|bonne réponse|faux 1|faux 2|faux 3|explication (tranche 1 = étages 1-10 … 10 = étages 91-100)
+# Ajouter les nouvelles À LA FIN (l'identifiant tw001, tw002… dépend du numéro de ligne)
+_tp = os.path.join(base, "content", "extra", "tour.txt")
+if os.path.exists(_tp):
+    for i, l in enumerate(l for l in open(_tp, encoding="utf-8").read().splitlines() if l.strip() and not l.startswith("#")):
+        b, th, q, a1, w1, w2, w3, exp = l.split("|")
+        assert 1 <= int(b) <= 10 and len({a1, w1, w2, w3}) == 4, l
+        Q[f"tw{i+1:03d}"] = [th, 3 if int(b) > 4 else 2 if int(b) > 2 else 1, [a1, w1, w2, w3], exp.strip(), q.strip(), "", {"t":"tower", "b":int(b)}]
 # Questions très difficiles du Portail (événement) : jamais posées dans les autres modes
 for i, l in enumerate(l for l in open(os.path.join(base, "content", "extra", "portail.txt"), encoding="utf-8").read().splitlines() if l.strip()):
     th, q, a1, w1, w2, w3, exp = l.split("|")
@@ -83,7 +91,7 @@ html = open(os.path.join(base, "app.html"), encoding="utf-8").read().replace("/*
 rd = lambda p: open(os.path.join(base, p), encoding="utf-8").read()
 html = html.replace("/*__ART__*/", rd("atelier/creatures2.js") + "\n" + rd("atelier/rixy.js") + "\n" + rd("atelier/badges.js") + "\n" + rd("atelier/badges2.js") + "\n" + rd("atelier/skins.js") + "\n" + rd("atelier/acc.js") + "\n" + rd("atelier/toy.js") + "\n" + rd("atelier/toy_skins.js") + "\n" + rd("atelier/toy_acc.js") + "\n" + rd("atelier/toy_stars.js") + "\n" + rd("atelier/toy_portail.js") + "\n" + rd("atelier/toy_halloween.js") + "\n" + rd("atelier/gicons.js"))
 html = html.replace("/*__MUSIC__*/", rd("music.js")).replace("/*__PARC__*/", rd("parc_app.js")).replace("/*__SPLASH__*/", rd("splash.js"))
-html = html.replace("/*__MAIN__*/", open(os.path.join(base, "main.js"), encoding="utf-8").read() + "\n" + open(os.path.join(base, "amis.js"), encoding="utf-8").read() + chr(10) + open(os.path.join(base, "salons.js"), encoding="utf-8").read())
+html = html.replace("/*__MAIN__*/", open(os.path.join(base, "main.js"), encoding="utf-8").read() + "\n" + open(os.path.join(base, "amis.js"), encoding="utf-8").read() + chr(10) + open(os.path.join(base, "salons.js"), encoding="utf-8").read() + chr(10) + open(os.path.join(base, "tour.js"), encoding="utf-8").read())
 out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(base, "chevet.html")
 open(out, "w", encoding="utf-8").write(html)
 print(len(Q), "questions ->", out, round(len(html)/1024), "Ko")

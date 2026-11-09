@@ -237,7 +237,8 @@ function rescueCard(){
     <button class="btn small" data-rescue ${S.coins>=r.price?"":"disabled"}>${coinIco}Sauver ma série · ${r.price}</button>${S.coins>=r.price?"":`<span class="muted" style="font-size:13.5px">Il te manque ${Math.ceil(r.price-S.coins)} pièces.</span>`}</div>`;
 }
 const dueList = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].due <= T()).sort((a,b)=>S.q[a].due-S.q[b].due);
-const allIds = () => Object.keys(Q).filter(id => !(Q[id][6] && Q[id][6].t === "portal"));
+// Les questions du Portail et de la Tour sont réservées à leur mode
+const allIds = () => Object.keys(Q).filter(id => !(Q[id][6] && (Q[id][6].t === "portal" || Q[id][6].t === "tower")));
 const young = () => S.profile && S.profile.age < 13;
 const correctIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th && S.q[id].ok>0).length;
 const correctAll = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].ok>0).length;
@@ -259,7 +260,7 @@ let toasts = [];
 // plusieurs niveaux gagnés d'un coup sont réunis sur une seule carte.
 const lvQueue = []; let lvOpen = false;
 // En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
-const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod");
+const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx");
 const bdQueue = [];
 function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); flushLevelUp(); }
 function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
@@ -444,8 +445,8 @@ const TAB_ICONS = {
   profil:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg>'
 };
 TAB_ICONS.boutique = '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
-const GTAB = {accueil:"home", jouer:"play", amis:"sword", boutique:"shop", parc:"parc", profil:"user"};
-const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"JcJ", boutique:"Boutique", parc:"Parc", profil:"Profil"};
+const GTAB = {accueil:"home", jouer:"play", amis:"sword", tour:"tower", boutique:"shop", parc:"parc", profil:"user"};
+const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"JcJ", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
 let adminTaps = 0, libFilter = "all", libQuery = "", confirmReset = false, tick = null, autoNext = null, profSeg = "progres", shopSeg = "skins", draft = null, formErr = "", copyFallback = "";
 
 function renderTabs(){
@@ -499,9 +500,12 @@ function render(){
   else if (S.tab==="jouer") html += renderPlay();
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
+  else if (S.tab==="tour") html += Tour.view();
   else html += renderProfile();
   // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
   app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
+  document.body.classList.toggle("in-tour", S.tab === "tour");
+  if (S.tab === "tour") Tour.after();
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
@@ -627,7 +631,8 @@ const TITLES = [
   {id:"kingnorth", n:"KING OF NORTH", p:800, a:"#4A4A5A", b:"#121218", f:"#E8C25A"}
 ];
 const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
-const titleById = id => id === "looser" ? LOSER_TITLE : TITLES.find(t => t.id === id);
+const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
+const titleById = id => id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
 const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -650,7 +655,9 @@ function renderTitles(){
       ${S.loserDay === today() ? `<p class="muted" style="margin:0;font-size:13.5px">LOOSER DU JOUR : 4 erreurs d'affilée aujourd'hui. Il disparaît à minuit.</p>` : ""}
       ${S.profile.title ? `<button class="btn small ghost" data-tequip="">Ne porter aucun titre</button>` : ""}</div>
     <div class="card stack">${TITLES.map(row).join("")}</div>
-    <div class="card stack"><div class="label">Titre spécial (ne s'achète pas)</div><div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
+    <div class="card stack"><div class="label">Titres spéciaux (ne s'achètent pas)</div>
+      <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
+      <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
@@ -707,7 +714,7 @@ const tense = () => { const s = S.session; if (!s || s.done || S.tab !== "jouer"
    Bords de l'écran rouges qui pulsent de plus en plus vite et battement de cœur, même sans regarder le chrono. */
 let stressOn = "";
 function stressUpdate(){
-  const sm = typeof Salons !== "undefined" && Salons.music();
+  const sm = (typeof Salons !== "undefined" && Salons.music()) || (typeof Tour !== "undefined" && Tour.music());
   if (sm) {
     Music.mode(sm.k); Music.heat(sm.heat || 0); document.body.classList.remove("stress");
     if (stressOn) { stressOn = ""; Music.pulse(null); }
@@ -943,7 +950,7 @@ function renderBadges(){
 }
 function renderBadges0(){
   const got = BADGES.filter(b => S.badges[b.id]).length;
-  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"]].map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
+  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
   const themes = ORDER.map(k => { const bs = BADGES.filter(b=>b.th===k), n = bs.filter(b=>S.badges[b.id]).length;
     return `<details class="card tb"><summary><span class="nm">${dot(k)}${esc(THEMES[k].n)}</span><span class="label">${n}/6 · ${correctIn(k)}/${byTheme(k).length} réussies</span></summary><div class="bgrid">${bs.map(b => badgeTile(b, 64)).join("")}</div></details>`; }).join("");
   return `<p class="muted">${got}/${BADGES.length} badges obtenus. Chaque badge rapporte des pièces, une seule fois. Plus le palier est haut, plus la médaille impressionne.</p>${groups}<div class="label">Badges de thème · bronze 5, argent 10, or 20, platine 30, diamant 40, Maître 50 maîtrisées</div>${themes}`;
@@ -1085,12 +1092,13 @@ function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
+  if (d.tw !== undefined && !b.closest(".tw-fx")) { if (S.settings.sfx !== false && d.tw !== "ans") try { Music.sfx("tap"); } catch(err){} return Tour.click(b); }
   if (d.sl !== undefined) { if (S.settings.sfx !== false && d.sl !== "ans") try { Music.sfx("tap"); } catch(err){} return Salons.click(b); }
   if (d.avPick !== undefined) { draft.avatar = +d.avPick; formErr = ""; const keep = readDraft(); return render(), keep; }
   const fromBar = !!b.closest("#tabs");
   // Sons de navigation : « pop » sur les onglets du bas, petit clic sur les autres boutons (les réponses ont leur propre son)
   if (S.settings && S.settings.sfx !== false && d.ans === undefined && !d.av && d.avyear === undefined) {
-    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","parc","profil"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
+    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","parc","profil","tour"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
   }
   if (d.tab === "parc") { leaveSession(); save(); if (fromBar) { tabFx("parc"); setTimeout(() => Parc.open(), 480); } else Parc.open(); return; }
   if (d.tab) {

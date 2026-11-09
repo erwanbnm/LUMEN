@@ -103,6 +103,17 @@ const I = {
     <g class="eyes"><ellipse cx="25.5" cy="36" rx="2.7" ry="3.6" fill="${D}"/><ellipse cx="38.5" cy="36" rx="2.7" ry="3.6" fill="${D}"/><circle cx="26.3" cy="34.6" r="1" fill="#fff"/><circle cx="39.3" cy="34.6" r="1" fill="#fff"/></g>
     <ellipse cx="21" cy="42" rx="3.4" ry="2" fill="#FF6A8A" opacity=".55"/><ellipse cx="43" cy="42" rx="3.4" ry="2" fill="#FF6A8A" opacity=".55"/>
     <path d="M28.5 42.5 q3.5 3.5 7 0" fill="none" stroke="${D}" stroke-width="2.2" stroke-linecap="round"/>`; },
+  tower(){ const u=uid++;
+    return `<defs>${lg("tw"+u,"#8E7CB8","#3E2E66")}${lg("tr"+u,"#FF8AB8","#C2185B")}</defs>${sh(59,16)}
+    <path d="M22 58 L24 22 H40 L42 58Z" transform="translate(0 2.5)" fill="#22163A" ${S}/>
+    <path d="M22 58 L24 22 H40 L42 58Z" fill="url(#tw${u})" ${S}/>
+    <path d="M20 22 V15 H24 V18 H28 V15 H32 V18 H36 V15 H40 V18 H44 V22Z" fill="#5A4A86" ${S}/>
+    <path d="M27 15 L32 3 L37 15Z" fill="url(#tr${u})" ${S}/>
+    <path d="M24 34 H40 M23.5 46 H40.5" stroke="${D}" stroke-width="1.6" opacity=".5"/>
+    <rect x="29" y="27" width="6" height="7" rx="3" fill="#FFD23F" stroke="${D}" stroke-width="1.8" class="tw-ic-win"/>
+    <path d="M28 58 V51 Q32 46 36 51 V58Z" fill="#1A1030" stroke="${D}" stroke-width="2"/>
+    <path d="M47 8 L43 17 L47 17 L44 25" fill="none" stroke="#FFE36A" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" class="tw-ic-bolt"/>
+    ${shine("M26.5 25 L25.5 44")}`; },
   sword(){ const u=uid++; const blade="M28.5 40 V12 L32 5 L35.5 12 V40Z";
     return `<defs>${lg("sw"+u,"#F4FBFF","#8FB8E0")}${lg("sg"+u,"#FFE07A","#F0A020")}</defs>${sh(59,15)}
     <g transform="rotate(40 32 32)">

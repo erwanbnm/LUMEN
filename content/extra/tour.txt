@@ -1,0 +1,405 @@
+# Questions de la Tour (réservées à ce mode). Format : tranche|thème|question|bonne réponse|faux 1|faux 2|faux 3|explication
+# Tranche 1 = étages 1-10 (facile) … tranche 10 = étages 91-100 (ultime). Ajouter les nouvelles À LA FIN.
+1|geo|Dans quel pays se trouve la ville de Barcelone ?|L'Espagne|L'Italie|Le Portugal|La France|C'est la capitale de la Catalogne.
+1|mus|De quel instrument jouait principalement Chopin ?|Le piano|Le violon|La flûte|L'orgue|Presque toute son œuvre est écrite pour le piano.
+1|cor|Combien de poumons possède le corps humain ?|Deux|Un|Trois|Quatre|Le poumon gauche est un peu plus petit, pour laisser de la place au cœur.
+1|geo|Quel fleuve traverse Paris ?|La Seine|La Loire|Le Rhône|La Garonne|Elle se jette dans la Manche, au Havre.
+1|tec|Quelle entreprise fabrique l'iPhone ?|Apple|Samsung|Google|Sony|Le premier iPhone est présenté en 2007.
+2|spo|Dans quel sport s'illustre Rafael Nadal ?|Le tennis|Le golf|Le football|Le basket-ball|Il a remporté 14 fois Roland-Garros, un record absolu.
+2|cin|Dans quel film un requin terrorise-t-il la plage d'Amity ?|Les Dents de la mer|Abyss|Peur bleue|Piranhas|Le film de Spielberg sort en 1975 et invente le blockbuster d'été.
+3|cor|Quel organe produit la bile ?|Le foie|Le pancréas|La rate|L'estomac|Elle est ensuite stockée dans la vésicule biliaire.
+3|spo|Dans quel pays sont nés les Jeux olympiques antiques ?|La Grèce|L'Italie|L'Égypte|La Turquie|À Olympie, dès le VIIIe siècle avant J.-C.
+3|tec|Que signifie le sigle « GPS » ?|Global Positioning System|General Position Satellite|Geo Path Service|Global Planet Signal|Un système américain de satellites, ouvert au public dans les années 1990.
+3|bdm|Quel est le nom du chien de Tintin ?|Milou|Idéfix|Rantanplan|Pif|En anglais, il s'appelle Snowy.
+4|his|En quelle année a eu lieu la bataille d'Alésia ?|52 av. J.-C.|44 av. J.-C.|58 av. J.-C.|31 av. J.-C.|Vercingétorix se rend à Jules César après le siège.
+4|sci|Quelle particule porte une charge électrique négative ?|L'électron|Le proton|Le neutron|Le photon|Le proton est positif, le neutron neutre.
+4|art|Quel écrivain a créé le personnage d'Hercule Poirot ?|Agatha Christie|Arthur Conan Doyle|Georges Simenon|Maurice Leblanc|Il apparaît pour la première fois en 1920.
+4|esp|Quelle planète possède le plus grand volcan connu du Système solaire, l'Olympus Mons ?|Mars|Vénus|Jupiter|Mercure|Il culmine à plus de 20 km au-dessus de la plaine.
+4|gas|Quel légume est l'ingrédient principal du guacamole ?|L'avocat|Le concombre|Le poivron|La courgette|Botaniquement, l'avocat est un fruit.
+4|ani|Combien de cœurs possède une pieuvre ?|Trois|Un|Deux|Huit|Deux pompent le sang vers les branchies, le troisième vers le reste du corps.
+4|cin|Qui a réalisé Pulp Fiction ?|Quentin Tarantino|Martin Scorsese|David Fincher|les frères Coen|Palme d'or à Cannes en 1994.
+4|eco|Quelle marque automobile allemande a pour emblème une étoile à trois branches ?|Mercedes-Benz|BMW|Audi|Volkswagen|Les branches symboliseraient la terre, la mer et l'air.
+4|sci|Quelle est la formule chimique de l'eau ?|H2O|CO2|O2|H2O2|Deux atomes d'hydrogène et un d'oxygène. H2O2 est l'eau oxygénée.
+4|art|Quel mouvement artistique est associé à Salvador Dalí ?|Le surréalisme|L'impressionnisme|Le cubisme|Le fauvisme|Ses montres molles sont devenues célèbres.
+4|bdm|Dans quel manga des pirates cherchent-ils le trésor appelé One Piece ?|One Piece|Naruto|Bleach|Fairy Tail|Il a été créé par Eiichirō Oda en 1997.
+4|mon|Quelle organisation internationale a son siège à New York ?|L'ONU|L'OTAN|L'UNESCO|L'OMS|L'UNESCO est à Paris, l'OMS à Genève, l'OTAN à Bruxelles.
+5|sci|Qui a énoncé les trois lois du mouvement en 1687 ?|Isaac Newton|Galilée|Johannes Kepler|René Descartes|Dans son ouvrage Principia Mathematica.
+5|mus|Quel compositeur a écrit l'opéra Carmen ?|Georges Bizet|Giuseppe Verdi|Charles Gounod|Jules Massenet|Créé à Paris en 1875, il fut d'abord un échec.
+5|spo|Combien de joueurs compte une équipe de rugby à XV sur le terrain ?|15|13|11|12|Le rugby à XIII se joue à 13.
+5|per|Quel chef indien a mené la « marche du sel » en 1930 ?|Gandhi|Nehru|Bose|Patel|Une marche de près de 400 km contre l'impôt britannique sur le sel.
+5|tec|En quelle année le premier ordinateur personnel Macintosh a-t-il été lancé ?|1984|1977|1991|1981|Annoncé par une publicité célèbre pendant le Super Bowl.
+5|eco|Quel économiste a écrit La Richesse des nations en 1776 ?|Adam Smith|Karl Marx|John Maynard Keynes|David Ricardo|Il y décrit la célèbre « main invisible » du marché.
+5|bdm|Quel mangaka a créé Dragon Ball ?|Akira Toriyama|Eiichirō Oda|Masashi Kishimoto|Osamu Tezuka|La série commence en 1984.
+5|lan|Que désigne le mot « palindrome » ?|Un mot qui se lit dans les deux sens|Un mot qui a deux sens|Un mot inventé|Un mot très long|Comme « kayak » ou « radar ».
+6|his|Quel roi de France a été fait prisonnier à la bataille de Pavie en 1525 ?|François Ier|Henri II|Louis XII|Charles VIII|Il est emmené à Madrid et doit signer un traité humiliant pour être libéré.
+6|his|Quelle reine a été surnommée « l'Autrichienne » par ses détracteurs ?|Marie-Antoinette|Anne d'Autriche|Marie-Thérèse|Marie-Louise|Fille de l'impératrice Marie-Thérèse, elle épouse le futur Louis XVI en 1770.
+6|his|Quel conflit oppose la France et l'Angleterre de 1337 à 1453 ?|La guerre de Cent Ans|La guerre de Sept Ans|La guerre des Deux-Roses|La guerre de Succession d'Espagne|Elle dure en réalité 116 ans, avec de longues trêves.
+6|his|Quelle ville fut la capitale de l'Empire byzantin ?|Constantinople|Ravenne|Antioche|Alexandrie|Fondée par Constantin en 330 sur le site de Byzance.
+6|his|Quel chef zoulou a infligé une lourde défaite aux Britanniques à Isandlwana en 1879 ?|Cetshwayo|Chaka|Dingane|Mpande|Chaka était le fondateur du royaume zoulou, mort en 1828.
+6|geo|Quel fleuve traverse Bagdad ?|Le Tigre|L'Euphrate|Le Jourdain|L'Oronte|Le Tigre et l'Euphrate délimitent la Mésopotamie.
+6|geo|Quel pays d'Amérique du Sud n'a pas d'accès à la mer, avec la Bolivie ?|Le Paraguay|L'Uruguay|L'Équateur|Le Suriname|Ce sont les deux seuls pays enclavés du continent.
+6|sci|Quel savant a formulé la loi de conservation de la masse, « Rien ne se perd, rien ne se crée, tout se transforme » ?|Antoine Lavoisier|Louis Pasteur|Claude Bernard|Joseph Proust|Il est guillotiné en 1794 pendant la Terreur.
+6|sci|À combien de kelvins correspond, environ, la température de fusion de la glace ?|273 K|100 K|0 K|373 K|0 °C correspond à 273,15 K ; 0 K est le zéro absolu.
+5|sci|Quel organite de la cellule produit l'essentiel de son énergie ?|La mitochondrie|Le ribosome|L'appareil de Golgi|Le noyau|Elle possède son propre ADN, transmis par la mère.
+6|art|Quel écrivain a créé la ville imaginaire de Macondo ?|Gabriel García Márquez|Jorge Luis Borges|Mario Vargas Llosa|Pablo Neruda|C'est le décor de Cent ans de solitude, publié en 1967.
+6|mus|Combien de cordes possède un violon ?|Quatre|Cinq|Six|Trois|Accordées en sol, ré, la, mi.
+6|esp|Quelle sonde a été la première à quitter l'héliosphère, en 2012 ?|Voyager 1|Pioneer 10|New Horizons|Voyager 2|Lancée en 1977, elle est l'objet humain le plus lointain.
+6|esp|En quelle année a eu lieu le premier vol de la navette spatiale américaine ?|1981|1977|1986|1969|La navette Columbia décolle le 12 avril 1981.
+6|cor|Comment s'appelle la petite glande située à la base du cerveau qui régule de nombreuses hormones ?|L'hypophyse|La thyroïde|La glande pinéale|Les surrénales|Elle est souvent appelée la « chef d'orchestre » des glandes.
+6|myt|Qui est le père d'Achille ?|Pélée|Priam|Agamemnon|Laërte|Sa mère est la nymphe marine Thétis.
+6|per|Quel physicien danois a proposé un modèle de l'atome en 1913 ?|Niels Bohr|Max Planck|Werner Heisenberg|Erwin Schrödinger|Les électrons y tournent sur des orbites précises.
+6|per|Quel navigateur a découvert le détroit qui porte son nom au sud de l'Amérique ?|Magellan|Drake|Cook|Vespucci|Il le franchit en 1520.
+6|lan|D'où vient le mot « algorithme » ?|Du nom d'un mathématicien persan|Du grec « algos »|Du latin « algere »|D'un mot arabe signifiant « calcul »|Al-Khwârizmî, savant du IXe siècle, a aussi donné son nom à l'algèbre via un de ses livres.
+6|lan|Quel écrivain a été le premier Français à recevoir le prix Nobel de littérature, en 1901 ?|Sully Prudhomme|Anatole France|Romain Rolland|Frédéric Mistral|Le tout premier prix Nobel de littérature.
+4|spo|Quel boxeur s'appelait Cassius Clay avant de changer de nom ?|Mohamed Ali|Joe Frazier|George Foreman|Sonny Liston|Il change de nom en 1964, après sa conversion à l'islam.
+6|spo|Dans quelle ville se sont déroulés les Jeux olympiques d'été de 1936 ?|Berlin|Amsterdam|Los Angeles|Londres|Jesse Owens y remporte quatre médailles d'or.
+7|his|Quel roi capétien a fait arrêter les Templiers en 1307 ?|Philippe IV le Bel|Louis IX|Philippe VI|Louis X|Le grand maître Jacques de Molay est brûlé en 1314.
+7|his|Quel ministre de Louis XIV a créé la Compagnie française des Indes orientales en 1664 ?|Colbert|Louvois|Fouquet|Vauban|Il développe aussi les manufactures royales.
+7|his|Quelle bataille navale de 1571 voit la Sainte Ligue vaincre la flotte ottomane ?|Lépante|Trafalgar|Aboukir|Actium|Cervantès y perd l'usage de sa main gauche.
+7|his|Quel surintendant des finances fut arrêté en 1661 par d'Artagnan, sur ordre de Louis XIV ?|Nicolas Fouquet|Jean-Baptiste Colbert|Michel Le Tellier|Jules Mazarin|Son château de Vaux-le-Vicomte aurait rendu le roi jaloux.
+7|his|Quel dirigeant soviétique a lancé la perestroïka ?|Mikhaïl Gorbatchev|Leonid Brejnev|Iouri Andropov|Boris Eltsine|À partir de 1985, avec la glasnost, la transparence.
+7|his|Quel accord de 1916 partage secrètement le Moyen-Orient entre la France et le Royaume-Uni ?|Les accords Sykes-Picot|La déclaration Balfour|Le traité de Sèvres|Le traité de Lausanne|Ils portent le nom des deux diplomates qui les ont négociés.
+7|his|Dans quel hôtel de Vichy le maréchal Pétain avait-il installé ses bureaux ?|L'hôtel du Parc|L'hôtel des Ambassadeurs|L'hôtel Majestic|L'hôtel Thermal|Vichy a été choisie pour ses nombreux hôtels, capables d'accueillir les ministères.
+7|geo|Quelle chute d'eau est la plus haute du monde ?|Le Salto Ángel|Les chutes Victoria|Les chutes d'Iguaçu|Les chutes du Niagara|Au Venezuela, avec 979 mètres de dénivelé.
+7|sci|Quel mathématicien a démontré le dernier théorème de Fermat en 1994 ?|Andrew Wiles|Grigori Perelman|Alexandre Grothendieck|Pierre Deligne|La conjecture attendait depuis plus de 350 ans.
+7|sci|Quel est le métal le plus abondant dans la croûte terrestre ?|L'aluminium|Le fer|Le cuivre|Le calcium|L'oxygène et le silicium sont plus abondants, mais ne sont pas des métaux.
+7|sci|Quelle constante physique vaut environ 6,02 × 10²³ ?|Le nombre d'Avogadro|La constante de Planck|La constante de Boltzmann|La vitesse de la lumière|C'est le nombre d'entités dans une mole.
+7|sci|Quel élément chimique a pour symbole W ?|Le tungstène|Le vanadium|Le titane|Le zirconium|Le W vient de son autre nom, le wolfram. C'est le métal qui fond à la plus haute température.
+7|art|Quel poète a écrit Le Bateau ivre à 16 ans ?|Arthur Rimbaud|Paul Verlaine|Charles Baudelaire|Gérard de Nerval|Il arrive à Paris avec ce poème en 1871.
+7|art|Quel écrivain a reçu le prix Goncourt en 1919 pour À l'ombre des jeunes filles en fleurs ?|Marcel Proust|Roland Dorgelès|Henri Barbusse|Georges Duhamel|Il l'emporte face aux Croix de bois de Dorgelès.
+7|mus|Quel jazzman était surnommé « Bird » ?|Charlie Parker|Dizzy Gillespie|Miles Davis|John Coltrane|Saxophoniste, l'un des inventeurs du bebop.
+7|per|Quelle femme pharaon a régné sur l'Égypte au XVe siècle av. J.-C. ?|Hatchepsout|Néfertiti|Cléopâtre VII|Néfertari|Son temple funéraire de Deir el-Bahari est célèbre.
+7|lan|Quel écrivain a créé l'Oulipo avec François Le Lionnais en 1960 ?|Raymond Queneau|Georges Perec|Italo Calvino|Boris Vian|Perec y a écrit La Disparition, roman sans la lettre E.
+7|lan|Quel mot désigne une figure de style qui exagère, comme « mourir de rire » ?|L'hyperbole|La litote|L'euphémisme|L'oxymore|La litote, au contraire, dit moins pour suggérer plus.
+7|spo|Dans quel sport décerne-t-on la Coupe Stanley ?|Le hockey sur glace|Le baseball|Le football américain|Le basket-ball|C'est le plus ancien trophée professionnel d'Amérique du Nord.
+7|tec|Quel informaticien britannique est considéré comme un père de l'informatique et a conçu un test d'intelligence des machines ?|Alan Turing|Charles Babbage|John von Neumann|Claude Shannon|Il a aussi contribué à casser le code Enigma.
+7|tec|Quelle femme est souvent considérée comme la première programmeuse de l'histoire ?|Ada Lovelace|Grace Hopper|Hedy Lamarr|Margaret Hamilton|Au XIXe siècle, elle écrit un programme pour la machine de Babbage.
+7|cin|Quel film de Jean Renoir, sorti en 1937, se déroule dans un camp de prisonniers ?|La Grande Illusion|La Règle du jeu|Le Quai des brumes|Les Enfants du paradis|Avec Jean Gabin et Erich von Stroheim.
+7|cin|Quel réalisateur a tourné Citizen Kane à 25 ans ?|Orson Welles|John Ford|Howard Hawks|Billy Wilder|Le film sort en 1941.
+7|eco|Quelle entreprise néerlandaise, fondée en 1602, est souvent présentée comme la première société par actions moderne ?|La Compagnie des Indes orientales|La Compagnie des Indes occidentales|La Banque d'Amsterdam|La Compagnie de la baie d'Hudson|La VOC, en néerlandais.
+7|eco|Quel économiste a écrit la Théorie générale de l'emploi, de l'intérêt et de la monnaie ?|John Maynard Keynes|Milton Friedman|Friedrich Hayek|Joseph Schumpeter|Publiée en 1936, en pleine crise.
+7|gas|Quelle épice est tirée des pistils d'une fleur de crocus ?|Le safran|Le curcuma|La cardamome|Le paprika|Il faut environ 150 000 fleurs pour un kilo.
+7|mon|Combien de pays sont membres permanents du Conseil de sécurité de l'ONU ?|Cinq|Six|Quatre|Sept|Les États-Unis, la Russie, la Chine, le Royaume-Uni et la France.
+8|his|Quel roi de France est mort à Tunis en 1270, lors de la huitième croisade ?|Louis IX|Philippe III|Louis VII|Philippe II|Saint Louis meurt probablement de la dysenterie devant Tunis.
+8|his|Quelle bataille de 1346 voit les archers anglais écraser la chevalerie française ?|Crécy|Azincourt|Poitiers|Castillon|Azincourt (1415) et Poitiers (1356) suivront le même scénario.
+8|his|Quelle bataille de 1453 met fin à la guerre de Cent Ans ?|Castillon|Formigny|Patay|Orléans|Elle marque la fin de la présence anglaise en Guyenne.
+8|his|Quel traité de 1713 met fin à la guerre de Succession d'Espagne ?|Le traité d'Utrecht|Le traité de Ryswick|Le traité d'Aix-la-Chapelle|Le traité de Nimègue|Philippe V garde l'Espagne mais renonce au trône de France.
+8|his|Quel général vendéen a mené les insurgés lors de la virée de Galerne en 1793 ?|Henri de La Rochejaquelein|François de Charette|Jacques Cathelineau|Maurice d'Elbée|Il devient généralissime de l'armée catholique et royale à 21 ans.
+8|his|Quelle dynastie a régné sur l'Angleterre de 1485 à 1603 ?|Les Tudor|Les Stuart|Les Plantagenêt|Les Lancastre|D'Henri VII à Élisabeth Ire.
+8|his|Quel empereur a été vaincu à la bataille de Sedan en 1870 ?|Napoléon III|Guillaume Ier|François-Joseph|Alexandre II|Fait prisonnier, il provoque la chute du Second Empire.
+8|his|Quel empereur moghol a fait construire le Taj Mahal ?|Shah Jahan|Akbar|Aurangzeb|Babur|En mémoire de son épouse Mumtaz Mahal, morte en 1631.
+8|his|Quelle loi de 1881-1882 rend l'école primaire gratuite, laïque et obligatoire ?|Les lois Jules Ferry|La loi Falloux|La loi Guizot|La loi Debré|La loi Guizot (1833) imposait une école de garçons par commune.
+8|his|Quel royaume africain était dirigé par Soundiata Keïta au XIIIe siècle ?|L'Empire du Mali|L'Empire songhaï|Le royaume du Kongo|L'Empire du Ghana|Son successeur Mansa Moussa est réputé l'homme le plus riche de l'histoire.
+8|geo|Quelle ville est traversée par le Bosphore ?|Istanbul|Ankara|Izmir|Bursa|Elle est à cheval sur l'Europe et l'Asie.
+8|sci|Quel chimiste anglais a isolé l'oxygène en 1774 ?|Joseph Priestley|Henry Cavendish|Antoine Lavoisier|Humphry Davy|Lavoisier lui donnera son nom et comprendra son rôle dans la combustion.
+8|sci|Quel savant grec a estimé la circonférence de la Terre vers 240 av. J.-C. ?|Ératosthène|Archimède|Euclide|Ptolémée|Il compare l'ombre d'un bâton à Alexandrie et à Syène, le jour du solstice.
+8|sci|Quelle force fondamentale assure la cohésion des noyaux atomiques ?|L'interaction forte|L'interaction faible|L'électromagnétisme|La gravitation|Elle est la plus intense des quatre, mais n'agit qu'à très courte distance.
+8|art|Quel écrivain a écrit L'Homme sans qualités ?|Robert Musil|Thomas Mann|Hermann Broch|Stefan Zweig|Un roman inachevé, à la mort de Musil en 1942.
+8|art|Quel écrivain a écrit Le Maître et Marguerite ?|Mikhaïl Boulgakov|Boris Pasternak|Vladimir Nabokov|Alexandre Soljenitsyne|Il ne sera publié qu'en 1966-1967, longtemps après la mort de l'auteur.
+8|art|Quel architecte catalan a conçu la Sagrada Família ?|Antoni Gaudí|Lluís Domènech i Montaner|Josep Puig i Cadafalch|Ricardo Bofill|Il y travaille de 1883 à sa mort, en 1926.
+8|art|Quel poète a écrit Les Châtiments contre Napoléon III ?|Victor Hugo|Alphonse de Lamartine|Alfred de Vigny|Théophile Gautier|Publié en 1853, depuis son exil.
+8|art|Quel écrivain portugais a reçu le prix Nobel de littérature en 1998 ?|José Saramago|Fernando Pessoa|António Lobo Antunes|Eça de Queirós|Auteur de L'Aveuglement.
+8|myt|Quel roi de Troie était le père d'Hector et de Pâris ?|Priam|Anchise|Laomédon|Ménélas|Ménélas était le roi de Sparte, mari d'Hélène.
+8|per|Quel savant arabe du XIe siècle est considéré comme un père de l'optique moderne ?|Ibn al-Haytham|Avicenne|Averroès|Al-Biruni|Il explique que la lumière entre dans l'œil au lieu d'en sortir.
+8|per|Quel est le vrai nom de Voltaire ?|François-Marie Arouet|Jean-Baptiste Poquelin|Henri Beyle|Marie-Henri Arouet|Jean-Baptiste Poquelin est Molière, Henri Beyle est Stendhal.
+8|lan|Quel est le sens premier du mot « rocambolesque » ?|Plein de péripéties invraisemblables|Très drôle|Très lent|Très bruyant|Il vient de Rocambole, héros des romans-feuilletons de Ponson du Terrail.
+8|lan|Quel écrivain a écrit Le Grand Meaulnes ?|Alain-Fournier|Raymond Radiguet|Henri Bosco|Jules Renard|Son unique roman, publié en 1913, un an avant sa mort au front.
+8|spo|Quel coureur tchèque a remporté le 5 000 m, le 10 000 m et le marathon aux Jeux de 1952 ?|Emil Zátopek|Paavo Nurmi|Abebe Bikila|Lasse Virén|Il courait son tout premier marathon.
+8|spo|Quelle joueuse de tennis détient le record de titres du Grand Chelem en simple, avec 24 victoires ?|Margaret Court|Serena Williams|Steffi Graf|Martina Navrátilová|Serena Williams en compte 23, Steffi Graf 22.
+8|tec|Quel système de communication codé en points et en traits a été mis au point dans les années 1830 ?|Le morse|Le braille|Le sémaphore|Le télégraphe Chappe|Samuel Morse l'invente avec Alfred Vail.
+8|eco|Quel pays a créé la première bourse de valeurs moderne, à Amsterdam, au XVIIe siècle ?|Les Provinces-Unies|L'Angleterre|La France|L'Espagne|On y échangeait notamment les actions de la Compagnie des Indes orientales.
+8|gas|De quelle ville vient la sauce béarnaise, malgré son nom ?|Saint-Germain-en-Laye|Pau|Bayonne|Toulouse|Elle aurait été créée vers 1836 au restaurant du Pavillon Henri IV, en hommage au roi né à Pau.
+8|ani|Combien d'estomacs, ou plutôt de poches, possède le système digestif d'une vache ?|Quatre|Deux|Trois|Six|La panse, le bonnet, le feuillet et la caillette.
+8|bdm|Quel scénariste a créé Astérix avec Albert Uderzo ?|René Goscinny|Jean-Michel Charlier|Greg|Raymond Leblanc|Il a aussi écrit Lucky Luke et Le Petit Nicolas.
+8|mon|Dans quelle ville siège le Conseil de l'Europe ?|Strasbourg|Bruxelles|Luxembourg|Genève|À ne pas confondre avec le Conseil européen ni avec le Conseil de l'Union européenne, à Bruxelles.
+9|his|Quel roi mérovingien a été baptisé à Reims, selon la tradition vers 496-499 ?|Clovis|Childéric|Dagobert|Clotaire|Par l'évêque Remi ; la date exacte reste débattue.
+9|his|Quel maire du palais a déposé le dernier roi mérovingien en 751 ?|Pépin le Bref|Charles Martel|Carloman|Charlemagne|Il devient le premier roi carolingien.
+9|his|Quel traité de 843 partage l'empire de Charlemagne entre ses petits-fils ?|Le traité de Verdun|Le traité de Meerssen|Le serment de Strasbourg|Le traité de Saint-Clair-sur-Epte|Lothaire, Louis le Germanique et Charles le Chauve se partagent l'empire.
+9|his|Quel traité de 911 cède aux Vikings de Rollon le territoire qui deviendra la Normandie ?|Le traité de Saint-Clair-sur-Epte|Le traité de Verdun|Le traité de Paris|Le traité de Wedmore|Signé par le roi Charles le Simple.
+9|his|Quel roi d'Angleterre a été contraint de signer la Grande Charte en 1215 ?|Jean sans Terre|Richard Cœur de Lion|Henri II|Henri III|La Magna Carta limite le pouvoir royal.
+9|his|Quel connétable a repris aux Anglais une grande partie du royaume sous Charles V ?|Bertrand Du Guesclin|Arthur de Richemont|Jean de Dunois|Olivier de Clisson|Un chevalier breton devenu connétable de France en 1370.
+9|his|Quelle journée de novembre 1630 voit Richelieu triompher de ses ennemis à la cour ?|La journée des Dupes|La Fronde|La journée des Barricades|La journée des Tuiles|Marie de Médicis croyait avoir obtenu son renvoi.
+9|his|Quel traité de 1659 met fin à la guerre entre la France et l'Espagne ?|Le traité des Pyrénées|Le traité de Westphalie|Le traité de Nimègue|Le traité d'Aix-la-Chapelle|Il prévoit le mariage de Louis XIV avec l'infante Marie-Thérèse.
+9|his|Quelle bataille de 1805 voit la flotte franco-espagnole battue par Nelson ?|Trafalgar|Aboukir|Copenhague|Le Nil|Nelson y est tué. Aboukir, ou bataille du Nil, date de 1798.
+9|his|Quel diplomate a représenté la France au congrès de Vienne en 1814-1815 ?|Talleyrand|Fouché|Metternich|Chateaubriand|Metternich représentait l'Autriche et présidait le congrès.
+9|his|Quelle dynastie chinoise a construit l'essentiel de la Grande Muraille visible aujourd'hui ?|Les Ming|Les Qin|Les Han|Les Tang|Les Qin avaient relié des murs plus anciens, mais en terre damée.
+9|his|Quel chef apache a résisté aux armées mexicaine et américaine jusqu'en 1886 ?|Geronimo|Sitting Bull|Crazy Horse|Cochise|Sitting Bull et Crazy Horse étaient des chefs lakotas.
+9|his|Quelle guerre oppose le Paraguay au Brésil, à l'Argentine et à l'Uruguay de 1864 à 1870 ?|La guerre de la Triple-Alliance|La guerre du Chaco|La guerre du Pacifique|La guerre des Farrapos|Le Paraguay y perd une très grande partie de sa population.
+9|geo|Quel détroit sépare l'île de Sumatra de la péninsule Malaise ?|Le détroit de Malacca|Le détroit de la Sonde|Le détroit de Lombok|Le détroit de Torres|L'une des routes maritimes les plus fréquentées du monde.
+9|sci|Quel chimiste a synthétisé l'urée en 1828, prouvant qu'un composé organique peut naître de la chimie minérale ?|Friedrich Wöhler|Justus von Liebig|Jöns Jacob Berzelius|Marcellin Berthelot|Une expérience qui ébranle l'idée d'une « force vitale ».
+9|sci|Quel mathématicien a démontré qu'il existe une infinité de nombres premiers, vers 300 av. J.-C. ?|Euclide|Pythagore|Ératosthène|Diophante|La démonstration figure dans ses Éléments.
+9|sci|Quel naturaliste a proposé, avant Darwin, une théorie de l'évolution fondée sur l'hérédité des caractères acquis ?|Jean-Baptiste de Lamarck|Georges Cuvier|Buffon|Étienne Geoffroy Saint-Hilaire|Sa Philosophie zoologique paraît en 1809.
+9|art|Quel écrivain a écrit Le Guépard, roman sur la fin de l'aristocratie sicilienne ?|Giuseppe Tomasi di Lampedusa|Alberto Moravia|Luigi Pirandello|Leonardo Sciascia|Publié en 1958, après la mort de l'auteur.
+9|art|Quel peintre a réalisé L'Origine du monde ?|Gustave Courbet|Édouard Manet|Jean-Auguste-Dominique Ingres|Henri de Toulouse-Lautrec|Peint en 1866, il est au musée d'Orsay depuis 1995.
+9|art|Quel poète a écrit Le Cimetière marin ?|Paul Valéry|Paul Claudel|Saint-John Perse|Guillaume Apollinaire|Le cimetière de Sète, sa ville natale, où il est enterré.
+9|art|Quel écrivain a obtenu le prix Goncourt sous le pseudonyme d'Émile Ajar, en plus de celui reçu sous son nom ?|Romain Gary|Patrick Modiano|Michel Tournier|Marguerite Duras|Les Racines du ciel (1956), puis La Vie devant soi (1975).
+9|art|Quel peintre a fondé le mouvement fauve avec André Derain ?|Henri Matisse|Maurice de Vlaminck|Georges Braque|Raoul Dufy|Le nom vient d'un critique, au Salon d'automne de 1905.
+9|mus|Quel compositeur a écrit les Variations Goldberg ?|Jean-Sébastien Bach|Georg Friedrich Haendel|Domenico Scarlatti|Joseph Haydn|Publiées en 1741.
+9|mus|Quel compositeur français a écrit Prélude à l'après-midi d'un faune ?|Claude Debussy|Maurice Ravel|Gabriel Fauré|Vincent d'Indy|D'après un poème de Mallarmé, créé en 1894.
+9|esp|Quel astronome a établi que les orbites des planètes sont des ellipses ?|Johannes Kepler|Nicolas Copernic|Tycho Brahe|Galilée|Sa première loi est publiée en 1609.
+9|cor|Quel scientifique a découvert la circulation sanguine en 1628 ?|William Harvey|André Vésale|Ambroise Paré|Claude Galien|Il montre que le cœur fait circuler le sang en boucle.
+9|myt|Quel héros grec est le fils de Danaé et de Zeus, venu à elle sous forme de pluie d'or ?|Persée|Héraclès|Thésée|Dionysos|C'est lui qui tranche la tête de Méduse.
+9|myt|Quelle déesse mésopotamienne de l'amour et de la guerre est aussi appelée Inanna ?|Ishtar|Tiamat|Ereshkigal|Ninhursag|Ishtar est son nom akkadien, Inanna son nom sumérien.
+9|per|Quel philosophe a écrit Critique de la raison pure ?|Emmanuel Kant|Hegel|Fichte|Schopenhauer|Publiée en 1781.
+9|lan|Quel mot désigne la figure de style qui rapproche deux mots opposés, comme « obscure clarté » ?|L'oxymore|L'antithèse|Le chiasme|La prétérition|L'expression vient du Cid de Corneille.
+9|lan|Quel écrivain a créé le mot « robot » dans une pièce de 1920 ?|Karel Čapek|Isaac Asimov|Jules Verne|H. G. Wells|Dans R.U.R. ; c'est en fait son frère Josef qui lui aurait soufflé le mot.
+9|cin|Quel cinéaste a signé L'Atalante en 1934, avant de mourir à 29 ans ?|Jean Vigo|Jean Renoir|Marcel Carné|René Clair|Il signe aussi Zéro de conduite.
+9|eco|Quel banquier écossais a créé la Banque générale en France en 1716 ?|John Law|Jacques Necker|Jacques Cœur|Samuel Bernard|Son système de papier-monnaie fait faillite en 1720.
+9|mon|Dans quelle ville a été signée la Déclaration universelle des droits de l'homme en 1948 ?|Paris|New York|Genève|Londres|Adoptée au palais de Chaillot par l'Assemblée générale de l'ONU.
+9|his|Quel souverain a promulgué l'un des plus anciens codes de lois connus, gravé sur une stèle de basalte ?|Hammurabi|Nabuchodonosor II|Sargon d'Akkad|Assurbanipal|Roi de Babylone vers 1750 av. J.-C. ; la stèle est au Louvre.
+10|his|Quelle bataille de 1302 voit les milices flamandes écraser la chevalerie française ?|La bataille des Éperons d'or|La bataille de Mons-en-Pévèle|La bataille de Cassel|La bataille de Roosebeke|À Courtrai ; les vainqueurs ramassent ensuite les éperons des chevaliers tués.
+10|his|Quel traité de 1360 cède à l'Angleterre près d'un tiers du royaume de France ?|Le traité de Brétigny|Le traité de Troyes|Le traité de Guérande|Le traité d'Arras|Il est conclu après la capture du roi Jean II le Bon à Poitiers.
+10|his|Quel traité de 1420 fait du roi d'Angleterre l'héritier du trône de France ?|Le traité de Troyes|Le traité de Brétigny|Le traité d'Arras|Le traité de Picquigny|Charles VI y déshérite son fils, le futur Charles VII.
+10|his|Quel roi de France a acheté le Dauphiné en 1349, d'où le titre de dauphin ?|Philippe VI|Jean II le Bon|Charles V|Louis XI|Le titre de dauphin revient ensuite au fils aîné du roi.
+10|his|Quelle révolte paysanne a éclaté en Île-de-France en 1358 ?|La Grande Jacquerie|La révolte des Croquants|La révolte des Va-nu-pieds|La révolte des Bonnets rouges|Elle tire son nom de « Jacques Bonhomme », surnom donné aux paysans.
+10|his|Quel prévôt des marchands de Paris a mené une révolte contre le dauphin en 1358 ?|Étienne Marcel|Jacques Cœur|Jean Jouvenel|Simon Caboche|Il est assassiné la même année.
+10|his|Quelle bataille de 1683 met fin au siège de Vienne par les Ottomans ?|La bataille du Kahlenberg|La bataille de Mohács|La bataille de Zenta|La bataille de Lépante|La charge des hussards ailés du roi de Pologne Jean III Sobieski est décisive.
+10|his|Quel roi de Suède a été tué à la bataille de Lützen en 1632 ?|Gustave II Adolphe|Charles XII|Christian IV|Charles X Gustave|Il est un des grands chefs militaires de la guerre de Trente Ans.
+10|his|Quelle bataille de 1709 marque la défaite de Charles XII de Suède face à Pierre le Grand ?|Poltava|Narva|Lesnaïa|Holowczyn|Elle fait de la Russie une grande puissance européenne.
+10|his|Quel décret de 1791 supprime les corporations en France ?|Le décret d'Allarde|La loi Le Chapelier|Le décret de Marly|L'édit de Turgot|La loi Le Chapelier, la même année, interdit les coalitions ouvrières.
+10|his|Quel coup d'État de Napoléon Bonaparte a eu lieu le 9 novembre 1799 ?|Le 18 Brumaire|Le 13 Vendémiaire|Le 18 Fructidor|Le 9 Thermidor|Le 9 Thermidor (1794) marque la chute de Robespierre.
+10|his|Quelle bataille de 1844 oppose la France au Maroc, allié de l'émir Abd el-Kader ?|La bataille d'Isly|La bataille de la Macta|La bataille de Sidi-Brahim|La bataille de Mazagran|Le maréchal Bugeaud y bat l'armée du sultan ; l'émir se rendra en 1847.
+10|his|Quel traité de 1842 cède Hong Kong au Royaume-Uni ?|Le traité de Nankin|Le traité de Tianjin|Le traité de Pékin|Le traité de Shimonoseki|Il met fin à la première guerre de l'opium.
+10|his|Quel empereur éthiopien a vaincu l'armée italienne à Adoua en 1896 ?|Ménélik II|Haïlé Sélassié|Tewodros II|Yohannes IV|Une victoire qui garantit l'indépendance de l'Éthiopie.
+10|his|Quel incident diplomatique de 1898 oppose la France et le Royaume-Uni au Soudan ?|La crise de Fachoda|La crise de Tanger|La crise d'Agadir|L'affaire de Suez|La mission Marchand doit se retirer face à Kitchener.
+10|geo|Quelle est la capitale du Vanuatu ?|Port-Vila|Nouméa|Honiara|Suva|Un ancien condominium franco-britannique, indépendant depuis 1980.
+10|geo|Quel pays a pour capitale Asmara ?|L'Érythrée|Djibouti|L'Éthiopie|La Somalie|Sa ville est réputée pour son architecture moderniste italienne des années 1930.
+10|geo|Quel est le plus grand lac d'Afrique ?|Le lac Victoria|Le lac Tanganyika|Le lac Malawi|Le lac Tchad|Il est partagé entre l'Ouganda, le Kenya et la Tanzanie.
+10|geo|Quel fleuve se jette dans la mer à Saint-Louis du Sénégal ?|Le fleuve Sénégal|La Gambie|Le Niger|La Casamance|Il marque une grande partie de la frontière entre le Sénégal et la Mauritanie.
+10|geo|Quelle île, la plus grande d'Indonésie entièrement indonésienne, est traversée par l'équateur ?|Sumatra|Java|Bornéo|Sulawesi|Bornéo est plus grande, mais partagée avec la Malaisie et Brunei.
+10|sci|Quel mathématicien a résolu la conjecture de Poincaré, prouvée en 2003 ?|Grigori Perelman|Terence Tao|Andrew Wiles|Michael Atiyah|Il refuse la médaille Fields en 2006 et le prix du millénaire.
+10|sci|Quelle mathématicienne a démontré le théorème reliant symétries et lois de conservation en physique ?|Emmy Noether|Sophie Germain|Sofia Kovalevskaïa|Ada Lovelace|Le théorème de Noether, publié en 1918.
+10|sci|Quel chimiste a découvert le radium et le polonium avec son épouse en 1898 ?|Pierre Curie|Henri Becquerel|Paul Langevin|Frédéric Joliot|Le polonium est nommé d'après la Pologne natale de Marie.
+10|sci|Quel physicien a découvert le neutron en 1932 ?|James Chadwick|Ernest Rutherford|Enrico Fermi|Werner Heisenberg|Il reçoit le prix Nobel de physique en 1935.
+10|sci|Quel est le numéro atomique du carbone ?|6|12|8|14|Son noyau compte six protons ; le carbone 12 a aussi six neutrons.
+10|sci|Quel mathématicien a introduit le symbole π pour le rapport du cercle, popularisé ensuite par Euler ?|William Jones|Leonhard Euler|Isaac Newton|Gottfried Leibniz|En 1706 ; Euler le rend courant à partir de 1737.
+10|sci|Quelle maladie Edward Jenner a-t-il appris à prévenir en 1796, inventant la vaccination ?|La variole|La rage|La rougeole|La poliomyélite|Il utilise la vaccine, une maladie des vaches, d'où le mot vaccin.
+10|art|Quel écrivain a écrit La Princesse de Clèves ?|Madame de La Fayette|Madame de Sévigné|Madame de Staël|Madeleine de Scudéry|Publié anonymement en 1678.
+10|art|Quel écrivain argentin a écrit Fictions, avec La Bibliothèque de Babel ?|Jorge Luis Borges|Julio Cortázar|Ernesto Sábato|Adolfo Bioy Casares|Recueil publié en 1944.
+10|art|Quel écrivain a écrit Le Livre de l'intranquillité sous le nom de Bernardo Soares ?|Fernando Pessoa|José Saramago|Eça de Queirós|Miguel Torga|Pessoa écrivait sous de nombreux hétéronymes.
+10|art|Quel écrivain allemand a écrit Les Souffrances du jeune Werther ?|Goethe|Schiller|Hölderlin|Novalis|Publié en 1774, il aurait provoqué une vague de suicides.
+10|mus|Quel compositeur a écrit l'opéra Pelléas et Mélisande ?|Claude Debussy|Gabriel Fauré|Paul Dukas|Ernest Chausson|Créé en 1902 d'après la pièce de Maeterlinck.
+10|mus|Quel compositeur italien a écrit l'opéra L'Orfeo en 1607, l'un des premiers de l'histoire ?|Claudio Monteverdi|Jacopo Peri|Giovanni Gabrieli|Alessandro Scarlatti|Il est créé à Mantoue.
+10|mus|Quel compositeur a mis en musique le Requiem allemand ?|Johannes Brahms|Felix Mendelssohn|Richard Wagner|Anton Bruckner|Achevé en 1868, sur des textes de la Bible de Luther.
+10|mus|Combien de touches compte un piano standard moderne ?|88|76|92|85|52 blanches et 36 noires.
+10|esp|Quel astronome français a découvert Neptune par le calcul, en 1846 ?|Urbain Le Verrier|Pierre-Simon de Laplace|Camille Flammarion|Charles Messier|Johann Galle l'observe à l'endroit qu'il avait prédit.
+10|esp|Quel astronome américain a découvert Pluton en 1930 ?|Clyde Tombaugh|Edwin Hubble|Percival Lowell|Carl Sagan|Pluton est reclassée planète naine en 2006.
+10|esp|Quelle mission a déposé un atterrisseur sur une comète pour la première fois, en 2014 ?|Rosetta, avec Philae|Deep Impact|Stardust|Giotto|La comète 67P/Tchourioumov-Guérassimenko.
+10|esp|Quelle est la deuxième planète la plus massive du Système solaire ?|Saturne|Neptune|Uranus|La Terre|Elle est pourtant si peu dense qu'elle flotterait sur l'eau.
+10|myt|Dans la mythologie grecque, qui est la mère des neuf Muses ?|Mnémosyne|Héra|Thémis|Léto|La déesse de la mémoire ; leur père est Zeus.
+10|myt|Quel est le nom du navire construit avec les ongles des morts, dans la mythologie nordique ?|Naglfar|Skidbladnir|Hringhorni|Bifröst|Il doit transporter les géants au Ragnarök.
+10|per|Quel chancelier allemand a présenté la « Ostpolitik » de rapprochement avec l'Est ?|Willy Brandt|Konrad Adenauer|Helmut Schmidt|Helmut Kohl|Il reçoit le prix Nobel de la paix en 1971.
+10|per|Quel chef militaire carthaginois a remporté la bataille de Cannes en 216 av. J.-C. ?|Hannibal Barca|Hasdrubal|Hamilcar Barca|Magon|Une des plus célèbres victoires d'encerclement de l'histoire.
+10|per|Quel tsar a aboli le servage en Russie, en 1861 ?|Alexandre II|Nicolas Ier|Alexandre III|Nicolas II|Il est assassiné à Saint-Pétersbourg en 1881.
+10|his|Qui a fondé le collège de la Sorbonne, au XIIIe siècle ?|Robert de Sorbon|Pierre Abélard|Thomas d'Aquin|Albert le Grand|Chapelain de Saint Louis, il ouvre en 1257 un collège pour les étudiants pauvres en théologie.
+10|spo|En quelle année l'équipe de France de rugby a-t-elle réussi son premier Grand Chelem dans le Tournoi ?|1968|1959|1977|1981|Le Tournoi des Cinq Nations ; la France l'avait gagné seule pour la première fois en 1959.
+10|spo|Dans quelle ville se sont déroulés les Jeux olympiques d'été de 1900 ?|Paris|Londres|Saint-Louis|Athènes|Les femmes y participent pour la première fois.
+10|tec|Quel ingénieur a réalisé la première liaison radio transatlantique en 1901 ?|Guglielmo Marconi|Nikola Tesla|Édouard Branly|Alexandre Popov|Entre la Cornouailles et Terre-Neuve.
+10|tec|Quel ingénieur a conçu le viaduc de Garabit, dans le Cantal ?|Gustave Eiffel|Fulgence Bienvenüe|Louis Blériot|Eugène Belgrand|Ce pont ferroviaire du Cantal est achevé en 1884.
+10|cin|Quel film a remporté la Palme d'or en 1960, réalisé par Federico Fellini ?|La Dolce Vita|Huit et demi|La strada|Les Nuits de Cabiria|Avec Marcello Mastroianni et la célèbre scène de la fontaine de Trevi.
+10|eco|Quel ministre de Louis XVI a publié le Compte rendu au roi en 1781, rendant publiques les finances ?|Jacques Necker|Turgot|Calonne|Loménie de Brienne|Il est renvoyé peu après, puis rappelé en 1788.
+10|eco|Quel économiste a reçu le prix Nobel d'économie en 2001 pour ses travaux sur l'asymétrie d'information ?|Joseph Stiglitz|Paul Krugman|Amartya Sen|Jean Tirole|Avec George Akerlof et Michael Spence.
+10|ani|Quel animal a le plus long temps de gestation connu chez les mammifères ?|L'éléphant d'Afrique|La baleine bleue|Le rhinocéros|La girafe|Environ 22 mois.
+10|mon|Dans quelle ville a été signé le traité instituant la Cour pénale internationale, en 1998 ?|Rome|La Haye|Genève|New York|La Cour siège à La Haye depuis 2002.
+6|his|Quel traité de 1559 met fin aux guerres d'Italie ?|Le traité du Cateau-Cambrésis|Le traité de Madrid|La paix de Cambrai|Le traité de Noyon|La France renonce à ses ambitions italiennes mais garde Metz, Toul et Verdun.
+6|his|Quelle place forte de Lorraine les Français ont-ils défendue en 1916 sous le mot d'ordre « Ils ne passeront pas » ?|Verdun|Nancy|Toul|Metz|La formule est associée au général Nivelle.
+6|his|Quel maréchal a commandé l'armée française victorieuse à Fontenoy en 1745 ?|Maurice de Saxe|Villars|Turenne|Vauban|Une victoire de la guerre de Succession d'Autriche, sous les yeux de Louis XV.
+6|his|Quel général français a capitulé à Metz en 1870 avec toute son armée ?|Bazaine|Mac Mahon|Trochu|Chanzy|Il est condamné pour trahison en 1873.
+6|his|Quel président du Conseil a fait voter les congés payés en 1936 ?|Léon Blum|Édouard Daladier|Pierre Laval|Paul Reynaud|Avec le gouvernement du Front populaire : deux semaines payées par an.
+6|geo|Quelle est la plus grande ville de Suisse ?|Zurich|Genève|Berne|Bâle|Berne n'est que la ville fédérale.
+6|sci|Quel nom porte la couche de l'atmosphère où se trouve la couche d'ozone ?|La stratosphère|La troposphère|La mésosphère|La thermosphère|Elle s'étend d'environ 12 à 50 km d'altitude.
+6|sci|Quel est le nom savant de la science qui étudie les champignons ?|La mycologie|La bryologie|La phycologie|La lichénologie|La bryologie étudie les mousses, la phycologie les algues.
+6|art|Quel peintre a réalisé Les Glaneuses en 1857 ?|Jean-François Millet|Gustave Courbet|Camille Corot|Jules Breton|Trois paysannes ramassant les épis oubliés après la moisson.
+6|art|Quel dramaturge a écrit En attendant Godot ?|Samuel Beckett|Eugène Ionesco|Jean Genet|Arthur Adamov|Créé à Paris en 1953.
+6|esp|Comment s'appelle le premier satellite artificiel français, lancé en 1965 ?|Astérix|Diamant|Spot|Ariane|Diamant était le nom de la fusée qui l'a lancé.
+5|cor|Comment s'appelle la membrane transparente à l'avant de l'œil ?|La cornée|La rétine|Le cristallin|La sclérotique|C'est elle que l'on corrige avec certaines opérations au laser.
+6|myt|Quel est le nom du fils d'Ulysse et de Pénélope ?|Télémaque|Laërte|Astyanax|Néoptolème|Astyanax est le fils d'Hector, Néoptolème celui d'Achille.
+4|spo|Combien de temps dure un match de handball, hors prolongations ?|60 minutes|80 minutes|70 minutes|90 minutes|Deux mi-temps de 30 minutes.
+3|tec|Quelle entreprise a été fondée par Larry Page et Sergey Brin ?|Google|Yahoo|Amazon|Netscape|À l'origine, un projet d'étudiants de Stanford.
+6|cin|Quel réalisateur a signé La Haine en 1995 ?|Mathieu Kassovitz|Jacques Audiard|Luc Besson|Cédric Klapisch|Prix de la mise en scène à Cannes, avec Vincent Cassel.
+6|eco|Quelle entreprise française a été fondée par Louis Renault et ses frères en 1899 ?|Renault|Peugeot|Citroën|Panhard|Elle est nationalisée en 1945.
+7|his|Quel député a été le rapporteur de la loi de séparation des Églises et de l'État en 1905 ?|Aristide Briand|Émile Combes|Jean Jaurès|Georges Clemenceau|Il deviendra onze fois président du Conseil.
+7|his|Quelle guerre oppose la France et l'Angleterre de 1756 à 1763 ?|La guerre de Sept Ans|La guerre de Succession d'Autriche|La guerre de Hollande|La guerre de la Ligue d'Augsbourg|La France y perd le Canada et l'essentiel de l'Inde.
+7|his|Quel traité de 1763 fait perdre le Canada à la France ?|Le traité de Paris|Le traité d'Utrecht|Le traité de Versailles|Le traité d'Aix-la-Chapelle|La Louisiane occidentale passe aussi à l'Espagne.
+7|his|Quel président de la République a été assassiné à Lyon en 1894 ?|Sadi Carnot|Paul Doumer|Félix Faure|Jules Grévy|Poignardé par l'anarchiste italien Caserio.
+7|his|Quel président de la République est mort en 1899 dans des circonstances restées célèbres à l'Élysée ?|Félix Faure|Sadi Carnot|Paul Deschanel|Émile Loubet|Il serait mort dans les bras de sa maîtresse, Marguerite Steinheil.
+7|geo|Quel pays a pour capitale Windhoek ?|La Namibie|Le Botswana|La Zambie|L'Angola|Le pays du désert du Namib.
+7|geo|Quelle mer sépare l'Italie des Balkans ?|La mer Adriatique|La mer Égée|La mer Tyrrhénienne|La mer Ionienne|Venise est au fond de la mer Adriatique.
+7|sci|Quel physicien a énoncé la loi reliant tension, intensité et résistance, U = R × I ?|Georg Ohm|André-Marie Ampère|Alessandro Volta|Michael Faraday|Il la publie en 1827.
+7|sci|Quel savant a inventé le baromètre à mercure en 1643 ?|Evangelista Torricelli|Blaise Pascal|Galilée|Otto von Guericke|Pascal confirme ensuite que la pression baisse avec l'altitude, au puy de Dôme.
+7|mus|Quel compositeur a écrit Casse-Noisette ?|Piotr Ilitch Tchaïkovski|Sergueï Rachmaninov|Alexandre Glazounov|Igor Stravinsky|Un ballet créé à Saint-Pétersbourg en 1892.
+7|esp|Quel nom porte la mission spatiale européenne qui a étudié Saturne avec la NASA, de 2004 à 2017 ?|Cassini-Huygens|Rosetta|Galileo|Juno|L'atterrisseur Huygens s'est posé sur Titan en 2005.
+7|cor|Comment s'appellent les petits sacs des poumons où se font les échanges de gaz ?|Les alvéoles|Les bronchioles|Les villosités|Les néphrons|Les néphrons sont dans les reins, les villosités dans l'intestin.
+7|per|Quel architecte a conçu le château de Versailles pour Louis XIV, avec Le Vau ?|Jules Hardouin-Mansart|Claude Perrault|Jacques-Germain Soufflot|Ange-Jacques Gabriel|Il réalise notamment la galerie des Glaces.
+4|spo|Dans quelle discipline Teddy Riner est-il champion ?|Le judo|La lutte|Le karaté|La boxe|Il a remporté plusieurs titres olympiques et mondiaux.
+7|gas|Quel vin effervescent italien vient de la région de Vénétie ?|Le prosecco|L'asti|Le lambrusco|Le franciacorta|Le lambrusco est un rouge pétillant d'Émilie-Romagne.
+7|ani|Quel est le plus grand félin du monde ?|Le tigre de Sibérie|Le lion d'Afrique|Le jaguar|Le léopard des neiges|Les mâles peuvent dépasser 300 kilos.
+8|his|Quel roi de France a été assassiné en 1589 par le moine Jacques Clément ?|Henri III|Henri IV|Charles IX|François II|Le dernier roi de la dynastie des Valois.
+8|his|Quelle reine régente a gouverné pendant l'enfance de Louis XIV ?|Anne d'Autriche|Marie de Médicis|Catherine de Médicis|Marie-Thérèse|Avec le cardinal Mazarin.
+8|his|Quelle révolte des nobles et du Parlement secoue la France de 1648 à 1653 ?|La Fronde|La Ligue|La Jacquerie|La journée des Dupes|Le jeune Louis XIV doit fuir Paris en pleine nuit.
+8|his|Quel général prussien est arrivé en renfort décisif à Waterloo ?|Blücher|Clausewitz|Gneisenau|Moltke|Son arrivée scelle la défaite de Napoléon face à Wellington.
+8|his|Quel maréchal de Napoléon était surnommé « le brave des braves » ?|Michel Ney|Joachim Murat|Louis Nicolas Davout|Jean Lannes|Il est fusillé en 1815, après les Cent-Jours.
+8|his|Quel traité de 1871 fait perdre l'Alsace et une partie de la Lorraine à la France ?|Le traité de Francfort|Le traité de Versailles|Le traité de Berlin|Le traité de Sedan|L'Empire allemand a été proclamé dans la galerie des Glaces quelques mois plus tôt.
+8|geo|Quel pays a pour capitale Antananarivo ?|Madagascar|Le Mozambique|Les Comores|Maurice|Les habitants l'appellent souvent Tana.
+8|geo|Quel désert couvre une grande partie de la Mongolie et du nord de la Chine ?|Le désert de Gobi|Le Taklamakan|Le Thar|Le Karakoum|On y a découvert de nombreux fossiles et œufs de dinosaures.
+8|geo|Quelle est la plus haute montagne du Japon ?|Le mont Fuji|Le mont Aso|Le mont Kita|Le mont Ontake|Un volcan de 3 776 mètres.
+8|sci|Quel mathématicien a inventé les logarithmes au début du XVIIe siècle ?|John Napier|Leonhard Euler|Henry Briggs|Pierre de Fermat|Il publie ses tables en 1614.
+8|sci|Quel est le nom de la plus grande glande du corps humain ?|Le foie|Le pancréas|La thyroïde|La rate|Il pèse environ 1,5 kilo.
+8|sci|Quel savant français a mesuré la vitesse de la lumière en 1849 avec une roue dentée ?|Hippolyte Fizeau|Léon Foucault|François Arago|André-Marie Ampère|Il obtient une valeur proche de 313 000 km/s.
+8|sci|Quelle expérience de Foucault, en 1851, prouve la rotation de la Terre ?|Le pendule|La roue dentée|Le miroir tournant|Le gyroscope|Il est installé au Panthéon de Paris.
+6|art|Quel peintre a réalisé Le Sacre de Napoléon ?|Jacques-Louis David|Antoine-Jean Gros|François Gérard|Jean-Auguste-Dominique Ingres|Une toile de près de 10 mètres de large, au Louvre.
+8|art|Quel poète a écrit Le Lac, célèbre pour « Ô temps, suspends ton vol » ?|Alphonse de Lamartine|Alfred de Musset|Alfred de Vigny|Gérard de Nerval|Il paraît dans les Méditations poétiques, en 1820.
+8|esp|Quelle mission a permis le premier alunissage d'un engin non habité, en 1966 ?|Luna 9|Surveyor 1|Ranger 7|Apollo 8|Une sonde soviétique, qui transmet les premières photos prises depuis le sol lunaire.
+8|per|Quel chef de guerre mongol a fondé le plus vaste empire continu de l'histoire ?|Gengis Khan|Tamerlan|Kubilai Khan|Attila|Son petit-fils Kubilai fonde la dynastie Yuan en Chine.
+8|spo|Quel cycliste belge a remporté cinq Tours de France ?|Eddy Merckx|Philippe Thys|Lucien Van Impe|Rik Van Looy|Surnommé « le Cannibale ».
+5|spo|Dans quelle ville se trouve le stade de Wimbledon ?|Londres|Manchester|Birmingham|Édimbourg|Le plus ancien tournoi de tennis du monde, depuis 1877.
+8|tec|Quel inventeur a breveté la dynamite en 1867 ?|Alfred Nobel|Ascanio Sobrero|Werner von Siemens|Thomas Edison|Sobrero avait découvert la nitroglycérine, bien plus instable.
+8|cin|Quel film de Marcel Carné réunit Arletty et Jean-Louis Barrault en 1945 ?|Les Enfants du paradis|Hôtel du Nord|Le jour se lève|Drôle de drame|Tourné pendant l'Occupation.
+9|his|Quel roi de France a été surnommé « le Prudent », ou « l'Universelle Aragne » ?|Louis XI|Charles VII|Charles VIII|Louis XII|Un roi rusé qui agrandit le royaume aux dépens de la Bourgogne.
+9|his|Quel duc de Bourgogne est mort devant Nancy en 1477 ?|Charles le Téméraire|Philippe le Bon|Jean sans Peur|Philippe le Hardi|Sa mort profite à Louis XI, qui récupère une partie de ses terres.
+9|his|Quel duc de Bourgogne a été assassiné sur le pont de Montereau en 1419 ?|Jean sans Peur|Philippe le Bon|Charles le Téméraire|Philippe le Hardi|Ce meurtre pousse les Bourguignons dans l'alliance anglaise.
+9|his|Quelle bataille de 1429 voit Jeanne d'Arc battre les Anglais en rase campagne ?|Patay|Orléans|Formigny|Castillon|Peu après la levée du siège d'Orléans.
+9|his|Quel connétable a été le compagnon d'armes de Jeanne d'Arc et a ensuite réformé l'armée de Charles VII ?|Arthur de Richemont|Bertrand Du Guesclin|Gilles de Rais|La Hire|Il remporte la bataille de Formigny en 1450.
+9|his|Quel édit de 1685 révoque l'édit de Nantes ?|L'édit de Fontainebleau|L'édit de Versailles|L'édit de Saint-Germain|L'édit d'Amboise|Il pousse des centaines de milliers de protestants à l'exil.
+9|his|Quel ministre de Louis XVI a tenté une grande réforme libérale en 1774-1776 ?|Turgot|Necker|Calonne|Maupeou|Il supprime notamment la corvée royale, avant d'être renvoyé.
+9|geo|Quel pays a pour capitale Nouakchott ?|La Mauritanie|Le Mali|Le Niger|Le Tchad|Une ville presque entièrement construite après l'indépendance de 1960.
+9|geo|Quel fleuve traverse Varsovie ?|La Vistule|L'Oder|La Warta|Le Bug|Le plus long fleuve de Pologne.
+9|geo|Quelle île grecque abrite le palais de Cnossos ?|La Crète|Rhodes|Santorin|Naxos|Le centre de la civilisation minoenne.
+9|sci|Quel mathématicien a donné son nom au triangle de coefficients binomiaux, qu'il étudie en 1654 ?|Blaise Pascal|Pierre de Fermat|Isaac Newton|Jacques Bernoulli|Le triangle était connu bien avant, en Chine et en Perse.
+6|art|Quel écrivain a écrit Les Rougon-Macquart ?|Émile Zola|Honoré de Balzac|Gustave Flaubert|Les frères Goncourt|Vingt romans sur une famille sous le Second Empire.
+7|art|Quel peintre a réalisé Un bar aux Folies Bergère ?|Édouard Manet|Edgar Degas|Henri de Toulouse-Lautrec|Pierre-Auguste Renoir|Son dernier grand tableau, en 1882.
+6|art|Quel auteur a écrit Gargantua et Pantagruel ?|François Rabelais|Michel de Montaigne|Clément Marot|Pierre de Ronsard|Pantagruel paraît en 1532, Gargantua en 1534.
+6|art|Quelle écrivaine a écrit Le Deuxième Sexe en 1949 ?|Simone de Beauvoir|Simone Weil|Elisabeth Badinter|Marguerite Yourcenar|« On ne naît pas femme, on le devient. »
+6|esp|Quel est le nom du premier chien envoyé en orbite, en 1957 ?|Laïka|Belka|Strelka|Zvezdochka|Elle meurt pendant le vol, à bord de Spoutnik 2.
+5|cor|Comment s'appelle le muscle principal de la respiration ?|Le diaphragme|Les intercostaux|Le grand dorsal|Le trapèze|En se contractant, il descend et fait entrer l'air.
+5|myt|Quel est le nom du royaume des morts dans la mythologie grecque ?|L'Hadès|Le Tartare|Les Champs Élysées|L'Érèbe|Le Tartare en est la partie la plus profonde, réservée aux grands coupables.
+9|spo|Quelle nageuse française a été championne olympique du 400 m nage libre en 2004 ?|Laure Manaudou|Camille Muffat|Coralie Balmy|Charlotte Bonnet|À Athènes, à 17 ans.
+9|cin|Quel réalisateur a signé À bout de souffle en 1960 ?|Jean-Luc Godard|François Truffaut|Claude Chabrol|Éric Rohmer|Avec Jean-Paul Belmondo et Jean Seberg.
+9|eco|Quelle entreprise a créé le premier distributeur automatique de billets, à Londres en 1967 ?|La Barclays|La Lloyds|HSBC|La NatWest|Il fonctionnait avec des chèques spéciaux, avant la carte bancaire.
+10|his|Quel roi de France est surnommé « le Long » ?|Philippe V|Louis X|Charles IV|Philippe VI|Il règne de 1316 à 1322.
+10|his|Quelle reine de France a été répudiée par Louis XII pour qu'il épouse Anne de Bretagne ?|Jeanne de France|Marie d'Anjou|Charlotte de Savoie|Claude de France|Leur mariage est annulé en 1498.
+10|his|Quelle bataille de 1544 voit les troupes françaises vaincre les Impériaux en Piémont ?|Cérisoles|Marignan|Pavie|Saint-Quentin|Une victoire du comte d'Enghien.
+10|his|Quel traité de 1598 met fin à la guerre entre la France et l'Espagne, la même année que l'édit de Nantes ?|La paix de Vervins|Le traité de Lyon|La paix de Saint-Germain|Le traité de Madrid|Henri IV peut alors se consacrer à la reconstruction du royaume.
+10|his|Quel maréchal de France a été assassiné sur ordre de Louis XIII en 1617 ?|Concino Concini|Charles de Luynes|Le duc de Guise|Henri de Montmorency|Favori de Marie de Médicis, il est abattu au Louvre.
+10|geo|Quel est le plus haut sommet du Mexique ?|Le Pic d'Orizaba|Le Popocatépetl|L'Iztaccíhuatl|Le Nevado de Toluca|Un volcan de plus de 5 600 mètres.
+10|sci|Quel chimiste suédois a créé le système moderne des symboles chimiques ?|Jöns Jacob Berzelius|Carl Wilhelm Scheele|Svante Arrhenius|Anders Celsius|Une ou deux lettres tirées du nom latin, au début du XIXe siècle.
+10|sci|Quel mathématicien a démontré l'impossibilité de la quadrature du cercle en 1882 ?|Ferdinand von Lindemann|Carl Friedrich Gauss|David Hilbert|Charles Hermite|Il prouve que π est transcendant.
+10|sci|Quel est le nom de l'unité de dose de rayonnement absorbée ?|Le gray|Le becquerel|Le sievert|Le curie|Le becquerel mesure l'activité d'une source, le sievert l'effet sur le corps.
+10|art|Quel écrivain a écrit Les Chants de Maldoror ?|Le comte de Lautréamont|Arthur Rimbaud|Tristan Corbière|Jules Laforgue|Isidore Ducasse, de son vrai nom, mort à 24 ans.
+10|art|Quel peintre a réalisé Le Bain turc ?|Jean-Auguste-Dominique Ingres|Eugène Delacroix|Jean-Léon Gérôme|Théodore Chassériau|Une toile ronde, achevée en 1863, quand le peintre a 82 ans.
+10|art|Quel écrivain a écrit Le Hussard sur le toit ?|Jean Giono|Henri Bosco|Marcel Pagnol|Jean Anouilh|Un roman de 1951, pendant une épidémie de choléra en Provence.
+10|mus|Quel compositeur a écrit le Requiem dont le Pie Jesu est célèbre, créé en 1888 ?|Gabriel Fauré|Maurice Duruflé|Hector Berlioz|Charles Gounod|Une œuvre douce et apaisée, sans Dies irae.
+10|cor|Quel est le nom de la valve entre l'oreillette et le ventricule droits du cœur ?|La valve tricuspide|La valve mitrale|La valve aortique|La valve pulmonaire|La valve mitrale est son équivalent à gauche.
+10|myt|Quelle est la mère d'Apollon et d'Artémis ?|Léto|Héra|Déméter|Maïa|Maïa est la mère d'Hermès.
+10|spo|Quel coureur a remporté le Tour de France 1989 avec 8 secondes d'avance sur Laurent Fignon ?|Greg LeMond|Pedro Delgado|Stephen Roche|Miguel Indurain|Le plus petit écart de l'histoire du Tour.
+10|eco|Quel banquier florentin a été le grand mécène de la Renaissance au XVe siècle ?|Laurent de Médicis|Cosme de Médicis|Filippo Strozzi|Jacopo Pazzi|Surnommé Laurent le Magnifique, il protège Botticelli et le jeune Michel-Ange.
+6|geo|Quel est le département le plus peuplé de France ?|Le Nord|Paris|Les Bouches-du-Rhône|Le Rhône|Il compte plus de 2,6 millions d'habitants.
+6|geo|Quel département porte le numéro 01 ?|L'Ain|L'Aisne|L'Allier|L'Ardèche|Les numéros suivent à l'origine l'ordre alphabétique.
+6|geo|Quelle est la préfecture de l'Aveyron ?|Rodez|Millau|Villefranche-de-Rouergue|Aurillac|Aurillac est la préfecture du Cantal.
+6|sci|Quelle unité mesure l'intensité d'un champ magnétique ?|Le tesla|Le weber|Le henry|Le gauss|Du nom de l'ingénieur Nikola Tesla.
+6|sci|Quel minéral occupe le premier rang, le plus tendre, de l'échelle de Mohs ?|Le talc|Le gypse|La calcite|Le quartz|Le diamant est au dixième et dernier rang.
+6|sci|Quel élément chimique doit son nom à un village écossais ?|Le strontium|Le scandium|Le césium|Le baryum|Strontian, où le minerai a été trouvé à la fin du XVIIIe siècle.
+6|esp|Quel télescope spatial a été lancé le 25 décembre 2021 ?|Le télescope James-Webb|Le télescope Hubble|Le télescope Kepler|Le télescope Spitzer|Il observe dans l'infrarouge, à 1,5 million de km de la Terre.
+6|art|Qui a écrit Manon Lescaut ?|L'abbé Prévost|Marivaux|Choderlos de Laclos|Diderot|Publié en 1731.
+6|art|Qui a écrit Paul et Virginie ?|Bernardin de Saint-Pierre|Chateaubriand|Jean-Jacques Rousseau|Madame de Staël|Un roman de 1788 qui se déroule à l'île de France, l'actuelle île Maurice.
+6|art|Quel architecte a conçu le musée Guggenheim de Bilbao ?|Frank Gehry|Renzo Piano|Zaha Hadid|Santiago Calatrava|Inauguré en 1997, couvert de titane.
+6|mus|Quel compositeur américain a écrit Rhapsody in Blue ?|George Gershwin|Leonard Bernstein|Aaron Copland|Cole Porter|Créée en 1924, elle mêle jazz et musique classique.
+6|his|Quel général américain a dirigé le débarquement du 6 juin 1944 ?|Dwight Eisenhower|Douglas MacArthur|George Patton|Omar Bradley|Il devient président des États-Unis en 1953.
+6|his|Quel nom de code a été donné au débarquement en Provence, en août 1944 ?|Dragoon|Overlord|Torch|Husky|Overlord désigne la bataille de Normandie, Torch le débarquement en Afrique du Nord.
+7|geo|Quelle est la préfecture de la Lozère ?|Mende|Florac|Marvejols|Le Puy-en-Velay|Le département le moins peuplé de France.
+7|geo|Quelle est la préfecture du Gers ?|Auch|Condom|Mont-de-Marsan|Tarbes|Mont-de-Marsan est dans les Landes, Tarbes dans les Hautes-Pyrénées.
+7|geo|Quelle est la préfecture de la Creuse ?|Guéret|Aubusson|Tulle|Montluçon|Tulle est la préfecture de la Corrèze.
+7|geo|Quel est le plus haut sommet du Canada ?|Le mont Logan|Le mont Robson|Le mont Waddington|Le mont Columbia|Près de 6 000 mètres, au Yukon.
+7|geo|Quel est le plus haut sommet de l'Antarctique ?|Le massif Vinson|Le mont Erebus|Le mont Kirkpatrick|Le mont Terror|Il culmine à près de 4 900 mètres.
+7|geo|Quelle est la capitale du Togo ?|Lomé|Cotonou|Porto-Novo|Accra|Cotonou et Porto-Novo sont au Bénin, Accra au Ghana.
+7|geo|Quelle est la capitale du Malawi ?|Lilongwe|Blantyre|Lusaka|Harare|Lusaka est en Zambie, Harare au Zimbabwe.
+7|sci|Quelle unité mesure la capacité d'un condensateur ?|Le farad|Le coulomb|Le henry|Le siemens|Du nom de Michael Faraday.
+7|sci|Quel village suédois a donné son nom à quatre éléments chimiques ?|Ytterby|Uppsala|Falun|Kiruna|Yttrium, terbium, erbium et ytterbium.
+7|sci|Quel est le premier élément chimique fabriqué artificiellement, en 1937 ?|Le technétium|Le plutonium|Le neptunium|Le prométhium|Son nom vient du grec technetos, « artificiel ».
+7|esp|Quel rover de la NASA a emporté sur Mars le petit hélicoptère Ingenuity ?|Perseverance|Curiosity|Opportunity|Spirit|Ingenuity réalise en 2021 le premier vol motorisé sur une autre planète.
+7|esp|Quelle sonde soviétique a été la première à transmettre depuis la surface de Vénus, en 1970 ?|Venera 7|Mars 3|Luna 9|Vega 1|Elle ne survit qu'une vingtaine de minutes à la chaleur et à la pression.
+7|art|Qui a écrit Adolphe, roman paru en 1816 ?|Benjamin Constant|Chateaubriand|Senancour|Stendhal|Un court roman d'analyse sur un amour qui s'éteint.
+7|art|Qui a écrit Les Caractères, en 1688 ?|Jean de La Bruyère|La Rochefoucauld|Madame de Sévigné|Fénelon|La Rochefoucauld est l'auteur des Maximes.
+7|art|Qui a écrit Salammbô ?|Gustave Flaubert|Théophile Gautier|Pierre Loti|Anatole France|Un roman historique sur Carthage, publié en 1862.
+7|art|Qui a écrit Ubu roi ?|Alfred Jarry|Georges Feydeau|Guillaume Apollinaire|Tristan Tzara|La pièce fait scandale dès son premier mot, en 1896.
+7|art|Qui a sculpté L'Homme qui marche ?|Alberto Giacometti|Constantin Brancusi|Auguste Rodin|Henry Moore|Une version s'est vendue plus de 74 millions d'euros en 2010.
+7|mus|Quel compositeur a écrit Shéhérazade en 1888 ?|Nikolaï Rimski-Korsakov|Alexandre Borodine|Mili Balakirev|Modeste Moussorgski|Inspirée des Mille et Une Nuits.
+7|mus|Quel compositeur tchèque a écrit La Moldau ?|Bedřich Smetana|Antonín Dvořák|Leoš Janáček|Josef Suk|Un poème symphonique du cycle Ma patrie.
+7|spo|Quel footballeur a remporté le premier Ballon d'or, en 1956 ?|Stanley Matthews|Alfredo Di Stéfano|Raymond Kopa|Ferenc Puskás|Un ailier anglais de 41 ans.
+7|spo|Quel pilote a remporté le premier championnat du monde de Formule 1, en 1950 ?|Giuseppe Farina|Juan Manuel Fangio|Alberto Ascari|Luigi Fagioli|Sur une Alfa Romeo.
+7|spo|Quel athlète a popularisé le saut en hauteur sur le dos, aux Jeux de 1968 ?|Dick Fosbury|Bob Beamon|Valeri Brumel|Javier Sotomayor|La technique porte son nom : le « Fosbury flop ».
+7|his|Quel général a mené un mouvement populiste qui a fait trembler la IIIe République vers 1889 ?|Georges Boulanger|Patrice de Mac Mahon|Gaston de Galliffet|Louis Faidherbe|Il renonce au coup d'État et se suicide en 1891 sur la tombe de sa maîtresse.
+7|his|Quel président de la République a démissionné en 1887 après le scandale des décorations ?|Jules Grévy|Adolphe Thiers|Mac Mahon|Sadi Carnot|Son gendre vendait des Légions d'honneur.
+7|his|Quel traité de 1920 réduit la Hongrie à environ un tiers de son territoire ?|Le traité de Trianon|Le traité de Saint-Germain-en-Laye|Le traité de Neuilly|Le traité de Sèvres|Signé au Grand Trianon, à Versailles.
+7|his|Quel traité de 1923 fixe les frontières de la Turquie moderne ?|Le traité de Lausanne|Le traité de Sèvres|Le traité de Moudros|Le traité de Berlin|Il remplace le traité de Sèvres, jamais appliqué.
+7|his|Quelle révolution met fin à la dictature au Portugal en 1974 ?|La révolution des Œillets|La révolution de velours|La révolution orange|La révolution des roses|Des soldats glissent des œillets dans le canon de leurs fusils.
+7|his|Quel président chilien est renversé par le coup d'État du 11 septembre 1973 ?|Salvador Allende|Augusto Pinochet|Eduardo Frei|Ricardo Lagos|Pinochet prend ensuite le pouvoir.
+8|geo|Quelle est la capitale du Lesotho, pays entièrement enclavé dans l'Afrique du Sud ?|Maseru|Mbabane|Gaborone|Lobamba|Mbabane et Lobamba sont en Eswatini, Gaborone au Botswana.
+8|geo|Quelle est la capitale du Belize ?|Belmopan|Belize City|Tegucigalpa|San Salvador|Elle remplace Belize City en 1970, après les ravages d'un ouragan.
+8|geo|Quelle est la capitale des Comores ?|Moroni|Mamoudzou|Victoria|Port-Louis|Mamoudzou est à Mayotte, Victoria aux Seychelles, Port-Louis à Maurice.
+8|geo|Quel est le plus haut sommet d'Océanie ?|La pyramide de Carstensz|Le mont Wilhelm|Le mont Cook|Le mont Kosciuszko|Ou Puncak Jaya, en Nouvelle-Guinée occidentale, à 4 884 mètres.
+8|geo|Quelle est la préfecture de la Haute-Saône ?|Vesoul|Lons-le-Saunier|Besançon|Belfort|Lons-le-Saunier est la préfecture du Jura.
+8|sci|Quelle unité mesure l'intensité lumineuse dans le Système international ?|La candela|Le lumen|Le lux|Le watt|Elle correspond à peu près à l'éclat d'une bougie.
+8|sci|Quel élément chimique doit son nom à la Gaule ?|Le gallium|Le francium|Le germanium|Le galium|Découvert en 1875 par le Français Lecoq de Boisbaudran.
+8|sci|Quel physicien autrichien a imaginé une expérience de pensée avec un chat à la fois mort et vivant ?|Erwin Schrödinger|Wolfgang Pauli|Ludwig Boltzmann|Lise Meitner|En 1935, pour montrer l'étrangeté de la mécanique quantique.
+8|esp|Quelle est environ la masse limite d'une naine blanche, appelée limite de Chandrasekhar ?|1,4 masse solaire|0,5 masse solaire|3 masses solaires|10 masses solaires|Au-delà, l'étoile s'effondre en étoile à neutrons ou explose.
+8|art|Qui a écrit Nadja ?|André Breton|Louis Aragon|Paul Éluard|Philippe Soupault|Un récit surréaliste publié en 1928.
+8|art|Qui a écrit Les Faux-Monnayeurs ?|André Gide|François Mauriac|Roger Martin du Gard|Jean Cocteau|Publié en 1925.
+8|art|Qui a écrit Le Soulier de satin ?|Paul Claudel|Jean Giraudoux|Henry de Montherlant|Paul Valéry|Un drame immense qui dure plus de dix heures dans sa version intégrale.
+8|art|Qui a écrit Mrs Dalloway ?|Virginia Woolf|Jane Austen|Katherine Mansfield|Edith Wharton|Un roman de 1925 qui se déroule en une seule journée à Londres.
+8|art|Qui a écrit La Montagne magique ?|Thomas Mann|Hermann Hesse|Stefan Zweig|Robert Musil|Un roman de 1924 situé dans un sanatorium de Davos.
+8|art|Qui a écrit Les Âmes mortes ?|Nicolas Gogol|Ivan Gontcharov|Alexandre Pouchkine|Mikhaïl Lermontov|Un roman satirique de 1842.
+8|art|Qui a peint L'Enterrement à Ornans ?|Gustave Courbet|Jean-François Millet|Honoré Daumier|Camille Corot|Une toile de près de 7 mètres qui fait scandale en 1851.
+8|art|Quel architecte a conçu la villa Savoye à Poissy ?|Le Corbusier|Robert Mallet-Stevens|Auguste Perret|Jean Prouvé|Achevée en 1931, elle illustre ses « cinq points de l'architecture moderne ».
+8|mus|Quel compositeur a écrit l'opéra Boris Godounov ?|Modeste Moussorgski|Piotr Ilitch Tchaïkovski|Mikhaïl Glinka|Alexandre Borodine|D'après une pièce de Pouchkine.
+8|mus|Quel compositeur a écrit l'opéra Lakmé, avec son célèbre duo des fleurs ?|Léo Delibes|Jules Massenet|Ambroise Thomas|Georges Bizet|Créé à Paris en 1883.
+8|mus|Quel compositeur américain a écrit l'Adagio pour cordes ?|Samuel Barber|Aaron Copland|Charles Ives|Philip Glass|Composé en 1936, souvent joué lors de funérailles officielles.
+8|spo|Quel athlète a sauté 8,90 m en longueur aux Jeux de Mexico, en 1968 ?|Bob Beamon|Carl Lewis|Mike Powell|Ralph Boston|Un record du monde qui tient près de 23 ans.
+8|spo|Quel footballeur français a remporté le Ballon d'or en 1958 ?|Raymond Kopa|Just Fontaine|Michel Platini|Jean-Pierre Papin|Le premier Français à le gagner.
+8|his|Quel traité de 1435 réconcilie Charles VII et le duc de Bourgogne ?|Le traité d'Arras|Le traité de Troyes|Le traité de Picquigny|Le traité de Péronne|Philippe le Bon abandonne l'alliance anglaise.
+8|his|Quel édit de 1787 accorde un état civil aux protestants ?|L'édit de tolérance|L'édit de Nantes|L'édit de Fontainebleau|L'édit de Saint-Germain|Signé à Versailles par Louis XVI.
+8|his|Quel journal a publié J'accuse… ! d'Émile Zola en 1898 ?|L'Aurore|Le Figaro|Le Temps|L'Humanité|Le journal de Clemenceau ; L'Humanité n'est fondé qu'en 1904.
+8|his|Quel maréchal a commandé l'ensemble des armées alliées en 1918 ?|Ferdinand Foch|Joseph Joffre|Douglas Haig|John Pershing|Il signe l'armistice du 11 novembre à Rethondes.
+8|his|Quel président égyptien a nationalisé le canal de Suez en 1956 ?|Gamal Abdel Nasser|Anouar el-Sadate|Hosni Moubarak|Mohammed Naguib|Une décision qui provoque l'expédition franco-britannique de Suez.
+8|his|Quel Premier ministre israélien a été assassiné en 1995 ?|Yitzhak Rabin|Shimon Peres|Menahem Begin|Golda Meir|Il avait signé les accords d'Oslo avec Yasser Arafat.
+9|geo|Quelle est la capitale du Burundi depuis 2019 ?|Gitega|Bujumbura|Kigali|Dodoma|Bujumbura reste la capitale économique.
+9|geo|Quelle est la capitale des Palaos ?|Ngerulmud|Koror|Majuro|Palikir|Koror était l'ancienne capitale ; Majuro est aux îles Marshall, Palikir en Micronésie.
+9|geo|Quelle est la capitale de l'Eswatini, siège du gouvernement ?|Mbabane|Lobamba|Maseru|Manzini|Lobamba est la capitale royale et législative.
+9|geo|Quelle est la préfecture du département de l'Orne ?|Alençon|Argentan|Flers|Lisieux|Lisieux est dans le Calvados.
+9|geo|Quelle est la préfecture de la Meuse ?|Bar-le-Duc|Verdun|Commercy|Épinal|Épinal est la préfecture des Vosges.
+9|sci|Quel mathématicien a formulé l'hypothèse sur les zéros d'une fonction, toujours non démontrée, en 1859 ?|Bernhard Riemann|Carl Friedrich Gauss|David Hilbert|Henri Poincaré|L'hypothèse de Riemann est l'un des sept problèmes du millénaire.
+9|sci|Quel chimiste a découvert le fluor en 1886, après de nombreuses tentatives dangereuses ?|Henri Moissan|Marcellin Berthelot|Paul Sabatier|Victor Grignard|Il reçoit le prix Nobel de chimie en 1906.
+9|sci|Quel mathématicien français a démontré la transcendance du nombre e en 1873 ?|Charles Hermite|Joseph Liouville|Henri Poincaré|Évariste Galois|Neuf ans avant que Lindemann ne fasse de même pour π.
+9|esp|Quel astronome a dressé au XVIIIe siècle un célèbre catalogue de nébuleuses, comme M31 ?|Charles Messier|William Herschel|Edmond Halley|Nicolas-Louis de Lacaille|M31 est la galaxie d'Andromède.
+9|esp|Quelle est la plus grande lune d'Uranus ?|Titania|Obéron|Miranda|Ariel|Ses lunes portent des noms de personnages de Shakespeare et de Pope.
+9|art|Qui a écrit Eugène Onéguine ?|Alexandre Pouchkine|Mikhaïl Lermontov|Ivan Tourgueniev|Nicolas Gogol|Un roman en vers, publié en entier en 1833.
+9|art|Qui a écrit Siddhartha ?|Hermann Hesse|Thomas Mann|Rainer Maria Rilke|Stefan Zweig|Un roman de 1922 inspiré par la vie du Bouddha.
+9|art|Qui a écrit Le Bruit et la Fureur ?|William Faulkner|John Steinbeck|Ernest Hemingway|Francis Scott Fitzgerald|Publié en 1929, le titre vient d'une réplique de Macbeth.
+9|art|Qui a écrit Le Nom de la rose ?|Umberto Eco|Italo Calvino|Dino Buzzati|Primo Levi|Une enquête dans une abbaye du XIVe siècle, publiée en 1980.
+9|art|Qui a écrit À rebours, bréviaire de la décadence ?|Joris-Karl Huysmans|Jean Lorrain|Villiers de L'Isle-Adam|Remy de Gourmont|Son héros, des Esseintes, vit reclus dans le raffinement.
+9|art|Qui a peint Les Joueurs de cartes, dont une version a battu des records de prix ?|Paul Cézanne|Gustave Caillebotte|Georges de La Tour|Honoré Daumier|Une version a été achetée par le Qatar en 2011 pour plus de 250 millions de dollars.
+9|art|Quels architectes ont conçu le Centre Pompidou ?|Renzo Piano et Richard Rogers|Jean Nouvel et Christian de Portzamparc|Norman Foster et Frank Gehry|Le Corbusier et Jean Prouvé|Inauguré en 1977, avec ses tuyaux colorés à l'extérieur.
+9|mus|Quel compositeur a écrit l'opéra Werther ?|Jules Massenet|Charles Gounod|Ambroise Thomas|Léo Delibes|D'après le roman de Goethe, créé à Vienne en 1892.
+9|mus|Quel compositeur a écrit l'opéra Norma ?|Vincenzo Bellini|Gaetano Donizetti|Gioachino Rossini|Giuseppe Verdi|Avec l'air célèbre « Casta diva ».
+9|spo|Quel voilier a remporté le premier Vendée Globe, en 1989-1990 ?|Titouan Lamazou|Loïck Peyron|Philippe Jeantot|Alain Gautier|En un peu plus de 109 jours.
+9|spo|Quel boxeur a battu George Foreman lors du « combat du siècle » à Kinshasa en 1974 ?|Mohamed Ali|Joe Frazier|Ken Norton|Larry Holmes|Le Rumble in the Jungle.
+9|his|Quelle ville fut assiégée pendant près de 900 jours par l'armée allemande de 1941 à 1944 ?|Léningrad|Stalingrad|Moscou|Sébastopol|Plus d'un million de civils y meurent, surtout de faim.
+9|his|Quel roi d'Espagne a accompagné la transition démocratique après la mort de Franco ?|Juan Carlos Ier|Philippe VI|Alphonse XIII|Felipe V|Il fait échouer la tentative de coup d'État de 1981.
+9|his|Quelle bataille de 1415 est un désastre pour la chevalerie française face aux archers anglais ?|Azincourt|Crécy|Poitiers|Verneuil|Sous le règne de Charles VI, contre Henri V.
+10|geo|Quelle est la capitale de Tuvalu ?|Funafuti|Tarawa|Nuku'alofa|Apia|Tarawa est à Kiribati, Nuku'alofa aux Tonga, Apia aux Samoa.
+10|geo|Quelle est la préfecture de la Haute-Marne ?|Chaumont|Langres|Saint-Dizier|Chaumont-en-Vexin|Langres est célèbre pour ses remparts et son fromage.
+10|geo|Quelle est la préfecture de l'Indre ?|Châteauroux|Issoudun|Bourges|Tours|Bourges est dans le Cher, Tours en Indre-et-Loire.
+10|geo|Quelle est la préfecture des Alpes-de-Haute-Provence ?|Digne-les-Bains|Manosque|Sisteron|Gap|Gap est la préfecture des Hautes-Alpes.
+10|sci|Quel physicien a énoncé le principe d'exclusion qui interdit à deux électrons d'avoir le même état quantique ?|Wolfgang Pauli|Paul Dirac|Enrico Fermi|Max Born|Énoncé en 1925 ; il reçoit le prix Nobel en 1945.
+10|sci|Quel mathématicien allemand a fondé la théorie des ensembles ?|Georg Cantor|Richard Dedekind|Giuseppe Peano|Gottlob Frege|Il montre qu'il existe des infinis de tailles différentes.
+10|sci|Quel naturaliste a écrit l'Histoire naturelle en 36 volumes au XVIIIe siècle ?|Buffon|Lamarck|Cuvier|Réaumur|Intendant du Jardin du Roi, l'actuel Jardin des Plantes.
+10|esp|Quelle sonde a découvert les anneaux de Jupiter, en 1979 ?|Voyager 1|Pioneer 11|Galileo|Cassini|Des anneaux très fins, faits de poussière.
+10|art|Qui a écrit Le Grand Testament au XVe siècle ?|François Villon|Charles d'Orléans|Christine de Pizan|Clément Marot|Avec la célèbre Ballade des pendus.
+10|art|Qui a écrit Les Tragiques, poème épique sur les guerres de Religion ?|Agrippa d'Aubigné|Pierre de Ronsard|Joachim du Bellay|Jean de Sponde|Un protestant engagé aux côtés d'Henri de Navarre.
+10|art|Quel peintre a réalisé Le Tricheur à l'as de carreau ?|Georges de La Tour|Le Caravage|Valentin de Boulogne|Simon Vouet|Conservé au musée du Louvre.
+10|art|Quel peintre a réalisé L'Île des morts ?|Arnold Böcklin|Caspar David Friedrich|Gustave Moreau|Odilon Redon|Il en a peint cinq versions entre 1880 et 1886.
+10|mus|Quel compositeur a écrit l'opéra Lucia di Lammermoor ?|Gaetano Donizetti|Vincenzo Bellini|Giuseppe Verdi|Gioachino Rossini|D'après un roman de Walter Scott, créé à Naples en 1835.
+10|mus|Quel compositeur a écrit l'opéra Faust, créé à Paris en 1859 ?|Charles Gounod|Hector Berlioz|Jules Massenet|Ambroise Thomas|Berlioz avait écrit La Damnation de Faust, une « légende dramatique ».
+10|spo|Quel boxeur français a été champion du monde des mi-lourds en 1920 et a affronté Jack Dempsey en 1921 ?|Georges Carpentier|Marcel Cerdan|Eugène Criqui|Battling Siki|Le premier combat à générer un million de dollars de recettes.
+10|his|Quel roi de France a été surnommé « le Sage » ?|Charles V|Charles VII|Louis IX|Louis XII|Il reconstitue le royaume après les désastres de Crécy et Poitiers.
+10|his|Quel roi de France a été surnommé « le Père du peuple » ?|Louis XII|Louis XI|Henri IV|Charles VIII|Un surnom donné par les États généraux de 1506.
