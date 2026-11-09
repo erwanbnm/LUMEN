@@ -758,6 +758,30 @@ body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index
 .sl-you{color:var(--lamp)}.sl-good{color:#2BB673}.sl-bad{color:#FF4D6D}
 .sl-board{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-size:13.5px}
 .sl-board span{background:var(--surface);border-radius:10px;padding:3px 8px}.sl-board .me{outline:2px solid var(--lamp)}
+
+.choice.picked{background:#FFFFFF;color:#2B1D3A;border-color:var(--lamp);box-shadow:0 4px 0 color-mix(in srgb,var(--lamp) 55%,#000);opacity:1}
+.choice.picked::before{background:var(--lamp);color:#fff}
+.sl-pod{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px max(16px,env(safe-area-inset-left,0px));background:radial-gradient(ellipse at 50% 30%,#4A2C7A,#1E1236 75%);color:#fff;animation:fade .3s ease both;overflow:hidden}
+.sl-pod h2{font:900 30px/1.1 "Bricolage Grotesque",sans-serif;margin:0;text-align:center;text-wrap:balance;opacity:0;animation:podTitle .5s 2.6s cubic-bezier(.3,1.6,.5,1) forwards}
+.sl-pod .sub{opacity:0;animation:fade .4s 3s forwards;text-align:center}
+.sl-podium{display:flex;align-items:flex-end;gap:10px;margin-top:10px}
+.sl-pcol{display:flex;flex-direction:column;align-items:center;width:100px}
+.sl-pcol .who{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0;transform:translateY(-110vh)}
+.sl-pcol .who b{font:800 14px "Bricolage Grotesque",sans-serif;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl-pcol .step{width:100%;border-radius:12px 12px 4px 4px;display:grid;place-items:start center;padding-top:6px;font:900 30px "Bricolage Grotesque",sans-serif;color:#2B1D3A;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18);transform:scaleY(0);transform-origin:bottom;animation:podStep .45s cubic-bezier(.3,1.5,.5,1) forwards}
+.sl-pcol.r1 .step{height:120px;background:linear-gradient(#FFE36A,#F2B320)}.sl-pcol.r2 .step{height:86px;background:linear-gradient(#EEF0F6,#B8BED0)}.sl-pcol.r3 .step{height:62px;background:linear-gradient(#F4C08A,#C8783A)}
+.sl-pcol.r3 .step{animation-delay:.2s}.sl-pcol.r2 .step{animation-delay:.35s}.sl-pcol.r1 .step{animation-delay:.5s}
+.sl-pcol.r3 .who{animation:podDrop .7s 1s cubic-bezier(.4,1.4,.5,1) forwards}
+.sl-pcol.r2 .who{animation:podDrop .7s 1.5s cubic-bezier(.4,1.4,.5,1) forwards}
+.sl-pcol.r1 .who{animation:podDrop .9s 2.1s cubic-bezier(.35,1.5,.5,1) forwards,podJoy .6s 3.2s ease-in-out 4}
+.sl-pcol.r1 .crown{font-size:28px;line-height:1;opacity:0;animation:podTitle .4s 2.9s cubic-bezier(.3,1.8,.5,1) forwards}
+.sl-conf{position:absolute;top:-20px;width:10px;height:14px;border-radius:2px;opacity:0;animation:podConf 2.8s linear forwards}
+@keyframes podDrop{0%{opacity:1;transform:translateY(-110vh)}70%{transform:translateY(8px)}100%{opacity:1;transform:none}}
+@keyframes podStep{to{transform:scaleY(1)}}
+@keyframes podTitle{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:none}}
+@keyframes podJoy{0%,100%{transform:none}50%{transform:translateY(-14px) rotate(-4deg)}}
+@keyframes podConf{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:1;transform:translateY(110vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){.sl-pod *{animation-duration:.01s!important;animation-delay:0s!important}}
 @media (prefers-reduced-motion:reduce){.sl-bomb svg,.sl-spark,.sl-boom,.sl-seat.hit,.sl-bubble{animation:none}}
 </style>
 
@@ -2707,6 +2731,15 @@ const Music = (function(){
       else if (k === "ok") { blip(76, t, .14, "triangle", .5); blip(83, t+.08, .22, "triangle", .5); }
       else if (k === "combo") { blip(76, t, .12, "triangle", .5); blip(80, t+.06, .12, "triangle", .5); blip(83, t+.12, .14, "triangle", .5); blip(88, t+.18, .28, "sine", .55); }
       else if (k === "level") { [72,76,79,84].forEach((n,i) => blip(n, t+i*.09, .2, "triangle", .5)); [84,88,91].forEach(n => blip(n, t+.4, .9, "sine", .32)); blip(96, t+.55, .35, "sine", .22); blip(100, t+.68, .5, "sine", .2); }
+      else if (k === "boom") { // explosion : souffle grave + coup sourd
+        const b = ctx.createBuffer(1, Math.floor(ctx.sampleRate*1.2), ctx.sampleRate), d = b.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/d.length, 2.5);
+        const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; f.type = "lowpass"; f.frequency.setValueAtTime(2400, t); f.frequency.exponentialRampToValueAtTime(180, t+1.1); g.gain.value = 1.4*v;
+        s.connect(f).connect(g).connect(out); s.start(t);
+        const o = ctx.createOscillator(), og = ctx.createGain(); o.type = "sine"; o.frequency.setValueAtTime(90, t); o.frequency.exponentialRampToValueAtTime(30, t+.5);
+        og.gain.setValueAtTime(1.2*v, t); og.gain.exponentialRampToValueAtTime(.001, t+.6); o.connect(og).connect(out); o.start(t); o.stop(t+.65); }
+      else if (k === "win") { [67,72,76,79].forEach((n,i) => blip(n, t+i*.13, .3, "triangle", .5)); [79,84,88].forEach(n => blip(n, t+.55, 1.1, "triangle", .38)); blip(91, t+.9, .8, "sine", .25); }
+      else if (k === "drop") { blip(84, t, .08, "sine", .3); blip(72, t+.06, .14, "triangle", .35); }
       else if (k === "ko") { blip(52, t, .18, "square", .18); blip(47, t+.12, .3, "square", .18); }
     } catch(e){}
   }
@@ -2724,7 +2757,27 @@ const Music = (function(){
     } catch(e){} pulseT = setTimeout(beat, rate()); };
     beat();
   }
-  return {start, stop, volume, mode:setMode, heat:setHeat, pulse, sfx};
+  // Mèche de la bombe : un « pshhh » qui grésille en continu ; plus la mèche est courte, plus il est fort et nerveux (0 = silence)
+  let fz = null;
+  function fuse(level){
+    try {
+      if (!level || (window.__app && window.__app.state().settings.sfx === false)) { if (fz) { fz.g.gain.setTargetAtTime(0, ctx.currentTime, .08); const z = fz; setTimeout(() => { try { z.s.stop(); } catch(e){} }, 400); fz = null; } return; }
+      if (!ctx) { start(); if (!(window.__app && window.__app.state().settings.music)) stop(); }
+      if (!ctx) return; ctx.resume();
+      const v = (window.__app ? window.__app.state().settings.vol : 55)/100;
+      if (!fz) {
+        const len = ctx.sampleRate*2, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * (.55 + .45*Math.random()) * (Math.random() < .004 ? 3 : 1); // souffle + petits crépitements
+        const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; s.loop = true;
+        f.type = "bandpass"; f.frequency.value = 3200; f.Q.value = .6; g.gain.value = 0;
+        s.connect(f).connect(g).connect(ctx.destination); s.start(); fz = {s, f, g};
+      }
+      fz.g.gain.setTargetAtTime(.05 * v * level, ctx.currentTime, .1);
+      fz.f.frequency.setTargetAtTime(2600 + 900*level, ctx.currentTime, .1);
+      fz.s.playbackRate.setTargetAtTime(.9 + .25*level, ctx.currentTime, .1);
+    } catch(e){}
+  }
+  return {start, stop, volume, mode:setMode, heat:setHeat, pulse, sfx, fuse};
 })();
 
 /* ---------- Thèmes ---------- */
@@ -3200,7 +3253,8 @@ function render(){
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
   else html += renderProfile();
-  app.innerHTML = `<div class="fade">${html}</div>`;
+  // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
+  app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
@@ -3931,7 +3985,7 @@ const Amis = (function(){
     loading = false; rerender();
   }
   // Rafraîchit l'écran sans casser une partie en cours
-  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { render(); showAsyncInvites(); } else updateDuelBar(); }
+  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { window.__quiet = true; render(); showAsyncInvites(); } else updateDuelBar(); }
 
   /* --- Écoute en temps réel --- */
   function listen(){
@@ -4503,7 +4557,7 @@ const Salons = (() => {
     }
     render();
   }
-  function leaveListeners(){ [unsubRoom, unsubChat].forEach(f => f && f()); unsubRoom = unsubChat = null; clearInterval(tick); clearInterval(hbTimer); }
+  function leaveListeners(){ [unsubRoom, unsubChat].forEach(f => f && f()); unsubRoom = unsubChat = null; clearInterval(tick); clearInterval(hbTimer); try { Music.fuse(0); } catch(e){} }
 
   /* --- Réception du salon --- */
   function onRoom(s){
@@ -4512,7 +4566,7 @@ const Salons = (() => {
     const prev = room; room = r;
     if (!me || me.out) { leaveListeners(); room = null; code = null; S.salonCode = null; save(); msg = "Tu as quitté le salon."; return render(); }
     if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; }
-    if (r.state === "end" && prev && prev.state === "play") jumpTop = true;
+    if (r.state === "end" && prev && prev.state === "play") { jumpTop = true; setTimeout(podium, r.mode === "bombe" ? 1800 : 300); }
     if (r.state === "end" && view === "game") rewards();
     // Animation et son quand la bombe explose
     const g = r.g || {}, pg = (prev && prev.g) || {};
@@ -4527,7 +4581,11 @@ const Salons = (() => {
   function repaint(){
     if (S.tab !== "amis") return;
     const typing = document.activeElement && document.activeElement.id === "sl-msg", y = window.scrollY;
-    render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
+    const ob = document.querySelector(".sl-bomb"), from = ob && ob.getBoundingClientRect();
+    window.__quiet = true; render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
+    const nb = document.querySelector(".sl-bomb");
+    if (from && nb && nb.animate) { const to = nb.getBoundingClientRect(), dx = from.left - to.left, dy = from.top - to.top;
+      if (Math.abs(dx) + Math.abs(dy) > 4) nb.animate([{transform:`translate(${dx}px,${dy}px)`}, {transform:`translate(${dx/2}px,${dy/2 - 46}px) rotate(200deg)`, offset:.5}, {transform:"none"}], {duration:650, easing:"cubic-bezier(.4,0,.3,1)"}); }
     if (typing) { const i = document.getElementById("sl-msg"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
     const c = document.getElementById("sl-chat"); if (c) c.scrollTop = 1e6;
   }
@@ -4536,6 +4594,8 @@ const Salons = (() => {
   function loop(){
     if (!room || !code) return;
     const g = room.g || {};
+    const hiss = room.state === "play" && room.mode === "bombe" && g.phase === "ask" && S.tab === "amis" && view === "game";
+    Music.fuse(hiss ? [1, .8, .6, .45][g.fuse] || .45 : 0);
     if (room.state === "play" && room.mode === "bombe") {
       const left = Math.max(0, (g.dl || 0) - now());
       setBar(left, qTime(g));
@@ -4592,7 +4652,7 @@ const Salons = (() => {
     repaint();
   }
   function boomFx(){
-    try { Music.sfx("ko"); navigator.vibrate && navigator.vibrate([80, 40, 180]); } catch(e){}
+    try { Music.fuse(0); Music.sfx("boom"); navigator.vibrate && navigator.vibrate([80, 40, 180]); } catch(e){}
     const f = document.createElement("div"); f.className = "sl-flash"; document.body.appendChild(f); setTimeout(() => f.remove(), 600);
   }
 
@@ -4641,6 +4701,26 @@ const Salons = (() => {
     const g = room.g || {}, ids = g.seats || seats();
     if (room.mode === "bombe") return ids.map(id => ({id, a:(g.hearts && g.hearts[id]) || 0, b:(g.ok && g.ok[id]) || 0})).sort((x, y) => y.a - x.a || y.b - x.b);
     return ids.map(id => ({id, a:(room.sc && room.sc[id] && room.sc[id].ok) || 0, b:0})).sort((x, y) => y.a - x.a);
+  }
+
+  /* --- Podium de fin : le 3e, puis le 2e, puis le gagnant tombe du ciel --- */
+  function podium(){
+    if (!room || !room.g || document.querySelector(".sl-pod")) return;
+    try { Music.fuse(0); } catch(e){}
+    const rk = ranking().slice(0, 3), g = room.g, win = rk[0];
+    if (!win || g.why) return; // partie interrompue : pas de podium
+    const order = rk.length === 3 ? [2, 0, 1] : rk.length === 2 ? [1, 0] : [0];
+    const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
+    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
+    const colors = ["#FF5FA2", "#FFD23F", "#7FD8BE", "#8FB8F0", "#FFFFFF"];
+    const conf = Array.from({length:36}, (_, k) => `<i class="sl-conf" style="left:${Math.random()*100}%;background:${colors[k % 5]};animation-delay:${2.3 + Math.random()*1.4}s;animation-duration:${2.2 + Math.random()*1.6}s"></i>`).join("");
+    const el = document.createElement("div"); el.className = "sl-pod"; el.setAttribute("role", "dialog");
+    el.innerHTML = conf + `<div class="sl-podium">${cols}</div><h2>${win.id === uid() ? "Tu as gagné !" : esc(pName(win.id)) + " gagne !"}</h2>
+      <p class="sub">${room.mode === "bombe" && g.loser ? "💥 " + esc(pName(g.loser)) + " n'a plus de cœur." : "Bravo à tous !"}</p>
+      <button class="btn sub" style="max-width:320px">Continuer</button>`;
+    el.querySelector("button").onclick = () => el.remove();
+    document.body.appendChild(el);
+    if (S.settings.sfx !== false) { [1000, 1500].slice(0, rk.length - 1).forEach(t => setTimeout(() => { try { Music.sfx("drop"); } catch(e){} }, t + 600)); setTimeout(() => { try { Music.sfx("win"); } catch(e){} }, 2500); }
   }
 
   /* --- Chat et émotes --- */
@@ -4735,9 +4815,9 @@ const Salons = (() => {
       <g class="sl-spark" style="transform-origin:${tip[2]}px ${tip[3]}px"><circle cx="${tip[2]}" cy="${tip[3]}" r="5" fill="#FFD23F"/><circle cx="${tip[2]}" cy="${tip[3]}" r="2.5" fill="#fff"/></g></svg>`;
   }
   const emoBar = () => `<div class="sl-emo">${EMO.map(e => `<button data-sl="emo" data-v="${e}" aria-label="Envoyer ${e}">${e}</button>`).join("")}</div>`;
-  function qCard(qid, ord, ans, can, status, left, total){
+  function qCard(qid, ord, ans, can, status, left, total, picked){
     const q = Q[qid]; if (!q) return "";
-    const ch = ord.map(o => { let c = "choice"; if (ans !== undefined && ans !== null) c += o === 0 ? " right" : o === ans ? " wrong" : " dim";
+    const ch = ord.map(o => { let c = "choice"; if (ans !== undefined && ans !== null) c += o === 0 ? " right" : o === ans ? " wrong" : " dim"; else if (picked !== undefined && picked !== null) c += o === picked ? " picked" : " dim";
       return `<button class="${c}" data-sl="ans" data-v="${o}" ${can ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
     return `<article class="card q sl-q"><div class="row between"><span class="chip">${dot(q[0])}${esc(THEMES[q[0]].n)}</span><span class="label" id="sl-left">${Math.ceil(left/1000)} s</span></div>
       <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${Math.min(100, left/(total*10))}%"></i></div>
@@ -4745,14 +4825,14 @@ const Salons = (() => {
   }
   function bombView(){
     const g = room.g, h = g.holder, mine = h === uid(), ph = g.phase;
-    const ans = ph === "ask" ? (g.ans && g.ans.turn === g.turn ? g.ans.v : undefined) : g.ans && g.ans.v;
-    const status = ph === "ask" ? (mine ? `<b class="sl-you">À toi ! Réponds vite.</b>` : `<span class="muted">${esc(pName(h))} réfléchit…</span>`)
+    const picked = ph === "ask" && g.ans && g.ans.turn === g.turn ? g.ans.v : undefined, ans = ph === "ask" ? undefined : g.ans && g.ans.v;
+    const status = ph === "ask" ? (picked !== undefined ? `<span class="muted">Verdict…</span>` : mine ? `<b class="sl-you">À toi ! Réponds vite.</b>` : `<span class="muted">${esc(pName(h))} réfléchit…</span>`)
       : ph === "boom" ? `<b class="sl-bad">💥 La bombe explose sur ${esc(pName(h))} !</b>`
       : g.good ? `<b class="sl-good">Juste ! ${esc(pName(h))} passe la bombe.</b>` : `<b class="sl-bad">${g.ans && g.ans.v === -1 ? "Temps écoulé" : "Raté"} : la mèche brûle !</b>`;
     return `<section class="stack sl-game"><div class="row between"><span class="label">La Bombe · salon ${room.code}${g.turn > FAST_AFTER ? " · 8 s !" : ""}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(h, g.hearts, g.fuse, ph === "boom")}
       <div class="sl-fuse">${[0,1,2].map(i => `<i class="${i < 3 - g.fuse ? "burnt" : ""}"></i>`).join("")}<span class="label">${g.fuse === 0 ? "Prochaine erreur = BOUM" : "Erreurs avant explosion : " + g.fuse}</span></div>
-      ${qCard(g.qid, g.ord, ans, mine && ph === "ask" && ans === undefined, status, Math.max(0, g.dl - now()), qTime(g))}
+      ${qCard(g.qid, g.ord, ans, mine && ph === "ask" && picked === undefined, status, Math.max(0, g.dl - now()), qTime(g), picked)}
       ${emoBar()}${chatHTML(true)}</section>`;
   }
   function quizView(){
@@ -4762,9 +4842,9 @@ const Salons = (() => {
     if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Le quiz commence dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${g.qids.length} questions · 10 secondes chacune</span></div>`;
     else { const i = Math.min(p.i, g.qids.length - 1), qid = g.qids[i], mine = quizMine[qid + room.gid];
       const ans = p.inQ ? mine : (mine === undefined ? -1 : mine);
-      const status = p.inQ ? (mine === undefined ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>` : `<span class="muted">Réponse enregistrée…</span>`)
+      const status = p.inQ ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>`
         : mine === 0 ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard" : "Raté"} : ${esc(Q[qid][2][0])}</b>`;
-      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? (mine === undefined ? undefined : null) : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME); }
+      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME, p.inQ ? mine : undefined); }
     return `<section class="stack sl-game"><div class="row between"><span class="label">Quiz · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }

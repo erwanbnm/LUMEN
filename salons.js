@@ -75,7 +75,7 @@ const Salons = (() => {
     }
     render();
   }
-  function leaveListeners(){ [unsubRoom, unsubChat].forEach(f => f && f()); unsubRoom = unsubChat = null; clearInterval(tick); clearInterval(hbTimer); }
+  function leaveListeners(){ [unsubRoom, unsubChat].forEach(f => f && f()); unsubRoom = unsubChat = null; clearInterval(tick); clearInterval(hbTimer); try { Music.fuse(0); } catch(e){} }
 
   /* --- Réception du salon --- */
   function onRoom(s){
@@ -84,7 +84,7 @@ const Salons = (() => {
     const prev = room; room = r;
     if (!me || me.out) { leaveListeners(); room = null; code = null; S.salonCode = null; save(); msg = "Tu as quitté le salon."; return render(); }
     if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; }
-    if (r.state === "end" && prev && prev.state === "play") jumpTop = true;
+    if (r.state === "end" && prev && prev.state === "play") { jumpTop = true; setTimeout(podium, r.mode === "bombe" ? 1800 : 300); }
     if (r.state === "end" && view === "game") rewards();
     // Animation et son quand la bombe explose
     const g = r.g || {}, pg = (prev && prev.g) || {};
@@ -99,7 +99,11 @@ const Salons = (() => {
   function repaint(){
     if (S.tab !== "amis") return;
     const typing = document.activeElement && document.activeElement.id === "sl-msg", y = window.scrollY;
-    render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
+    const ob = document.querySelector(".sl-bomb"), from = ob && ob.getBoundingClientRect();
+    window.__quiet = true; render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
+    const nb = document.querySelector(".sl-bomb");
+    if (from && nb && nb.animate) { const to = nb.getBoundingClientRect(), dx = from.left - to.left, dy = from.top - to.top;
+      if (Math.abs(dx) + Math.abs(dy) > 4) nb.animate([{transform:`translate(${dx}px,${dy}px)`}, {transform:`translate(${dx/2}px,${dy/2 - 46}px) rotate(200deg)`, offset:.5}, {transform:"none"}], {duration:650, easing:"cubic-bezier(.4,0,.3,1)"}); }
     if (typing) { const i = document.getElementById("sl-msg"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
     const c = document.getElementById("sl-chat"); if (c) c.scrollTop = 1e6;
   }
@@ -108,6 +112,8 @@ const Salons = (() => {
   function loop(){
     if (!room || !code) return;
     const g = room.g || {};
+    const hiss = room.state === "play" && room.mode === "bombe" && g.phase === "ask" && S.tab === "amis" && view === "game";
+    Music.fuse(hiss ? [1, .8, .6, .45][g.fuse] || .45 : 0);
     if (room.state === "play" && room.mode === "bombe") {
       const left = Math.max(0, (g.dl || 0) - now());
       setBar(left, qTime(g));
@@ -164,7 +170,7 @@ const Salons = (() => {
     repaint();
   }
   function boomFx(){
-    try { Music.sfx("ko"); navigator.vibrate && navigator.vibrate([80, 40, 180]); } catch(e){}
+    try { Music.fuse(0); Music.sfx("boom"); navigator.vibrate && navigator.vibrate([80, 40, 180]); } catch(e){}
     const f = document.createElement("div"); f.className = "sl-flash"; document.body.appendChild(f); setTimeout(() => f.remove(), 600);
   }
 
@@ -213,6 +219,26 @@ const Salons = (() => {
     const g = room.g || {}, ids = g.seats || seats();
     if (room.mode === "bombe") return ids.map(id => ({id, a:(g.hearts && g.hearts[id]) || 0, b:(g.ok && g.ok[id]) || 0})).sort((x, y) => y.a - x.a || y.b - x.b);
     return ids.map(id => ({id, a:(room.sc && room.sc[id] && room.sc[id].ok) || 0, b:0})).sort((x, y) => y.a - x.a);
+  }
+
+  /* --- Podium de fin : le 3e, puis le 2e, puis le gagnant tombe du ciel --- */
+  function podium(){
+    if (!room || !room.g || document.querySelector(".sl-pod")) return;
+    try { Music.fuse(0); } catch(e){}
+    const rk = ranking().slice(0, 3), g = room.g, win = rk[0];
+    if (!win || g.why) return; // partie interrompue : pas de podium
+    const order = rk.length === 3 ? [2, 0, 1] : rk.length === 2 ? [1, 0] : [0];
+    const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
+    const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
+    const colors = ["#FF5FA2", "#FFD23F", "#7FD8BE", "#8FB8F0", "#FFFFFF"];
+    const conf = Array.from({length:36}, (_, k) => `<i class="sl-conf" style="left:${Math.random()*100}%;background:${colors[k % 5]};animation-delay:${2.3 + Math.random()*1.4}s;animation-duration:${2.2 + Math.random()*1.6}s"></i>`).join("");
+    const el = document.createElement("div"); el.className = "sl-pod"; el.setAttribute("role", "dialog");
+    el.innerHTML = conf + `<div class="sl-podium">${cols}</div><h2>${win.id === uid() ? "Tu as gagné !" : esc(pName(win.id)) + " gagne !"}</h2>
+      <p class="sub">${room.mode === "bombe" && g.loser ? "💥 " + esc(pName(g.loser)) + " n'a plus de cœur." : "Bravo à tous !"}</p>
+      <button class="btn sub" style="max-width:320px">Continuer</button>`;
+    el.querySelector("button").onclick = () => el.remove();
+    document.body.appendChild(el);
+    if (S.settings.sfx !== false) { [1000, 1500].slice(0, rk.length - 1).forEach(t => setTimeout(() => { try { Music.sfx("drop"); } catch(e){} }, t + 600)); setTimeout(() => { try { Music.sfx("win"); } catch(e){} }, 2500); }
   }
 
   /* --- Chat et émotes --- */
@@ -307,9 +333,9 @@ const Salons = (() => {
       <g class="sl-spark" style="transform-origin:${tip[2]}px ${tip[3]}px"><circle cx="${tip[2]}" cy="${tip[3]}" r="5" fill="#FFD23F"/><circle cx="${tip[2]}" cy="${tip[3]}" r="2.5" fill="#fff"/></g></svg>`;
   }
   const emoBar = () => `<div class="sl-emo">${EMO.map(e => `<button data-sl="emo" data-v="${e}" aria-label="Envoyer ${e}">${e}</button>`).join("")}</div>`;
-  function qCard(qid, ord, ans, can, status, left, total){
+  function qCard(qid, ord, ans, can, status, left, total, picked){
     const q = Q[qid]; if (!q) return "";
-    const ch = ord.map(o => { let c = "choice"; if (ans !== undefined && ans !== null) c += o === 0 ? " right" : o === ans ? " wrong" : " dim";
+    const ch = ord.map(o => { let c = "choice"; if (ans !== undefined && ans !== null) c += o === 0 ? " right" : o === ans ? " wrong" : " dim"; else if (picked !== undefined && picked !== null) c += o === picked ? " picked" : " dim";
       return `<button class="${c}" data-sl="ans" data-v="${o}" ${can ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
     return `<article class="card q sl-q"><div class="row between"><span class="chip">${dot(q[0])}${esc(THEMES[q[0]].n)}</span><span class="label" id="sl-left">${Math.ceil(left/1000)} s</span></div>
       <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${Math.min(100, left/(total*10))}%"></i></div>
@@ -317,14 +343,14 @@ const Salons = (() => {
   }
   function bombView(){
     const g = room.g, h = g.holder, mine = h === uid(), ph = g.phase;
-    const ans = ph === "ask" ? (g.ans && g.ans.turn === g.turn ? g.ans.v : undefined) : g.ans && g.ans.v;
-    const status = ph === "ask" ? (mine ? `<b class="sl-you">À toi ! Réponds vite.</b>` : `<span class="muted">${esc(pName(h))} réfléchit…</span>`)
+    const picked = ph === "ask" && g.ans && g.ans.turn === g.turn ? g.ans.v : undefined, ans = ph === "ask" ? undefined : g.ans && g.ans.v;
+    const status = ph === "ask" ? (picked !== undefined ? `<span class="muted">Verdict…</span>` : mine ? `<b class="sl-you">À toi ! Réponds vite.</b>` : `<span class="muted">${esc(pName(h))} réfléchit…</span>`)
       : ph === "boom" ? `<b class="sl-bad">💥 La bombe explose sur ${esc(pName(h))} !</b>`
       : g.good ? `<b class="sl-good">Juste ! ${esc(pName(h))} passe la bombe.</b>` : `<b class="sl-bad">${g.ans && g.ans.v === -1 ? "Temps écoulé" : "Raté"} : la mèche brûle !</b>`;
     return `<section class="stack sl-game"><div class="row between"><span class="label">La Bombe · salon ${room.code}${g.turn > FAST_AFTER ? " · 8 s !" : ""}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(h, g.hearts, g.fuse, ph === "boom")}
       <div class="sl-fuse">${[0,1,2].map(i => `<i class="${i < 3 - g.fuse ? "burnt" : ""}"></i>`).join("")}<span class="label">${g.fuse === 0 ? "Prochaine erreur = BOUM" : "Erreurs avant explosion : " + g.fuse}</span></div>
-      ${qCard(g.qid, g.ord, ans, mine && ph === "ask" && ans === undefined, status, Math.max(0, g.dl - now()), qTime(g))}
+      ${qCard(g.qid, g.ord, ans, mine && ph === "ask" && picked === undefined, status, Math.max(0, g.dl - now()), qTime(g), picked)}
       ${emoBar()}${chatHTML(true)}</section>`;
   }
   function quizView(){
@@ -334,9 +360,9 @@ const Salons = (() => {
     if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Le quiz commence dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${g.qids.length} questions · 10 secondes chacune</span></div>`;
     else { const i = Math.min(p.i, g.qids.length - 1), qid = g.qids[i], mine = quizMine[qid + room.gid];
       const ans = p.inQ ? mine : (mine === undefined ? -1 : mine);
-      const status = p.inQ ? (mine === undefined ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>` : `<span class="muted">Réponse enregistrée…</span>`)
+      const status = p.inQ ? `<b class="sl-you">Question ${i + 1}/${g.qids.length}</b>`
         : mine === 0 ? `<b class="sl-good">Bien vu !</b>` : `<b class="sl-bad">${mine === undefined ? "Trop tard" : "Raté"} : ${esc(Q[qid][2][0])}</b>`;
-      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? (mine === undefined ? undefined : null) : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME); }
+      body = qCard(qid, String(g.ords[i]).split("").map(Number), p.inQ ? undefined : ans, p.inQ && mine === undefined, status, p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME, p.inQ ? mine : undefined); }
     return `<section class="stack sl-game"><div class="row between"><span class="label">Quiz · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
       ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
   }

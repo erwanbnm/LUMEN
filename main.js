@@ -471,7 +471,8 @@ function render(){
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
   else html += renderProfile();
-  app.innerHTML = `<div class="fade">${html}</div>`;
+  // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
+  app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();

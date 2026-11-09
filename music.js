@@ -96,6 +96,15 @@ const Music = (function(){
       else if (k === "ok") { blip(76, t, .14, "triangle", .5); blip(83, t+.08, .22, "triangle", .5); }
       else if (k === "combo") { blip(76, t, .12, "triangle", .5); blip(80, t+.06, .12, "triangle", .5); blip(83, t+.12, .14, "triangle", .5); blip(88, t+.18, .28, "sine", .55); }
       else if (k === "level") { [72,76,79,84].forEach((n,i) => blip(n, t+i*.09, .2, "triangle", .5)); [84,88,91].forEach(n => blip(n, t+.4, .9, "sine", .32)); blip(96, t+.55, .35, "sine", .22); blip(100, t+.68, .5, "sine", .2); }
+      else if (k === "boom") { // explosion : souffle grave + coup sourd
+        const b = ctx.createBuffer(1, Math.floor(ctx.sampleRate*1.2), ctx.sampleRate), d = b.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/d.length, 2.5);
+        const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; f.type = "lowpass"; f.frequency.setValueAtTime(2400, t); f.frequency.exponentialRampToValueAtTime(180, t+1.1); g.gain.value = 1.4*v;
+        s.connect(f).connect(g).connect(out); s.start(t);
+        const o = ctx.createOscillator(), og = ctx.createGain(); o.type = "sine"; o.frequency.setValueAtTime(90, t); o.frequency.exponentialRampToValueAtTime(30, t+.5);
+        og.gain.setValueAtTime(1.2*v, t); og.gain.exponentialRampToValueAtTime(.001, t+.6); o.connect(og).connect(out); o.start(t); o.stop(t+.65); }
+      else if (k === "win") { [67,72,76,79].forEach((n,i) => blip(n, t+i*.13, .3, "triangle", .5)); [79,84,88].forEach(n => blip(n, t+.55, 1.1, "triangle", .38)); blip(91, t+.9, .8, "sine", .25); }
+      else if (k === "drop") { blip(84, t, .08, "sine", .3); blip(72, t+.06, .14, "triangle", .35); }
       else if (k === "ko") { blip(52, t, .18, "square", .18); blip(47, t+.12, .3, "square", .18); }
     } catch(e){}
   }
@@ -113,5 +122,25 @@ const Music = (function(){
     } catch(e){} pulseT = setTimeout(beat, rate()); };
     beat();
   }
-  return {start, stop, volume, mode:setMode, heat:setHeat, pulse, sfx};
+  // Mèche de la bombe : un « pshhh » qui grésille en continu ; plus la mèche est courte, plus il est fort et nerveux (0 = silence)
+  let fz = null;
+  function fuse(level){
+    try {
+      if (!level || (window.__app && window.__app.state().settings.sfx === false)) { if (fz) { fz.g.gain.setTargetAtTime(0, ctx.currentTime, .08); const z = fz; setTimeout(() => { try { z.s.stop(); } catch(e){} }, 400); fz = null; } return; }
+      if (!ctx) { start(); if (!(window.__app && window.__app.state().settings.music)) stop(); }
+      if (!ctx) return; ctx.resume();
+      const v = (window.__app ? window.__app.state().settings.vol : 55)/100;
+      if (!fz) {
+        const len = ctx.sampleRate*2, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * (.55 + .45*Math.random()) * (Math.random() < .004 ? 3 : 1); // souffle + petits crépitements
+        const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; s.loop = true;
+        f.type = "bandpass"; f.frequency.value = 3200; f.Q.value = .6; g.gain.value = 0;
+        s.connect(f).connect(g).connect(ctx.destination); s.start(); fz = {s, f, g};
+      }
+      fz.g.gain.setTargetAtTime(.05 * v * level, ctx.currentTime, .1);
+      fz.f.frequency.setTargetAtTime(2600 + 900*level, ctx.currentTime, .1);
+      fz.s.playbackRate.setTargetAtTime(.9 + .25*level, ctx.currentTime, .1);
+    } catch(e){}
+  }
+  return {start, stop, volume, mode:setMode, heat:setHeat, pulse, sfx, fuse};
 })();

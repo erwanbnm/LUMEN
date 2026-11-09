@@ -53,7 +53,7 @@ const Amis = (function(){
     loading = false; rerender();
   }
   // Rafraîchit l'écran sans casser une partie en cours
-  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { render(); showAsyncInvites(); } else updateDuelBar(); }
+  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { window.__quiet = true; render(); showAsyncInvites(); } else updateDuelBar(); }
 
   /* --- Écoute en temps réel --- */
   function listen(){
