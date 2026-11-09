@@ -103,3 +103,43 @@ esp|Quelle planète naine, découverte en 2005, a conduit au déclassement de Pl
 gas|Quel était l'ingrédient principal du garum, la sauce préférée des Romains ?|Du poisson fermenté|Du vin cuit|Du lait de chèvre caillé|Des olives écrasées|On laissait fermenter au soleil des entrailles de poisson et du sel pendant des semaines.
 sci|Quel mathématicien français est mort en duel à 20 ans, en 1832 ?|Évariste Galois|Blaise Pascal|Joseph Fourier|Henri Poincaré|La nuit précédente, il aurait écrit à la hâte des idées qui ont fondé une branche entière des mathématiques.
 sci|Comment s'appelait le navire sur lequel Charles Darwin a fait le tour du monde ?|Le Beagle|Le Bounty|L'Endeavour|La Boudeuse|Le voyage a duré cinq ans, de 1831 à 1836, et l'a mené jusqu'aux îles Galápagos.
+his|Quelle bataille de 1214 voit Philippe Auguste vaincre une coalition menée par l'empereur Otton IV ?|Bouvines|Crécy|Azincourt|Courtrai|Cette victoire renforce durablement le pouvoir du roi de France.
+his|Quel pape a lancé la première croisade en 1095 ?|Urbain II|Grégoire VII|Innocent III|Léon IX|Il prêche la croisade au concile de Clermont, en Auvergne.
+his|Quel dirigeant soviétique a succédé directement à Staline en tant que chef du Parti ?|Nikita Khrouchtchev|Léonid Brejnev|Gueorgui Malenkov|Iouri Andropov|Malenkov dirige brièvement le gouvernement, mais c'est Khrouchtchev qui prend la tête du Parti en 1953.
+his|Quel édit de 313 accorde la liberté de culte aux chrétiens dans l'Empire romain ?|L'édit de Milan|L'édit de Thessalonique|L'édit de Caracalla|L'édit de Nantes|Il est promulgué par Constantin et Licinius. L'édit de Thessalonique, en 380, fera du christianisme la religion d'État.
+his|En quelle année a eu lieu la nuit de la Saint-Barthélemy ?|1572|1589|1598|1562|Le massacre des protestants commence à Paris le 24 août 1572.
+sci|Quel savant a énoncé les trois lois du mouvement des planètes autour du Soleil ?|Johannes Kepler|Isaac Newton|Nicolas Copernic|Tycho Brahe|Il les publie entre 1609 et 1619, grâce aux observations très précises de Tycho Brahe.
+geo|Quelle est la capitale de l'État américain du Texas ?|Austin|Houston|Dallas|San Antonio|Houston est la plus grande ville du Texas, mais la capitale est Austin.
+geo|Quel archipel portugais se trouve au milieu de l'océan Atlantique ?|Les Açores|Les Canaries|Les Baléares|Le Cap-Vert|Les Canaries sont espagnoles et le Cap-Vert est un pays indépendant depuis 1975.
+jeu|Quel jeu de Valve a introduit le personnage de Gordon Freeman ?|Half-Life|Portal|Counter-Strike|Left 4 Dead|Sorti en 1998, ce jeu de tir a révolutionné la narration dans les jeux vidéo.
+art|Qui a peint « La Jeune Fille à la perle » ?|Johannes Vermeer|Rembrandt|Frans Hals|Jan Steen|Ce tableau vers 1665 est parfois surnommé « la Joconde du Nord ».
+spo|En athlétisme, combien de haies compte un 110 m haies ?|Dix|Huit|Douze|Six|La distance et le nombre de haies sont les mêmes pour le 400 m haies.
+mon|Quelle institution internationale a son siège à Washington et prête de l'argent aux États ?|Le Fonds monétaire international|L'OCDE|L'OMC|La Banque centrale européenne|Le FMI et la Banque mondiale ont été créés en 1944 à Bretton Woods.
+cor|Combien de vertèbres compte la colonne vertébrale d'un adulte, en général ?|33|24|26|40|7 cervicales, 12 thoraciques, 5 lombaires, puis le sacrum et le coccyx formés de vertèbres soudées.
+lan|Quel est l'antonyme de « prolixe » ?|Concis|Bavard|Lent|Joyeux|Prolixe veut dire trop long, trop bavard.
+lan|De quelle langue vient le mot « kiosque » ?|Du turc|Du chinois|De l'arabe|Du persan|Il vient du turc köşk, qui désignait un pavillon de jardin.
+myt|Quel est le nom du royaume des dieux dans la mythologie nordique ?|Asgard|Midgard|Valhalla|Jötunheim|Midgard est le monde des humains et le Valhalla le palais des guerriers morts au combat.
+tec|Quel inventeur a mis au point le moteur à combustion interne à quatre temps en 1876 ?|Nikolaus Otto|Rudolf Diesel|Gottlieb Daimler|Karl Benz|On parle encore aujourd'hui de « cycle d'Otto ».
+his|Quel roi de France était surnommé « le Hutin » ?|Louis X|Philippe IV|Charles IV|Jean Ier|« Hutin » voulait dire querelleur. Il n'a régné que deux ans, de 1314 à 1316.
+his|Qui fut le dernier empereur romain d'Occident, déposé en 476 ?|Romulus Augustule|Odoacre|Théodose Ier|Constantin XI|Il est déposé par le chef germain Odoacre, qui renvoie les insignes impériaux à Constantinople.
+his|Quel stratège athénien a mené la victoire de Marathon en 490 av. J.-C. ?|Miltiade|Thémistocle|Périclès|Léonidas|Thémistocle s'illustrera dix ans plus tard à Salamine, et Léonidas aux Thermopyles.
+sci|Quel élément chimique a pour symbole Sn ?|L'étain|Le sodium|Le soufre|Le strontium|Le symbole vient de son nom latin, stannum. Le sodium, c'est Na.
+sci|Comment s'appelle l'isotope de l'hydrogène qui possède un neutron ?|Le deutérium|Le tritium|Le protium|L'hélium 3|Le tritium en a deux, le protium aucun. L'eau faite de deutérium est appelée « eau lourde ».
+sci|Comment s'appelle l'unité de base de l'information quantique ?|Le qubit|Le quark|Le photon|Le quantum|Contrairement à un bit classique, il peut être dans une superposition de 0 et de 1.
+geo|Quelle est la capitale de la Tasmanie ?|Hobart|Launceston|Darwin|Perth|Fondée en 1804, c'est la deuxième plus ancienne ville d'Australie après Sydney.
+geo|Quel détroit sépare l'Australie de la Nouvelle-Guinée ?|Le détroit de Torrès|Le détroit de Bass|Le détroit de la Sonde|Le détroit de Malacca|Le détroit de Bass sépare l'Australie de la Tasmanie.
+geo|Quel est le point le plus bas d'Afrique ?|Le lac Assal|La dépression de Qattara|La mer Morte|Le lac Tchad|À Djibouti, il se trouve à environ 155 m sous le niveau de la mer. La mer Morte est en Asie.
+ani|Combien de cavités possède le cœur d'un crocodile ?|Quatre|Trois|Deux|Cinq|Comme les oiseaux et les mammifères. La plupart des autres reptiles n'en ont que trois.
+ani|Chez quel cervidé les femelles portent-elles aussi des bois ?|Le renne|L'élan|Le daim|Le chevreuil|Ses bois l'aident à dégager la neige pour trouver sa nourriture en hiver.
+jeu|En quelle année est sorti le premier Final Fantasy au Japon ?|1987|1990|1985|1992|Son créateur, Hironobu Sakaguchi, pensait que ce serait son dernier jeu, d'où le titre.
+art|Quel roman de Victor Hugo, écrit en exil, se déroule à Guernesey ?|Les Travailleurs de la mer|L'Homme qui rit|Quatrevingt-treize|Notre-Dame de Paris|Il est dédié à l'île de Guernesey, où Hugo a vécu près de quinze ans.
+art|Dans quel musée est exposée La Nuit étoilée de Van Gogh ?|Le MoMA de New York|Le musée d'Orsay|Le Rijksmuseum|Le musée Van Gogh d'Amsterdam|Peinte en 1889 à Saint-Rémy-de-Provence, elle est au Museum of Modern Art depuis 1941.
+spo|Quel est le diamètre intérieur d'un panier de basket ?|45 cm|40 cm|50 cm|55 cm|Il est fixé à 3,05 m de hauteur, soit 10 pieds.
+esp|Comment s'appelait le petit atterrisseur posé sur une comète en 2014 ?|Philae|Huygens|Beagle 2|Schiaparelli|Il s'est détaché de la sonde Rosetta pour se poser sur la comète Tchourioumov-Guérassimenko.
+esp|Quel est le plus grand des deux satellites de Mars ?|Phobos|Deimos|Charon|Triton|Leurs noms signifient « peur » et « terreur ». Charon tourne autour de Pluton et Triton autour de Neptune.
+cor|Quelle glande produit la mélatonine, l'hormone du sommeil ?|L'épiphyse|L'hypophyse|La thyroïde|Les surrénales|Aussi appelée glande pinéale, elle se trouve au centre du cerveau.
+per|Qui fut le premier empereur de la Chine unifiée ?|Qin Shi Huang|Kubilai Khan|Liu Bang|Puyi|En 221 av. J.-C. Son tombeau est gardé par l'armée de terre cuite.
+cap|Quelle est la capitale du Kirghizistan ?|Bichkek|Douchanbé|Achgabat|Tachkent|Elle s'appelait Frounzé à l'époque soviétique.
+eco|Que signifie le sigle CAC dans « CAC 40 » ?|Cotation assistée en continu|Compagnie des agents de change|Capital des actions cotées|Comité des agents de change|C'est le nom du système informatique de cotation de la Bourse de Paris.
+eco|Sous quel nom Google a-t-il été lancé en 1996 ?|BackRub|PageRank|Googol|Stanford Search|Le nom définitif s'inspire de « googol », le nombre 1 suivi de 100 zéros.
+spo|Quel pays a créé la surprise en remportant l'Euro de football 2004 ?|La Grèce|Le Portugal|La République tchèque|Le Danemark|Elle a battu le Portugal, pays organisateur, en match d'ouverture puis en finale.
