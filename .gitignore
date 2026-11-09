@@ -2,3 +2,4 @@ node_modules/
 tests/out/
 __pycache__/
 prototypes/amis.html
+prototypes/bombe.html

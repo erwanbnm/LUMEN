@@ -18,7 +18,7 @@ const FIREBASE_CONFIG = { // projet Firebase « lumen-d206d »
 };
 const FB_VER = "10.14.1";
 const Amis = (function(){
-  let fb = null, auth = null, db = null, me = null, loading = false, err = "";
+  let fb = null, auth = null, db = null, me = null, loading = false, err = ""; let failAt = 0;
   let users = {}, duels = [], unsub = [], seenTimer = null;
   let cloud = {ready:false, offer:null, timer:null, last:"", err:false};
   const ui = { seg:"signup", friend:"", mode:"classic", theme:"mix", n:10, kind:"async", busy:false, msg:"", view:"main", board:"duels" };
@@ -43,12 +43,13 @@ const Amis = (function(){
   /* --- Chargement de Firebase (seulement quand on en a besoin) --- */
   function loadScript(src){ return new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
   async function boot(){
-    if (fb || loading || !enabled()) return; loading = true;
+    // Sans connexion, on ne réessaie qu'une fois toutes les 15 s (sinon l'écran se recharge en boucle)
+    if (fb || loading || !enabled() || Date.now() - failAt < 15000) return; loading = true;
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
       auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
-    } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; }
+    } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
   // Rafraîchit l'écran sans casser une partie en cours
@@ -63,6 +64,7 @@ const Amis = (function(){
       onDuels(before); rerender();
     }, () => {}));
     ping(); seenTimer = setInterval(ping, 90000);
+    if (typeof Salons !== "undefined") Salons.listen();
   }
   // Présence + statistiques solo publiées pour les classements (rien qui s'achète avec des pièces)
   function ping(){
@@ -105,7 +107,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   async function cloudCheck(){
     cloud.ready = false;
@@ -319,15 +321,18 @@ const Amis = (function(){
     return {played:mine.length, wins, best, live, perfect, big, modes:Object.keys(modes).length, accepted:mine.filter(d => d.to === uid()).length,
       top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0)};
   }
-  function duelBoard(){
+  // Lundi 0 h de la semaine en cours
+  const weekStart = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); };
+  function duelBoard(since){
     const t = {}, row = id => t[id] = t[id] || {id, pts:0, w:0, d:0, l:0, n:0};
     Object.keys(users).forEach(row);
-    finished().forEach(d => [d.from, d.to].filter(p => users[p]).forEach(p => { const o = outcome(d, p), r = row(p); r.n++;
+    finished().filter(d => !since || d.created >= since).forEach(d => [d.from, d.to].filter(p => users[p]).forEach(p => { const o = outcome(d, p), r = row(p); r.n++;
       if (o === 1) { r.pts += 3; r.w++; } else if (o === 0) { r.pts++; r.d++; } else r.l++; }));
     return Object.values(t).sort((a, b) => b.pts - a.pts || b.w - a.w);
   }
   // Les différents classements : entre amis (duels) et en solo
   const BOARDS = {
+    semaine:{n:"Cette semaine", unit:"pts", rows:() => duelBoard(weekStart()).map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
     duels:{n:"Duels", unit:"pts", rows:() => duelBoard().map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
     lvl:{n:"Niveau", unit:"", pre:"Niv. ", rows:() => solo(st => st.lvl)},
     ok:{n:"Bonnes réponses", unit:"", rows:() => solo(st => st.ok)},
@@ -340,7 +345,17 @@ const Amis = (function(){
   }
 
   /* --- Affichage --- */
-  const avatar = (id, z) => { const u = users[id], sk = u && u.av && skinOf(u.av); return creatureSVG(sk || CHARS[0], z || 34); };
+  // Le n°1 des duels de la semaine porte la couronne (jusqu'au lundi suivant)
+  let crownCache = {at:0, id:null};
+  function crownId(){
+    if (Date.now() - crownCache.at < 3000) return crownCache.id;
+    const b = duelBoard(weekStart()), top = b[0];
+    crownCache = {at:Date.now(), id:top && top.pts > 0 && !(b[1] && b[1].pts === top.pts && b[1].w === top.w) ? top.id : null};
+    return crownCache.id;
+  }
+  const CROWN = `<svg class="am-crown" viewBox="0 0 40 28" aria-label="Couronne du n°1 de la semaine"><path d="M4 24 L2 6 L12 14 L20 2 L28 14 L38 6 L36 24Z" fill="#FFD23F" stroke="#2B1D3A" stroke-width="2.6" stroke-linejoin="round"/><path d="M5 20 H35" stroke="#E8A400" stroke-width="2.4"/><circle cx="20" cy="12" r="2.6" fill="#FF5FA2" stroke="#2B1D3A" stroke-width="1.4"/></svg>`;
+  const avatar = (id, z) => { const u = users[id], sk = u && u.av && skinOf(u.av), svg = creatureSVG(sk || CHARS[0], z || 34);
+    return id && id === crownId() ? `<span class="am-crowned" style="--z:${z || 34}px">${svg}${CROWN}</span>` : svg; };
   // Pastille verte « En ligne » ou rouge « Hors ligne »
   const status = id => `<span class="am-st ${online(id) ? "on" : "off"}"><i class="st-dot"></i>${online(id) ? "En ligne" : "Hors ligne"}</span>`;
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
@@ -349,6 +364,7 @@ const Amis = (function(){
     if (!fb) { boot(); return `<section class="stack"><h1 class="big">JcJ</h1><div class="card"><p class="muted">${err || "Connexion au serveur…"}</p></div></section>`; }
     if (!me) return viewLogin();
     if (cloud.offer) return viewOffer();
+    if (typeof Salons !== "undefined" && Salons.active()) return Salons.view();
     if (ui.view === "board") return viewBoard();
     const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
     const mineDone = d => d.res && d.res[uid()] && d.res[uid()].done;
@@ -358,6 +374,7 @@ const Amis = (function(){
     const m = ui.mode;
     return `<section class="stack">
       <div class="row between"><h1 class="big" style="margin:0">JcJ</h1><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
+      ${typeof Salons !== "undefined" ? Salons.entry() : ""}
       ${p ? `<div class="card stack banner-am"><b>En attente de ${esc(pseudoOf(p.to))}…</b><span class="muted">Le duel démarre dès qu'il accepte.</span><button class="btn small ghost" data-am="cancel" data-id="${p.id}">Annuler</button></div>` : ""}
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
@@ -405,7 +422,7 @@ const Amis = (function(){
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
       <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
-      <p class="muted" style="font-size:13px;text-align:center">${ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
+      <p class="muted" style="font-size:13px;text-align:center">${ui.board === "semaine" ? "Duels joués depuis lundi : 3 points par victoire, 1 par égalité. Le n°1 porte la couronne 👑 jusqu'à lundi prochain." : ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
   function viewLogin(){
@@ -510,7 +527,9 @@ const Amis = (function(){
   // Au démarrage : si on était connecté, on se reconnecte pour recevoir les défis
   setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
 
-  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome};
+  // Accès partagé pour les salons privés (salons.js)
+  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender};
+  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 
 /* --- Badges « En ligne » --- */

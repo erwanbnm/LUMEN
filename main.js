@@ -473,6 +473,7 @@ function render(){
   else html += renderProfile();
   app.innerHTML = `<div class="fade">${html}</div>`;
   if (active && s.mode==="chrono" && !s.done) startTick();
+  if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
   if (typeof portalBanner === "function") setTimeout(portalBanner, 900);
 }
@@ -604,6 +605,8 @@ function renderShop(){
   } else if (shopSeg === "acc") body = renderAcc();
   else if (shopSeg === "ameliorations") body = `<div class="stack">${UPG}</div>`;
   else body = `<p class="muted">Un personnage par thème. Certains s'achètent avec tes pièces, d'autres se gagnent en réussissant des questions de leur thème.</p>
+    ${halloweenSeason() || HALLOWEEN_SKINS.some(s => S.skins[s.id]) ? `<div class="label">🎃 Édition Halloween${halloweenSeason() ? " · jusqu'au 30 novembre" : ""}</div>
+    <div class="skgrid">${HALLOWEEN_SKINS.filter(s => halloweenSeason() || S.skins[s.id]).map(s => skinCard(s, s.id)).join("")}</div>` : ""}
     <div class="label">Édition spéciale · séries & stars</div>
     <div class="skgrid">${STAR_SKINS.map(s => skinCard(s, s.id)).join("")}</div>
     <div class="label">Un personnage par thème</div>
@@ -655,6 +658,11 @@ function renderGame(){
   const st = s.steps[s.pos];
   let head = `<div class="row between" style="margin-bottom:10px"><span class="label">${MODE_NAME[s.mode]}${s.mode==="serie"?" · "+esc(THEMES[s.theme].n):""}</span><button class="quit" data-quit>${s.mode==="daily"?"Pause":"Quitter"}</button></div>`;
   if (s.duel) head += Amis.duelBar(s);
+  if (s.duel && s.mode !== "chrono" && st && st.k !== "fact" && st.ans === undefined) {
+    if (!st.dl) st.dl = Date.now() + DUEL_Q*1000;
+    const left = Math.max(0, st.dl - Date.now());
+    head += `<div class="row between" style="margin-bottom:6px"><span class="label">Temps pour répondre</span><span class="label" id="qleft">${Math.ceil(left/1000)} s</span></div><div class="timer"><i id="qbar" style="width:${left/(DUEL_Q*10)}%"></i></div>`;
+  }
   if (s.mode === "chrono") {
     const left = Math.max(0, s.ends - Date.now());
     head += `<div class="row between" style="margin-bottom:8px"><span class="label">Score ${s.score||0}</span><span class="label" id="tleft">${Math.ceil(left/1000)} s</span></div><div class="timer"><i id="tbar" style="width:${left/(s.total*10)}%"></i></div>`;
@@ -693,7 +701,7 @@ function renderGame(){
     const ok = ans === 0, e = S.q[st.id];
     const gain = ok ? `<span><b>+${st.xp} XP · +${coinsTxt(st.coins)}</b>${st.combo>=3?" · combo "+multTxt(st.combo):""}</span>` : "";
     if (s.mode === "chrono") after = `<div class="verdict ${ok?"ok":"ko"}" role="status"><b>${ok?"Juste":"Non : "+esc(q[2][0])}</b></div>`;
-    else after = `<div class="verdict ${ok?"ok":"ko"}" role="status"><b>${ok?"Bien vu.":"Raté, la réponse était : "+esc(q[2][0])}</b><p>${esc(q[3])}</p>${q[5]?`<p class="anec"><b>Le savais-tu ?</b> ${esc(q[5])}</p>`:""}</div>
+    else after = `<div class="verdict ${ok?"ok":"ko"}" role="status"><b>${ok?"Bien vu.":(ans===-1?"Temps écoulé ! La réponse était : ":"Raté, la réponse était : ")+esc(q[2][0])}</b><p>${esc(q[3])}</p>${q[5]?`<p class="anec"><b>Le savais-tu ?</b> ${esc(q[5])}</p>`:""}</div>
       <div class="gain">${gain}<span>${ok?"Maîtrise "+e.b+"/5":"Rangée dans Revoir mes erreurs"}</span></div>
       <div style="margin-top:16px"><button class="btn" data-next>${lastStep(s)?"Voir mon bilan":"Question suivante"}</button></div>`;
   }
@@ -702,6 +710,20 @@ function renderGame(){
     ${isQuote(q) ? `<div class="qlab">Qui a dit ?</div><blockquote class="quote">« ${esc(q[4])} »</blockquote>` : `<h2>${esc(q[4])}</h2>`}${qPic(q)}<div class="choices ${pk?"flags":""}">${choices}</div>${tools}${after}</article>`;
 }
 const lastStep = s => s.mode === "survie" ? s.lives <= 0 : s.pos === s.steps.length-1;
+// Duel : 10 secondes par question (sinon celui qui finit en premier attend l'autre trop longtemps)
+const DUEL_Q = 10, DUEL_READ = 7;
+let qtick = null;
+function startQTick(){
+  clearInterval(qtick);
+  qtick = setInterval(() => {
+    const s = S.session; if (!s || !s.duel || s.done || S.tab !== "jouer") return clearInterval(qtick);
+    const st = s.steps[s.pos]; if (!st || st.k === "fact" || st.ans !== undefined || !st.dl) return;
+    const left = Math.max(0, st.dl - Date.now());
+    const b = document.getElementById("qbar"), t = document.getElementById("qleft");
+    if (b) b.style.width = (left/(DUEL_Q*10))+"%"; if (t) t.textContent = Math.ceil(left/1000)+" s";
+    if (left <= 0) { clearInterval(qtick); doAnswer(s, -1); }
+  }, 200);
+}
 function startTick(){
   tick = setInterval(() => {
     const s = S.session; if (!s || s.mode!=="chrono") return clearInterval(tick);
@@ -965,10 +987,29 @@ document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target &&
 document.addEventListener("click", e => {
   try { onClick(e); if (S.session && S.session.duel) Amis.sync(S.session); } catch(err) { console.error(err); try { save(); render(); } catch(e2){} }
 });
+// Réponse à une question (v = -1 : temps écoulé en duel, compte comme une erreur)
+function doAnswer(s, v){
+    const st = s.steps[s.pos]; if (!st || st.ans !== undefined || s.done) return;
+    st.ans = v; const ok = st.ans === 0;
+    s.combo = ok ? s.combo+1 : 0; s.best = Math.max(s.best, s.combo);
+    st.combo = s.combo; const g = answer(st.id, ok, s.combo); st.xp = g.xp; st.coins = g.coins; s.xp += g.xp; s.coins += g.coins;
+    if (s.mode==="chrono" && ok) s.score = (s.score||0)+1;
+    if (s.mode==="survie" && !ok) s.lives--;
+    if (s.combo >= 20) unlockSkin("comete");
+    feedback(ok, s.combo);
+    succesAnswer(s, st, ok);
+    if (ok) { misEvent("ok", 1); misEvent("th", 1, qTheme(st.id)); if (Q[st.id][1] === 3) misEvent("hard", 1); misEvent("combo", s.combo); if (s.mode === "revoir") misEvent("rev", 1); }
+    save(); render();
+    if (s.duel) Amis.sync(s);
+    if (s.mode==="chrono") autoNext = setTimeout(() => { if (S.session===s && !s.done) goNext(); }, ok ? 450 : 1100);
+    // En duel, on passe tout seul à la suite après quelques secondes pour que les deux joueurs avancent au même rythme
+    else if (s.duel) { clearTimeout(autoNext); const pos = s.pos; autoNext = setTimeout(() => { if (S.session===s && !s.done && s.pos===pos && S.tab==="jouer") { goNext(); Amis.sync(s); } }, DUEL_READ*1000); }
+}
 function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
+  if (d.sl !== undefined) { if (S.settings.sfx !== false && d.sl !== "ans") try { Music.sfx("tap"); } catch(err){} return Salons.click(b); }
   if (d.avPick !== undefined) { draft.avatar = +d.avPick; formErr = ""; const keep = readDraft(); return render(), keep; }
   const fromBar = !!b.closest("#tabs");
   // Sons de navigation : « pop » sur les onglets du bas, petit clic sur les autres boutons (les réponses ont leur propre son)
@@ -990,21 +1031,7 @@ function onClick(e){
     const wrong = shuffle([1,2,3].filter(i=>i<Q[st.id][2].length), rng(s.seed+hash(st.id)+9));
     st.hide = wrong.slice(0,2); s.joker--; save(); return render();
   }
-  if (d.ans !== undefined) {
-    const st = s.steps[s.pos]; if (st.ans !== undefined || s.done) return;
-    st.ans = +d.ans; const ok = st.ans === 0;
-    s.combo = ok ? s.combo+1 : 0; s.best = Math.max(s.best, s.combo);
-    st.combo = s.combo; const g = answer(st.id, ok, s.combo); st.xp = g.xp; st.coins = g.coins; s.xp += g.xp; s.coins += g.coins;
-    if (s.mode==="chrono" && ok) s.score = (s.score||0)+1;
-    if (s.mode==="survie" && !ok) s.lives--;
-    if (s.combo >= 20) unlockSkin("comete");
-    feedback(ok, s.combo);
-    succesAnswer(s, st, ok);
-    if (ok) { misEvent("ok", 1); misEvent("th", 1, qTheme(st.id)); if (Q[st.id][1] === 3) misEvent("hard", 1); misEvent("combo", s.combo); if (s.mode === "revoir") misEvent("rev", 1); }
-    save(); render();
-    if (s.mode==="chrono") autoNext = setTimeout(() => { if (S.session===s && !s.done) goNext(); }, ok ? 450 : 1100);
-    return;
-  }
+  if (d.ans !== undefined) return doAnswer(s, +d.ans);
   if (d.next !== undefined) return goNext();
   if (d.end !== undefined) {
     if (s && s.mode==="daily" && !S.days[s.date]) {

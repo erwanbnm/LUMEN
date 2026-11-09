@@ -713,6 +713,52 @@ body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index
 .am-re{border:0;background:none;color:var(--lamp);font:700 12px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;padding:2px 0}
 @keyframes amIn{from{transform:translate(-50%,-30px);opacity:0}}
 .tabs nav button>span:last-child{font-size:11px}
+
+
+.am-crowned{position:relative;display:inline-block;line-height:0;flex:none}
+.am-crowned .am-crown{position:absolute;left:50%;top:calc(var(--z) * -0.16);width:calc(var(--z) * .5);height:auto;transform:translateX(-50%) rotate(-8deg);filter:drop-shadow(0 2px 0 rgba(0,0,0,.25));animation:amCrown 2.4s ease-in-out infinite}
+@keyframes amCrown{0%,100%{transform:translateX(-50%) rotate(-8deg)}50%{transform:translateX(-50%) translateY(-2px) rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.am-crowned .am-crown{animation:none}}
+/* ---------- Salons privés : La Bombe et le Quiz à plusieurs ---------- */
+.sl-code{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;letter-spacing:.18em;color:var(--lamp)}
+.sl-seg{display:flex;gap:6px;flex-wrap:wrap}
+.sl-seg button{flex:1;min-width:0;padding:10px 6px;border-radius:12px;border:2px solid var(--line);background:var(--surface);font-weight:800;color:var(--ink)}
+.sl-seg button[aria-pressed="true"]{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 16%,var(--surface))}
+.sl-chatbox{padding:12px}
+.sl-chat{display:flex;flex-direction:column;gap:4px;max-height:150px;overflow-y:auto;font-size:14px}
+.sl-chat p{margin:0;overflow-wrap:anywhere}.sl-chat b{color:var(--lamp)}
+.sl-chatrow{display:flex;gap:6px;margin-top:8px}
+.sl-chatrow input{flex:1;min-width:0;border-radius:12px;border:2px solid var(--line);padding:10px;background:var(--surface);color:var(--ink);font:inherit}
+.sl-table{position:relative;height:290px;margin-top:22px}
+.sl-felt{position:absolute;left:12%;right:12%;top:22%;bottom:22%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#5B3A8C,#33205A 70%);box-shadow:0 10px 0 #20123A,inset 0 0 0 6px #7B54B8}
+.sl-seat{position:absolute;width:96px;margin-left:-48px;text-align:center;transition:opacity .3s}
+.sl-nm{font:800 13px "Bricolage Grotesque",sans-serif;background:var(--surface);border-radius:10px;padding:2px 8px;display:inline-block;box-shadow:0 2px 0 var(--line);max-width:92px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl-hp{font-size:13px;color:#FF4D6D;letter-spacing:1px}.sl-hp i{opacity:.2;font-style:normal}
+.sl-seat.hold .sl-nm{background:var(--lamp);color:#fff}
+.sl-seat.out{opacity:.35;filter:grayscale(1)}
+.sl-seat.hit{animation:slHit .5s}
+@keyframes slHit{0%,100%{transform:none}20%{transform:translateX(-8px) rotate(-6deg)}50%{transform:translateX(8px) rotate(6deg)}}
+.sl-bubble{position:absolute;left:50%;top:-30px;transform:translateX(-50%);font-size:26px;animation:slPop 1.8s forwards;pointer-events:none}
+@keyframes slPop{0%{transform:translate(-50%,10px) scale(.4);opacity:0}15%{transform:translate(-50%,0) scale(1.2);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-14px);opacity:0}}
+.sl-bomb{position:absolute;width:74px;height:74px;margin:-37px 0 0 -37px;z-index:2}
+.sl-bomb svg{animation:slBeat var(--beat,1s) ease-in-out infinite}
+@keyframes slBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.sl-spark{animation:slSpark .25s steps(2) infinite}
+@keyframes slSpark{50%{transform:scale(.6) rotate(30deg)}}
+.sl-boom{position:absolute;inset:0;display:grid;place-items:center;font:900 64px "Bricolage Grotesque",sans-serif;color:#FFD23F;text-shadow:0 4px 0 #C2185B,0 0 30px #FF5FA2;animation:slBoom 1.1s forwards;pointer-events:none;z-index:3}
+@keyframes slBoom{0%{transform:scale(.2);opacity:0}20%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:0}}
+.sl-flash{position:fixed;inset:0;background:#fff;animation:slFlash .5s forwards;pointer-events:none;z-index:70}
+@keyframes slFlash{from{opacity:.8}to{opacity:0}}
+.sl-fuse{display:flex;gap:4px;justify-content:center;align-items:center;flex-wrap:wrap}
+.sl-fuse i{width:26px;height:8px;border-radius:4px;background:#F4A261}.sl-fuse i.burnt{background:var(--line)}
+.sl-emo{display:flex;gap:6px;justify-content:center}
+.sl-emo button{font-size:22px;width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surface)}
+.sl-q{padding:14px}.sl-q h2{font-size:18px;margin:6px 0}
+.sl-status{margin:10px 0 0;text-align:center}
+.sl-you{color:var(--lamp)}.sl-good{color:#2BB673}.sl-bad{color:#FF4D6D}
+.sl-board{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-size:13.5px}
+.sl-board span{background:var(--surface);border-radius:10px;padding:3px 8px}.sl-board .me{outline:2px solid var(--lamp)}
+@media (prefers-reduced-motion:reduce){.sl-bomb svg,.sl-spark,.sl-boom,.sl-seat.hit,.sl-bubble{animation:none}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
