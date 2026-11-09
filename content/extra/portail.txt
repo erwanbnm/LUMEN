@@ -1,0 +1,105 @@
+his|Quel roi de France est mort en 1559 d'une blessure reçue lors d'un tournoi ?|Henri II|François Ier|Charles IX|Henri III|La lance du comte de Montgomery s'est brisée et un éclat lui a percé l'œil.
+his|Combien de temps a duré la Commune de Paris en 1871 ?|Environ 72 jours|Environ 7 jours|Environ 6 mois|Environ 2 ans|Du 18 mars au 28 mai 1871, jusqu'à la « Semaine sanglante ».
+his|Quel pharaon a tenté d'imposer le culte d'un dieu unique, Aton ?|Akhenaton|Ramsès II|Toutânkhamon|Khéops|Il a même fondé une nouvelle capitale, Akhetaton. Ses successeurs ont effacé son nom des monuments.
+his|Quel président américain a acheté la Louisiane à la France en 1803 ?|Thomas Jefferson|George Washington|James Madison|John Adams|Napoléon l'a vendue pour 15 millions de dollars : la surface des États-Unis a presque doublé.
+his|Sous quelle dynastie chinoise la Cité interdite a-t-elle été construite ?|Les Ming|Les Qing|Les Han|Les Tang|L'empereur Yongle l'a fait bâtir entre 1406 et 1420 à Pékin.
+sci|Quel est le symbole chimique du tungstène ?|W|Tu|Tg|Wo|Il vient de son autre nom, le wolfram. C'est le métal qui fond à la plus haute température.
+sci|Quelle particule a été mise en évidence au CERN en 2012 ?|Le boson de Higgs|Le neutrino|Le quark top|Le graviton|Elle avait été prédite en 1964. Peter Higgs et François Englert ont reçu le prix Nobel en 2013.
+sci|À combien de degrés Celsius correspond le zéro absolu ?|−273,15 °C|−173,15 °C|−300 °C|−459,67 °C|C'est la température la plus basse possible. −459,67 est sa valeur en degrés Fahrenheit.
+sci|Quel physicien a découvert l'électron en 1897 ?|Joseph John Thomson|Ernest Rutherford|Niels Bohr|James Chadwick|Il l'a mis en évidence avec des tubes à rayons cathodiques. Rutherford découvrira le noyau en 1911.
+geo|Quel est le lac le plus profond du monde ?|Le lac Baïkal|Le lac Tanganyika|La mer Caspienne|Le lac Supérieur|Il atteint 1 642 m de profondeur en Sibérie et contient environ un cinquième de l'eau douce liquide de la planète.
+geo|Quel pays d'Afrique n'a jamais été colonisé, malgré une occupation italienne de 1936 à 1941 ?|L'Éthiopie|Le Kenya|Le Ghana|Le Soudan|L'Éthiopie avait déjà battu l'Italie à Adoua en 1896.
+geo|Quel détroit sépare la mer Rouge du golfe d'Aden ?|Bab-el-Mandeb|Ormuz|Gibraltar|Malacca|Son nom signifie « la porte des lamentations ». Ormuz relie le golfe Persique à la mer d'Oman.
+ani|Quel mammifère terrestre a la gestation la plus longue ?|L'éléphant|La girafe|Le rhinocéros|Le chameau|Environ 22 mois chez l'éléphant d'Afrique, contre 15 mois chez la girafe.
+jeu|Quel studio a développé The Witcher 3 ?|CD Projekt Red|Ubisoft|Bethesda|BioWare|Ce studio polonais adapte les romans de l'écrivain Andrzej Sapkowski.
+jeu|En quelle année sont sortis les premiers jeux Pokémon au Japon ?|1996|1994|1998|2000|Pokémon Rouge et Vert sont sortis sur Game Boy en février 1996.
+jeu|Dans quel jeu apparaît pour la première fois le Master Chief ?|Halo: Combat Evolved|Gears of War|Destiny|Doom|Sorti en 2001 avec la première Xbox, il a lancé la console de Microsoft.
+jeu|Dans quel pays Tetris a-t-il été créé ?|En Union soviétique|Au Japon|Aux États-Unis|En Finlande|L'ingénieur Alexeï Pajitnov l'a programmé à Moscou en 1984.
+art|Combien de tomes compte À la recherche du temps perdu de Marcel Proust ?|Sept|Cinq|Neuf|Douze|Publiés de 1913 à 1927, du Côté de chez Swann au Temps retrouvé.
+art|Quel mouvement artistique a été fondé par André Breton ?|Le surréalisme|Le dadaïsme|Le cubisme|Le fauvisme|Son premier manifeste date de 1924. Dalí et Magritte en sont les peintres les plus célèbres.
+art|Qui a sculpté La Petite Danseuse de quatorze ans ?|Edgar Degas|Auguste Rodin|Camille Claudel|Aristide Maillol|Exposée en 1881, la statue en cire portait un vrai tutu et de vrais cheveux, ce qui a fait scandale.
+art|Quel roman de Gustave Flaubert lui a valu un procès en 1857 ?|Madame Bovary|Salammbô|L'Éducation sentimentale|Bouvard et Pécuchet|Il était accusé d'atteinte aux bonnes mœurs. Il a été acquitté.
+spo|Quel pays a remporté la première Coupe du monde de rugby en 1987 ?|La Nouvelle-Zélande|L'Australie|L'Afrique du Sud|L'Angleterre|Les All Blacks ont battu la France en finale à Auckland.
+spo|Combien de joueurs par équipe sont dans l'eau au water-polo ?|Sept|Six|Huit|Cinq|Six joueurs de champ et un gardien.
+spo|Où se sont tenus les premiers Jeux olympiques d'hiver, en 1924 ?|À Chamonix|À Saint-Moritz|À Lake Placid|À Oslo|On parlait alors de « Semaine internationale des sports d'hiver », reconnue ensuite comme les premiers Jeux d'hiver.
+spo|Au golf, comment appelle-t-on un trou réussi en trois coups de moins que le par ?|Un albatros|Un eagle|Un condor|Un birdie|Birdie : un coup de moins. Eagle : deux. Albatros : trois. Condor : quatre, presque jamais vu.
+esp|Quelle est la plus grande lune du système solaire ?|Ganymède|Titan|Callisto|Io|Ce satellite de Jupiter est même plus grand que la planète Mercure.
+esp|Comment s'appelle le plus grand volcan connu du système solaire ?|Olympus Mons|Mauna Kea|Ascraeus Mons|Maxwell Montes|Sur Mars, il mesure environ 22 km de haut et 600 km de large.
+mon|Quelle langue compte le plus de locuteurs natifs au monde ?|Le chinois mandarin|L'espagnol|L'anglais|L'hindi|Près d'un milliard de personnes l'ont pour langue maternelle. L'anglais est surtout appris comme seconde langue.
+mon|Dans quelle ville se trouve le siège de l'OTAN ?|Bruxelles|Washington|Genève|Vienne|Il s'y est installé en 1967, après le départ de la France du commandement intégré.
+cor|Combien d'os compte un pied humain ?|26|18|32|12|Les deux pieds réunissent ainsi environ un quart des os du squelette.
+cor|Comment s'appellent les cellules du pancréas qui fabriquent l'insuline ?|Les cellules bêta|Les hépatocytes|Les cellules gliales|Les lymphocytes|Elles se trouvent dans les îlots de Langerhans. Les hépatocytes sont les cellules du foie.
+cor|Dans quelle partie de l'œil se trouvent les cônes et les bâtonnets ?|La rétine|La cornée|Le cristallin|L'iris|Les cônes voient les couleurs, les bâtonnets permettent de voir quand il fait sombre.
+cor|Combien de paires de chromosomes possède une cellule humaine ?|23|21|46|24|Soit 46 chromosomes au total, dont une paire de chromosomes sexuels.
+per|Quel navigateur a terminé le premier tour du monde après la mort de Magellan ?|Juan Sebastián Elcano|Francis Drake|Vasco de Gama|Amerigo Vespucci|Magellan est mort aux Philippines en 1521. Elcano est rentré en Espagne en 1522 avec 18 survivants.
+per|Quelle scientifique a reçu deux prix Nobel dans deux sciences différentes ?|Marie Curie|Rosalind Franklin|Lise Meitner|Irène Joliot-Curie|Physique en 1903 et chimie en 1911 : elle reste la seule personne dans ce cas.
+per|Qui a écrit Le Prince ?|Nicolas Machiavel|Thomas More|Érasme|Dante Alighieri|Publié en 1532, ce traité sur l'art de gouverner a donné l'adjectif « machiavélique ».
+per|Quel empereur romain a fait construire un mur à travers la Grande-Bretagne ?|Hadrien|Trajan|Néron|Caligula|Le mur d'Hadrien, long de 117 km, marquait la frontière nord de l'Empire.
+cin|Dans quelle série la ville fictive de Hawkins est-elle le décor principal ?|Stranger Things|Twin Peaks|Riverdale|Dark|La série se passe dans l'Indiana dans les années 1980.
+mus|Combien de symphonies Beethoven a-t-il composées ?|Neuf|Sept|Douze|Cinq|La Neuvième, terminée en 1824, contient l'« Ode à la joie », devenue l'hymne européen.
+mus|De quel instrument jouait Miles Davis ?|La trompette|Le saxophone|Le piano|La contrebasse|Son album Kind of Blue (1959) est l'un des disques de jazz les plus vendus.
+mus|Quel opéra de Georges Bizet se déroule à Séville ?|Carmen|Les Pêcheurs de perles|La Traviata|Le Barbier de Séville|Le Barbier de Séville se passe aussi à Séville, mais il est de Rossini. La Traviata est de Verdi.
+mus|De quel pays vient le groupe Kraftwerk, pionnier de la musique électronique ?|L'Allemagne|Le Royaume-Uni|La France|Les Pays-Bas|Formé à Düsseldorf en 1970, il a inspiré la techno et le hip-hop.
+ins|Combien de temps a duré la guerre la plus courte de l'histoire, entre le Royaume-Uni et Zanzibar en 1896 ?|Moins d'une heure|Trois heures|Deux jours|Une semaine|Elle a duré entre 38 et 45 minutes selon les sources.
+ins|Quel pays a une kalachnikov sur son drapeau ?|Le Mozambique|L'Angola|Le Zimbabwe|La Somalie|Elle symbolise la lutte pour l'indépendance, croisée avec une houe et posée sur un livre.
+ins|Quel était le métier d'origine de la poupée Barbie, lancée en 1959 ?|Mannequin|Infirmière|Hôtesse de l'air|Institutrice|Elle est présentée comme « teen-age fashion model » et a ensuite eu plus de 200 métiers.
+gas|De quelle région vient la piperade ?|Le Pays basque|La Provence|L'Alsace|La Bretagne|C'est une préparation de poivrons, tomates et oignons, souvent servie avec des œufs ou du jambon.
+gas|Quel pays est le premier producteur mondial de café ?|Le Brésil|La Colombie|Le Vietnam|L'Éthiopie|Il produit environ un tiers du café mondial. Le Vietnam est deuxième.
+lan|Quel est le pluriel d'« aïeul » quand on parle des ancêtres en général ?|Des aïeux|Des aïeuls|Des aïeules|Des aïeus|« Aïeuls » désigne les grands-parents. « Aïeux » désigne les ancêtres lointains.
+lan|Que veut dire « callipyge » ?|Qui a de belles fesses|Qui a une belle écriture|Qui a une belle voix|Qui a de beaux cheveux|Le mot vient du grec kallos (beauté) et pugê (fesses). On parle de la Vénus callipyge.
+lan|Laquelle de ces expressions est un oxymore ?|Une obscure clarté|Un silence pesant|Une pluie fine|Monter en haut|L'oxymore associe deux mots contraires. « Monter en haut » est un pléonasme.
+lan|D'où vient le mot « algorithme » ?|Du nom du savant persan al-Khwârizmî|Du grec algos, la douleur|Du latin algere, avoir froid|D'un mot arabe qui veut dire « calcul »|Ce mathématicien du IXe siècle a aussi donné son nom à l'algèbre, à travers le titre de son livre.
+myt|Quel héros grec a résolu l'énigme du Sphinx ?|Œdipe|Persée|Jason|Ulysse|La réponse était l'homme, qui marche à quatre pattes, puis sur deux jambes, puis avec une canne.
+tec|Comment s'appelle le premier ordinateur électronique polyvalent, achevé en 1945 ?|L'ENIAC|L'UNIVAC|Le Colossus|L'IBM 701|Il pesait environ 30 tonnes et occupait une salle entière.
+tec|Que signifie le sigle HTTP ?|HyperText Transfer Protocol|High Transfer Text Process|Hyperlink Text Transport Program|Home Terminal Transfer Protocol|C'est le protocole qui permet d'échanger des pages web.
+cap|Quelle est la capitale du Bhoutan ?|Thimphou|Katmandou|Dacca|Lhassa|C'est l'une des seules capitales au monde sans feux de circulation.
+eco|Quelle entreprise a lancé le Walkman en 1979 ?|Sony|Panasonic|Philips|Toshiba|Ce baladeur à cassettes a été vendu à plus de 200 millions d'exemplaires.
+eco|Que signifie le W de BMW ?|Werke|Wagen|Wien|Welt|Bayerische Motoren Werke : les « usines bavaroises de moteurs ».
+bdm|Qui a créé Corto Maltese ?|Hugo Pratt|Moebius|Enki Bilal|Milo Manara|Le marin aventurier apparaît en 1967 dans La Ballade de la mer salée.
+bdm|Dans quelle ville se trouve le Centre belge de la bande dessinée ?|Bruxelles|Liège|Anvers|Gand|Il occupe d'anciens magasins de tissus dessinés par l'architecte Victor Horta.
+bdm|Dans quel magazine Tintin est-il apparu pour la première fois en 1929 ?|Le Petit Vingtième|Spirou|Pilote|Le Journal de Mickey|C'était le supplément pour la jeunesse du journal belge Le Vingtième Siècle.
+his|Quel roi de France était surnommé par ses ennemis le « roi de Bourges » ?|Charles VII|Charles VI|Louis XI|Jean le Bon|Pendant la guerre de Cent Ans, il ne contrôlait plus que le sud de la Loire, avant que Jeanne d'Arc ne le fasse sacrer à Reims.
+his|Qui fut le dernier empereur de Chine ?|Puyi|Guangxu|Kangxi|Qianlong|Il a abdiqué en 1912 à l'âge de six ans. Sa vie a inspiré le film Le Dernier Empereur.
+his|En quelle année l'édit de Nantes a-t-il été signé ?|1598|1572|1685|1610|Henri IV y accorde des droits aux protestants. Louis XIV le révoque en 1685.
+his|Quelle cité grecque a remporté la guerre du Péloponnèse ?|Sparte|Athènes|Thèbes|Corinthe|Athènes capitule en 404 av. J.-C. après près de trente ans de guerre.
+his|Quel empereur byzantin a fait construire la basilique Sainte-Sophie de Constantinople ?|Justinien|Constantin|Théodose|Basile II|Elle a été achevée en 537, en à peine cinq ans.
+sci|Quel est le métal le plus dense ?|L'osmium|Le plomb|L'or|Le platine|Environ 22,6 g/cm³, soit deux fois plus que le plomb.
+sci|Quelle unité mesure l'inductance électrique ?|Le henry|Le tesla|Le weber|Le siemens|Elle porte le nom du physicien américain Joseph Henry.
+sci|Comment s'appelle l'état de la matière obtenu en refroidissant des atomes tout près du zéro absolu ?|Le condensat de Bose-Einstein|Le plasma|Le fluide supercritique|Le verre de spin|Prédit dans les années 1920, il n'a été obtenu en laboratoire qu'en 1995.
+sci|Quelle est la formule chimique de l'ozone ?|O₃|O₂|CO₂|H₂O₂|Trois atomes d'oxygène. La couche d'ozone filtre une grande partie des ultraviolets du Soleil.
+geo|Quel est le seul pays traversé à la fois par l'équateur et par le tropique du Capricorne ?|Le Brésil|L'Indonésie|Le Kenya|L'Équateur|L'équateur passe en Amazonie et le tropique du Capricorne près de São Paulo.
+geo|Quelle est la capitale de l'État d'Australie-Occidentale ?|Perth|Darwin|Adélaïde|Brisbane|C'est l'une des grandes villes les plus isolées du monde.
+geo|Quel est le pays le moins peuplé d'Amérique du Sud ?|Le Suriname|L'Uruguay|Le Guyana|Le Paraguay|Il compte environ 600 000 habitants et sa langue officielle est le néerlandais.
+ani|Comment dit-on du chameau quand il pousse son cri ?|Il blatère|Il brame|Il barrit|Il glapit|Le cerf brame, l'éléphant barrit et le renard glapit.
+jeu|Quel jeu Atari de 1980 contient l'un des premiers « easter eggs », une salle secrète avec le nom de son créateur ?|Adventure|Pac-Man|Space Invaders|Pong|Warren Robinett y a caché son nom parce qu'Atari ne citait pas ses programmeurs.
+jeu|Quel jeu a lancé la mode du « battle royale » en 2017, juste avant Fortnite ?|PlayerUnknown's Battlegrounds|Apex Legends|H1Z1|Call of Duty: Warzone|Il s'inspirait du film japonais Battle Royale, d'où le nom du genre.
+art|Dans quelle ville se trouve la chapelle des Scrovegni, peinte par Giotto ?|Padoue|Florence|Assise|Sienne|Ses fresques du début du XIVe siècle sont un tournant dans l'histoire de la peinture.
+art|Quel peintre flamand a peint Le Jardin des délices ?|Jérôme Bosch|Pieter Bruegel l'Ancien|Jan van Eyck|Pierre Paul Rubens|Ce triptyque peuplé de créatures étranges est exposé au musée du Prado.
+spo|Quel tennisman a réussi deux fois le Grand Chelem sur une même année ?|Rod Laver|Don Budge|Novak Djokovic|Roger Federer|L'Australien l'a fait en 1962 puis en 1969 : personne d'autre n'y est parvenu deux fois.
+spo|En quelle année Michel Platini a-t-il gagné son troisième Ballon d'or d'affilée ?|1985|1983|1987|1984|Il l'a remporté en 1983, 1984 et 1985, un exploit alors inédit.
+esp|Quelle est la planète la plus dense du système solaire ?|La Terre|Jupiter|Mercure|Vénus|Environ 5,5 g/cm³, grâce à son gros noyau de fer et de nickel.
+esp|Quelle sonde a rapporté pour la première fois sur Terre des poussières d'un astéroïde ?|Hayabusa|OSIRIS-REx|Rosetta|Dawn|La sonde japonaise est revenue en 2010 avec des grains de l'astéroïde Itokawa.
+esp|Combien de temps met Neptune pour faire le tour du Soleil ?|Environ 165 ans|Environ 84 ans|Environ 248 ans|Environ 29 ans|84 ans pour Uranus, 29 pour Saturne : Neptune n'a fait qu'un seul tour depuis sa découverte en 1846.
+mon|Quelle organisation a son siège à Vienne, en Autriche ?|L'OPEP|L'OMC|L'OMS|L'UNESCO|L'OMC et l'OMS sont à Genève, l'UNESCO à Paris.
+per|Quel président de la Ve République a démissionné après un référendum perdu en 1969 ?|Charles de Gaulle|Georges Pompidou|Valéry Giscard d'Estaing|François Mitterrand|Il a quitté le pouvoir le lendemain du « non » au référendum sur les régions et le Sénat.
+cin|Quel film a reçu la toute première Palme d'or sous ce nom, en 1955 ?|Marty|La Dolce Vita|Orfeu Negro|Le Salaire de la peur|Avant 1955, le prix s'appelait le Grand Prix du Festival.
+cin|Quel acteur joue dans les trois films de la trilogie Le Parrain ?|Al Pacino|Marlon Brando|Robert De Niro|James Caan|Il incarne Michael Corleone. Brando n'apparaît que dans le premier film.
+ins|Quelle capitale a le nom officiel le plus long du monde ?|Bangkok|Kuala Lumpur|Reykjavik|Ouagadougou|Son nom cérémoniel en thaï compte plus de 160 lettres. Les Thaïlandais l'appellent Krung Thep.
+gas|Quel fromage a obtenu la toute première appellation d'origine en France, en 1925 ?|Le roquefort|Le comté|Le beaufort|Le reblochon|Il doit être affiné dans les caves naturelles de Roquefort-sur-Soulzon.
+lan|Quel est le participe passé du verbe « clore » ?|Clos|Cloré|Cloé|Clôt|On dit « l'affaire est close » ou « un jardin clos ».
+lan|Que veut dire le mot « vergogne » ?|La honte|La colère|La paresse|La joie|On ne l'emploie presque plus que dans l'expression « sans vergogne ».
+myt|Quel dieu grec est le père du cheval ailé Pégase ?|Poséidon|Zeus|Arès|Apollon|Pégase est né du sang de Méduse quand Persée l'a décapitée.
+tec|Quel programme a été en 1988 l'un des premiers à se propager tout seul sur Internet ?|Le ver Morris|ILOVEYOU|Melissa|Conficker|Écrit par un étudiant, il a paralysé une partie des ordinateurs reliés à l'époque.
+cap|Quelle est la capitale de l'Érythrée ?|Asmara|Djibouti|Mogadiscio|Khartoum|Ses bâtiments des années 1930, de style italien, sont classés au patrimoine mondial.
+cap|Quelle est la capitale du Suriname ?|Paramaribo|Georgetown|Cayenne|Caracas|Georgetown est la capitale du Guyana et Cayenne le chef-lieu de la Guyane française.
+eco|Dans quel pays a-t-on utilisé les premiers billets de banque en papier ?|En Chine|En Italie|En Suède|En Angleterre|Sous la dynastie Song, au XIe siècle. La Suède a émis les premiers billets d'Europe en 1661.
+eco|Quelle entreprise a lancé la première carte de paiement moderne, en 1950 ?|Diners Club|American Express|Visa|Mastercard|Son fondateur aurait eu l'idée après avoir oublié son portefeuille au restaurant.
+bdm|Qui est l'auteur du manga Akira ?|Katsuhiro Ōtomo|Osamu Tezuka|Hayao Miyazaki|Naoki Urasawa|Publié de 1982 à 1990, il a été adapté en film d'animation par l'auteur lui-même.
+cap|Quelle est la capitale du Turkménistan ?|Achgabat|Douchanbé|Bichkek|Tachkent|Douchanbé est la capitale du Tadjikistan. Achgabat est célèbre pour ses immeubles de marbre blanc.
+per|Quel savant persan a écrit le Canon de la médecine, enseigné en Europe pendant des siècles ?|Avicenne|Averroès|Al-Biruni|Al-Khwârizmî|Écrit au début du XIe siècle, il a servi de manuel dans les universités européennes jusqu'au XVIIe siècle.
+his|Quelle est la plus ancienne université d'Europe encore en activité ?|L'université de Bologne|La Sorbonne|L'université d'Oxford|L'université de Salamanque|Sa fondation est traditionnellement datée de 1088.
+art|Quel peintre a réalisé Le Déjeuner des canotiers ?|Auguste Renoir|Édouard Manet|Claude Monet|Gustave Caillebotte|Peint en 1881 à Chatou, il montre les amis du peintre au bord de la Seine.
+esp|Quelle planète naine, découverte en 2005, a conduit au déclassement de Pluton ?|Éris|Cérès|Makémaké|Hauméa|Presque aussi grande que Pluton, elle a obligé les astronomes à définir enfin ce qu'est une planète, en 2006.
+gas|Quel était l'ingrédient principal du garum, la sauce préférée des Romains ?|Du poisson fermenté|Du vin cuit|Du lait de chèvre caillé|Des olives écrasées|On laissait fermenter au soleil des entrailles de poisson et du sel pendant des semaines.
+sci|Quel mathématicien français est mort en duel à 20 ans, en 1832 ?|Évariste Galois|Blaise Pascal|Joseph Fourier|Henri Poincaré|La nuit précédente, il aurait écrit à la hâte des idées qui ont fondé une branche entière des mathématiques.
+sci|Comment s'appelait le navire sur lequel Charles Darwin a fait le tour du monde ?|Le Beagle|Le Bounty|L'Endeavour|La Boudeuse|Le voyage a duré cinq ans, de 1831 à 1836, et l'a mené jusqu'aux îles Galápagos.

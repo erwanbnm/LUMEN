@@ -14,7 +14,7 @@ function tPerson(o){
     + toy(torso, ...o.torso, {dy:4}) + (o.body || "") + tShine("M30 110 Q29 92 40 80", 3.2, .6)
     + tLimb(armR, o.sleeve || o.torso[1], 12) + hand(...handR) + (o.held || "")
     + toy(tE(60, 46, 27, 24), ...o.skin, {dy:0}) + (o.face || "")
-    + (o.eyes || tEyes(50, 70, 48)) + tBlush(40, 80, 57) + (o.mouth || tMouth(60, 58))
+    + (o.eyes || tEyes(50, 70, 48)) + (o.noBlush ? "" : tBlush(40, 80, 57)) + ("mouth" in o ? o.mouth : tMouth(60, 58))
     + (o.hair || "") + (o.front || "") + `</g>`;
 }
 const STAR_SKINS = [

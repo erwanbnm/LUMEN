@@ -237,7 +237,7 @@ function rescueCard(){
     <button class="btn small" data-rescue ${S.coins>=r.price?"":"disabled"}>${coinIco}Sauver ma série · ${r.price}</button>${S.coins>=r.price?"":`<span class="muted" style="font-size:13.5px">Il te manque ${Math.ceil(r.price-S.coins)} pièces.</span>`}</div>`;
 }
 const dueList = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].due <= T()).sort((a,b)=>S.q[a].due-S.q[b].due);
-const allIds = () => Object.keys(Q);
+const allIds = () => Object.keys(Q).filter(id => !(Q[id][6] && Q[id][6].t === "portal"));
 const young = () => S.profile && S.profile.age < 13;
 const correctIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th && S.q[id].ok>0).length;
 const correctAll = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].ok>0).length;
@@ -349,6 +349,8 @@ function newSession(mode, extra){
     const mix = pick(allIds().filter(id=>qTheme(id)!==th), 10-main.length, rr, used);
     const facts = F.map((_,i)=>i).filter(i=>F[i][0]===th);
     s.steps = [{k:"fact", i:facts[Math.floor(n/ORDER.length) % facts.length]}].concat(main.map(qStep), mix.map(qStep));
+  } else if (mode === "portail") {
+    s.steps = shuffle(portalIds().filter(id => !(S.q[id] && S.q[id].ok > 0)), r).concat(shuffle(portalIds(), r)).filter((id, i, a) => a.indexOf(id) === i).slice(0, 10).map(qStep);
   } else if (mode === "serie") {
     s.diff = S.diff || "mix"; s.steps = diffPick(byTheme(s.theme), 10, r, used, s.diff).map(qStep);
   } else if (mode === "mix") {
@@ -467,7 +469,9 @@ function render(){
   app.innerHTML = `<div class="fade">${html}</div>`;
   if (active && s.mode==="chrono" && !s.done) startTick();
   stressUpdate();
+  if (typeof portalBanner === "function") setTimeout(portalBanner, 900);
 }
+setInterval(() => { try { if (S && S.profile) { const was = document.querySelector(".portal-card"); if (portalOpen() && !was && S.tab === "accueil" && !S.session) render(); portalBanner(); } } catch(e){} }, 60000);
 
 /* --- Bienvenue / profil --- */
 function profileForm(isEdit){
@@ -509,6 +513,7 @@ function renderHome(){
     <div class="me"><div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
+    ${portalCard()}
     ${rescueCard()}
     ${dailyCard()}
     ${missionsCard()}
@@ -581,7 +586,9 @@ function renderShop(){
     const total = CHARS.length + SHOP_SKINS.length + SECRETS.length;
     body = `<p class="muted">${nOwn}/${total} personnages. Touche un personnage que tu possèdes pour l'équiper.</p>
       <div class="label">Secrets · ${SECRET_SKINS.filter(s=>S.skins[s.id]).length}/${SECRET_SKINS.length}</div>
-      <div class="skgrid">${SECRET_SKINS.map(s => skinCard(s, s.id, S.skins[s.id] ? "secret" : "lock")).join("")}</div>
+      <div class="skgrid">${SECRET_SKINS.filter(s => !s.portal).map(s => skinCard(s, s.id, S.skins[s.id] ? "secret" : "lock")).join("")}</div>
+      <div class="label">Personnages du Portail · ${PORTAL_SKINS.filter(s=>S.skins[s.id]).length}/${PORTAL_SKINS.length}</div>
+      <div class="skgrid">${PORTAL_SKINS.map(s => skinCard(s, s.id, S.skins[s.id] ? "secret" : "lock")).join("")}</div>
       <div class="skgrid one">${skinCard(ULTRA_SKIN, "lumen", S.skins.lumen ? "secret" : "lock")}</div>
       <div class="label">Personnages de thème · ${SHOP_SKINS.filter(s=>S.skins[s.id]).length}/${SHOP_SKINS.length}</div>
       <div class="skgrid">${SHOP_SKINS.filter(s=>S.skins[s.id]).map(s => skinCard(s, s.id)).join("") || `<p class="muted" style="grid-column:1/-1">Aucun pour l'instant. Ils s'achètent dans l'onglet Personnages.</p>`}</div>
@@ -613,13 +620,14 @@ function renderAcc(){
 }
 const tense = () => { const s = S.session; if (!s || s.done || S.tab !== "jouer") return false;
   if (s.mode === "survie") return s.lives === 1;
+  if (s.mode === "portail") return true;
   if (s.mode === "chrono") return s.ends - Date.now() <= 15000;
   return false; };
 /* Ambiance stressante : Survie à une vie = musique d'espion ; Chrono, 15 dernières secondes = tempo qui s'emballe.
    Bords de l'écran rouges qui pulsent de plus en plus vite et battement de cœur, même sans regarder le chrono. */
 let stressOn = "";
 function stressUpdate(){
-  const s = S.session, k = !tense() ? "" : s.mode === "survie" ? "spy" : "panic";
+  const s = S.session, k = !tense() ? "" : s.mode === "survie" || s.mode === "portail" ? "spy" : "panic";
   const heat = k === "panic" ? 1 - Math.max(0, s.ends - Date.now()) / 15000 : k === "spy" ? .3 : 0;
   Music.mode(k || "calm"); Music.heat(heat);
   document.body.classList.toggle("stress", !!k);
@@ -633,7 +641,7 @@ function stressUpdate(){
 }
 
 /* --- Partie --- */
-const MODE_NAME = {qad:"Qui a dit ?", daily:"Défi du jour", serie:"Série", mix:"Grand mélange", revoir:"Revoir mes erreurs", chrono:"Chrono", survie:"Survie", duel:"Duel"};
+const MODE_NAME = {qad:"Qui a dit ?", daily:"Défi du jour", serie:"Série", mix:"Grand mélange", revoir:"Revoir mes erreurs", chrono:"Chrono", survie:"Survie", duel:"Duel", portail:"Le Portail"};
 function renderGame(){
   const s = S.session;
   if (s.done || (s.pos >= s.steps.length && s.mode !== "chrono" && s.mode !== "survie")) return renderRecap();
@@ -723,9 +731,10 @@ function renderRecap(){
     <p class="muted">${msg}</p>
     <div class="row"><span class="chip lamp">+${s.xp} XP</span><span class="chip lamp">${coinIco}+${fmtC(s.coins)}${s.mode==="daily"&&!S.days[s.date]?" (+10 en terminant)":""}</span><span class="chip">Meilleur combo : ${s.best}</span></div>
     ${s.duel ? Amis.recap(s) : ""}
+    ${s.mode === "portail" ? `<div class="card banner-am stack" style="align-items:center;text-align:center">${s.portalSkin ? creatureSVG(skinOf(s.portalSkin), 110) + `<b>Le portail t'a confié ${esc(skinOf(s.portalSkin).n)} !</b><span class="muted">Il t'attend dans ta Collection.</span>` : s.portalWin ? `<b>Défi réussi !</b>` : `<b>Le portail s'est refermé…</b><span class="muted">Il fallait ${PORTAL_GOAL} bonnes réponses. Il se rouvrira un autre jour.</span>`}</div>` : ""}
     ${recapList(items)}
     <button class="btn" data-end>${s.mode==="daily"?"Terminer le défi":"Continuer"}</button>
-    ${s.mode!=="daily"&&!s.duel?`<button class="btn ghost" data-again>Rejouer</button>`:""}
+    ${s.mode!=="daily"&&!s.duel&&s.mode!=="portail"?`<button class="btn ghost" data-again>Rejouer</button>`:""}
   </section>`;
 }
 function finish(){
@@ -734,6 +743,7 @@ function finish(){
   const ok = itemsOf(s).filter(i=>"id" in i && i.ok).length;
   if ((s.mode==="chrono" || s.mode==="survie") && ok > (S.rec[s.mode]||0)) { S.rec[s.mode] = ok; s.newRec = ok > 0; }
   if (s.mode !== "daily") S.games = (S.games||0)+1;
+  if (s.mode === "portail") portalFinish(s, ok);
   if (s.mode === "chrono") misEvent("chr", ok);
   if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
   const nq = itemsOf(s).filter(i=>"id" in i).length;
@@ -791,6 +801,7 @@ function renderProfile(){
     ${S.admin ? `<div class="card stack admin"><div class="label">Mode admin</div>
       <div class="row">${[100,1000,10000].map(n => `<button class="btn small" data-admin-add="${n}">+${n} pièces</button>`).join("")}</div>
       <div class="row between"><span>Pièces infinies</span><button class="btn small ${S.admin.inf?"":"ghost"}" data-admin-inf aria-pressed="${!!S.admin.inf}">${S.admin.inf?"Activées":"Désactivées"}</button></div>
+      <button class="btn small" data-admin-portal>Ouvrir le portail maintenant</button>
       <button class="btn ghost small" data-admin-off>Quitter le mode admin</button></div>` : ""}`;
   else if (profSeg==="moi") { if (!draft) draft = {...S.profile}; body = (typeof Amis !== "undefined" ? Amis.accountCard() : "") + profileForm(true) + `<button class="btn ghost" data-reset>${confirmReset?"Confirmer : tout effacer":"Remettre à zéro ma progression"}</button>`; }
   else body = renderProgress();
@@ -859,6 +870,46 @@ function renderLibrary(){
     body = head + (!fl.length && !ql.length ? `<div class="empty">Rien ne correspond.</div>` : fl.map(entryF).join("") + ql.filter(learned).slice(0,200).map(entryQ).join("") + (ql.some(id=>!learned(id)) ? `<div class="label" style="margin-top:14px">À retravailler</div>` + ql.filter(id=>!learned(id)).slice(0,100).map(entryQ).join("") : ""));
   }
   return `<div class="nbhead"><b>${nLearn}</b><span>notion${nLearn>1?"s":""} apprise${nLearn>1?"s":""} depuis le début</span></div>${search}<div id="lib-body">${body}</div>`;
+}
+
+/* ---------- Le Portail : événement surprise ----------
+   Certains jours (6 sur 10), le portail s'ouvre à une heure au hasard entre 9 h et 22 h, jusqu'à minuit.
+   Un pop-up prévient le joueur. 10 questions très difficiles (content/extra/portail.txt) : 7 bonnes réponses
+   ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
+const PORTAL_GOAL = 7;
+const portalIds = () => Object.keys(Q).filter(id => Q[id][6] && Q[id][6].t === "portal");
+function portalToday(){
+  const d = today();
+  if (!S.portal || S.portal.day !== d) {
+    const r = rng(dayNum(d) * 7919 + hash(S.profile ? S.profile.name : "x"));
+    S.portal = {day:d, open:r() < .6, at:9*60 + Math.floor(r() * 13*60), seen:false, tried:false};
+    save();
+  }
+  return S.portal;
+}
+const portalOpen = () => { if (!S.profile) return false; const p = portalToday(), n = new Date();
+  return (p.open || p.force) && !p.tried && n.getHours()*60 + n.getMinutes() >= p.at; };
+function portalBanner(){
+  if (window.__noPortal || !portalOpen() || S.portal.seen || (S.session && !S.session.done && S.tab === "jouer") || document.querySelector(".am-inv.portal")) return;
+  S.portal.seen = true; save();
+  if (S.settings.sfx !== false) { try { Music.sfx("level"); navigator.vibrate && navigator.vibrate([120, 80, 120, 80, 200]); } catch(e){} }
+  const el = document.createElement("div"); el.className = "am-inv portal"; el.setAttribute("role", "alertdialog");
+  el.innerHTML = `<button class="am-x" data-portal-close aria-label="Fermer">×</button>
+    <div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap"><span class="portal-ic"></span><div class="stack" style="gap:2px;min-width:0"><b>Le portail s'est ouvert !</b><span>Veux-tu relever le défi ? 10 questions très difficiles : ${PORTAL_GOAL} bonnes réponses pour gagner un personnage secret.</span></div></div>
+    <div class="row"><button class="btn small" data-portal-go>Entrer dans le portail</button><button class="btn small ghost" data-portal-close>Plus tard</button></div>`;
+  document.body.appendChild(el);
+}
+function portalCard(){
+  if (!portalOpen()) return "";
+  const left = PORTAL_SKINS.filter(s => !S.skins[s.id]).length;
+  return `<button class="portal-card" data-portal-go><span class="portal-ic big"></span><span class="stack" style="gap:3px;min-width:0;text-align:left"><b>Le portail est ouvert jusqu'à minuit</b><span>10 questions très difficiles · ${PORTAL_GOAL}/10 pour gagner ${left ? "un personnage secret" : "300 pièces"}</span></span></button>`;
+}
+function portalFinish(s, ok){
+  S.portal.tried = true; s.portalWin = ok >= PORTAL_GOAL;
+  if (!s.portalWin) return;
+  const left = PORTAL_SKINS.filter(sk => !S.skins[sk.id]);
+  if (left.length) { const sk = left[Math.floor(Math.random() * left.length)]; s.portalSkin = sk.id; unlockSkin(sk.id); }
+  else { S.coins += 300; toasts.push(`<b>Le portail t'offre 300 pièces</b> · tu as déjà tous ses personnages !`); }
 }
 
 /* ---------- Interactions ---------- */
@@ -1010,6 +1061,9 @@ function onClick(e){
   if (d.adminTap !== undefined) { adminTaps++; if (adminTaps >= 7 && !S.admin) { S.admin = {inf:false}; save(); toasts.push("<b>Mode admin activé.</b>"); } return render(); }
   if (d.adminAdd) { S.coins += +d.adminAdd; save(); toasts.push(`<b>+${d.adminAdd} pièces</b>`); return render(); }
   if (d.adminInf !== undefined) { S.admin.inf = !S.admin.inf; save(); return render(); }
+  if (d.adminPortal !== undefined) { portalToday(); Object.assign(S.portal, {force:true, at:0, seen:false, tried:false}); save(); render(); return portalBanner(); }
+  if (d.portalGo !== undefined) { document.querySelectorAll(".am-inv.portal").forEach(e => e.remove()); if (!portalOpen()) return render(); return start("portail"); }
+  if (d.portalClose !== undefined) { document.querySelectorAll(".am-inv.portal").forEach(e => e.remove()); return; }
   if (d.adminOff !== undefined) { S.admin = null; adminTaps = 0; save(); return render(); }
   if (d.themeSet) { S.settings.theme = d.themeSet; applyTheme(); save(); return render(); }
   if (d.sfx !== undefined) { S.settings.sfx = S.settings.sfx === false; save(); return render(); }

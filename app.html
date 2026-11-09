@@ -655,6 +655,16 @@ svg.g3 .smoke circle,svg.g3 .pop{opacity:0}
 body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;box-shadow:inset 0 0 90px 16px rgba(255,40,70,.62);animation:stressPulse var(--stress,1s) ease-in-out infinite}
 @keyframes stressPulse{50%{box-shadow:inset 0 0 30px 2px rgba(255,40,70,.18)}}
 @media (prefers-reduced-motion:reduce){body.stress::after{animation:none}}
+/* Le Portail (événement surprise) */
+.portal-ic{flex:none;width:44px;height:44px;border-radius:50%;background:conic-gradient(from 0deg,#8A5AFF,#FF5FA2,#FFD23F,#5AD8FF,#8A5AFF);border:3px solid #2B1D3A;box-shadow:0 0 18px rgba(160,110,255,.8);animation:portalSpin 2.4s linear infinite;position:relative}
+.portal-ic::after{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(#1A0A2E 30%,#3A1A6A);border:2px solid #2B1D3A}
+.portal-ic.big{width:58px;height:58px}
+@keyframes portalSpin{to{transform:rotate(360deg)}}
+.am-inv.portal{border-color:#A07AFF;box-shadow:0 0 0 3px rgba(160,122,255,.35),0 10px 30px rgba(0,0,0,.5)}
+.portal-card{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border-radius:18px;border:2px solid #A07AFF;color:inherit;background:linear-gradient(120deg,rgba(138,90,255,.35),rgba(255,95,162,.25));box-shadow:0 4px 0 #5A3AB8,0 0 24px rgba(160,122,255,.35);margin-bottom:4px;font:inherit}
+.portal-card span span{font-size:13.5px;opacity:.85}
+.portal-card:active{transform:translateY(3px);box-shadow:0 1px 0 #5A3AB8}
+@media (prefers-reduced-motion:reduce){.portal-ic{animation:none}}
 /* Mode en ligne : onglet JcJ (amis.js) */
 .am-trophy{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:0;color:inherit;font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;padding:2px 4px}
 .am-trophy svg{transition:transform .2s cubic-bezier(.3,1.6,.5,1)}.am-trophy:active svg{transform:scale(.9)}
