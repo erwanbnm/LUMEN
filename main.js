@@ -617,10 +617,10 @@ function skinCard(sk, id, mode){
    « LOOSER DU JOUR » ne s'achète pas : il tombe tout seul après 4 erreurs d'affilée et dure jusqu'à minuit. */
 const TITLES = [
   {id:"soumis", n:"SOUMIS", p:200, a:"#F1EEF6", b:"#C4BCD4", f:"#4A3E5A"},
-  {id:"gonneur", n:"GONNEUR", p:300, a:"#FFA45A", b:"#E2431E", f:"#FFFFFF"},
+  {id:"gonneur", n:"GOONEUR", p:300, a:"#FFA45A", b:"#E2431E", f:"#FFFFFF"},
   {id:"senpai", n:"SENPAI", p:300, a:"#FFC2DA", b:"#FF5FA2", f:"#FFFFFF"},
   {id:"dessose", n:"DESSOSE", p:400, a:"#D2B4FF", b:"#7A4AD8", f:"#FFFFFF"},
-  {id:"banki", n:"BANKI", p:500, a:"#6EE09A", b:"#16804A", f:"#FFFFFF"},
+  {id:"banki", n:"BANKAI", p:500, a:"#6EE09A", b:"#16804A", f:"#FFFFFF"},
   {id:"gorosei", n:"GOROSEI", p:600, a:"#5B3A8C", b:"#1E1236", f:"#FFD23F"},
   {id:"patapim", n:"BRR BRR PATAPIM", p:600, a:"#A8DC7A", b:"#5A8A2A", f:"#FFFFFF"},
   {id:"winter", n:"WINTER IS COMING", p:700, a:"#EAF6FF", b:"#86BCEB", f:"#16324E"},
