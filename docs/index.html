@@ -3493,7 +3493,7 @@ function renderLibrary(){
 }
 
 /* ---------- Le Portail : événement surprise ----------
-   Certains jours (6 sur 10), le portail s'ouvre à une heure au hasard entre 9 h et 22 h, jusqu'à minuit.
+   Certains jours (6 sur 10), le portail s'ouvre à une heure au hasard entre 9 h et 18 h, jusqu'à minuit.
    Un pop-up prévient le joueur. 10 questions très difficiles (content/extra/portail.txt) : 7 bonnes réponses
    ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
 const PORTAL_GOAL = 7;
@@ -3504,7 +3504,7 @@ const PORTAL_FORCE = {"2026-11-09": 890};
 function portalPlan(d){
   if (PORTAL_FORCE[d] !== undefined) return {open:true, at:PORTAL_FORCE[d]};
   const r = rng(dayNum(d) * 7919);
-  return {open:r() < .6, at:9*60 + Math.floor(r() * 13*60)};
+  return {open:r() < .6, at:9*60 + Math.floor(r() * 9*60)};
 }
 function portalToday(){
   const d = today();
