@@ -81,7 +81,7 @@
 3|Quel serpent géant entoure le monde dans la mythologie nordique ?|Jörmungand|Fenrir|Nidhogg|Le Kraken|Il est si long qu'il se mord la queue en faisant le tour de la Terre. Thor et lui doivent s'entretuer lors du Ragnarök.
 2|Quelle déesse égyptienne, mère d'Horus, a reconstitué le corps d'Osiris ?|Isis|Hathor|Bastet|Nout|Son culte s'est répandu jusqu'à Rome. Elle est souvent représentée avec un trône sur la tête.
 1|Quelle déesse égyptienne est représentée sous la forme d'un chat ?|Bastet|Isis|Sekhmet|Maât|Protectrice du foyer. Les chats étaient si respectés en Égypte qu'on les momifiait par milliers.
-2|Que pesait-on lors du jugement des morts en Égypte ?|Le cœur du défunt, face à une plume|L'or du défunt|Son cerveau|Ses péchés écrits|La plume de Maât, déesse de la vérité et de l'équilibre. Si le cœur était trop lourd, il était dévoré par un monstre, Ammit.
+2|Que pesait-on lors du jugement des morts en Égypte ?|Le cœur du défunt|L'or du défunt|Le cerveau du défunt|Les écrits du défunt|Le cœur était posé face à la plume de Maât, déesse de la vérité. S'il était trop lourd, le défunt était dévoré.
 3|Quel dieu égyptien à tête d'ibis est le dieu de l'écriture ?|Thot|Anubis|Seth|Ptah|Il aurait inventé les hiéroglyphes. Les Grecs l'associaient à leur dieu Hermès.
 3|Quel dieu égyptien du désert et du chaos a tué son frère Osiris ?|Seth|Horus|Anubis|Râ|Il est représenté avec une tête d'animal étrange, difficile à identifier. Horus, le fils d'Osiris, finit par le vaincre.
 2|Quel dieu en forme de serpent à plumes était vénéré par les Aztèques ?|Quetzalcoatl|Huitzilopochtli|Tlaloc|Itzamna|Les Mayas l'appelaient Kukulkan. À Chichén Itzá, une ombre en forme de serpent semble descendre l'escalier de la pyramide lors des équinoxes.
@@ -94,7 +94,7 @@
 2|Quel héros suisse aurait tiré une flèche dans une pomme posée sur la tête de son fils ?|Guillaume Tell|Robin des Bois|Arnold de Winkelried|Lancelot|Selon la légende, il mène ensuite la révolte contre un bailli autrichien. Rossini lui a consacré un opéra à l'ouverture célèbre.
 2|Quelle créature est mi-homme, mi-cheval ?|Le centaure|Le satyre|Le minotaure|Le faune|Le plus sage d'entre eux, Chiron, a été le maître de héros comme Achille. Le signe du Sagittaire est représenté en centaure archer.
 3|Quelle créature des légendes juives est faite d'argile et animée par des mots ?|Le golem|Le dibbouk|Le djinn|Le troll|La version la plus célèbre est celle du golem de Prague, créé selon la légende par un rabbin au XVIe siècle pour protéger sa communauté.
-2|Quel genre d'esprit sort de la lampe d'Aladin ?|Un génie, ou djinn|Un elfe|Un lutin|Un farfadet|Il exauce les vœux de celui qui frotte la lampe. Les djinns sont des esprits présents dans de nombreuses traditions du monde arabe.
+2|Quel genre d'esprit sort de la lampe d'Aladin ?|Un génie|Un elfe|Un lutin|Un farfadet|Le mot vient de l'arabe « djinn », un esprit qui peut être bon ou mauvais.
 2|Qui raconte une histoire chaque nuit pour échapper à la mort dans Les Mille et Une Nuits ?|Shéhérazade|Aladin|Sindbad|Ali Baba|Le sultan voulait la faire exécuter au matin : elle s'arrête toujours au moment le plus palpitant, pour qu'il veuille connaître la suite.
 1|Quel monstre légendaire vivrait dans un lac écossais ?|Nessie|Le Kraken|Le yéti|Le dahu|La photo la plus célèbre, de 1934, était un trucage réalisé avec un jouet. Le dahu, lui, est un animal imaginaire des montagnes, aux pattes plus courtes d'un côté.
 2|Quelle créature des neiges vivrait dans l'Himalaya ?|Le yéti|Le Bigfoot|Le wendigo|Le dahu|Aussi appelé « l'abominable homme des neiges ». Les poils et les traces analysés appartenaient le plus souvent à des ours.
@@ -113,18 +113,18 @@
 3|De quelle déesse viendrait le nom anglais du vendredi, Friday ?|Frigg|Hel|Sif|Skadi|L'épouse d'Odin. Certains spécialistes pensent plutôt à Freyja, déesse de l'amour, souvent confondue avec elle.
 3|Quel dieu égyptien à tête de crocodile était lié au Nil ?|Sobek|Thot|Khnoum|Ptah|Dans son temple de Kom Ombo, des crocodiles étaient nourris, puis momifiés après leur mort.
 3|Comment s'appelle le royaume des morts de la mythologie nordique, dirigé par une fille de Loki ?|Hel|Asgard|Midgard|Valhalla|Il accueille ceux qui ne meurent pas au combat. Midgard est le monde des humains, Asgard celui des dieux.
-1|Quelle créature crache du feu dans de nombreuses légendes ?|Le dragon|La licorne|Le phénix|La sirène|En Europe, il est souvent méchant et garde un trésor. En Chine, il porte bonheur et apporte la pluie.
-1|Quel petit dieu ailé des Romains fait tomber amoureux avec ses flèches ?|Cupidon|Mars|Apollon|Mercure|Chez les Grecs, il s'appelle Éros. Il est souvent représenté comme un enfant armé d'un arc.
-1|Quelle créature des contes a une queue de poisson et un buste de femme ?|La sirène|La gorgone|La harpie|La nymphe|Dans l'Antiquité grecque, les sirènes étaient plutôt mi-femmes, mi-oiseaux. La queue de poisson s'est imposée au Moyen Âge.
-1|Quel petit lutin irlandais garde un chaudron d'or au pied de l'arc-en-ciel ?|Le leprechaun|Le troll|L'elfe|Le gnome|Habillé de vert, il est devenu un symbole de la Saint-Patrick, la fête de l'Irlande.
-1|Quelle créature des légendes scandinaves se change en pierre au soleil ?|Le troll|Le gobelin|Le dragon|Le loup-garou|Certains rochers de Norvège porteraient, selon les légendes, la forme de trolls surpris par l'aube.
-1|En quel animal se transforme un loup-garou les nuits de pleine lune ?|En loup|En chauve-souris|En ours|En chat|La légende existe dans toute l'Europe. On racontait qu'une balle en argent pouvait l'arrêter.
-1|Quel monstre suce le sang et craint l'ail ?|Le vampire|Le zombie|Le loup-garou|Le fantôme|Le plus célèbre, Dracula, est né en 1897 sous la plume de Bram Stoker. Il s'inspire en partie d'un prince de Valachie, Vlad l'Empaleur.
+2|Quel dragon gardait les pommes d'or du jardin des Hespérides ?|Ladon|Python|Typhon|Fafnir|Héraclès a dû rapporter ces pommes lors de l'un de ses douze travaux. Fafnir est un dragon des légendes nordiques.
+1|Quel est le nom grec de Cupidon ?|Éros|Apollon|Hermès|Hélios|C'est le dieu de l'amour. Dans certains récits, il est le fils d'Aphrodite.
+1|Quelle nymphe a retenu Ulysse pendant sept ans sur son île ?|Calypso|Circé|Nausicaa|Pénélope|Elle lui promettait l'immortalité, mais il préférait rentrer à Ithaque.
+1|Quel héros grec a été élevé par le sage centaure Chiron ?|Achille|Ulysse|Persée|Thésée|Chiron, contrairement aux autres centaures, était réputé pour sa sagesse et ses talents de médecin.
+2|Quel dieu nordique, le plus aimé de tous, a été tué par une branche de gui ?|Baldr|Freyr|Tyr|Heimdall|Sa mère avait fait promettre à toute chose de ne pas lui nuire, sauf au gui, jugé trop jeune.
+1|Quel dieu grec, jeté de l'Olympe, en est resté boiteux ?|Héphaïstos|Arès|Apollon|Dionysos|Selon les récits, c'est Héra ou Zeus qui l'a précipité du haut de l'Olympe.
+3|Quel géant de bronze protégeait l'île de Crète en lançant des rochers ?|Talos|Argos|Antée|Polyphème|Il a été vaincu par Médée, qui a fait couler le liquide divin de son unique veine.
 1|Quel oiseau est le symbole de la déesse Athéna ?|La chouette|L'aigle|Le paon|La colombe|Symbole de sagesse, elle figurait sur les pièces de monnaie d'Athènes. L'aigle est l'oiseau de Zeus, le paon celui d'Héra.
 1|Quelle créature a un corps de lion et une tête d'aigle ?|Le griffon|Le sphinx|La chimère|Le centaure|On le retrouve sur de nombreux blasons. Le sphinx, lui, a un corps de lion et une tête humaine.
-1|Quelle créature légendaire a une seule corne sur le front ?|La licorne|Le dragon|Le griffon|Le centaure|Elle est le symbole national de l'Écosse. Au Moyen Âge, on vendait des défenses de narval en prétendant que c'étaient des cornes de licorne.
-1|Dans les contes, quel animal redevient prince quand une princesse l'embrasse ?|La grenouille|Le crapaud volant|Le chat|Le corbeau|Dans la version des frères Grimm, la princesse ne l'embrasse pas : elle le jette contre un mur !
-1|Qui laisse une pièce sous l'oreiller contre une dent de lait, en France ?|La petite souris|Le Père Noël|La fée Clochette|Le marchand de sable|Dans les pays anglophones, c'est une fée des dents. En Espagne, c'est une souris appelée Ratoncito Pérez.
+3|Grâce à quoi Hippomène a-t-il battu Atalante à la course ?|Des pommes d'or|Des sandales ailées|Un cheval divin|Une ruse de Zeus|Il les a lâchées pendant la course : Atalante s'arrêtait pour les ramasser.
+2|Comment s'appelle le géant aux cent yeux chargé de surveiller Io ?|Argos|Polyphème|Cerbère|Typhon|Après sa mort, Héra aurait placé ses yeux sur la queue du paon.
+2|Quelle déesse a lancé la pomme d'or à l'origine de la guerre de Troie ?|Éris|Héra|Némésis|Athéna|Déesse de la discorde, elle n'avait pas été invitée à un mariage et s'est vengée ainsi.
 2|Quelle sorcière des contes russes vit dans une maison posée sur des pattes de poule ?|Baba Yaga|La fée Carabosse|Morgane|Circé|Elle se déplace dans un mortier en se servant d'un pilon comme gouvernail.
 2|Quel dieu grec a des pieds de bouc et joue de la flûte ?|Pan|Hermès|Dionysos|Apollon|Dieu des bergers et de la nature sauvage. Ses cris soudains semaient la terreur, d'où le mot « panique ».
 2|Quelle nymphe a été changée en laurier pour échapper à Apollon ?|Daphné|Écho|Calypso|Eurydice|Apollon a ensuite fait du laurier son arbre sacré. C'est pourquoi on couronnait les vainqueurs de lauriers.
@@ -134,7 +134,7 @@
 2|Quel dieu hindou protecteur est souvent représenté avec la peau bleue ?|Vishnou|Shiva|Brahma|Ganesh|Il descend sur Terre sous différentes formes, appelées avatars, comme Krishna ou Rama.
 2|Comment s'appelle l'épée du roi Arthur ?|Excalibur|Durandal|Joyeuse|Narsil|Selon certaines versions, elle lui a été donnée par la Dame du Lac. Durandal est l'épée de Roland.
 2|Quelle magicienne, demi-sœur du roi Arthur, est souvent son ennemie ?|Morgane|Viviane|Guenièvre|Iseult|Selon les récits, elle est aussi celle qui emmène Arthur blessé sur l'île d'Avalon.
-3|Que signifie à l'origine « être sous l'égide » de quelqu'un ?|Être protégé par le bouclier d'Athéna ou de Zeus|Être sous ses ordres à l'armée|Être assis à sa droite|Être son élève|L'égide était un bouclier ou une peau de chèvre portée par Zeus et Athéna. Le mot a gardé le sens de « protection ».
+3|Que signifie à l'origine « être sous l'égide » de quelqu'un ?|Être protégé par le bouclier d'un dieu|Être placé sous ses ordres|Être à son service|Être son héritier|L'égide était le bouclier de Zeus et d'Athéna, orné de la tête de Méduse.
 3|Quel dieu aztèque du soleil et de la guerre recevait de nombreux sacrifices ?|Huitzilopochtli|Quetzalcoatl|Tlaloc|Tezcatlipoca|Les Aztèques pensaient qu'il fallait le nourrir pour que le soleil continue de se lever. Tlaloc était le dieu de la pluie.
 3|Quelle déesse du soleil serait l'ancêtre des empereurs du Japon ?|Amaterasu|Izanami|Inari|Benzaiten|Selon le mythe, elle s'est cachée dans une grotte, plongeant le monde dans le noir, avant qu'on l'attire dehors avec un miroir.
 3|Quel esprit renard japonais peut avoir jusqu'à neuf queues ?|Le kitsune|Le tanuki|Le kappa|Le tengu|Plus il est vieux et puissant, plus il a de queues. Il aime prendre forme humaine pour jouer des tours.
@@ -143,9 +143,9 @@
 3|Comment s'appelle le navire de Jason et de ses compagnons ?|L'Argo|L'Odyssée|Le Nautilus|L'Olympe|C'est de lui que vient le nom des Argonautes. La déesse Athéna aurait aidé à le construire.
 3|Quel dieu grec du sommeil est le frère jumeau de Thanatos, la mort ?|Hypnos|Morphée|Éros|Chronos|Il a donné le mot « hypnose ». Morphée, dieu des rêves, est présenté comme l'un de ses fils.
 1|Quelle cité a été assiégée pendant dix ans par les Grecs, selon la légende ?|Troie|Athènes|Sparte|Carthage|Ses ruines ont été retrouvées en Turquie au XIXe siècle par l'archéologue Heinrich Schliemann.
-1|Comment s'appellent les petits assistants qui aident le Père Noël à fabriquer les jouets ?|Les lutins|Les nains|Les farfadets|Les elfes de maison|Dans de nombreux pays, on les imagine travaillant toute l'année au pôle Nord.
+2|Quel dieu grec de la médecine tenait un bâton entouré d'un serpent ?|Asclépios|Apollon|Hermès|Hygie|Son bâton est encore aujourd'hui le symbole des médecins.
 1|Quel monstre marin géant des légendes nordiques ressemble à une énorme pieuvre ?|Le kraken|Le Léviathan|Le Nessie|La Scylla|Il aurait pu engloutir des navires entiers. Les calmars géants ont peut-être inspiré la légende.
-1|Quel personnage accompagne saint Nicolas pour gronder les enfants désobéissants ?|Le Père Fouettard|Le Croque-mitaine|Le marchand de sable|Le Grand Méchant Loup|Saint Nicolas est fêté le 6 décembre, surtout dans l'est de la France et en Belgique.
+3|Comment s'appelle l'ami de Gilgamesh, le roi légendaire de Mésopotamie ?|Enkidu|Humbaba|Utnapishtim|Sargon|Sa mort pousse Gilgamesh à chercher l'immortalité. Humbaba est le géant qu'ils ont combattu ensemble.
 2|Quel dieu grec est le maître des vents ?|Éole|Hermès|Héphaïstos|Apollon|Il a offert à Ulysse une outre contenant les vents, que ses compagnons ont ouverte par curiosité.
 2|Quelles créatures mi-femmes mi-oiseaux volaient la nourriture dans la mythologie grecque ?|Les harpies|Les sirènes|Les gorgones|Les nymphes|Dans les plus anciens récits, les sirènes aussi étaient mi-femmes mi-oiseaux.
 2|Comment s'appelle la nourriture des dieux grecs, qui rend immortel ?|L'ambroisie|Le nectar|La manne|L'hydromel|Le nectar est leur boisson. L'ambroisie est aussi le nom d'une plante très allergisante.
