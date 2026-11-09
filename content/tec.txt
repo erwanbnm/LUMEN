@@ -126,7 +126,7 @@
 2|En quelle année l'App Store d'Apple a-t-il ouvert ?|2008|2005|2012|2001|Un an après le premier iPhone. Il proposait 500 applications au lancement.
 1|Quel pays est célèbre pour ses montres de luxe ?|La Suisse|Le Japon|L'Allemagne|L'Italie|L'horlogerie y est née au XVIe siècle, notamment à Genève.
 2|Quelle entreprise a commercialisé le célèbre robot aspirateur Roomba ?|iRobot|Dyson|Samsung|Xiaomi|Lancé en 2002, il a popularisé les robots ménagers.
-1|Comment s'appelle le signe « @ » en français ?|L'arobase|L'esperluette|Le dièse|La barre oblique|L'esperluette, c'est le signe « & ». L'arobase sépare le nom de l'adresse e-mail et le nom du service.
+1|Quel navigateur web a pour logo un renard enroulé autour d'un globe ?|Firefox|Chrome|Safari|Opera|Il est développé par la fondation Mozilla, qui n'a pas de but lucratif. Le « renard de feu » est en réalité un panda roux.
 2|En quelle année le premier TGV a-t-il transporté des passagers ?|1981|1970|1990|1965|Entre Paris et Lyon, le 27 septembre 1981.
 1|Avec quelle énergie roule une voiture électrique ?|L'électricité d'une batterie|L'essence|Le gazole|L'hydrogène|Certaines voitures roulent à l'hydrogène, mais elles le transforment elles aussi en électricité.
 1|Quel câble relie le plus souvent un ordinateur ou une console à un écran en haute définition ?|HDMI|USB|Ethernet|Jack|Il transporte à la fois l'image et le son.
