@@ -7,7 +7,7 @@
 const fs = require("fs"), path = require("path");
 const admin = require("firebase-admin");
 
-if (!process.env.FIREBASE_SA) { console.log("Secret FIREBASE_SA absent : rien à envoyer."); process.exit(0); }
+if (!process.env.FIREBASE_SA) { console.log("Secret FIREBASE_SA absent : rien à envoyer."); process.exit(process.argv[2] === "test" ? 2 : 0); }
 admin.initializeApp({ credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SA)) });
 const db = admin.firestore(), fcm = admin.messaging();
 const MODE = process.argv[2] || "auto";
@@ -43,7 +43,9 @@ async function send(uid, t, msg){
 
   if (MODE === "test") {
     for (const uid of Object.keys(toks)) sent += await send(uid, toks[uid], { title: "Lumen", body: "Test réussi : les notifications marchent ✅", url: "./", tag: "test" });
-    return console.log(`test : ${sent} notification(s) envoyée(s)`);
+    console.log(`test : ${sent} notification(s) envoyée(s) à ${Object.keys(toks).length} joueur(s) inscrit(s)`);
+    if (!sent) process.exit(3); // en rouge sur GitHub : aucun appareil n'a reçu le test
+    return;
   }
 
   const metaRef = db.doc("meta/notifs"), meta = (await metaRef.get()).data() || {};
