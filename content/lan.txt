@@ -167,3 +167,8 @@
 3|D'où vient le mot « mansarde » ?|De l'architecte François Mansart|Du mot « maison »|D'un village normand|Du latin « mansio »|Il a rendu à la mode ces toits brisés qui permettent d'aménager des chambres sous les combles.
 3|D'où vient le mot « macadam » ?|Du nom d'un ingénieur écossais, John McAdam|D'un mot arabe|D'une ville anglaise|D'une marque de goudron|Il a inventé au début du XIXe siècle un revêtement de petites pierres tassées pour les routes.
 3|Quel mot la Commission d'enrichissement de la langue française propose-t-elle pour « smartphone » ?|Ordiphone|Téléfute|Malinphone|Portable intelligent|Le mot, recommandé depuis 2013, peine à s'imposer face au mot anglais.
+3|Vrai ou faux : « après que » se construit avec le subjonctif.|Faux|Vrai|On écrit « après qu'il est parti », avec l'indicatif, car l'action a réellement eu lieu. C'est « avant que » qui demande le subjonctif.
+3|Vrai ou faux : on peut écrire « ognon » au lieu d'« oignon ».|Vrai|Faux|Cette orthographe simplifiée est acceptée depuis les rectifications de 1990, et l'Académie l'a confirmée.
+3|Vrai ou faux : « pallier à un problème » est correct.|Faux|Vrai|Le verbe pallier se construit sans « à » : on pallie un problème, comme on remédie à un problème.
+1|Vrai ou faux : le mot « kayak » se lit pareil dans les deux sens.|Vrai|Faux|C'est un palindrome, comme « radar », « rotor » ou « ressasser ».
+3|Vrai ou faux : « après-midi » peut être masculin ou féminin.|Vrai|Faux|Les deux sont acceptés : on peut dire « un après-midi » comme « une après-midi ».

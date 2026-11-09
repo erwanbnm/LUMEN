@@ -166,3 +166,8 @@
 3|Quel pays européen a connu une très grave crise de la dette publique à partir de 2010 ?|La Grèce|La Suède|Les Pays-Bas|L'Autriche|Le pays a reçu plusieurs plans d'aide européens en échange de mesures d'austérité très dures.
 3|Que s'est-il passé avec le « nouveau franc », en 1960 ?|100 anciens francs sont devenus 1 nouveau franc|Le franc a été remplacé par l'euro|Les pièces sont devenues des billets|Le franc a doublé de valeur|Pendant des années, beaucoup de Français ont continué à compter en anciens francs.
 3|Que signifie le sigle SARL ?|Société à responsabilité limitée|Société anonyme régionale libre|Service d'aide à la reprise locale|Syndicat des artisans réunis|Les associés n'y risquent en principe que l'argent qu'ils ont apporté.
+3|Vrai ou faux : le logo d'Apple a toujours été une pomme croquée.|Faux|Vrai|Le premier logo, en 1976, était un dessin d'Isaac Newton assis sous un pommier.
+3|Vrai ou faux : l'ancêtre du Monopoly a été inventé pour critiquer les propriétaires.|Vrai|Faux|Elizabeth Magie a créé The Landlord's Game en 1904 pour montrer les dangers de l'accumulation des terres.
+2|Vrai ou faux : Amazon a commencé en vendant des livres.|Vrai|Faux|Jeff Bezos l'a lancé en 1994 comme une librairie en ligne, avant de tout vendre.
+3|Vrai ou faux : Nokia fabriquait du papier à ses débuts.|Vrai|Faux|L'entreprise finlandaise est née en 1865 comme papeterie, avant de fabriquer des bottes, des câbles puis des téléphones.
+2|Vrai ou faux : la recette d'origine du Coca-Cola contenait de la coca.|Vrai|Faux|Elle contenait des extraits de feuilles de coca, retirés au début du XXe siècle.

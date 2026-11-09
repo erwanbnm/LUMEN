@@ -172,3 +172,8 @@
 3|Quel compositeur finlandais a écrit Finlandia, devenue un symbole national ?|Jean Sibelius|Edvard Grieg|Carl Nielsen|Bedřich Smetana|L'œuvre, écrite en 1899, était un acte de résistance face à la domination russe.
 3|Combien de noires vaut une ronde ?|4|2|8|1|Une blanche vaut 2 noires, une noire vaut 2 croches.
 3|Quel compositeur français a écrit La Mer, une œuvre pour orchestre de 1905 ?|Claude Debussy|Maurice Ravel|Camille Saint-Saëns|Gabriel Fauré|La couverture de la première partition reprenait La Grande Vague d'Hokusai.
+2|Vrai ou faux : Mozart composait déjà de la musique à 5 ans.|Vrai|Faux|Ses premières petites pièces pour clavier datent de ses 5 ans, et il a écrit sa première symphonie vers 8 ans.
+2|Vrai ou faux : Beethoven était presque complètement sourd quand il a composé sa Neuvième Symphonie.|Vrai|Faux|Lors de la première en 1824, il a fallu le tourner vers le public pour qu'il voie les applaudissements.
+2|Vrai ou faux : un piano classique a 88 touches.|Vrai|Faux|52 blanches et 36 noires, sur un peu plus de sept octaves.
+2|Vrai ou faux : la chanson « Joyeux anniversaire » vient de France.|Faux|Vrai|Elle vient des États-Unis : sa mélodie a été écrite à la fin du XIXe siècle par les sœurs Mildred et Patty Hill.
+1|Vrai ou faux : les Beatles venaient de Londres.|Faux|Vrai|Ils venaient de Liverpool, une grande ville portuaire du nord-ouest de l'Angleterre.

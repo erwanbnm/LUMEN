@@ -169,3 +169,8 @@
 3|Quel jeu de cartes à collectionner a été lancé en 1993 par Richard Garfield ?|Magic : l'Assemblée|Pokémon|Yu-Gi-Oh!|Hearthstone|C'est le premier jeu de cartes à collectionner moderne. Il compte des dizaines de milliers de cartes.
 3|Combien de faces a le dé le plus emblématique de Donjons et Dragons ?|20|12|10|100|On le lance pour savoir si une action réussit. Un 20 naturel est une réussite éclatante.
 3|Dans quel pays est né le jeu de go ?|La Chine|Le Japon|La Corée|L'Inde|Il a plus de 2 500 ans. En 2016, l'ordinateur AlphaGo a battu l'un des meilleurs joueurs du monde.
+2|Vrai ou faux : avant d'être plombier, Mario était charpentier.|Vrai|Faux|Dans Donkey Kong (1981), il s'appelait Jumpman et travaillait sur un chantier. Il devient plombier dans Mario Bros. en 1983.
+3|Vrai ou faux : au Japon, Pac-Man s'appelait d'abord Puck-Man.|Vrai|Faux|Le nom a été changé pour sa sortie américaine, de peur que des petits malins modifient le P sur les bornes d'arcade.
+2|Vrai ou faux : Minecraft est le jeu vidéo le plus vendu de l'histoire.|Vrai|Faux|Il a dépassé les 300 millions d'exemplaires vendus, devant Tetris et GTA V.
+1|Vrai ou faux : Sonic a été créé par Nintendo.|Faux|Vrai|C'est la mascotte de Sega, créée en 1991 pour concurrencer Mario.
+2|Vrai ou faux : Tetris est le premier jeu vidéo à avoir eu un grand succès commercial.|Faux|Vrai|C'est Pong, sorti par Atari en 1972. Tetris n'est arrivé qu'en 1984.

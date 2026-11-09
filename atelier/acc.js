@@ -53,9 +53,12 @@ function charBox(c){
 // Personnage habillé : même cadre que creatureSVG, avec accessoires par-dessus
 function dressedSVG(c, acc, size){
   acc = acc || {}; const b = charBox(c), get = s => acc[s] && ACC.find(a => a.id === acc[s]);
-  const hat = get("tete"), hand = get("main"), aura = get("aura"), sol = get("sol");
-  const k = Math.max(.75, Math.min(1.25, b.w/58));
-  const H = c.hat || {}; const hx = b.cx + (H.dx||0), hy = b.y + 6 + (H.dy||0);
+  // noHat : le personnage porte déjà quelque chose sur la tête (bonnet, casque, chapeau) : pas de chapeau par-dessus
+  const hat = c.noHat && get("tete") && !get("tete").bubble ? null : get("tete"), hand = get("main"), aura = get("aura"), sol = get("sol");
+  const H = c.hat || {};
+  // H.at : point d'accroche fixe [x, y] du chapeau (personnages dont les effets agrandissent la boîte englobante)
+  const k = H.k || Math.max(.75, Math.min(1.25, b.w/58));
+  const hx = H.at ? H.at[0] : b.cx + (H.dx||0), hy = H.at ? H.at[1] : b.y + 6 + (H.dy||0);
   let back = "", front = "";
   if (aura) back += aura.draw(b);
   if (sol) back += `<g transform="translate(${b.cx} ${b.y+b.h+2})">${sol.draw(b)}</g>`;

@@ -104,3 +104,8 @@
 3|Quelle BD de Riad Sattouf raconte son enfance entre la France, la Libye et la Syrie ?|L'Arabe du futur|Persepolis|Les Cahiers d'Esther|Retour au collège|Le premier tome a reçu le Fauve d'or à Angoulême en 2015.
 3|Vrai ou faux : Hergé a dessiné Tintin pendant plus de cinquante ans.|Vrai|Faux|De 1929 à sa mort en 1983, soit 54 ans. Il a refusé que quelqu'un d'autre continue la série après lui.
 2|Vrai ou faux : le Marsupilami a été créé par Hergé.|Faux|Vrai|C'est André Franquin qui l'a imaginé en 1952, dans les aventures de Spirou et Fantasio.
+2|Vrai ou faux : Lucky Luke a longtemps eu une cigarette à la bouche avant son brin d'herbe.|Vrai|Faux|La cigarette a été remplacée par un brin d'herbe en 1983, ce qui a valu à Morris une récompense de l'Organisation mondiale de la santé.
+1|Vrai ou faux : Naruto est un manga coréen.|Faux|Vrai|C'est un manga japonais de Masashi Kishimoto, publié de 1999 à 2014.
+2|Vrai ou faux : les Schtroumpfs sont nés en Belgique.|Vrai|Faux|Ils ont été créés par le Belge Peyo en 1958, dans une aventure de Johan et Pirlouit.
+2|Vrai ou faux : Goku vient de la planète Namek.|Faux|Vrai|Goku est un Saiyan, venu de la planète Vegeta. Namek est la planète de Piccolo.
+1|Vrai ou faux : un manga se lit de droite à gauche.|Vrai|Faux|Il garde le sens de lecture japonais : on commence par ce qui serait, pour nous, la dernière page.

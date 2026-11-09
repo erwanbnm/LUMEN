@@ -146,3 +146,8 @@
 3|Quel pays a été le premier à donner le droit de vote aux femmes, en 1893 ?|La Nouvelle-Zélande|La Finlande|Le Royaume-Uni|Les États-Unis|Les Françaises, elles, ont dû attendre 1944.
 3|Quel congrès a redessiné la carte de l'Europe après la chute de Napoléon ?|Le congrès de Vienne|Le congrès de Berlin|Le congrès de Paris|Le congrès d'Utrecht|Réuni en 1814-1815, il a cherché à rétablir l'équilibre entre les grandes puissances.
 3|Combien de temps a duré le règne de Louis XIV ?|72 ans|46 ans|58 ans|33 ans|De 1643 à 1715 : c'est le plus long règne de l'histoire européenne. Il était devenu roi à 4 ans.
+2|Vrai ou faux : Napoléon était petit pour son époque.|Faux|Vrai|Il mesurait environ 1,69 m, une taille moyenne pour l'époque. La légende vient de la propagande anglaise et de la confusion entre pouces français et anglais.
+3|Vrai ou faux : Cléopâtre a vécu plus près de notre époque que de la construction de la grande pyramide de Gizeh.|Vrai|Faux|La grande pyramide date d'environ 2560 av. J.-C. et Cléopâtre est morte en 30 av. J.-C. : plus de 2 500 ans les séparent, contre environ 2 050 ans entre Cléopâtre et nous.
+2|Vrai ou faux : la guerre de Cent Ans a duré exactement cent ans.|Faux|Vrai|Elle a duré 116 ans, de 1337 à 1453, avec de longues trêves entre les combats.
+2|Vrai ou faux : au Moyen Âge, les savants pensaient que la Terre était plate.|Faux|Vrai|Les savants savaient depuis l'Antiquité qu'elle était ronde : Ératosthène avait même estimé sa circonférence vers 240 av. J.-C.
+3|Vrai ou faux : Marie-Antoinette a vraiment dit « Qu'ils mangent de la brioche ».|Faux|Vrai|Aucune preuve. Rousseau cite cette phrase d'une « grande princesse » dans ses Confessions, écrites quand Marie-Antoinette était encore une enfant en Autriche.

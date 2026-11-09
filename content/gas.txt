@@ -150,3 +150,8 @@
 3|Que veut dire « émincer » en cuisine ?|Couper en tranches très fines|Hacher très menu|Faire griller|Laisser reposer|Hacher, c'est couper en tout petits morceaux. Ciseler, c'est inciser ou couper finement des herbes.
 3|Que veut dire « déglacer » une poêle ?|Dissoudre les sucs de cuisson avec un liquide|La faire refroidir|La laver à l'eau froide|Faire fondre du sucre|On verse un peu de vin, de bouillon ou d'eau pour récupérer les sucs et faire une sauce.
 3|Quel jour sort chaque année le beaujolais nouveau ?|Le troisième jeudi de novembre|Le 1er novembre|Le premier lundi d'octobre|Le 14 juillet|C'est le premier vin de l'année. « Le beaujolais nouveau est arrivé ! » annoncent les bistrots.
+2|Vrai ou faux : le croissant est une invention 100 % française.|Faux|Vrai|Il s'inspire du kipferl autrichien, arrivé à Paris au XIXe siècle : c'est pour ça qu'on parle de « viennoiseries ».
+3|Vrai ou faux : le chocolat blanc contient du cacao.|Vrai|Faux|Il contient du beurre de cacao, la matière grasse de la fève, mais pas la pâte de cacao qui donne la couleur brune.
+3|Vrai ou faux : en Europe, on a longtemps cru que la tomate était toxique.|Vrai|Faux|Elle appartient à la même famille que certaines plantes vénéneuses : elle a d'abord été cultivée comme plante décorative.
+3|Vrai ou faux : les premières carottes cultivées étaient orange.|Faux|Vrai|Elles étaient violettes ou jaunes. La carotte orange s'est imposée aux Pays-Bas au XVIIe siècle.
+3|Vrai ou faux : le wasabi servi avec les sushis est presque toujours du vrai wasabi.|Faux|Vrai|La plante est rare et chère : on sert souvent un mélange de raifort, de moutarde et de colorant vert.

@@ -146,3 +146,8 @@
 3|Quel physicien a découvert l'électron en 1897 ?|J. J. Thomson|Ernest Rutherford|Niels Bohr|John Dalton|Il imaginait l'atome comme un pudding parsemé de raisins : les électrons.
 3|Quel scientifique a découvert en 1911 que l'atome a un petit noyau très dense ?|Ernest Rutherford|J. J. Thomson|Albert Einstein|Max Planck|En bombardant une feuille d'or, il a vu que la plupart des particules la traversaient sans être déviées.
 3|À combien de degrés Fahrenheit correspond 0 °C ?|32 °F|0 °F|100 °F|212 °F|L'eau bout à 212 °F. Cette échelle est encore utilisée aux États-Unis.
+3|Vrai ou faux : un diamant peut brûler.|Vrai|Faux|C'est du carbone pur : chauffé vers 800 °C dans l'air, il brûle et se transforme en dioxyde de carbone. Lavoisier l'a démontré au XVIIIe siècle.
+3|Vrai ou faux : le verre est un liquide qui coule très lentement.|Faux|Vrai|C'est un solide amorphe. Si certains vitraux anciens sont plus épais en bas, c'est à cause de leur fabrication, pas d'un écoulement.
+2|Vrai ou faux : le son va plus vite dans l'eau que dans l'air.|Vrai|Faux|Environ 1 500 m/s dans l'eau contre 340 m/s dans l'air : plus de quatre fois plus vite.
+2|Vrai ou faux : pour un botaniste, la tomate est un fruit.|Vrai|Faux|Elle se forme à partir de la fleur et contient les graines : c'est un fruit. On la classe pourtant parmi les légumes en cuisine.
+2|Vrai ou faux : dans le vide, une plume et un marteau lâchés ensemble touchent le sol en même temps.|Vrai|Faux|L'astronaute David Scott l'a montré sur la Lune en 1971 (Apollo 15) : sans air pour freiner la plume, tout tombe à la même vitesse.

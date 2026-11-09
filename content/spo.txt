@@ -162,3 +162,8 @@
 3|Qui a remporté le premier Tour de France, en 1903 ?|Maurice Garin|Lucien Petit-Breton|Henri Desgrange|Eugène Christophe|Henri Desgrange était l'organisateur. Garin a été disqualifié de l'édition suivante pour tricherie.
 3|Combien de temps dure un match de handball, hors arrêts ?|Deux mi-temps de 30 minutes|Deux mi-temps de 45 minutes|Quatre quarts de 10 minutes|Trois tiers de 20 minutes|Les quarts-temps sont pour le basket, les tiers-temps pour le hockey sur glace.
 3|Combien de fois l'équipe de France masculine a-t-elle été championne du monde de handball ?|6|2|4|8|Elle a gagné en 1995, 2001, 2009, 2011, 2015 et 2017. On surnomme ses joueurs les Experts.
+3|Vrai ou faux : le marathon mesure 42,195 km depuis les premiers Jeux olympiques modernes.|Faux|Vrai|Cette distance a été fixée aux Jeux de Londres de 1908, pour que la course parte du château de Windsor, puis officialisée en 1921.
+2|Vrai ou faux : quelqu'un a déjà joué au golf sur la Lune.|Vrai|Faux|L'astronaute Alan Shepard a frappé deux balles lors de la mission Apollo 14, en 1971.
+2|Vrai ou faux : le tennis de table est un sport olympique depuis les premiers Jeux de 1896.|Faux|Vrai|Il n'est entré au programme olympique qu'en 1988, aux Jeux de Séoul.
+2|Vrai ou faux : un gardien de but de football peut marquer un but.|Vrai|Faux|Rien ne l'interdit : le Brésilien Rogério Ceni en a marqué plus de 100, surtout sur coups francs et penaltys.
+2|Vrai ou faux : la première Coupe du monde de football a eu lieu en France.|Faux|Vrai|Elle a eu lieu en Uruguay en 1930, et c'est l'Uruguay qui l'a gagnée. C'est pourtant le Français Jules Rimet qui l'a imaginée.

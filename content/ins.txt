@@ -159,3 +159,8 @@
 3|Quelle grande ville est réputée la plus froide du monde, avec des hivers sous −40 °C ?|Iakoutsk|Moscou|Oulan-Bator|Anchorage|Cette ville de Sibérie compte plus de 300 000 habitants. Elle est construite sur le pergélisol.
 3|Quelle entreprise japonaise, fondée en 578, a longtemps été la plus vieille du monde ?|Kongō Gumi|Nintendo|Toyota|Mitsubishi|Elle construisait des temples bouddhistes. Elle a été rachetée en 2006, après plus de 1 400 ans d'existence.
 3|Quand le tout premier SMS a-t-il été envoyé ?|En 1992|En 1975|En 2001|En 1985|Il disait « Merry Christmas » et a été envoyé depuis un ordinateur vers un téléphone.
+2|Vrai ou faux : le miel ne se périme pas.|Vrai|Faux|Bien conservé, il se garde presque indéfiniment : on a retrouvé du miel encore comestible dans des tombes égyptiennes.
+3|Vrai ou faux : un éclair est plus chaud que la surface du Soleil.|Vrai|Faux|Un éclair chauffe l'air à environ 30 000 °C, contre environ 5 500 °C à la surface du Soleil.
+3|Vrai ou faux : il y a plus d'arbres sur Terre que d'étoiles dans notre galaxie.|Vrai|Faux|On estime qu'il y a environ 3 000 milliards d'arbres, contre 100 à 400 milliards d'étoiles dans la Voie lactée.
+3|Vrai ou faux : l'ours polaire a la peau blanche.|Faux|Vrai|Sa peau est noire pour absorber la chaleur du soleil. Ses poils sont transparents et creux : ils paraissent blancs.
+3|Vrai ou faux : Big Ben est le nom de la tour de l'horloge de Londres.|Faux|Vrai|Big Ben est le surnom de la grosse cloche. La tour s'appelle Elizabeth Tower depuis 2012.

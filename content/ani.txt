@@ -151,3 +151,8 @@
 3|Quel oiseau a été observé volant à plus de 11 000 m d'altitude ?|Le vautour de Rüppell|Le condor des Andes|L'aigle royal|L'oie à tête barrée|En 1973, l'un d'eux a percuté un avion de ligne au-dessus de la Côte d'Ivoire.
 3|Quel mammifère a l'une des gestations les plus courtes, environ 12 jours ?|L'opossum de Virginie|La souris|Le lapin|Le hamster doré|Ses petits naissent minuscules et finissent leur développement dans la poche de leur mère.
 3|Quel insecte d'Amérique du Nord passe 13 ou 17 ans sous terre avant de sortir ?|La cigale périodique|Le hanneton|La luciole|Le criquet|Des milliards sortent alors en même temps, ce qui empêche les prédateurs de tous les manger.
+1|Vrai ou faux : le koala est un ours.|Faux|Vrai|C'est un marsupial, comme le kangourou : la femelle porte son petit dans une poche.
+2|Vrai ou faux : les flamants roses naissent roses.|Faux|Vrai|Les poussins sont gris-blanc. Leur couleur vient des pigments des petites crevettes et algues qu'ils mangent.
+3|Vrai ou faux : l'hippopotame transpire du sang.|Faux|Vrai|Il sécrète un liquide rougeâtre qui n'est ni du sang ni de la sueur : il le protège du soleil et des microbes.
+2|Vrai ou faux : les dauphins dorment avec un œil ouvert.|Vrai|Faux|Ils endorment une moitié du cerveau à la fois, ce qui leur permet de continuer à respirer et à surveiller les alentours.
+3|Vrai ou faux : le paresseux peut retenir sa respiration plus longtemps qu'un dauphin.|Vrai|Faux|Jusqu'à 40 minutes en ralentissant son cœur, alors qu'un dauphin remonte en général toutes les 8 à 10 minutes.

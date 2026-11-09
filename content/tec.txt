@@ -164,3 +164,8 @@
 3|Qui a inventé le premier lave-vaisselle pratique, en 1886 ?|Josephine Cochrane|Thomas Edison|Elisha Otis|Margaret Knight|Fatiguée que ses domestiques cassent sa porcelaine, elle a conçu sa propre machine.
 3|Quel mathématicien anglais a imaginé la machine analytique, ancêtre de l'ordinateur ?|Charles Babbage|Alan Turing|John von Neumann|George Boole|Ada Lovelace a écrit le premier programme pour cette machine, qui n'a jamais été achevée.
 3|Quel tailleur français a inventé la machine à coudre, en 1830 ?|Barthélemy Thimonnier|Isaac Singer|Joseph-Marie Jacquard|Louis Lépine|Des tailleurs furieux, craignant pour leur travail, ont saccagé son atelier.
+2|Vrai ou faux : Internet et le Web sont la même chose.|Faux|Vrai|Internet est le réseau qui relie les ordinateurs. Le Web, inventé par Tim Berners-Lee en 1989, n'est qu'un des services qui l'utilisent, comme l'e-mail.
+3|Vrai ou faux : on a déjà retrouvé un vrai insecte responsable d'une panne d'ordinateur.|Vrai|Faux|En 1947, un papillon de nuit coincé dans l'ordinateur Harvard Mark II a été collé dans le carnet de bord avec la mention « premier vrai bug trouvé ».
+2|Vrai ou faux : Graham Bell a déposé le brevet du téléphone.|Vrai|Faux|En 1876, quelques heures seulement avant un autre inventeur, Elisha Gray, d'après la légende.
+3|Vrai ou faux : le premier SMS a été envoyé dans les années 1990.|Vrai|Faux|Le 3 décembre 1992, un ingénieur britannique a envoyé « Merry Christmas » depuis un ordinateur vers un téléphone.
+3|Vrai ou faux : le code QR a été inventé pour l'industrie automobile.|Vrai|Faux|Il a été créé en 1994 par Denso Wave, une filiale de Toyota, pour suivre les pièces dans les usines.

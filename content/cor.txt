@@ -158,3 +158,8 @@
 3|Quel scientifique a découvert les groupes sanguins, en 1901 ?|Karl Landsteiner|Louis Pasteur|Robert Koch|Alexander Fleming|Cette découverte a rendu les transfusions sûres. Elle lui a valu le prix Nobel en 1930.
 3|Quelle est la plus grosse cellule du corps humain ?|L'ovule|Le neurone|Le globule rouge|La cellule de la peau|Elle mesure environ 0,1 mm : on peut presque la voir à l'œil nu.
 3|Combien de fois environ le cœur bat-il en une journée ?|Environ 100 000|Environ 10 000|Environ 1 million|Environ 1 000|Cela fait plus de 2,5 milliards de battements au cours d'une vie.
+2|Vrai ou faux : le cœur se trouve sur le côté gauche de la poitrine.|Faux|Vrai|Il est presque au centre, derrière le sternum, avec seulement sa pointe orientée vers la gauche.
+2|Vrai ou faux : un bébé a plus d'os qu'un adulte.|Vrai|Faux|Environ 300 à la naissance, contre 206 chez l'adulte : certains os se soudent en grandissant, comme ceux du crâne.
+3|Vrai ou faux : l'être humain n'a que cinq sens.|Faux|Vrai|En plus des cinq classiques, on perçoit l'équilibre, la position de son corps, la température ou la douleur.
+2|Vrai ou faux : le plus petit os du corps se trouve dans l'oreille.|Vrai|Faux|C'est l'étrier, dans l'oreille moyenne : il mesure environ 3 mm.
+2|Vrai ou faux : de vrais jumeaux ont les mêmes empreintes digitales.|Faux|Vrai|Elles se forment dans le ventre de la mère et dépendent de nombreux petits hasards : même les vrais jumeaux ont des empreintes différentes.

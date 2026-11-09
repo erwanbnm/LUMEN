@@ -152,3 +152,8 @@
 3|Quel pays a pour hymne national « La Brabançonne » ?|La Belgique|La Suisse|Le Luxembourg|Le Canada|Il a été écrit en 1830, l'année de l'indépendance du pays. Il existe en français, en néerlandais et en allemand.
 3|Qui est le chef de l'État en Belgique ?|Le roi Philippe|Le président de la République|Le Premier ministre|Le roi Albert II|Il a succédé à son père Albert II en 2013. La Belgique est une monarchie parlementaire.
 3|Quel pays a l'un des plus anciens parlements du monde, l'Althing, fondé en 930 ?|L'Islande|La Norvège|L'Angleterre|Le Danemark|Les chefs vikings se réunissaient chaque été en plein air, dans la plaine de Thingvellir.
+2|Vrai ou faux : la Suisse fait partie de l'Union européenne.|Faux|Vrai|Elle n'en est pas membre, mais elle fait partie de l'espace Schengen et a de nombreux accords avec l'Union.
+2|Vrai ou faux : le siège de l'ONU se trouve à Genève.|Faux|Vrai|Le siège principal est à New York. Genève accueille son siège européen, le deuxième plus grand.
+2|Vrai ou faux : le Vatican est le plus petit État du monde.|Vrai|Faux|Il fait environ 0,44 km², soit moins que la plupart des parcs d'attractions.
+2|Vrai ou faux : le Japon a encore un empereur.|Vrai|Faux|C'est même le seul pays au monde dont le souverain porte le titre d'empereur, avec un rôle surtout symbolique.
+3|Vrai ou faux : le roi Charles III est aussi roi d'Australie.|Vrai|Faux|L'Australie est une monarchie constitutionnelle : le souverain britannique est son chef d'État, représenté sur place par un gouverneur général.

@@ -156,3 +156,8 @@
 3|Qui a été le premier Premier ministre de l'Inde indépendante ?|Jawaharlal Nehru|Gandhi|Indira Gandhi|Muhammad Ali Jinnah|Il a dirigé le pays de 1947 à sa mort en 1964. Sa fille Indira lui a succédé plus tard.
 3|Quel général français a arrêté l'armée allemande lors de la bataille de la Marne, en 1914 ?|Joseph Joffre|Ferdinand Foch|Philippe Pétain|Hubert Lyautey|Des taxis parisiens ont même servi à transporter des soldats vers le front.
 3|Quel physicien a prouvé la rotation de la Terre avec un pendule au Panthéon, en 1851 ?|Léon Foucault|Ampère|Fresnel|Arago|Le plan d'oscillation du pendule tourne lentement, montrant que c'est la Terre qui tourne dessous.
+2|Vrai ou faux : Christophe Colomb pensait être arrivé en Asie.|Vrai|Faux|Il croyait avoir atteint les « Indes », d'où le nom d'« Indiens » donné aux peuples d'Amérique.
+3|Vrai ou faux : Thomas Edison a inventé seul la première ampoule électrique.|Faux|Vrai|D'autres, comme l'Anglais Joseph Swan, en avaient fabriqué avant lui. Edison a mis au point en 1879 une ampoule durable et surtout le réseau pour l'alimenter.
+3|Vrai ou faux : Gandhi a reçu le prix Nobel de la paix.|Faux|Vrai|Il a été proposé cinq fois sans jamais le recevoir. Le comité Nobel l'a regretté publiquement plus tard.
+3|Vrai ou faux : Léonard de Vinci écrivait souvent à l'envers, comme dans un miroir.|Vrai|Faux|Gaucher, il écrivait de droite à gauche dans ses carnets : il faut un miroir pour les lire facilement.
+3|Vrai ou faux : Jules César était empereur romain.|Faux|Vrai|Il était dictateur. Le premier empereur romain est son fils adoptif Octave, devenu Auguste en 27 av. J.-C.

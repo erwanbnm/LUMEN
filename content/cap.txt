@@ -151,3 +151,8 @@
 3|Quelle est la capitale de l'Ouzbékistan ?|Tachkent|Samarcande|Boukhara|Bichkek|Samarcande et Boukhara sont des villes célèbres de la route de la soie. Bichkek est au Kirghizistan.
 3|Quelle est la capitale de la Moldavie ?|Chișinău|Bucarest|Tiraspol|Odessa|Bucarest est la capitale de la Roumanie voisine, avec qui la Moldavie partage la langue.
 3|Quelle est la capitale officielle du Bénin ?|Porto-Novo|Cotonou|Lomé|Ouagadougou|Le gouvernement siège pourtant surtout à Cotonou, la plus grande ville. Lomé est la capitale du Togo.
+1|Vrai ou faux : Sydney est la capitale de l'Australie.|Faux|Vrai|C'est Canberra, une ville construite exprès pour mettre fin à la rivalité entre Sydney et Melbourne.
+2|Vrai ou faux : Istanbul est la capitale de la Turquie.|Faux|Vrai|La capitale est Ankara depuis 1923, même si Istanbul est la plus grande ville du pays.
+2|Vrai ou faux : Rio de Janeiro est la capitale du Brésil.|Faux|Vrai|C'est Brasília depuis 1960, une ville construite au centre du pays. Rio était la capitale avant.
+3|Vrai ou faux : la Bolivie a deux capitales.|Vrai|Faux|Sucre est la capitale constitutionnelle et La Paz le siège du gouvernement.
+2|Vrai ou faux : le drapeau du Népal n'est pas rectangulaire.|Vrai|Faux|Il est formé de deux triangles superposés : c'est le seul drapeau national qui ne soit pas un rectangle.

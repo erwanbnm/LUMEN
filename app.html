@@ -152,6 +152,10 @@ p{margin:0}
 .ta-globe{animation:tglobe 7s linear infinite}
 @keyframes tglobe{from{transform:translateX(0)}to{transform:translateX(-80px)}}
 .ta-bubble{animation:tbubble 2.4s ease-in infinite}
+.ta-snow{animation:tsnow 3.4s linear infinite}
+@keyframes tsnow{0%{transform:translateY(-6px);opacity:0}15%{opacity:1}100%{transform:translate(4px,40px);opacity:0}}
+.ta-dribble{animation:tdribble .9s cubic-bezier(.5,0,.5,1) infinite alternate}
+@keyframes tdribble{to{transform:translateY(-14px)}}
 @keyframes tbubble{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-22px);opacity:0}}
 .ta-blinkb{animation:tblinkb 1.4s steps(2,jump-none) infinite}
 @keyframes tblinkb{50%{opacity:.35}}
@@ -647,6 +651,10 @@ svg.g3 .smoke circle,svg.g3 .pop{opacity:0}
 @keyframes fxring{from{transform:translate(-50%,-50%) scale(.3);opacity:1}to{transform:translate(-50%,-50%) scale(3.2);opacity:0}}
 .mode .mi svg.g3,.mode svg.g3{overflow:visible}
 @media (prefers-reduced-motion:reduce){.tabs button.tap *,.fx-spark,.fx-ring{animation:none!important}.fx-spark,.fx-ring{display:none}}
+/* Ambiance stressante (Survie dernière vie, fin de Chrono) */
+body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;box-shadow:inset 0 0 90px 16px rgba(255,40,70,.62);animation:stressPulse var(--stress,1s) ease-in-out infinite}
+@keyframes stressPulse{50%{box-shadow:inset 0 0 30px 2px rgba(255,40,70,.18)}}
+@media (prefers-reduced-motion:reduce){body.stress::after{animation:none}}
 /* Mode en ligne : onglet JcJ (amis.js) */
 .am-trophy{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:0;color:inherit;font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;padding:2px 4px}
 .am-trophy svg{transition:transform .2s cubic-bezier(.3,1.6,.5,1)}.am-trophy:active svg{transform:scale(.9)}
@@ -691,6 +699,8 @@ svg.g3 .smoke circle,svg.g3 .pop{opacity:0}
 .duelbar b{font-size:18px;color:var(--accent2)}.duelbar .vs{font:11px var(--f-mono);text-transform:uppercase;opacity:.7}
 .am-inv{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:60;width:min(92vw,420px);display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:16px;background:var(--surface);border:2px solid var(--lamp);box-shadow:0 10px 30px rgba(0,0,0,.4);animation:amIn .35s cubic-bezier(.3,1.6,.5,1)}
 .am-inv span{opacity:.8;font-size:14px}
+.am-inv{padding-right:40px}.am-x{position:absolute;top:6px;right:8px;width:30px;height:30px;border-radius:50%;border:0;background:var(--surface-2);color:inherit;font-size:20px;line-height:1}
+.am-re{border:0;background:none;color:var(--lamp);font:700 12px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;padding:2px 0}
 @keyframes amIn{from{transform:translate(-50%,-30px);opacity:0}}
 .tabs nav button>span:last-child{font-size:11px}
 </style>

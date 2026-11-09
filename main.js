@@ -35,7 +35,7 @@ const totalOk = () => Object.values(S.q).reduce((a,e) => a + (e.ok||0), 0);
 function unlockSkin(id){
   if (S.skins[id]) return null;
   const sk = skinOf(id); S.skins[id] = today();
-  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
+  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
   return sk.n;
 }
 function spend(n){ S.st.spent = Math.max(0, (S.st.spent||0) + n); if (S.st.spent >= 1000) unlockSkin("lingot"); }
@@ -388,8 +388,9 @@ function nextFor(s){
 }
 // Avant ou après : une manche sur quatre, on donne l'année soi-même
 const avKind = s => (s.used.length % 4 === 0 ? "year" : "cmp");
-// Marge acceptée selon l'ancienneté : ±5 ans pour un événement récent, beaucoup plus pour l'Antiquité
-const yearTol = y => Math.max(5, Math.min(300, Math.round((new Date().getFullYear() - y) * 0.06)));
+// Marge acceptée selon l'époque (choix d'Erwan) : depuis 1990 ±5 ans, de 1500 à 1990 ±10 ans,
+// de l'Antiquité à 1500 ±50 ans, avant l'écriture (préhistoire) ±300 ans
+const yearTol = y => y >= 1990 ? 5 : y >= 1500 ? 10 : y >= -3000 ? 50 : 300;
 function nextEvent(s){
   const r = rng(s.seed + s.used.length*53), ya = EV[s.a][1];
   const c = EV.map((_,i)=>i).filter(i => !s.used.includes(i) && EV[i][1] !== ya);
@@ -465,7 +466,7 @@ function render(){
   else html += renderProfile();
   app.innerHTML = `<div class="fade">${html}</div>`;
   if (active && s.mode==="chrono" && !s.done) startTick();
-  Music.mode(tense() ? "tense" : "calm");
+  stressUpdate();
 }
 
 /* --- Bienvenue / profil --- */
@@ -564,6 +565,7 @@ function skinCard(sk, id, mode){
   let foot;
   if (eq) foot = `<span class="chip lamp">Équipé</span>`;
   else if (own) foot = `<button class="btn small ghost" data-equip="${id}">Équiper</button>`;
+  else if (sk.free) foot = `<span class="muted" style="font-size:12.5px;text-align:center;line-height:1.25">🔒 ${esc(sk.hint)}</span>`;
   else foot = `<button class="btn small" data-buy="${id}" ${S.coins>=sk.p?"":"disabled"}>${coinIco}${sk.p}</button>`;
   const sub = sk.th ? `<span class="chip">${dot(sk.th)}${esc(THEMES[sk.th].n)}</span>` : mode==="secret" ? `<span class="muted">${esc(sk.hint)}</span>` : `<span class="muted">${esc(sk.e||"")}</span>`;
   return `<div class="sk ${own?"own":""} ${mode==="secret"?"secret":""} ${id==="lumen"?"ultra":""}">${creatureSVG(sk, 84)}<b>${esc(sk.n)}</b>${sub}${foot}</div>`;
@@ -588,6 +590,9 @@ function renderShop(){
   } else if (shopSeg === "acc") body = renderAcc();
   else if (shopSeg === "ameliorations") body = `<div class="stack">${UPG}</div>`;
   else body = `<p class="muted">Un personnage par thème. Achète-le avec tes pièces, il devient ton avatar partout dans l'appli.</p>
+    <div class="label">Édition spéciale · séries & stars</div>
+    <div class="skgrid">${STAR_SKINS.map(s => skinCard(s, s.id)).join("")}</div>
+    <div class="label">Un personnage par thème</div>
     <div class="skgrid">${ORDER.map(k => SHOP_SKINS.find(s=>s.th===k)).filter(Boolean).map(s => skinCard(s, s.id)).join("")}</div>`;
   return `<section class="stack"><h1 class="big">Boutique</h1>${tabs}${body}</section>`;
 }
@@ -595,6 +600,7 @@ function renderAcc(){
   const me = heroChar(), eq = S.acc.eq;
   const card = a => {
     const own = S.acc.own[a.id], on = eq[a.slot] === a.id, lock = a.th && themeLvl(a.th).L < 3;
+    if (a.slot === "tete" && me.noHat && !a.bubble) return `<div class="sk locked">${dressedSVG(me, {}, 84)}<b>${esc(a.n)}</b><span class="muted" style="font-size:12.5px;text-align:center">${esc(me.n)} a déjà un couvre-chef</span>${own ? `<span class="chip">Acheté</span>` : `<button class="btn small" data-acc-buy="${a.id}" ${S.coins>=a.p?"":"disabled"}>${coinIco}${a.p}</button>`}</div>`;
     let foot;
     if (on) foot = `<button class="btn small ghost" data-acc-off="${a.slot}">Retirer</button>`;
     else if (own) foot = `<button class="btn small" data-acc-eq="${a.id}">Porter</button>`;
@@ -609,6 +615,22 @@ const tense = () => { const s = S.session; if (!s || s.done || S.tab !== "jouer"
   if (s.mode === "survie") return s.lives === 1;
   if (s.mode === "chrono") return s.ends - Date.now() <= 15000;
   return false; };
+/* Ambiance stressante : Survie à une vie = musique d'espion ; Chrono, 15 dernières secondes = tempo qui s'emballe.
+   Bords de l'écran rouges qui pulsent de plus en plus vite et battement de cœur, même sans regarder le chrono. */
+let stressOn = "";
+function stressUpdate(){
+  const s = S.session, k = !tense() ? "" : s.mode === "survie" ? "spy" : "panic";
+  const heat = k === "panic" ? 1 - Math.max(0, s.ends - Date.now()) / 15000 : k === "spy" ? .3 : 0;
+  Music.mode(k || "calm"); Music.heat(heat);
+  document.body.classList.toggle("stress", !!k);
+  document.body.style.setProperty("--stress", (1.1 - heat*.75).toFixed(2) + "s");
+  if (k !== stressOn) {
+    stressOn = k;
+    const sfxOn = S.settings.sfx !== false;
+    Music.pulse(k && sfxOn ? () => (k === "panic" ? 1000 - 600*(1 - Math.max(0, S.session ? S.session.ends - Date.now() : 0)/15000) : 900) : null);
+    if (k && sfxOn) try { navigator.vibrate && navigator.vibrate([60, 80, 60]); } catch(e){}
+  }
+}
 
 /* --- Partie --- */
 const MODE_NAME = {qad:"Qui a dit ?", daily:"Défi du jour", serie:"Série", mix:"Grand mélange", revoir:"Revoir mes erreurs", chrono:"Chrono", survie:"Survie", duel:"Duel"};
@@ -633,7 +655,8 @@ function renderGame(){
       <div style="margin-top:16px"><button class="btn" data-next>Je retiens, on continue</button></div>`;
   }
   const q = Q[st.id], n = q[2].length;
-  const order = n === 2 ? [0,1] : shuffle([...Array(n).keys()], rng(s.seed + hash(st.id)));
+  // Vrai ou faux : toujours « Vrai » à gauche et « Faux » à droite (avant, la bonne réponse était toujours la première)
+  const order = n === 2 ? (q[2][1] === "Vrai" ? [1,0] : [0,1]) : shuffle([...Array(n).keys()], rng(s.seed + hash(st.id)));
   const ans = st.ans, hide = st.hide || [];
   const pk = q[6] && q[6].t === "pick";
   if (st.ans === undefined && !st.t0) st.t0 = Date.now();
@@ -669,7 +692,7 @@ function startTick(){
     const s = S.session; if (!s || s.mode!=="chrono") return clearInterval(tick);
     const left = Math.max(0, s.ends - Date.now());
     const b = document.getElementById("tbar"), t = document.getElementById("tleft");
-    if (left <= 15000) Music.mode("tense");
+    if (left <= 15000) stressUpdate();
     if (b) b.style.width = (left/(s.total*10))+"%"; if (t) t.textContent = Math.ceil(left/1000)+" s";
     if (left <= 0) { clearInterval(tick); clearTimeout(autoNext); finish(); }
   }, 250);
@@ -711,7 +734,8 @@ function finish(){
   const ok = itemsOf(s).filter(i=>"id" in i && i.ok).length;
   if ((s.mode==="chrono" || s.mode==="survie") && ok > (S.rec[s.mode]||0)) { S.rec[s.mode] = ok; s.newRec = ok > 0; }
   if (s.mode !== "daily") S.games = (S.games||0)+1;
-  if (s.mode === "chrono") misEvent("chr", ok); if (s.mode === "survie") misEvent("surv", ok);
+  if (s.mode === "chrono") misEvent("chr", ok);
+  if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
   const nq = itemsOf(s).filter(i=>"id" in i).length;
   if ((s.mode === "serie" || s.mode === "mix" || s.mode === "qad") && nq >= 10 && ok === nq) winSucces("parfait");
   if (s.diff === "expert" && nq >= 10 && ok >= 8) winSucces("expert");

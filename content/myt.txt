@@ -161,3 +161,8 @@
 3|Quel roi légendaire de Mésopotamie part à la recherche de l'immortalité ?|Gilgamesh|Hammurabi|Sargon|Nabuchodonosor|Son épopée, gravée sur des tablettes d'argile, est l'un des plus anciens récits du monde.
 3|Quel héros des contes japonais est né d'une pêche géante ?|Momotarō|Kintarō|Urashima Tarō|Issun-bōshi|Avec un chien, un singe et un faisan, il part combattre des ogres sur une île.
 3|Quelle fée du Poitou se change en serpent le samedi ?|Mélusine|Viviane|Morgane|La fée Carabosse|Selon la légende, elle aurait bâti le château de Lusignan. Elle est le symbole de la ville de Lusignan.
+2|Vrai ou faux : Zeus et Hadès sont frères.|Vrai|Faux|Ils sont fils de Cronos et Rhéa, tout comme Poséidon. Les trois frères se sont partagé le ciel, la mer et les Enfers.
+2|Vrai ou faux : chez les Romains, Zeus s'appelle Mars.|Faux|Vrai|Zeus devient Jupiter. Mars est l'équivalent romain d'Arès, le dieu de la guerre.
+3|Vrai ou faux : Méduse était un monstre dès sa naissance.|Faux|Vrai|Selon le poète Ovide, c'était une belle jeune femme qu'Athéna a transformée en Gorgone à la chevelure de serpents.
+1|Vrai ou faux : Thor est un dieu grec.|Faux|Vrai|C'est un dieu de la mythologie nordique, fils d'Odin, armé de son marteau Mjöllnir.
+3|Vrai ou faux : dans le mythe, Pandore ouvre une boîte.|Faux|Vrai|Dans les textes grecs, c'est une jarre. La « boîte » vient d'une erreur de traduction de l'humaniste Érasme au XVIe siècle.

@@ -52,7 +52,7 @@ const Amis = (function(){
     loading = false; rerender();
   }
   // Rafraîchit l'écran sans casser une partie en cours
-  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) render(); else updateDuelBar(); }
+  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { render(); showAsyncInvites(); } else updateDuelBar(); }
 
   /* --- Écoute en temps réel --- */
   function listen(){
@@ -220,6 +220,14 @@ const Amis = (function(){
     if (ui.kind === "async") play(Object.assign({id:ref.id}, d));
     else { setTimeout(() => { const x = duels.find(y => y.id === ref.id); if (x && x.state === "invite") db.doc("duels/" + x.id).update({state:"expired"}).catch(() => {}); }, 60000); render(); }
   }
+  // Revanche : même mode, même thème, même nombre de questions, de nouvelles questions
+  async function rematch(id){
+    const d = duels.find(x => x.id === id); if (!d) return;
+    ui.friend = d.from === uid() ? d.to : d.from; ui.mode = modeOf(d); ui.theme = d.theme || "mix"; ui.n = d.n || 10;
+    ui.kind = d.kind === "live" && online(ui.friend) ? "live" : "async";
+    S.session = null; S.tab = "amis"; ui.view = "main";
+    return challenge();
+  }
   function play(d){
     S.amis.left = S.amis.left || {}; S.amis.left[d.id] = 1;
     const m = modeOf(d), mode = m === "classic" ? (d.theme === "mix" ? "mix" : "serie") : m;
@@ -275,13 +283,28 @@ const Amis = (function(){
       S.amis.told[d.id] = 1; const o = outcome(d, uid()), opp = pseudoOf(d.from === uid() ? d.to : d.from);
       if (before.length) toasts.push(`<b>Duel contre ${esc(opp)}</b> · ${o === 1 ? "victoire !" : o === -1 ? "défaite." : "égalité."}`);
     });
-    S.online = stats(); save(); checkBadges();
+    S.online = stats(); if (S.online.wins >= 1) unlockSkin("nord"); save(); checkBadges();
   }
+  // Pop-up en haut de l'écran quand un ami nous défie : petit son, vibration, et on peut le fermer
   function inviteBanner(d){
-    if (S.settings.sfx !== false) { try { Music.sfx("level"); } catch(e){} }
-    const el = document.createElement("div"); el.className = "am-inv"; el.setAttribute("role", "alertdialog");
-    el.innerHTML = `<b>${esc(pseudoOf(d.from))} te défie en direct !</b><span>${esc(duelLabel(d))}</span><div class="row"><button class="btn small" data-am="accept" data-id="${d.id}">Accepter</button><button class="btn small ghost" data-am="refuse" data-id="${d.id}">Refuser</button></div>`;
-    document.body.appendChild(el); setTimeout(() => el.remove(), 60000);
+    document.querySelectorAll(`.am-inv[data-duel="${d.id}"]`).forEach(e => e.remove());
+    if (S.settings.sfx !== false) { try { Music.sfx("level"); navigator.vibrate && navigator.vibrate([90, 60, 90]); } catch(e){} }
+    const live = d.kind === "live", el = document.createElement("div");
+    el.className = "am-inv"; el.dataset.duel = d.id; el.setAttribute("role", "alertdialog");
+    const score = !live && d.res && d.res[d.from] && d.res[d.from].done ? ` · score à battre : ${d.res[d.from].ok}` : "";
+    el.innerHTML = `<button class="am-x" data-am="later" data-id="${d.id}" aria-label="Fermer">×</button>
+      <div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap">${avatar(d.from, 40)}<div class="stack" style="gap:2px;min-width:0"><b>${esc(pseudoOf(d.from))} te défie${live ? " en direct" : ""} !</b><span>${esc(duelLabel(d))}${score}</span></div></div>
+      <div class="row">${live ? `<button class="btn small" data-am="accept" data-id="${d.id}">Accepter</button><button class="btn small ghost" data-am="refuse" data-id="${d.id}">Refuser</button>`
+        : `<button class="btn small" data-am="accept" data-id="${d.id}">Jouer</button><button class="btn small ghost" data-am="later" data-id="${d.id}">Plus tard</button>`}</div>`;
+    document.body.appendChild(el); setTimeout(() => el.remove(), live ? 60000 : 30000);
+  }
+  // Défis en différé reçus et pas encore montrés : on les montre dès qu'on n'est pas en pleine partie
+  function showAsyncInvites(){
+    if (!uid() || (S.session && !S.session.done && S.tab === "jouer")) return;
+    S.amis.shown = S.amis.shown || {};
+    const d = duels.find(x => x.kind === "async" && x.to === uid() && x.state === "open" && !S.amis.shown[x.id] && !(x.res && x.res[uid()] && x.res[uid()].done) && Date.now() - x.created < 3*864e5);
+    if (!d) return;
+    S.amis.shown[d.id] = 1; save(); inviteBanner(d);
   }
 
   /* --- Statistiques et classements --- */
@@ -352,7 +375,7 @@ const Amis = (function(){
       </div>
       ${sent.length ? `<div class="card stack"><div class="label">En attente</div>${sent.map(d => `<div class="am-row">${avatar(d.to)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.to))}</b><span class="muted">${esc(duelLabel(d))} · ton score : ${d.res[uid()].ok}</span></div></div>`).join("")}</div>` : ""}
       ${hist.length ? `<div class="card stack"><div class="label">Derniers duels</div>${hist.map(d => { const o = outcome(d, uid()), opp = d.from === uid() ? d.to : d.from;
-        return `<div class="am-row">${avatar(opp)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(opp))}</b><span class="muted">${esc(duelLabel(d))} · ${d.res[uid()].ok} – ${d.res[opp].ok}</span></div><span class="chip ${o === 1 ? "lamp" : ""}">${o === 1 ? "Victoire" : o === -1 ? "Défaite" : "Égalité"}</span></div>`; }).join("")}</div>` : ""}
+        return `<div class="am-row">${avatar(opp)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(opp))}</b><span class="muted">${esc(duelLabel(d))} · ${d.res[uid()].ok} – ${d.res[opp].ok}</span></div><div class="stack" style="gap:4px;align-items:flex-end"><span class="chip ${o === 1 ? "lamp" : ""}">${o === 1 ? "Victoire" : o === -1 ? "Défaite" : "Égalité"}</span><button class="am-re" data-am="rematch" data-id="${d.id}">Revanche</button></div></div>`; }).join("")}</div>` : ""}
       ${meCard()}
     </section>`;
   }
@@ -441,7 +464,7 @@ const Amis = (function(){
   function recap(s){
     const d = duels.find(x => x.id === s.duel.id), o = d && outcome(d, uid()), r = d && d.res && d.res[s.duel.opp];
     if (o === null || o === undefined) return `<div class="card"><b>${r && !r.done && s.duel.live ? esc(pseudoOf(s.duel.opp)) + " n'a pas encore fini…" : "Ton score est envoyé à " + esc(pseudoOf(s.duel.opp)) + "."}</b><p class="muted">Tu verras le résultat dans l'onglet JcJ.</p></div>`;
-    return `<div class="card banner-am"><b>${o === 1 ? "Victoire !" : o === -1 ? "Défaite…" : "Égalité"}</b><p class="muted">Score de ${esc(pseudoOf(s.duel.opp))} : ${r.ok}.</p></div>`;
+    return `<div class="card banner-am"><b>${o === 1 ? "Victoire !" : o === -1 ? "Défaite…" : "Égalité"}</b><p class="muted">Score de ${esc(pseudoOf(s.duel.opp))} : ${r.ok}.</p><button class="btn small" data-am="rematch" data-id="${d.id}">${o === 1 ? "Rejouer contre " + esc(pseudoOf(s.duel.opp)) : "Revanche !"}</button></div>`;
   }
 
   /* --- Clics et formulaires --- */
@@ -459,6 +482,8 @@ const Amis = (function(){
       else if (a === "back") ui.view = "main";
       else if (a === "bd") ui.board = v;
       else if (a === "go") return await challenge();
+      else if (a === "later") { document.querySelectorAll(`.am-inv[data-duel="${id}"]`).forEach(e => e.remove()); return; }
+      else if (a === "rematch") return await rematch(id);
       else if (a === "accept") { b.closest(".am-inv") && b.closest(".am-inv").remove(); return await accept(id); }
       else if (a === "refuse") { b.closest(".am-inv") && b.closest(".am-inv").remove(); await db.doc("duels/" + id).update({state:"declined"}); return; }
       else if (a === "cancel") await db.doc("duels/" + id).update({state:"cancelled"});

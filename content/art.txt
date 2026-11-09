@@ -151,3 +151,8 @@
 3|Quel artiste a exposé en 1917 un urinoir intitulé Fontaine ?|Marcel Duchamp|Salvador Dalí|René Magritte|Pablo Picasso|Il a bouleversé l'art en montrant qu'un objet ordinaire pouvait devenir une œuvre.
 3|Quel artiste allemand de la Renaissance a gravé un célèbre rhinocéros sans en avoir jamais vu ?|Albrecht Dürer|Hans Holbein|Lucas Cranach|Jérôme Bosch|Il s'est fondé sur une description écrite. Son rhinocéros porte même une petite corne en trop sur le dos.
 3|Qui a écrit Le Parfum, l'histoire d'un meurtrier doté d'un odorat extraordinaire ?|Patrick Süskind|Umberto Eco|Stephen King|Michael Ende|Ce roman allemand de 1985 a été traduit dans des dizaines de langues.
+2|Vrai ou faux : La Joconde a déjà été volée au Louvre.|Vrai|Faux|En 1911, par le vitrier italien Vincenzo Peruggia. Elle a été retrouvée deux ans plus tard à Florence.
+2|Vrai ou faux : la Vénus de Milo a été retrouvée sans ses bras.|Vrai|Faux|Elle a été découverte en 1820 sur l'île grecque de Milos, déjà privée de ses bras. Personne ne sait exactement quel geste elle faisait.
+3|Vrai ou faux : Le Penseur de Rodin devait au départ représenter le poète Dante.|Vrai|Faux|Il faisait partie de La Porte de l'Enfer, inspirée de la Divine Comédie : il représentait Dante méditant devant son œuvre.
+1|Vrai ou faux : Shakespeare a écrit Don Quichotte.|Faux|Vrai|C'est l'Espagnol Miguel de Cervantes. Les deux écrivains sont morts la même année, en 1616.
+2|Vrai ou faux : il existe plusieurs versions du Cri d'Edvard Munch.|Vrai|Faux|Munch en a fait plusieurs peintures, des pastels et des lithographies entre 1893 et 1910.

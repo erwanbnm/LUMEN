@@ -151,3 +151,8 @@
 3|Pourquoi la Lune devient-elle rouge pendant une éclipse totale ?|L'atmosphère de la Terre dévie la lumière rouge vers elle|Elle chauffe|Elle reflète Mars|Le Soleil devient rouge|C'est la même raison qui rend les couchers de soleil rouges. On parle de « lune de sang ».
 3|Quelle sonde de la NASA s'est approchée le plus près du Soleil ?|Parker Solar Probe|SOHO|Ulysses|Juno|Fin 2024, elle est passée à environ 6 millions de km de sa surface, à près de 700 000 km/h.
 3|Quel astronome a montré dans les années 1920 que l'Univers est en expansion ?|Edwin Hubble|Albert Einstein|Carl Sagan|Stephen Hawking|Le télescope spatial Hubble porte son nom.
+2|Vrai ou faux : il fait plus chaud sur Vénus que sur Mercure.|Vrai|Faux|Vénus atteint environ 465 °C grâce à son épaisse atmosphère qui retient la chaleur, alors qu'elle est plus loin du Soleil.
+1|Vrai ou faux : dans l'espace, on peut entendre une explosion.|Faux|Vrai|Le son a besoin d'air ou d'un autre milieu pour se propager. Dans le vide spatial, tout est silencieux.
+3|Vrai ou faux : la lumière du Soleil est jaune.|Faux|Vrai|Elle est blanche : elle contient toutes les couleurs. Le Soleil nous paraît jaune parce que l'atmosphère disperse une partie du bleu.
+3|Vrai ou faux : sur Vénus, une journée dure plus longtemps qu'une année.|Vrai|Faux|Vénus tourne sur elle-même en 243 jours terrestres, mais fait le tour du Soleil en 225 jours.
+2|Vrai ou faux : la face cachée de la Lune est toujours plongée dans le noir.|Faux|Vrai|Elle est éclairée autant que l'autre face. On ne la voit jamais depuis la Terre, car la Lune nous montre toujours le même côté.

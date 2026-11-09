@@ -162,3 +162,8 @@
 3|Quel réalisateur canadien a adapté Dune au cinéma en 2021 ?|Denis Villeneuve|David Lynch|Christopher Nolan|Ridley Scott|David Lynch en avait tiré une première version en 1984.
 3|Quel film de Justine Triet a remporté la Palme d'or en 2023 ?|Anatomie d'une chute|Titane|La Vie d'Adèle|Les Misérables|Elle est la troisième femme à recevoir la Palme d'or. Le film a aussi eu un Oscar du scénario.
 3|Qui a composé la musique du Parrain ?|Nino Rota|Ennio Morricone|John Williams|Hans Zimmer|Il a aussi écrit les musiques de nombreux films de Federico Fellini.
+2|Vrai ou faux : dans Star Wars, Dark Vador dit « Luke, je suis ton père ».|Faux|Vrai|La vraie réplique est « Non, je suis ton père », en réponse à Luke qui l'accuse d'avoir tué son père.
+3|Vrai ou faux : Le Retour du roi a remporté 11 Oscars.|Vrai|Faux|C'est le record, à égalité avec Ben-Hur et Titanic, et le film a gagné dans toutes les catégories où il était nommé.
+2|Vrai ou faux : Titanic et Avatar ont été réalisés par la même personne.|Vrai|Faux|James Cameron a réalisé les deux, et ils figurent tous deux parmi les plus gros succès de l'histoire du cinéma.
+3|Vrai ou faux : Walt Disney a dessiné lui-même le premier Mickey.|Faux|Vrai|Disney a imaginé le personnage, mais c'est son ami Ub Iwerks qui l'a dessiné et animé en 1928.
+3|Vrai ou faux : dans le film Le Magicien d'Oz (1939), Dorothy porte des chaussures argentées.|Faux|Vrai|Elles sont en rubis dans le film, pour profiter de la couleur. Dans le livre, elles étaient argentées.

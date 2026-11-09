@@ -1,7 +1,9 @@
 /* ---------- Musique d'ambiance générée ---------- */
 const Music = (function(){
-  let ctx = null, master = null, timer = null, next = 0, step = 0, mode = "calm";
-  const SPB = 60/76/2, SPB_T = 60/140/2;
+  let ctx = null, master = null, timer = null, next = 0, step = 0, mode = "calm", heat = 0;
+  const SPB = 60/76/2, SPB_T = 60/140/2, SPB_S = 60/132/2;
+  // Mode « espion » (Survie, dernière vie) : ostinato en 7/8, sol mineur, caisse claire et petites cordes piquées
+  const SPY = [43,43,46,48,43,43,41], SPY_HI = [[79,78,74,null,null,null,null],[null,null,null,null,77,74,72]];
   // Mode tension : la mineur, basse pulsée, tic-tac d'horloge
   const TCH = [[45,48,52],[45,48,52],[41,45,48],[40,44,47]];
   const CH = [[48,52,55,59],[45,48,52,55],[41,45,48,52],[43,47,50,55]];
@@ -14,8 +16,40 @@ const Music = (function(){
     g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(gain, t+(attack||.01)); g.gain.exponentialRampToValueAtTime(.0008, t+dur);
     o.connect(g).connect(master); o.start(t); o.stop(t+dur+.05);
   }
+  // Bruit blanc court (caisse claire, souffle)
+  function noise(t, dur, gain, hp){
+    const b = ctx.createBuffer(1, Math.floor(ctx.sampleRate*dur), ctx.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * (1 - i/d.length);
+    const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; f.type = "highpass"; f.frequency.value = hp || 1800; g.gain.value = gain;
+    s.connect(f).connect(g).connect(master); s.start(t);
+  }
+  // Battement de cœur grave (deux coups)
+  function thump(t, gain){ [0, .16].forEach((d, k) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = "sine";
+    o.frequency.setValueAtTime(k ? 62 : 70, t+d); o.frequency.exponentialRampToValueAtTime(38, t+d+.14);
+    g.gain.setValueAtTime(0, t+d); g.gain.linearRampToValueAtTime(gain*(k ? .7 : 1), t+d+.008); g.gain.exponentialRampToValueAtTime(.0008, t+d+.2);
+    o.connect(g).connect(master); o.start(t+d); o.stop(t+d+.25); }); }
   function schedule(){
     while (next < ctx.currentTime + .25) {
+      if (mode === "spy") {
+        const i = step % 7, bar = Math.floor(step/7);
+        tone(SPY[i]-12, next, SPB_S*.7, "sawtooth", .06, .003);
+        tone(SPY[i], next, SPB_S*.45, "square", .018, .002);
+        if (i === 0 || i === 3 || i === 5) noise(next, .09, i === 0 ? .09 : .05);
+        if (i === 0) tone(31, next, SPB_S*7, "sine", .09, .02);
+        const hi = SPY_HI[bar % 2][i]; if (hi && bar % 4 >= 2) tone(hi, next, .14, "triangle", .045, .003);
+        if (i === 0 && bar % 2 === 0) thump(next, .18);
+        next += SPB_S; step++; continue;
+      }
+      if (mode === "panic") {
+        // Chrono, dernières secondes : le tempo et la hauteur montent avec la chaleur (heat 0 → 1)
+        const spb = 60/(150 + 110*heat)/2, i = step % 8, up = Math.floor(heat*5);
+        tone(45+up-12, next, spb*.8, "sawtooth", .05, .003);
+        tone(i % 2 ? 98 : 91, next, .03, "square", .022 + .02*heat, .001);
+        if (i % 4 === 0) thump(next, .16 + .12*heat);
+        if (i === 0) [57, 60, 64].forEach(n => tone(n+up, next, spb*8, "triangle", .018 + .02*heat, .1));
+        if (heat > .6 && i % 2) noise(next, .04, .03 + .05*heat, 4000);
+        next += spb; step++; continue;
+      }
       if (mode === "tense") {
         const c = TCH[Math.floor(step/8) % 4], i = step % 8;
         tone(c[0]-12, next, SPB_T*.9, "sawtooth", .045, .004);
@@ -66,5 +100,18 @@ const Music = (function(){
     } catch(e){}
   }
   function setMode(m){ if (m === mode) return; mode = m; step = 0; }
-  return {start, stop, volume, mode:setMode, sfx};
+  function setHeat(h){ heat = Math.max(0, Math.min(1, h)); }
+  // Tension sans musique : si la musique est coupée mais les effets activés, on garde le cœur qui bat
+  let pulseT = null;
+  function pulse(rate){
+    clearTimeout(pulseT); if (!rate) return;
+    const beat = () => { try { if (!ctx) { start(); if (!(window.__app && window.__app.state().settings.music)) stop(); }
+      if (!timer) { // musique coupée : le cœur bat quand même (la musique, elle, l'intègre déjà)
+      const t = ctx.currentTime + .01, v = (window.__app ? window.__app.state().settings.vol : 55)/100*.6;
+      [0, .17].forEach((d, k) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = "sine"; o.frequency.setValueAtTime(k ? 62 : 70, t+d); o.frequency.exponentialRampToValueAtTime(38, t+d+.14);
+        g.gain.setValueAtTime(0, t+d); g.gain.linearRampToValueAtTime(v*(k ? .5 : .75), t+d+.008); g.gain.exponentialRampToValueAtTime(.0008, t+d+.2); o.connect(g).connect(ctx.destination); o.start(t+d); o.stop(t+d+.25); }); }
+    } catch(e){} pulseT = setTimeout(beat, rate()); };
+    beat();
+  }
+  return {start, stop, volume, mode:setMode, heat:setHeat, pulse, sfx};
 })();

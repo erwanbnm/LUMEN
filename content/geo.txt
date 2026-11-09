@@ -152,3 +152,8 @@
 3|Quelle île des Caraïbes est partagée entre Haïti et la République dominicaine ?|Hispaniola|Cuba|La Jamaïque|Porto Rico|Christophe Colomb y a débarqué dès 1492.
 3|Quel est le plus grand glacier des Alpes ?|Le glacier d'Aletsch|La mer de Glace|Le glacier du Rhône|Le glacier d'Argentière|Il se trouve en Suisse et mesure environ 20 km, mais il recule chaque année.
 3|Quel est le plus haut sommet du Maroc et de l'Afrique du Nord ?|Le Toubkal|Le Kilimandjaro|L'Emi Koussi|Le mont Cameroun|Il culmine à 4 167 m, dans le Haut Atlas, non loin de Marrakech.
+2|Vrai ou faux : le Sahara est le plus grand désert du monde.|Faux|Vrai|C'est l'Antarctique, un désert froid d'environ 14 millions de km². Le Sahara est le plus grand désert chaud.
+3|Vrai ou faux : l'Australie est plus large que la Lune.|Vrai|Faux|L'Australie fait environ 4 000 km d'est en ouest, et la Lune environ 3 474 km de diamètre.
+3|Vrai ou faux : mesuré depuis sa base, l'Everest est la plus haute montagne du monde.|Faux|Vrai|Le Mauna Kea, à Hawaï, dépasse 10 000 m si on le mesure depuis le fond de l'océan. L'Everest reste le plus haut sommet au-dessus du niveau de la mer.
+2|Vrai ou faux : l'Amazone se jette dans l'océan Pacifique.|Faux|Vrai|Elle se jette dans l'océan Atlantique, au nord du Brésil, avec un débit énorme qui adoucit la mer sur des dizaines de kilomètres.
+2|Vrai ou faux : la France a une frontière commune avec le Brésil.|Vrai|Faux|Grâce à la Guyane : environ 730 km, la plus longue frontière terrestre de la France.
