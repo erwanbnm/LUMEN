@@ -41,8 +41,12 @@ async function send(uid, t, msg){
   const pref = (uid, k) => !(toks[uid] && toks[uid].prefs && toks[uid].prefs[k] === false);
   let sent = 0;
 
-  if (MODE === "test") {
-    for (const uid of Object.keys(toks)) sent += await send(uid, toks[uid], { title: "Lumen", body: "Test réussi : les notifications marchent ✅", url: "./", tag: "test" });
+  if (MODE === "test" || MODE === "annonce") {
+    // Annonce : 1re ligne de notifs/annonce.txt = titre, 2e ligne (facultative) = texte. Envoyée à tout le monde.
+    const lines = MODE === "annonce" ? fs.readFileSync(path.join(__dirname, "annonce.txt"), "utf8").split(/\r?\n/).map(s => s.trim()) : [];
+    const msg = MODE === "annonce" ? { title: lines[0] || "Lumen", body: lines[1] || "", url: "./", tag: "annonce-" + Date.now() }
+      : { title: "Lumen", body: "Test réussi : les notifications marchent ✅", url: "./", tag: "test" };
+    for (const uid of Object.keys(toks)) sent += await send(uid, toks[uid], msg);
     console.log(`test : ${sent} notification(s) envoyée(s) à ${Object.keys(toks).length} joueur(s) inscrit(s)`);
     if (!sent) process.exit(3); // en rouge sur GitHub : aucun appareil n'a reçu le test
     return;
