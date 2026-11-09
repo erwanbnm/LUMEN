@@ -484,12 +484,13 @@ function profileForm(isEdit){
   </form>`;
 }
 function renderWelcome(){
+  if (typeof Amis !== "undefined" && Amis.welcoming()) return Amis.welcomeView();
   if (!draft) draft = {name:"", age:"", avatar:-1};
   return `<section class="stack">
     <div class="brand" style="font-size:26px">L<span>u</span>men</div>
     <h1 class="big">Bienvenue. <em>Qui joue ?</em></h1>
     <p class="muted">Choisis un pseudo et un personnage. Tu gagneras de l'XP et des pièces en répondant aux questions, pour construire ton parc.</p>
-    ${profileForm(false)}</section>`;
+    ${profileForm(false)}${typeof Amis !== "undefined" ? Amis.welcome() : ""}</section>`;
 }
 
 /* --- Accueil --- */
@@ -767,7 +768,7 @@ function renderProfile(){
       <div class="row">${[100,1000,10000].map(n => `<button class="btn small" data-admin-add="${n}">+${n} pièces</button>`).join("")}</div>
       <div class="row between"><span>Pièces infinies</span><button class="btn small ${S.admin.inf?"":"ghost"}" data-admin-inf aria-pressed="${!!S.admin.inf}">${S.admin.inf?"Activées":"Désactivées"}</button></div>
       <button class="btn ghost small" data-admin-off>Quitter le mode admin</button></div>` : ""}`;
-  else if (profSeg==="moi") { if (!draft) draft = {...S.profile}; body = profileForm(true) + `<button class="btn ghost" data-reset>${confirmReset?"Confirmer : tout effacer":"Remettre à zéro ma progression"}</button>`; }
+  else if (profSeg==="moi") { if (!draft) draft = {...S.profile}; body = (typeof Amis !== "undefined" ? Amis.accountCard() : "") + profileForm(true) + `<button class="btn ghost" data-reset>${confirmReset?"Confirmer : tout effacer":"Remettre à zéro ma progression"}</button>`; }
   else body = renderProgress();
   return `<section class="stack">${tabs}${body}</section>`;
 }

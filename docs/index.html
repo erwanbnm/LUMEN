@@ -2789,12 +2789,13 @@ function profileForm(isEdit){
   </form>`;
 }
 function renderWelcome(){
+  if (typeof Amis !== "undefined" && Amis.welcoming()) return Amis.welcomeView();
   if (!draft) draft = {name:"", age:"", avatar:-1};
   return `<section class="stack">
     <div class="brand" style="font-size:26px">L<span>u</span>men</div>
     <h1 class="big">Bienvenue. <em>Qui joue ?</em></h1>
     <p class="muted">Choisis un pseudo et un personnage. Tu gagneras de l'XP et des pièces en répondant aux questions, pour construire ton parc.</p>
-    ${profileForm(false)}</section>`;
+    ${profileForm(false)}${typeof Amis !== "undefined" ? Amis.welcome() : ""}</section>`;
 }
 
 /* --- Accueil --- */
@@ -3072,7 +3073,7 @@ function renderProfile(){
       <div class="row">${[100,1000,10000].map(n => `<button class="btn small" data-admin-add="${n}">+${n} pièces</button>`).join("")}</div>
       <div class="row between"><span>Pièces infinies</span><button class="btn small ${S.admin.inf?"":"ghost"}" data-admin-inf aria-pressed="${!!S.admin.inf}">${S.admin.inf?"Activées":"Désactivées"}</button></div>
       <button class="btn ghost small" data-admin-off>Quitter le mode admin</button></div>` : ""}`;
-  else if (profSeg==="moi") { if (!draft) draft = {...S.profile}; body = profileForm(true) + `<button class="btn ghost" data-reset>${confirmReset?"Confirmer : tout effacer":"Remettre à zéro ma progression"}</button>`; }
+  else if (profSeg==="moi") { if (!draft) draft = {...S.profile}; body = (typeof Amis !== "undefined" ? Amis.accountCard() : "") + profileForm(true) + `<button class="btn ghost" data-reset>${confirmReset?"Confirmer : tout effacer":"Remettre à zéro ma progression"}</button>`; }
   else body = renderProgress();
   return `<section class="stack">${tabs}${body}</section>`;
 }
@@ -3444,6 +3445,12 @@ const Amis = (function(){
     try {
       const r = await db.doc("saves/" + uid()).get(), remote = r.exists ? r.data() : null;
       S.amis = S.amis || {};
+      if (!S.profile) { // nouvel appareil, connexion depuis l'écran de bienvenue
+        if (remote) return restore(remote, false);
+        ui.welcome = false; S.amis.link = uid(); cloud.ready = true;
+        toasts.push("<b>Connecté.</b> · Ce compte n'a pas encore de progression : choisis ton pseudo et ton personnage.");
+        return render();
+      }
       if (!remote) { S.amis.link = uid(); cloud.ready = true; return push(true); }
       if (S.amis.link !== uid()) { cloud.offer = remote; return rerender(); } // première connexion sur cet appareil : on demande
       if (remote.at > (S.amis.syncAt || 0)) return restore(remote, true);
@@ -3627,21 +3634,24 @@ const Amis = (function(){
       ${sent.length ? `<div class="card stack"><div class="label">En attente</div>${sent.map(d => `<div class="am-row">${avatar(d.to)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.to))}</b><span class="muted">${esc(duelLabel(d))} · ton score : ${d.res[uid()].ok}</span></div></div>`).join("")}</div>` : ""}
       ${hist.length ? `<div class="card stack"><div class="label">Derniers duels</div>${hist.map(d => { const o = outcome(d, uid()), opp = d.from === uid() ? d.to : d.from;
         return `<div class="am-row">${avatar(opp)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(opp))}</b><span class="muted">${esc(duelLabel(d))} · ${d.res[uid()].ok} – ${d.res[opp].ok}</span></div><span class="chip ${o === 1 ? "lamp" : ""}">${o === 1 ? "Victoire" : o === -1 ? "Défaite" : "Égalité"}</span></div>`; }).join("")}</div>` : ""}
-      <div class="card stack"><div class="label">Mon compte</div>
-        <div class="am-row">${avatar(uid())}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(uid()))}</b><span class="muted" style="font-size:13px">${me.email && !me.email.endsWith("@joueurs.lumen-amis.app") ? esc(me.email) : "Compte sans e-mail"}</span></div></div>
-        <p class="muted" style="font-size:13.5px;margin:0">${cloud.err ? "Sauvegarde impossible pour le moment : elle réessaiera toute seule." : cloud.ready ? "Ta progression est sauvegardée sur ton compte : connecte-toi sur un autre appareil (PC, tablette) pour la retrouver." : "Synchronisation…"}</p>
-        <button class="btn ghost small" data-am="logout">Se déconnecter</button></div>
+      ${meCard()}
     </section>`;
   }
-  function viewOffer(){
+  function meCard(){
+    return `<div class="card stack"><div class="label">Mon compte Lumen</div>
+        <div class="am-row">${avatar(uid())}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(uid()))}</b><span class="muted" style="font-size:13px">${me.email && !me.email.endsWith("@joueurs.lumen-amis.app") ? esc(me.email) : "Compte sans e-mail"}</span></div></div>
+        <p class="muted" style="font-size:13.5px;margin:0">${cloud.err ? "Sauvegarde impossible pour le moment : elle réessaiera toute seule." : cloud.ready ? "Ta progression est sauvegardée sur ton compte : connecte-toi sur un autre appareil (PC, tablette) pour la retrouver." : "Synchronisation…"}</p>
+        <button class="btn ghost small" data-am="logout">Se déconnecter</button></div>`;
+  }
+  function viewOffer(){ return `<section class="stack"><h1 class="big">JcJ</h1>${offerCard()}</section>`; }
+  function offerCard(){
     const o = cloud.offer, d = new Date(o.at);
-    return `<section class="stack"><h1 class="big">JcJ</h1>
-      <div class="card stack banner-am"><b>Une progression est sauvegardée sur ce compte</b>
+    return `<div class="card stack banner-am"><b>Une progression est sauvegardée sur ce compte</b>
         <p class="muted" style="margin:0">Niveau ${o.lvl || "?"}, sauvegardée le ${d.getDate()} ${MOIS[d.getMonth()]} à ${d.getHours()}h${String(d.getMinutes()).padStart(2, "0")}.</p>
         <p class="muted" style="margin:0">Cet appareil a sa propre progression (niveau ${acctLvl().L}). Laquelle veux-tu garder ?</p>
         <button class="btn" data-am="cloudget">Récupérer celle du compte</button>
         <button class="btn ghost" data-am="cloudkeep">Garder celle de cet appareil</button>
-        <p class="muted" style="font-size:13px;margin:0">« Garder celle de cet appareil » remplace la sauvegarde du compte.</p></div></section>`;
+        <p class="muted" style="font-size:13px;margin:0">« Garder celle de cet appareil » remplace la sauvegarde du compte.</p></div>`;
   }
   function viewBoard(){
     const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
@@ -3657,10 +3667,14 @@ const Amis = (function(){
     </section>`;
   }
   function viewLogin(){
-    const su = ui.seg === "signup";
     return `<section class="stack"><h1 class="big">JcJ</h1>
-      <p class="muted">Crée ton compte pour défier tes amis dans tous les modes du jeu, en direct ou en différé, et grimper dans les classements.</p>
-      <div class="row">${[["signup","Créer mon compte"],["login","J'ai déjà un compte"]].map(([k, l]) => chip("seg", k, l, ui.seg === k)).join("")}</div>
+      <p class="muted">Connecte-toi à ton compte Lumen pour défier tes amis dans tous les modes du jeu, en direct ou en différé, et grimper dans les classements. Ton compte sauvegarde aussi toute ta progression.</p>
+      ${loginForm(true)}</section>`;
+  }
+  // Formulaire de compte (création ou connexion) : utilisé dans JcJ, dans Profil et sur l'écran de bienvenue
+  function loginForm(withSeg){
+    const su = ui.seg === "signup";
+    return `${withSeg ? `<div class="row">${[["signup","Créer mon compte"],["login","J'ai déjà un compte"]].map(([k, l]) => chip("seg", k, l, ui.seg === k)).join("")}</div>` : ""}
       <form id="am-form" class="card stack" novalidate>
         ${su ? `<label class="label" for="am-p">Pseudo</label><input class="field" id="am-p" maxlength="16" autocomplete="nickname" value="${esc(S.profile ? S.profile.name : "")}">` : ""}
         <label class="label" for="am-m">${su ? "E-mail" : "E-mail (ou pseudo pour un ancien compte)"}</label><input class="field" id="am-m" type="${su ? "email" : "text"}" inputmode="email" autocomplete="username" value="${esc(ui.mail || "")}" placeholder="toi@exemple.fr">
@@ -3669,7 +3683,28 @@ const Amis = (function(){
         ${ui.msg ? `<p class="am-err">${esc(ui.msg)}</p>` : ""}${ui.info ? `<p class="muted" style="font-size:13.5px;margin:0">${esc(ui.info)}</p>` : ""}
         <button class="btn" type="submit" ${ui.busy ? "disabled" : ""}>${ui.busy ? "Un instant…" : su ? "Créer mon compte" : "Me connecter"}</button>
         ${su ? "" : `<button class="btn ghost small" type="button" data-am="forgot">Mot de passe oublié ?</button>`}
-      </form></section>`;
+      </form>`;
+  }
+  // Dans Profil : le compte sert à tout le jeu (sauvegarde) et au mode en ligne
+  function accountCard(){
+    if (!enabled()) return "";
+    if (!fb) { boot(); return `<div class="card stack"><div class="label">Mon compte Lumen</div><p class="muted" style="margin:0">${err || "Connexion au serveur…"}</p></div>`; }
+    if (cloud.offer) return offerCard();
+    if (me) return meCard();
+    return `<div class="card stack"><div class="label">Mon compte Lumen</div><p class="muted" style="margin:0">Crée ton compte pour sauvegarder toute ta progression (niveau, pièces, skins, parc, badges), la retrouver sur un autre appareil comme un PC, et jouer en ligne avec tes amis.</p></div>${loginForm(true)}`;
+  }
+  // Écran de bienvenue : « J'ai déjà un compte » pour récupérer sa progression sur un nouvel appareil
+  function welcome(){
+    if (!enabled()) return "";
+    return `<div class="card stack" style="text-align:center"><span class="muted">Tu as déjà un compte Lumen ?</span><button class="btn ghost" data-am="welcome">Me connecter et récupérer ma progression</button></div>`;
+  }
+  function welcomeView(){
+    const body = !fb ? `<div class="card"><p class="muted" style="margin:0">${err || "Connexion au serveur…"}</p></div>`
+      : me ? `<div class="card"><p class="muted" style="margin:0">Récupération de ta progression…</p></div>` : loginForm(false);
+    return `<section class="stack"><div class="row between"><button class="quit" data-am="welcomeback">Retour</button><span></span></div>
+      <div class="brand" style="font-size:26px">L<span>u</span>men</div>
+      <h1 class="big">Bon retour <em>parmi nous.</em></h1>
+      <p class="muted">Connecte-toi : tu retrouveras ton niveau, tes pièces, tes skins et ton parc.</p>${body}</section>`;
   }
   // Pendant un duel : bandeau avec la progression de l'adversaire
   function duelBar(s){ return `<div id="duelbar" class="duelbar">${duelBarInner(s)}</div>`; }
@@ -3710,6 +3745,8 @@ const Amis = (function(){
       else if (a === "cancel") await db.doc("duels/" + id).update({state:"cancelled"});
       else if (a === "logout") { push(true); await auth.signOut(); S.amis = {link:S.amis.link, syncAt:S.amis.syncAt}; save(); }
       else if (a === "forgot") await forgot(ui.mail || "");
+      else if (a === "welcome") { ui.welcome = true; ui.seg = "login"; boot(); }
+      else if (a === "welcomeback") ui.welcome = false;
       else if (a === "cloudget") return restore(cloud.offer, false);
       else if (a === "cloudkeep") { cloud.offer = null; S.amis.link = uid(); cloud.ready = true; save(); push(true); }
     } catch(e){ ui.msg = typeof e === "string" ? e : "Une erreur est survenue. Réessaie."; }
@@ -3727,7 +3764,7 @@ const Amis = (function(){
   // Au démarrage : si on était connecté, on se reconnecte pour recevoir les défis
   setTimeout(() => { if (S && S.amis && S.amis.on) boot(); }, 1500);
 
-  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false)};
+  return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, welcome, welcomeView, welcoming:() => !!ui.welcome};
 })();
 
 /* --- Badges « En ligne » --- */
