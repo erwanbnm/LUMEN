@@ -1,0 +1,185 @@
+his|En quelle année Napoléon Bonaparte prend-il le pouvoir par le coup d'État du 18 Brumaire ?|1799|Il devient Premier consul, puis se fait sacrer empereur cinq ans plus tard.
+his|En quelle année Napoléon est-il sacré empereur à Notre-Dame ?|1804|Le 2 décembre, en présence du pape Pie VII.
+his|En quelle année a lieu la bataille de Waterloo ?|1815|Défaite finale de Napoléon, en Belgique, face aux Anglais et aux Prussiens.
+his|En quelle année a lieu la bataille d'Austerlitz ?|1805|La « bataille des Trois Empereurs », une des plus grandes victoires de Napoléon.
+his|En quelle année Napoléon lance-t-il sa campagne de Russie ?|1812|La retraite, dans le froid, décime la Grande Armée.
+his|En quelle année a lieu la prise de la Bastille ?|1789|Le 14 juillet, devenu la fête nationale.
+his|En quelle année la Déclaration des droits de l'homme et du citoyen est-elle adoptée ?|1789|Le 26 août, quelques semaines après la prise de la Bastille.
+his|En quelle année Louis XVI est-il exécuté ?|1793|Guillotiné le 21 janvier, place de la Révolution, l'actuelle place de la Concorde.
+his|En quelle année Louis XVI et sa famille sont-ils arrêtés à Varennes pendant leur fuite ?|1791|Reconnu, le roi est ramené à Paris sous bonne garde.
+his|En quelle année Christophe Colomb atteint-il l'Amérique ?|1492|Il pensait être arrivé en Asie.
+his|En quelle année a lieu la bataille de Marignan ?|1515|Victoire de François Ier, la date la plus célèbre des écoliers.
+his|En quelle année Henri IV signe-t-il l'édit de Nantes ?|1598|Il accorde la liberté de culte aux protestants.
+his|En quelle année Louis XIV révoque-t-il l'édit de Nantes ?|1685|Des centaines de milliers de protestants quittent alors la France.
+his|En quelle année Henri IV est-il assassiné par Ravaillac ?|1610|Poignardé dans son carrosse, rue de la Ferronnerie à Paris.
+his|En quelle année a lieu le massacre de la Saint-Barthélemy ?|1572|Des milliers de protestants sont tués à Paris puis en province.
+his|En quelle année meurt Louis XIV ?|1715|Après 72 ans de règne, le plus long de l'histoire de France.
+his|En quelle année naît Louis XIV ?|1638|Il devient roi à seulement 4 ans.
+his|En quelle année commence la Première Guerre mondiale ?|1914|Après l'assassinat de l'archiduc François-Ferdinand à Sarajevo.
+his|En quelle année est signé l'armistice de la Première Guerre mondiale ?|1918|Le 11 novembre, à Rethondes, dans un wagon.
+his|En quelle année est signé le traité de Versailles ?|1919|Il met officiellement fin à la guerre avec l'Allemagne.
+his|En quelle année commence la Seconde Guerre mondiale ?|1939|Après l'invasion de la Pologne par l'Allemagne.
+his|En quelle année a lieu le débarquement en Normandie ?|1944|Le 6 juin, le « Jour J ».
+his|En quelle année tombe le mur de Berlin ?|1989|Le 9 novembre, après 28 ans de séparation.
+his|En quelle année l'URSS disparaît-elle ?|1991|Elle éclate en quinze pays indépendants.
+his|En quelle année l'esclavage est-il définitivement aboli en France ?|1848|Grâce au décret porté par Victor Schœlcher.
+his|En quelle année a lieu la Commune de Paris ?|1871|Une insurrection de deux mois, écrasée lors de la « Semaine sanglante ».
+his|En quelle année a lieu la révolution des Trois Glorieuses ?|1830|Trois jours d'émeutes qui renversent Charles X.
+his|En quelle année les Françaises votent-elles pour la première fois ?|1945|Aux élections municipales d'avril, après l'ordonnance de 1944.
+his|En quelle année le Titanic fait-il naufrage ?|1912|Lors de son voyage inaugural, après avoir heurté un iceberg.
+his|En quelle année a lieu la révolution russe d'Octobre ?|1917|Les bolcheviks de Lénine prennent le pouvoir.
+his|En quelle année a lieu le krach de Wall Street ?|1929|Il déclenche la Grande Dépression.
+his|En quelle année les États-Unis déclarent-ils leur indépendance ?|1776|Le 4 juillet, devenu leur fête nationale.
+his|En quelle année Charlemagne est-il couronné empereur ?|800|Le jour de Noël, à Rome, par le pape Léon III.
+his|En quelle année Charles Martel arrête-t-il les Arabes à Poitiers ?|732|Une bataille devenue un symbole, même si les historiens en débattent.
+his|En quelle année Constantinople est-elle prise par les Ottomans ?|1453|La ville devient Istanbul ; c'est la fin de l'Empire byzantin.
+his|En quelle année Jeanne d'Arc meurt-elle sur le bûcher ?|1431|À Rouen, à environ 19 ans.
+his|En quelle année Guillaume le Conquérant remporte-t-il la bataille d'Hastings ?|1066|Le duc de Normandie devient roi d'Angleterre.
+his|En quelle année l'Algérie devient-elle indépendante ?|1962|Après huit ans de guerre.
+his|En quelle année naît la Ve République ?|1958|Sa Constitution est adoptée par référendum en septembre.
+his|En quelle année John F. Kennedy est-il assassiné ?|1963|À Dallas, le 22 novembre.
+his|En quelle année Nelson Mandela est-il libéré de prison ?|1990|Après 27 ans de détention.
+his|En quelle année Nelson Mandela devient-il président de l'Afrique du Sud ?|1994|Le premier président noir du pays.
+his|En quelle année ont lieu les attentats du 11 Septembre à New York ?|2001|Deux avions détruisent les tours du World Trade Center.
+his|En quelle année les pièces et billets en euros arrivent-ils dans les poches ?|2002|Le 1er janvier. La monnaie existait déjà depuis 1999 pour les banques.
+his|En quelle année la France abolit-elle la peine de mort ?|1981|Grâce à la loi portée par Robert Badinter.
+his|En quelle année est votée la loi de séparation des Églises et de l'État ?|1905|Elle fonde la laïcité à la française.
+his|En quelle année la Sécurité sociale est-elle créée en France ?|1945|Juste après la Libération.
+his|En quelle année l'Organisation des Nations unies est-elle fondée ?|1945|Sa charte est signée à San Francisco.
+his|En quelle année a lieu la catastrophe de Tchernobyl ?|1986|L'explosion d'un réacteur nucléaire, en Ukraine soviétique.
+his|En quelle année le Vésuve ensevelit-il Pompéi ?|79|La ville est restée figée sous les cendres jusqu'à sa redécouverte.
+his|En quelle année a lieu l'incendie de Notre-Dame de Paris ?|2019|La flèche s'effondre ; la cathédrale rouvre en 2024.
+his|En quelle année la Croix-Rouge est-elle fondée ?|1863|À Genève, à l'initiative d'Henri Dunant.
+per|En quelle année naît Napoléon Bonaparte ?|1769|À Ajaccio, en Corse, un an après que l'île est devenue française.
+per|En quelle année meurt Napoléon ?|1821|En exil sur l'île de Sainte-Hélène.
+per|En quelle année naît Victor Hugo ?|1802|« Ce siècle avait deux ans », écrit-il dans un poème.
+per|En quelle année meurt Victor Hugo ?|1885|Plus d'un million de personnes suivent son cercueil jusqu'au Panthéon.
+per|En quelle année meurt Molière ?|1673|Pris d'un malaise sur scène en jouant Le Malade imaginaire.
+per|En quelle année naît Mozart ?|1756|À Salzbourg, en Autriche.
+per|En quelle année meurt Mozart ?|1791|À 35 ans, en laissant son Requiem inachevé.
+per|En quelle année naît Beethoven ?|1770|À Bonn, en Allemagne.
+per|En quelle année meurt Beethoven ?|1827|À Vienne, devenu presque totalement sourd.
+per|En quelle année naît Léonard de Vinci ?|1452|Près du village de Vinci, en Toscane.
+per|En quelle année meurt Léonard de Vinci ?|1519|En France, au Clos Lucé, près d'Amboise.
+per|En quelle année naît Albert Einstein ?|1879|À Ulm, en Allemagne.
+per|En quelle année meurt Albert Einstein ?|1955|À Princeton, aux États-Unis.
+per|En quelle année naît Louis Pasteur ?|1822|À Dole, dans le Jura.
+per|En quelle année naît Marie Curie ?|1867|À Varsovie, en Pologne.
+per|En quelle année meurt Marie Curie ?|1934|Probablement à cause des radiations auxquelles elle a été exposée.
+per|En quelle année meurt William Shakespeare ?|1616|La même année que Cervantès, l'auteur de Don Quichotte.
+per|En quelle année naît Charles de Gaulle ?|1890|À Lille.
+per|En quelle année meurt Charles de Gaulle ?|1970|À Colombey-les-Deux-Églises.
+per|En quelle année meurt Pablo Picasso ?|1973|À Mougins, à 91 ans.
+per|En quelle année naît Pablo Picasso ?|1881|À Malaga, en Espagne.
+per|En quelle année naît Vincent van Gogh ?|1853|Aux Pays-Bas.
+per|En quelle année meurt Vincent van Gogh ?|1890|À Auvers-sur-Oise, à 37 ans.
+per|En quelle année meurt Jules Verne ?|1905|À Amiens.
+per|En quelle année naît Charlie Chaplin ?|1889|À Londres.
+per|En quelle année meurt Galilée ?|1642|L'année de la naissance d'Isaac Newton, selon l'ancien calendrier anglais.
+per|En quelle année naît Galilée ?|1564|À Pise, la même année que Shakespeare.
+per|En quelle année naît Charles Darwin ?|1809|Le même jour qu'Abraham Lincoln, le 12 février.
+per|En quelle année meurt Charles Darwin ?|1882|Il est enterré à l'abbaye de Westminster.
+per|En quelle année Martin Luther King est-il assassiné ?|1968|À Memphis, le 4 avril.
+per|En quelle année Gandhi est-il assassiné ?|1948|Quelques mois après l'indépendance de l'Inde.
+per|En quelle année meurt Lady Diana ?|1997|Dans un accident de voiture, sous le pont de l'Alma à Paris.
+per|En quelle année meurt Steve Jobs ?|2011|Le cofondateur d'Apple avait 56 ans.
+per|En quelle année meurt la reine Élisabeth II ?|2022|Après plus de 70 ans de règne.
+per|En quelle année meurt Christophe Colomb ?|1506|À Valladolid, en Espagne.
+per|En quelle année naît Coco Chanel ?|1883|À Saumur.
+per|En quelle année naît Walt Disney ?|1901|À Chicago.
+per|En quelle année meurt Walt Disney ?|1966|Un an avant la sortie du Livre de la jungle.
+per|En quelle année meurt Alfred Nobel ?|1896|Son testament crée les prix Nobel.
+mus|En quelle année meurt Elvis Presley ?|1977|À Graceland, sa maison de Memphis.
+mus|En quelle année meurt Michael Jackson ?|2009|À Los Angeles, quelques semaines avant une série de concerts.
+mus|En quelle année John Lennon est-il assassiné ?|1980|Devant son immeuble, à New York.
+mus|En quelle année meurt Édith Piaf ?|1963|Le même jour que Jean Cocteau, son ami.
+mus|En quelle année meurt Freddie Mercury ?|1991|Le chanteur de Queen.
+mus|En quelle année meurt Bob Marley ?|1981|À 36 ans.
+mus|En quelle année meurt Johnny Hallyday ?|2017|Près d'un million de personnes lui rendent hommage à Paris.
+mus|En quelle année sort le premier album des Beatles, Please Please Me ?|1963|Enregistré presque entièrement en une seule journée.
+tec|En quelle année les frères Lumière font-ils leur première projection publique payante ?|1895|Le 28 décembre, dans un salon du Grand Café, à Paris.
+tec|En quelle année Graham Bell dépose-t-il le brevet du téléphone ?|1876|Quelques heures avant son rival Elisha Gray.
+tec|En quelle année Edison présente-t-il son ampoule électrique ?|1879|Elle brillait une quarantaine d'heures.
+tec|En quelle année les frères Wright réalisent-ils le premier vol motorisé ?|1903|12 secondes en l'air, en Caroline du Nord.
+tec|En quelle année sort le premier iPhone ?|2007|Présenté par Steve Jobs en janvier.
+tec|En quelle année Facebook est-il créé ?|2004|Par Mark Zuckerberg, alors étudiant à Harvard.
+tec|En quelle année Google est-il fondé ?|1998|Dans un garage de Californie.
+tec|En quelle année YouTube est-il lancé ?|2005|La première vidéo montre un éléphant au zoo.
+tec|En quelle année Wikipédia est-elle créée ?|2001|La version française arrive quelques mois plus tard.
+tec|En quelle année Tim Berners-Lee propose-t-il le World Wide Web ?|1989|Au CERN, près de Genève.
+tec|En quelle année l'URSS lance-t-elle Spoutnik, le premier satellite ?|1957|Il faisait le tour de la Terre en 96 minutes.
+tec|En quelle année l'homme marche-t-il sur la Lune pour la première fois ?|1969|Neil Armstrong, le 21 juillet (heure française).
+tec|En quelle année le télescope Hubble est-il mis en orbite ?|1990|Son miroir défectueux a dû être corrigé en 1993.
+tec|En quelle année le TGV est-il mis en service entre Paris et Lyon ?|1981|Il roulait à 260 km/h.
+tec|En quelle année le Concorde fait-il son premier vol ?|1969|Il volait à plus de deux fois la vitesse du son.
+tec|En quelle année le Concorde fait-il son dernier vol commercial ?|2003|Après 27 ans de service.
+tec|En quelle année le tunnel sous la Manche est-il inauguré ?|1994|Par la reine Élisabeth II et François Mitterrand.
+tec|En quelle année la tour Eiffel est-elle inaugurée ?|1889|Pour l'Exposition universelle, cent ans après la Révolution.
+tec|En quelle année la statue de la Liberté est-elle inaugurée ?|1886|Un cadeau de la France aux États-Unis.
+tec|En quelle année le canal de Suez est-il inauguré ?|1869|Il relie la Méditerranée à la mer Rouge.
+sci|En quelle année Alexander Fleming découvre-t-il la pénicilline ?|1928|Par hasard, sur une boîte de culture oubliée.
+sci|En quelle année Pasteur vaccine-t-il un enfant contre la rage pour la première fois ?|1885|Le petit Joseph Meister, mordu par un chien.
+sci|En quelle année a lieu la première greffe du cœur ?|1967|Réalisée par Christiaan Barnard, en Afrique du Sud.
+sci|En quelle année sont remis les premiers prix Nobel ?|1901|Cinq ans après la mort d'Alfred Nobel.
+spo|En quelle année ont lieu les premiers Jeux olympiques modernes ?|1896|À Athènes, à l'initiative de Pierre de Coubertin.
+spo|En quelle année a lieu le premier Tour de France ?|1903|Six étapes seulement, mais très longues.
+spo|En quelle année a lieu la première Coupe du monde de football ?|1930|En Uruguay, qui la remporte.
+spo|En quelle année la France gagne-t-elle sa première Coupe du monde de football ?|1998|3-0 contre le Brésil, au Stade de France.
+art|En quelle année est publié Les Misérables de Victor Hugo ?|1862|Hugo l'a écrit en grande partie en exil.
+art|En quelle année est publié Le Petit Prince ?|1943|D'abord aux États-Unis, où vivait Saint-Exupéry.
+bdm|En quelle année paraît la première aventure de Tintin ?|1929|Tintin au pays des Soviets, en noir et blanc.
+bdm|En quelle année Astérix apparaît-il pour la première fois ?|1959|Dans le premier numéro du journal Pilote.
+cin|En quelle année sort le premier film Star Wars ?|1977|Il deviendra plus tard « Épisode IV ».
+cin|En quelle année sort le film Titanic de James Cameron ?|1997|Il remporte 11 Oscars.
+cin|En quelle année ouvre Disneyland Paris ?|1992|Il s'appelait alors Euro Disney.
+jeu|En quelle année sort Super Mario Bros. au Japon ?|1985|Sur la console NES de Nintendo.
+jeu|En quelle année sort la première PlayStation au Japon ?|1994|Elle arrive en Europe l'année suivante.
+his|En quelle année François Ier signe-t-il l'ordonnance de Villers-Cotterêts, qui impose le français dans les actes officiels ?|1539|Elle est l'un des plus anciens textes encore en vigueur en France.
+his|En quelle année Louis XIV installe-t-il la cour à Versailles ?|1682|Le château devient le centre du pouvoir jusqu'à la Révolution.
+his|En quelle année le général de Gaulle lance-t-il l'appel du 18 Juin à la radio de Londres ?|1940|Peu de Français l'ont entendu en direct.
+his|En quelle année a lieu la bataille de Verdun ?|1916|Elle dure environ dix mois.
+his|En quelle année Hitler devient-il chancelier de l'Allemagne ?|1933|Le 30 janvier.
+his|En quelle année les bombes atomiques sont-elles larguées sur Hiroshima et Nagasaki ?|1945|Le Japon capitule quelques jours plus tard.
+his|En quelle année a lieu la bataille de Diên Biên Phu ?|1954|Cette défaite française met fin à la guerre d'Indochine.
+his|En quelle année est signé le traité de Maastricht, qui crée l'Union européenne ?|1992|Il prépare aussi l'arrivée de l'euro.
+his|En quelle année le Royaume-Uni quitte-t-il officiellement l'Union européenne ?|2020|Le 31 janvier, après le référendum de 2016.
+his|En quelle année Barack Obama est-il élu président des États-Unis ?|2008|Le premier président noir du pays.
+his|En quelle année la loi Veil autorise-t-elle l'IVG en France ?|1975|Portée par la ministre de la Santé Simone Veil.
+his|En quelle année le mariage pour les couples de même sexe est-il autorisé en France ?|2013|La loi « mariage pour tous ».
+his|En quelle année part l'expédition de Magellan, la première à faire le tour du monde ?|1519|Magellan meurt en route ; seul un navire revient, trois ans plus tard.
+per|En quelle année naît Molière ?|1622|De son vrai nom Jean-Baptiste Poquelin.
+per|En quelle année naît Jean de La Fontaine ?|1621|À Château-Thierry.
+per|En quelle année naît Jules Verne ?|1828|À Nantes.
+per|En quelle année meurt Louis Pasteur ?|1895|Près de Paris, à Marnes-la-Coquette.
+per|En quelle année naît Simone Veil ?|1927|À Nice.
+per|En quelle année meurt Coluche ?|1986|Un an après avoir créé les Restos du cœur.
+per|En quelle année naît Zinédine Zidane ?|1972|À Marseille.
+per|En quelle année meurt Claude Monet ?|1926|À Giverny, où il peignait ses nymphéas.
+per|En quelle année meurt Salvador Dalí ?|1989|À Figueras, sa ville natale.
+per|En quelle année meurt Agatha Christie ?|1976|La romancière la plus vendue de l'histoire.
+per|En quelle année naît Marilyn Monroe ?|1926|À Los Angeles.
+per|En quelle année meurt Marilyn Monroe ?|1962|À 36 ans.
+mus|En quelle année naît Elvis Presley ?|1935|À Tupelo, dans le Mississippi.
+mus|En quelle année naît Frédéric Chopin ?|1810|Près de Varsovie, en Pologne.
+mus|En quelle année meurt Frédéric Chopin ?|1849|À Paris, à 39 ans.
+mus|En quelle année meurt Jacques Brel ?|1978|Il est enterré aux îles Marquises.
+spo|En quelle année meurt le pilote Ayrton Senna ?|1994|Lors du Grand Prix de Saint-Marin, à Imola.
+spo|En quelle année meurt Kobe Bryant ?|2020|Dans un accident d'hélicoptère.
+spo|En quelle année la France gagne-t-elle son premier Euro de football ?|1984|À domicile, avec Michel Platini.
+spo|En quelle année a lieu le coup de tête de Zidane en finale de Coupe du monde ?|2006|Contre l'Italie, à Berlin.
+spo|En quelle année Paris accueille-t-elle les Jeux olympiques pour la dernière fois ?|2024|Cent ans après ceux de 1924.
+tec|En quelle année Youri Gagarine devient-il le premier homme dans l'espace ?|1961|Son vol dure 108 minutes.
+tec|En quelle année ouvre la première ligne du métro de Paris ?|1900|Pour l'Exposition universelle.
+tec|En quelle année est envoyé le premier SMS ?|1992|Il disait simplement « Merry Christmas ».
+tec|En quelle année sort Windows 95 ?|1995|Avec le célèbre bouton « Démarrer ».
+tec|En quelle année Twitter est-il lancé ?|2006|Rebaptisé X en 2023.
+tec|En quelle année ChatGPT est-il rendu public ?|2022|Un million d'utilisateurs en cinq jours.
+sci|En quelle année est découverte la structure en double hélice de l'ADN ?|1953|Par Watson et Crick, grâce aux travaux de Rosalind Franklin.
+sci|En quelle année naît Dolly, la brebis clonée ?|1996|Le premier mammifère cloné à partir d'une cellule adulte.
+jeu|En quelle année sortent Pokémon Rouge et Vert au Japon ?|1996|Sur Game Boy.
+jeu|En quelle année sort la Nintendo Switch ?|2017|Une console de salon qui se transforme en console portable.
+jeu|En quelle année sort la version complète de Minecraft ?|2011|Le jeu le plus vendu de l'histoire.
+art|En quelle année paraît le premier tome de Harry Potter ?|1997|Au Royaume-Uni, sous le titre Harry Potter and the Philosopher's Stone.
+cin|En quelle année sort Blanche-Neige et les Sept Nains de Disney ?|1937|Le premier long métrage d'animation de Disney.
+cin|En quelle année sort Le Fabuleux Destin d'Amélie Poulain ?|2001|Avec Audrey Tautou, à Montmartre.
+cin|En quelle année sort le film Intouchables ?|2011|Avec Omar Sy et François Cluzet.

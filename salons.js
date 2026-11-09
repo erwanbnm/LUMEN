@@ -19,7 +19,18 @@ const Salons = (() => {
   const letters = () => Array.from({length:4}, () => "ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random()*24)]).join("");
   const lvls = d => d === "facile" ? [1] : d === "difficile" ? [2,3] : [1,2];
   const fresh = (d, not) => Object.keys(Q).filter(id => !(Q[id][6] && Q[id][6].t) && Q[id][2].length === 4 && lvls(d).includes(Q[id][1]) && !(not && not.has(id)));
-  const pickOne = (d, used) => { const p = fresh(d, new Set(used || [])); return p[Math.floor(Math.random()*p.length)]; };
+  // On évite les questions déjà tombées pour n'importe quel joueur du salon (dans ses dernières parties de salon)
+  const SEEN_MAX = 800;
+  const seenStr = () => (S.slSeen || []).slice(-SEEN_MAX).join(",");
+  function markSeen(ids){ S.slSeen = S.slSeen || []; const have = new Set(S.slSeen); ids.forEach(id => { if (id && !have.has(id)) { S.slSeen.push(id); have.add(id); } }); if (S.slSeen.length > SEEN_MAX) S.slSeen = S.slSeen.slice(-SEEN_MAX); }
+  function avoidSet(extra){
+    const set = new Set(extra || []);
+    if (room) Object.values(room.players || {}).forEach(pl => String(pl.seen || "").split(",").forEach(id => id && set.add(id)));
+    (S.slSeen || []).forEach(id => set.add(id));
+    return set;
+  }
+  const pickOne = (d, used) => { let p = fresh(d, avoidSet(used)); if (!p.length) p = fresh(d, new Set(used || [])); return p[Math.floor(Math.random()*p.length)]; };
+  function publishSeen(){ if (code && uid()) db().doc("rooms/" + code).update({["players." + uid() + ".seen"]: seenStr()}).catch(() => {}); }
   const qTime = g => g.turn > FAST_AFTER ? Q_FAST : Q_TIME;
   const shuffle4 = () => [0,1,2,3].sort(() => Math.random() - .5);
   const myAv = () => (S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0));
@@ -33,7 +44,7 @@ const Salons = (() => {
     let c = letters();
     for (let i = 0; i < 5 && (await db().doc("rooms/" + c).get()).exists; i++) c = letters();
     await db().doc("rooms/" + c).set({code:c, host:uid(), created:Date.now(), state:"lobby", mode:"bombe", nq:20, diff:"normal", inv:[], gid:0,
-      players:{[uid()]: {p:myPseudo(), av:myAv(), j:Date.now(), hb:Date.now()}}});
+      players:{[uid()]: {p:myPseudo(), av:myAv(), j:Date.now(), hb:Date.now(), seen:seenStr()}}});
     stats().hosted++; save(); checkBadges();
     enter(c);
   }
@@ -48,7 +59,7 @@ const Salons = (() => {
       if (r.state !== "lobby") throw "La partie a déjà commencé dans ce salon.";
       if (Object.keys(r.players).filter(id => !r.players[id].out).length >= MAXP) throw "Le salon est complet (6 joueurs).";
     }
-    await db().doc("rooms/" + c).update({["players." + uid()]: {p:myPseudo(), av:myAv(), j:(r.players[uid()] && r.players[uid()].j) || Date.now(), hb:Date.now()}});
+    await db().doc("rooms/" + c).update({["players." + uid()]: {p:myPseudo(), av:myAv(), j:(r.players[uid()] && r.players[uid()].j) || Date.now(), hb:Date.now(), seen:seenStr()}});
     enter(c);
   }
   function enter(c){
@@ -88,23 +99,26 @@ const Salons = (() => {
     if (r.state === "end" && view === "game") rewards();
     // Animation et son quand la bombe explose
     const g = r.g || {}, pg = (prev && prev.g) || {};
+    if (r.state === "play" && r.mode === "bombe" && g.qid && g.qid !== pg.qid) markSeen([g.qid]);
+    if (r.state === "play" && (r.mode === "quiz" || r.mode === "pm") && g.qids && (!prev || prev.gid !== r.gid)) markSeen(g.qids);
     if (r.mode === "bombe" && g.phase !== pg.phase) {
       if (g.phase === "boom") boomFx();
       else if (g.phase === "reveal") try { Music.sfx(g.good ? "ok" : "ko"); } catch(e){}
     }
-    const key = JSON.stringify([r.state, r.mode, r.nq, r.diff, r.host, Object.keys(r.players).map(id => [id, !!r.players[id].out]), r.inv, g.phase, g.turn, g.holder, g.fuse, g.qid, g.over, g.ans && g.ans.v, r.sc]);
+    const key = JSON.stringify([r.state, r.mode, r.nq, r.diff, r.host, Object.keys(r.players).map(id => [id, !!r.players[id].out]), r.inv, g.phase, g.turn, g.holder, g.fuse, g.qid, g.over, g.ans && g.ans.v, r.sc, r.fd]);
     if (key !== lastKey) { lastKey = key; repaint(); }
   }
   // Ne redessine que l'écran du salon (sans casser une partie solo en cours)
   function repaint(){
     if (S.tab !== "amis") return;
-    const typing = document.activeElement && document.activeElement.id === "sl-msg", y = window.scrollY;
+    const typing = document.activeElement && document.activeElement.id === "sl-msg", guessing = document.activeElement && document.activeElement.id === "sl-guess", y = window.scrollY;
     const ob = document.querySelector(".sl-bomb"), from = ob && ob.getBoundingClientRect();
     window.__quiet = true; render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
     const nb = document.querySelector(".sl-bomb");
     if (from && nb && nb.animate) { const to = nb.getBoundingClientRect(), dx = from.left - to.left, dy = from.top - to.top;
       if (Math.abs(dx) + Math.abs(dy) > 4) nb.animate([{transform:`translate(${dx}px,${dy}px)`}, {transform:`translate(${dx/2}px,${dy/2 - 46}px) rotate(200deg)`, offset:.5}, {transform:"none"}], {duration:650, easing:"cubic-bezier(.4,0,.3,1)"}); }
     if (typing) { const i = document.getElementById("sl-msg"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
+    if (guessing) { const i = document.getElementById("sl-guess"); if (i) i.focus(); }
     const c = document.getElementById("sl-chat"); if (c) c.scrollTop = 1e6;
   }
 
@@ -114,12 +128,13 @@ const Salons = (() => {
     const g = room.g || {};
     const hiss = room.state === "play" && room.mode === "bombe" && g.phase === "ask" && S.tab === "amis" && view === "game";
     Music.fuse(hiss ? [1, .8, .6, .45][g.fuse] || .45 : 0);
+    if (typeof stressUpdate === "function") stressUpdate();
     if (room.state === "play" && room.mode === "bombe") {
       const left = Math.max(0, (g.dl || 0) - now());
       setBar(left, qTime(g));
       if (isHost() && !drive) referee(g);
     }
-    if (room.state === "play" && room.mode === "quiz") quizTick();
+    if (room.state === "play" && (room.mode === "quiz" || room.mode === "pm")) quizTick();
     // Plus de nouvelles d'un joueur depuis 40 s : la partie s'arrête (l'hôte s'en charge)
     if (room.state === "play" && isHost() && !drive) {
       const gone = seats().find(id => id !== uid() && Date.now() - (room.players[id].hb || 0) > 40000);
@@ -176,21 +191,68 @@ const Salons = (() => {
 
   /* --- Quiz à plusieurs : même rythme pour tous, calculé depuis l'heure de départ --- */
   const PER = (Q_TIME + QUIZ_SHOW) * 1000;
+  const PM_TIME = 30, PM_SHOW = 6, PM_PER = (PM_TIME + PM_SHOW) * 1000;
+  const per = () => room && room.mode === "pm" ? PM_PER : PER, qWin = () => (room && room.mode === "pm" ? PM_TIME : Q_TIME) * 1000;
   function startQuiz(){
     const ids = seats(), used = new Set(), qids = [];
-    for (let i = 0; i < room.nq; i++) { const q = pickOne(room.diff, [...used]); used.add(q); qids.push(q); }
+    const avoid = avoidSet(); let pool = fresh(room.diff, avoid); if (pool.length < room.nq) pool = fresh(room.diff);
+    pool.sort(() => Math.random() - .5);
+    for (let i = 0; i < room.nq; i++) { const q = pool[i]; used.add(q); qids.push(q); }
     const sc = {}; ids.forEach(id => sc[id] = {ok:0, pos:0});
     return upd({state:"play", gid:(room.gid || 0) + 1, sc, g:{qids, start:now() + 3500, seats:ids, ords:qids.map(() => shuffle4().join("")), over:false}}); // Firestore refuse les listes dans des listes : l'ordre est stocké en texte (« 2031 »)
   }
+  function startPM(){
+    const ids = seats(), avoid = avoidSet();
+    let pool = DATES.map((_, i) => "dt" + i).filter(id => !avoid.has(id)); if (pool.length < room.nq) pool = DATES.map((_, i) => "dt" + i);
+    pool.sort(() => Math.random() - .5);
+    return upd({state:"play", gid:(room.gid || 0) + 1, fd:{}, g:{qids:pool.slice(0, room.nq), start:now() + 3500, seats:ids, over:false}});
+  }
+  // Plus ou moins : mes essais pour la manche en cours (sur ce téléphone)
+  let pm = {k:"", tries:[], found:false};
+  function pmGuess(v){
+    const g = room.g, p = quizPos(); if (!g || p.i < 0 || !p.inQ) return;
+    const k = room.gid + ":" + p.i; if (pm.k !== k) pm = {k, tries:[], found:false};
+    if (pm.found || !Number.isFinite(v)) return;
+    const y = DATES[+g.qids[p.i].slice(2)][2];
+    pm.tries.push(v);
+    if (v === y) { pm.found = true; try { Music.sfx("ok"); } catch(e){}
+      db().doc("rooms/" + code).update({["fd." + p.i + "." + uid()]: p.e % PM_PER}).catch(() => {}); }
+    else try { Music.sfx("tap"); } catch(e){}
+    pmDraft = ""; repaint(); setTimeout(() => { const i = document.getElementById("sl-guess"); if (i) i.focus(); }, 30);
+  }
+  let pmDraft = "";
+  // Points d'une manche : 1er à trouver 3 pts, 2e 2 pts, les autres 1 pt
+  function pmRound(i){ const f = (room.fd && room.fd[i]) || {}; return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:k === 0 ? 3 : k === 1 ? 2 : 1})); }
+  function pmView(){
+    const g = room.g, p = quizPos(), n = g.qids.length;
+    const board = `<div class="sl-board">${ranking().map((r, i) => `<span class="${r.id === uid() ? "me" : ""}">${i + 1}. ${esc(pName(r.id))} <b>${r.a}</b></span>`).join("")}</div>`;
+    let body;
+    if (p.e < 0) body = `<div class="card stack" style="text-align:center"><b>Plus ou moins commence dans <span id="sl-left">${Math.ceil(-p.e/1000)} s</span></b><span class="muted">${n} dates à trouver · ${PM_TIME} secondes chacune</span></div>`;
+    else {
+      const i = Math.min(p.i, n - 1), d = DATES[+g.qids[i].slice(2)], k = room.gid + ":" + i; if (pm.k !== k) pm = {k, tries:[], found:false};
+      const finders = pmRound(i);
+      const tries = pm.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
+      const who = finders.length ? `<div class="pm-who">${finders.map(f => `<span>${esc(pName(f.id))} · ${(f.t/1000).toFixed(1)} s · +${f.pts}</span>`).join("")}</div>` : "";
+      body = `<article class="card q sl-q"><div class="row between"><span class="chip">${dot(d[0])}${esc(THEMES[d[0]] ? THEMES[d[0]].n : "")}</span><span class="label" id="sl-left">${p.inQ ? Math.ceil((PM_TIME*1000 - p.e % PM_PER)/1000) + " s" : ""}</span></div>
+        <div class="timer" style="margin:8px 0 0"><i id="sl-bar" style="width:${p.inQ ? (PM_TIME*1000 - p.e % PM_PER)/(PM_TIME*10) : 0}%"></i></div>
+        <div class="label" style="margin-top:8px">Date ${i + 1}/${n}</div><h2>${esc(d[1])}</h2>
+        ${p.inQ && !pm.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
+        ${p.inQ && pm.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${pm.tries.length} essai${pm.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
+        ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${pm.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
+        ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
+    }
+    return `<section class="stack sl-game"><div class="row between"><span class="label">Plus ou moins · salon ${room.code}</span><button class="quit" data-sl="leave">Quitter</button></div>
+      ${table(null, null, 0, false)}${board}${body}${emoBar()}${chatHTML(true)}</section>`;
+  }
   let quizMine = {}, quizIdx = -2;
-  function quizPos(){ const g = room.g; const e = now() - g.start; return {i:Math.floor(e / PER), inQ:(e % PER) < Q_TIME*1000, e}; }
+  function quizPos(){ const g = room.g; const e = now() - g.start; return {i:Math.floor(e / per()), inQ:(e % per()) < qWin(), e}; }
   function quizTick(){
     const g = room.g; if (!g || !g.qids || g.over) return;
     const p = quizPos();
     if (p.i >= g.qids.length) { if (isHost() && !drive) upd({state:"end", "g.over":true}); return; }
     const k = p.e < 0 ? -1 : p.i * 2 + (p.inQ ? 0 : 1);
     if (k !== quizIdx) { quizIdx = k; repaint(); }
-    if (p.e >= 0) setBar(p.inQ ? Q_TIME*1000 - (p.e % PER) : 0, Q_TIME);
+    if (p.e >= 0) setBar(p.inQ ? qWin() - (p.e % per()) : 0, qWin() / 1000);
     else { const t = document.getElementById("sl-left"); if (t) t.textContent = Math.ceil(-p.e / 1000) + " s"; }
   }
   function quizAnswer(v){
@@ -211,13 +273,17 @@ const Salons = (() => {
     st.played++;
     if (win && room.mode === "bombe") { st.bomb++; if (room.g.hearts && room.g.hearts[uid()] === 3) st.clean++; }
     if (win && room.mode === "quiz") st.quiz++;
-    const coins = room.g.why ? 10 : win ? 60 : 20; S.coins += coins;
+    if (win && room.mode === "pm") st.pm = (st.pm || 0) + 1;
+    const coins = room.g.why ? 10 : win ? 60 : 20; S.coins += coins; publishSeen();
     toasts.push(`<b>${win ? "Victoire !" : "Partie terminée"}</b> · +${coins} pièces`);
     save(); checkBadges();
   }
   function ranking(){
     const g = room.g || {}, ids = g.seats || seats();
     if (room.mode === "bombe") return ids.map(id => ({id, a:(g.hearts && g.hearts[id]) || 0, b:(g.ok && g.ok[id]) || 0})).sort((x, y) => y.a - x.a || y.b - x.b);
+    if (room.mode === "pm") { const pts = {}, tm = {}; ids.forEach(id => { pts[id] = 0; tm[id] = 0; });
+      Object.keys(room.fd || {}).forEach(i => pmRound(i).forEach(f => { if (f.id in pts) { pts[f.id] += f.pts; tm[f.id] += f.t; } }));
+      return ids.map(id => ({id, a:pts[id], b:tm[id]})).sort((x, y) => y.a - x.a || x.b - y.b); }
     return ids.map(id => ({id, a:(room.sc && room.sc[id] && room.sc[id].ok) || 0, b:0})).sort((x, y) => y.a - x.a);
   }
 
@@ -228,7 +294,7 @@ const Salons = (() => {
     const rk = ranking().slice(0, 3), g = room.g, win = rk[0];
     if (!win || g.why) return; // partie interrompue : pas de podium
     const order = rk.length === 3 ? [2, 0, 1] : rk.length === 2 ? [1, 0] : [0];
-    const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
+    const score = r => room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a) || "💥"}</span>` : room.mode === "pm" ? `<span>${r.a} point${r.a > 1 ? "s" : ""}</span>` : `<span>${r.a} bonne${r.a > 1 ? "s" : ""} réponse${r.a > 1 ? "s" : ""}</span>`;
     const cols = order.map(i => `<div class="sl-pcol r${i + 1}"><div class="who">${i === 0 ? `<span class="crown">👑</span>` : ""}${A().avatar(rk[i].id, i === 0 ? 92 : 70)}<b>${esc(pName(rk[i].id))}</b>${score(rk[i])}</div><div class="step">${i + 1}</div></div>`).join("");
     const colors = ["#FF5FA2", "#FFD23F", "#7FD8BE", "#8FB8F0", "#FFFFFF"];
     const conf = Array.from({length:36}, (_, k) => `<i class="sl-conf" style="left:${Math.random()*100}%;background:${colors[k % 5]};animation-delay:${2.3 + Math.random()*1.4}s;animation-duration:${2.2 + Math.random()*1.6}s"></i>`).join("");
@@ -236,7 +302,7 @@ const Salons = (() => {
     el.innerHTML = conf + `<div class="sl-podium">${cols}</div><h2>${win.id === uid() ? "Tu as gagné !" : esc(pName(win.id)) + " gagne !"}</h2>
       <p class="sub">${room.mode === "bombe" && g.loser ? "💥 " + esc(pName(g.loser)) + " n'a plus de cœur." : "Bravo à tous !"}</p>
       <button class="btn sub" style="max-width:320px">Continuer</button>`;
-    el.querySelector("button").onclick = () => el.remove();
+    el.querySelector("button").onclick = () => { el.remove(); flushLevelUp(); }; // les badges gagnés s'affichent ensuite
     document.body.appendChild(el);
     if (S.settings.sfx !== false) { [1000, 1500].slice(0, rk.length - 1).forEach(t => setTimeout(() => { try { Music.sfx("drop"); } catch(e){} }, t + 600)); setTimeout(() => { try { Music.sfx("win"); } catch(e){} }, 2500); }
   }
@@ -299,11 +365,13 @@ const Salons = (() => {
         ${ids.map(id => `<div class="am-row">${A().avatar(id, 40)}<b class="grow">${esc(pName(id))}${id === uid() ? " (toi)" : ""}</b>${id === room.host ? `<span class="chip">Hôte</span>` : ""}</div>`).join("")}
         ${isHost() && friends.length && ids.length < MAXP ? `<div class="label" style="margin-top:6px">Inviter</div>${friends.map(id => `<div class="am-row">${A().avatar(id, 34)}<b class="grow">${esc(A().pseudoOf(id))}</b><button class="chip-btn" data-sl="inv" data-v="${id}" ${(room.inv || []).includes(id) ? "disabled" : ""}>${(room.inv || []).includes(id) ? "Invité" : "Inviter"}</button></div>`).join("")}` : ""}
       </div>
-      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz à plusieurs"]])}
-        ${room.mode === "quiz" ? `<div class="label">Nombre de questions : ${room.nq}</div><div class="row">${[10,20,30,40,50].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
+      <div class="card stack"><div class="label">Mode</div>${seg("mode", [["bombe", "💣 La Bombe"], ["quiz", "Quiz"], ["pm", "Plus ou moins"]])}
+        ${room.mode === "pm" ? `<div class="label">Nombre de dates : ${room.nq}</div><div class="row">${[5,10,15,20].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
+          <p class="muted" style="margin:0;font-size:13.5px">Trouve l'année exacte : à chaque essai, on te dit « c'est plus » ou « c'est moins ». 30 secondes par date. Le 1er qui trouve gagne 3 points, le 2e 2 points, les autres 1 point.</p>`
+        : room.mode === "quiz" ? `<div class="label">Nombre de questions : ${room.nq}</div><div class="row">${[10,20,30,40,50].map(n => `<button class="chip-btn ${room.nq === n ? "on" : ""}" data-sl="set" data-k="nq" data-v="${n}" aria-pressed="${room.nq === n}" ${isHost() ? "" : "disabled"}>${n}</button>`).join("")}</div>
           <p class="muted" style="margin:0;font-size:13.5px">Tout le monde répond en même temps aux mêmes questions, 10 secondes chacune. Le plus de bonnes réponses gagne.</p>`
         : `<p class="muted" style="margin:0;font-size:13.5px">Chacun a 3 cœurs. Bonne réponse : tu passes la bombe au suivant. Mauvaise réponse : la mèche brûle. Après 3 erreurs, la suivante fait exploser la bombe et coûte un cœur. 10 secondes pour répondre, puis 8. La partie s'arrête dès qu'un joueur n'a plus de cœur.</p>`}
-        <div class="label">Difficulté</div>${seg("diff", [["facile", "Facile"], ["normal", "Normal"], ["difficile", "Difficile"]])}
+        ${room.mode === "pm" ? "" : `<div class="label">Difficulté</div>${seg("diff", [["facile", "Facile"], ["normal", "Normal"], ["difficile", "Difficile"]])}`}
         <span class="muted" style="font-size:13.5px">Thèmes : tous.</span></div>
       ${chatHTML()}
       ${isHost() ? `<button class="btn" data-sl="start" ${ids.length < 2 ? "disabled" : ""}>${ids.length < 2 ? "En attente d'un ami…" : room.state === "end" ? "Rejouer" : "Lancer la partie"}</button>` : `<p class="muted" style="text-align:center">En attente que ${esc(pName(room.host))} lance la partie…</p>`}
@@ -311,8 +379,8 @@ const Salons = (() => {
   }
   function resultCard(){
     const rk = ranking(), g = room.g;
-    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : "Quiz terminé.";
-    return `<div class="card stack sl-res"><b>${title}</b>${rk.map((r, i) => `<div class="am-row"><span class="am-pos ${i === 0 ? "gold" : ""}">${i + 1}</span>${A().avatar(r.id, 36)}<b class="grow">${esc(pName(r.id))}</b><span class="muted">${room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a)}</span> · ${r.b} justes` : r.a + " bonnes réponses"}</span></div>`).join("")}</div>`;
+    const title = g.why ? g.why : room.mode === "bombe" ? (g.loser ? `💥 ${esc(pName(g.loser))} n'a plus de cœur.` : "Partie terminée.") : room.mode === "pm" ? "Plus ou moins terminé." : "Quiz terminé.";
+    return `<div class="card stack sl-res"><b>${title}</b>${rk.map((r, i) => `<div class="am-row"><span class="am-pos ${i === 0 ? "gold" : ""}">${i + 1}</span>${A().avatar(r.id, 36)}<b class="grow">${esc(pName(r.id))}</b><span class="muted">${room.mode === "bombe" ? `<span class="sl-hp">${"♥".repeat(r.a)}</span> · ${r.b} justes` : room.mode === "pm" ? r.a + " points" : r.a + " bonnes réponses"}</span></div>`).join("")}</div>`;
   }
   function seatPos(i, n, mine){ const k = (i - mine + n) % n, a = Math.PI/2 + k * 2*Math.PI/n; return [50 + Math.cos(a)*40, 50 + Math.sin(a)*38]; }
   function table(holder, hearts, fuse, boom){
@@ -368,7 +436,7 @@ const Salons = (() => {
   }
   function viewAll(){
     if (!room) return `<section class="stack"><h1 class="big">JcJ</h1><div class="card"><p class="muted">Connexion au salon…</p></div></section>`;
-    if (room.state === "play" && view === "game") return room.mode === "bombe" ? bombView() : quizView();
+    if (room.state === "play" && view === "game") return room.mode === "bombe" ? bombView() : room.mode === "pm" ? pmView() : quizView();
     return lobbyView();
   }
 
@@ -382,7 +450,7 @@ const Salons = (() => {
       else if (a === "leave") return await leave();
       else if (a === "set" && isHost()) await upd({[b.dataset.k]: b.dataset.k === "nq" ? +v : v});
       else if (a === "inv" && isHost()) await upd({inv:FV().arrayUnion(v)});
-      else if (a === "start" && isHost() && seats().length >= 2) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : startQuiz()); }
+      else if (a === "start" && isHost() && seats().length >= 2) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : room.mode === "pm" ? startPM() : startQuiz()); }
       else if (a === "ans") { room.mode === "bombe" ? bombAnswer(+v) : quizAnswer(+v); return; }
       else if (a === "emo") return send(null, v);
     } catch(e){ msg = typeof e === "string" ? e : "Impossible de joindre le salon. Vérifie ta connexion."; }
@@ -390,12 +458,21 @@ const Salons = (() => {
   }
   document.addEventListener("submit", e => {
     if (e.target.id === "sl-form") { e.preventDefault(); const i = document.getElementById("sl-msg"), t = i.value.trim(); if (!t) return; i.value = ""; draft = ""; send(t); }
+    if (e.target.id === "sl-pm") { e.preventDefault(); const v = parseInt(document.getElementById("sl-guess").value, 10); if (!isNaN(v)) pmGuess(v); return; }
     if (e.target.id === "sl-join") { e.preventDefault(); const v = document.getElementById("sl-code").value; busy = true; msg = ""; render();
       join(v).catch(x => { msg = typeof x === "string" ? x : "Impossible de joindre le salon. Vérifie ta connexion."; }).finally(() => { busy = false; render(); }); }
   });
-  document.addEventListener("input", e => { if (e.target.id === "sl-msg") draft = e.target.value; });
+  document.addEventListener("input", e => { if (e.target.id === "sl-msg") draft = e.target.value; if (e.target.id === "sl-guess") pmDraft = e.target.value; });
 
-  return {entry, view:viewAll, click, listen, active:() => !!code, _room:() => room};
+  // Musique : Bombe = stressante (accélère quand la mèche raccourcit), Plus ou moins = tension, Quiz = thème habituel
+  function music(){
+    if (!room || room.state !== "play" || view !== "game" || S.tab !== "amis") return null;
+    const g = room.g || {};
+    if (room.mode === "bombe") { const left = Math.max(0, (g.dl || 0) - now()) / (qTime(g) * 1000); return {k:"bomb", heat:Math.min(1, (3 - (g.fuse || 0)) / 3 * .7 + (1 - left) * .3)}; }
+    if (room.mode === "pm") return {k:"tense"};
+    return null;
+  }
+  return {entry, view:viewAll, click, listen, music, active:() => !!code, playing:() => !!(room && room.state === "play" && view === "game"), _room:() => room};
 })();
 
 /* --- Badges des salons privés --- */
@@ -406,5 +483,6 @@ const Salons = (() => {
  ["bombe10","or",10,"bomb","Artificier","Gagner 10 parties de La Bombe",120],
  ["sangfroid","platine",1,"clean","Sang-froid","Gagner La Bombe sans perdre un seul cœur",150],
  ["quiz1","argent",1,"quiz","Premier de la classe","Gagner un quiz à plusieurs",50],
+ ["pm1","argent",1,"pm","Devin","Gagner une partie de Plus ou moins",50],
  ["bavard","bronze",20,"chat","Bavard","Envoyer 20 messages dans le chat d'un salon",20]
 ].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id:"sl_" + id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal, cur:() => (S.salons && S.salons[k]) || 0}));

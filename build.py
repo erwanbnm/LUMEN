@@ -71,9 +71,14 @@ for i, l in enumerate(l for l in open(os.path.join(base, "content", "extra", "po
 data = "const Q = " + json.dumps(Q, ensure_ascii=False, separators=(",", ":")) + ";\n"
 data += open(os.path.join(base, "extra.js"), encoding="utf-8").read()
 data += "\n" + open(os.path.join(base, "content", "geodata.js"), encoding="utf-8").read()
+# Dates du mode « Plus ou moins » (salons privés) : thème|question|année|explication — ajouter à la fin
+DATES = [l.split("|") for l in open(os.path.join(base, "content", "extra", "dates.txt"), encoding="utf-8").read().splitlines() if l.strip()]
+assert all(len(d) == 4 and d[2].lstrip("-").isdigit() for d in DATES), "dates.txt : ligne invalide"
+DATES = [[d[0], d[1], int(d[2]), d[3]] for d in DATES]
 MOTS = [l.split("|") for l in open(os.path.join(base, "content", "extra", "mots.txt"), encoding="utf-8").read().splitlines() if l.strip()]
 assert all(len(m) == 4 for m in MOTS)
 data += "\nconst MOTS = " + json.dumps(MOTS, ensure_ascii=False) + ";\n"
+data += "const DATES = " + json.dumps(DATES, ensure_ascii=False, separators=(",", ":")) + ";\n"
 html = open(os.path.join(base, "app.html"), encoding="utf-8").read().replace("/*__DATA__*/", data)
 rd = lambda p: open(os.path.join(base, p), encoding="utf-8").read()
 html = html.replace("/*__ART__*/", rd("atelier/creatures2.js") + "\n" + rd("atelier/rixy.js") + "\n" + rd("atelier/badges.js") + "\n" + rd("atelier/badges2.js") + "\n" + rd("atelier/skins.js") + "\n" + rd("atelier/acc.js") + "\n" + rd("atelier/toy.js") + "\n" + rd("atelier/toy_skins.js") + "\n" + rd("atelier/toy_acc.js") + "\n" + rd("atelier/toy_stars.js") + "\n" + rd("atelier/toy_portail.js") + "\n" + rd("atelier/toy_halloween.js") + "\n" + rd("atelier/gicons.js"))

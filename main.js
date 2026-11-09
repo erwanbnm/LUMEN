@@ -258,9 +258,11 @@ let toasts = [];
 // Pendant une partie en cours, les niveaux attendent le bilan (pas d'interruption, surtout en Chrono) ;
 // plusieurs niveaux gagnés d'un coup sont réunis sur une seule carte.
 const lvQueue = []; let lvOpen = false;
-const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer");
+// En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
+const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod");
+const bdQueue = [];
 function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); flushLevelUp(); }
-function flushLevelUp(){ if (lvOpen || !lvQueue.length || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
+function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
 function lvBadge(n){
   const D = "#2B1D3A", u = "lv" + Math.random().toString(36).slice(2, 7);
   return `<svg viewBox="0 0 120 124" aria-hidden="true"><defs><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0A0"/><stop offset="1" stop-color="#F2A41E"/></linearGradient><linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8AB8"/><stop offset="1" stop-color="#E2427A"/></linearGradient></defs>
@@ -272,8 +274,34 @@ function lvBadge(n){
   <path d="M30 42 Q36 28 50 22" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity=".8"/>
   <text x="60" y="${n > 9 ? 72 : 74}" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="${n > 9 ? 38 : 46}" fill="#fff" stroke="${D}" stroke-width="7" paint-order="stroke" stroke-linejoin="round">${n}</text></svg>`;
 }
+// Badge débloqué : le badge arrive en tournant, avec rayons, confettis et les pièces gagnées
+const TIER_LABEL = {bronze:"Bronze", argent:"Argent", or:"Or", platine:"Platine", diamant:"Diamant"};
+const TIER_RANK = {bronze:1, argent:2, or:3, platine:4, diamant:5};
+function showBadgeUp(){
+  const all = bdQueue.splice(0).sort((a, b) => (TIER_RANK[b.tier] || 0) - (TIER_RANK[a.tier] || 0)), x = all[0], more = all.slice(1);
+  const coins = all.reduce((t, b) => t + (b.coins || 0), 0);
+  if (S.settings.sfx !== false) { try { Music.sfx("win"); } catch(e){} try { navigator.vibrate && navigator.vibrate([40,40,40,40,120]); } catch(e){} }
+  const cols = ["#FF5FA2","#FFD23F","#5AE8A0","#7FC8FF","#C9A2FF","#FF9E6E"];
+  const bits = Array.from({length:26}, (_, i) => `<i style="--x:${Math.round(Math.cos(i/26*6.283)*(120+Math.random()*90))}px;--y:${Math.round(Math.sin(i/26*6.283)*(110+Math.random()*80)-40)}px;--r:${Math.round(Math.random()*540-270)}deg;--c:${cols[i%cols.length]};--d:${(.45+Math.random()*.2).toFixed(2)}s"></i>`).join("");
+  const el = document.createElement("div");
+  el.className = "lvup bdup"; el.setAttribute("role", "alertdialog"); el.setAttribute("aria-label", `Nouveau badge : ${x.name}`);
+  el.innerHTML = `<div class="lv-card"><div class="lv-rays" aria-hidden="true"></div><div class="lv-bits" aria-hidden="true">${bits}</div>
+    <div class="bd-art">${badge2(x.tier, x.icon, 132)}</div><span class="lv-kicker">${all.length > 1 ? all.length + " nouveaux badges !" : "Nouveau badge !"}</span>
+    <b class="lv-title">${esc(x.name)}</b><span class="lv-sub">${esc(x.desc)}</span>
+    <span class="chip lamp bd-tier">${TIER_LABEL[x.tier] || ""} · +${coinsTxt(coins)}</span>
+    ${more.length ? `<div class="lv-more">${more.slice(0, 6).map(m => `<span class="chip">${esc(m.name)}</span>`).join("")}${more.length > 6 ? `<span class="chip">+${more.length - 6}</span>` : ""}</div>` : ""}
+    <button class="btn lv-ok" type="button">Génial !</button></div>`;
+  document.body.appendChild(el);
+  let done = false;
+  const close = () => { if (done) return; done = true; el.classList.add("out"); setTimeout(() => { el.remove(); lvOpen = false; flushLevelUp(); }, 260); };
+  el.querySelector(".lv-ok").addEventListener("click", close);
+  el.addEventListener("click", e => { if (e.target === el) close(); });
+  setTimeout(close, 6500);
+  setTimeout(() => { try { el.querySelector(".lv-ok").focus({preventScroll:true}); } catch(e){} }, 400);
+}
 function showLevelUp(){
-  if (!lvQueue.length || inPlay()) { lvOpen = false; return; }
+  if (inPlay()) { lvOpen = false; return; }
+  if (!lvQueue.length) { if (bdQueue.length) return showBadgeUp(); lvOpen = false; return; }
   // Le niveau de thème le plus haut en vedette, les autres en petites pastilles
   const all = lvQueue.splice(0), latest = new Map(); all.forEach(v => latest.set(v.what, v));
   const list = [...latest.values()].sort((a, b) => (a.what === "Ton profil") - (b.what === "Ton profil") || b.n - a.n);
@@ -305,7 +333,7 @@ function checkBadges(){
   BADGES.forEach(b => {
     if (S.badges[b.id] || b.cur() < b.goal) return;
     S.badges[b.id] = today(); S.coins += b.coins;
-    toasts.push(`<b>Badge « ${esc(b.name)} »</b> · +${coinsTxt(b.coins)}`);
+    bdQueue.push(b); flushLevelUp();
   });
 }
 
@@ -431,9 +459,10 @@ function tabFx(k){
   const b = document.querySelector(`#tabs button[data-tab="${k}"]`); if (!b) return;
   b.classList.remove("tap"); void b.offsetWidth; b.classList.add("tap");
   clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove("tap"), 1000);
-  setTimeout(() => sparkle(b.querySelector(".ti")), 110);
+  setTimeout(() => tapSparkle(b.querySelector(".ti")), 110);
 }
-function sparkle(el){
+// (nom distinct de sparkle() des badges, sinon l'onglet Badges plante)
+function tapSparkle(el){
   if (!el) return;
   const r = el.getBoundingClientRect(), x = r.left + r.width/2, y = r.top + r.height/2;
   const cs = getComputedStyle(document.documentElement), cols = [cs.getPropertyValue("--lamp"), cs.getPropertyValue("--accent2"), "#FFFFFF", "#8AD8FF"];
@@ -638,6 +667,12 @@ const tense = () => { const s = S.session; if (!s || s.done || S.tab !== "jouer"
    Bords de l'écran rouges qui pulsent de plus en plus vite et battement de cœur, même sans regarder le chrono. */
 let stressOn = "";
 function stressUpdate(){
+  const sm = typeof Salons !== "undefined" && Salons.music();
+  if (sm) {
+    Music.mode(sm.k); Music.heat(sm.heat || 0); document.body.classList.remove("stress");
+    if (stressOn) { stressOn = ""; Music.pulse(null); }
+    return;
+  }
   const s = S.session, k = !tense() ? "" : s.mode === "survie" || s.mode === "portail" ? "spy" : "panic";
   const heat = k === "panic" ? 1 - Math.max(0, s.ends - Date.now()) / 15000 : k === "spy" ? .3 : 0;
   Music.mode(k || "calm"); Music.heat(heat);

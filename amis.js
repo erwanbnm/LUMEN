@@ -109,6 +109,29 @@ const Amis = (function(){
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
   const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
+  // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
+  // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
+  // objets : fusion case par case ; textes : on garde celui de cet appareil.
+  function mergeVal(a, b){
+    if (a === undefined || a === null) return b;
+    if (b === undefined || b === null) return a;
+    if (typeof a === "number" && typeof b === "number") return Math.max(a, b);
+    if (typeof a === "boolean" && typeof b === "boolean") return a || b;
+    if (Array.isArray(a) && Array.isArray(b)) {
+      if (a.every(x => typeof x !== "object") && b.every(x => typeof x !== "object")) return [...new Set(a.concat(b))];
+      return a.length >= b.length ? a : b;
+    }
+    if (typeof a === "object" && typeof b === "object" && !Array.isArray(a) && !Array.isArray(b)) {
+      const o = {}; new Set(Object.keys(a).concat(Object.keys(b))).forEach(k => o[k] = mergeVal(a[k], b[k])); return o;
+    }
+    return a;
+  }
+  // Applique la sauvegarde du compte en la fusionnant avec cet appareil (sans recharger la page)
+  function absorb(remote){
+    const data = JSON.parse(remote.data);
+    Object.keys(data).forEach(k => { if (!LOCAL.includes(k)) S[k] = mergeVal(S[k], data[k]); });
+    S.amis.syncAt = remote.at; save(); render();
+  }
   async function cloudCheck(){
     cloud.ready = false;
     try {
@@ -122,7 +145,8 @@ const Amis = (function(){
       }
       if (!remote) { S.amis.link = uid(); cloud.ready = true; return push(true); }
       if (S.amis.link !== uid()) { cloud.offer = remote; return rerender(); } // première connexion sur cet appareil : on demande
-      if (remote.at > (S.amis.syncAt || 0)) return restore(remote, true);
+      // Sauvegarde du compte plus récente (jouée ailleurs) : on la fusionne avec celle-ci au lieu de l'écraser
+      if (remote.at > (S.amis.syncAt || 0)) absorb(remote);
       cloud.ready = true; push(true);
     } catch(e){ cloud.err = true; rerender(); }
   }
@@ -138,10 +162,24 @@ const Amis = (function(){
   function push(now){
     if (!db || !uid() || !cloud.ready || !S.amis || S.amis.link !== uid()) return;
     clearTimeout(cloud.timer);
-    cloud.timer = setTimeout(() => {
-      const data = snapshot(); if (data === cloud.last) return;
-      const at = Date.now();
-      db.doc("saves/" + uid()).set({data, at, lvl:acctLvl().L}).then(() => { cloud.last = data; S.amis.syncAt = at; cloud.err = false; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }).catch(() => { cloud.err = true; });
+    cloud.timer = setTimeout(async () => {
+      if (snapshot() === cloud.last) return;
+      const ref = db.doc("saves/" + uid());
+      try {
+        // Avant d'envoyer : si un autre appareil (ou un autre onglet) a sauvegardé entre-temps, on fusionne d'abord
+        let merged = false, at = 0, data = "";
+        await db.runTransaction(async tx => {
+          const r = await tx.get(ref), remote = r.exists ? r.data() : null;
+          if (remote && remote.at > (S.amis.syncAt || 0) && remote.data !== cloud.last) {
+            const d = JSON.parse(remote.data); Object.keys(d).forEach(k => { if (!LOCAL.includes(k)) S[k] = mergeVal(S[k], d[k]); }); merged = true;
+          }
+          data = snapshot(); at = Math.max(Date.now(), (remote && remote.at || 0) + 1);
+          tx.set(ref, {data, at, lvl:acctLvl().L});
+        });
+        cloud.last = data; S.amis.syncAt = at; cloud.err = false;
+        try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){}
+        if (merged) render();
+      } catch(e){ cloud.err = true; }
     }, now ? 0 : 4000);
   }
   // Avant de fermer l'appli ou de changer d'onglet : on envoie tout de suite

@@ -50,6 +50,17 @@ const Music = (function(){
         if (heat > .6 && i % 2) noise(next, .04, .03 + .05*heat, 4000);
         next += spb; step++; continue;
       }
+      if (mode === "bomb") {
+        // La Bombe : ostinato grave en la mineur, tic-tac, coups sourds ; tout accélère avec la chaleur (heat 0 → 1)
+        const spb = 60/(116 + 74*heat)/2, i = step % 8, bar = Math.floor(step/8), r = [45, 45, 44, 43][bar % 4];
+        tone(r-12, next, spb*.7, "sawtooth", .055, .003);
+        if (i % 2 === 0) tone(r + 12 + [0, 3, 7, 3][(i/2) % 4], next, .12, "square", .016 + .012*heat, .002);
+        tone(i % 2 ? 96 : 89, next, .025, "square", .02 + .015*heat, .001);
+        if (i === 0 || i === 4) thump(next, .13 + .1*heat);
+        if (i === 0 && bar % 2 === 0) [57, 60, 63].forEach(n => tone(n, next, spb*16, "triangle", .016, .2));
+        if (heat > .5 && i % 2) noise(next, .03, .025 + .04*heat, 5000);
+        next += spb; step++; continue;
+      }
       if (mode === "tense") {
         const c = TCH[Math.floor(step/8) % 4], i = step % 8;
         tone(c[0]-12, next, SPB_T*.9, "sawtooth", .045, .004);
