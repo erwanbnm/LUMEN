@@ -66,7 +66,7 @@ async function send(uid, t, msg){
       if (!pref(uid, "remind")) continue;
       const s = await db.doc("saves/" + uid).get();
       try { if (s.exists && (JSON.parse(s.data().data).days || {})[DATE]) continue; } catch(e){}
-      sent += await send(uid, toks[uid], { title: "Lumen t'attend 📚", body: "Viens jouer et te cultiver, pour être moins débile que Dwayne !", url: "./", tag: "remind" });
+      sent += await send(uid, toks[uid], { title: "Lumen t'attend 📚", body: "Viens te cultiver si tu veux pas finir comme Dwayne !", url: "./", tag: "remind" });
     }
     console.log(`après-midi : ${sent}`);
   }
