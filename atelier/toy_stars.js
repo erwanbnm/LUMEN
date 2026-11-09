@@ -121,3 +121,14 @@ STAR_SKINS.forEach(s => { if (STAR_HAT[s.id]) s.hat = STAR_HAT[s.id]; if (s.id =
 SOMNI.noHat = true;
 SHOP_SKINS.concat(SECRETS_ALL()).forEach(s => { if (s.id === "his" || s.id === "lumen") s.noHat = true; });
 function SECRETS_ALL(){ return (typeof SECRET_SKINS !== "undefined" ? SECRET_SKINS : []).concat(typeof ULTRA_SKIN !== "undefined" ? [ULTRA_SKIN] : []); }
+
+/* ---------- Prix de la boutique (novembre 2026, choix d'Erwan) ----------
+   Les prix montent : plus de personnages arrivent, il faut que chacun reste un vrai objectif.
+   Certains personnages de thème ne s'achètent plus : ils se gagnent en jouant (bonnes réponses dans leur thème). */
+const SKIN_PRICE = { spo:600, cin:600, gas:600, art:650, mon:650, lan:650, cap:650, per:700, eco:700, jeu:750, bdm:750, ins:800, myt:800, tec:800,
+  chimiste:1200, roi:1400, prince:1500, fou:1800 };
+const SKIN_UNLOCK = { ani:25, geo:30, cor:30, sci:30, mus:30, his:40, esp:40 }; // nombre de questions différentes réussies dans le thème
+SHOP_SKINS.forEach(s => {
+  if (SKIN_PRICE[s.id]) s.p = SKIN_PRICE[s.id];
+  if (SKIN_UNLOCK[s.id]) { s.unlock = {th:s.th, n:SKIN_UNLOCK[s.id]}; s.p = 0; }
+});

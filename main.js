@@ -35,7 +35,7 @@ const totalOk = () => Object.values(S.q).reduce((a,e) => a + (e.ok||0), 0);
 function unlockSkin(id){
   if (S.skins[id]) return null;
   const sk = skinOf(id); S.skins[id] = today();
-  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
+  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free||sk.unlock?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
   return sk.n;
 }
 function spend(n){ S.st.spent = Math.max(0, (S.st.spent||0) + n); if (S.st.spent >= 1000) unlockSkin("lingot"); }
@@ -296,7 +296,10 @@ function showLevelUp(){
   setTimeout(close, 5200);
   setTimeout(() => { try { el.querySelector(".lv-ok").focus({preventScroll:true}); } catch(e){} }, 400);
 }
+// Personnages de thème gagnés en jouant (atelier/toy_stars.js : SKIN_UNLOCK)
+function checkThemeSkins(){ SHOP_SKINS.forEach(s => { if (s.unlock && !S.skins[s.id] && correctIn(s.unlock.th) >= s.unlock.n) unlockSkin(s.id); }); }
 function checkBadges(){
+  checkThemeSkins();
   if (S.st) checkSecrets();
   checkSucces();
   BADGES.forEach(b => {
@@ -350,7 +353,9 @@ function newSession(mode, extra){
     const facts = F.map((_,i)=>i).filter(i=>F[i][0]===th);
     s.steps = [{k:"fact", i:facts[Math.floor(n/ORDER.length) % facts.length]}].concat(main.map(qStep), mix.map(qStep));
   } else if (mode === "portail") {
-    s.steps = shuffle(portalIds().filter(id => !(S.q[id] && S.q[id].ok > 0)), r).concat(shuffle(portalIds(), r)).filter((id, i, a) => a.indexOf(id) === i).slice(0, 10).map(qStep);
+    // Jamais deux fois la même question : seulement des questions jamais vues, dans un ordre qui dépend du jour
+    // (le même pour tous les joueurs qui ont le même historique)
+    s.steps = portalFresh().sort((a, b) => hash(a + s.date) - hash(b + s.date)).slice(0, 10).map(qStep);
   } else if (mode === "serie") {
     s.diff = S.diff || "mix"; s.steps = diffPick(byTheme(s.theme), 10, r, used, s.diff).map(qStep);
   } else if (mode === "mix") {
@@ -571,6 +576,8 @@ function skinCard(sk, id, mode){
   if (eq) foot = `<span class="chip lamp">Équipé</span>`;
   else if (own) foot = `<button class="btn small ghost" data-equip="${id}">Équiper</button>`;
   else if (sk.free) foot = `<span class="muted" style="font-size:12.5px;text-align:center;line-height:1.25">🔒 ${esc(sk.hint)}</span>`;
+  else if (sk.unlock) { const c = Math.min(correctIn(sk.unlock.th), sk.unlock.n);
+    foot = `<span class="muted" style="font-size:12.5px;text-align:center;line-height:1.25">🔒 ${c}/${sk.unlock.n} bonnes réponses en ${esc(THEMES[sk.unlock.th].n)}</span><span class="meter" style="width:100%"><i style="width:${Math.round(c/sk.unlock.n*100)}%"></i></span>`; }
   else foot = `<button class="btn small" data-buy="${id}" ${S.coins>=sk.p?"":"disabled"}>${coinIco}${sk.p}</button>`;
   const sub = sk.th ? `<span class="chip">${dot(sk.th)}${esc(THEMES[sk.th].n)}</span>` : mode==="secret" ? `<span class="muted">${esc(sk.hint)}</span>` : `<span class="muted">${esc(sk.e||"")}</span>`;
   return `<div class="sk ${own?"own":""} ${mode==="secret"?"secret":""} ${id==="lumen"?"ultra":""}">${creatureSVG(sk, 84)}<b>${esc(sk.n)}</b>${sub}${foot}</div>`;
@@ -596,7 +603,7 @@ function renderShop(){
       <div class="skgrid">${CHARS.map((c,i) => skinCard(c, "b"+i)).join("")}</div>`;
   } else if (shopSeg === "acc") body = renderAcc();
   else if (shopSeg === "ameliorations") body = `<div class="stack">${UPG}</div>`;
-  else body = `<p class="muted">Un personnage par thème. Achète-le avec tes pièces, il devient ton avatar partout dans l'appli.</p>
+  else body = `<p class="muted">Un personnage par thème. Certains s'achètent avec tes pièces, d'autres se gagnent en réussissant des questions de leur thème.</p>
     <div class="label">Édition spéciale · séries & stars</div>
     <div class="skgrid">${STAR_SKINS.map(s => skinCard(s, s.id)).join("")}</div>
     <div class="label">Un personnage par thème</div>
@@ -878,6 +885,7 @@ function renderLibrary(){
    ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
 const PORTAL_GOAL = 7;
 const portalIds = () => Object.keys(Q).filter(id => Q[id][6] && Q[id][6].t === "portal");
+const portalFresh = () => portalIds().filter(id => !S.q[id]); // questions du Portail jamais vues par ce joueur
 // Le même portail pour tout le monde : il dépend seulement de la date (notifs/send.js fait le même calcul pour prévenir).
 // PORTAL_FORCE : jours où Erwan ouvre le portail lui-même, avec l'heure d'ouverture en minutes (14 h 50 = 890).
 const PORTAL_FORCE = {"2026-11-09": 890};
@@ -894,7 +902,8 @@ function portalToday(){
   return S.portal;
 }
 const portalOpen = () => { if (!S.profile) return false; const p = portalToday(), n = new Date(); // tried : un seul essai par ouverture
-  return (p.open || p.force) && !p.tried && n.getHours()*60 + n.getMinutes() >= p.at; };
+  // Sécurité : s'il reste moins de 10 questions jamais vues, le portail reste fermé plutôt que de répéter
+  return (p.open || p.force) && !p.tried && n.getHours()*60 + n.getMinutes() >= p.at && portalFresh().length >= 10; };
 function portalBanner(){
   if (window.__noPortal || !portalOpen() || S.portal.seen || (S.session && !S.session.done && S.tab === "jouer") || document.querySelector(".am-inv.portal")) return;
   S.portal.seen = true; save();

@@ -12,6 +12,10 @@ const path = require("path"), fs = require("fs");
     await page.evaluate(() => document.fonts.ready);
     await page.locator("#ic").screenshot({ path: path.join(out, `icon-${s}.png`) });
   }
+  // Petite icône monochrome des notifications
+  await page.setViewportSize({ width: 96, height: 96 });
+  await page.goto("file://" + path.join(__dirname, "badge.html").replace(/\\/g, "/"));
+  await page.locator("#ic").screenshot({ path: path.join(out, "badge-96.png"), omitBackground: true });
   await browser.close();
   console.log("icônes ->", out);
 })();

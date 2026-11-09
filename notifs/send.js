@@ -90,7 +90,7 @@ async function send(uid, t, msg){
     await metaRef.set({ portal: DATE }, { merge: true });
     let n = 0;
     for (const uid of Object.keys(toks)) if (pref(uid, "portal"))
-      n += await send(uid, toks[uid], { title: "🌀 Le portail s'est ouvert !", body: "10 questions très difficiles, un seul essai, et un personnage secret à gagner. Il se referme à minuit.", url: "./", tag: "portal" });
+      n += await send(uid, toks[uid], { title: "🌀 Le portail est ouvert !", body: "Viens le défier : une récompense est à la clé.", url: "./", tag: "portal" });
     sent += n; console.log(`portail : ${n}`);
   }
 
