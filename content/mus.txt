@@ -123,7 +123,7 @@
 1|Quel Beatles chantait « Yellow Submarine » ?|Ringo Starr|John Lennon|Paul McCartney|George Harrison|C'était le batteur du groupe, qui chantait en général une chanson par album.
 1|Comment s'appelle la voix d'homme la plus grave dans un chœur ?|La basse|Le ténor|Le baryton|L'alto|Le ténor est la plus aiguë des voix d'homme habituelles. L'alto est une voix grave de femme ou d'enfant.
 1|Quel tambour africain en forme de calice se joue à mains nues ?|Le djembé|Le bongo|La darbouka|Le cajón|Il vient d'Afrique de l'Ouest. La darbouka vient du Maghreb et du Moyen-Orient.
-2|Comment s'appelle la petite flûte très aiguë de l'orchestre ?|Le piccolo|Le fifre|Le flageolet|Le galoubet|Il joue une octave au-dessus de la flûte traversière.
+1|Comment s'appelle la petite flûte très aiguë de l'orchestre ?|Le piccolo|Le fifre|Le flageolet|Le galoubet|Il joue une octave au-dessus de la flûte traversière.
 1|Quel instrument à soufflet est le roi des bals musette ?|L'accordéon|L'harmonica|La cornemuse|L'orgue|Inventé au XIXe siècle, il est devenu un symbole de la chanson populaire française.
 1|Quel instrument à tuyaux trouve-t-on dans les églises ?|L'orgue|Le piano|La harpe|Le xylophone|Certains orgues ont des milliers de tuyaux. Le son est produit par de l'air envoyé dans chacun d'eux.
 1|Quelle chanteuse a écrit les paroles de « La Vie en rose » ?|Édith Piaf|Juliette Gréco|Barbara|Dalida|Elle l'a écrite en 1945. La chanson a ensuite été reprise par des artistes du monde entier.
@@ -133,7 +133,7 @@
 1|Quel groupe coréen de sept garçons a chanté « Dynamite » ?|BTS|Blackpink|EXO|Twice|En 2020, ils sont devenus le premier groupe sud-coréen numéro un des ventes aux États-Unis.
 1|Combien de cordes a un ukulélé ?|Quatre|Six|Trois|Cinq|Ce petit instrument hawaïen descend d'une guitare apportée par des immigrés portugais.
 1|Quel instrument est formé de deux disques de métal qu'on frappe l'un contre l'autre ?|Les cymbales|Le triangle|Les castagnettes|Le gong|Les meilleures sont fabriquées en Turquie depuis des siècles.
-2|Quelle chanteuse prête sa voix à Elsa dans la version française de La Reine des neiges ?|Anaïs Delva|Lorie|Louane|Elsa Lunghini|C'est elle qui chante « Libérée, délivrée », l'une des chansons les plus écoutées de Disney.
+1|Quelle chanteuse prête sa voix à Elsa dans la version française de La Reine des neiges ?|Anaïs Delva|Lorie|Louane|Elsa Lunghini|C'est elle qui chante « Libérée, délivrée », l'une des chansons les plus écoutées de Disney.
 2|Quel instrument fait de tubes de longueurs différentes est typique des Andes ?|La flûte de Pan|L'accordéon|La cornemuse|Le didgeridoo|On souffle dans les tubes par le haut. Son nom vient du dieu grec Pan, qui en jouait.
 2|Quelle chanteuse a donné à la France sa dernière victoire à l'Eurovision, en 1977 ?|Marie Myriam|Patricia Kaas|Barbara Pravi|France Gall|Avec « L'Oiseau et l'Enfant ». Depuis, la France est arrivée plusieurs fois deuxième, comme Barbara Pravi en 2021.
 2|Quel groupe britannique a chanté « Yellow » et « Viva la Vida » ?|Coldplay|Oasis|Muse|Radiohead|Le groupe s'est formé à l'université de Londres en 1996. Ses tournées font partie des plus suivies de l'histoire.
