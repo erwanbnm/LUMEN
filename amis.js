@@ -53,7 +53,7 @@ const Amis = (function(){
     loading = false; rerender();
   }
   // Rafraîchit l'écran sans casser une partie en cours
-  function rerender(){ if (!(S.session && !S.session.done && S.tab === "jouer")) { window.__quiet = true; render(); showAsyncInvites(); } else updateDuelBar(); }
+  function rerender(){ if (typeof Boss !== "undefined" && Boss.playing()) return; if (!(S.session && !S.session.done && S.tab === "jouer")) { window.__quiet = true; render(); showAsyncInvites(); } else updateDuelBar(); }
 
   /* --- Écoute en temps réel --- */
   function listen(){
@@ -65,6 +65,7 @@ const Amis = (function(){
     }, () => {}));
     ping(); seenTimer = setInterval(ping, 90000);
     if (typeof Salons !== "undefined") Salons.listen();
+    if (typeof Boss !== "undefined") Boss.listen();
   }
   // Présence + statistiques solo publiées pour les classements (rien qui s'achète avec des pièces)
   function ping(){
@@ -107,7 +108,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;

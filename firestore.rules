@@ -27,6 +27,16 @@ service cloud.firestore {
         && request.resource.data.qids == resource.data.qids
         && request.resource.data.res.diff(resource.data.res).affectedKeys().hasOnly([request.auth.uid]);
     }
+    // Boss de la semaine : un document par semaine, chacun ne modifie que ses propres dégâts, ses jours et ses appels
+    match /bosses/{w} {
+      allow read: if signed();
+      allow create: if signed();
+      allow update: if signed()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["tot", "dmg", "days", "calls", "defeatedAt", "killer"])
+        && (!("dmg" in resource.data) || request.resource.data.dmg.diff(resource.data.dmg).affectedKeys().hasOnly([request.auth.uid]))
+        && (!("days" in resource.data) || request.resource.data.days.diff(resource.data.days).affectedKeys().hasOnly([request.auth.uid]))
+        && (!("calls" in resource.data) || request.resource.data.calls.diff(resource.data.calls).affectedKeys().hasOnly([request.auth.uid]));
+    }
     // Salons privés : l'hôte crée le salon ; un joueur peut s'ajouter lui-même ; les membres font avancer la partie
     match /rooms/{code} {
       allow read: if signed();

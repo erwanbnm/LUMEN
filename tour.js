@@ -150,20 +150,61 @@ const Tour = (() => {
     }
     return `<div class="tw-shaft" id="tw-shaft">${rows}<div class="tw-base"></div></div>`;
   }
-  function board(){
+  // Trophée démoniaque du classement : flammes, lave, visage cornu (dessiné en SVG, flammes animées en CSS)
+  function demonTrophy(size){
+    return `<svg class="dtro" viewBox="0 0 120 140" width="${size}" height="${size*140/120}" aria-hidden="true">
+      <defs><radialGradient id="dtg" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#FF8A2A"/><stop offset=".55" stop-color="#C21E1E"/><stop offset="1" stop-color="#3A0610"/></radialGradient>
+        <linearGradient id="dtb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B2150"/><stop offset="1" stop-color="#0E0614"/></linearGradient>
+        <linearGradient id="dtl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE36A"/><stop offset=".5" stop-color="#FF7A1A"/><stop offset="1" stop-color="#D21E1E"/></linearGradient></defs>
+      <ellipse cx="60" cy="58" rx="58" ry="52" fill="url(#dtg)" opacity=".55" class="dt-aura"/>
+      <g class="dt-fl"><path class="dt-f1" d="M30 40 Q22 22 34 6 Q34 22 44 26 Q42 14 52 2 Q54 18 60 22 Q64 8 74 0 Q72 18 80 24 Q86 12 92 8 Q96 26 88 42Z" fill="url(#dtl)"/>
+        <path class="dt-f2" d="M40 40 Q36 26 44 16 Q46 28 54 30 Q56 18 62 12 Q66 26 72 28 Q78 20 80 16 Q84 30 78 42Z" fill="#FFE36A" opacity=".9"/></g>
+      <path d="M18 34 Q4 30 2 12 Q14 22 26 22Z M102 34 Q116 30 118 12 Q106 22 94 22Z" fill="#1A0A12" stroke="#000" stroke-width="2"/>
+      <path d="M20 34 H100 Q100 70 74 82 L70 96 H50 L46 82 Q20 70 20 34Z" fill="url(#dtb)" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M20 34 Q8 40 10 54 Q12 66 26 66 M100 34 Q112 40 110 54 Q108 66 94 66" fill="none" stroke="#2A1438" stroke-width="7" stroke-linecap="round"/>
+      <path d="M26 40 H94" stroke="#FF5A1A" stroke-width="2.5" opacity=".7"/>
+      <path class="dt-eye" d="M36 50 L52 54 L38 60Z M84 50 L68 54 L82 60Z" fill="#FFD23F"/>
+      <path d="M44 66 Q60 76 76 66 L72 74 L68 68 L64 76 L60 69 L56 76 L52 68 L48 74Z" fill="#FF7A1A" stroke="#000" stroke-width="1.6" stroke-linejoin="round"/>
+      <path class="dt-lava" d="M30 44 Q31 52 29 56 M90 46 Q89 52 91 58 M58 82 Q60 88 58 92" stroke="#FF7A1A" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M50 96 H70 L76 108 H44Z" fill="#2A1438" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="32" y="108" width="56" height="16" rx="4" fill="#1A0A12" stroke="#000" stroke-width="3"/>
+      <path d="M38 116 H82" stroke="#C21E1E" stroke-width="2.5"/><circle cx="60" cy="116" r="3.5" fill="#FF7A1A" class="dt-eye"/>
+      <ellipse cx="60" cy="132" rx="36" ry="5" fill="#000" opacity=".45"/></svg>`;
+  }
+  function rows(){
     const api = (() => { try { return Amis.api; } catch(e){ return null; } })(), me = api && api.uid && api.uid();
-    if (!me) return `<div class="tw-panel"><b>Classement de la semaine</b><p class="tw-muted">Connecte-toi dans l'onglet JcJ pour comparer ta montée avec tes amis.</p></div>`;
+    if (!me) return null;
     const wk = weekId(), users = api.users(), t = T();
-    const rows = Object.keys(users).map(id => { const tw = id === me ? {wk:t.wk, b:t.wbest, t:t.wt, best:t.best} : (users[id].st && users[id].st.tw) || {};
+    return Object.keys(users).map(id => { const tw = id === me ? {wk:t.wk, b:t.wbest, t:t.wt, best:t.best} : (users[id].st && users[id].st.tw) || {};
       return {id, b:tw.wk === wk ? tw.b || 0 : 0, t:tw.wk === wk ? tw.t || 0 : 0, best:tw.best || 0}; })
       .sort((a, b) => b.b - a.b || (a.t || 9e15) - (b.t || 9e15));
+  }
+  // Écran du classement de la semaine (ouvert par le trophée)
+  function rankView(){
+    const api = Amis.api, me = api.uid && api.uid(), R = rows();
+    const back = `<div class="tw-row-h"><button class="quit" data-tw="tower">← Retour à la Tour</button><span class="tw-muted">remis à zéro chaque lundi</span></div>`;
+    if (!R) return `<section class="tw">${sky()}${back}<div class="tw-rank-head">${demonTrophy(120)}<h1 class="tw-h1 sm">Classement</h1></div><div class="tw-panel"><p class="tw-muted" style="margin:0">Connecte-toi dans l'onglet JcJ pour voir le classement de la Tour.</p></div></section>`;
+    const d = new Date(weekId() + "T12:00:00"), lab = `${d.getDate()} ${MOIS[d.getMonth()]}`;
+    const top = R.slice(0, 3), podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="tw-pod p${i + 1} ${top[i].id === me ? "me" : ""}">${api.avatar(top[i].id, i ? 52 : 68)}<b>${esc(api.pseudoOf(top[i].id))}</b><span>${top[i].b ? "Étage " + top[i].b : "—"}</span><div class="tw-pod-step">${i + 1}</div></div>`).join("");
+    const mine = R.findIndex(r => r.id === me);
+    return `<section class="tw tw-rank">${sky()}${back}
+      <div class="tw-rank-head">${demonTrophy(124)}<h1 class="tw-h1 sm">Classement</h1><span class="tw-muted">Semaine du ${lab} · étage le plus haut atteint</span></div>
+      <div class="tw-podium">${podium}</div>
+      <div class="tw-panel">${R.map((r, i) => `<div class="tw-rk ${r.id === me ? "me" : ""}"><span class="tw-pos ${i < 3 ? "p" + (i + 1) : ""}">${i + 1}</span>${api.avatar(r.id, 34)}<div class="tw-rk-n"><b>${esc(api.pseudoOf(r.id))}</b>${api.title(r.id, "xs")}<span class="tw-muted">record : étage ${r.best}</span></div><b class="tw-rk-f">${r.b ? "Étage " + r.b : "—"}</b></div>`).join("")}</div>
+      <p class="tw-muted" style="text-align:center;font-size:12.5px">${mine >= 0 ? `Tu es ${mine + 1}${mine ? "e" : "er"} cette semaine. ` : ""}À égalité, le premier arrivé à l'étage passe devant. Ta progression dans la Tour, elle, n'est jamais effacée.</p></section>`;
+  }
+  function board(){
+    const R = rows();
+    if (!R) return `<div class="tw-panel"><b>Classement de la semaine</b><p class="tw-muted">Connecte-toi dans l'onglet JcJ pour comparer ta montée avec tes amis.</p></div>`;
+    const api = Amis.api, me = api.uid(), rows_ = R;
     return `<div class="tw-panel"><div class="tw-row-h"><b>Classement de la semaine</b><span class="tw-muted">remis à zéro lundi</span></div>
-      ${rows.map((r, i) => `<div class="tw-rk ${r.id === me ? "me" : ""}"><span class="tw-pos ${i < 3 ? "p" + (i + 1) : ""}">${i + 1}</span>${api.avatar(r.id, 34)}<div class="tw-rk-n"><b>${esc(api.pseudoOf(r.id))}</b>${api.title(r.id, "xs")}<span class="tw-muted">record : étage ${r.best}</span></div><b class="tw-rk-f">${r.b ? "Étage " + r.b : "—"}</b></div>`).join("")}</div>`;
+      ${rows_.map((r, i) => `<div class="tw-rk ${r.id === me ? "me" : ""}"><span class="tw-pos ${i < 3 ? "p" + (i + 1) : ""}">${i + 1}</span>${api.avatar(r.id, 34)}<div class="tw-rk-n"><b>${esc(api.pseudoOf(r.id))}</b>${api.title(r.id, "xs")}<span class="tw-muted">record : étage ${r.best}</span></div><b class="tw-rk-f">${r.b ? "Étage " + r.b : "—"}</b></div>`).join("")}</div>`;
   }
   function towerView(){
     const t = T(), next = Math.min(100, t.cp + 1), nextCp = Math.min(100, Math.ceil(next / 10) * 10);
     const claimedSum = Object.keys(t.claimed).reduce((s, k) => s + (CP_REWARD[k] || 0), 0);
     return `<section class="tw">${sky()}
+      <button class="tw-trophy" data-tw="rank" aria-label="Classement de la Tour">${demonTrophy(52)}<span>Classement</span></button>
       <div class="tw-head"><h1 class="tw-h1">La Tour</h1><span class="tw-muted">100 étages · un palier tous les 10</span></div>
       <div class="tw-stats"><div><span>Palier</span><b>${t.cp}</b></div><div><span>Record</span><b>${t.best || 0}</b></div><div><span>Gagné</span><b>${claimedSum}<i class="coin" aria-hidden="true"></i></b></div></div>
       ${t.cp >= 100 ? `<div class="tw-panel tw-goal"><b>Tu as conquis la Tour.</b><span class="tw-muted">Ton nom est gravé au sommet. Ton classement de la semaine compte toujours.</span></div>`
@@ -171,7 +212,7 @@ const Tour = (() => {
           <button class="btn tw-go" data-tw="start">${t.cp ? `Reprendre à l'étage ${next}` : "Commencer l'ascension"}</button>
           <span class="tw-muted" style="font-size:12.5px">Une erreur et tu retombes au dernier palier.</span></div>`}
       ${towerHTML()}
-      ${board()}
+
     </section>`;
   }
   function qView(){
@@ -191,6 +232,7 @@ const Tour = (() => {
   }
   function viewAll(){
     if (run() && view === "q" && Q[run().qid]) return qView();
+    if (view === "rank") return rankView();
     return towerView();
   }
   // Après l'affichage : on fait défiler la tour jusqu'à l'étage du joueur
@@ -204,6 +246,8 @@ const Tour = (() => {
   function click(b){
     const a = b.dataset.tw;
     if (a === "start") return start();
+    if (a === "rank") { view = "rank"; render(); return window.scrollTo(0, 0); }
+    if (a === "tower") { view = "tower"; lastScroll = null; render(); return window.scrollTo(0, 0); }
     if (a === "ans") return choose(+b.dataset.v);
     if (a === "quit") return quit();
   }

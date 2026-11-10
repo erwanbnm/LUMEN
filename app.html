@@ -763,7 +763,7 @@ body.in-tour .tw{background:transparent}
 .tw-rock{position:absolute;width:22px;height:16px;background:linear-gradient(#5A4A72,#241A38);clip-path:polygon(10% 30%,45% 0,90% 20%,100% 70%,60% 100%,0 80%);animation:twFloat 6s ease-in-out infinite}
 .tw-rock.r1{left:6%;top:180px}.tw-rock.r2{right:7%;top:300px;width:30px;height:20px;animation-delay:-2s}.tw-rock.r3{left:10%;top:520px;width:16px;height:12px;animation-delay:-4s}.tw-rock.r4{right:12%;top:700px;animation-delay:-1s}
 @keyframes twFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
-.tw-head{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 10px;text-align:center}
+.tw-head{display:flex;flex-direction:column;align-items:center;gap:2px;margin:86px 0 10px;text-align:center}
 .tw-h1{margin:0;font:900 40px/1 "Bricolage Grotesque",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(#FFE6F2,#FF7AB8 55%,#B03AD8);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #2B1040) drop-shadow(0 0 18px rgba(255,90,170,.45))}
 .tw-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
 .tw-stats div{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:14px;background:rgba(20,10,40,.6);border:1px solid rgba(201,162,255,.25)}
@@ -854,6 +854,132 @@ body.in-tour .tw{background:transparent}
 .tw-ic-bolt{animation:twIcBolt 3s infinite}
 @keyframes twIcBolt{0%,85%,100%{opacity:0}88%,94%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.tw-sky::before,.tw-bolt,.tw-rock,.tw-fl.here,.tw-me,.tw-spire::after,.tw-leaf,.tw-climber,.tw-fall,.tw-coin,.tw-beam,.tw-crown{animation:none!important}}
+
+/* Trophée démoniaque et écran de classement de la Tour */
+.tw-trophy{position:absolute;top:10px;right:10px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 6px 6px;border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(255,90,30,.28),rgba(20,6,20,.75) 70%);border:1.5px solid rgba(255,110,40,.55);box-shadow:0 0 18px rgba(255,80,20,.45),0 4px 0 #000;color:#FFB070;font:800 10px "Bricolage Grotesque",sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.tw-trophy:active{transform:translateY(2px)}
+.dtro .dt-f1{transform-origin:60px 40px;animation:dtFlame 1.1s ease-in-out infinite alternate}
+.dtro .dt-f2{transform-origin:60px 40px;animation:dtFlame .8s ease-in-out infinite alternate-reverse}
+@keyframes dtFlame{0%{transform:scaleY(.86) skewX(-3deg);opacity:.85}100%{transform:scaleY(1.08) skewX(3deg);opacity:1}}
+.dtro .dt-eye{animation:dtEye 1.8s ease-in-out infinite}
+@keyframes dtEye{50%{fill:#FF4A1A;filter:drop-shadow(0 0 4px #FF4A1A)}}
+.dtro .dt-lava{stroke-dasharray:6 30;animation:dtLava 2.4s linear infinite}
+@keyframes dtLava{to{stroke-dashoffset:-36}}
+.dtro .dt-aura{animation:dtAura 2.2s ease-in-out infinite}
+@keyframes dtAura{50%{opacity:.85}}
+.tw-rank-head{display:flex;flex-direction:column;align-items:center;gap:4px;margin:8px 0 14px;text-align:center}
+.tw-rank-head .dtro{filter:drop-shadow(0 0 22px rgba(255,80,20,.6))}
+.tw-h1.sm{font-size:32px;background:linear-gradient(#FFE0B0,#FF7A2A 55%,#C21E1E);-webkit-background-clip:text;background-clip:text}
+.tw-podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:0 0 14px}
+.tw-pod{display:flex;flex-direction:column;align-items:center;gap:2px;width:96px;text-align:center}
+.tw-pod b{font:800 13px "Bricolage Grotesque",sans-serif;max-width:96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tw-pod span{font:700 11.5px "IBM Plex Mono",monospace;color:#FFB070}
+.tw-pod-step{width:100%;margin-top:4px;border-radius:12px 12px 4px 4px;display:grid;place-items:start center;padding-top:4px;font:900 26px "Bricolage Grotesque",sans-serif;color:#1A0A12;box-shadow:inset 0 -6px 0 rgba(0,0,0,.25)}
+.tw-pod.p1 .tw-pod-step{height:78px;background:linear-gradient(#FF9A3A,#C21E1E);box-shadow:0 0 20px rgba(255,90,30,.6),inset 0 -6px 0 rgba(0,0,0,.25)}
+.tw-pod.p2 .tw-pod-step{height:58px;background:linear-gradient(#B8A0E0,#5A3A8C)}
+.tw-pod.p3 .tw-pod-step{height:44px;background:linear-gradient(#8A5A4A,#4A2A22)}
+.tw-pod.me b{color:#FF8AC0}
+@media (prefers-reduced-motion:reduce){.dtro *{animation:none!important}}
+
+/* ---------- Boss de la semaine ---------- */
+.bs-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:2px solid color-mix(in srgb,var(--lamp) 55%,transparent);background:linear-gradient(135deg,color-mix(in srgb,#C21E1E 18%,var(--surface)),var(--surface));text-align:left;color:inherit;cursor:pointer}
+.bs-card-art{flex:none;filter:drop-shadow(0 4px 8px rgba(194,30,30,.4))}
+.bs-stage{position:relative;display:grid;place-items:center;min-height:240px;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 70%,#3A1450,#140A24 75%)}
+.bs-stage.sm{min-height:170px}
+.bs-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--bc) 45%,transparent),transparent 65%);animation:bsGlow 3s ease-in-out infinite}
+@keyframes bsGlow{50%{opacity:.6}}
+.bs-art{position:relative}
+.bs-idle{animation:bsIdle 3.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes bsIdle{50%{transform:translateY(-4px) scaleY(1.02)}}
+.bs-art .bs-eye{animation:bsEye 2s ease-in-out infinite}
+@keyframes bsEye{50%{filter:drop-shadow(0 0 6px #FF2A2A)}}
+.bs-stage.hit .bs-art{animation:bsHit .45s ease-out}
+.bs-stage.hit::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 60%);animation:bsFlash .4s ease-out forwards}
+@keyframes bsHit{0%{transform:translateX(0)}20%{transform:translateX(-12px) rotate(-4deg);filter:brightness(2) saturate(.3)}45%{transform:translateX(10px) rotate(3deg)}70%{transform:translateX(-5px)}100%{transform:none}}
+@keyframes bsFlash{to{opacity:0}}
+.bs-dmg{position:absolute;top:18%;right:22%;font:900 42px "Bricolage Grotesque",sans-serif;color:#FFD23F;text-shadow:0 3px 0 #8A1414,0 0 16px rgba(255,80,40,.8);animation:bsDmg 1s ease-out forwards}
+@keyframes bsDmg{0%{transform:translateY(10px) scale(.4);opacity:0}25%{transform:translateY(0) scale(1.25);opacity:1}100%{transform:translateY(-36px) scale(1);opacity:0}}
+.bs-stage.dead .bs-art{filter:grayscale(1) brightness(.5);transform:rotate(-8deg) translateY(16px)}
+.bs-hp{position:relative;height:22px;border-radius:12px;background:#2A1430;border:2px solid #1E1030;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+.bs-hp.big{height:28px}
+.bs-hp i{position:absolute;inset:0 auto 0 0;background:linear-gradient(180deg,#FF6A6A,#C21E1E);transition:width .6s cubic-bezier(.3,1.4,.5,1);box-shadow:inset 0 3px 0 rgba(255,255,255,.35)}
+.bs-hp span{position:relative;display:grid;place-items:center;height:100%;font:800 12.5px "IBM Plex Mono",monospace;color:#fff;text-shadow:0 1px 2px #000}
+.bs-go{background:linear-gradient(180deg,#FF5A3A,#B8141E);box-shadow:0 5px 0 #5A0A10,0 0 22px rgba(255,80,40,.45)}
+.bs-days{display:flex;flex-direction:column;gap:4px}
+.bs-days div{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:10px;background:var(--surface-2);min-width:0}
+.bs-days b{flex:none;width:34px;font:800 11.5px "IBM Plex Mono",monospace}
+.bs-days span{font-size:13.5px;line-height:1.3;color:var(--muted)}
+.bs-days .on{outline:2px solid var(--lamp);background:color-mix(in srgb,var(--lamp) 16%,var(--surface-2))}
+.bs-days .past{opacity:.5}
+.bs-defeat{position:fixed;inset:0;z-index:88;display:grid;place-items:center;background:rgba(10,4,18,.85);animation:fade .3s both}
+.bs-defeat-card{display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;text-align:center}
+.bs-defeat-card .bs-art{animation:bsDie 1.6s ease-in forwards}
+.bs-defeat-card b{font:900 26px "Bricolage Grotesque",sans-serif}
+.bs-defeat-card span{font:900 40px "Bricolage Grotesque",sans-serif;color:#FFD23F;text-shadow:0 3px 0 #8A1414;animation:podTitle .5s .6s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes bsDie{0%{transform:none}30%{transform:translateX(-10px) rotate(-4deg)}60%{transform:translateX(10px) rotate(4deg);filter:brightness(2)}100%{transform:translateY(40px) rotate(-12deg) scale(.85);filter:grayscale(1) brightness(.4);opacity:.6}}
+.bs-reward-art{filter:grayscale(.6)}
+@media (prefers-reduced-motion:reduce){.bs-glow,.bs-idle,.bs-art .bs-eye,.bs-stage.hit .bs-art,.bs-dmg,.bs-defeat-card .bs-art{animation:none!important}}
+
+/* ---------- Arène de combat du Boss ---------- */
+.ar{display:flex;flex-direction:column;gap:10px}
+.ar-scene{position:relative;height:min(47vh,430px);min-height:340px;border-radius:24px;overflow:hidden;isolation:isolate;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 0 0 2px rgba(201,162,255,.25)}
+.ar-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.ar-bg .ar-spin{transform-origin:0 0;animation:arSpin 22s linear infinite}
+@keyframes arSpin{to{transform:rotate(360deg)}}
+.ar-bg .ar-line{animation:arLine 2.6s ease-in-out infinite}
+@keyframes arLine{50%{stroke-opacity:.45}}
+.ar-bg .ar-core{animation:arCore 1.8s ease-in-out infinite}
+@keyframes arCore{50%{fill-opacity:.6}}
+.ar-bg .ar-orb{transform-box:fill-box;transform-origin:center;animation:arOrb 3s ease-in-out infinite}
+@keyframes arOrb{50%{transform:scale(1.06);filter:brightness(1.3)}}
+.ar-bg .ar-orbring{transform-box:fill-box;transform-origin:center;animation:arSpin 14s linear infinite}
+.ar-bg .ar-glow{animation:arCore 3.4s ease-in-out infinite}
+.ar-bg .ar-crystal{animation:arCrys 1.6s ease-in-out infinite alternate}
+@keyframes arCrys{to{opacity:.7;filter:brightness(1.4)}}
+.ar-ember{position:absolute;bottom:-6px;width:4px;height:4px;border-radius:50%;background:#FFB060;box-shadow:0 0 8px #FF7A2A;z-index:1;animation:arEmber 5s linear infinite;opacity:0}
+@keyframes arEmber{0%{transform:translateY(0);opacity:0}15%{opacity:.9}100%{transform:translate(18px,-380px);opacity:0}}
+.ar-top{position:absolute;left:10px;right:10px;top:8px;z-index:5;display:flex;flex-direction:column;gap:4px;padding:8px 10px;border-radius:14px;background:linear-gradient(180deg,rgba(10,4,20,.82),rgba(10,4,20,.55));border:1px solid rgba(201,162,255,.25)}
+.ar-bname{font:900 15px "Bricolage Grotesque",sans-serif;color:#fff;text-shadow:0 2px 0 #000}
+.ar-mydmg{font:700 11.5px "IBM Plex Mono",monospace;color:#FFD23F}
+.ar-boss{position:absolute;left:50%;top:21%;transform:translateX(-50%);width:46%;max-width:210px;z-index:2;display:grid;place-items:center}
+.ar-boss svg{width:100%;height:auto}
+.ar-bshadow{position:absolute;bottom:6%;left:12%;right:12%;height:14%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent)}
+.ar-hero{position:absolute;bottom:5%;width:27%;max-width:118px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center}
+.ar-hero:not(.atk){transform:translateX(-50%)}
+.ar-hero.atk{z-index:6}
+.ar-body{position:relative;animation:arBob 2.4s ease-in-out infinite}
+.ar-hero[data-i="0"] .ar-body{animation-delay:-.8s}.ar-hero[data-i="2"] .ar-body{animation-delay:-1.6s}
+@keyframes arBob{50%{transform:translateY(-5px)}}
+.ar-body svg:first-child{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.ar-hero.me .ar-body svg:first-child{filter:drop-shadow(0 0 10px rgba(255,95,162,.8)) drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.ar-sword{position:absolute;right:-12%;bottom:18%;width:34%;height:auto;transform-origin:50% 92%;transform:rotate(-20deg);filter:drop-shadow(0 0 4px rgba(255,255,255,.6))}
+.ar-hshadow{position:absolute;bottom:8px;left:18%;right:18%;height:12px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent)}
+.ar-tag{margin-top:-4px;max-width:100%;padding:1px 8px;border-radius:8px;background:rgba(10,4,20,.75);color:#fff;font:800 11px "Bricolage Grotesque",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid rgba(255,255,255,.2)}
+.ar-hero.me .ar-tag{background:var(--lamp)}
+.ar-fx{position:absolute;inset:0;z-index:7;pointer-events:none}
+.ar-slash{position:absolute;width:180px;height:180px}
+.ar-slash .ar-arc{stroke-dasharray:420;stroke-dashoffset:420;animation:arSlash .45s ease-out forwards;filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px var(--bc))}
+@keyframes arSlash{60%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-420;opacity:0}}
+.ar-burst{position:absolute;width:100px;height:100px;animation:arBurst .5s ease-out forwards}
+@keyframes arBurst{0%{transform:scale(.2) rotate(0);opacity:1}100%{transform:scale(1.6) rotate(40deg);opacity:0}}
+.ar-spark{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:#FFE36A;box-shadow:0 0 8px #FFB020;animation:arSpark .6s ease-out forwards}
+@keyframes arSpark{to{transform:translate(var(--sx),var(--sy)) scale(.3);opacity:0}}
+.ar-dmg{position:absolute;transform:translateX(-50%);font:900 46px "Bricolage Grotesque",sans-serif;color:#FFD23F;text-shadow:0 3px 0 #8A1414,0 0 18px rgba(255,80,40,.9);animation:arDmg 1s ease-out forwards}
+@keyframes arDmg{0%{transform:translate(-50%,10px) scale(.4);opacity:0}25%{transform:translate(-50%,0) scale(1.3);opacity:1}100%{transform:translate(-50%,-50px) scale(1);opacity:0}}
+.ar-redflash{position:absolute;inset:0;background:radial-gradient(circle at 50% 80%,rgba(255,40,40,.55),transparent 70%);animation:fade .25s reverse forwards}
+.ar-victory{position:absolute;inset:0;z-index:8;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:radial-gradient(circle,rgba(255,220,120,.35),transparent 70%);animation:fade .4s .8s both}
+.ar-victory b{font:900 52px "Bricolage Grotesque",sans-serif;letter-spacing:.06em;background:linear-gradient(#FFF6C8,#FFD23F 50%,#E08A00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #5A2A00)}
+.ar-victory span{color:#fff;font-weight:800;text-shadow:0 2px 0 #000}
+.ar-panel{padding:12px 14px;margin-top:-30px;position:relative;z-index:3;border:1.5px solid rgba(201,162,255,.35)}
+.ar-panel h2{font-size:17px;margin:8px 0}
+.ar-meta{display:flex;align-items:center;gap:8px;font:700 13px "IBM Plex Mono",monospace}
+.ar-choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ar-choices .choice{min-height:54px;padding:8px 10px 8px 40px;font-size:14.5px;line-height:1.2}
+.ar-choices .choice::before{width:24px;height:24px;font-size:12px;left:9px}
+.ar-miss{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.ar-quit{align-self:center;border:0;background:none;color:var(--muted);font:600 12px "IBM Plex Mono",monospace;text-decoration:underline;padding:4px}
+@media (min-width:700px){.ar-scene{height:min(60vh,520px)}}
+@media (prefers-reduced-motion:reduce){.ar-bg *,.ar-ember,.ar-body,.ar-slash .ar-arc,.ar-burst,.ar-spark,.ar-dmg{animation:none!important}}
 /* ---------- Salons privés : La Bombe et le Quiz à plusieurs ---------- */
 .sl-code{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;letter-spacing:.18em;color:var(--lamp)}
 .sl-seg{display:flex;gap:6px;flex-wrap:wrap}
