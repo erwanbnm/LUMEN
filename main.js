@@ -341,6 +341,8 @@ function checkBadges(){
 }
 
 /* ---------- Réponses : mémoire, XP, pièces ---------- */
+// Multiplicateur des potions (Double XP / Double pièces) : seulement sur les gains des bonnes réponses
+const PM = t => typeof Potions !== "undefined" ? Potions.mult(t) : 1;
 function answer(id, ok, combo){
   const t = T(), e = S.q[id] || {b:0, ok:0, ko:0};
   const firstWin = ok && !e.ok;
@@ -350,8 +352,8 @@ function answer(id, ok, combo){
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
-  const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35));
-  const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1);
+  const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
+  const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1) * PM("coin");
   S.xp[th] = (S.xp[th]||0) + xp; S.coins += coins;
   const after = themeLvl(th).L, accAfter = acctLvl().L;
   if (after > before) levelUp(after, THEMES[th].n, `Tu deviens ${rank(after)}.`);
@@ -484,7 +486,7 @@ function header(){
   const p = S.profile;
   const A = acctLvl(), st = streak();
   return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
-    <div class="pills"><span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
+    <div class="pills">${typeof Potions !== "undefined" ? Potions.pill() : ""}<span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
 
@@ -513,6 +515,7 @@ function render(){
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
   if (typeof portalBanner === "function") setTimeout(portalBanner, 900);
+  if (typeof Calendrier !== "undefined") setTimeout(Calendrier.auto, 1700);
 }
 setInterval(() => { try { if (S && S.profile) { const was = document.querySelector(".portal-card"); if (portalOpen() && !was && S.tab === "accueil" && !S.session) render(); portalBanner(); } } catch(e){} }, 60000);
 
@@ -557,6 +560,7 @@ function renderHome(){
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
     ${portalCard()}
+    ${typeof Calendrier !== "undefined" ? Calendrier.card() : ""}
     ${rescueCard()}
     ${dailyCard()}
     ${typeof Quetes !== "undefined" ? Quetes.card() : missionsCard()}
@@ -992,7 +996,7 @@ function renderLibrary(){
 }
 
 /* ---------- Le Portail : événement surprise ----------
-   Certains jours (6 sur 10), le portail s'ouvre à une heure au hasard entre 9 h et 18 h, jusqu'à minuit.
+   Tous les jours (depuis le 10 novembre 2026, demande d'Erwan), le portail s'ouvre à une heure au hasard entre 9 h et 18 h, jusqu'à minuit.
    Un pop-up prévient le joueur. 10 questions très difficiles (content/extra/portail.txt) : 7 bonnes réponses
    ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
 const PORTAL_GOAL = 7;
@@ -1000,11 +1004,12 @@ const portalIds = () => Object.keys(Q).filter(id => Q[id][6] && Q[id][6].t === "
 const portalFresh = () => portalIds().filter(id => !S.q[id]); // questions du Portail jamais vues par ce joueur
 // Le même portail pour tout le monde : il dépend seulement de la date (notifs/send.js fait le même calcul pour prévenir).
 // PORTAL_FORCE : jours où Erwan ouvre le portail lui-même, avec l'heure d'ouverture en minutes (14 h 50 = 890).
-const PORTAL_FORCE = {"2026-11-09": 890};
+const PORTAL_FORCE = {"2026-11-09": 890, "2026-11-10": 0};
 function portalPlan(d){
   if (PORTAL_FORCE[d] !== undefined) return {open:true, at:PORTAL_FORCE[d]};
   const r = rng(dayNum(d) * 7919);
-  return {open:r() < .6, at:9*60 + Math.floor(r() * 9*60)};
+  r(); // (ancien tirage « ouvert ou pas » : gardé pour ne pas changer les heures d'ouverture)
+  return {open:true, at:9*60 + Math.floor(r() * 9*60)};
 }
 function portalToday(){
   const d = today();
@@ -1148,7 +1153,7 @@ function onClick(e){
     const A = EV[s.a], B = EV[s.b]; s.ans = d.av;
     s.ok = (d.av==="before") === (B[1] < A[1]);
     if (s.ok) {
-      s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5; s.xp = (s.xp||0)+5; S.coins += 1;
+      s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5*PM("xp"); s.xp = (s.xp||0)+5*PM("xp"); S.coins += PM("coin");
       if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMiss = [s.b, B[1] < A[1] ? "avant" : "après", s.a];
     feedback(s.ok, s.score);
@@ -1163,7 +1168,7 @@ function onClick(e){
     s.ans = "year"; s.guess = y; s.diff = diff; s.ok = diff <= tol; s.exact = diff <= 1; delete s.yerr; delete s.yv;
     if (s.ok) {
       s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L, gain = s.exact ? 15 : 8;
-      S.xp[th] = (S.xp[th]||0)+gain; s.xp = (s.xp||0)+gain; S.coins += s.exact ? 5 : 2;
+      S.xp[th] = (S.xp[th]||0)+gain*PM("xp"); s.xp = (s.xp||0)+gain*PM("xp"); S.coins += (s.exact ? 5 : 2) * PM("coin");
       if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMissY = [s.b, y];
     if (S.settings.sfx !== false) { try { Music.sfx(s.exact ? "exact" : s.ok ? "ok" : "ko"); } catch(err){} }
@@ -1181,6 +1186,8 @@ function onClick(e){
   if (d.mot !== undefined) { if (!S.mots) S.mots = {}; S.mots[+d.mot] = today(); checkSucces(); toasts.push(`<b>Mot gardé</b> · il t'attend dans ton carnet.`); save(); return render(); }
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
+  if (d.cal === "open") return Calendrier.open();
+  if (d.pot === "open") return Potions.sheet();
   if (d.bq !== undefined) return Boutique.click(b);
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
   if (d.tbuy) { const t = titleById(d.tbuy); S.titles = S.titles || {};

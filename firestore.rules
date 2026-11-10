@@ -49,6 +49,19 @@ service cloud.firestore {
         allow create: if signed() && request.resource.data.u == request.auth.uid;
       }
     }
+    // Calendrier de connexion : l'heure vient du serveur (request.time). Une récupération par jour, numérotées 1, 2, 3…
+    match /clock/{u} {
+      allow read: if signed() && request.auth.uid == u;
+      allow write: if signed() && request.auth.uid == u && request.resource.data.t == request.time;
+    }
+    match /logins/{u} {
+      function today() { return int((request.time.toMillis() + 3600000) / 86400000); }
+      allow read: if signed() && request.auth.uid == u;
+      allow create: if signed() && request.auth.uid == u && request.resource.data.at == request.time
+        && request.resource.data.day == today() && request.resource.data.n == 1;
+      allow update: if signed() && request.auth.uid == u && request.resource.data.at == request.time
+        && request.resource.data.day == today() && today() > resource.data.day && request.resource.data.n == resource.data.n + 1;
+    }
     // Guildes : 5 membres maximum. Le chef gère tout, le bras droit accepte et invite, un membre invite et peut partir.
     match /guildNames/{n} {
       allow read: if signed();

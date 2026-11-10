@@ -1240,6 +1240,53 @@ body.in-tour .tw{background:transparent}
 .bq-filters .chip-btn{padding:6px 10px;font:800 12.5px "Nunito",sans-serif}
 .bq-card .bq-n,.bq-cond,.bq-how{font-family:"Nunito",sans-serif}
 @media (prefers-reduced-motion:reduce){.bq-card::before{animation:none!important}}
+
+/* ---------- Calendrier de connexion et potions ---------- */
+.cal-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;color:inherit;cursor:pointer;border:2px solid var(--line)}
+.cal-card.ready{border-color:#E2283A;box-shadow:0 0 0 3px rgba(226,40,58,.18);animation:calPulse 2s ease-in-out infinite}
+@keyframes calPulse{50%{box-shadow:0 0 0 3px rgba(226,40,58,.18),0 0 22px rgba(255,210,63,.45)}}
+.cal-card-ic{flex:none}
+.cal-veil{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(14,6,24,.62);backdrop-filter:blur(3px);animation:calIn .25s ease-out}
+@keyframes calIn{from{opacity:0}}
+.cal-box{position:relative;width:min(440px,100%);max-height:92vh;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 14px 16px;border-radius:24px;color:#3A2410;
+  background:linear-gradient(180deg,#F7EAD0,#E8D2A4);border:3px solid #2E1A0C;box-shadow:inset 0 0 28px rgba(138,84,40,.35),0 8px 0 #2E1A0C;animation:calPop .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes calPop{from{transform:scale(.85);opacity:0}}
+.cal-box .am-x{color:#3A2410}
+.cal-title{font:800 22px var(--f-display);text-align:center}
+.cal-sub{font-size:12.5px;text-align:center;color:#7A5430!important}
+.cal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;margin:4px 0}
+.cal-t{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px 5px;border-radius:12px;background:linear-gradient(#FFF6DE,#F0DDB4);border:2px solid #8A5428;box-shadow:0 3px 0 #8A5428;min-height:84px;justify-content:space-between}
+.cal-t.big{grid-column:span 2;background:linear-gradient(#FFE58A,#E8B820);border-color:#8A6400;box-shadow:0 3px 0 #8A6400,0 0 14px rgba(255,210,63,.5)}
+.cal-d{font:800 10.5px "IBM Plex Mono",monospace;color:#7A5430}
+.cal-l{font:800 9.5px "Nunito",sans-serif;line-height:1.1;text-align:center;color:#5A3A1E}
+.cal-ic{display:grid;place-items:center;min-height:30px}
+.cal-t.lock{filter:grayscale(.55) brightness(.92);opacity:.78}
+.cal-t.got{background:linear-gradient(#E6F6EA,#BFE6CC);border-color:#2E8A4A;box-shadow:0 3px 0 #2E8A4A}
+.cal-t.got .cal-ic{opacity:.45}
+.cal-ok{position:absolute;inset:auto auto 50% 50%;transform:translate(-50%,50%);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#2BB673;color:#fff;font-weight:900;border:2px solid #0E4A2A}
+.cal-lk{position:absolute;top:2px;right:3px;font-size:10px}
+.cal-t.now,.cal-t.today{border-color:#E2283A;box-shadow:0 3px 0 #8A101E,0 0 0 3px rgba(226,40,58,.25),0 0 18px rgba(255,210,63,.65);transform:translateY(-2px)}
+.cal-t.now{animation:calNow 1.4s ease-in-out infinite}
+@keyframes calNow{50%{transform:translateY(-4px) scale(1.04)}}
+.cal-t.opening{animation:calOpen .55s ease-in-out forwards}
+@keyframes calOpen{0%{transform:scale(1)}30%{transform:scale(1.18) rotate(-6deg)}60%{transform:scale(1.18) rotate(6deg)}100%{transform:scale(1)}}
+.cal-coins{position:relative;display:inline-block;width:var(--z);height:var(--z)}
+.cal-coins i{position:absolute;left:12%;width:76%;height:34%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFF6B0,#FFD23F 45%,#C8860A);border:2px solid #7A5000}
+.cal-coins i:nth-child(1){bottom:0}.cal-coins i:nth-child(2){bottom:26%}.cal-coins i:nth-child(3){bottom:52%}
+.cal-go{width:100%;margin-top:4px}
+.cal-burst{position:absolute;inset:0;z-index:3;display:grid;place-items:center;overflow:hidden;border-radius:22px;background:radial-gradient(circle,rgba(255,236,160,.75),rgba(247,234,208,.2) 60%);animation:calIn .2s}
+.cal-burst.out{opacity:0;transition:opacity .35s}
+.cal-win{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 20px;border-radius:20px;background:#FFF6DE;border:3px solid #2E1A0C;box-shadow:0 6px 0 #2E1A0C;animation:calPop .4s cubic-bezier(.3,1.7,.5,1);text-align:center;max-width:80%}
+.cal-win b{font:800 20px var(--f-display);color:#3A2410}.cal-win span{font-size:12.5px;color:#7A5430}
+.pill.pot{display:inline-flex;align-items:center;gap:3px;padding:4px 6px}
+.pot-i{display:inline-flex;align-items:center;gap:2px}
+.pot-i.on b{font:800 11px "IBM Plex Mono",monospace;color:#9A4AD8}
+.pot-i.on svg{filter:drop-shadow(0 0 4px rgba(255,210,63,.9))}
+.pot-svg.off{filter:grayscale(1) opacity(.45)}
+.pot-box{align-items:stretch;gap:12px}
+.pot-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,246,222,.75);border:2px solid rgba(138,84,40,.45)}
+.pot-st{font-size:12px;font-weight:800;color:#7A5430}
+@media (prefers-reduced-motion:reduce){.cal-card,.cal-t.now,.cal-t.opening,.cal-box,.cal-win{animation:none!important}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
@@ -3969,6 +4016,8 @@ function checkBadges(){
 }
 
 /* ---------- Réponses : mémoire, XP, pièces ---------- */
+// Multiplicateur des potions (Double XP / Double pièces) : seulement sur les gains des bonnes réponses
+const PM = t => typeof Potions !== "undefined" ? Potions.mult(t) : 1;
 function answer(id, ok, combo){
   const t = T(), e = S.q[id] || {b:0, ok:0, ko:0};
   const firstWin = ok && !e.ok;
@@ -3978,8 +4027,8 @@ function answer(id, ok, combo){
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
-  const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35));
-  const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1);
+  const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
+  const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1) * PM("coin");
   S.xp[th] = (S.xp[th]||0) + xp; S.coins += coins;
   const after = themeLvl(th).L, accAfter = acctLvl().L;
   if (after > before) levelUp(after, THEMES[th].n, `Tu deviens ${rank(after)}.`);
@@ -4112,7 +4161,7 @@ function header(){
   const p = S.profile;
   const A = acctLvl(), st = streak();
   return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
-    <div class="pills"><span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
+    <div class="pills">${typeof Potions !== "undefined" ? Potions.pill() : ""}<span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
 
@@ -4141,6 +4190,7 @@ function render(){
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
   if (typeof portalBanner === "function") setTimeout(portalBanner, 900);
+  if (typeof Calendrier !== "undefined") setTimeout(Calendrier.auto, 1700);
 }
 setInterval(() => { try { if (S && S.profile) { const was = document.querySelector(".portal-card"); if (portalOpen() && !was && S.tab === "accueil" && !S.session) render(); portalBanner(); } } catch(e){} }, 60000);
 
@@ -4185,6 +4235,7 @@ function renderHome(){
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
     ${portalCard()}
+    ${typeof Calendrier !== "undefined" ? Calendrier.card() : ""}
     ${rescueCard()}
     ${dailyCard()}
     ${typeof Quetes !== "undefined" ? Quetes.card() : missionsCard()}
@@ -4620,7 +4671,7 @@ function renderLibrary(){
 }
 
 /* ---------- Le Portail : événement surprise ----------
-   Certains jours (6 sur 10), le portail s'ouvre à une heure au hasard entre 9 h et 18 h, jusqu'à minuit.
+   Tous les jours (depuis le 10 novembre 2026, demande d'Erwan), le portail s'ouvre à une heure au hasard entre 9 h et 18 h, jusqu'à minuit.
    Un pop-up prévient le joueur. 10 questions très difficiles (content/extra/portail.txt) : 7 bonnes réponses
    ou plus débloquent un des 8 personnages du Portail, tiré au sort parmi ceux qu'on n'a pas encore. Un essai par ouverture. */
 const PORTAL_GOAL = 7;
@@ -4628,11 +4679,12 @@ const portalIds = () => Object.keys(Q).filter(id => Q[id][6] && Q[id][6].t === "
 const portalFresh = () => portalIds().filter(id => !S.q[id]); // questions du Portail jamais vues par ce joueur
 // Le même portail pour tout le monde : il dépend seulement de la date (notifs/send.js fait le même calcul pour prévenir).
 // PORTAL_FORCE : jours où Erwan ouvre le portail lui-même, avec l'heure d'ouverture en minutes (14 h 50 = 890).
-const PORTAL_FORCE = {"2026-11-09": 890};
+const PORTAL_FORCE = {"2026-11-09": 890, "2026-11-10": 0};
 function portalPlan(d){
   if (PORTAL_FORCE[d] !== undefined) return {open:true, at:PORTAL_FORCE[d]};
   const r = rng(dayNum(d) * 7919);
-  return {open:r() < .6, at:9*60 + Math.floor(r() * 9*60)};
+  r(); // (ancien tirage « ouvert ou pas » : gardé pour ne pas changer les heures d'ouverture)
+  return {open:true, at:9*60 + Math.floor(r() * 9*60)};
 }
 function portalToday(){
   const d = today();
@@ -4776,7 +4828,7 @@ function onClick(e){
     const A = EV[s.a], B = EV[s.b]; s.ans = d.av;
     s.ok = (d.av==="before") === (B[1] < A[1]);
     if (s.ok) {
-      s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5; s.xp = (s.xp||0)+5; S.coins += 1;
+      s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L; S.xp[th] = (S.xp[th]||0)+5*PM("xp"); s.xp = (s.xp||0)+5*PM("xp"); S.coins += PM("coin");
       if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMiss = [s.b, B[1] < A[1] ? "avant" : "après", s.a];
     feedback(s.ok, s.score);
@@ -4791,7 +4843,7 @@ function onClick(e){
     s.ans = "year"; s.guess = y; s.diff = diff; s.ok = diff <= tol; s.exact = diff <= 1; delete s.yerr; delete s.yv;
     if (s.ok) {
       s.score++; misEvent("avap", s.score); const th = B[2], bef = themeLvl(th).L, gain = s.exact ? 15 : 8;
-      S.xp[th] = (S.xp[th]||0)+gain; s.xp = (s.xp||0)+gain; S.coins += s.exact ? 5 : 2;
+      S.xp[th] = (S.xp[th]||0)+gain*PM("xp"); s.xp = (s.xp||0)+gain*PM("xp"); S.coins += (s.exact ? 5 : 2) * PM("coin");
       if (themeLvl(th).L > bef) levelUp(themeLvl(th).L, THEMES[th].n, `Tu deviens ${rank(themeLvl(th).L)}.`);
     } else s.lastMissY = [s.b, y];
     if (S.settings.sfx !== false) { try { Music.sfx(s.exact ? "exact" : s.ok ? "ok" : "ko"); } catch(err){} }
@@ -4809,6 +4861,8 @@ function onClick(e){
   if (d.mot !== undefined) { if (!S.mots) S.mots = {}; S.mots[+d.mot] = today(); checkSucces(); toasts.push(`<b>Mot gardé</b> · il t'attend dans ton carnet.`); save(); return render(); }
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
+  if (d.cal === "open") return Calendrier.open();
+  if (d.pot === "open") return Potions.sheet();
   if (d.bq !== undefined) return Boutique.click(b);
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
   if (d.tbuy) { const t = titleById(d.tbuy); S.titles = S.titles || {};
@@ -4926,7 +4980,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0), typeof Calendrier !== "undefined" && setTimeout(Calendrier.sync, 800)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
@@ -4986,7 +5040,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView", "calSeen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -7404,6 +7458,163 @@ const Boutique = (() => {
     render();
   }
   return {shopView, collectionView, click, buyable, ev, check, info, daily, featured, RAR};
+})();
+
+/* ---------- Potions (Double XP, Double pièces) et calendrier de connexion de 14 jours (novembre 2026) ----------
+   Potions : un exemplaire maximum de chaque type. Activées quand le joueur le décide, elles durent 30 minutes et
+   doublent l'XP ou les pièces des bonnes réponses (pas les coffres, badges ni paliers). Impossible d'en relancer
+   une du même type tant qu'elle est active. Stockage en dates (obtenue / utilisée / fin) : la synchro entre
+   appareils garde le plus grand nombre, donc des dates ne peuvent pas « ressusciter » une potion utilisée.
+   Calendrier : une case par jour de connexion, à récupérer avec le bouton. Les jours manqués ne se rattrapent pas :
+   on reprend simplement à la case suivante. Après le jour 14, on recommence au jour 1.
+   La date vient du serveur Firebase (heure du serveur, pas celle du téléphone) ; la règle Firestore « logins »
+   refuse une 2e récupération le même jour. Le jour change à minuit (heure d'hiver de Paris ; 1 h en été). */
+const Potions = (() => {
+  const T = {xp:{n:"Potion Double XP", d:"Double l'XP des bonnes réponses pendant 30 minutes.", a:"#B48AFF", b:"#5A2AC8", t:"XP"},
+             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"}};
+  const DUR = 30 * 60 * 1000;
+  const inv = () => (S.inv = S.inv || {});
+  const has = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
+  const left = t => Math.max(0, ((inv()[t] || {}).until || 0) - Date.now());
+  const active = t => left(t) > 0;
+  const mult = t => active(t) ? 2 : 1;
+  // Donne une potion ; renvoie false si le joueur l'a déjà (la récompense est alors remplacée par l'appelant)
+  function give(t){ if (has(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }
+  function use(t){ if (!has(t) || active(t)) return; const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now, until:now + DUR}); save();
+    toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+  const mmss = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  function svg(t, z, off){ const c = T[t], id = "pt" + t + Math.random().toString(36).slice(2, 6);
+    return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
+      <rect x="22" y="4" width="16" height="8" rx="2" fill="#C8965A" stroke="${TD}" stroke-width="2.4"/><path d="M24 12 V22 Q8 30 8 46 Q8 66 30 66 Q52 66 52 46 Q52 30 36 22 V12Z" fill="#EAF6FF" fill-opacity=".55" stroke="${TD}" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M10 42 Q30 36 50 42 Q52 64 30 64 Q8 64 10 42Z" fill="url(#${id})"/><path d="M15 36 Q12 46 16 54" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+      <circle cx="40" cy="48" r="2.4" fill="#fff" opacity=".7"/><circle cx="34" cy="56" r="1.6" fill="#fff" opacity=".6"/>
+      <text x="30" y="56" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1" font-family="sans-serif">${c.t}</text></svg>`; }
+  // Pastille dans la barre du haut : potions possédées et temps restant
+  function pill(){
+    const ks = Object.keys(T).filter(t => has(t) || active(t)); if (!ks.length) return "";
+    return `<button class="pill pot" data-pot="open" aria-label="Mes potions">${ks.map(t => `<span class="pot-i ${active(t) ? "on" : ""}">${svg(t, 16, false)}${active(t) ? `<b data-pot-min="${t}">${Math.ceil(left(t) / 6e4)}′</b>` : ""}</span>`).join("")}</button>`;
+  }
+  function sheet(){
+    document.querySelectorAll(".pot-sheet").forEach(e => e.remove());
+    const el = document.createElement("div"); el.className = "pot-sheet cal-veil"; el.setAttribute("role", "dialog");
+    el.innerHTML = `<div class="cal-box pot-box"><button class="am-x" data-pot="close" aria-label="Fermer">×</button><b class="cal-title">Mes potions</b>
+      ${Object.keys(T).map(t => `<div class="pot-row">${svg(t, 46, !has(t) && !active(t))}<div class="stack grow" style="gap:2px;min-width:0"><b>${T[t].n}</b><span class="muted" style="font-size:13px">${T[t].d}</span>
+        <span class="pot-st">${active(t) ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
+        ${has(t) && !active(t) ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
+      <p class="muted" style="font-size:12.5px;margin:0">Une potion de chaque type au maximum. Le calendrier de connexion en offre aux jours 3 et 4.</p></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-pot]"); if (e.target === el || (b && b.dataset.pot === "close")) el.remove();
+      else if (b && b.dataset.pot === "use") { use(b.dataset.v); el.remove(); render(); } });
+    document.body.appendChild(el);
+  }
+  setInterval(() => { document.querySelectorAll("[data-pot-min]").forEach(e => { const t = e.dataset.potMin; if (active(t)) e.textContent = Math.ceil(left(t) / 6e4) + "′"; else if (S.profile && !inPlay()) render(); }); document.querySelectorAll("[data-pot-left]").forEach(e => { const t = e.dataset.potLeft; if (active(t)) e.textContent = mmss(left(t)); else { e.closest(".pot-sheet") ? e.closest(".pot-sheet").remove() : 0; if (S.profile && !inPlay()) render(); } }); }, 1000);
+  return {give, use, has, active, mult, svg, pill, sheet, T};
+})();
+
+const Calendrier = (() => {
+  const REW = [100, 100, "xp", "coin", 100, 100, 100, 100, 100, 100, 100, 100, 100, 500];
+  const calDay = ms => Math.floor((ms + 36e5) / 864e5);           // même calcul que la règle Firestore
+  const st = () => (S.cal = S.cal || {n:0, day:0, paid:0});
+  let srv = null, busy = false, offset = 0;                        // offset : écart entre l'horloge du serveur et celle du téléphone
+  const online = () => { try { return !!(Amis.api.uid() && Amis.api.db()); } catch(e){ return false; } };
+  const nowDay = () => calDay(Date.now() + offset);
+  const claimedToday = () => st().day >= nowDay();
+  const stepOf = n => ((n - 1) % 14) + 1;                           // case 1 à 14 pour la n-ième récupération
+  // Lit l'heure du serveur (on écrit l'heure serveur dans clock/{uid} puis on la relit) et l'état officiel
+  async function sync(){
+    if (!online()) return;
+    try {
+      const db = Amis.api.db(), uid = Amis.api.uid(), FV = Amis.api.fb().firestore.FieldValue, ck = db.doc("clock/" + uid);
+      await ck.set({t:FV.serverTimestamp()}); const t = (await ck.get()).data().t.toMillis(); offset = t - Date.now();
+      const d = await db.doc("logins/" + uid).get(); srv = d.exists ? d.data() : {n:0, day:0};
+      const s = st(); s.n = Math.max(s.n, srv.n); s.day = Math.max(s.day, srv.day);
+      if (srv.n === (s.paid || 0) + 1) pay(srv.n, true);            // récompense validée par le serveur mais pas encore versée (appli fermée trop tôt)
+      save(); if (S.tab === "accueil" && !inPlay()) { window.__quiet = true; render(); }
+      auto();
+    } catch(e){}
+  }
+  function reward(step){ return REW[step - 1]; }
+  // Verse la récompense de la n-ième récupération ; une potion déjà possédée devient 100 pièces
+  function pay(n, quiet){
+    const s = st(); if ((s.paid || 0) >= n) return null; s.paid = n;
+    const r = reward(stepOf(n)); let out;
+    if (typeof r === "number") { S.coins += r; out = {kind:"coin", v:r}; }
+    else if (Potions.give(r)) out = {kind:"pot", t:r};
+    else { S.coins += 100; out = {kind:"coin", v:100, swap:r}; }
+    save(); checkBadges();
+    if (quiet && out) toasts.push(out.kind === "pot" ? `<b>Calendrier</b> · ${Potions.T[out.t].n}` : `<b>Calendrier</b> · +${out.v} pièces`);
+    return out;
+  }
+  async function claim(){
+    if (busy || claimedToday()) return; busy = true;
+    try {
+      let n, day;
+      if (online()) {
+        if (!srv) await sync();
+        const db = Amis.api.db(), uid = Amis.api.uid(), FV = Amis.api.fb().firestore.FieldValue, ref = db.doc("logins/" + uid);
+        await db.runTransaction(async tx => { const d = await tx.get(ref), prev = d.exists ? d.data() : {n:0, day:0};
+          day = nowDay(); if (prev.day >= day) throw "deja"; n = prev.n + 1; tx.set(ref, {n, day, at:FV.serverTimestamp()}); });
+        srv = {n, day};
+      } else { const s = st(); day = nowDay(); n = s.n + 1; }
+      const s = st(); s.n = n; s.day = day; const out = pay(n); fx(out, stepOf(n));
+    } catch(e){
+      if (e === "deja") { st().day = nowDay(); save(); toasts.push("<b>Déjà récupérée aujourd'hui</b> · reviens demain !"); }
+      else toasts.push("<b>Impossible de récupérer pour l'instant</b> · vérifie ta connexion.");
+      close(); render();
+    }
+    busy = false;
+  }
+
+  /* --- Affichage --- */
+  const ico = (r, z) => typeof r === "number" ? `<span class="cal-coins" style="--z:${z}px">${r >= 500 ? `<i></i><i></i><i></i>` : `<i></i><i></i>`}</span>` : Potions.svg(r, z * .8);
+  const lab = r => typeof r === "number" ? `${r} pièces` : r === "xp" ? "Potion Double XP" : "Potion Double pièces";
+  function board(){
+    const s = st(), done = claimedToday(), k = s.n === 0 ? 0 : done ? stepOf(s.n) : s.n % 14, cur = done ? k : k + 1;
+    return `<div class="cal-grid">${REW.map((r, i) => { const d = i + 1, got = d <= k, now = d === cur && !done, today = d === cur && done;
+      return `<div class="cal-t ${got ? "got" : ""} ${now ? "now" : ""} ${today ? "today" : ""} ${d === 14 ? "big" : ""} ${!got && !now ? "lock" : ""}" data-d="${d}">
+        <span class="cal-d">Jour ${d}</span><span class="cal-ic">${ico(r, d === 14 ? 34 : 26)}</span><span class="cal-l">${lab(r)}</span>
+        ${got ? `<span class="cal-ok">✓</span>` : !now ? `<span class="cal-lk">🔒</span>` : ""}</div>`; }).join("")}</div>`;
+  }
+  function card(){
+    const s = st(), done = claimedToday(), next = done ? stepOf(s.n) : (s.n % 14) + 1;
+    return `<button class="card cal-card ${done ? "" : "ready"}" data-cal="open"><span class="cal-card-ic">${calIcon(46)}</span><span class="stack" style="gap:2px;min-width:0;text-align:left">
+      <b>Calendrier de connexion</b><span class="muted" style="font-size:13px">${done ? `Jour ${next} récupéré · reviens demain` : `Jour ${next} : ${lab(reward(next))} à récupérer`}</span></span>${done ? `<span class="chip">✓</span>` : `<span class="chip lamp">Récupérer</span>`}</button>`;
+  }
+  const calIcon = z => `<svg viewBox="0 0 48 48" width="${z}" height="${z}" aria-hidden="true"><rect x="6" y="9" width="36" height="33" rx="6" fill="#FFF4D8" stroke="${TD}" stroke-width="2.6"/><path d="M6 15 Q6 9 12 9 H36 Q42 9 42 15 V20 H6Z" fill="#E2283A" stroke="${TD}" stroke-width="2.6"/><path d="M15 5 V13 M33 5 V13" stroke="${TD}" stroke-width="3.4" stroke-linecap="round"/><path d="M15 5 V13 M33 5 V13" stroke="#C8C8D4" stroke-width="1.6" stroke-linecap="round"/><text x="24" y="37" text-anchor="middle" font-size="15" font-weight="900" fill="#2B1D3A" font-family="sans-serif">14</text></svg>`;
+  function close(){ document.querySelectorAll(".cal-modal").forEach(e => e.remove()); }
+  function open(){
+    close(); const done = claimedToday(), s = st(), next = done ? stepOf(s.n) : (s.n % 14) + 1;
+    const el = document.createElement("div"); el.className = "cal-modal cal-veil"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Calendrier de connexion");
+    el.innerHTML = `<div class="cal-box"><button class="am-x" data-cal="close" aria-label="Fermer">×</button>
+      <span class="tw-kicker">Récompenses de connexion</span><b class="cal-title">Calendrier des 14 jours</b>
+      <span class="muted cal-sub">Une case par jour de connexion. Après le jour 14, le calendrier recommence.</span>
+      ${board()}
+      <button class="btn cal-go" data-cal="claim" ${done ? "disabled" : ""}>${done ? "Reviens demain pour le jour " + ((s.n % 14) + 1) : "Récupérer · jour " + next}</button></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-cal]"); if (e.target === el || (b && b.dataset.cal === "close")) close(); else if (b && b.dataset.cal === "claim") claim(); });
+    document.body.appendChild(el);
+  }
+  // Animation d'ouverture : la case s'ouvre, puis pièces ou potion
+  function fx(out, step){
+    const box = document.querySelector(".cal-modal .cal-box"); if (!box) { render(); return; }
+    const t = box.querySelector(`.cal-t[data-d="${step}"]`); if (t) { t.classList.remove("now", "lock"); t.classList.add("opening"); }
+    try { Music.sfx("ok"); setTimeout(() => Music.sfx("level"), 380); } catch(e){}
+    setTimeout(() => {
+      const fxEl = document.createElement("div"); fxEl.className = "cal-burst";
+      fxEl.innerHTML = (out.kind === "coin" ? Array.from({length:18}, () => `<i class="tw-coin" style="left:${Math.random() * 100}%;animation-delay:${(Math.random() * .5).toFixed(2)}s"></i>`).join("") : "")
+        + `<div class="cal-win">${out.kind === "pot" ? Potions.svg(out.t, 80) : ico(out.v, 54)}<b>${out.kind === "pot" ? Potions.T[out.t].n : "+" + out.v + " pièces"}</b>${out.swap ? `<span>Tu avais déjà cette potion : 100 pièces à la place</span>` : out.kind === "pot" ? `<span>Active-la quand tu veux depuis la barre du haut</span>` : ""}</div>`;
+      box.appendChild(fxEl);
+      const g = box.querySelector(".cal-grid"); if (g) g.outerHTML = board();
+      const go = box.querySelector(".cal-go"); if (go) { go.disabled = true; go.textContent = "Reviens demain pour le jour " + ((st().n % 14) + 1); }
+      setTimeout(() => { fxEl.classList.add("out"); }, 1900); setTimeout(() => { fxEl.remove(); }, 2300);
+      render();
+    }, 520);
+  }
+  // Fenêtre automatique à la première ouverture du jour (une fois par jour et par appareil, jamais en pleine partie)
+  function auto(){
+    if (!S.profile || claimedToday() || inPlay() || document.querySelector(".cal-modal,.am-inv.portal,.lvup") || window.__noCal) return;
+    if (online() && !srv) return;                 // on attend l'heure du serveur
+    const d = nowDay(); if (S.calSeen === d) return; S.calSeen = d; save(); open();
+  }
+  return {card, open, close, claim, sync, auto, state:st, _reset:() => { srv = null; }};
 })();
 
 const Parc = (function(){

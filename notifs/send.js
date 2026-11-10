@@ -34,7 +34,8 @@ function portalPlan(){
   const force = JSON.parse(src.match(/const PORTAL_FORCE = (\{[^\n]*?\});/)[1]);
   if (force[DATE] !== undefined) return { open: true, at: force[DATE] };
   const [y, m, d] = DATE.split("-").map(Number), r = rng(Math.round(Date.UTC(y, m - 1, d) / 864e5) * 7919);
-  return { open: r() < .6, at: 9*60 + Math.floor(r() * 9*60) };
+  r(); // le portail s'ouvre tous les jours (même calcul que main.js)
+  return { open: true, at: 9*60 + Math.floor(r() * 9*60) };
 }
 const MINUTES = HOUR * 60 + +parts.minute;
 

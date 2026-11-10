@@ -1240,6 +1240,53 @@ body.in-tour .tw{background:transparent}
 .bq-filters .chip-btn{padding:6px 10px;font:800 12.5px "Nunito",sans-serif}
 .bq-card .bq-n,.bq-cond,.bq-how{font-family:"Nunito",sans-serif}
 @media (prefers-reduced-motion:reduce){.bq-card::before{animation:none!important}}
+
+/* ---------- Calendrier de connexion et potions ---------- */
+.cal-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;color:inherit;cursor:pointer;border:2px solid var(--line)}
+.cal-card.ready{border-color:#E2283A;box-shadow:0 0 0 3px rgba(226,40,58,.18);animation:calPulse 2s ease-in-out infinite}
+@keyframes calPulse{50%{box-shadow:0 0 0 3px rgba(226,40,58,.18),0 0 22px rgba(255,210,63,.45)}}
+.cal-card-ic{flex:none}
+.cal-veil{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(14,6,24,.62);backdrop-filter:blur(3px);animation:calIn .25s ease-out}
+@keyframes calIn{from{opacity:0}}
+.cal-box{position:relative;width:min(440px,100%);max-height:92vh;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 14px 16px;border-radius:24px;color:#3A2410;
+  background:linear-gradient(180deg,#F7EAD0,#E8D2A4);border:3px solid #2E1A0C;box-shadow:inset 0 0 28px rgba(138,84,40,.35),0 8px 0 #2E1A0C;animation:calPop .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes calPop{from{transform:scale(.85);opacity:0}}
+.cal-box .am-x{color:#3A2410}
+.cal-title{font:800 22px var(--f-display);text-align:center}
+.cal-sub{font-size:12.5px;text-align:center;color:#7A5430!important}
+.cal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;margin:4px 0}
+.cal-t{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px 5px;border-radius:12px;background:linear-gradient(#FFF6DE,#F0DDB4);border:2px solid #8A5428;box-shadow:0 3px 0 #8A5428;min-height:84px;justify-content:space-between}
+.cal-t.big{grid-column:span 2;background:linear-gradient(#FFE58A,#E8B820);border-color:#8A6400;box-shadow:0 3px 0 #8A6400,0 0 14px rgba(255,210,63,.5)}
+.cal-d{font:800 10.5px "IBM Plex Mono",monospace;color:#7A5430}
+.cal-l{font:800 9.5px "Nunito",sans-serif;line-height:1.1;text-align:center;color:#5A3A1E}
+.cal-ic{display:grid;place-items:center;min-height:30px}
+.cal-t.lock{filter:grayscale(.55) brightness(.92);opacity:.78}
+.cal-t.got{background:linear-gradient(#E6F6EA,#BFE6CC);border-color:#2E8A4A;box-shadow:0 3px 0 #2E8A4A}
+.cal-t.got .cal-ic{opacity:.45}
+.cal-ok{position:absolute;inset:auto auto 50% 50%;transform:translate(-50%,50%);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#2BB673;color:#fff;font-weight:900;border:2px solid #0E4A2A}
+.cal-lk{position:absolute;top:2px;right:3px;font-size:10px}
+.cal-t.now,.cal-t.today{border-color:#E2283A;box-shadow:0 3px 0 #8A101E,0 0 0 3px rgba(226,40,58,.25),0 0 18px rgba(255,210,63,.65);transform:translateY(-2px)}
+.cal-t.now{animation:calNow 1.4s ease-in-out infinite}
+@keyframes calNow{50%{transform:translateY(-4px) scale(1.04)}}
+.cal-t.opening{animation:calOpen .55s ease-in-out forwards}
+@keyframes calOpen{0%{transform:scale(1)}30%{transform:scale(1.18) rotate(-6deg)}60%{transform:scale(1.18) rotate(6deg)}100%{transform:scale(1)}}
+.cal-coins{position:relative;display:inline-block;width:var(--z);height:var(--z)}
+.cal-coins i{position:absolute;left:12%;width:76%;height:34%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFF6B0,#FFD23F 45%,#C8860A);border:2px solid #7A5000}
+.cal-coins i:nth-child(1){bottom:0}.cal-coins i:nth-child(2){bottom:26%}.cal-coins i:nth-child(3){bottom:52%}
+.cal-go{width:100%;margin-top:4px}
+.cal-burst{position:absolute;inset:0;z-index:3;display:grid;place-items:center;overflow:hidden;border-radius:22px;background:radial-gradient(circle,rgba(255,236,160,.75),rgba(247,234,208,.2) 60%);animation:calIn .2s}
+.cal-burst.out{opacity:0;transition:opacity .35s}
+.cal-win{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 20px;border-radius:20px;background:#FFF6DE;border:3px solid #2E1A0C;box-shadow:0 6px 0 #2E1A0C;animation:calPop .4s cubic-bezier(.3,1.7,.5,1);text-align:center;max-width:80%}
+.cal-win b{font:800 20px var(--f-display);color:#3A2410}.cal-win span{font-size:12.5px;color:#7A5430}
+.pill.pot{display:inline-flex;align-items:center;gap:3px;padding:4px 6px}
+.pot-i{display:inline-flex;align-items:center;gap:2px}
+.pot-i.on b{font:800 11px "IBM Plex Mono",monospace;color:#9A4AD8}
+.pot-i.on svg{filter:drop-shadow(0 0 4px rgba(255,210,63,.9))}
+.pot-svg.off{filter:grayscale(1) opacity(.45)}
+.pot-box{align-items:stretch;gap:12px}
+.pot-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,246,222,.75);border:2px solid rgba(138,84,40,.45)}
+.pot-st{font-size:12px;font-weight:800;color:#7A5430}
+@media (prefers-reduced-motion:reduce){.cal-card,.cal-t.now,.cal-t.opening,.cal-box,.cal-win{animation:none!important}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
