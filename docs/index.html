@@ -1127,6 +1127,102 @@ body.in-tour .tw{background:transparent}
 @keyframes podConf{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:1;transform:translateY(110vh) rotate(720deg)}}
 @media (prefers-reduced-motion:reduce){.sl-pod *{animation-duration:.01s!important;animation-delay:0s!important}}
 @media (prefers-reduced-motion:reduce){.sl-bomb svg,.sl-spark,.sl-boom,.sl-seat.hit,.sl-bubble{animation:none}}
+
+/* ---------- Multi : les deux portes ---------- */
+.mh-door{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px;text-align:left;color:#FFF6DE;cursor:pointer;border-radius:22px;border:3px solid #1E1030;box-shadow:0 6px 0 #1E1030;background:linear-gradient(135deg,#4A2A8A,#1E1040)}
+.mh-door.mh-guild{background:linear-gradient(135deg,#8A4A1E,#3A1E0C);border-color:#2E1A0C;box-shadow:0 6px 0 #2E1A0C,inset 0 0 0 2px rgba(255,210,63,.25)}
+.mh-door:active{transform:translateY(3px);box-shadow:0 3px 0 #1E1030}
+.mh-arch{flex:none;display:grid;place-items:center;width:84px;height:92px;border-radius:42px 42px 12px 12px;background:radial-gradient(circle at 50% 35%,rgba(255,200,97,.45),rgba(0,0,0,.25));border:3px solid rgba(255,246,222,.35)}
+.mh-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mh-txt b{font:800 20px "Fredoka","Nunito",sans-serif}
+.mh-txt span{font-size:13.5px;color:#EADCC8;line-height:1.3}
+.mh-n{position:absolute;top:10px;right:12px;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:#FF5FA2;color:#fff;font:800 13px "IBM Plex Mono",monospace;display:grid;place-items:center;border:2px solid #1E1030;font-style:normal}
+
+/* ---------- Guildes : la taverne ---------- */
+.gd-hq{display:flex;flex-direction:column;gap:0}
+.gd-tav{position:relative;width:100%;aspect-ratio:360/270;border-radius:22px 22px 0 0;overflow:hidden;border:3px solid #2E1A0C;border-bottom:0;background:#2E1A0C}
+.gd-bg,.gd-table{position:absolute;inset:0;width:100%;height:100%}
+.gd-table{z-index:2;pointer-events:none}
+.gd-wallemb{position:absolute;left:50%;top:1%;transform:translateX(-50%);width:15%;z-index:0;filter:drop-shadow(0 4px 3px rgba(0,0,0,.5))}
+.gd-wallemb svg{width:100%;height:auto}
+.gd-seat{position:absolute;z-index:1;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+.gd-seat.front{z-index:3}
+.gd-seat .gd-stool{width:78%;height:auto;margin-top:-16%;position:relative;z-index:-1}
+.gd-who{position:relative;width:100%;animation:gdBob 3.2s ease-in-out infinite;animation-delay:var(--d,0s);transform-origin:50% 100%}
+.gd-who svg,.gd-who .am-crowned{width:100%!important;height:auto!important;display:block}
+.gd-seat.on .gd-who{filter:drop-shadow(0 0 6px rgba(255,200,97,.8))}
+.gd-seat.off .gd-who{filter:saturate(.45) brightness(.7);animation:none}
+.gd-zz{position:absolute;right:-4%;top:0;font:800 15px "Fredoka",sans-serif;color:#C9D8FF;animation:gdZz 2.4s ease-in-out infinite}
+.gd-zz small{font-size:10px}
+@keyframes gdZz{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}
+@keyframes gdBob{0%,100%{transform:none}50%{transform:translateY(-3%) rotate(-1.5deg)}}
+.gd-plate{max-width:150%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:800 11px "Nunito",sans-serif;color:#FFF6DE;background:rgba(30,16,8,.82);border:1.5px solid #C8A060;border-radius:8px;padding:1px 7px;margin-bottom:3px;display:flex;align-items:center;gap:3px}
+.gd-seat.front .gd-plate{order:3;margin:3px 0 0}
+.gd-crown{font-style:normal;color:#FFD23F}.gd-crown.off{color:#C9D8FF;font-size:9px}
+.gd-seat.gd-freeseat .gd-stool{margin-top:0;opacity:.85}
+.gd-seat.gd-freeseat .gd-plate{opacity:.6;font-weight:700}
+.gd-free{flex:none;width:clamp(30px,10vw,44px);height:clamp(30px,10vw,44px);padding:0;line-height:1;display:grid;place-items:center;border-radius:50%;border:2.5px dashed #FFD98A;background:rgba(255,217,138,.12);color:#FFD98A;font:800 24px "Fredoka",sans-serif;cursor:pointer;margin-bottom:-8%;animation:gdPulse 2s ease-in-out infinite}
+@keyframes gdPulse{50%{background:rgba(255,217,138,.3)}}
+.gd-flame{animation:gdFlame .35s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.gd-flick{animation:gdFlick 2.2s ease-in-out infinite}
+@keyframes gdFlame{to{transform:scaleY(1.15) scaleX(.9)}}
+@keyframes gdFlick{0%,100%{opacity:1}40%{opacity:.75}70%{opacity:.9}}
+
+/* Plaque sous la taverne */
+.gd-plaque{font-family:"Nunito",sans-serif;position:relative;z-index:4;margin-top:-4px;padding:12px 14px 14px;color:#3A2410;border:3px solid #2E1A0C;border-top:0;background:linear-gradient(180deg,#8A5428 0 8px,#F3E3C0 8px,#E8D2A4);display:flex;flex-direction:column;gap:8px}
+.gd-plaque h1{margin:0;text-align:center;font:800 24px "Fredoka","Nunito",sans-serif;color:#3A2410;letter-spacing:.5px}
+.gd-stats{display:flex;align-items:center;gap:8px}
+.gd-lv{flex:none;font:800 13px "IBM Plex Mono",monospace;color:#FFF6DE;background:linear-gradient(#8A5428,#4A2A12);border:2px solid #2E1A0C;border-radius:10px;padding:3px 8px}
+.gd-xp,.gd-bar{position:relative;flex:1;height:18px;border-radius:9px;background:#4A2A12;border:2px solid #2E1A0C;overflow:hidden}
+.gd-xp i,.gd-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#4A8AE8,#8AD8FF);transition:width .6s}
+.gd-bar i{background:linear-gradient(90deg,#E08A00,#FFD23F)}
+.gd-obj.done .gd-bar i{background:linear-gradient(90deg,#2BB673,#7FD8BE)}
+.gd-xp span,.gd-bar span{position:relative;display:grid;place-items:center;height:100%;font:800 10.5px "IBM Plex Mono",monospace;color:#fff;text-shadow:0 1px 0 #1E1030}
+.gd-bar.sm{height:10px;border-width:1.5px}
+.gd-meta{display:flex;justify-content:center;gap:16px;font:800 13px "Nunito",sans-serif}
+.gd-meta span{display:inline-flex;align-items:center;gap:4px}
+.gd-desc{margin:0;text-align:center;font-style:italic;font-size:13.5px;color:#5A3A1E}
+
+/* Onglets en bois + parchemin */
+.gd-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:12px 0 -3px;padding:0 4px;position:relative;z-index:2}
+.gd-tabs button{padding:9px 2px 7px;border-radius:12px 12px 0 0;border:2.5px solid #2E1A0C;border-bottom:0;background:linear-gradient(#6A3C1A,#4A2A12);color:#E8D2A4;font:800 12.5px "Nunito",sans-serif;cursor:pointer}
+.gd-tabs button.on{background:linear-gradient(#C8823A,#8A5428);color:#FFF6DE;padding-top:11px;margin-top:-4px}
+.gd-parch{font-family:"Nunito",sans-serif;position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;border:3px solid #2E1A0C;color:#3A2410;background:linear-gradient(180deg,#F7EAD0,#E8D2A4);box-shadow:inset 0 0 24px rgba(138,84,40,.35),0 5px 0 #2E1A0C}
+.gd-parch .card{background:transparent;border:0;box-shadow:none;padding:0;color:inherit}
+.gd-parch .muted,.gd-parch .label{color:#7A5430}
+.gd-parch b{color:#3A2410}
+.gd-parch .chip-btn{display:inline-flex;width:auto;min-height:0;padding:5px 10px;border-radius:10px;font:800 12.5px "Nunito",sans-serif;background:#FFF6DE;color:#3A2410;border:2px solid #8A5428;box-shadow:none}
+.gd-parch .row{flex-wrap:wrap}
+.gd-parch .am-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.gd-parch b,.gd-sec b{font-family:"Nunito",sans-serif;font-weight:800}
+.gd-parch .chip-btn.on{background:#8A5428;color:#FFF6DE}
+.gd-parch .am-row{background:linear-gradient(90deg,#F7D98A,#E8B65A);border:2px solid #8A5A20;border-radius:14px;padding:8px 10px;box-shadow:0 3px 0 rgba(90,52,24,.4)}
+.gd-parch .btn.ghost{color:#3A2410;border-color:#8A5428}
+.gd-sec{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid rgba(138,84,40,.35);padding-bottom:4px}
+.gd-sec span{font-size:12px;color:#7A5430}
+.gd-obj{display:flex;flex-direction:column;gap:5px;padding:10px;border-radius:14px;background:rgba(255,246,222,.65);border:2px solid rgba(138,84,40,.45)}
+.gd-obj b{font-size:14px}
+.gd-obj.done{background:rgba(43,182,115,.15);border-color:#2BB673}
+.gd-mine{font-size:12px;color:#7A5430;font-weight:700}
+.gd-chest{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:linear-gradient(135deg,#4A1E8A,#1A0A30);border:2px solid #2E1A0C}
+.gd-chest b{color:#FFD23F}.gd-chest span{color:#E0D4FF;font-size:12.5px}
+.gd-feat{display:grid;grid-template-columns:1fr 80px 54px;align-items:center;gap:8px;font-size:13px}
+.gd-feat b{text-align:right;font:800 12px "IBM Plex Mono",monospace}
+.gd-feat.done span{text-decoration:line-through;opacity:.7}
+.gd-note{margin:0;font-size:12.5px;color:#7A5430;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.gd-rk{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px}
+.gd-rk.me{background:rgba(255,210,63,.35);outline:2px solid #E0A82A}
+.gd-pick{display:flex;flex-wrap:wrap;gap:6px}
+.gd-opt{position:relative;display:grid;place-items:center;width:58px;height:58px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer}
+.gd-opt.on{border-color:#FFD23F;box-shadow:0 0 0 3px rgba(255,210,63,.4)}
+.gd-opt:disabled{opacity:.45;cursor:default}
+.gd-lock{position:absolute;bottom:-2px;font:800 9px "IBM Plex Mono",monospace;background:#1E1030;color:#fff;border-radius:6px;padding:0 4px}
+.gd-col{width:36px;height:36px;border-radius:50%;border:2px solid #1E1030}
+.gd-in,.gd-ta{width:100%;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px "Nunito",sans-serif}
+.gd-ta{min-height:64px;resize:vertical}
+.gd-fx-emb{display:grid;place-items:center}
+.gd-emb .gd-glow{animation:gdFlick 2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.gd-who,.gd-flame,.gd-flick,.gd-zz,.gd-free{animation:none!important}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
@@ -3628,7 +3724,7 @@ const TAB_ICONS = {
 };
 TAB_ICONS.boutique = '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
 const GTAB = {accueil:"home", jouer:"play", amis:"sword", tour:"tower", boutique:"shop", parc:"parc", profil:"user"};
-const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"JcJ", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
+const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"Multi", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
 let adminTaps = 0, libFilter = "all", libQuery = "", confirmReset = false, tick = null, autoNext = null, profSeg = "progres", shopSeg = "skins", draft = null, formErr = "", copyFallback = "";
 
 function renderTabs(){
@@ -3818,7 +3914,8 @@ const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", 
 const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
+const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
 const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -3845,6 +3942,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}
       <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
 }
 function renderShop(){
@@ -4281,6 +4379,7 @@ function doAnswer(s, v){
 function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
+  if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
   if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
   if (d.bs !== undefined) { if (S.settings.sfx !== false && d.bs !== "ans") try { Music.sfx("tap"); } catch(err){} return Boss.click(b); }
@@ -4477,7 +4576,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
@@ -4537,7 +4636,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -4829,12 +4928,25 @@ const Amis = (function(){
   // Pastille verte « En ligne » ou rouge « Hors ligne »
   const status = id => `<span class="am-st ${online(id) ? "on" : "off"}"><i class="st-dot"></i>${online(id) ? "En ligne" : "Hors ligne"}</span>`;
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
+  // Écran d'accueil de l'onglet Multi : deux portes (Joueur contre joueur, Guildes)
+  function viewHub(){
+    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !(d.res && d.res[uid()] && d.res[uid()].done) && d.state !== "declined").length;
+    const G = typeof Guildes !== "undefined" ? Guildes.mine() : null, inv = typeof Guildes !== "undefined" ? Guildes.invites() : 0;
+    const door = (v, art, t, d, n) => `<button class="mh-door mh-${v}" data-am="multi" data-v="${v}"><span class="mh-arch">${art}</span><span class="mh-txt"><b>${t}</b><span>${d}</span></span>${n ? `<i class="mh-n">${n}</i>` : ""}</button>`;
+    return `<section class="stack"><h1 class="big" style="margin:0">Multi</h1>
+      ${door("jcj", gIcon("sword", 64), "Joueur contre joueur", "Duels en direct ou en différé, salons privés et classement", recv)}
+      ${door("guild", G ? Guildes.emblem(G.g.emb, 70, G.t.lvl) : Guildes.emblem({s:"ecu", c:"rubis", i:"duel"}, 70, 1), "Guildes", G ? `${esc(G.g.name)} · niveau ${G.t.lvl} · ${Object.keys(G.g.members).length}/5 membres` : "Fonde ou rejoins une guilde de 5 amis maximum", inv)}
+    </section>`;
+  }
   function view(){
     if (!enabled()) return `<section class="stack"><h1 class="big">JcJ</h1><div class="card stack"><b>Le mode en ligne arrive bientôt.</b><p class="muted">Duels en direct, défis en différé et classements entre amis.</p></div></section>`;
     if (!fb) { boot(); return `<section class="stack"><h1 class="big">JcJ</h1><div class="card"><p class="muted">${err || "Connexion au serveur…"}</p></div></section>`; }
     if (!me) return viewLogin();
     if (cloud.offer) return viewOffer();
     if (typeof Salons !== "undefined" && Salons.active()) return Salons.view();
+    const mv = S.multiView || "home";
+    if (mv === "guild" && typeof Guildes !== "undefined") return Guildes.view();
+    if (mv !== "jcj") return viewHub();
     if (ui.view === "board") return viewBoard();
     const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
     const mineDone = d => d.res && d.res[uid()] && d.res[uid()].done;
@@ -4843,7 +4955,7 @@ const Amis = (function(){
     const p = pending(), hist = finished().filter(d => d.from === uid() || d.to === uid()).slice(0, 8);
     const m = ui.mode;
     return `<section class="stack">
-      <div class="row between"><h1 class="big" style="margin:0">JcJ</h1><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
+      <div class="row between"><div class="stack" style="gap:2px"><button class="quit" data-am="multi" data-v="home">← Multi</button><h1 class="big" style="margin:0">Joueur contre joueur</h1></div><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
       ${typeof Salons !== "undefined" ? Salons.entry() : ""}
       ${p ? `<div class="card stack banner-am"><b>En attente de ${esc(pseudoOf(p.to))}…</b><span class="muted">Le duel démarre dès qu'il accepte.</span><button class="btn small ghost" data-am="cancel" data-id="${p.id}">Annuler</button></div>` : ""}
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
@@ -4965,6 +5077,7 @@ const Amis = (function(){
       else if (a === "theme") ui.theme = v;
       else if (a === "n") ui.n = +v;
       else if (a === "kind") ui.kind = v;
+      else if (a === "multi") { S.multiView = v; ui.view = "main"; save(); render(); return window.scrollTo(0, 0); }
       else if (a === "board") { ui.view = "board"; render(); return window.scrollTo(0, 0); }
       else if (a === "back") ui.view = "main";
       else if (a === "bd") ui.board = v;
@@ -6314,6 +6427,7 @@ const Quetes = (() => {
   function ev(type, info){
     if (!S || !S.profile) return;
     const q = Qs(); info = info || {};
+    if (typeof Guildes !== "undefined") try { Guildes.ev(type, info); } catch(e){}
     if (type === "ok") { runN++; ev("run", {v:runN}); }
     const apply = (list, DEF, wk) => list.forEach(m => {
       const d = DEF[m.k]; if (!d || m.done || d.on !== type) return;
@@ -6417,7 +6531,7 @@ const Quetes = (() => {
     if (a === "tab") { tab = b.dataset.v; return render(); }
     if (a === "open") return openChest(b.dataset.v);
   }
-  return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs};
+  return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs, chestSVG};
 })();
 
 /* --- Badges et titre des quêtes --- */
@@ -6426,6 +6540,349 @@ const Quetes = (() => {
  ["qw1","or",1,"w","Héros de la semaine","Ouvrir un coffre légendaire de la semaine",100],
  ["qw5","diamant",5,"w","Légende hebdomadaire","Ouvrir 5 coffres légendaires de la semaine",300]
 ].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id, g:"Général", tier, icon:"bulb", name, desc, coins, goal, cur:() => (S.qst && S.qst.tot && S.qst.tot[k]) || 0}));
+
+/* ---------- Guildes (espace Multi, à côté du Joueur contre joueur) ----------
+   Choix d'Erwan (novembre 2026) : 5 membres maximum, objectifs calculés pour 5 joueurs, une guilde par joueur.
+   Données Firestore :
+   - guilds/{id} : nom, emblème, description, date, chef, membres {uid:{role:"chef"|"off"|"mem", j}}, candidatures,
+     invitations, objectifs validés (done) et bonus d'XP de guilde.
+   - guilds/{id}/contrib/{uid} : contributions d'UN membre (lui seul peut l'écrire ; les compteurs « all » ne
+     peuvent que monter, d'un petit pas à chaque envoi). Les totaux de la guilde = somme de ces fiches.
+   - guildNames/{nom en minuscules} : réserve le nom (unique).
+   Rôles : le chef fait tout ; un officier accepte ou refuse les candidatures et invite ; un membre invite et peut partir.
+   La progression de guilde ne débloque que du cosmétique (emblèmes, couleurs, décor du QG, titres). */
+const Guildes = (() => {
+  const A = () => Amis.api, MAX = 5;
+  const db = () => A().db(), uid = () => A().uid(), FV = () => A().fb().firestore.FieldValue;
+  const parisDay = () => new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date());
+  const weekOf = day => { const d = new Date(day + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return d.toISOString().slice(0, 10); };
+  const WK = () => weekOf(parisDay());
+  const BIG = ["his", "sci", "geo", "spo", "cin", "art", "mus", "ani", "esp", "tec", "mon", "cor"];
+  // XP de guilde gagnée par les membres (aucun bonus en jeu : uniquement niveau et cosmétique)
+  const XP = {ok:1, mp:10, win:15, tower:2, boss:3};
+  const lvlOf = xp => { let L = 1; while (xp >= 500 * L * (L + 1)) L++; return L; };          // 1 000, 3 000, 6 000, 10 000…
+  const lvlStart = L => 500 * (L - 1) * L, lvlNext = L => 500 * L * (L + 1);
+
+  /* --- Emblèmes : formes, couleurs, symboles (certains se débloquent avec le niveau de la guilde) --- */
+  const SHAPES = [{id:"ecu", n:"Écu", lv:1}, {id:"rond", n:"Rond", lv:1}, {id:"etendard", n:"Étendard", lv:2}, {id:"losange", n:"Losange", lv:3}, {id:"couronne", n:"Couronné", lv:5}, {id:"ailes", n:"Ailé", lv:7}];
+  const COLORS = [{id:"violet", a:"#8A5AD8", b:"#3A1E6A", lv:1}, {id:"rose", a:"#FF5FA2", b:"#8A1E5A", lv:1}, {id:"azur", a:"#4A8AE8", b:"#1A3A7A", lv:1}, {id:"emeraude", a:"#2BB673", b:"#0E4A2A", lv:2},
+    {id:"rubis", a:"#E2474F", b:"#6A0A1A", lv:3}, {id:"nuit", a:"#3A3A5A", b:"#0E0E1E", lv:4}, {id:"or", a:"#FFD23F", b:"#A8740A", lv:6}, {id:"astral", a:"#C9A2FF", b:"#FF5FA2", lv:8}];
+  const ICONS_OK = [{id:"duel", lv:1}, {id:"bulb", lv:1}, {id:"moon", lv:1}, {id:"his", lv:1}, {id:"sci", lv:1}, {id:"myt", lv:2}, {id:"esp", lv:2}, {id:"heart", lv:3}, {id:"tower", lv:4}, {id:"art", lv:4}, {id:"spo", lv:5}, {id:"cap", lv:6}];
+  function emblem(e, size, lv){
+    e = e || {}; const col = COLORS.find(c => c.id === e.c) || COLORS[0], sh = e.s || "ecu", ic = (typeof ICONS !== "undefined" && ICONS[e.i || "duel"]) || "", D = "#1E1030";
+    const path = {ecu:"M50 8 L88 20 V52 Q88 84 50 104 Q12 84 12 52 V20Z", rond:"M50 8 A46 46 0 1 1 49.9 8Z", etendard:"M16 6 H84 V96 L50 80 L16 96Z", losange:"M50 4 L94 54 L50 104 L6 54Z",
+      couronne:"M14 34 L26 14 L38 28 L50 8 L62 28 L74 14 L86 34 V58 Q86 88 50 104 Q14 88 14 58Z", ailes:"M50 10 L76 20 V52 Q76 82 50 100 Q24 82 24 52 V20Z"}[sh] || "";
+    const wings = sh === "ailes" ? `<path d="M24 34 Q6 30 0 12 Q10 40 24 54Z M76 34 Q94 30 100 12 Q90 40 76 54Z" fill="${col.a}" stroke="${D}" stroke-width="3"/>` : "";
+    const glow = (lv || 1) >= 4 ? `<path d="${path}" fill="none" stroke="#FFF6C8" stroke-width="10" opacity=".25" class="gd-glow"/>` : "";
+    const g = "gd" + Math.random().toString(36).slice(2, 7);
+    return `<svg class="gd-emb" viewBox="-4 0 108 112" width="${size}" height="${size * 112 / 108}" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col.a}"/><stop offset="1" stop-color="${col.b}"/></linearGradient></defs>
+      ${wings}${glow}<path d="${path}" transform="translate(0 4)" fill="${D}" opacity=".45"/><path d="${path}" fill="url(#${g})" stroke="${D}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="${path}" fill="none" stroke="#FFD23F" stroke-width="2" opacity=".75" transform="translate(50 56) scale(.86) translate(-50 -56)"/>
+      <path d="M26 24 Q50 14 74 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+      <g transform="translate(29 34) scale(1.05)" fill="#FFFFFF" stroke="${D}" stroke-width=".6">${ic}</g></svg>`;
+  }
+
+  /* --- État en direct --- */
+  let guilds = {}, contrib = {}, unsub = [], listening = false, view = "home", sub = "hq", tab = "general", msg = "", draft = null, pend = {ok:0, mp:0, win:0, tower:0, boss:0, th:{}}, flushT = null;
+  const myG = () => Object.keys(guilds).find(id => guilds[id].members && guilds[id].members[uid()]);
+  const role = (g, u) => (g && g.members && g.members[u || uid()] && g.members[u || uid()].role) || null;
+  const can = (g, what) => { const r = role(g); return r === "chef" || (r === "off" && (what === "apps" || what === "inv")) || (what === "inv" && r === "mem"); };
+  function listen(){
+    if (!uid() || listening) return; listening = true;
+    unsub.push(db().collection("guilds").onSnapshot(s => { guilds = {}; s.forEach(d => guilds[d.id] = d.data()); showInvites(); if (!s.metadata.hasPendingWrites) claim(); refresh(); }, () => {}));
+    unsub.push(db().collectionGroup("contrib").onSnapshot(s => { contrib = {}; s.forEach(d => { const g = d.ref.parent.parent.id; (contrib[g] = contrib[g] || {})[d.id] = d.data(); }); if (!s.metadata.hasPendingWrites) claim(); refresh(); }, () => {}));
+  }
+  const refresh = () => { if (S.tab === "amis" && S.multiView === "guild" && !(typeof Salons !== "undefined" && Salons.active())) { window.__quiet = true; const y = window.scrollY; render(); window.scrollTo(0, y); } };
+
+  /* --- Totaux d'une guilde --- */
+  function totals(gid){
+    const c = contrib[gid] || {}, wk = WK(), t = {xp:0, ok:0, mp:0, win:0, th:{}, w:{ok:0, mp:0, win:0, tower:0, boss:0, th:{}}, wkBy:{}};
+    Object.keys(c).forEach(u => { const a = c[u].all || {}, w = (c[u].w || {})[wk] || {};
+      t.xp += a.xp || 0; t.ok += a.ok || 0; t.mp += a.mp || 0; t.win += a.win || 0;
+      Object.keys(a.th || {}).forEach(k => t.th[k] = (t.th[k] || 0) + a.th[k]);
+      ["ok", "mp", "win", "tower", "boss"].forEach(k => t.w[k] += w[k] || 0); Object.keys(w.th || {}).forEach(k => t.w.th[k] = (t.w.th[k] || 0) + w.th[k]);
+      t.wkBy[u] = w; });
+    t.xp += (guilds[gid] && guilds[gid].bonus) || 0; t.lvl = lvlOf(t.xp); return t;
+  }
+
+  /* --- Objectifs collectifs de la semaine (calculés pour 5 joueurs) --- */
+  const OBJ = {
+    ok:{n:() => "Répondez juste à 750 questions", goal:750, k:"ok"},
+    th:{n:o => `Répondez juste à 250 questions en ${THEMES[o.th].n}`, goal:250, k:"th"},
+    mp:{n:() => "Jouez 25 parties multijoueurs", goal:25, k:"mp"},
+    win:{n:() => "Remportez 12 parties multijoueurs", goal:12, k:"win"},
+    tower:{n:() => "Gravissez 150 étages de la Tour", goal:150, k:"tower"},
+    boss:{n:() => "Infligez 60 PV au Boss de la semaine", goal:60, k:"boss"}
+  };
+  const OBJ_COINS = 150, OBJ_XP = 500, CHEST_COINS = 300, SHARE = .05; // 5 % de l'objectif pour avoir droit aux récompenses
+  function objectives(){ const wk = WK(), r = rng(Math.round(new Date(wk + "T12:00:00Z") / 864e5) * 31337 + 1), rest = ["th", "mp", "win", "tower", "boss"];
+    const two = []; while (two.length < 2) { const k = rest[Math.floor(r() * rest.length)]; if (!two.includes(k)) two.push(k); }
+    const th = BIG[Math.floor(r() * BIG.length)]; return ["ok"].concat(two).map(k => ({k, th:k === "th" ? th : null, key:wk + ":" + k})); }
+  const prog = (o, w) => o.k === "th" ? (w.th[o.th] || 0) : (w[o.k] || 0);
+  const mine = (o, w) => o.k === "th" ? ((w.th || {})[o.th] || 0) : (w[o.k] || 0);
+  // Exploits de guilde (sur toute sa vie) : badges et titres pour les membres
+  const FEATS = [{id:"q10k", n:"10 000 bonnes réponses", v:t => t.ok, goal:10000}, {id:"mp100", n:"100 parties multijoueurs", v:t => t.mp, goal:100},
+    {id:"win50", n:"50 victoires multijoueurs", v:t => t.win, goal:50}, {id:"sci2k", n:"2 000 bonnes réponses en Sciences", v:t => t.th.sci || 0, goal:2000}];
+
+  /* --- Contributions : on accumule, puis on envoie (petits paquets, au plus toutes les 8 s) --- */
+  function ev(type, info){
+    if (!uid() || !myG()) return; info = info || {};
+    if (type === "ok") { pend.ok++; if (info.th) pend.th[info.th] = (pend.th[info.th] || 0) + 1; }
+    else if (type === "mp") { pend.mp++; if (info.win) pend.win++; }
+    else if (type === "tower") pend.tower += info.v || 1;
+    else if (type === "bossdmg") pend.boss += info.v || 1;
+    else return;
+    clearTimeout(flushT); flushT = setTimeout(flush, 8000);
+  }
+  function flush(){
+    const gid = myG(); if (!gid || !uid()) return;
+    const p = pend; pend = {ok:0, mp:0, win:0, tower:0, boss:0, th:{}};
+    if (!p.ok && !p.mp && !p.tower && !p.boss) return;
+    const I = n => FV().increment(n), wk = WK(), xp = p.ok * XP.ok + p.mp * XP.mp + p.win * XP.win + p.tower * XP.tower + p.boss * XP.boss;
+    const up = {p:(A().users()[uid()] || {}).pseudo || S.profile.name, at:Date.now(), all:{ok:I(p.ok), mp:I(p.mp), win:I(p.win), xp:I(xp), th:{}}, w:{[wk]:{ok:I(p.ok), mp:I(p.mp), win:I(p.win), tower:I(p.tower), boss:I(p.boss), th:{}}}};
+    Object.keys(p.th).forEach(k => { up.all.th[k] = I(p.th[k]); up.w[wk].th[k] = I(p.th[k]); });
+    db().doc(`guilds/${gid}/contrib/${uid()}`).set(up, {merge:true}).catch(() => { // refusé (réseau) : on remet dans la file
+      ["ok", "mp", "win", "tower", "boss"].forEach(k => pend[k] += p[k]); Object.keys(p.th).forEach(k => pend.th[k] = (pend.th[k] || 0) + p.th[k]); });
+  }
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
+
+  /* --- Récompenses (une seule fois chacune, sur ce compte) --- */
+  function claim(){
+    const gid = myG(); if (!gid || !contrib[gid]) return;
+    const g = guilds[gid], t = totals(gid), me = t.wkBy[uid()] || {}, s = st(), lines = [];
+    objectives().forEach(o => { const goal = OBJ[o.k].goal, done = prog(o, t.w) >= goal;
+      if (!done) return;
+      if (!(g.done && g.done[o.key])) db().doc("guilds/" + gid).update({["done." + o.key]:true, bonus:FV().increment(OBJ_XP)}).catch(() => {});
+      if (!s.claimed[o.key] && mine(o, me) >= Math.ceil(goal * SHARE)) { s.claimed[o.key] = today(); S.coins += OBJ_COINS; lines.push(`Objectif réussi : ${OBJ[o.k].n(o)} · +${OBJ_COINS} pièces`); } });
+    const os = objectives(), ck = WK() + ":coffre";
+    if (!s.claimed[ck] && os.every(o => prog(o, t.w) >= OBJ[o.k].goal) && os.some(o => mine(o, me) >= Math.ceil(OBJ[o.k].goal * SHARE))) { s.claimed[ck] = today(); s.chests = (s.chests || 0) + 1; S.coins += CHEST_COINS; lines.push(`Coffre de guilde : +${CHEST_COINS} pièces`); }
+    FEATS.forEach(f => { if (f.v(t) >= f.goal && !s.feats[f.id]) { s.feats[f.id] = today(); lines.push(`Exploit de guilde : ${f.n}`); if (f.id === "q10k") { S.titles = S.titles || {}; S.titles.legion = S.titles.legion || today(); } } });
+    if (t.lvl >= 5 && !(S.titles && S.titles.gardien)) { S.titles = S.titles || {}; S.titles.gardien = today(); lines.push("Titre débloqué : GARDIEN DE GUILDE"); }
+    if (lines.length) { save(); checkBadges(); rewardFx(g, lines); }
+  }
+  const st = () => { S.guild = S.guild || {}; S.guild.claimed = S.guild.claimed || {}; S.guild.feats = S.guild.feats || {}; return S.guild; };
+  function rewardFx(g, lines){
+    if (document.querySelector(".gd-fx")) return;
+    try { Music.sfx("level"); setTimeout(() => Music.sfx("win"), 500); } catch(e){}
+    const el = document.createElement("div"); el.className = "tw-fx tw-cp gd-fx";
+    el.innerHTML = `${Array.from({length:30}, () => `<i class="tw-coin" style="left:${Math.random()*100}%;animation-delay:${(Math.random()*1.2).toFixed(2)}s"></i>`).join("")}<div class="tw-cp-card"><div class="gd-fx-emb">${emblem(g.emb, 110, totals(myG()).lvl)}</div><span class="tw-kicker">${esc(g.name)}</span><b class="tw-cp-title">Récompenses de guilde</b>${lines.map(l => `<span class="tw-cp-sub">${esc(l)}</span>`).join("")}<button class="btn">Pour la guilde !</button></div>`;
+    el.querySelector("button").onclick = () => { el.remove(); render(); flushLevelUp(); };
+    document.body.appendChild(el);
+  }
+
+  /* --- Actions --- */
+  const okName = n => /^[\p{L}\p{N} '’-]{3,20}$/u.test(n.trim());
+  async function create(){
+    const n = draft.name.trim(), nl = n.toLowerCase();
+    if (!okName(n)) throw "Le nom doit faire de 3 à 20 lettres ou chiffres.";
+    if (myG()) throw "Tu es déjà dans une guilde.";
+    const ref = db().collection("guilds").doc();
+    await db().runTransaction(async tx => { const r = db().doc("guildNames/" + nl), s = await tx.get(r); if (s.exists) throw "Ce nom de guilde est déjà pris.";
+      tx.set(r, {uid:uid(), g:ref.id});
+      tx.set(ref, {name:n, nameL:nl, emb:draft.emb, desc:(draft.desc || "").slice(0, 140), created:Date.now(), leader:uid(), members:{[uid()]:{role:"chef", j:Date.now()}}, apps:{}, inv:[], done:{}, bonus:0}); });
+    await db().doc(`guilds/${ref.id}/contrib/${uid()}`).set({p:S.profile.name, at:Date.now(), all:{ok:0, mp:0, win:0, xp:0, th:{}}, w:{}});
+    draft = null; sub = "hq"; view = "home";
+  }
+  const G = id => db().doc("guilds/" + id);
+  async function apply(id){ if (myG()) throw "Quitte d'abord ta guilde actuelle."; const g = guilds[id]; if (Object.keys(g.members).length >= MAX) throw "Cette guilde est complète (5 membres).";
+    await G(id).update({["apps." + uid()]: {at:Date.now(), p:S.profile.name}}); msg = "Candidature envoyée ! Le chef ou un officier va te répondre."; }
+  async function accept(id, u){ const g = guilds[id]; if (Object.keys(g.members).length >= MAX) throw "La guilde est complète (5 membres).";
+    await G(id).update({["members." + u]:{role:"mem", j:Date.now()}, ["apps." + u]:FV().delete()}); }
+  const refuse = (id, u) => G(id).update({["apps." + u]:FV().delete()});
+  const invite = (id, u) => G(id).update({inv:FV().arrayUnion(u)});
+  async function joinInvite(id){ if (myG()) throw "Quitte d'abord ta guilde actuelle."; const g = guilds[id]; if (Object.keys(g.members).length >= MAX) throw "Cette guilde est complète.";
+    await G(id).update({["members." + uid()]:{role:"mem", j:Date.now()}, inv:FV().arrayRemove(uid())}); }
+  async function leave(){ const id = myG(), g = guilds[id]; if (!id) return; flush();
+    const others = Object.keys(g.members).filter(u => u !== uid());
+    if (!others.length) { await db().doc(`guilds/${id}/contrib/${uid()}`).delete().catch(() => {}); await G(id).delete(); await db().doc("guildNames/" + g.nameL).delete().catch(() => {}); return; }
+    const up = {["members." + uid()]:FV().delete()};
+    if (g.leader === uid()) { const next = others.find(u => g.members[u].role === "off") || others.sort((a, b) => g.members[a].j - g.members[b].j)[0]; up.leader = next; up["members." + next] = Object.assign({}, g.members[next], {role:"chef"}); }
+    await G(id).update(up); }
+  const kick = (id, u) => G(id).update({["members." + u]:FV().delete()});
+  const promote = (id, u, r) => G(id).update({["members." + u + ".role"]: r});
+  async function transfer(id, u){ await G(id).update({leader:u, ["members." + u + ".role"]:"chef", ["members." + uid() + ".role"]:"off"}); }
+  const saveInfo = (id, emb, desc) => G(id).update({emb, desc:(desc || "").slice(0, 140)});
+
+  /* --- Invitations reçues --- */
+  let shownInv = {};
+  function showInvites(){
+    if (!uid() || myG()) return;
+    Object.keys(guilds).forEach(id => { const g = guilds[id]; if (!(g.inv || []).includes(uid()) || shownInv[id]) return; shownInv[id] = 1;
+      const el = document.createElement("div"); el.className = "am-inv"; el.setAttribute("role", "alertdialog");
+      el.innerHTML = `<button class="am-x" aria-label="Fermer">×</button><div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap">${emblem(g.emb, 44)}<div class="stack" style="gap:2px;min-width:0"><b>Invitation dans la guilde ${esc(g.name)}</b><span>${Object.keys(g.members).length}/${MAX} membres</span></div></div><div class="row"><button class="btn small" data-go>Rejoindre</button><button class="btn small ghost" data-x>Plus tard</button></div>`;
+      el.querySelector("[data-go]").onclick = async () => { el.remove(); try { await joinInvite(id); S.tab = "amis"; S.multiView = "guild"; save(); render(); } catch(e){ toasts.push(typeof e === "string" ? e : "Impossible de rejoindre la guilde."); render(); } };
+      el.querySelectorAll(".am-x,[data-x]").forEach(b => b.onclick = () => el.remove());
+      document.body.appendChild(el); setTimeout(() => el.remove(), 60000); });
+  }
+
+  /* --- Affichage --- */
+  const roleN = {chef:"Chef de guilde", off:"Bras droit", mem:"Membre"};
+  const online = u => A().online(u) || u === uid();
+  function rankRows(by){
+    const rows = Object.keys(guilds).map(id => { const t = totals(id); return {id, g:guilds[id], t, n:Object.keys(guilds[id].members || {}).length}; });
+    const key = {general:r => r.t.xp, actives:r => r.t.w.ok + r.t.w.mp * 10, victoires:r => r.t.win, questions:r => r.t.ok}[by];
+    return rows.sort((a, b) => key(b) - key(a));
+  }
+
+  /* --- La taverne de la guilde : une petite salle, une table ronde et 5 tabourets --- */
+  const STOOL = `<svg viewBox="0 0 60 44" class="gd-stool" aria-hidden="true"><path d="M14 12 L8 42 M46 12 L52 42 M30 14 V42" stroke="#2E1A0C" stroke-width="5" stroke-linecap="round"/><path d="M14 12 L8 42 M46 12 L52 42 M30 14 V42" stroke="#8A5428" stroke-width="2.6" stroke-linecap="round"/><path d="M12 30 H48" stroke="#2E1A0C" stroke-width="3"/><ellipse cx="30" cy="12" rx="24" ry="8" fill="#6A3C1A" stroke="#2E1A0C" stroke-width="2.5"/><ellipse cx="30" cy="10" rx="21" ry="5.5" fill="#A8642C"/><path d="M16 9 Q30 5 44 9" stroke="#E0A060" stroke-width="1.6" fill="none" opacity=".7"/></svg>`;
+  function tavernBG(g, L){
+    const col = COLORS.find(c => c.id === (g && g.emb && g.emb.c)) || COLORS[0];
+    const planks = Array.from({length:12}, (_, i) => `<rect x="${i * 30}" y="0" width="30" height="150" fill="${i % 2 ? "#5A3418" : "#66391B"}"/><path d="M${i * 30} 14V150" stroke="#2E1A0C" stroke-width="2"/><circle cx="${i * 30 + 6}" cy="22" r="1.4" fill="#2E1A0C"/><circle cx="${i * 30 + 6}" cy="112" r="1.4" fill="#2E1A0C"/>`).join("");
+    const floor = Array.from({length:11}, (_, i) => `<path d="M${180 + (i - 5) * 26} 150 L${180 + (i - 5) * 80} 270" stroke="#2E1A0C" stroke-width="1.6" opacity=".55"/>`).join("");
+    const bottles = [["#2BB673", 276], ["#8A5AD8", 290], ["#E2474F", 304], ["#4A8AE8", 330]].map(([c, x], i) => `<rect x="${x}" y="${i % 2 ? 60 : 56}" width="9" height="${i % 2 ? 18 : 22}" rx="3" fill="${c}" stroke="#1E1030" stroke-width="1.5"/><rect x="${x + 2.5}" y="${i % 2 ? 54 : 50}" width="4" height="7" fill="${c}" stroke="#1E1030" stroke-width="1.2"/>`).join("");
+    const pennant = x => `<path d="M${x - 14} 14 H${x + 14} V64 L${x} 54 L${x - 14} 64Z" fill="${col.a}" stroke="#1E1030" stroke-width="2.4"/><path d="M${x - 14} 22 H${x + 14}" stroke="#FFD23F" stroke-width="2"/><circle cx="${x}" cy="38" r="5" fill="#FFD23F" stroke="#1E1030" stroke-width="1.6"/>`;
+    const torch = x => `<path d="M${x - 4} 96 L${x + 4} 96 L${x + 2} 76 L${x - 2} 76Z" fill="#3A2410" stroke="#1E1030" stroke-width="1.8"/><path d="M${x - 7} 76 H${x + 7}" stroke="#8A8A9A" stroke-width="3"/><circle cx="${x}" cy="66" r="22" fill="url(#gdGlow)" class="gd-flick"/><path d="M${x} 52 Q${x + 9} 66 ${x + 4} 74 Q${x} 78 ${x - 4} 74 Q${x - 9} 66 ${x} 52Z" fill="#FF9A2A" class="gd-flame"/><path d="M${x} 60 Q${x + 4} 68 ${x + 2} 72 Q${x} 74 ${x - 2} 72 Q${x - 4} 68 ${x} 60Z" fill="#FFE58A" class="gd-flame"/>`;
+    return `<svg class="gd-bg" viewBox="0 0 360 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>
+      <radialGradient id="gdGlow"><stop offset="0" stop-color="#FFC861" stop-opacity=".75"/><stop offset="1" stop-color="#FFC861" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gdWarm" cx=".5" cy=".62" r=".75"><stop offset="0" stop-color="#FFB054" stop-opacity=".28"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0A0408" stop-opacity=".7"/></radialGradient>
+      <linearGradient id="gdFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A3418"/><stop offset="1" stop-color="#2E1A0C"/></linearGradient></defs>
+      ${planks}<rect width="360" height="16" fill="#3A2010"/><rect y="118" width="360" height="10" fill="#3A2010"/><rect y="128" width="360" height="22" fill="#4A2A12"/>
+      <g><path d="M22 100 V46 Q52 18 82 46 V100Z" fill="#FFD98A" stroke="#2E1A0C" stroke-width="4"/><path d="M52 26 V100 M22 64 H82" stroke="#2E1A0C" stroke-width="3"/><path d="M26 98 V48 Q38 34 50 30" stroke="#FFF2C8" stroke-width="3" fill="none" opacity=".6"/>
+        <path d="M22 100 L82 100 L150 270 L-30 270Z" fill="#FFD98A" opacity=".07"/></g>
+      <g><rect x="268" y="78" width="80" height="6" fill="#3A2010" stroke="#1E1030" stroke-width="1.5"/><rect x="268" y="40" width="80" height="6" fill="#3A2010" stroke="#1E1030" stroke-width="1.5"/>${bottles}
+        <path d="M278 40 v-12 h12 v12 M300 40 v-16 h10 v16" fill="#C8A060" stroke="#1E1030" stroke-width="1.5"/>
+        ${L >= 4 ? `<path d="M318 24 h18 v6 q0 8 -9 9 q-9 -1 -9 -9z M324 39 h6 v-1 M322 40 h10" fill="#FFD23F" stroke="#1E1030" stroke-width="1.6"/>` : `<rect x="318" y="26" width="18" height="14" rx="2" fill="#7A4A22" stroke="#1E1030" stroke-width="1.5"/>`}</g>
+      ${L >= 2 ? pennant(110) + pennant(250) : ""}
+      ${L >= 3 ? torch(128) + torch(232) : ""}
+      <path d="M180 0 V18 M150 0 L162 20 M210 0 L198 20" stroke="#2E1A0C" stroke-width="2.4"/>
+      ${L >= 6 ? `<circle cx="180" cy="22" r="60" fill="url(#gdGlow)" class="gd-flick"/>` : ""}
+      <rect y="150" width="360" height="120" fill="url(#gdFloor)"/>${floor}
+      <ellipse cx="180" cy="210" rx="160" ry="46" fill="${col.b}" opacity=".85" stroke="${col.a}" stroke-width="4"/><ellipse cx="180" cy="210" rx="140" ry="36" fill="none" stroke="#FFD23F" stroke-width="1.6" stroke-dasharray="6 5" opacity=".6"/>
+      <rect width="360" height="270" fill="url(#gdWarm)"/></svg>`;
+  }
+  const TABLE = `<svg class="gd-table" viewBox="0 0 360 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="gdTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B8743A"/><stop offset="1" stop-color="#7A4420"/></linearGradient></defs>
+      <ellipse cx="180" cy="236" rx="70" ry="10" fill="#000" opacity=".35"/><path d="M168 190 h24 l6 42 h-36z" fill="#4A2A12" stroke="#1E1030" stroke-width="2.5"/><ellipse cx="180" cy="234" rx="30" ry="7" fill="#3A2010" stroke="#1E1030" stroke-width="2.5"/>
+      <ellipse cx="180" cy="188" rx="106" ry="31" fill="#4A2A12" stroke="#1E1030" stroke-width="3"/><ellipse cx="180" cy="180" rx="106" ry="30" fill="url(#gdTop)" stroke="#1E1030" stroke-width="3"/>
+      <ellipse cx="180" cy="180" rx="92" ry="23" fill="none" stroke="#5A3418" stroke-width="2" opacity=".7"/><path d="M110 172 Q180 158 250 172" stroke="#E0A060" stroke-width="2" fill="none" opacity=".5"/>
+      <circle cx="180" cy="160" r="40" fill="url(#gdGlow)" class="gd-flick"/>
+      <path d="M150 178 l26 -6 l18 8 l-26 6z" fill="#F3E3C0" stroke="#5A3418" stroke-width="1.5"/><path d="M158 178 l16 -3 M162 181 l14 -3" stroke="#A8642C" stroke-width="1.2"/>
+      <rect x="176" y="156" width="8" height="18" rx="2" fill="#FFF6DE" stroke="#1E1030" stroke-width="1.5"/><path d="M180 146 Q185 152 182 156 Q180 158 178 156 Q175 152 180 146Z" fill="#FFB33A" class="gd-flame"/>
+      <g stroke="#1E1030" stroke-width="1.8"><rect x="120" y="166" width="14" height="16" rx="3" fill="#C8A060"/><path d="M134 170 q6 0 6 5 q0 5 -6 5" fill="none"/><ellipse cx="127" cy="166" rx="7" ry="2.5" fill="#FFF6DE"/>
+        <rect x="226" y="168" width="14" height="16" rx="3" fill="#C8A060"/><path d="M226 172 q-6 0 -6 5 q0 5 6 5" fill="none"/><ellipse cx="233" cy="168" rx="7" ry="2.5" fill="#FFF6DE"/></g>
+      <g fill="#FFD23F" stroke="#8A5A00" stroke-width="1.2"><ellipse cx="206" cy="186" rx="6" ry="2.4"/><ellipse cx="207" cy="183" rx="6" ry="2.4"/><ellipse cx="214" cy="188" rx="6" ry="2.4"/></g></svg>`;
+  // Places : le chef au fond au centre, puis les côtés, puis les deux tabourets de devant
+  const SEATS = [{x:50, y:60, w:19}, {x:25, y:65, w:19}, {x:75, y:65, w:19}, {x:15, y:97, w:22, f:1}, {x:85, y:97, w:22, f:1}];
+  function tavern(g, members, L, invOk){
+    const seats = SEATS.map((p, i) => { const u = members[i], st = `left:${p.x}%;top:${p.y}%;width:${p.w}%`;
+      if (!u) return `<div class="gd-seat gd-freeseat ${p.f ? "front" : ""}" style="${st}">${invOk ? `<button class="gd-free" data-gd="sub" data-v="members" aria-label="Place libre : inviter un ami">+</button>` : ""}${STOOL}<span class="gd-plate">Place libre</span></div>`;
+      const on = online(u), r = g.members[u].role;
+      return `<div class="gd-seat ${p.f ? "front" : ""} ${on ? "on" : "off"}" style="${st};--d:${(i * .37).toFixed(2)}s"><span class="gd-plate">${r === "chef" ? `<i class="gd-crown">♛</i>` : r === "off" ? `<i class="gd-crown off">◆</i>` : ""}${esc(A().pseudoOf(u))}</span>
+        <div class="gd-who">${A().avatar(u, 70)}${on ? "" : `<span class="gd-zz">z<small>z</small></span>`}</div>${STOOL}</div>`; });
+    const back = seats.slice(0, 3).join(""), front = seats.slice(3).join("");
+    return `<div class="gd-tav">${tavernBG(g, L)}<div class="gd-wallemb">${emblem(g && g.emb, 64, L)}</div>${back}${TABLE}${front}</div>`;
+  }
+  function hq(id){
+    const g = guilds[id], t = totals(id), L = t.lvl, me = t.wkBy[uid()] || {}, ord = {chef:0, off:1, mem:2}, mem = Object.keys(g.members).sort((a, b) => ord[g.members[a].role] - ord[g.members[b].role] || g.members[a].j - g.members[b].j);
+    const rank = rankRows("general").findIndex(r => r.id === id) + 1, pct = Math.round((t.xp - lvlStart(L)) / (lvlNext(L) - lvlStart(L)) * 100);
+    const nOn = mem.filter(online).length;
+    const objs = objectives().map(o => { const goal = OBJ[o.k].goal, p = Math.min(goal, prog(o, t.w)), my = mine(o, me), ok = p >= goal, elig = my >= Math.ceil(goal * SHARE);
+      return `<div class="gd-obj ${ok ? "done" : ""}"><div class="row between" style="gap:8px;flex-wrap:nowrap"><b>${esc(OBJ[o.k].n(o))}</b>${ok ? `<span class="qs-ok">✓</span>` : `<span class="qs-coin">${coinIco}${OBJ_COINS}</span>`}</div>
+        <div class="gd-bar"><i style="width:${p / goal * 100}%"></i><span>${p.toLocaleString("fr-FR")} / ${goal.toLocaleString("fr-FR")}</span></div>
+        <span class="gd-mine">Ta part : ${my} ${elig ? "· récompense assurée ✓" : `· encore ${Math.ceil(goal * SHARE) - my} pour avoir droit à la récompense`}</span></div>`; }).join("");
+    const allOk = objectives().every(o => prog(o, t.w) >= OBJ[o.k].goal);
+    const body = sub === "members" ? membersView(id) : sub === "rank" ? rankView() : sub === "info" ? infoView(id) :
+      `<div class="gd-sec"><b>Objectifs de la semaine</b><span>renouvelés lundi · prévus pour 5 joueurs</span></div>${objs}
+       <div class="gd-chest ${allOk ? "ready" : ""}">${typeof Quetes !== "undefined" && Quetes.chestSVG ? Quetes.chestSVG("w", allOk ? "ready" : "locked", 54) : ""}<div class="stack" style="gap:2px"><b>Coffre de guilde</b><span>Les 3 objectifs atteints : +${CHEST_COINS} pièces pour chaque membre qui a participé (au moins 5 % d'un objectif).</span></div></div>
+       <div class="gd-sec"><b>Exploits de la guilde</b><span>un badge pour chaque membre</span></div>
+       ${FEATS.map(f => { const v = Math.min(f.goal, f.v(t)); return `<div class="gd-feat ${v >= f.goal ? "done" : ""}"><span>${esc(f.n)}</span><div class="gd-bar sm"><i style="width:${v / f.goal * 100}%"></i></div><b>${v.toLocaleString("fr-FR")}</b></div>`; }).join("")}
+       <p class="gd-note">Niveau 5 : titre ${titleTag("gardien", "xs")} · 10 000 bonnes réponses : titre ${titleTag("legion", "xs")}</p>`;
+    return `<section class="gd-hq">
+      ${tavern(g, mem, L, can(g, "inv") && mem.length < MAX)}
+      <div class="gd-plaque"><h1>${esc(g.name)}</h1>
+        <div class="gd-stats"><span class="gd-lv">Niv. ${L}</span><div class="gd-xp"><i style="width:${pct}%"></i><span>${t.xp.toLocaleString("fr-FR")} / ${lvlNext(L).toLocaleString("fr-FR")} XP</span></div></div>
+        <div class="gd-meta"><span>${gIcon("trophy", 20)} ${rank ? "#" + rank : "–"}</span><span>${gIcon("user", 20)} ${mem.length}/${MAX}</span><span><i class="st-dot on"></i> ${nOn} en ligne</span></div>
+        ${g.desc ? `<p class="gd-desc">« ${esc(g.desc)} »</p>` : ""}</div>
+      <div class="gd-tabs">${[["obj", "Objectifs"], ["members", "Membres"], ["rank", "Classement"], ["info", "Infos"]].map(([k, n]) => `<button class="${(sub === k || (k === "obj" && sub === "hq")) ? "on" : ""}" data-gd="sub" data-v="${k}">${n}</button>`).join("")}</div>
+      <div class="gd-parch">${body}</div>
+    </section>`;
+  }
+  function membersView(id){
+    const g = guilds[id], t = totals(id), r = role(g), ord = {chef:0, off:1, mem:2}, mem = Object.keys(g.members).sort((a, b) => ord[g.members[a].role] - ord[g.members[b].role] || g.members[a].j - g.members[b].j);
+    const friends = Object.keys(A().users()).filter(u => !mem.includes(u) && !Object.keys(guilds).some(x => guilds[x].members[u]));
+    const apps = Object.keys(g.apps || {});
+    return `<div class="card stack">${mem.map(u => { const m = g.members[u], c = (contrib[id] || {})[u] || {}, w = t.wkBy[u] || {};
+        return `<div class="am-row">${A().avatar(u, 40)}<div class="stack grow" style="gap:1px"><b>${esc(A().pseudoOf(u))} ${A().title(u, "xs")}</b><span class="muted" style="font-size:12.5px">${roleN[m.role]} · cette semaine : ${w.ok || 0} réponses, ${w.mp || 0} parties · ${(c.all && c.all.xp) || 0} XP</span>
+          ${r === "chef" && u !== uid() ? `<div class="row" style="gap:6px;margin-top:4px">${m.role === "mem" ? `<button class="chip-btn" data-gd="promote" data-v="${u}">Nommer bras droit</button>` : `<button class="chip-btn" data-gd="demote" data-v="${u}">Retirer bras droit</button>`}<button class="chip-btn" data-gd="transfer" data-v="${u}">Donner la tête</button><button class="chip-btn" data-gd="kick" data-v="${u}">Exclure</button></div>` : ""}</div>
+          <i class="st-dot ${online(u) ? "on" : "off"}"></i></div>`; }).join("")}</div>
+      ${apps.length && can(g, "apps") ? `<div class="card stack"><b>Candidatures</b>${apps.map(u => `<div class="am-row">${A().avatar(u, 36)}<b class="grow">${esc(A().pseudoOf(u))}</b><button class="chip-btn" data-gd="accept" data-v="${u}">Accepter</button><button class="chip-btn" data-gd="refuse" data-v="${u}">Refuser</button></div>`).join("")}</div>` : ""}
+      ${can(g, "inv") && mem.length < MAX ? `<div class="card stack"><b>Inviter des amis</b>${friends.length ? friends.map(u => `<div class="am-row">${A().avatar(u, 36)}<b class="grow">${esc(A().pseudoOf(u))}</b><button class="chip-btn" data-gd="invite" data-v="${u}" ${(g.inv || []).includes(u) ? "disabled" : ""}>${(g.inv || []).includes(u) ? "Invité" : "Inviter"}</button></div>`).join("") : `<p class="muted" style="margin:0">Tous tes amis sont déjà dans une guilde.</p>`}</div>` : ""}`;
+  }
+  function rankView(){
+    const R = rankRows(tab), lab = {general:"Général", actives:"Plus actives", victoires:"Victoires", questions:"Questions"};
+    const val = r => tab === "general" ? `${r.t.xp.toLocaleString("fr-FR")} XP` : tab === "actives" ? `${r.t.w.ok} rép. cette semaine` : tab === "victoires" ? `${r.t.win} victoires` : `${r.t.ok.toLocaleString("fr-FR")} réponses`;
+    return `<div class="card stack"><div class="am-tabs">${Object.keys(lab).map(k => `<button class="chip-btn ${tab === k ? "on" : ""}" data-gd="tab" data-v="${k}">${lab[k]}</button>`).join("")}</div>
+      ${R.length ? R.map((r, i) => `<div class="gd-rk ${r.id === myG() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${emblem(r.g.emb, 44, r.t.lvl)}<div class="stack grow" style="gap:1px;min-width:0"><b>${esc(r.g.name)}</b><span class="muted" style="font-size:12.5px">Niveau ${r.t.lvl} · ${r.n}/${MAX} membres</span></div><b class="am-pts">${val(r)}</b>
+        ${!myG() && r.n < MAX ? `<button class="chip-btn" data-gd="apply" data-v="${r.id}" ${(r.g.apps || {})[uid()] ? "disabled" : ""}>${(r.g.apps || {})[uid()] ? "Demandé" : "Rejoindre"}</button>` : ""}</div>`).join("") : `<p class="muted" style="margin:0">Aucune guilde pour l'instant. Crée la première !</p>`}</div>`;
+  }
+  function picker(emb, L){
+    const pick = (arr, k, label, show) => `<div class="label">${label}</div><div class="gd-pick">${arr.map(x => `<button class="gd-opt ${emb[k] === x.id ? "on" : ""}" data-gd="emb" data-k="${k}" data-v="${x.id}" ${x.lv > L ? "disabled" : ""} title="${x.lv > L ? "Niveau " + x.lv : ""}">${show(x)}${x.lv > L ? `<span class="gd-lock">niv. ${x.lv}</span>` : ""}</button>`).join("")}</div>`;
+    return pick(SHAPES, "s", "Forme", x => emblem(Object.assign({}, emb, {s:x.id}), 44)) + pick(COLORS, "c", "Couleurs", x => `<span class="gd-col" style="background:linear-gradient(${x.a},${x.b})"></span>`) + pick(ICONS_OK, "i", "Symbole", x => emblem(Object.assign({}, emb, {i:x.id}), 44));
+  }
+  function infoView(id){
+    const g = guilds[id], t = totals(id), r = role(g); if (!draft) draft = {emb:Object.assign({}, g.emb), desc:g.desc || ""};
+    const d = new Date(g.created);
+    return `<div class="card stack"><b>Informations</b><span class="muted">Créée le ${d.getDate()} ${MOIS[d.getMonth()]} ${d.getFullYear()} · ${Object.keys(g.members).length}/${MAX} membres · niveau ${t.lvl}</span>
+      <span class="muted" style="font-size:13px">Le niveau débloque de nouvelles formes, couleurs et symboles, des décorations du QG (bannières au niveau 2, torches au 3, aura au 6) et le titre GARDIEN DE GUILDE au niveau 5. Aucun avantage dans les quiz.</span></div>
+      ${r === "chef" ? `<div class="card stack"><b>Emblème et description</b><div style="display:grid;place-items:center">${emblem(draft.emb, 110, t.lvl)}</div>${picker(draft.emb, t.lvl)}
+        <div class="label">Description</div><textarea id="gd-desc" maxlength="140" class="gd-ta">${esc(draft.desc)}</textarea><button class="btn" data-gd="saveinfo">Enregistrer</button></div>` : ""}
+      <button class="btn ghost" data-gd="leave">${r === "chef" && Object.keys(g.members).length > 1 ? "Quitter la guilde (la tête passe à un autre membre)" : "Quitter la guilde"}</button>`;
+  }
+  function noGuild(){
+    if (draft && draft.creating) return `<section class="stack"><div class="row between"><button class="quit" data-gd="cancel">← Retour</button><span class="label">Nouvelle guilde</span></div>
+      <div class="gd-hq">${tavern({emb:draft.emb, members:{[uid()]:{role:"chef"}}}, [uid()], 1, false)}<div class="gd-plaque"><h1>${esc(draft.name || "Ta guilde")}</h1></div></div>
+      <div class="card stack"><div class="label">Nom (unique, 3 à 20 caractères)</div><input id="gd-name" class="gd-in" maxlength="20" value="${esc(draft.name || "")}" autocomplete="off">
+        <div class="label">Description</div><textarea id="gd-desc" maxlength="140" class="gd-ta">${esc(draft.desc || "")}</textarea>${picker(draft.emb, 1)}
+        ${msg ? `<p class="am-err">${esc(msg)}</p>` : ""}<button class="btn" data-gd="create">Fonder la guilde</button></div></section>`;
+    const invs = Object.keys(guilds).filter(id => (guilds[id].inv || []).includes(uid()));
+    return `<section class="stack gd-hq">${tavern({emb:{s:"ecu", c:"rubis", i:"duel"}, members:{}}, [], 1, false)}<div class="gd-plaque"><h1>Guildes</h1><p class="gd-desc">Une petite taverne pour 5 amis au plus : faites progresser votre guilde ensemble et ouvrez des coffres chaque semaine.</p></div>
+      ${msg ? `<p class="am-err">${esc(msg)}</p>` : ""}
+      ${invs.length ? `<div class="card stack"><b>Invitations</b>${invs.map(id => `<div class="gd-rk">${emblem(guilds[id].emb, 40)}<b class="grow">${esc(guilds[id].name)}</b><button class="chip-btn" data-gd="join" data-v="${id}">Rejoindre</button></div>`).join("")}</div>` : ""}
+      <button class="btn" data-gd="new">Fonder une guilde</button>
+      <div class="label">Rejoindre une guilde</div><div class="gd-parch">${rankView()}</div></section>`;
+  }
+  function viewAll(){
+    listen();
+    const id = myG(), back = `<div class="row between"><button class="quit" data-gd="back">← Multi</button><span class="label">Guildes</span></div>`;
+    return back + (id ? hq(id) : noGuild());
+  }
+
+  /* --- Clics --- */
+  async function click(b){
+    const a = b.dataset.gd, v = b.dataset.v, id = myG(); msg = "";
+    const n = document.getElementById("gd-name"), dsc = document.getElementById("gd-desc"); if (draft) { if (n) draft.name = n.value; if (dsc) draft.desc = dsc.value; }
+    try {
+      if (a === "back") { S.multiView = "home"; draft = null; save(); }
+      else if (a === "sub") { sub = v; draft = null; }
+      else if (a === "tab") tab = v;
+      else if (a === "new") draft = {creating:true, name:"", desc:"", emb:{s:"ecu", c:"violet", i:"duel"}};
+      else if (a === "cancel") draft = null;
+      else if (a === "emb") draft.emb[b.dataset.k] = v;
+      else if (a === "create") await create();
+      else if (a === "apply") await apply(v);
+      else if (a === "join") await joinInvite(v);
+      else if (a === "accept") await accept(id, v);
+      else if (a === "refuse") await refuse(id, v);
+      else if (a === "invite") await invite(id, v);
+      else if (a === "kick") await kick(id, v);
+      else if (a === "promote") await promote(id, v, "off");
+      else if (a === "demote") await promote(id, v, "mem");
+      else if (a === "transfer") await transfer(id, v);
+      else if (a === "saveinfo") { await saveInfo(id, draft.emb, draft.desc); draft = null; msg = ""; }
+      else if (a === "leave") { await leave(); sub = "hq"; }
+    } catch(e){ msg = typeof e === "string" ? e : "Action impossible pour le moment. Vérifie ta connexion."; if (id) toasts.push(esc(msg)); }
+    render();
+  }
+  return {view:viewAll, click, listen, ev, emblem, invites:() => uid() && !myG() ? Object.keys(guilds).filter(id => (guilds[id].inv || []).includes(uid())).length : 0, mine:() => { const id = myG(); return id ? {id, g:guilds[id], t:totals(id)} : null; }, _flush:flush};
+})();
+
+/* --- Badges des guildes (exploits collectifs) --- */
+[["gdq","diamant","q10k","Légion du savoir","Ta guilde atteint 10 000 bonnes réponses",300],
+ ["gdmp","or","mp100","Arène vivante","Ta guilde joue 100 parties multijoueurs",150],
+ ["gdwin","platine","win50","Conquérants","Ta guilde remporte 50 parties multijoueurs",200],
+ ["gdsci","or","sci2k","Académie des sciences","Ta guilde atteint 2 000 bonnes réponses en Sciences",150],
+ ["gdbox","argent","chest","Esprit d'équipe","Ouvrir un coffre de guilde",60]
+].forEach(([id, tier, f, name, desc, coins]) => BADGES.push({id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal:1, cur:() => f === "chest" ? ((S.guild && S.guild.chests) || 0) : (S.guild && S.guild.feats && S.guild.feats[f] ? 1 : 0)}));
 
 const Parc = (function(){
 if (!window.THREE) return {open(){ window.__app.close(); }, close(){}};

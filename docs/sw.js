@@ -1,6 +1,6 @@
 // Service worker de Lumen : l'appli marche hors connexion.
 // La page est chargée « réseau d'abord » (pour recevoir les mises à jour), le reste « cache d'abord ».
-const CACHE = "lumen-8b4f85abc3";
+const CACHE = "lumen-489277825d";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-180.png"];
 
 self.addEventListener("install", e => {

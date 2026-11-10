@@ -1112,6 +1112,102 @@ body.in-tour .tw{background:transparent}
 @keyframes podConf{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:1;transform:translateY(110vh) rotate(720deg)}}
 @media (prefers-reduced-motion:reduce){.sl-pod *{animation-duration:.01s!important;animation-delay:0s!important}}
 @media (prefers-reduced-motion:reduce){.sl-bomb svg,.sl-spark,.sl-boom,.sl-seat.hit,.sl-bubble{animation:none}}
+
+/* ---------- Multi : les deux portes ---------- */
+.mh-door{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px;text-align:left;color:#FFF6DE;cursor:pointer;border-radius:22px;border:3px solid #1E1030;box-shadow:0 6px 0 #1E1030;background:linear-gradient(135deg,#4A2A8A,#1E1040)}
+.mh-door.mh-guild{background:linear-gradient(135deg,#8A4A1E,#3A1E0C);border-color:#2E1A0C;box-shadow:0 6px 0 #2E1A0C,inset 0 0 0 2px rgba(255,210,63,.25)}
+.mh-door:active{transform:translateY(3px);box-shadow:0 3px 0 #1E1030}
+.mh-arch{flex:none;display:grid;place-items:center;width:84px;height:92px;border-radius:42px 42px 12px 12px;background:radial-gradient(circle at 50% 35%,rgba(255,200,97,.45),rgba(0,0,0,.25));border:3px solid rgba(255,246,222,.35)}
+.mh-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mh-txt b{font:800 20px "Fredoka","Nunito",sans-serif}
+.mh-txt span{font-size:13.5px;color:#EADCC8;line-height:1.3}
+.mh-n{position:absolute;top:10px;right:12px;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:#FF5FA2;color:#fff;font:800 13px "IBM Plex Mono",monospace;display:grid;place-items:center;border:2px solid #1E1030;font-style:normal}
+
+/* ---------- Guildes : la taverne ---------- */
+.gd-hq{display:flex;flex-direction:column;gap:0}
+.gd-tav{position:relative;width:100%;aspect-ratio:360/270;border-radius:22px 22px 0 0;overflow:hidden;border:3px solid #2E1A0C;border-bottom:0;background:#2E1A0C}
+.gd-bg,.gd-table{position:absolute;inset:0;width:100%;height:100%}
+.gd-table{z-index:2;pointer-events:none}
+.gd-wallemb{position:absolute;left:50%;top:1%;transform:translateX(-50%);width:15%;z-index:0;filter:drop-shadow(0 4px 3px rgba(0,0,0,.5))}
+.gd-wallemb svg{width:100%;height:auto}
+.gd-seat{position:absolute;z-index:1;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+.gd-seat.front{z-index:3}
+.gd-seat .gd-stool{width:78%;height:auto;margin-top:-16%;position:relative;z-index:-1}
+.gd-who{position:relative;width:100%;animation:gdBob 3.2s ease-in-out infinite;animation-delay:var(--d,0s);transform-origin:50% 100%}
+.gd-who svg,.gd-who .am-crowned{width:100%!important;height:auto!important;display:block}
+.gd-seat.on .gd-who{filter:drop-shadow(0 0 6px rgba(255,200,97,.8))}
+.gd-seat.off .gd-who{filter:saturate(.45) brightness(.7);animation:none}
+.gd-zz{position:absolute;right:-4%;top:0;font:800 15px "Fredoka",sans-serif;color:#C9D8FF;animation:gdZz 2.4s ease-in-out infinite}
+.gd-zz small{font-size:10px}
+@keyframes gdZz{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}
+@keyframes gdBob{0%,100%{transform:none}50%{transform:translateY(-3%) rotate(-1.5deg)}}
+.gd-plate{max-width:150%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:800 11px "Nunito",sans-serif;color:#FFF6DE;background:rgba(30,16,8,.82);border:1.5px solid #C8A060;border-radius:8px;padding:1px 7px;margin-bottom:3px;display:flex;align-items:center;gap:3px}
+.gd-seat.front .gd-plate{order:3;margin:3px 0 0}
+.gd-crown{font-style:normal;color:#FFD23F}.gd-crown.off{color:#C9D8FF;font-size:9px}
+.gd-seat.gd-freeseat .gd-stool{margin-top:0;opacity:.85}
+.gd-seat.gd-freeseat .gd-plate{opacity:.6;font-weight:700}
+.gd-free{flex:none;width:clamp(30px,10vw,44px);height:clamp(30px,10vw,44px);padding:0;line-height:1;display:grid;place-items:center;border-radius:50%;border:2.5px dashed #FFD98A;background:rgba(255,217,138,.12);color:#FFD98A;font:800 24px "Fredoka",sans-serif;cursor:pointer;margin-bottom:-8%;animation:gdPulse 2s ease-in-out infinite}
+@keyframes gdPulse{50%{background:rgba(255,217,138,.3)}}
+.gd-flame{animation:gdFlame .35s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.gd-flick{animation:gdFlick 2.2s ease-in-out infinite}
+@keyframes gdFlame{to{transform:scaleY(1.15) scaleX(.9)}}
+@keyframes gdFlick{0%,100%{opacity:1}40%{opacity:.75}70%{opacity:.9}}
+
+/* Plaque sous la taverne */
+.gd-plaque{font-family:"Nunito",sans-serif;position:relative;z-index:4;margin-top:-4px;padding:12px 14px 14px;color:#3A2410;border:3px solid #2E1A0C;border-top:0;background:linear-gradient(180deg,#8A5428 0 8px,#F3E3C0 8px,#E8D2A4);display:flex;flex-direction:column;gap:8px}
+.gd-plaque h1{margin:0;text-align:center;font:800 24px "Fredoka","Nunito",sans-serif;color:#3A2410;letter-spacing:.5px}
+.gd-stats{display:flex;align-items:center;gap:8px}
+.gd-lv{flex:none;font:800 13px "IBM Plex Mono",monospace;color:#FFF6DE;background:linear-gradient(#8A5428,#4A2A12);border:2px solid #2E1A0C;border-radius:10px;padding:3px 8px}
+.gd-xp,.gd-bar{position:relative;flex:1;height:18px;border-radius:9px;background:#4A2A12;border:2px solid #2E1A0C;overflow:hidden}
+.gd-xp i,.gd-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#4A8AE8,#8AD8FF);transition:width .6s}
+.gd-bar i{background:linear-gradient(90deg,#E08A00,#FFD23F)}
+.gd-obj.done .gd-bar i{background:linear-gradient(90deg,#2BB673,#7FD8BE)}
+.gd-xp span,.gd-bar span{position:relative;display:grid;place-items:center;height:100%;font:800 10.5px "IBM Plex Mono",monospace;color:#fff;text-shadow:0 1px 0 #1E1030}
+.gd-bar.sm{height:10px;border-width:1.5px}
+.gd-meta{display:flex;justify-content:center;gap:16px;font:800 13px "Nunito",sans-serif}
+.gd-meta span{display:inline-flex;align-items:center;gap:4px}
+.gd-desc{margin:0;text-align:center;font-style:italic;font-size:13.5px;color:#5A3A1E}
+
+/* Onglets en bois + parchemin */
+.gd-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:12px 0 -3px;padding:0 4px;position:relative;z-index:2}
+.gd-tabs button{padding:9px 2px 7px;border-radius:12px 12px 0 0;border:2.5px solid #2E1A0C;border-bottom:0;background:linear-gradient(#6A3C1A,#4A2A12);color:#E8D2A4;font:800 12.5px "Nunito",sans-serif;cursor:pointer}
+.gd-tabs button.on{background:linear-gradient(#C8823A,#8A5428);color:#FFF6DE;padding-top:11px;margin-top:-4px}
+.gd-parch{font-family:"Nunito",sans-serif;position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;border:3px solid #2E1A0C;color:#3A2410;background:linear-gradient(180deg,#F7EAD0,#E8D2A4);box-shadow:inset 0 0 24px rgba(138,84,40,.35),0 5px 0 #2E1A0C}
+.gd-parch .card{background:transparent;border:0;box-shadow:none;padding:0;color:inherit}
+.gd-parch .muted,.gd-parch .label{color:#7A5430}
+.gd-parch b{color:#3A2410}
+.gd-parch .chip-btn{display:inline-flex;width:auto;min-height:0;padding:5px 10px;border-radius:10px;font:800 12.5px "Nunito",sans-serif;background:#FFF6DE;color:#3A2410;border:2px solid #8A5428;box-shadow:none}
+.gd-parch .row{flex-wrap:wrap}
+.gd-parch .am-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.gd-parch b,.gd-sec b{font-family:"Nunito",sans-serif;font-weight:800}
+.gd-parch .chip-btn.on{background:#8A5428;color:#FFF6DE}
+.gd-parch .am-row{background:linear-gradient(90deg,#F7D98A,#E8B65A);border:2px solid #8A5A20;border-radius:14px;padding:8px 10px;box-shadow:0 3px 0 rgba(90,52,24,.4)}
+.gd-parch .btn.ghost{color:#3A2410;border-color:#8A5428}
+.gd-sec{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid rgba(138,84,40,.35);padding-bottom:4px}
+.gd-sec span{font-size:12px;color:#7A5430}
+.gd-obj{display:flex;flex-direction:column;gap:5px;padding:10px;border-radius:14px;background:rgba(255,246,222,.65);border:2px solid rgba(138,84,40,.45)}
+.gd-obj b{font-size:14px}
+.gd-obj.done{background:rgba(43,182,115,.15);border-color:#2BB673}
+.gd-mine{font-size:12px;color:#7A5430;font-weight:700}
+.gd-chest{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:linear-gradient(135deg,#4A1E8A,#1A0A30);border:2px solid #2E1A0C}
+.gd-chest b{color:#FFD23F}.gd-chest span{color:#E0D4FF;font-size:12.5px}
+.gd-feat{display:grid;grid-template-columns:1fr 80px 54px;align-items:center;gap:8px;font-size:13px}
+.gd-feat b{text-align:right;font:800 12px "IBM Plex Mono",monospace}
+.gd-feat.done span{text-decoration:line-through;opacity:.7}
+.gd-note{margin:0;font-size:12.5px;color:#7A5430;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.gd-rk{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px}
+.gd-rk.me{background:rgba(255,210,63,.35);outline:2px solid #E0A82A}
+.gd-pick{display:flex;flex-wrap:wrap;gap:6px}
+.gd-opt{position:relative;display:grid;place-items:center;width:58px;height:58px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer}
+.gd-opt.on{border-color:#FFD23F;box-shadow:0 0 0 3px rgba(255,210,63,.4)}
+.gd-opt:disabled{opacity:.45;cursor:default}
+.gd-lock{position:absolute;bottom:-2px;font:800 9px "IBM Plex Mono",monospace;background:#1E1030;color:#fff;border-radius:6px;padding:0 4px}
+.gd-col{width:36px;height:36px;border-radius:50%;border:2px solid #1E1030}
+.gd-in,.gd-ta{width:100%;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px "Nunito",sans-serif}
+.gd-ta{min-height:64px;resize:vertical}
+.gd-fx-emb{display:grid;place-items:center}
+.gd-emb .gd-glow{animation:gdFlick 2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.gd-who,.gd-flame,.gd-flick,.gd-zz,.gd-free{animation:none!important}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">

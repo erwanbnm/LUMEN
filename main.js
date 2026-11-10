@@ -449,7 +449,7 @@ const TAB_ICONS = {
 };
 TAB_ICONS.boutique = '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
 const GTAB = {accueil:"home", jouer:"play", amis:"sword", tour:"tower", boutique:"shop", parc:"parc", profil:"user"};
-const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"JcJ", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
+const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"Multi", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
 let adminTaps = 0, libFilter = "all", libQuery = "", confirmReset = false, tick = null, autoNext = null, profSeg = "progres", shopSeg = "skins", draft = null, formErr = "", copyFallback = "";
 
 function renderTabs(){
@@ -639,7 +639,8 @@ const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", 
 const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
+const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
 const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -666,6 +667,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}
       <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
 }
 function renderShop(){
@@ -1102,6 +1104,7 @@ function doAnswer(s, v){
 function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
+  if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
   if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
   if (d.bs !== undefined) { if (S.settings.sfx !== false && d.bs !== "ans") try { Music.sfx("tap"); } catch(err){} return Boss.click(b); }

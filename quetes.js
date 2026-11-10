@@ -78,6 +78,7 @@ const Quetes = (() => {
   function ev(type, info){
     if (!S || !S.profile) return;
     const q = Qs(); info = info || {};
+    if (typeof Guildes !== "undefined") try { Guildes.ev(type, info); } catch(e){}
     if (type === "ok") { runN++; ev("run", {v:runN}); }
     const apply = (list, DEF, wk) => list.forEach(m => {
       const d = DEF[m.k]; if (!d || m.done || d.on !== type) return;
@@ -181,7 +182,7 @@ const Quetes = (() => {
     if (a === "tab") { tab = b.dataset.v; return render(); }
     if (a === "open") return openChest(b.dataset.v);
   }
-  return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs};
+  return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs, chestSVG};
 })();
 
 /* --- Badges et titre des quêtes --- */

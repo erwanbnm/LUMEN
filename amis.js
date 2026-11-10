@@ -48,7 +48,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh()) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
@@ -108,7 +108,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -400,12 +400,25 @@ const Amis = (function(){
   // Pastille verte « En ligne » ou rouge « Hors ligne »
   const status = id => `<span class="am-st ${online(id) ? "on" : "off"}"><i class="st-dot"></i>${online(id) ? "En ligne" : "Hors ligne"}</span>`;
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
+  // Écran d'accueil de l'onglet Multi : deux portes (Joueur contre joueur, Guildes)
+  function viewHub(){
+    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !(d.res && d.res[uid()] && d.res[uid()].done) && d.state !== "declined").length;
+    const G = typeof Guildes !== "undefined" ? Guildes.mine() : null, inv = typeof Guildes !== "undefined" ? Guildes.invites() : 0;
+    const door = (v, art, t, d, n) => `<button class="mh-door mh-${v}" data-am="multi" data-v="${v}"><span class="mh-arch">${art}</span><span class="mh-txt"><b>${t}</b><span>${d}</span></span>${n ? `<i class="mh-n">${n}</i>` : ""}</button>`;
+    return `<section class="stack"><h1 class="big" style="margin:0">Multi</h1>
+      ${door("jcj", gIcon("sword", 64), "Joueur contre joueur", "Duels en direct ou en différé, salons privés et classement", recv)}
+      ${door("guild", G ? Guildes.emblem(G.g.emb, 70, G.t.lvl) : Guildes.emblem({s:"ecu", c:"rubis", i:"duel"}, 70, 1), "Guildes", G ? `${esc(G.g.name)} · niveau ${G.t.lvl} · ${Object.keys(G.g.members).length}/5 membres` : "Fonde ou rejoins une guilde de 5 amis maximum", inv)}
+    </section>`;
+  }
   function view(){
     if (!enabled()) return `<section class="stack"><h1 class="big">JcJ</h1><div class="card stack"><b>Le mode en ligne arrive bientôt.</b><p class="muted">Duels en direct, défis en différé et classements entre amis.</p></div></section>`;
     if (!fb) { boot(); return `<section class="stack"><h1 class="big">JcJ</h1><div class="card"><p class="muted">${err || "Connexion au serveur…"}</p></div></section>`; }
     if (!me) return viewLogin();
     if (cloud.offer) return viewOffer();
     if (typeof Salons !== "undefined" && Salons.active()) return Salons.view();
+    const mv = S.multiView || "home";
+    if (mv === "guild" && typeof Guildes !== "undefined") return Guildes.view();
+    if (mv !== "jcj") return viewHub();
     if (ui.view === "board") return viewBoard();
     const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
     const mineDone = d => d.res && d.res[uid()] && d.res[uid()].done;
@@ -414,7 +427,7 @@ const Amis = (function(){
     const p = pending(), hist = finished().filter(d => d.from === uid() || d.to === uid()).slice(0, 8);
     const m = ui.mode;
     return `<section class="stack">
-      <div class="row between"><h1 class="big" style="margin:0">JcJ</h1><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
+      <div class="row between"><div class="stack" style="gap:2px"><button class="quit" data-am="multi" data-v="home">← Multi</button><h1 class="big" style="margin:0">Joueur contre joueur</h1></div><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
       ${typeof Salons !== "undefined" ? Salons.entry() : ""}
       ${p ? `<div class="card stack banner-am"><b>En attente de ${esc(pseudoOf(p.to))}…</b><span class="muted">Le duel démarre dès qu'il accepte.</span><button class="btn small ghost" data-am="cancel" data-id="${p.id}">Annuler</button></div>` : ""}
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
@@ -536,6 +549,7 @@ const Amis = (function(){
       else if (a === "theme") ui.theme = v;
       else if (a === "n") ui.n = +v;
       else if (a === "kind") ui.kind = v;
+      else if (a === "multi") { S.multiView = v; ui.view = "main"; save(); render(); return window.scrollTo(0, 0); }
       else if (a === "board") { ui.view = "board"; render(); return window.scrollTo(0, 0); }
       else if (a === "back") ui.view = "main";
       else if (a === "bd") ui.board = v;

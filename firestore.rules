@@ -49,5 +49,45 @@ service cloud.firestore {
         allow create: if signed() && request.resource.data.u == request.auth.uid;
       }
     }
+    // Guildes : 5 membres maximum. Le chef gère tout, le bras droit accepte et invite, un membre invite et peut partir.
+    match /guildNames/{n} {
+      allow read: if signed();
+      allow create: if signed() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signed() && (resource.data.uid == request.auth.uid || !exists(/databases/$(db)/documents/guilds/$(resource.data.g)));
+    }
+    match /guilds/{g} {
+      function mem() { return request.auth.uid in resource.data.members; }
+      function role() { return resource.data.members[request.auth.uid].role; }
+      function keys() { return request.resource.data.diff(resource.data).affectedKeys(); }
+      function mdiff() { return request.resource.data.members.diff(resource.data.members); }
+      function fixed() { return request.resource.data.name == resource.data.name && request.resource.data.nameL == resource.data.nameL && request.resource.data.created == resource.data.created; }
+      allow read: if signed();
+      allow create: if signed() && request.resource.data.leader == request.auth.uid
+        && request.resource.data.members.keys().hasOnly([request.auth.uid]) && request.resource.data.bonus == 0 && request.resource.data.done.size() == 0;
+      allow delete: if signed() && mem() && role() == "chef" && resource.data.members.size() == 1;
+      allow update: if signed() && request.resource.data.members.size() <= 5 && fixed() && (
+        (mem() && role() == "chef")
+        || (mem() && role() == "off" && keys().hasOnly(["members", "apps", "inv"]) && mdiff().changedKeys().size() == 0 && mdiff().removedKeys().size() == 0)
+        || (mem() && keys().hasOnly(["inv"]))
+        || (mem() && keys().hasOnly(["members"]) && mdiff().affectedKeys().hasOnly([request.auth.uid]) && mdiff().removedKeys().hasOnly([request.auth.uid]))
+        || (mem() && keys().hasOnly(["done", "bonus"]) && request.resource.data.done.size() == resource.data.done.size() + 1
+            && request.resource.data.bonus == resource.data.bonus + 500)
+        || (!mem() && keys().hasOnly(["apps"]) && request.resource.data.apps.diff(resource.data.apps).affectedKeys().hasOnly([request.auth.uid]))
+        || (!mem() && request.auth.uid in resource.data.inv && keys().hasOnly(["members", "inv"])
+            && mdiff().addedKeys().hasOnly([request.auth.uid]) && mdiff().changedKeys().size() == 0 && mdiff().removedKeys().size() == 0
+            && request.resource.data.members[request.auth.uid].role == "mem"));
+      // Contributions : chacun n'écrit que la sienne, uniquement s'il est membre, et ses compteurs ne font que monter
+      match /contrib/{u} {
+        function was(k) { return resource == null ? 0 : resource.data.all[k]; }
+        function up(k, max) { return request.resource.data.all[k] >= was(k) && request.resource.data.all[k] <= was(k) + max; }
+        allow write: if signed() && request.auth.uid == u
+          && request.auth.uid in get(/databases/$(db)/documents/guilds/$(g)).data.members
+          && up("ok", 300) && up("mp", 20) && up("win", 20) && up("xp", 3000);
+        allow delete: if signed() && request.auth.uid == u;
+      }
+    }
+    match /{path=**}/contrib/{u} {
+      allow read: if signed();
+    }
   }
 }
