@@ -108,7 +108,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -322,6 +322,8 @@ const Amis = (function(){
     S.amis.told = S.amis.told || {};
     finished().filter(d => (d.from === uid() || d.to === uid()) && !S.amis.told[d.id]).forEach(d => {
       S.amis.told[d.id] = 1; const o = outcome(d, uid()), opp = pseudoOf(d.from === uid() ? d.to : d.from);
+      // Quêtes : un duel terminé cette semaine compte une seule fois (même sur un autre appareil)
+      if (typeof Quetes !== "undefined" && Date.now() - d.created < 7 * 864e5) Quetes.mpDone("d" + d.id, o === 1);
       if (before.length) toasts.push(`<b>Duel contre ${esc(opp)}</b> · ${o === 1 ? "victoire !" : o === -1 ? "défaite." : "égalité."}`);
     });
     S.online = stats(); if (S.online.wins >= 1) unlockSkin("nord"); save(); checkBadges();

@@ -980,6 +980,59 @@ body.in-tour .tw{background:transparent}
 .ar-quit{align-self:center;border:0;background:none;color:var(--muted);font:600 12px "IBM Plex Mono",monospace;text-decoration:underline;padding:4px}
 @media (min-width:700px){.ar-scene{height:min(60vh,520px)}}
 @media (prefers-reduced-motion:reduce){.ar-bg *,.ar-ember,.ar-body,.ar-slash .ar-arc,.ar-burst,.ar-spark,.ar-dmg{animation:none!important}}
+
+/* ---------- Quêtes du jour et de la semaine ---------- */
+.qs-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left;color:inherit;cursor:pointer;border:2px solid color-mix(in srgb,var(--lamp) 40%,transparent);background:linear-gradient(135deg,color-mix(in srgb,#7A3AC8 16%,var(--surface)),var(--surface))}
+.qs-card.ready{border-color:#FFD23F;box-shadow:0 0 0 3px rgba(255,210,63,.35),0 0 26px rgba(255,210,63,.35)}
+.qs-card-chest{flex:none}
+.qs-mini{display:grid;grid-template-columns:60px 1fr auto;align-items:center;gap:8px;font-size:13px}
+.qs-mini b{font:800 12px "IBM Plex Mono",monospace}
+.qs-head{display:flex;flex-direction:column;gap:2px}
+.seg.qs-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%}
+.seg.qs-seg button{flex-direction:row;font-size:14px;white-space:nowrap}
+.qs-seg button{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-weight:800;color:var(--ink)}
+.qs-seg button[aria-pressed="true"]{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 16%,var(--surface))}
+.qs-timer{text-align:center;font-size:14px}
+.qs-timer b{font:800 15px "IBM Plex Mono",monospace;color:var(--lamp)}
+.qs-chestbox{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,#2A1D48,#1A1030);color:#F3EEFF;border:2px solid rgba(201,162,255,.3);box-shadow:0 6px 0 rgba(0,0,0,.3)}
+.qs-chestbox .muted{color:#C9BCEA}
+.qs-chestbox.lg{background:linear-gradient(135deg,#4A1E8A,#1A0A30);border-color:rgba(255,210,63,.45)}
+.qs-chestbox.ready{animation:qsReady 1.6s ease-in-out infinite}
+@keyframes qsReady{50%{box-shadow:0 6px 0 rgba(0,0,0,.3),0 0 30px rgba(255,210,63,.55)}}
+.qs-chest.ready{animation:qsWiggle 1.2s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes qsWiggle{0%,60%,100%{transform:none}70%{transform:rotate(-6deg)}80%{transform:rotate(6deg)}90%{transform:rotate(-3deg)}}
+.qs-chest .qs-aura{animation:arCore 1.6s ease-in-out infinite}
+.qs-chest.locked{filter:saturate(.55) brightness(.85)}
+.qs-open{background:linear-gradient(180deg,#FFD23F,#E08A00);color:#2B1D3A;box-shadow:0 4px 0 #8A5A00}
+.qs-list{gap:2px}
+.qs-row{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px dashed var(--line)}
+.qs-row:last-child{border-bottom:0}
+.qs-row.done .qs-mid b{text-decoration:line-through;opacity:.6}
+.qs-ic{flex:none;display:grid;place-items:center;width:46px;height:46px}
+.qs-ic svg{max-width:46px;max-height:46px}
+.qs-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.qs-mid b{font-size:14.5px;line-height:1.25}
+.qs-bar{position:relative;height:16px;border-radius:9px;background:var(--surface-2);overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.25)}
+.qs-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#FF5FA2,#C98AFF);border-radius:9px;transition:width .5s}
+.qs-row.done .qs-bar i{background:linear-gradient(90deg,#2BB673,#7FD8BE)}
+.qs-bar span{position:relative;display:grid;place-items:center;height:100%;font:800 10.5px "IBM Plex Mono",monospace;color:var(--ink)}
+.qs-bar.sm{height:9px}.qs-bar.sm.lg i{background:linear-gradient(90deg,#FFD23F,#E08A00)}
+.qs-rw{flex:none;min-width:52px;text-align:right}
+.qs-coin{display:inline-flex;align-items:center;gap:3px;font:800 13px "IBM Plex Mono",monospace;color:#B8860B}
+.qs-ok{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#2BB673;color:#fff;font-weight:900;border:2px solid #0E4A2A}
+.qs-chest-card{position:relative;padding-top:52px}
+.qs-chest-card .qs-chest-open{top:52px}
+.qs-chest-anim{animation:qsShake .9s ease-in-out both}
+.qs-chest-open{position:absolute;top:22px;opacity:0;animation:qsPop .5s .9s cubic-bezier(.3,1.7,.5,1) forwards}
+.qs-chest-card .qs-chest-anim{animation:qsShake .9s ease-in-out both,qsHide .01s .9s forwards}
+@keyframes qsShake{0%,100%{transform:none}20%{transform:rotate(-8deg) scale(1.05)}40%{transform:rotate(8deg) scale(1.08)}60%{transform:rotate(-6deg) scale(1.1)}80%{transform:rotate(5deg) scale(1.12)}}
+@keyframes qsHide{to{opacity:0}}
+@keyframes qsPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1.15)}}
+.qs-chest .qs-burst{transform-origin:60px 50px;animation:qsRays 1.4s ease-in-out infinite}
+@keyframes qsRays{50%{opacity:.5;transform:scale(1.1)}}
+.qs-line{font-size:22px;animation-delay:1.1s}
+.qs-chest-card.lg{border-color:#FFD23F;box-shadow:0 0 60px rgba(201,138,255,.55),0 10px 0 rgba(0,0,0,.4)}
+@media (prefers-reduced-motion:reduce){.qs-chest,.qs-chestbox,.qs-chest-anim,.qs-chest-open,.qs-burst{animation:none!important}.qs-chest-open{opacity:1}}
 /* ---------- Salons privés : La Bombe et le Quiz à plusieurs ---------- */
 .sl-code{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;letter-spacing:.18em;color:var(--lamp)}
 .sl-seg{display:flex;gap:6px;flex-wrap:wrap}

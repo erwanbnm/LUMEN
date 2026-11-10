@@ -94,7 +94,7 @@ const Salons = (() => {
     const r = s.data(), me = r.players[uid()];
     const prev = room; room = r;
     if (!me || me.out) { leaveListeners(); room = null; code = null; S.salonCode = null; save(); msg = "Tu as quitté le salon."; return render(); }
-    if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; }
+    if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; if (typeof Quetes !== "undefined") Quetes.newRun(); }
     if (r.state === "end" && prev && prev.state === "play") { jumpTop = true; setTimeout(podium, r.mode === "bombe" ? 1800 : 300); }
     if (r.state === "end" && view === "game") rewards();
     // Animation et son quand la bombe explose
@@ -319,6 +319,7 @@ const Salons = (() => {
     if (win && room.mode === "quiz") st.quiz++;
     if (win && room.mode === "pm") st.pm = (st.pm || 0) + 1;
     const coins = room.g.why ? 10 : win ? 60 : 20; S.coins += coins; publishSeen();
+    if (typeof Quetes !== "undefined" && !room.g.why) Quetes.mpDone("s" + k, win);
     toasts.push(`<b>${win ? "Victoire !" : "Partie terminée"}</b> · +${coins} pièces`);
     save(); checkBadges();
   }

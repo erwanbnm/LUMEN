@@ -218,6 +218,8 @@ function missions(){
   return S.mis;
 }
 function misEvent(k, v, th){
+  if (k === "combo" && typeof Quetes !== "undefined") Quetes.ev("combo", {v});
+  return; // les anciennes missions du jour sont remplacées par les Quêtes (quetes.js)
   const M = missions();
   M.list.forEach(m => {
     if (m.done || m.k !== k || (k === "th" && th !== m.th)) return;
@@ -345,6 +347,7 @@ function answer(id, ok, combo){
   if (ok) { e.b = Math.min(e.b+1, 5); e.ok++; } else { e.b = 0; e.ko++; }
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
   if (!ok) return {xp:0, coins:0};
+  if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35));
@@ -496,7 +499,7 @@ function render(){
   const active = s && S.tab === "jouer";
   if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
   else if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
-  else if (S.tab==="accueil") html += renderHome();
+  else if (S.tab==="accueil") html += (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
   else if (S.tab==="jouer") html += (typeof Boss !== "undefined" && Boss.open()) ? Boss.view() : renderPlay();
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
@@ -556,7 +559,7 @@ function renderHome(){
     ${portalCard()}
     ${rescueCard()}
     ${dailyCard()}
-    ${missionsCard()}
+    ${typeof Quetes !== "undefined" ? Quetes.card() : missionsCard()}
     ${motCard()}
     <div class="quick">
       <button class="mode" data-mode="chrono"><span class="mi">${gIcon("chrono",44)}</span><h3>Chrono</h3><p>60 s pour un max de bonnes réponses.</p></button>
@@ -635,7 +638,8 @@ const TITLES = [
 const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
 const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
-const titleById = id => id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
+const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
 const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -660,6 +664,7 @@ function renderTitles(){
     <div class="card stack">${TITLES.map(row).join("")}</div>
     <div class="card stack"><div class="label">Titres spéciaux (ne s'achètent pas)</div>
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
+      <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
       <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
 }
@@ -859,6 +864,7 @@ function finish(){
   const ok = itemsOf(s).filter(i=>"id" in i && i.ok).length;
   if ((s.mode==="chrono" || s.mode==="survie") && ok > (S.rec[s.mode]||0)) { S.rec[s.mode] = ok; s.newRec = ok > 0; }
   if (s.mode !== "daily") S.games = (S.games||0)+1;
+  if (s.mode === "serie" && typeof Quetes !== "undefined") Quetes.ev("serie", {th:s.theme});
   if (s.mode === "portail") portalFinish(s, ok);
   if (s.mode === "chrono") misEvent("chr", ok);
   if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
@@ -1045,6 +1051,7 @@ function start(mode, extra){
     if (S.session && S.session.mode === "daily" && !S.session.done) S.pausedDaily = S.session;
     S.session = newSession(mode, extra);
   }
+  if (typeof Quetes !== "undefined") Quetes.newRun();
   S.tab = "jouer"; save(); render(); window.scrollTo(0,0);
 }
 function leaveSession(){
@@ -1096,6 +1103,7 @@ function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
+  if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
   if (d.bs !== undefined) { if (S.settings.sfx !== false && d.bs !== "ans") try { Music.sfx("tap"); } catch(err){} return Boss.click(b); }
   if (d.tw !== undefined && !b.closest(".tw-fx")) { if (S.settings.sfx !== false && d.tw !== "ans") try { Music.sfx("tap"); } catch(err){} return Tour.click(b); }
   if (d.sl !== undefined) { if (S.settings.sfx !== false && d.sl !== "ans") try { Music.sfx("tap"); } catch(err){} return Salons.click(b); }

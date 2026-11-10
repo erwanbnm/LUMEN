@@ -995,6 +995,59 @@ body.in-tour .tw{background:transparent}
 .ar-quit{align-self:center;border:0;background:none;color:var(--muted);font:600 12px "IBM Plex Mono",monospace;text-decoration:underline;padding:4px}
 @media (min-width:700px){.ar-scene{height:min(60vh,520px)}}
 @media (prefers-reduced-motion:reduce){.ar-bg *,.ar-ember,.ar-body,.ar-slash .ar-arc,.ar-burst,.ar-spark,.ar-dmg{animation:none!important}}
+
+/* ---------- Quêtes du jour et de la semaine ---------- */
+.qs-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left;color:inherit;cursor:pointer;border:2px solid color-mix(in srgb,var(--lamp) 40%,transparent);background:linear-gradient(135deg,color-mix(in srgb,#7A3AC8 16%,var(--surface)),var(--surface))}
+.qs-card.ready{border-color:#FFD23F;box-shadow:0 0 0 3px rgba(255,210,63,.35),0 0 26px rgba(255,210,63,.35)}
+.qs-card-chest{flex:none}
+.qs-mini{display:grid;grid-template-columns:60px 1fr auto;align-items:center;gap:8px;font-size:13px}
+.qs-mini b{font:800 12px "IBM Plex Mono",monospace}
+.qs-head{display:flex;flex-direction:column;gap:2px}
+.seg.qs-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%}
+.seg.qs-seg button{flex-direction:row;font-size:14px;white-space:nowrap}
+.qs-seg button{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-weight:800;color:var(--ink)}
+.qs-seg button[aria-pressed="true"]{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 16%,var(--surface))}
+.qs-timer{text-align:center;font-size:14px}
+.qs-timer b{font:800 15px "IBM Plex Mono",monospace;color:var(--lamp)}
+.qs-chestbox{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,#2A1D48,#1A1030);color:#F3EEFF;border:2px solid rgba(201,162,255,.3);box-shadow:0 6px 0 rgba(0,0,0,.3)}
+.qs-chestbox .muted{color:#C9BCEA}
+.qs-chestbox.lg{background:linear-gradient(135deg,#4A1E8A,#1A0A30);border-color:rgba(255,210,63,.45)}
+.qs-chestbox.ready{animation:qsReady 1.6s ease-in-out infinite}
+@keyframes qsReady{50%{box-shadow:0 6px 0 rgba(0,0,0,.3),0 0 30px rgba(255,210,63,.55)}}
+.qs-chest.ready{animation:qsWiggle 1.2s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes qsWiggle{0%,60%,100%{transform:none}70%{transform:rotate(-6deg)}80%{transform:rotate(6deg)}90%{transform:rotate(-3deg)}}
+.qs-chest .qs-aura{animation:arCore 1.6s ease-in-out infinite}
+.qs-chest.locked{filter:saturate(.55) brightness(.85)}
+.qs-open{background:linear-gradient(180deg,#FFD23F,#E08A00);color:#2B1D3A;box-shadow:0 4px 0 #8A5A00}
+.qs-list{gap:2px}
+.qs-row{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px dashed var(--line)}
+.qs-row:last-child{border-bottom:0}
+.qs-row.done .qs-mid b{text-decoration:line-through;opacity:.6}
+.qs-ic{flex:none;display:grid;place-items:center;width:46px;height:46px}
+.qs-ic svg{max-width:46px;max-height:46px}
+.qs-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.qs-mid b{font-size:14.5px;line-height:1.25}
+.qs-bar{position:relative;height:16px;border-radius:9px;background:var(--surface-2);overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.25)}
+.qs-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#FF5FA2,#C98AFF);border-radius:9px;transition:width .5s}
+.qs-row.done .qs-bar i{background:linear-gradient(90deg,#2BB673,#7FD8BE)}
+.qs-bar span{position:relative;display:grid;place-items:center;height:100%;font:800 10.5px "IBM Plex Mono",monospace;color:var(--ink)}
+.qs-bar.sm{height:9px}.qs-bar.sm.lg i{background:linear-gradient(90deg,#FFD23F,#E08A00)}
+.qs-rw{flex:none;min-width:52px;text-align:right}
+.qs-coin{display:inline-flex;align-items:center;gap:3px;font:800 13px "IBM Plex Mono",monospace;color:#B8860B}
+.qs-ok{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#2BB673;color:#fff;font-weight:900;border:2px solid #0E4A2A}
+.qs-chest-card{position:relative;padding-top:52px}
+.qs-chest-card .qs-chest-open{top:52px}
+.qs-chest-anim{animation:qsShake .9s ease-in-out both}
+.qs-chest-open{position:absolute;top:22px;opacity:0;animation:qsPop .5s .9s cubic-bezier(.3,1.7,.5,1) forwards}
+.qs-chest-card .qs-chest-anim{animation:qsShake .9s ease-in-out both,qsHide .01s .9s forwards}
+@keyframes qsShake{0%,100%{transform:none}20%{transform:rotate(-8deg) scale(1.05)}40%{transform:rotate(8deg) scale(1.08)}60%{transform:rotate(-6deg) scale(1.1)}80%{transform:rotate(5deg) scale(1.12)}}
+@keyframes qsHide{to{opacity:0}}
+@keyframes qsPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1.15)}}
+.qs-chest .qs-burst{transform-origin:60px 50px;animation:qsRays 1.4s ease-in-out infinite}
+@keyframes qsRays{50%{opacity:.5;transform:scale(1.1)}}
+.qs-line{font-size:22px;animation-delay:1.1s}
+.qs-chest-card.lg{border-color:#FFD23F;box-shadow:0 0 60px rgba(201,138,255,.55),0 10px 0 rgba(0,0,0,.4)}
+@media (prefers-reduced-motion:reduce){.qs-chest,.qs-chestbox,.qs-chest-anim,.qs-chest-open,.qs-burst{animation:none!important}.qs-chest-open{opacity:1}}
 /* ---------- Salons privés : La Bombe et le Quiz à plusieurs ---------- */
 .sl-code{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;letter-spacing:.18em;color:var(--lamp)}
 .sl-seg{display:flex;gap:6px;flex-wrap:wrap}
@@ -3344,6 +3397,8 @@ function missions(){
   return S.mis;
 }
 function misEvent(k, v, th){
+  if (k === "combo" && typeof Quetes !== "undefined") Quetes.ev("combo", {v});
+  return; // les anciennes missions du jour sont remplacées par les Quêtes (quetes.js)
   const M = missions();
   M.list.forEach(m => {
     if (m.done || m.k !== k || (k === "th" && th !== m.th)) return;
@@ -3471,6 +3526,7 @@ function answer(id, ok, combo){
   if (ok) { e.b = Math.min(e.b+1, 5); e.ok++; } else { e.b = 0; e.ko++; }
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
   if (!ok) return {xp:0, coins:0};
+  if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35));
@@ -3622,7 +3678,7 @@ function render(){
   const active = s && S.tab === "jouer";
   if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
   else if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
-  else if (S.tab==="accueil") html += renderHome();
+  else if (S.tab==="accueil") html += (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
   else if (S.tab==="jouer") html += (typeof Boss !== "undefined" && Boss.open()) ? Boss.view() : renderPlay();
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
@@ -3682,7 +3738,7 @@ function renderHome(){
     ${portalCard()}
     ${rescueCard()}
     ${dailyCard()}
-    ${missionsCard()}
+    ${typeof Quetes !== "undefined" ? Quetes.card() : missionsCard()}
     ${motCard()}
     <div class="quick">
       <button class="mode" data-mode="chrono"><span class="mi">${gIcon("chrono",44)}</span><h3>Chrono</h3><p>60 s pour un max de bonnes réponses.</p></button>
@@ -3761,7 +3817,8 @@ const TITLES = [
 const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
 const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
-const titleById = id => id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
+const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
 const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -3786,6 +3843,7 @@ function renderTitles(){
     <div class="card stack">${TITLES.map(row).join("")}</div>
     <div class="card stack"><div class="label">Titres spéciaux (ne s'achètent pas)</div>
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
+      <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
       <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
 }
@@ -3985,6 +4043,7 @@ function finish(){
   const ok = itemsOf(s).filter(i=>"id" in i && i.ok).length;
   if ((s.mode==="chrono" || s.mode==="survie") && ok > (S.rec[s.mode]||0)) { S.rec[s.mode] = ok; s.newRec = ok > 0; }
   if (s.mode !== "daily") S.games = (S.games||0)+1;
+  if (s.mode === "serie" && typeof Quetes !== "undefined") Quetes.ev("serie", {th:s.theme});
   if (s.mode === "portail") portalFinish(s, ok);
   if (s.mode === "chrono") misEvent("chr", ok);
   if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
@@ -4171,6 +4230,7 @@ function start(mode, extra){
     if (S.session && S.session.mode === "daily" && !S.session.done) S.pausedDaily = S.session;
     S.session = newSession(mode, extra);
   }
+  if (typeof Quetes !== "undefined") Quetes.newRun();
   S.tab = "jouer"; save(); render(); window.scrollTo(0,0);
 }
 function leaveSession(){
@@ -4222,6 +4282,7 @@ function onClick(e){
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
+  if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
   if (d.bs !== undefined) { if (S.settings.sfx !== false && d.bs !== "ans") try { Music.sfx("tap"); } catch(err){} return Boss.click(b); }
   if (d.tw !== undefined && !b.closest(".tw-fx")) { if (S.settings.sfx !== false && d.tw !== "ans") try { Music.sfx("tap"); } catch(err){} return Tour.click(b); }
   if (d.sl !== undefined) { if (S.settings.sfx !== false && d.sl !== "ans") try { Music.sfx("tap"); } catch(err){} return Salons.click(b); }
@@ -4476,7 +4537,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -4690,6 +4751,8 @@ const Amis = (function(){
     S.amis.told = S.amis.told || {};
     finished().filter(d => (d.from === uid() || d.to === uid()) && !S.amis.told[d.id]).forEach(d => {
       S.amis.told[d.id] = 1; const o = outcome(d, uid()), opp = pseudoOf(d.from === uid() ? d.to : d.from);
+      // Quêtes : un duel terminé cette semaine compte une seule fois (même sur un autre appareil)
+      if (typeof Quetes !== "undefined" && Date.now() - d.created < 7 * 864e5) Quetes.mpDone("d" + d.id, o === 1);
       if (before.length) toasts.push(`<b>Duel contre ${esc(opp)}</b> · ${o === 1 ? "victoire !" : o === -1 ? "défaite." : "égalité."}`);
     });
     S.online = stats(); if (S.online.wins >= 1) unlockSkin("nord"); save(); checkBadges();
@@ -5053,7 +5116,7 @@ const Salons = (() => {
     const r = s.data(), me = r.players[uid()];
     const prev = room; room = r;
     if (!me || me.out) { leaveListeners(); room = null; code = null; S.salonCode = null; save(); msg = "Tu as quitté le salon."; return render(); }
-    if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; }
+    if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; if (typeof Quetes !== "undefined") Quetes.newRun(); }
     if (r.state === "end" && prev && prev.state === "play") { jumpTop = true; setTimeout(podium, r.mode === "bombe" ? 1800 : 300); }
     if (r.state === "end" && view === "game") rewards();
     // Animation et son quand la bombe explose
@@ -5278,6 +5341,7 @@ const Salons = (() => {
     if (win && room.mode === "quiz") st.quiz++;
     if (win && room.mode === "pm") st.pm = (st.pm || 0) + 1;
     const coins = room.g.why ? 10 : win ? 60 : 20; S.coins += coins; publishSeen();
+    if (typeof Quetes !== "undefined" && !room.g.why) Quetes.mpDone("s" + k, win);
     toasts.push(`<b>${win ? "Victoire !" : "Partie terminée"}</b> · +${coins} pièces`);
     save(); checkBadges();
   }
@@ -5538,6 +5602,7 @@ const Tour = (() => {
   function start(){
     const t = T(); if (t.cp >= 100) return;
     S.tourRun = {floor:t.cp + 1, used:[], t0:Date.now()}; t.runs = (t.runs || 0) + 1;
+    if (typeof Quetes !== "undefined") Quetes.newRun();
     next(); try { Music.sfx("tab2"); } catch(e){}
   }
   function next(){
@@ -5567,6 +5632,7 @@ const Tour = (() => {
   function climbed(){
     const r = run(), t = T(); if (!r) return;
     const f = r.floor;
+    if (typeof Quetes !== "undefined") Quetes.ev("tower", {v:1});
     t.best = Math.max(t.best || 0, f);
     if (t.wk !== weekId()) { t.wk = weekId(); t.wbest = 0; t.wt = 0; }
     if (f > (t.wbest || 0)) { t.wbest = f; t.wt = Date.now(); }
@@ -5833,6 +5899,7 @@ const Boss = (() => {
       if (!ok) { st().played[c.day] = true; save(); msg = "Tu as déjà combattu aujourd'hui. Reviens demain !"; return render(); }
     } catch(e){ msg = "Impossible de joindre le boss. Vérifie ta connexion."; return render(); }
     st().played[c.day] = true; save();
+    if (typeof Quetes !== "undefined") { Quetes.newRun(); Quetes.ev("boss", {}); }
     const qs = pool().sort(() => Math.random() - .5).slice(0, MAXQ);
     run = {qs, i:0, lives:LIVES, dmg:0, ans:undefined, ord:[0,1,2,3].sort(() => Math.random() - .5), dl:Date.now() + Q_TIME*1000, hit:0};
     view = "fight"; render(); window.scrollTo(0, 0); tick();
@@ -5861,6 +5928,7 @@ const Boss = (() => {
   // Dégâts envoyés tout de suite (une coupure de réseau ne fait pas perdre les coups déjà portés)
   function hit(d){
     const c = cur();
+    if (typeof Quetes !== "undefined") Quetes.ev("bossdmg", {v:d});
     db().runTransaction(async tx => { const s = await tx.get(ref()), dd = s.data() || {}; const t = (dd.tot || 0) + d;
       const up = {tot:FV().increment(d), ["dmg." + uid()]:FV().increment(d), ["days." + uid() + "." + c.day]:FV().increment(d)};
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
@@ -6156,7 +6224,7 @@ const Boss = (() => {
     if (a === "callall") return call(Object.keys(A().users()).filter(id => id !== uid()));
   }
   // En pleine partie, quitter l'onglet ne relance rien : la partie du jour est déjà comptée
-  return {card, view:viewAll, click, listen, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG};
+  return {card, view:viewAll, click, listen, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG, current:cur};
 })();
 
 /* --- Badges du Boss --- */
@@ -6165,6 +6233,199 @@ const Boss = (() => {
  ["bosskill","platine",1,"kills","Coup de grâce","Porter le coup fatal à un boss",150],
  ["bosstop","diamant",1,"tops","Fléau des boss","Être le plus gros contributeur contre un boss",200]
 ].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id, g:"En ligne", tier, icon:"duel", name, desc, coins, goal, cur:() => (S.boss && S.boss[k]) || 0}));
+
+/* ---------- Quêtes quotidiennes et défis hebdomadaires (novembre 2026) ----------
+   - Les mêmes quêtes pour tous les joueurs (tirées à partir de la date), renouvelées à minuit (heure de Paris) ;
+     les défis de la semaine, le lundi à minuit.
+   - Les compteurs avancent avec les vraies performances, quel que soit le mode : chaque bonne réponse passe par
+     answer() (solo, Tour, Boss, salons), les parties multijoueurs par la fin d'un duel ou d'une partie de salon.
+   - Chaque quête du jour rapporte 20 pièces, une seule fois. Toutes faites : coffre du jour (100 pièces).
+     Défis de la semaine : de 200 à 350 pièces chacun ; tous faits : coffre légendaire (600 pièces, titre INFATIGABLE).
+   - Les quêtes multijoueur sont remplacées par d'autres pour les joueurs non connectés au mode en ligne. */
+const Quetes = (() => {
+  const parisNow = () => { const p = new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false}).formatToParts(new Date()), g = t => p.find(x => x.type === t).value;
+    return {day:`${g("year")}-${g("month")}-${g("day")}`, sec:(+g("hour") % 24) * 3600 + (+g("minute")) * 60 + (+g("second"))}; };
+  const weekOf = day => { const d = new Date(day + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return d.toISOString().slice(0, 10); };
+  const dayN = day => Math.round(new Date(day + "T12:00:00Z") / 864e5);
+  const online = () => { try { return !!Amis.api.uid(); } catch(e){ return false; } };
+  const BIG = ["his", "sci", "geo", "spo", "cin", "art", "mus", "ani", "esp", "tec", "mon", "cor"];
+  const isMax = k => k === "run" || k === "combo";
+
+  // Quêtes du jour (20 pièces chacune)
+  const DAILY = {
+    ok:{n:() => "Réponds juste à 30 questions", goal:30, on:"ok", ic:"star"},
+    th:{n:m => `Réponds juste à 30 questions en ${THEMES[m.th].n}`, goal:30, on:"ok", f:(m, i) => i.th === m.th, ic:"theme"},
+    hard:{n:() => "Réponds juste à 10 questions pointues", goal:10, on:"ok", f:(m, i) => i.lvl === 3, ic:"crown"},
+    run:{n:() => "Réponds juste à 20 questions dans une même partie", goal:20, on:"run", ic:"chrono"},
+    combo:{n:() => "Enchaîne 12 bonnes réponses d'affilée", goal:12, on:"combo", ic:"flame"},
+    mp:{n:() => "Joue une partie multijoueur (duel ou salon)", goal:1, on:"mp", net:true, ic:"sword"},
+    mpw:{n:() => "Remporte 2 parties multijoueurs", goal:2, on:"mp", f:(m, i) => i.win, net:true, ic:"sword"},
+    tower:{n:() => "Gravis 10 étages de la Tour", goal:10, on:"tower", ic:"tower"},
+    boss:{n:() => "Combats le Boss de la semaine", goal:1, on:"boss", net:true, ic:"boss"}
+  };
+  const D_REWARD = 20, D_CHEST = 100;
+  // Défis de la semaine (récompenses propres à chacun)
+  const WEEKLY = {
+    ok:{n:() => "Réponds juste à 300 questions", goal:300, on:"ok", c:300, ic:"star"},
+    th:{n:m => `Réponds juste à 100 questions en ${THEMES[m.th].n}`, goal:100, on:"ok", f:(m, i) => i.th === m.th, c:200, ic:"theme"},
+    hard:{n:() => "Réponds juste à 60 questions pointues", goal:60, on:"ok", f:(m, i) => i.lvl === 3, c:250, ic:"crown"},
+    mp:{n:() => "Joue 20 parties multijoueurs", goal:20, on:"mp", net:true, c:250, ic:"sword"},
+    mpw:{n:() => "Remporte 10 parties multijoueurs", goal:10, on:"mp", f:(m, i) => i.win, net:true, c:350, ic:"sword"},
+    serie:{n:() => "Termine une Série dans 6 thèmes différents", goal:6, on:"serie", c:200, ic:"book"},
+    tower:{n:() => "Gravis 50 étages de la Tour", goal:50, on:"tower", c:250, ic:"tower"},
+    boss:{n:() => "Inflige 25 PV au Boss de la semaine", goal:25, on:"bossdmg", net:true, c:250, ic:"boss"}
+  };
+  const W_CHEST = 600;
+
+  /* --- Tirage (le même pour tout le monde) --- */
+  function pickDaily(day){
+    const r = rng(dayN(day) * 7919 + 3), pick = a => a[Math.floor(r() * a.length)];
+    const ks = [pick(["ok", "th"]), pick(["hard", "run", "combo"]), pick(["mp", "mpw", "tower", "boss"])];
+    const rest = Object.keys(DAILY).filter(k => !ks.includes(k)); ks.push(pick(rest));
+    const th = BIG[Math.floor(r() * BIG.length)];
+    return subAll(ks, DAILY).map(k => ({k, th:k === "th" ? th : null, p:0, done:false}));
+  }
+  function pickWeekly(wk){
+    const r = rng(dayN(wk) * 104729 + 7), pick = a => a[Math.floor(r() * a.length)];
+    const ks = ["ok", "th", pick(["mp", "mpw"]), "serie", pick(["tower", "boss", "hard"])];
+    const th = BIG[Math.floor(r() * BIG.length)];
+    return subAll(ks, WEEKLY).map(k => ({k, th:k === "th" ? th : null, p:0, done:false, seen:{}}));
+  }
+  // Pas connecté au mode en ligne : les quêtes multijoueur sont remplacées par des quêtes solo
+  // (remplacement un par un, sans jamais créer de doublon)
+  function subAll(ks, DEF){ const out = [];
+    ks.forEach(k => { if (!DEF[k].net || online()) { if (!out.includes(k)) return out.push(k); }
+      const alt = ["tower", "hard", "combo", "run", "ok", "serie"].find(x => DEF[x] && !DEF[x].net && !out.includes(x) && !ks.includes(x)); if (alt) out.push(alt); });
+    return out; }
+
+  function Qs(){
+    const n = parisNow(), wk = weekOf(n.day);
+    S.qst = S.qst || {}; const q = S.qst;
+    if (q.day !== n.day) { q.day = n.day; q.d = {list:pickDaily(n.day), chest:false}; }
+    if (q.wk !== wk) { q.wk = wk; q.w = {list:pickWeekly(wk), chest:false}; }
+    q.mp = q.mp || {}; q.tot = q.tot || {d:0, w:0};
+    return q;
+  }
+
+  /* --- Événements : appelés par le jeu --- */
+  let runN = 0;
+  // Une nouvelle partie commence (solo, Tour, Boss, salon) : le compteur « dans une même partie » repart à zéro
+  function newRun(){ runN = 0; }
+  function ev(type, info){
+    if (!S || !S.profile) return;
+    const q = Qs(); info = info || {};
+    if (type === "ok") { runN++; ev("run", {v:runN}); }
+    const apply = (list, DEF, wk) => list.forEach(m => {
+      const d = DEF[m.k]; if (!d || m.done || d.on !== type) return;
+      if (d.f && !d.f(m, info)) return;
+      if (type === "serie") { m.seen = m.seen || {}; if (m.seen[info.th]) return; m.seen[info.th] = 1; m.p = Object.keys(m.seen).length; }
+      else if (isMax(type)) m.p = Math.max(m.p, info.v || 0);
+      else m.p += type === "bossdmg" || type === "tower" ? (info.v || 1) : 1;
+      if (m.p >= d.goal) { m.p = d.goal; m.done = true; const c = wk ? d.c : D_REWARD; S.coins += c;
+        toasts.push(`<b>${wk ? "Défi de la semaine réussi !" : "Quête du jour réussie"}</b> · ${esc(d.n(m))} · +${c} pièces`); }
+    });
+    apply(q.d.list, DAILY, false); apply(q.w.list, WEEKLY, true);
+  }
+  // Partie multijoueur terminée : chaque duel ou partie de salon ne compte qu'une fois
+  function mpDone(key, win){ const q = Qs(); if (q.mp[key]) return; q.mp[key] = q.day; const ks = Object.keys(q.mp); if (ks.length > 200) delete q.mp[ks[0]]; ev("mp", {win:!!win}); }
+
+  /* --- Coffres --- */
+  const allDone = l => l.length && l.every(m => m.done);
+  function openChest(kind){
+    const q = Qs(), box = kind === "w" ? q.w : q.d; if (box.chest || !allDone(box.list)) return;
+    box.chest = true; const lines = [];
+    if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`);
+      S.titles = S.titles || {}; if (!S.titles.infatigable) { S.titles.infatigable = today(); lines.push("Titre exclusif : INFATIGABLE"); } }
+    else { S.coins += D_CHEST; q.tot.d++; lines.push(`+${D_CHEST} pièces`); }
+    save(); checkBadges(); chestFx(kind, lines);
+  }
+  function chestSVG(kind, state, size){
+    const lg = kind === "w", body = lg ? ["#7A3AC8", "#4A1E8A"] : ["#C8823A", "#7A4A1E"], band = lg ? "#FFD23F" : "#E8C25A", gem = lg ? "#FF5FA2" : "#7FD8BE";
+    const open = state === "open";
+    return `<svg class="qs-chest ${state} ${lg ? "lg" : ""}" viewBox="0 -28 120 138" width="${size}" height="${size * 138 / 120}" aria-hidden="true">
+      ${state === "ready" || open ? `<circle cx="60" cy="58" r="52" fill="${lg ? "#C98AFF" : "#FFE36A"}" opacity=".35" class="qs-aura"/>` : ""}
+      <ellipse cx="60" cy="102" rx="44" ry="6" fill="#000" opacity=".3"/>
+      <path d="M16 56 H104 V96 Q104 100 100 100 H20 Q16 100 16 96Z" fill="${body[0]}" stroke="#2B1D3A" stroke-width="3.5"/>
+      <path d="M16 74 H104" stroke="${body[1]}" stroke-width="4"/>
+      <rect x="28" y="56" width="10" height="44" fill="${band}" stroke="#2B1D3A" stroke-width="2.5"/><rect x="82" y="56" width="10" height="44" fill="${band}" stroke="#2B1D3A" stroke-width="2.5"/>
+      ${open ? `<g class="qs-burst"><path d="M60 50 L40 6 M60 50 L60 0 M60 50 L80 6 M60 50 L22 24 M60 50 L98 24" stroke="#FFF6C8" stroke-width="5" stroke-linecap="round"/></g>
+        <path d="M18 54 Q14 30 26 22 H94 Q106 30 102 54Z" fill="${body[0]}" stroke="#2B1D3A" stroke-width="3.5" transform="rotate(-24 18 54) translate(-6 -10)"/>`
+        : `<path d="M16 58 Q14 30 28 22 H92 Q106 30 104 58Z" fill="${body[0]}" stroke="#2B1D3A" stroke-width="3.5"/>
+        <path d="M24 30 Q60 22 96 30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+        <rect x="28" y="24" width="10" height="34" fill="${band}" stroke="#2B1D3A" stroke-width="2.5"/><rect x="82" y="24" width="10" height="34" fill="${band}" stroke="#2B1D3A" stroke-width="2.5"/>
+        <rect x="50" y="48" width="20" height="22" rx="4" fill="${band}" stroke="#2B1D3A" stroke-width="3"/><path d="M60 52 L66 59 L60 66 L54 59Z" fill="${gem}" stroke="#2B1D3A" stroke-width="2"/>
+        ${state === "locked" ? `<path d="M60 74 v8" stroke="#2B1D3A" stroke-width="3" stroke-linecap="round"/>` : ""}`}
+    </svg>`;
+  }
+  function chestFx(kind, lines){
+    try { Music.sfx("level"); setTimeout(() => Music.sfx("win"), 500); navigator.vibrate && navigator.vibrate([40, 40, 40, 40, 140]); } catch(e){}
+    const el = document.createElement("div"); el.className = "tw-fx tw-cp qs-fx";
+    el.innerHTML = `${Array.from({length:kind === "w" ? 50 : 26}, () => `<i class="tw-coin" style="left:${Math.random()*100}%;animation-delay:${(.5 + Math.random()*1.2).toFixed(2)}s"></i>`).join("")}
+      <div class="tw-cp-card qs-chest-card ${kind === "w" ? "lg" : ""}"><div class="qs-chest-anim">${chestSVG(kind, "ready", 140)}</div><div class="qs-chest-open">${chestSVG(kind, "open", 140)}</div>
+      <span class="tw-kicker">${kind === "w" ? "Coffre légendaire de la semaine" : "Coffre du jour"}</span><b class="tw-cp-title">Récompenses</b>
+      ${lines.map(l => `<span class="tw-cp-gain qs-line">${esc(l)}</span>`).join("")}<button class="btn">Super !</button></div>`;
+    el.querySelector("button").onclick = () => { el.remove(); render(); flushLevelUp(); };
+    document.body.appendChild(el);
+  }
+
+  /* --- Affichage --- */
+  let tab = "d";
+  const left = kind => { const n = parisNow(); let s = 86400 - n.sec; if (kind === "w") s += ((7 - (new Date(n.day + "T12:00:00Z").getUTCDay() + 6) % 7) - 1) * 86400;
+    const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d ? `${d} j ${h} h` : h ? `${h} h ${String(m).padStart(2, "0")}` : `${m} min`; };
+  function icon(d, m, z){ if (d.ic === "theme") return thIcon(m.th || "his", z); if (d.ic === "boss") return typeof Boss !== "undefined" ? Boss.svg(Boss.current().b.id, z) : gIcon("trophy", z); return gIcon(d.ic, z); }
+  function row(m, DEF, wk){
+    const d = DEF[m.k], pct = Math.round(m.p / d.goal * 100);
+    const name = d.ic === "theme" && m.k === "serie" ? d.n(m) : d.n(m);
+    return `<div class="qs-row ${m.done ? "done" : ""}"><div class="qs-ic">${icon(d, m, 40)}</div>
+      <div class="qs-mid"><b>${esc(name)}</b><div class="qs-bar"><i style="width:${pct}%"></i><span>${m.p}/${d.goal}</span></div></div>
+      <div class="qs-rw">${m.done ? `<span class="qs-ok">✓</span>` : `<span class="qs-coin">${coinIco}${wk ? d.c : D_REWARD}</span>`}</div></div>`;
+  }
+  function chestBlock(kind){
+    const q = Qs(), box = kind === "w" ? q.w : q.d, ok = allDone(box.list), n = box.list.filter(m => m.done).length;
+    const state = box.chest ? "open" : ok ? "ready" : "locked";
+    return `<div class="qs-chestbox ${state} ${kind === "w" ? "lg" : ""}">${chestSVG(kind, state, kind === "w" ? 96 : 80)}
+      <div class="stack" style="gap:4px;min-width:0;flex:1"><b>${kind === "w" ? "Coffre légendaire" : "Coffre du jour"}</b>
+        <span class="muted" style="font-size:13px">${kind === "w" ? `${W_CHEST} pièces + titre exclusif ${titleTag("infatigable", "xs")} (la 1re fois)` : `${D_CHEST} pièces`} · ${n}/${box.list.length} ${kind === "w" ? "défis" : "quêtes"}</span>
+        ${state === "ready" ? `<button class="btn small qs-open" data-qs="open" data-v="${kind}">Ouvrir le coffre</button>` : state === "open" ? `<span class="chip lamp">Coffre ouvert</span>` : `<span class="muted" style="font-size:12.5px">Termine tout pour l'ouvrir</span>`}</div></div>`;
+  }
+  function viewAll(){
+    const q = Qs(), isW = tab === "w", box = isW ? q.w : q.d, DEF = isW ? WEEKLY : DAILY;
+    return `<section class="stack qs">
+      <div class="row between"><button class="quit" data-qs="back">← Accueil</button><span class="label">Quêtes</span></div>
+      <div class="qs-head"><h1 class="big" style="margin:0">Quêtes</h1><span class="muted">Joue pour de vrai, gagne des pièces et des coffres</span></div>
+      <div class="seg qs-seg"><button data-qs="tab" data-v="d" aria-pressed="${!isW}">${gIcon("mission", 24)}<span>Du jour</span></button><button data-qs="tab" data-v="w" aria-pressed="${isW}">${gIcon("trophy", 24)}<span>De la semaine</span></button></div>
+      <div class="qs-timer">${isW ? "Nouveaux défis dans" : "Nouvelles quêtes dans"} <b>${left(isW ? "w" : "d")}</b> <span class="muted">· minuit, heure de Paris${isW ? ", le lundi" : ""}</span></div>
+      ${chestBlock(isW ? "w" : "d")}
+      <div class="card stack qs-list">${box.list.map(m => row(m, DEF, isW)).join("")}</div>
+      <p class="muted" style="font-size:12.5px;text-align:center;margin:0">Toutes les bonnes réponses comptent, dans tous les modes : solo, Tour, Boss et salons.${online() ? "" : " Connecte-toi dans JcJ pour débloquer les quêtes multijoueur."}</p>
+    </section>`;
+  }
+  // Résumé sur l'accueil (remplace les anciennes missions)
+  function card(){
+    const q = Qs(), nd = q.d.list.filter(m => m.done).length, nw = q.w.list.filter(m => m.done).length;
+    const ready = (allDone(q.d.list) && !q.d.chest) || (allDone(q.w.list) && !q.w.chest);
+    return `<button class="card qs-card ${ready ? "ready" : ""}" data-qs="openview"><div class="qs-card-chest">${chestSVG("d", allDone(q.d.list) && !q.d.chest ? "ready" : q.d.chest ? "open" : "locked", 64)}</div>
+      <div class="stack" style="gap:6px;flex:1;min-width:0;text-align:left"><span class="label">Quêtes</span>
+        <div class="qs-mini"><span>Du jour</span><div class="qs-bar sm"><i style="width:${nd / q.d.list.length * 100}%"></i></div><b>${nd}/${q.d.list.length}</b></div>
+        <div class="qs-mini"><span>Semaine</span><div class="qs-bar sm lg"><i style="width:${nw / q.w.list.length * 100}%"></i></div><b>${nw}/${q.w.list.length}</b></div>
+        ${ready ? `<span class="chip lamp">Un coffre t'attend !</span>` : `<span class="muted" style="font-size:12.5px">Renouvellement dans ${left("d")}</span>`}</div></button>`;
+  }
+  function click(b){
+    const a = b.dataset.qs;
+    if (a === "openview") { S.questOpen = true; render(); return window.scrollTo(0, 0); }
+    if (a === "back") { S.questOpen = false; return render(); }
+    if (a === "tab") { tab = b.dataset.v; return render(); }
+    if (a === "open") return openChest(b.dataset.v);
+  }
+  return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs};
+})();
+
+/* --- Badges et titre des quêtes --- */
+[["qd7","argent",7,"d","Assidu","Ouvrir 7 coffres du jour",50],
+ ["qd30","or",30,"d","Pilier de Lumen","Ouvrir 30 coffres du jour",150],
+ ["qw1","or",1,"w","Héros de la semaine","Ouvrir un coffre légendaire de la semaine",100],
+ ["qw5","diamant",5,"w","Légende hebdomadaire","Ouvrir 5 coffres légendaires de la semaine",300]
+].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id, g:"Général", tier, icon:"bulb", name, desc, coins, goal, cur:() => (S.qst && S.qst.tot && S.qst.tot[k]) || 0}));
 
 const Parc = (function(){
 if (!window.THREE) return {open(){ window.__app.close(); }, close(){}};

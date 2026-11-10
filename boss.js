@@ -67,6 +67,7 @@ const Boss = (() => {
       if (!ok) { st().played[c.day] = true; save(); msg = "Tu as déjà combattu aujourd'hui. Reviens demain !"; return render(); }
     } catch(e){ msg = "Impossible de joindre le boss. Vérifie ta connexion."; return render(); }
     st().played[c.day] = true; save();
+    if (typeof Quetes !== "undefined") { Quetes.newRun(); Quetes.ev("boss", {}); }
     const qs = pool().sort(() => Math.random() - .5).slice(0, MAXQ);
     run = {qs, i:0, lives:LIVES, dmg:0, ans:undefined, ord:[0,1,2,3].sort(() => Math.random() - .5), dl:Date.now() + Q_TIME*1000, hit:0};
     view = "fight"; render(); window.scrollTo(0, 0); tick();
@@ -95,6 +96,7 @@ const Boss = (() => {
   // Dégâts envoyés tout de suite (une coupure de réseau ne fait pas perdre les coups déjà portés)
   function hit(d){
     const c = cur();
+    if (typeof Quetes !== "undefined") Quetes.ev("bossdmg", {v:d});
     db().runTransaction(async tx => { const s = await tx.get(ref()), dd = s.data() || {}; const t = (dd.tot || 0) + d;
       const up = {tot:FV().increment(d), ["dmg." + uid()]:FV().increment(d), ["days." + uid() + "." + c.day]:FV().increment(d)};
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
@@ -390,7 +392,7 @@ const Boss = (() => {
     if (a === "callall") return call(Object.keys(A().users()).filter(id => id !== uid()));
   }
   // En pleine partie, quitter l'onglet ne relance rien : la partie du jour est déjà comptée
-  return {card, view:viewAll, click, listen, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG};
+  return {card, view:viewAll, click, listen, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG, current:cur};
 })();
 
 /* --- Badges du Boss --- */

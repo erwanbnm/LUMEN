@@ -45,6 +45,7 @@ const Tour = (() => {
   function start(){
     const t = T(); if (t.cp >= 100) return;
     S.tourRun = {floor:t.cp + 1, used:[], t0:Date.now()}; t.runs = (t.runs || 0) + 1;
+    if (typeof Quetes !== "undefined") Quetes.newRun();
     next(); try { Music.sfx("tab2"); } catch(e){}
   }
   function next(){
@@ -74,6 +75,7 @@ const Tour = (() => {
   function climbed(){
     const r = run(), t = T(); if (!r) return;
     const f = r.floor;
+    if (typeof Quetes !== "undefined") Quetes.ev("tower", {v:1});
     t.best = Math.max(t.best || 0, f);
     if (t.wk !== weekId()) { t.wk = weekId(); t.wbest = 0; t.wt = 0; }
     if (f > (t.wbest || 0)) { t.wbest = f; t.wt = Date.now(); }
