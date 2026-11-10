@@ -635,23 +635,18 @@ const TITLES = [
   {id:"kingnorth", n:"KING OF NORTH", p:800, a:"#4A4A5A", b:"#121218", f:"#E8C25A"},
   {id:"cofondateur", n:"CO FONDATEUR", p:25000, a:"#FFF4C8", b:"#E0A82A", f:"#2B1D3A"}
 ];
-const LOSER_TITLE = {id:"looser", n:"LOOSER DU JOUR", a:"#FF7A7A", b:"#C8202E", f:"#FFFFFF"};
+// (ancien titre LOOSER DU JOUR retiré)
 const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B8860B", f:"#2B1D3A"};
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
 const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "looser" ? LOSER_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : TITLES.find(t => t.id === id);
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
-// Mon titre affiché : « LOOSER DU JOUR » passe devant tout le reste pendant la journée
-const myTitle = () => S.loserDay === today() ? "looser" : (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
+// Mon titre affiché (celui que je porte)
+const myTitle = () => (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
 // Série d'erreurs : 4 d'affilée = LOOSER DU JOUR
-function noteAnswer(ok){
-  S.wrongRun = ok ? 0 : (S.wrongRun || 0) + 1;
-  if (S.wrongRun >= 4 && S.loserDay !== today()) {
-    S.loserDay = today(); toasts.push(`<b>4 erreurs d'affilée…</b> · Tu portes le titre ${titleTag("looser", "sm")} jusqu'à minuit.`);
-    try { Amis.api.ping(); } catch(e){}
-  }
-}
+// Le titre « LOOSER DU JOUR » a été retiré (demande d'Erwan, novembre 2026) : on garde la fonction, appelée par tous les modes.
+function noteAnswer(ok){}
 function renderTitles(){
   S.titles = S.titles || {};
   const cur = myTitle();
@@ -660,15 +655,13 @@ function renderTitles(){
     return `<div class="ttl-row ${own ? "own" : ""}">${titleTag(t.id, "lg")}${foot}</div>`; };
   return `<div class="stack"><p class="muted">Un titre s'affiche sous ton pseudo : en haut de l'écran, dans JcJ, les classements et les salons.</p>
     <div class="card stack ttl-me"><div class="label">Ton titre en ce moment</div><div class="row" style="align-items:center;gap:10px">${meSVG(44)}<div class="stack" style="gap:4px"><b>${esc(S.profile.name)}</b>${cur ? titleTag(cur) : `<span class="muted">Aucun titre</span>`}</div></div>
-      ${S.loserDay === today() ? `<p class="muted" style="margin:0;font-size:13.5px">LOOSER DU JOUR : 4 erreurs d'affilée aujourd'hui. Il disparaît à minuit.</p>` : ""}
       ${S.profile.title ? `<button class="btn small ghost" data-tequip="">Ne porter aucun titre</button>` : ""}</div>
     <div class="card stack">${TITLES.map(row).join("")}</div>
     <div class="card stack"><div class="label">Titres spéciaux (ne s'achètent pas)</div>
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
-      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}
-      <div class="ttl-row">${titleTag("looser", "lg")}<span class="muted" style="font-size:13px;text-align:right">4 erreurs d'affilée : tu le portes toute la journée</span></div></div></div>`;
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
