@@ -26,7 +26,7 @@ const UPGRADES = {
 const CHARS = CREATURES.concat([RIXY, SOMNI]);
 const avatarSVG = (i, size) => creatureSVG(CHARS[i] || CHARS[0], size);
 const SECRETS = SECRET_SKINS.concat([ULTRA_SKIN]);
-const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS).find(s => s.id===id);
+const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS, typeof LEGEND_SKINS !== "undefined" ? LEGEND_SKINS : []).find(s => s.id===id);
 const ownsSkin = id => /^b\d+$/.test(id) || !!(S.skins && S.skins[id]);
 const heroChar = () => (S.profile && S.profile.skin && ownsSkin(S.profile.skin) && skinOf(S.profile.skin)) || (S.profile && CHARS[S.profile.avatar]) || CHARS[0];
 const hasAcc = () => S.acc && Object.values(S.acc.eq).some(Boolean);
@@ -35,7 +35,7 @@ const totalOk = () => Object.values(S.q).reduce((a,e) => a + (e.ok||0), 0);
 function unlockSkin(id){
   if (S.skins[id]) return null;
   const sk = skinOf(id); S.skins[id] = today();
-  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free||sk.unlock?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
+  toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free||sk.unlock||sk.r?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
   return sk.n;
 }
 function spend(n){ S.st.spent = Math.max(0, (S.st.spent||0) + n); if (S.st.spent >= 1000) unlockSkin("lingot"); }
@@ -676,7 +676,9 @@ function renderShop(){
   const SI = {skins:"user", acc:"crown", titres:"trophy", collection:"book", ameliorations:"up"};
   const tabs = `<div class="seg gseg s5" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
   let body;
-  if (shopSeg === "collection") {
+  if (shopSeg === "collection" && typeof Boutique !== "undefined") body = Boutique.collectionView();
+  else if (shopSeg === "skins" && typeof Boutique !== "undefined") body = Boutique.shopView();
+  else if (shopSeg === "collection") {
     const nOwn = CHARS.length + SHOP_SKINS.filter(s=>S.skins[s.id]).length + SECRETS.filter(s=>S.skins[s.id]).length;
     const total = CHARS.length + SHOP_SKINS.length + SECRETS.length;
     body = `<p class="muted">${nOwn}/${total} personnages. Touche un personnage que tu possèdes pour l'équiper.</p>
@@ -1186,11 +1188,13 @@ function onClick(e){
   if (d.mot !== undefined) { if (!S.mots) S.mots = {}; S.mots[+d.mot] = today(); checkSucces(); toasts.push(`<b>Mot gardé</b> · il t'attend dans ton carnet.`); save(); return render(); }
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
+  if (d.bq !== undefined) return Boutique.click(b);
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
   if (d.tbuy) { const t = titleById(d.tbuy); S.titles = S.titles || {};
     if (t && t.p && !S.titles[t.id] && S.coins >= t.p) { S.coins -= t.p; S.titles[t.id] = today(); S.profile.title = t.id; spend(t.p); toasts.push(`<b>Nouveau titre</b> · ${titleTag(t.id, "sm")} est affiché sous ton pseudo.`); save(); try { Amis.api.ping(); } catch(e){} }
     return render(); }
   if (d.tequip !== undefined) { S.profile.title = d.tequip || ""; save(); try { Amis.api.ping(); } catch(e){} return render(); }
+  if (d.buy && typeof Boutique !== "undefined" && !Boutique.buyable(d.buy)) return render();
   if (d.buy) { const sk = skinOf(d.buy); if (sk && sk.p && !S.skins[d.buy] && S.coins >= sk.p) { S.coins -= sk.p; S.skins[d.buy] = today(); S.profile.skin = d.buy; spend(sk.p); toasts.push(`<b>${esc(sk.n)} rejoint ta collection</b> · il est équipé.`); save(); } return render(); }
   if (d.accBuy) { const a = ACC.find(x => x.id === d.accBuy); if (a && !S.acc.own[a.id] && S.coins >= a.p && !(a.th && themeLvl(a.th).L < 3)) { S.coins -= a.p; spend(a.p); S.acc.own[a.id] = today(); S.acc.eq[a.slot] = a.id; toasts.push(`<b>${esc(a.n)}</b> · acheté et porté.`); save(); } return render(); }
   if (d.accEq) { const a = ACC.find(x => x.id === d.accEq); if (a && S.acc.own[a.id]) { S.acc.eq[a.slot] = a.id; save(); } return render(); }

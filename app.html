@@ -1208,6 +1208,38 @@ body.in-tour .tw{background:transparent}
 .gd-fx-emb{display:grid;place-items:center}
 .gd-emb .gd-glow{animation:gdFlick 2s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.gd-who,.gd-flame,.gd-flick,.gd-zz,.gd-free{animation:none!important}}
+
+/* ---------- Boutique du jour, raretés et collection ---------- */
+.bq-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.bq-title{font:800 20px var(--f-display)}
+.bq-timer{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:12px;background:var(--surface-2);font-size:12.5px}
+.bq-timer b{font:800 13px "IBM Plex Mono",monospace;color:var(--lamp)}
+.bq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.bq-grid.col{grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:600px){.bq-grid.col{grid-template-columns:repeat(4,1fr)}}
+.bq-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 8px 12px;border-radius:18px;text-align:center;background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 22%,var(--surface)),var(--surface) 70%);border:2.5px solid var(--rc);box-shadow:0 4px 0 color-mix(in srgb,var(--rc) 55%,#000)}
+.bq-card.r-leg,.bq-card.r-myth{box-shadow:0 4px 0 color-mix(in srgb,var(--rc) 55%,#000),0 0 18px color-mix(in srgb,var(--rc) 45%,transparent)}
+.bq-card.r-myth::before,.bq-card.r-leg::before{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);background-size:250% 100%;animation:bqShine 3.2s linear infinite;pointer-events:none}
+@keyframes bqShine{from{background-position:150% 0}to{background-position:-100% 0}}
+.bq-art{display:grid;place-items:center;min-height:76px}
+.bq-card.no .bq-art svg{filter:brightness(.55) saturate(.4)}
+.bq-card.hid .bq-art svg{filter:brightness(0) opacity(.55)}
+.bq-grid:not(.col) .bq-card.no .bq-art svg{filter:none}
+.bq-r{display:inline-block;padding:1px 8px;border-radius:8px;background:var(--rc);color:#fff;font:800 10.5px "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.bq-n{font-size:14px;line-height:1.2}
+.bq-how{font-size:11.5px;font-weight:800;color:var(--rc)}
+.bq-cond{font-size:11.5px;line-height:1.25;color:var(--muted)}
+.bq-meter{width:100%}
+.bq-pv{font:700 11px "IBM Plex Mono",monospace;color:var(--muted)}
+.bq-today{position:absolute;top:-8px;right:-4px;z-index:1;font-style:normal;font:800 10px "Nunito",sans-serif;background:#FF5FA2;color:#fff;padding:2px 7px;border-radius:8px;border:2px solid var(--surface)}
+.bq-week{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;border:2.5px solid var(--rc);background:linear-gradient(135deg,color-mix(in srgb,var(--rc) 22%,var(--surface)),var(--surface));box-shadow:0 4px 0 color-mix(in srgb,var(--rc) 55%,#000)}
+.bq-scroll{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:linear-gradient(135deg,#4A2A12,#2A160A);color:#FFF4D8;border:2px solid #1E1008}
+.bq-scroll .muted{color:#E8D2A4}
+.bq-col-top{display:flex;flex-direction:column;gap:6px}
+.bq-filters{display:flex;flex-wrap:wrap;gap:6px}
+.bq-filters .chip-btn{padding:6px 10px;font:800 12.5px "Nunito",sans-serif}
+.bq-card .bq-n,.bq-cond,.bq-how{font-family:"Nunito",sans-serif}
+@media (prefers-reduced-motion:reduce){.bq-card::before{animation:none!important}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">

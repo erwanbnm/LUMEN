@@ -79,6 +79,7 @@ const Quetes = (() => {
     if (!S || !S.profile) return;
     const q = Qs(); info = info || {};
     if (typeof Guildes !== "undefined") try { Guildes.ev(type, info); } catch(e){}
+    if (typeof Boutique !== "undefined") try { Boutique.ev(type, info); } catch(e){}
     if (type === "ok") { runN++; ev("run", {v:runN}); }
     const apply = (list, DEF, wk) => list.forEach(m => {
       const d = DEF[m.k]; if (!d || m.done || d.on !== type) return;
@@ -99,6 +100,7 @@ const Quetes = (() => {
   function openChest(kind){
     const q = Qs(), box = kind === "w" ? q.w : q.d; if (box.chest || !allDone(box.list)) return;
     box.chest = true; const lines = [];
+    if (kind === "w" && typeof Boutique !== "undefined") try { Boutique.ev("wchest"); } catch(e){}
     if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`);
       S.titles = S.titles || {}; if (!S.titles.infatigable) { S.titles.infatigable = today(); lines.push("Titre exclusif : INFATIGABLE"); } }
     else { S.coins += D_CHEST; q.tot.d++; lines.push(`+${D_CHEST} pièces`); }
