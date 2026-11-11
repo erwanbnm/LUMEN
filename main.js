@@ -262,7 +262,7 @@ let toasts = [];
 // plusieurs niveaux gagnés d'un coup sont réunis sur une seule carte.
 const lvQueue = []; let lvOpen = false;
 // En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
-const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing());
+const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen());
 const bdQueue = [];
 function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); flushLevelUp(); }
 function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
@@ -452,8 +452,8 @@ const TAB_ICONS = {
   profil:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg>'
 };
 TAB_ICONS.boutique = '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>';
-const GTAB = {accueil:"home", jouer:"play", amis:"sword", tour:"tower", boutique:"shop", parc:"parc", profil:"user"};
-const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"Multi", tour:"Tour", boutique:"Boutique", parc:"Parc", profil:"Profil"};
+const GTAB = {accueil:"home", jouer:"play", amis:"sword", tour:"tower", boutique:"shop", aventure:"adv", profil:"user"};
+const TAB_LABEL = {accueil:"Accueil", jouer:"Jouer", amis:"Multi", tour:"Tour", boutique:"Boutique", aventure:"Aventure", profil:"Profil"};
 let adminTaps = 0, libFilter = "all", libQuery = "", confirmReset = false, tick = null, autoNext = null, profSeg = "progres", shopSeg = "skins", draft = null, formErr = "", copyFallback = "";
 
 function renderTabs(){
@@ -498,7 +498,7 @@ function render(){
   if (typeof flushLevelUp === "function") flushLevelUp();
   if (!S.profile) { app.innerHTML = `<div class="fade">${renderWelcome()}</div>`; return; }
   const s = S.session;
-  let html = header();
+  let html = S.tab === "aventure" && !(s && s.duel) ? "" : header();
   if (toasts.length) { html += toasts.map(t=>`<div class="toast" role="status">${t}</div>`).join(""); toasts = []; }
   const active = s && S.tab === "jouer";
   if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
@@ -508,12 +508,14 @@ function render(){
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
   else if (S.tab==="tour") html += Tour.view();
+  else if (S.tab==="aventure") html += Aventure.view();
   else html += renderProfile();
   // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
   app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
   document.body.classList.toggle("in-tour", S.tab === "tour");
   document.body.classList.toggle("in-portal", !!(S.tab === "jouer" && S.session && S.session.mode === "portail"));
   if (S.tab === "tour") Tour.after();
+  if (typeof Aventure !== "undefined") { if (S.tab === "aventure" && !active) Aventure.after(); else Aventure.leave(); }
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
@@ -543,7 +545,7 @@ function renderWelcome(){
   return `<section class="stack">
     <div class="brand" style="font-size:26px">L<span>u</span>men</div>
     <h1 class="big">Bienvenue. <em>Qui joue ?</em></h1>
-    <p class="muted">Choisis un pseudo et un personnage. Tu gagneras de l'XP et des pièces en répondant aux questions, pour construire ton parc.</p>
+    <p class="muted">Choisis un pseudo et un personnage. Tu gagneras de l'XP et des pièces en répondant aux questions, pour partir à l'Aventure.</p>
     ${profileForm(false)}${typeof Amis !== "undefined" ? Amis.welcome() : ""}</section>`;
 }
 
@@ -573,7 +575,7 @@ function renderHome(){
       <button class="mode" data-mode="chrono"><span class="mi">${gIcon("chrono",44)}</span><h3>Chrono</h3><p>60 s pour un max de bonnes réponses.</p></button>
       <button class="mode" data-mode="survie"><span class="mi">${gIcon("survie",44)}</span><h3>Survie</h3><p>${plural(3+(S.up.life||0),"vie")}, jusqu'où iras-tu ?</p></button>
       <button class="mode" data-mode="mix"><span class="mi">${gIcon("mix",44)}</span><h3>Grand mélange</h3><p>10 questions tous thèmes.</p></button>
-      <button class="mode" data-tab="parc"><span class="mi">${gIcon("parc",44)}</span><h3>Mon parc</h3><p>${Math.floor(S.coins)} pièces à dépenser.</p></button>
+      <button class="mode" data-tab="aventure"><span class="mi">${gIcon("adv",44)}</span><h3>Aventure</h3><p>Explore la Forêt des Anciens et son Casino.</p></button>
     </div>
     ${next ? `<div class="card nextb"><div class="nb-m">${badge2(next.tier, next.icon, 70)}</div><div class="stack" style="gap:6px;min-width:0"><span class="label">Prochain badge · ${TIER_N[next.tier]}</span><b style="font-family:var(--f-display)">${esc(next.name)}</b><span class="meter"><i style="width:${Math.round(next.cur()/next.goal*100)}%"></i></span><span class="muted" style="font-size:13.5px">${next.cur()}/${next.goal} · +${coinsTxt(next.coins)}</span></div></div>` : ""}
   </section>`;
@@ -648,7 +650,7 @@ const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B886
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
 const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : TITLES.find(t => t.id === id);
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : (typeof Aventure !== "undefined" && Aventure.titles[id]) ? Aventure.titles[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché (celui que je porte)
 const myTitle = () => (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -669,7 +671,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
-      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
@@ -1114,10 +1116,15 @@ function doAnswer(s, v){
     else if (s.duel) { clearTimeout(autoNext); const pos = s.pos; autoNext = setTimeout(() => { if (S.session===s && !s.done && s.pos===pos && S.tab==="jouer") { goNext(); Amis.sync(s); } }, DUEL_READ*1000); }
 }
 function onClick(e){
+  // Aventure : combats et Casino ont leurs propres boutons ; sur la carte, les îles et les niveaux sont des dessins
+  if (e.target.closest && e.target.closest("#av-fight,#casino")) return;
+  const av = e.target.closest && e.target.closest("[data-adv]");
+  if (av && av.tagName !== "BUTTON" && typeof Aventure !== "undefined") return Aventure.click(av);
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
+  if (d.adv !== undefined) { if (S.settings.sfx !== false && !b.closest("#av-fight")) try { Music.sfx("tap"); } catch(err){} return Aventure.click(b); }
   if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
   if (d.bs !== undefined) { if (S.settings.sfx !== false && d.bs !== "ans") try { Music.sfx("tap"); } catch(err){} return Boss.click(b); }
   if (d.tw !== undefined && !b.closest(".tw-fx")) { if (S.settings.sfx !== false && d.tw !== "ans") try { Music.sfx("tap"); } catch(err){} return Tour.click(b); }
@@ -1126,10 +1133,9 @@ function onClick(e){
   const fromBar = !!b.closest("#tabs");
   // Sons de navigation : « pop » sur les onglets du bas, petit clic sur les autres boutons (les réponses ont leur propre son)
   if (S.settings && S.settings.sfx !== false && d.ans === undefined && !d.av && d.avyear === undefined) {
-    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","parc","profil","tour"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
+    try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","aventure","profil","tour"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
   }
   if (d.tab && d.shopseg) shopSeg = d.shopseg;
-  if (d.tab === "parc") { leaveSession(); save(); if (fromBar) { tabFx("parc"); setTimeout(() => Parc.open(), 480); } else Parc.open(); return; }
   if (d.tab) {
     if (d.tab !== "jouer") leaveSession();
     S.tab = d.tab; confirmReset = false; draft = null; formErr = ""; copyFallback = "";
@@ -1274,5 +1280,6 @@ document.addEventListener("submit", e => {
   save(); render(); window.scrollTo(0,0);
 });
 
-window.__app = {state:() => S, save, close(){ S.tab = "accueil"; save(); render(); }, checkBadges, spend:n => { spend(n); save(); }, event:gameEvent, hero:heroChar};
+// Accès utilisé par les tests automatiques (tests/robot.js, tests/nouveautes.js)
+window.__app = {state:() => S, save, checkBadges, event:gameEvent, hero:heroChar};
 load();

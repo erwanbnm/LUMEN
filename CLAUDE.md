@@ -5,7 +5,7 @@ Elle est utilisée par Erwan (le client et directeur du projet) et moins de 10 a
 Réponds toujours en français. Erwan n'est pas développeur : explique simplement, et termine chaque réponse par un tout petit résumé de la méthode utilisée.
 
 ## Règles produit (à respecter)
-- Pas de pub, pas de système d'énergie, gratuit. Aucun achat en argent réel : les pièces sont virtuelles (quiz, boutique, parc, casino).
+- Pas de pub, pas de système d'énergie, gratuit. Aucun achat en argent réel : les pièces sont virtuelles (quiz, boutique, Aventure, casino).
 - Personnages originaux uniquement : aucun personnage, logo ou mascotte existants. Pas de photos de vraies personnalités.
 - Musique générée par le code ou libre de droits.
 - Les erreurs ne reviennent pas le lendemain : elles vont dans « Revoir mes erreurs ».
@@ -35,7 +35,8 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
   - `atelier/toy.js` : **style « jouet » validé par Erwan** pour les personnages (même recette que `GI3` : contour `#2B1D3A` épais, copie sombre décalée vers le bas, dégradés verticaux, reflets blancs nets, silhouette trapue et déguisée). Contient le kit (`toy`, `tEyes`, `tGlow`…), les 15 personnages de base redessinés (`TOY_DRAW`, mêmes noms et même ordre pour ne pas casser les sauvegardes) et Somni (ajouté à la fin de `CHARS`). Tout nouveau personnage ou skin doit suivre ce style.
   - Animations des personnages : classes CSS dans `app.html` (section « Personnages animés ») : `tblink` (clignement), `tbreath` (respiration), `ta-*` (pluie, flamme, queue qui remue…), `so-*` (Somni s'endort avec des zzz). Les effets animés sont exclus du calcul de placement des accessoires (`charBox` dans `acc.js`).
   - `atelier/toy_skins.js` : les 27 skins de boutique et secrets redessinés (mêmes id, prix et conditions). `atelier/toy_acc.js` : les accessoires redessinés (mêmes id et prix) + les nouveaux, ajoutés à la fin de `ACC`. Les anciens dessins de `creatures2.js`, `skins.js`, `acc.js` sont remplacés au chargement : ne plus les modifier, travailler dans les fichiers `toy*.js`.
-- `parc/game.js` + `parc/games.js` : le parc 3D (Three.js r128 via CDN). `make_parc.py` les transforme en `parc_app.js`, qui est intégré à l'appli.
+- `aventure.js` : **l'Aventure** (onglet qui remplace l'ancien Parc 3D, novembre 2026). 5 mondes de 7 niveaux (4 classiques, 1 Chrono, 1 Survie, puis le boss) ; seul le Monde 1, la Forêt des Anciens, est construit. Carte dessinée en code (style jouet), combats de mini-monstres, boss en 3 phases, 3 étoiles par niveau (masque de bits dans `S.adv.w[monde].st`, jamais perdues). Les réponses passent par `answer()` (XP, pièces, « Revoir mes erreurs », quêtes). Questions : toutes les questions à 4 choix des thèmes, `S.adv.seen` pour varier. Musique : déposer le fichier dans `web/musique/monde1.mp3` (copié dans `docs/musique/`), sinon la musique générée. Les anciens parcs ont été remboursés à 50 % (`S.adv.refund`, une seule fois). Maquette validée : `prototypes/aventure.html`. Test : `node tests/aventure_shots.js`.
+- `casino.js` : le Casino (Taverne du Trèfle d'Or, sur la carte de la Forêt). Mêmes jeux et mêmes règles que l'ancien casino du parc ; roue du jour dans `S.cas.wheel`.
 - `content/*.txt` : un fichier par thème (20 thèmes). Une ligne par question :
   - `niveau|question|bonne réponse|faux 1|faux 2|faux 3|explication` (7 champs), ou
   - `niveau|question|bonne réponse|faux|explication` (5 champs, vrai/faux).
@@ -51,7 +52,7 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
 - Sous Windows, `python3` peut manquer : utiliser `python` (ou le chemin complet de Python 3.12).
 
 ## Commandes
-- Construire : `npm run build` (équivaut à `python3 make_parc.py && python3 build.py dist/lumen.html`).
+- Construire : `npm run build` (équivaut à `python3 build.py dist/lumen.html && python3 make_web.py`).
 - Vérifier les questions (format, doublons) : `npm run check`. Doit afficher `erreurs 0`.
 - Tester : `npm install`, puis `npx playwright install chromium` (une seule fois), puis `npm test`.
   - `tests/robot.js` joue tous les modes (mix, survie, revoir, série, chrono). Il ne doit afficher aucune erreur (`[]`).
@@ -66,4 +67,4 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
 ## Prochaines étapes prévues
 1. Transformer Lumen en PWA installable (manifest, icône, service worker hors ligne) et l'héberger gratuitement (GitHub Pages ou Netlify).
 2. Ajouter un mode 1v1 entre amis : d'abord en différé (mêmes 10 questions, chacun joue quand il veut), puis en temps réel. Backend gratuit envisagé : Firebase ou Supabase, avec un compte par ami (pseudo + mot de passe).
-3. Plus tard : un .apk Android, de nouveaux thèmes, de nouveaux mondes dans le parc.
+3. Plus tard : un .apk Android, de nouveaux thèmes, les mondes 2 à 5 de l'Aventure.

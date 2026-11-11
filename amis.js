@@ -76,7 +76,7 @@ const Amis = (function(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
     db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
-      st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null}}).catch(() => {});
+      st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
   function stop(){ unsub.forEach(f => f()); unsub = []; clearInterval(seenTimer); users = {}; duels = []; }

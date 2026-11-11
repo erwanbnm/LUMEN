@@ -4,15 +4,13 @@
   "private": true,
   "description": "Lumen : appli de culture générale, sans pub ni énergie, pour dormir moins bête le soir.",
   "scripts": {
-    "parc": "python3 make_parc.py",
-    "build": "python3 make_parc.py && python3 build.py dist/lumen.html && python3 make_web.py",
+    "build": "python3 build.py dist/lumen.html && python3 make_web.py",
     "icons": "node web/make_icons.js",
     "serve": "node serve.js",
     "check": "python3 dupcheck.py",
     "test": "node tests/robot.js && node tests/nouveautes.js"
   },
   "devDependencies": {
-    "playwright": "^1.64.1",
-    "three": "0.128.0"
+    "playwright": "^1.64.1"
   }
 }

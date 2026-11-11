@@ -48,5 +48,8 @@ sw = open(os.path.join(base, "web", "sw.js"), encoding="utf-8").read().replace("
 open(os.path.join(site, "sw.js"), "w", encoding="utf-8").write(sw)
 for f in os.listdir(os.path.join(base, "web", "icons")):
     shutil.copy(os.path.join(base, "web", "icons", f), os.path.join(site, "icons", f))
+# Musiques des mondes de l'Aventure (fournies par Erwan) : web/musique/monde1.mp3, etc.
+mus = os.path.join(base, "web", "musique")
+if os.path.isdir(mus): shutil.copytree(mus, os.path.join(site, "musique"))
 open(os.path.join(site, ".nojekyll"), "w").close()
 print("docs/ prêt, version", version)

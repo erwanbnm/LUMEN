@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lumen · Aventure (maquette)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Mono:wght@500;700&family=Literata:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1B0F33;--ink:#2B1D3A;--lamp:#FF5FA2;--gold:#FFD23F;--f-d:"Bricolage Grotesque",system-ui,sans-serif;--f-m:"IBM Plex Mono",monospace;--f-t:"Literata",Georgia,serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#0E0820;color:#fff;font-family:var(--f-d)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+#app{max-width:440px;margin:0 auto;height:100dvh;position:relative;overflow:hidden;background:var(--bg)}
+.scr{position:absolute;inset:0;display:none;flex-direction:column}
+.scr.on{display:flex}
+/*__CSS__*/
+/* ---------- Boutons en relief ---------- */
+.b3{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid var(--ink);border-radius:14px;padding:9px 14px;font-weight:800;background:linear-gradient(#FFFFFF,#E9E2F4);color:var(--ink);box-shadow:0 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.b3:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.b3.pink{background:linear-gradient(#FF8AC0,#FF4F9A);color:#fff;text-shadow:0 2px 0 rgba(43,29,58,.55)}
+.b3.green{background:linear-gradient(#8BE36A,#3FA83E);color:#fff;text-shadow:0 2px 0 rgba(43,29,58,.55)}
+.b3.wood{background:linear-gradient(#C68A52,#8A5A30);color:#FFF4DA;text-shadow:0 2px 0 rgba(43,29,58,.6)}
+.b3.round{width:46px;height:46px;padding:0;border-radius:50%}
+.b3[disabled]{filter:grayscale(.8) brightness(.8);cursor:default}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;border:2.5px solid var(--ink);background:#FFF6E0;color:var(--ink);font:700 12.5px var(--f-m);box-shadow:0 2px 0 var(--ink)}
+.coin{display:inline-block;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF0A8,#FFC93A 55%,#D88A1A);border:2px solid var(--ink);flex:none}
+.star-i{width:16px;height:16px;flex:none}
+/* Barre de la maquette */
+.proto{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));z-index:60;display:flex;gap:4px;background:rgba(14,8,32,.86);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:4px;font:600 11px var(--f-m)}
+.proto button{padding:5px 9px;border-radius:99px;color:#CFC6F0}
+.proto button.on{background:var(--lamp);color:#fff}
+/* ---------- Écran des îles ---------- */
+#isl{background:#0E3A78}
+.isl-top{position:relative;z-index:2;padding:calc(12px + env(safe-area-inset-top)) 14px 8px;display:flex;align-items:center;gap:10px;background:linear-gradient(#0B2C5E,rgba(11,44,94,0))}
+.isl-top h1{margin:0;font-size:26px;letter-spacing:-.02em;text-shadow:0 3px 0 var(--ink);flex:1}
+.isl-scroll{flex:1;overflow:auto;margin-top:-58px}
+.isl-scroll svg{display:block;width:100%;height:auto}
+.wv{animation:wv 3.2s ease-in-out infinite}
+@keyframes wv{50%{transform:translateX(7px)}}
+.isl-g{cursor:pointer;transition:transform .2s;transform-box:fill-box;transform-origin:center}
+.isl-g:active{transform:scale(.97)}
+.spin{animation:spin 6s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.pulse{animation:pulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{50%{opacity:.45;transform:scale(1.12)}}
+.lava{animation:lava 1.8s ease-in-out infinite}
+@keyframes lava{50%{opacity:.55}}
+.fog{animation:fog 7s ease-in-out infinite}
+@keyframes fog{50%{transform:translateX(10px);opacity:.8}}
+.friends{position:absolute;left:12px;right:12px;bottom:calc(52px + env(safe-area-inset-bottom));z-index:3;border:3px solid var(--ink);border-radius:18px;background:linear-gradient(#FFF8E6,#F5E2B8);color:var(--ink);padding:10px 12px;box-shadow:0 5px 0 var(--ink);display:none}
+.friends.on{display:block}
+.friends h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px}
+.fr-row{display:grid;grid-template-columns:22px 1fr auto auto;gap:8px;align-items:center;padding:6px 4px;border-top:2px dashed rgba(43,29,58,.18);font-size:14px}
+.fr-row b{font-weight:800}.fr-row .m{font:600 12px var(--f-m);opacity:.75}
+.fr-row.me{background:rgba(255,95,162,.16);border-radius:10px}
+/* ---------- Carte d'un monde : thème Forêt ---------- */
+#map{--w1:#3E8A3A;--w2:#24582A;--wood:#7A4A26}
+.m-top{position:relative;z-index:5;padding:calc(10px + env(safe-area-inset-top)) 10px 10px;display:flex;align-items:center;gap:8px;background:linear-gradient(#3A7A36,#2A5A2E);border-bottom:4px solid var(--ink);box-shadow:inset 0 -6px 0 #6E4428}
+.m-top .t{flex:1;min-width:0;line-height:1.05}
+.m-top .t b{display:block;font-size:18px;text-shadow:0 2px 0 var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-top .t span{font:600 11.5px var(--f-m);opacity:.9}
+.m-scroll{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;scrollbar-width:none}
+.m-scroll svg{display:block;width:100%;height:auto}
+.node{cursor:pointer}
+.node:hover .nd{filter:brightness(1.08)}
+.cur-ring{animation:ring 1.4s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ring{from{transform:scale(.8);opacity:.9}to{transform:scale(1.6);opacity:0}}
+.ff{animation:ff 4s ease-in-out infinite}
+@keyframes ff{0%,100%{opacity:.15;transform:translate(0,0)}50%{opacity:1;transform:translate(6px,-10px)}}
+.flow{animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-40}}
+.fall{animation:fall .7s linear infinite}
+@keyframes fall{to{stroke-dashoffset:-30}}
+.flame{animation:flame .5s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes flame{to{transform:scale(1.1,.88)}}
+.sway{animation:sway 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(1.6deg)}}
+.twinkle{animation:tw 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+.dock{position:absolute;right:10px;bottom:calc(56px + env(safe-area-inset-bottom));z-index:6;display:flex;flex-direction:column;gap:10px;transition:opacity .2s}
+.dock .b3{position:relative;background:linear-gradient(#FFF6E0,#EBD3A0)}
+.dock .lk{position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#5A5870;border:2px solid var(--ink);display:grid;place-items:center}
+.dock .lab{position:absolute;right:54px;top:50%;transform:translateY(-50%);white-space:nowrap;font:700 11px var(--f-m);background:rgba(20,40,20,.85);padding:3px 8px;border-radius:8px;pointer-events:none}
+/* Panneau d'un niveau */
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:20;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,1.2,.4,1);padding:0 10px calc(10px + env(safe-area-inset-bottom))}
+.sheet.on{transform:none}
+.sheet-in{position:relative;border:4px solid var(--ink);border-radius:22px;background:#8A5A30;padding:9px;box-shadow:0 -4px 0 rgba(0,0,0,.25),inset 0 3px 0 #B07A48}
+.parch{background:linear-gradient(#FFF8E4,#F3DFB2);color:var(--ink);border:3px solid var(--ink);border-radius:15px;padding:14px 14px 12px;position:relative}
+.ribbon{position:absolute;left:50%;top:-22px;transform:translateX(-50%);background:linear-gradient(#6CD04A,#2E8A32);border:3px solid var(--ink);border-radius:10px;padding:3px 16px;font:800 13px var(--f-m);color:#fff;text-shadow:0 2px 0 var(--ink);white-space:nowrap;box-shadow:0 3px 0 var(--ink)}
+.ribbon.boss{background:linear-gradient(#B06AE8,#6A2AA8)}
+.sh-x{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:#FFF;color:var(--ink);font-weight:800;box-shadow:0 3px 0 var(--ink);z-index:2}
+.sh-h{display:flex;gap:12px;align-items:center;margin-top:4px}
+.sh-h h2{margin:0;font-size:22px;line-height:1.05}
+.sh-h .art{flex:none;width:76px;height:76px;border-radius:16px;border:3px solid var(--ink);background:radial-gradient(circle at 50% 40%,#C8F0A0,#5AAA4A);display:grid;place-items:center;overflow:hidden}
+.sh-h .art.boss{background:radial-gradient(circle at 50% 40%,#C9A0FF,#3A1A5A)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip.mode{background:#2B1D3A;color:#fff}
+.chip.mode.chrono{background:#2A7AD8}.chip.mode.surv{background:#E2283A}.chip.mode.boss{background:#7A2AB8}
+.objs{margin:12px 0 8px;display:flex;flex-direction:column;gap:6px}
+.obj{display:flex;align-items:center;gap:9px;font:500 14px var(--f-t)}
+.obj svg{flex:none}
+.obj.got{font-weight:700}
+.mons{display:flex;align-items:center;gap:4px;margin-top:8px;font:600 12px var(--f-m);opacity:.9}
+.mons svg{flex:none}
+.sh-foot{display:flex;align-items:center;gap:10px;margin-top:10px}
+.sh-foot .rw{flex:1;font:600 12.5px var(--f-m);display:flex;flex-direction:column;gap:3px}
+.sh-foot .rw span{display:flex;align-items:center;gap:5px}
+.sh-foot .b3{font-size:19px;padding:12px 26px}
+.lockmsg{margin:10px 0 0;font:500 14px var(--f-t);display:flex;gap:8px;align-items:center}
+/* Taverne-Casino */
+.ovl{position:absolute;inset:0;z-index:40;background:rgba(10,6,24,.66);display:none;align-items:center;justify-content:center;padding:16px}
+.ovl.on{display:flex;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.tav{width:100%;border:4px solid var(--ink);border-radius:22px;background:linear-gradient(#7A3A1E,#4A1E12);padding:10px;box-shadow:0 6px 0 var(--ink);animation:popin .35s cubic-bezier(.2,1.5,.4,1)}
+@keyframes popin{from{transform:scale(.7);opacity:0}}
+.tav-h{text-align:center;padding:4px 0 10px}
+.tav-h b{display:block;font-size:22px;color:#FFD23F;text-shadow:0 3px 0 var(--ink)}
+.tav-h span{font:600 12px var(--f-m);color:#FFE2B8}
+.tav-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tav-c{border:3px solid var(--ink);border-radius:16px;background:linear-gradient(#2E8A4E,#1A5A32);padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 4px 0 var(--ink);text-align:center}
+.tav-c b{font-size:15px}.tav-c span{font:500 11px var(--f-m);opacity:.85}
+.tav-c.wheel{background:linear-gradient(#B04AD8,#6A1A9A)}
+.tav-note{margin:10px 2px 0;font:500 12px var(--f-m);color:#FFE2B8;text-align:center}
+/* Petit message */
+.toast{position:absolute;left:50%;top:calc(76px + env(safe-area-inset-top));transform:translate(-50%,-20px);opacity:0;z-index:70;background:#FFF6E0;color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:8px 14px;font-weight:800;box-shadow:0 4px 0 var(--ink);transition:.25s;pointer-events:none;width:max-content;max-width:90%;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* ---------- Combat d'un niveau ---------- */
+#fight{background:#14301E}
+.f-top{position:relative;z-index:5;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;display:flex;align-items:center;gap:8px;background:rgba(18,40,24,.92);border-bottom:3px solid var(--ink)}
+.f-top .t{flex:1;line-height:1.05}.f-top .t b{font-size:16px;display:block}.f-top .t span{font:600 11px var(--f-m);opacity:.85}
+.arena{position:relative;flex:1;min-height:260px;overflow:hidden}
+.arena .bg{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:absolute;left:3%;bottom:8%;width:40%;transition:transform .18s}
+.hero .pet{position:absolute;left:-14%;bottom:-2%;width:46%}
+.mon{position:absolute;right:3%;bottom:9%;width:45%;transition:transform .18s}
+.mon.chief{width:54%;right:0}
+.mon-svg{animation:mbob 1.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes mbob{50%{transform:scale(1.04,.95)}}
+.hp{position:absolute;right:4%;top:6%;width:52%;background:rgba(14,8,32,.78);border:2.5px solid var(--ink);border-radius:12px;padding:6px 8px 7px;z-index:3}
+.hp .n{display:flex;justify-content:space-between;font:700 12px var(--f-m);margin-bottom:4px}
+.hp .bar{height:12px;border-radius:99px;background:#3A2440;border:2px solid var(--ink);overflow:hidden}
+.hp .bar i{display:block;height:100%;background:linear-gradient(#FF8A7A,#E2283A);transition:width .35s;box-shadow:inset 0 3px 0 rgba(255,255,255,.35)}
+.waves{position:absolute;left:4%;top:6%;display:flex;gap:5px;z-index:3;background:rgba(14,8,32,.6);padding:5px 8px;border-radius:99px;border:2px solid var(--ink)}
+.waves i{width:13px;height:13px;border-radius:50%;background:#5A5870;border:2px solid var(--ink)}
+.waves i.dead{background:#3FCB6A}.waves i.now{background:#FFD23F;box-shadow:0 0 8px #FFD23F}
+.waves i.chief{border-radius:3px;transform:rotate(45deg) scale(.9)}
+.hero.atk{animation:hatk .42s ease-out}
+@keyframes hatk{40%{transform:translateX(95%) translateY(-6%) rotate(8deg)}}
+.hero.hurt{animation:hurt .45s}
+@keyframes hurt{20%,60%{transform:translateX(-6%);filter:drop-shadow(0 0 0 #f00) brightness(1.6) sepia(1) hue-rotate(-50deg) saturate(5)}40%{transform:translateX(3%)}}
+.mon.hit{animation:mhit .4s}
+@keyframes mhit{25%{transform:translateX(7%) rotate(5deg);filter:brightness(3)}60%{transform:translateX(-3%)}}
+.mon.atk{animation:matk .45s ease-in}
+@keyframes matk{45%{transform:translateX(-80%) scale(1.06)}}
+.mon.die{animation:mdie .55s forwards}
+@keyframes mdie{30%{transform:scale(1.15);filter:brightness(3)}100%{transform:scale(.1) translateY(30%);opacity:0}}
+.mon.enter{animation:menter .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes menter{from{transform:translateX(120%)}}
+.mon.flee{animation:mflee .8s forwards}
+@keyframes mflee{to{transform:translateX(160%) rotate(10deg)}}
+.slash{position:absolute;right:10%;bottom:22%;width:38%;pointer-events:none;opacity:0;z-index:4}
+.slash.on{animation:slash .38s ease-out}
+@keyframes slash{0%{opacity:0;transform:scale(.5) rotate(-20deg)}30%{opacity:1}100%{opacity:0;transform:scale(1.2) rotate(5deg)}}
+.dmg{position:absolute;z-index:5;font:800 26px var(--f-d);color:#FFD23F;-webkit-text-stroke:2px var(--ink);pointer-events:none;animation:dmg .8s forwards}
+@keyframes dmg{to{transform:translateY(-50px);opacity:0}}
+.shake{animation:shk .35s}
+@keyframes shk{20%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(-3px,1px)}}
+.redflash{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(transparent 40%,rgba(226,40,58,.55));opacity:0}
+.redflash.on{animation:rf .45s}
+@keyframes rf{30%{opacity:1}}
+.qpanel{position:relative;z-index:5;margin:0 8px calc(46px + env(safe-area-inset-bottom));border:4px solid var(--ink);border-radius:20px;background:#8A5A30;padding:7px;box-shadow:0 -3px 0 rgba(0,0,0,.3),inset 0 3px 0 #B07A48}
+.qin{background:linear-gradient(#FFF8E4,#F3DFB2);color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:10px 10px 10px}
+.qmeta{display:flex;justify-content:space-between;font:700 11.5px var(--f-m);opacity:.8}
+.timer{height:9px;border-radius:99px;background:#E2CFA0;border:2px solid var(--ink);overflow:hidden;margin:6px 0 8px}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#3FCB6A,#FFD23F);transform-origin:left}
+.qtext{font:700 16.5px/1.3 var(--f-t);min-height:2.6em;margin-bottom:9px}
+.ans{display:grid;gap:7px}
+.ans button{border:3px solid var(--ink);border-radius:12px;padding:10px 12px;background:#fff;color:var(--ink);font:700 15px var(--f-d);text-align:left;box-shadow:0 3px 0 var(--ink);transition:transform .08s}
+.ans button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.ans button.ok{background:#3FCB6A;color:#fff}
+.ans button.ko{background:#FF5A6A;color:#fff}
+.ans button[disabled]{cursor:default}
+/* Affiche de fin */
+.poster{position:absolute;inset:0;z-index:50;background:rgba(10,6,24,.72);display:none;align-items:center;justify-content:center;padding:18px}
+.poster.on{display:flex;animation:fade .25s}
+.board{position:relative;width:100%;border:4px solid var(--ink);border-radius:20px;background:repeating-linear-gradient(0deg,#9A6236 0 34px,#8A5630 34px 37px);padding:46px 12px 12px;box-shadow:0 8px 0 var(--ink),inset 0 0 0 5px #6A3A1E;animation:popin .45s cubic-bezier(.2,1.5,.4,1)}
+.banner{position:absolute;left:50%;top:-26px;transform:translateX(-50%);width:86%}
+.banner svg{width:100%;display:block}
+.p-paper{background:linear-gradient(#FFF8E4,#F0D9A6);border:3px solid var(--ink);border-radius:12px;color:var(--ink);padding:12px;text-align:center;transform:rotate(-1deg);box-shadow:0 4px 0 rgba(43,29,58,.5)}
+.p-stars{display:flex;justify-content:center;align-items:flex-end;gap:4px;margin:2px 0 6px}
+.p-stars svg{opacity:0;transform:scale(0)}
+.p-stars svg.in{animation:starin .5s cubic-bezier(.2,1.8,.4,1) forwards}
+@keyframes starin{from{opacity:0;transform:scale(0) rotate(-40deg)}to{opacity:1;transform:scale(1)}}
+.p-stars svg.mid{margin-bottom:12px}
+.p-score{font-size:28px;font-weight:800;line-height:1}
+.p-score small{font:600 12px var(--f-m);display:block;opacity:.75;margin-top:2px}
+.p-objs{text-align:left;margin:10px 0 8px;display:flex;flex-direction:column;gap:5px}
+.p-rw{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.p-heroes{display:flex;justify-content:center;align-items:flex-end;margin:-6px 0 2px}
+.p-heroes .w{animation:jump .6s ease-in-out infinite alternate}
+.p-heroes .w2{animation-delay:.3s}
+@keyframes jump{to{transform:translateY(-10px)}}
+.p-btns{display:flex;gap:10px;margin-top:12px}
+.p-btns .b3{flex:1}
+.p-flee{font:500 13px var(--f-t);margin:4px 0 0;opacity:.85}
+</style></head>
+<body>
+<div id="app">
+  <!-- ===== Écran 1 : les îles ===== -->
+  <section class="scr on" id="isl">
+    <div class="isl-top"><button class="b3 round" aria-label="Retour">←</button><h1>Aventure</h1>
+      <span class="chip"><svg class="star-i" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.5 6 .7-4.4 4.1 1.1 6-5.3-3-5.3 3 1.1-6L1.4 7.7l6-.7z" fill="#FFD23F" stroke="#2B1D3A" stroke-width="1.8" stroke-linejoin="round"/></svg><b id="st-isl">5</b>/105</span>
+      <button class="b3 round" data-act="friends" aria-label="Classement des amis">🏆</button></div>
+    <div class="isl-scroll"><svg id="isl-svg" viewBox="0 0 400 800"></svg></div>
+    <div class="friends" id="friends"><h3>🏆 Classement des amis <span style="flex:1"></span><button class="b3" style="padding:2px 9px;font-size:13px" data-act="friends">✕</button></h3>
+      <div class="fr-row"><b>1</b><span><b>Ami A</b> <span class="m">· Monde 2</span></span><span class="m">Niv. 5</span><span class="chip">★ 31 · 38 %</span></div>
+      <div class="fr-row me"><b>2</b><span><b>Toi</b> <span class="m">· Monde 1</span></span><span class="m">Niv. 3</span><span class="chip">★ 5 · 14 %</span></div>
+      <div class="fr-row"><b>3</b><span><b>Ami B</b> <span class="m">· Monde 1</span></span><span class="m">Niv. 2</span><span class="chip">★ 3 · 9 %</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Écran 2 : la carte de la Forêt ===== -->
+  <section class="scr" id="map">
+    <div class="m-top"><button class="b3 round wood" data-go="isl" aria-label="Retour aux îles">←</button>
+      <div class="t"><b>La Forêt des Anciens</b><span>Monde 1 · complété à 14 %</span></div>
+      <span class="chip"><svg class="star-i" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.5 6 .7-4.4 4.1 1.1 6-5.3-3-5.3 3 1.1-6L1.4 7.7l6-.7z" fill="#FFD23F" stroke="#2B1D3A" stroke-width="1.8" stroke-linejoin="round"/></svg><b id="st-map">5</b>/21</span>
+      <button class="b3 round wood" id="mus" aria-label="Musique">♪</button></div>
+    <div class="m-scroll" id="m-scroll"><svg id="map-svg" viewBox="0 0 400 1580"></svg></div>
+    <div class="dock" id="dock">
+      <button class="b3 round" data-act="journal" aria-label="Journal de quêtes"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M6 4h13a3 3 0 0 1 0 6H8v12H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" fill="#F3DFB2" stroke="#2B1D3A" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 10h12v9a3 3 0 0 1-3 3H8z" fill="#FFF6E0" stroke="#2B1D3A" stroke-width="2.2" stroke-linejoin="round"/><path d="M11 14h6M11 18h4" stroke="#2B1D3A" stroke-width="2" stroke-linecap="round"/></svg><span class="lk"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="#fff"/><path d="M4 5V3.6a2 2 0 0 1 4 0V5" stroke="#fff" stroke-width="1.6" fill="none"/></svg></span></button>
+      <button class="b3 round" data-act="friends2" aria-label="Classement">🏆</button>
+      <button class="b3 round" data-act="info" aria-label="Infos du monde">ⓘ</button>
+    </div>
+    <div class="sheet" id="sheet"></div>
+  </section>
+
+  <!-- ===== Écran 3 : combat ===== -->
+  <section class="scr" id="fight">
+    <div class="f-top"><button class="b3 round wood" data-act="quit" aria-label="Quitter">✕</button>
+      <div class="t"><b id="f-name">Niveau 1 · La Lisière</b><span id="f-sub">Classique · 10 questions</span></div>
+      <span class="chip">✓ <b id="f-ok">0</b></span></div>
+    <div class="arena" id="arena">
+      <svg class="bg" id="arena-bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice"></svg>
+      <div class="waves" id="waves"></div>
+      <div class="hp" id="hp"><div class="n"><span id="m-name">Champichon</span><span id="m-hp">2/2</span></div><div class="bar"><i id="m-bar" style="width:100%"></i></div></div>
+      <div class="hero" id="hero"></div>
+      <div class="mon" id="mon"></div>
+      <svg class="slash" id="slash" viewBox="0 0 100 100"><path d="M10 85 Q50 50 92 12" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M14 92 Q55 58 96 24" stroke="#FFD23F" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M4 70 Q40 44 80 6" stroke="#FFF6B0" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/></svg>
+      <div class="redflash" id="redflash"></div>
+    </div>
+    <div class="qpanel"><div class="qin">
+      <div class="qmeta"><span id="q-n">Question 1/10</span><span id="q-t">20 s</span></div>
+      <div class="timer"><i id="q-bar"></i></div>
+      <div class="qtext" id="q-text"></div>
+      <div class="ans" id="q-ans"></div>
+    </div></div>
+    <div class="poster" id="poster"></div>
+  </section>
+
+  <div class="ovl" id="tav"></div>
+  <div class="toast" id="toast"></div>
+  <nav class="proto" aria-label="Écrans de la maquette"><button data-go="isl" class="on">Îles</button><button data-go="map">Carte</button><button data-go="fight">Combat</button><button data-act="demo-win">Victoire</button></nav>
+</div>
+
+<script>/*__ART__*/</script>
+<script>
+const Q = /*__Q__*/[];
+const $ = id => document.getElementById(id);
+const TDc = "#2B1D3A";
+/* ---------- Outils de dessin ---------- */
+function rnd(seed){ seed = seed % 2147483647; if (seed <= 0) seed += 2147483646; return () => (seed = seed * 16807 % 2147483647) / 2147483647; }
+function smooth(p, closed){
+  const n = p.length, f = v => v.toFixed(1); let d = `M${f(p[0][0])} ${f(p[0][1])}`;
+  for (let i = 0; i < (closed ? n : n - 1); i++){
+    const p0 = closed ? p[(i - 1 + n) % n] : p[Math.max(0, i - 1)], p1 = p[i], p2 = p[(i + 1) % n], p3 = closed ? p[(i + 2) % n] : p[Math.min(n - 1, i + 2)];
+    d += ` C${f(p1[0] + (p2[0] - p0[0]) / 6)} ${f(p1[1] + (p2[1] - p0[1]) / 6)} ${f(p2[0] - (p3[0] - p1[0]) / 6)} ${f(p2[1] - (p3[1] - p1[1]) / 6)} ${f(p2[0])} ${f(p2[1])}`;
+  }
+  return d + (closed ? "Z" : "");
+}
+function sample(p, k = 24){ // points le long d'une courbe de Catmull-Rom ouverte
+  const out = [], n = p.length;
+  for (let i = 0; i < n - 1; i++){ const p0 = p[Math.max(0, i - 1)], p1 = p[i], p2 = p[i + 1], p3 = p[Math.min(n - 1, i + 2)];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    for (let j = 0; j < k; j++){ const t = j / k, u = 1 - t;
+      out.push([u*u*u*p1[0] + 3*u*u*t*c1[0] + 3*u*t*t*c2[0] + t*t*t*p2[0], u*u*u*p1[1] + 3*u*u*t*c1[1] + 3*u*t*t*c2[1] + t*t*t*p2[1]]); } }
+  out.push(p[n - 1]); return out;
+}
+const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+const near = (pt, list) => Math.min(...list.map(q => dist(pt, q)));
+function blob(cx, cy, rx, ry, seed, k = 10, amp = .14){ const r = rnd(seed), p = [];
+  for (let i = 0; i < k; i++){ const a = i / k * Math.PI * 2, m = 1 + (r() - .5) * 2 * amp; p.push([cx + Math.cos(a) * rx * m, cy + Math.sin(a) * ry * m]); }
+  return smooth(p, true); }
+function bumpy(cx, cy, rx, ry, k, seed){ const r = rnd(seed), p = [];
+  for (let i = 0; i < k * 2; i++){ const a = i / (k * 2) * Math.PI * 2 - Math.PI / 2, m = i % 2 ? .9 : 1 + r() * .06; p.push([cx + Math.cos(a) * rx * m, cy + Math.sin(a) * ry * m]); }
+  return smooth(p, true); }
+// Remplissage « jouet » avec un dégradé partagé : copie sombre décalée + dégradé + contour
+const tf = (d, g, dark, dy = 3, w = 2.6) => `${dy ? `<path d="${d}" transform="translate(0 ${dy})" fill="${dark}" stroke="${TDc}" stroke-width="${w}" stroke-linejoin="round"/>` : ""}<path d="${d}" fill="url(#${g})" stroke="${TDc}" stroke-width="${w}" stroke-linejoin="round"/>`;
+const lg = (id, a, b) => `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`;
+const rg = (id, a, b, o = 0) => `<radialGradient id="${id}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}" stop-opacity="${o}"/></radialGradient>`;
+const starP = (x, y, r) => { let d = ""; for (let i = 0; i < 10; i++){ const a = Math.PI * i / 5 - Math.PI / 2, rr = i % 2 ? r * .46 : r; d += (i ? "L" : "M") + (x + rr * Math.cos(a)).toFixed(1) + " " + (y + rr * Math.sin(a)).toFixed(1); } return d + "Z"; };
+const starSVG = (on, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 20 20"><path d="${starP(10, 10.6, 9)}" fill="${on ? "#FFD23F" : "#CDBF9E"}" stroke="${TDc}" stroke-width="1.8" stroke-linejoin="round"/>${on ? `<path d="M7 6.5 L9 5.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>` : ""}</svg>`;
+const nest = (svg, x, y) => svg.replace("<svg ", `<svg x="${x}" y="${y}" `);
+const HERO = CREATURES.find(c => c.n === "Voile") || CREATURES[0];
+const PET = typeof petOf === "function" ? petOf("pet_foudre") : null;
+
+/* ---------- Arbres et décor de la Forêt ---------- */
+const TREE_PAL = [["tA", "#A6EA72", "#4FA83E", "#2E6A2A"], ["tB", "#86DA5E", "#3A8E3E", "#21542A"], ["tC", "#7DE0A8", "#2F9A6A", "#1C5A42"], ["tP", "#FFC4E2", "#E66AAE", "#9A3A78"]];
+const forestDefs = () => TREE_PAL.map(p => lg(p[0], p[1], p[2])).join("") + lg("trunk", "#A87444", "#6E4428") + lg("pine", "#5FC27A", "#1F6A44") + lg("stone", "#E4E0EC", "#9C98AE") + lg("rock", "#B8B0A8", "#6E6660")
+  + lg("sand", "#F8E2AE", "#E2BE7A") + lg("water", "#7FD8FF", "#2E9AD8") + lg("redcap", "#FF6A6A", "#C02838") + lg("wall", "#FFF0D2", "#D6B080") + lg("roof", "#B07AE0", "#6A3AA8") + lg("woodg", "#C88A50", "#7A4A26") + lg("gold", "#FFE07A", "#E09A1A")
+  + rg("glowY", "#FFF4A0", "#FFD23F") + rg("glowC", "#B8FFFF", "#4AE0FF") + rg("glowP", "#E8C8FF", "#A060FF") + rg("glowW", "#FFFFFF", "#FFFFFF");
+function tree(x, y, s, kind, seed){
+  if (kind === "pine"){ const h = 58 * s, w = 22 * s;
+    const d = `M${x} ${y - h} L${x + w * .5} ${y - h * .7} L${x + w * .3} ${y - h * .7} L${x + w * .8} ${y - h * .4} L${x + w * .5} ${y - h * .4} L${x + w} ${y - h * .12} L${x - w} ${y - h * .12} L${x - w * .5} ${y - h * .4} L${x - w * .8} ${y - h * .4} L${x - w * .3} ${y - h * .7} L${x - w * .5} ${y - h * .7}Z`;
+    return `<ellipse cx="${x}" cy="${y}" rx="${16 * s}" ry="${5 * s}" fill="rgba(20,40,10,.25)"/><rect x="${x - 3.5 * s}" y="${y - 10 * s}" width="${7 * s}" height="${10 * s}" fill="url(#trunk)" stroke="${TDc}" stroke-width="2.2"/>` + tf(d, "pine", "#164A30", 3 * s, 2.4) + `<path d="M${x - 2 * s} ${y - h * .86} L${x - w * .35} ${y - h * .62}" stroke="#fff" stroke-width="${2.4 * s}" stroke-linecap="round" opacity=".5"/>`;
+  }
+  const p = TREE_PAL[kind] || TREE_PAL[0];
+  const trunk = `M${x - 5 * s} ${y} Q${x - 4 * s} ${y - 12 * s} ${x - 4 * s} ${y - 24 * s} L${x + 4 * s} ${y - 24 * s} Q${x + 4 * s} ${y - 12 * s} ${x + 5 * s} ${y}Z`;
+  const can = bumpy(x, y - 36 * s, 23 * s, 19 * s, 7 + (seed % 2), seed);
+  return `<ellipse cx="${x}" cy="${y}" rx="${18 * s}" ry="${5.5 * s}" fill="rgba(20,40,10,.25)"/>` + tf(trunk, "trunk", "#4A2C18", 0, 2.2) + tf(can, p[0], p[3], 4 * s, 2.6)
+    + `<path d="M${x - 13 * s} ${y - 41 * s} Q${x - 8 * s} ${y - 50 * s} ${x} ${y - 51 * s}" stroke="#fff" stroke-width="${3 * s}" fill="none" stroke-linecap="round" opacity=".55"/>`
+    + (kind === 3 ? "" : `<circle cx="${x + 9 * s}" cy="${y - 32 * s}" r="${2 * s}" fill="${["#FF6A8A", "#FFD23F", "#fff"][seed % 3]}" stroke="${TDc}" stroke-width="1"/>`);
+}
+const bush = (x, y, s, seed) => `<ellipse cx="${x}" cy="${y}" rx="${16 * s}" ry="${4 * s}" fill="rgba(20,40,10,.25)"/>` + tf(bumpy(x, y - 9 * s, 17 * s, 11 * s, 4, seed), "tB", "#21542A", 2.5, 2.3);
+const mush = (x, y, s) => `<rect x="${x - 2.5 * s}" y="${y - 8 * s}" width="${5 * s}" height="${8 * s}" rx="2" fill="#FFF0D2" stroke="${TDc}" stroke-width="1.8"/>` + tf(`M${x - 8 * s} ${y - 7 * s} Q${x} ${y - 20 * s} ${x + 8 * s} ${y - 7 * s}Z`, "redcap", "#7A1A24", 1.5, 1.8) + `<circle cx="${x - 2 * s}" cy="${y - 12 * s}" r="${1.6 * s}" fill="#fff"/>`;
+const flower = (x, y, c) => `<circle cx="${x}" cy="${y}" r="2.6" fill="${c}" stroke="${TDc}" stroke-width="1"/><circle cx="${x}" cy="${y}" r=".9" fill="#FFF6B0"/>`;
+
+// Maison champignon (Village des Lucioles)
+function hut(x, y, s = 1, seed = 1){
+  const wall = `M${x - 18 * s} ${y} L${x - 16 * s} ${y - 26 * s} L${x + 16 * s} ${y - 26 * s} L${x + 18 * s} ${y}Z`;
+  const cap = `M${x - 32 * s} ${y - 22 * s} Q${x - 30 * s} ${y - 62 * s} ${x} ${y - 64 * s} Q${x + 30 * s} ${y - 62 * s} ${x + 32 * s} ${y - 22 * s} Q${x} ${y - 14 * s} ${x - 32 * s} ${y - 22 * s}Z`;
+  return `<ellipse cx="${x}" cy="${y + 1}" rx="${30 * s}" ry="${6 * s}" fill="rgba(20,40,10,.3)"/>` + tf(wall, "wall", "#8A6A44", 0, 2.4)
+    + `<path d="M${x - 6 * s} ${y} L${x - 6 * s} ${y - 11 * s} Q${x} ${y - 18 * s} ${x + 6 * s} ${y - 11 * s} L${x + 6 * s} ${y}Z" fill="#6E4428" stroke="${TDc}" stroke-width="2"/>`
+    + `<circle cx="${x + 11 * s}" cy="${y - 15 * s}" r="${4 * s}" fill="url(#glowY)" stroke="${TDc}" stroke-width="1.8" class="pulse" style="animation-delay:-${seed * .3}s"/>`
+    + tf(cap, seed % 2 ? "redcap" : "roof", seed % 2 ? "#7A1A24" : "#3A1A6A", 3.5, 2.6)
+    + [[-16, -40, 5], [4, -52, 6], [18, -36, 4], [-2, -34, 3.5]].map(([dx, dy, r]) => `<ellipse cx="${x + dx * s}" cy="${y + dy * s}" rx="${r * s}" ry="${r * .8 * s}" fill="#FFF6E8" stroke="${TDc}" stroke-width="1.5"/>`).join("")
+    + `<path d="M${x - 22 * s} ${y - 46 * s} Q${x - 14 * s} ${y - 58 * s} ${x - 2 * s} ${y - 59 * s}" stroke="#fff" stroke-width="${2.6 * s}" fill="none" stroke-linecap="round" opacity=".6"/>`;
+}
+function column(x, y, h, broken, s = 1){
+  const top = broken ? `L${x + 8 * s} ${y - h + 6} L${x + 3 * s} ${y - h - 2} L${x - 2 * s} ${y - h + 5} L${x - 8 * s} ${y - h}` : `L${x + 8 * s} ${y - h} L${x - 8 * s} ${y - h}`;
+  return `<ellipse cx="${x}" cy="${y}" rx="${14 * s}" ry="${4 * s}" fill="rgba(20,40,10,.3)"/>` + tf(`M${x - 8 * s} ${y} L${x + 8 * s} ${y} ${top}Z`, "stone", "#6A667A", 3, 2.3)
+    + `<rect x="${x - 11 * s}" y="${y - 5}" width="${22 * s}" height="6" rx="2" fill="url(#stone)" stroke="${TDc}" stroke-width="2"/>`
+    + (broken ? "" : `<rect x="${x - 11 * s}" y="${y - h - 5}" width="${22 * s}" height="7" rx="2" fill="url(#stone)" stroke="${TDc}" stroke-width="2"/>`)
+    + `<path d="M${x - 3 * s} ${y - 6} L${x - 3 * s} ${y - h + 10}" stroke="#fff" stroke-width="2" opacity=".5"/>`
+    + `<path d="${bumpy(x - 4 * s, y - h * .45, 8 * s, 5, 3, h)}" fill="#5AB04A" stroke="${TDc}" stroke-width="1.6"/>`;
+}
+function arch(x, y){
+  const d = `M${x - 34} ${y} L${x - 34} ${y - 44} Q${x} ${y - 84} ${x + 34} ${y - 44} L${x + 34} ${y} L${x + 20} ${y} L${x + 20} ${y - 40} Q${x} ${y - 64} ${x - 20} ${y - 40} L${x - 20} ${y}Z`;
+  return `<ellipse cx="${x}" cy="${y}" rx="40" ry="7" fill="rgba(20,40,10,.3)"/>` + tf(d, "stone", "#6A667A", 4, 2.6)
+    + `<path d="M${x - 10} ${y - 56} l4 -4 l4 4 l-4 4z M${x + 4} ${y - 58} h6" stroke="#8A60FF" stroke-width="2" fill="none" class="pulse"/>`
+    + `<path d="${bumpy(x + 24, y - 56, 12, 7, 4, 9)}" fill="#5AB04A" stroke="${TDc}" stroke-width="1.6"/><path d="M${x + 30} ${y - 50} q2 12 -2 20" stroke="#3E8A3A" stroke-width="2.4" fill="none"/>`;
+}
+function cave(x, y){
+  const rock = blob(x, y - 40, 62, 50, 77, 11, .12);
+  return `<ellipse cx="${x}" cy="${y + 4}" rx="66" ry="12" fill="rgba(20,40,10,.3)"/>` + tf(rock, "rock", "#4A4440", 5, 2.8)
+    + `<path d="${bumpy(x + 10, y - 82, 40, 12, 5, 4)}" fill="#5AB04A" stroke="${TDc}" stroke-width="2"/>`
+    + `<path d="M${x - 26} ${y} Q${x - 26} ${y - 46} ${x} ${y - 48} Q${x + 26} ${y - 46} ${x + 26} ${y}Z" fill="#1A1020" stroke="${TDc}" stroke-width="2.6"/>`
+    + `<circle cx="${x - 6}" cy="${y - 26}" r="3" fill="#FFE07A" class="pulse"/><circle cx="${x + 7}" cy="${y - 26}" r="3" fill="#FFE07A" class="pulse"/>`
+    + [[-44, 2], [-36, -4], [40, 2], [48, -6]].map(([dx, dy], i) => `<circle cx="${x + dx}" cy="${y + dy - 8}" r="11" fill="url(#glowC)" class="pulse" style="animation-delay:-${i * .4}s"/><rect x="${x + dx - 1.6}" y="${y + dy - 6}" width="3.2" height="7" fill="#E8FFFF" stroke="${TDc}" stroke-width="1.2"/><path d="M${x + dx - 6} ${y + dy - 5} Q${x + dx} ${y + dy - 15} ${x + dx + 6} ${y + dy - 5}Z" fill="#6AF0FF" stroke="${TDc}" stroke-width="1.4"/>`).join("")
+    + `<path d="M${x - 40} ${y - 62} Q${x - 24} ${y - 84} ${x} ${y - 86}" stroke="#fff" stroke-width="3" fill="none" opacity=".45" stroke-linecap="round"/>`;
+}
+function sanctuary(x, y){
+  return `<circle cx="${x}" cy="${y}" r="56" fill="url(#glowC)" opacity=".55" class="pulse"/>`
+    + `<ellipse cx="${x}" cy="${y}" rx="44" ry="20" fill="url(#stone)" stroke="${TDc}" stroke-width="2.6"/><ellipse cx="${x}" cy="${y - 2}" rx="34" ry="13" fill="url(#water)" stroke="${TDc}" stroke-width="2.2"/>`
+    + `<ellipse cx="${x - 8}" cy="${y - 5}" rx="12" ry="3" fill="#E8FFFF" opacity=".75" class="fog"/>`
+    + [[-52, -6], [-30, -26], [30, -26], [52, -6]].map(([dx, dy], i) => tf(`M${x + dx - 7} ${y + dy} L${x + dx - 6} ${y + dy - 30} Q${x + dx} ${y + dy - 38} ${x + dx + 6} ${y + dy - 30} L${x + dx + 7} ${y + dy}Z`, "stone", "#6A667A", 3, 2.2) + `<path d="M${x + dx - 2} ${y + dy - 22} l2 -4 l2 4 l-2 4z" fill="#7AF0FF" class="pulse" style="animation-delay:-${i * .3}s"/>`).join("");
+}
+function taverne(x, y){
+  const body = `M${x - 46} ${y} L${x - 44} ${y - 50} L${x + 44} ${y - 50} L${x + 46} ${y}Z`;
+  const roof = `M${x - 58} ${y - 44} L${x - 30} ${y - 92} L${x + 30} ${y - 92} L${x + 58} ${y - 44}Z`;
+  return `<ellipse cx="${x}" cy="${y + 2}" rx="62" ry="11" fill="rgba(20,40,10,.32)"/>`
+    + `<circle cx="${x}" cy="${y - 40}" r="80" fill="url(#glowY)" opacity=".28" class="pulse"/>`
+    + tf(body, "woodg", "#4A2C18", 0, 2.8)
+    + [-30, -10, 10, 30].map(dx => `<path d="M${x + dx} ${y - 48} L${x + dx} ${y - 2}" stroke="#5A3418" stroke-width="2" opacity=".6"/>`).join("")
+    + tf(roof, "tB", "#21542A", 5, 2.8) + `<path d="M${x - 40} ${y - 56} L${x - 22} ${y - 86}" stroke="#fff" stroke-width="3" opacity=".45" stroke-linecap="round"/>`
+    + `<path d="${bumpy(x - 30, y - 90, 14, 6, 3, 5)}" fill="#3E8A3A" stroke="${TDc}" stroke-width="1.8"/>`
+    + `<rect x="${x + 22}" y="${y - 112}" width="12" height="24" fill="#8A6A5A" stroke="${TDc}" stroke-width="2.2"/><circle cx="${x + 28}" cy="${y - 120}" r="5" fill="#E8E0F0" opacity=".7" class="fog"/>`
+    + `<path d="M${x - 12} ${y} L${x - 12} ${y - 26} Q${x} ${y - 38} ${x + 12} ${y - 26} L${x + 12} ${y}Z" fill="url(#glowY)" stroke="${TDc}" stroke-width="2.4"/><path d="M${x} ${y - 32} L${x} ${y}" stroke="${TDc}" stroke-width="2"/>`
+    + [-31, 31].map(dx => `<rect x="${x + dx - 9}" y="${y - 40}" width="18" height="15" rx="3" fill="url(#glowY)" stroke="${TDc}" stroke-width="2.2"/><path d="M${x + dx} ${y - 40} v15 M${x + dx - 9} ${y - 32} h18" stroke="${TDc}" stroke-width="1.6"/>`).join("")
+    // enseigne au trèfle
+    + `<rect x="${x - 38}" y="${y - 76}" width="76" height="22" rx="6" fill="#2B1A12" stroke="#FFD23F" stroke-width="2.4"/>`
+    + `<text x="${x + 6}" y="${y - 60.5}" text-anchor="middle" style="font:800 11px 'Bricolage Grotesque',sans-serif" fill="#FFD23F">CASINO</text>`
+    + `<g transform="translate(${x - 26} ${y - 65})"><circle cx="0" cy="-4" r="3.4" fill="#5AE07A"/><circle cx="-3.6" cy="1" r="3.4" fill="#5AE07A"/><circle cx="3.6" cy="1" r="3.4" fill="#5AE07A"/><path d="M0 2 L1 8" stroke="#5AE07A" stroke-width="1.6"/></g>`
+    // lanternes
+    + [-50, 50].map((dx, i) => `<path d="M${x + dx} ${y - 50} v6" stroke="${TDc}" stroke-width="1.8"/><circle cx="${x + dx}" cy="${y - 38}" r="12" fill="url(#glowP)" class="pulse" style="animation-delay:-${i * .5}s"/><rect x="${x + dx - 4.5}" y="${y - 44}" width="9" height="12" rx="3" fill="#FF8AC8" stroke="${TDc}" stroke-width="1.8"/>`).join("")
+    // tonneau et dés
+    + `<rect x="${x + 50}" y="${y - 18}" width="16" height="18" rx="4" fill="url(#woodg)" stroke="${TDc}" stroke-width="2"/><path d="M${x + 50} ${y - 12} h16 M${x + 50} ${y - 5} h16" stroke="${TDc}" stroke-width="1.4"/>`
+    + `<rect x="${x + 53}" y="${y - 27}" width="9" height="9" rx="2" fill="#fff" stroke="${TDc}" stroke-width="1.6" transform="rotate(-12 ${x + 57} ${y - 22})"/><circle cx="${x + 57}" cy="${y - 22.5}" r="1.3" fill="#E2283A"/>`;
+}
+function bossTree(x, y){
+  const trunk = `M${x - 46} ${y} Q${x - 70} ${y + 14} ${x - 92} ${y + 10} Q${x - 62} ${y - 6} ${x - 44} ${y - 30} L${x - 36} ${y - 120} L${x + 36} ${y - 120} L${x + 44} ${y - 30} Q${x + 62} ${y - 6} ${x + 92} ${y + 10} Q${x + 70} ${y + 14} ${x + 46} ${y}Z`;
+  return `<ellipse cx="${x}" cy="${y + 6}" rx="120" ry="18" fill="rgba(10,0,20,.4)"/>`
+    + `<circle cx="${x}" cy="${y - 120}" r="170" fill="url(#glowP)" opacity=".35" class="pulse"/>`
+    + tf(trunk, "trunk", "#3A2010", 0, 3)
+    + `<path d="M${x - 20} ${y - 10} Q${x - 24} ${y - 60} ${x - 14} ${y - 110} M${x + 22} ${y - 14} Q${x + 26} ${y - 64} ${x + 16} ${y - 108}" stroke="#4A2C18" stroke-width="3" fill="none" opacity=".7"/>`
+    + tf(bumpy(x, y - 175, 150, 80, 13, 21), "tC", "#123A2A", 6, 3)
+    + tf(bumpy(x - 50, y - 210, 70, 42, 9, 3), "tB", "#163A20", 4, 2.6) + tf(bumpy(x + 60, y - 200, 66, 40, 9, 8), "tB", "#163A20", 4, 2.6)
+    + `<path d="M${x - 80} ${y - 220} Q${x - 50} ${y - 252} ${x - 10} ${y - 254}" stroke="#fff" stroke-width="4" fill="none" opacity=".4" stroke-linecap="round"/>`
+    // visage du Gardien
+    + `<path d="M${x - 26} ${y - 82} L${x - 6} ${y - 74} M${x + 26} ${y - 82} L${x + 6} ${y - 74}" stroke="${TDc}" stroke-width="5" stroke-linecap="round"/>`
+    + `<ellipse cx="${x - 15}" cy="${y - 66}" rx="9" ry="6" fill="#1A0A20" stroke="${TDc}" stroke-width="2"/><ellipse cx="${x + 15}" cy="${y - 66}" rx="9" ry="6" fill="#1A0A20" stroke="${TDc}" stroke-width="2"/>`
+    + `<circle cx="${x - 15}" cy="${y - 66}" r="12" fill="url(#glowP)" class="pulse"/><circle cx="${x + 15}" cy="${y - 66}" r="12" fill="url(#glowP)" class="pulse"/><circle cx="${x - 15}" cy="${y - 66}" r="3.4" fill="#F4E0FF"/><circle cx="${x + 15}" cy="${y - 66}" r="3.4" fill="#F4E0FF"/>`
+    + `<path d="M${x - 22} ${y - 40} Q${x} ${y - 52} ${x + 22} ${y - 40} Q${x} ${y - 22} ${x - 22} ${y - 40}Z" fill="#1A0A20" stroke="${TDc}" stroke-width="2.4"/><path d="M${x - 12} ${y - 44} l3 7 l3 -8 l3 8 l3 -8 l3 7" stroke="#E8D8B0" stroke-width="2" fill="none"/>`
+    + [[-30, -100], [28, -96], [0, -108], [-34, -28], [34, -30]].map(([dx, dy], i) => `<path d="M${x + dx - 3} ${y + dy} l3 -6 l3 6 l-3 6z" fill="#C8A0FF" class="pulse" style="animation-delay:-${i * .35}s"/>`).join("");
+}
+function campfire(x, y){
+  return `<ellipse cx="${x}" cy="${y}" rx="36" ry="9" fill="rgba(20,40,10,.3)"/><circle cx="${x}" cy="${y - 10}" r="34" fill="url(#glowY)" opacity=".45" class="pulse"/>`
+    + `<rect x="${x - 18}" y="${y - 6}" width="36" height="8" rx="4" fill="url(#trunk)" stroke="${TDc}" stroke-width="2" transform="rotate(14 ${x} ${y})"/><rect x="${x - 18}" y="${y - 6}" width="36" height="8" rx="4" fill="url(#trunk)" stroke="${TDc}" stroke-width="2" transform="rotate(-14 ${x} ${y})"/>`
+    + `<path class="flame" d="M${x - 10} ${y - 4} Q${x - 14} ${y - 18} ${x - 2} ${y - 30} Q${x} ${y - 20} ${x + 6} ${y - 26} Q${x + 14} ${y - 12} ${x + 10} ${y - 4}Z" fill="#FF8A3A" stroke="${TDc}" stroke-width="2"/><path class="flame" d="M${x - 4} ${y - 5} Q${x - 6} ${y - 14} ${x + 1} ${y - 20} Q${x + 7} ${y - 12} ${x + 4} ${y - 5}Z" fill="#FFE07A"/>`
+    + `<rect x="${x + 34}" y="${y - 40}" width="5" height="40" fill="url(#trunk)" stroke="${TDc}" stroke-width="2"/><path d="M${x + 24} ${y - 44} L${x + 66} ${y - 44} L${x + 72} ${y - 36} L${x + 66} ${y - 28} L${x + 24} ${y - 28}Z" fill="url(#woodg)" stroke="${TDc}" stroke-width="2.2"/><text x="${x + 46}" y="${y - 32.5}" text-anchor="middle" style="font:800 9.5px 'Bricolage Grotesque',sans-serif" fill="#FFF4DA">DÉPART</text>`;
+}
+const chest = (x, y, open) => open
+  ? `<g transform="translate(${x} ${y})"><rect x="-11" y="-10" width="22" height="12" rx="2" fill="url(#woodg)" stroke="${TDc}" stroke-width="2"/><path d="M-11 -10 L-9 -22 L11 -22 L11 -10Z" fill="url(#woodg)" stroke="${TDc}" stroke-width="2"/><circle cx="0" cy="-12" r="12" fill="url(#glowY)" class="pulse"/><rect x="-11" y="-6" width="22" height="3" fill="url(#gold)" stroke="${TDc}" stroke-width="1.2"/></g>`
+  : "";
+
+/* ---------- Les monstres de la Forêt (style jouet, originaux) ---------- */
+const MON = {
+  gluant(){ // Gluant de mousse
+    return tFeet ? (toy("M16 102 Q8 72 28 50 Q44 30 60 30 Q76 30 92 50 Q112 72 104 102 Q60 112 16 102Z", "#A8F07A", "#3E9A3A", "#22602A")
+      + tLimb("M60 32 Q58 20 62 12", "#5AB04A", 6) + toy("M62 14 Q74 2 86 10 Q76 22 62 14Z", "#8BE36A", "#3E9A3A", "#22602A", {dy:2, w:2.4}) + toy("M60 16 Q46 6 38 14 Q48 24 60 16Z", "#8BE36A", "#3E9A3A", "#22602A", {dy:2, w:2.4})
+      + `<path d="M34 58 L52 64 M86 58 L68 64" stroke="${TDc}" stroke-width="4.5" stroke-linecap="round"/>` + `<ellipse cx="45" cy="72" rx="8" ry="9" fill="#fff" stroke="${TDc}" stroke-width="2.6"/><ellipse cx="75" cy="72" rx="8" ry="9" fill="#fff" stroke="${TDc}" stroke-width="2.6"/><circle cx="47" cy="74" r="4" fill="${TDc}"/><circle cx="73" cy="74" r="4" fill="${TDc}"/>`
+      + `<path d="M44 90 Q60 82 76 90 Q60 100 44 90Z" fill="#3A1A2A" stroke="${TDc}" stroke-width="2.4"/><path d="M50 88 l3 5 l3 -6 M64 87 l3 6 l3 -5" fill="#fff" stroke="${TDc}" stroke-width="1"/>`
+      + `<path d="M28 66 Q30 50 44 42" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><ellipse cx="96" cy="88" rx="3" ry="5" fill="#C8FF9A" stroke="${TDc}" stroke-width="1.6"/>`) : ""; },
+  champi(){ // Champichon
+    return tFeet(46, 74, 104, "#FFF0D6", "#C8A47A", "#8A6A44", 9)
+      + toy("M38 104 Q32 76 42 62 L78 62 Q88 76 82 104 Q60 110 38 104Z", "#FFF4E0", "#D8B88A", "#9A7A5A")
+      + toy("M10 64 Q10 20 60 16 Q110 20 110 64 Q86 76 60 72 Q34 76 10 64Z", "#FF6A6A", "#C02838", "#7A1A24", {dy:5})
+      + [[34, 38, 8], [60, 28, 9], [86, 40, 7], [48, 56, 5], [76, 58, 5]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * .8}" fill="#FFF6E8" stroke="${TDc}" stroke-width="2"/>`).join("")
+      + `<path d="M26 36 Q36 22 54 20" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>`
+      + `<path d="M44 76 L56 81 M76 76 L64 81" stroke="${TDc}" stroke-width="4" stroke-linecap="round"/><circle cx="51" cy="86" r="4.2" fill="${TDc}"/><circle cx="69" cy="86" r="4.2" fill="${TDc}"/><circle cx="52.4" cy="84.6" r="1.4" fill="#fff"/><circle cx="70.4" cy="84.6" r="1.4" fill="#fff"/>`
+      + `<path d="M50 96 Q60 92 70 96" stroke="${TDc}" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M53 95.5 l2 4 l2 -4.6 M63 94.6 l2 4.6 l2 -4" fill="#fff" stroke="${TDc}" stroke-width="1"/>`
+      + tLimb("M36 84 Q24 80 20 70", "#FFF0D6", 8) + tLimb("M84 84 Q96 80 100 70", "#FFF0D6", 8); },
+  souche(){ // Souche grognonne (chef de bande)
+    return tFeet(40, 80, 106, "#8A5A30", "#5A3418", "#3A2010", 11)
+      + toy("M22 106 L28 44 Q60 34 92 44 L98 106 Q60 114 22 106Z", "#B8804E", "#6E4428", "#3A2010")
+      + `<ellipse cx="60" cy="44" rx="32" ry="10" fill="#F0C890" stroke="${TDc}" stroke-width="2.6"/><ellipse cx="60" cy="44" rx="20" ry="6" fill="none" stroke="#B8804E" stroke-width="1.8"/><ellipse cx="60" cy="44" rx="9" ry="3" fill="none" stroke="#B8804E" stroke-width="1.6"/>`
+      + `<path d="${bumpy(40, 38, 16, 7, 4, 3)}" fill="#6CC85A" stroke="${TDc}" stroke-width="2"/>`
+      + tLimb("M62 36 Q62 22 70 14", "#7A4A26", 6) + toy("M70 16 Q82 6 90 16 Q80 24 70 16Z", "#8BE36A", "#3E9A3A", "#22602A", {dy:2, w:2.2})
+      + `<path d="M32 60 Q34 84 30 100 M88 62 Q86 86 90 100 M48 92 Q50 100 46 106" stroke="#5A3418" stroke-width="2.4" fill="none" opacity=".75"/>`
+      + `<path d="M36 58 L54 66 M84 58 L66 66" stroke="${TDc}" stroke-width="5" stroke-linecap="round"/>`
+      + `<circle cx="47" cy="72" r="10" fill="url(#mGlow)"/><circle cx="73" cy="72" r="10" fill="url(#mGlow)"/><ellipse cx="47" cy="72" rx="5" ry="4" fill="#FFE07A" stroke="${TDc}" stroke-width="2"/><ellipse cx="73" cy="72" rx="5" ry="4" fill="#FFE07A" stroke="${TDc}" stroke-width="2"/>`
+      + `<path d="M40 88 L48 84 L54 90 L60 84 L66 90 L72 84 L80 88 Q60 102 40 88Z" fill="#2A1010" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/>`
+      + tLimb("M26 70 Q10 62 8 46", "#7A4A26", 9) + tLimb("M14 54 L4 48", "#7A4A26", 5) + tLimb("M94 70 Q110 62 112 46", "#7A4A26", 9) + tLimb("M106 54 L116 48", "#7A4A26", 5)
+      + `<path d="M30 52 Q32 70 30 86" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".35"/>`; }
+};
+const monSVG = (k, size, cls = "") => `<svg class="${cls}" viewBox="0 0 120 116" width="${size}" height="${size * 116 / 120}" style="overflow:visible"><defs>${rg("mGlow", "#FFF4A0", "#FF8A3A")}</defs><ellipse cx="60" cy="108" rx="38" ry="5" fill="rgba(10,6,24,.3)"/>${MON[k]()}</svg>`;
+const MON_N = {gluant:"Gluant de mousse", champi:"Champichon", souche:"Souche grognonne"};
+
+/* ---------- Données de la maquette ---------- */
+const LV = [
+  {n:"La Lisière", mode:"c", diff:1, sp:"5 bonnes réponses d'affilée", mons:["champi", "gluant", "champi", "souche"]},
+  {n:"Le Village des Lucioles", mode:"c", diff:1, sp:"Aucune erreur sur les 5 premières questions", mons:["gluant", "gluant", "champi", "souche"]},
+  {n:"Le Pont des Cascades", mode:"chrono", diff:1, sp:"6 bonnes réponses d'affilée", mons:["gluant", "champi"]},
+  {n:"Les Ruines Moussues", mode:"c", diff:2, sp:"Réussir les 3 questions difficiles", mons:["champi", "souche", "gluant", "souche"]},
+  {n:"La Grotte aux Champignons", mode:"surv", diff:2, sp:"Finir avec 3 vies", mons:["champi", "gluant", "souche"]},
+  {n:"Le Sanctuaire de la Source", mode:"c", diff:2, sp:"Chaque réponse en moins de 8 secondes", mons:["souche", "gluant", "champi", "souche"]},
+  {n:"Le Cœur de la Forêt", mode:"boss", diff:3, sp:"Ne perdre aucune vie", boss:"Le Gardien Sylvestre"}
+];
+const PROG = {stars:[3, 2, 0, 0, 0, 0, 0], best:[9, 8, null, null, null, null, null], cur:2};
+const NODES = [[205, 1405], [98, 1270], [282, 1042], [108, 860], [288, 690], [118, 505], [200, 300]];
+const MODE_N = {c:"Classique · 10 questions", chrono:"Chrono · 60 secondes", surv:"Survie · 15 questions, 3 vies", boss:"Boss · 3 phases, 10 questions"};
+const DIFF_N = ["", "Facile", "Moyen", "Difficile"];
+const opened = {};
+
+/* ---------- Écran des îles ---------- */
+function drawIslands(){
+  let s = `<defs>${lg("sea", "#0B2C5E", "#1E78C8")}${lg("tA", "#A6EA72", "#3E9A3A")}${lg("sandI", "#FFE8A8", "#E8C070")}${lg("desI", "#FFD87A", "#D8963A")}${lg("iceI", "#FFFFFF", "#A8D4F2")}${lg("curI", "#6A3A6A", "#24142E")}${lg("abyI", "#3AA0D8", "#103A7A")}${rg("glowL", "#FFB070", "#FF4A2A")}${rg("glowA", "#9AF8FF", "#2AC0FF")}${rg("glowW", "#FFFFFF", "#FFFFFF")}${rg("glowP", "#E8C8FF", "#A060FF")}${lg("trunk", "#A87444", "#6E4428")}</defs>`;
+  s += `<rect width="400" height="800" fill="url(#sea)"/>`;
+  const r = rnd(5);
+  for (let i = 0; i < 70; i++){ const x = r() * 400, y = 40 + r() * 760; s += `<path class="wv" style="animation-delay:-${(r() * 3).toFixed(1)}s" d="M${x} ${y} q5 -4 10 0 q5 4 10 0" stroke="#fff" stroke-width="2" fill="none" opacity=".22" stroke-linecap="round"/>`; }
+  const C = [[118, 650], [292, 520], [112, 392], [292, 262], [150, 120]];
+  s += `<path d="${smooth(C, false)}" stroke="#FFF3C4" stroke-width="4" stroke-dasharray="1 11" stroke-linecap="round" fill="none" opacity=".85"/>`;
+  const label = (x, y, t, sub, on) => `<g transform="translate(${x} ${y})"><path d="M-70 -13 L70 -13 L62 0 L70 13 L-70 13 L-62 0Z" fill="${on ? "#FF5FA2" : "#4A4466"}" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/><text y="-1" text-anchor="middle" style="font:800 12.5px 'Bricolage Grotesque',sans-serif" fill="#fff">${t}</text><text y="10" text-anchor="middle" style="font:600 8.5px 'IBM Plex Mono',monospace" fill="#fff" opacity=".9">${sub}</text></g>`;
+  const lock = (x, y) => `<g transform="translate(${x} ${y})"><circle r="17" fill="#2B1D3A" opacity=".85"/><rect x="-8" y="-3" width="16" height="12" rx="3" fill="#FFD23F" stroke="${TDc}" stroke-width="2"/><path d="M-5 -3 V-7 a5 5 0 0 1 10 0 V-3" stroke="#FFD23F" stroke-width="3" fill="none"/></g>`;
+  const fog = (x, y) => [[-56, 18, 26], [52, 22, 24], [-20, 34, 22], [30, -30, 20]].map(([dx, dy, rr], i) => `<circle class="fog" style="animation-delay:-${i}s" cx="${x + dx}" cy="${y + dy}" r="${rr}" fill="#E8EEF8" opacity=".4"/>`).join("");
+  const isl = (x, y, rx, ry, seed, land, dark, deco, name, sub, on, w) => {
+    let g = `<ellipse cx="${x}" cy="${y + 10}" rx="${rx + 22}" ry="${ry + 18}" fill="#5AD0F0" opacity=".35"/>`;
+    g += tf(blob(x, y + 4, rx + 8, ry + 8, seed + 1, 11, .1), "sandI", "#B8904A", 6, 3);
+    g += tf(blob(x, y - 2, rx, ry, seed, 11, .13), land, dark, 5, 3) + deco;
+    if (!on) g = `<g style="filter:grayscale(.45) brightness(.82)">${g}</g>${fog(x, y)}${lock(x, y - 8)}`;
+    return `<g class="isl-g" data-world="${w}">${g}${label(x, y + ry + 26, name, sub, on)}</g>`;
+  };
+  // Monde 1 : la Forêt (ouverte)
+  let f = ""; const rr = rnd(11);
+  for (let i = 0; i < 16; i++){ const a = rr() * 6.28, d = rr() * .8; const tx = 118 + Math.cos(a) * 62 * d, ty = 650 + Math.sin(a) * 38 * d; if (Math.abs(tx - 118) < 18 && ty < 646) continue; f += `<g>${tf(bumpy(tx, ty - 10, 12, 10, 9, i + 1), "tA", "#22602A", 2.5, 2)}</g>`; }
+  f += `<rect x="113" y="604" width="10" height="20" fill="url(#trunk)" stroke="${TDc}" stroke-width="2"/>` + tf(bumpy(118, 594, 26, 18, 10, 4), "tA", "#1C4A2A", 3, 2.4) + `<circle cx="112" cy="592" r="3" fill="#E8C8FF" class="pulse"/><circle cx="124" cy="592" r="3" fill="#E8C8FF" class="pulse"/>`;
+  f += `<path d="M150 668 l10 -12 l10 12z" fill="#7A4A26" stroke="${TDc}" stroke-width="2"/><rect x="152" y="668" width="16" height="10" fill="#C88A50" stroke="${TDc}" stroke-width="2"/>`;
+  f += `<g class="bob"><circle cx="86" cy="654" r="8" fill="url(#glowP)"/></g>`;
+  s += isl(118, 650, 86, 58, 3, "tA", "#22602A", f, "La Forêt des Anciens", "2/7 niveaux · 14 %", true, 1);
+  // Monde 2 : le Désert
+  let d2 = `<path d="M262 528 L292 476 L322 528Z" fill="#F2C060" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/><path d="M292 476 L322 528 L300 528Z" fill="#C88A3A" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/>`;
+  d2 += `<ellipse cx="248" cy="540" rx="16" ry="6" fill="#4FC0E8" stroke="${TDc}" stroke-width="2"/><path d="M340 540 q2 -16 -2 -26 M338 514 q-10 -4 -16 2 M338 514 q10 -6 16 0 M338 514 q-2 -10 -10 -12 M338 514 q4 -10 12 -10" stroke="#2E8A3A" stroke-width="3.4" fill="none" stroke-linecap="round"/>`;
+  s += isl(292, 520, 78, 52, 8, "desI", "#9A6A2A", d2, "Le Désert des Rois", "Bats le Gardien Sylvestre", false, 2);
+  // Monde 3 : les Abysses (atoll et tourbillon)
+  let a3 = `<ellipse cx="112" cy="390" rx="46" ry="28" fill="url(#abyI)" stroke="${TDc}" stroke-width="2.4"/><g class="spin"><path d="M112 390 m-30 0 a30 18 0 1 1 60 0 M112 390 m-18 0 a18 10 0 1 1 36 0" stroke="#BFF4FF" stroke-width="2.4" fill="none" opacity=".8"/></g><path d="M100 392 Q112 370 124 392Z" fill="#9AF8FF" stroke="${TDc}" stroke-width="2"/><circle cx="112" cy="378" r="14" fill="url(#glowA)" class="pulse"/>`;
+  s += isl(112, 392, 80, 50, 13, "sandI", "#B8904A", a3, "Le Royaume des Abysses", "Monde 3", false, 3);
+  // Monde 4 : la Glace
+  let i4 = `<path d="M252 270 L272 228 L292 270Z M282 270 L306 216 L330 270Z" fill="#FFFFFF" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/><path d="M296 238 L306 216 L316 238 L306 232Z" fill="#CDEBFF"/><rect x="316" y="248" width="10" height="24" fill="#B8E0FF" stroke="${TDc}" stroke-width="2"/><path d="M314 248 l7 -14 l7 14z" fill="#7AB8F0" stroke="${TDc}" stroke-width="2"/>`;
+  s += isl(292, 262, 78, 50, 21, "iceI", "#6A9AC8", i4, "Le Royaume de Glace", "Monde 4", false, 4);
+  // Monde 5 : les Terres Maudites
+  let c5 = `<circle cx="150" cy="96" r="40" fill="url(#glowL)" opacity=".5" class="lava"/><path d="M118 132 L140 86 L160 86 L182 132Z" fill="#4A2A3A" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/><path d="M140 86 L160 86 L156 96 Q150 90 144 96Z" fill="#FF6A2A" stroke="${TDc}" stroke-width="2" class="lava"/><path d="M146 94 Q144 112 136 128 M156 96 Q160 112 168 126" stroke="#FF6A2A" stroke-width="3" fill="none" class="lava"/><circle cx="150" cy="70" r="9" fill="#5A4A5A" opacity=".7" class="fog"/><circle cx="160" cy="58" r="7" fill="#5A4A5A" opacity=".6" class="fog"/>`;
+  s += isl(150, 120, 84, 50, 31, "curI", "#140A1A", c5, "Les Terres Maudites", "Monde 5", false, 5);
+  $("isl-svg").innerHTML = s;
+}
+
+/* ---------- Carte de la Forêt ---------- */
+function drawMap(){
+  const W = 400, H = 1580;
+  const start = [200, 1520];
+  const pts = [start, ...NODES];
+  const P = sample(pts, 30);
+  const riverPts = [[430, 1090], [320, 1112], [210, 1160], [110, 1168], [-30, 1210]];
+  const RV = sample(riverPts, 30);
+  const tav = [318, 1360], secretA = NODES[3], clearing = [330, 870];
+  const secretPts = [secretA, [190, 900], [262, 880], clearing];
+  const SP = sample(secretPts, 20);
+  const STRUCT = [[318, 1340, 74], [40, 1250, 52], [180, 1222, 50], [34, 1390, 48], [200, 815, 52], [30, 900, 26], [352, 655, 76], [242, 515, 80], [200, 160, 175], [200, 1500, 52], clearing.concat(62), [370, 1010, 46]];
+  const CHESTS = [[40, 1072, 1], [364, 560, 2], [36, 690, 3]];
+  let s = `<defs>${forestDefs()}${lg("meadow", "#3F7A3E", "#8ED86A")}${rg("mist", "#C8A0FF", "#7A40C8")}${rg("vign", "rgba(0,0,0,0)", "#0A1A10", .45)}</defs>`;
+  s += `<rect width="${W}" height="${H}" fill="url(#meadow)"/>`;
+  s += `<rect width="${W}" height="420" fill="#1E3A2A" opacity=".55"/><rect y="380" width="${W}" height="80" fill="url(#meadow)" opacity=".0"/>`;
+  const r = rnd(42);
+  for (let i = 0; i < 46; i++){ const x = r() * W, y = 380 + r() * (H - 380); s += `<ellipse cx="${x}" cy="${y}" rx="${30 + r() * 50}" ry="${10 + r() * 16}" fill="${r() < .5 ? "#A8E880" : "#5AA848"}" opacity=".35"/>`; }
+  for (let i = 0; i < 90; i++){ const x = r() * W, y = 420 + r() * (H - 440); if (near([x, y], P) < 30 || near([x, y], RV) < 40) continue; s += flower(x, y, ["#FF8AC0", "#FFE07A", "#FFFFFF", "#C8A0FF"][i % 4]); }
+  // Rivière et cascade
+  const rd = smooth(riverPts, false);
+  s += `<path d="${rd}" stroke="${TDc}" stroke-width="60" fill="none" stroke-linecap="round"/><path d="${rd}" stroke="#2E9AD8" stroke-width="53" fill="none"/><path d="${rd}" stroke="#5AC4F0" stroke-width="36" fill="none"/>`;
+  s += `<path class="flow" d="${rd}" stroke="#E8FAFF" stroke-width="3" stroke-dasharray="10 30" fill="none" opacity=".8" transform="translate(0 -9)"/><path class="flow" d="${rd}" stroke="#E8FAFF" stroke-width="2.4" stroke-dasharray="6 34" fill="none" opacity=".6" transform="translate(0 10)" style="animation-duration:1.6s"/>`;
+  s += tf(blob(378, 1012, 44, 58, 9, 9, .14), "rock", "#4A4440", 5, 2.8) + `<path d="${bumpy(372, 960, 40, 12, 5, 6)}" fill="#5AB04A" stroke="${TDc}" stroke-width="2.2"/>`;
+  s += `<path d="M356 966 Q352 1040 344 1092 L384 1092 Q384 1040 390 966Z" fill="#7FD8FF" stroke="${TDc}" stroke-width="2.6"/><path class="fall" d="M362 970 L356 1090 M372 970 L370 1090 M382 970 L380 1090" stroke="#fff" stroke-width="3" stroke-dasharray="12 18" opacity=".85"/>`;
+  s += [[350, 1096], [364, 1104], [380, 1094], [338, 1104]].map(([x, y], i) => `<circle class="pulse" style="animation-delay:-${i * .3}s" cx="${x}" cy="${y}" r="${7 + i % 2 * 3}" fill="#fff" opacity=".85"/>`).join("");
+  // Chemins
+  const pd = smooth(pts, false), td = smooth([NODES[0], [262, 1392], tav.map((v, i) => i ? v + 6 : v)], false), sd = smooth(secretPts, false);
+  s += `<path d="${td}" stroke="${TDc}" stroke-width="24" fill="none" stroke-linecap="round"/><path d="${td}" stroke="#E2BE7A" stroke-width="17" fill="none" stroke-linecap="round"/>`;
+  s += `<path d="${sd}" stroke="#E8F0FF" stroke-width="16" fill="none" stroke-linecap="round" stroke-dasharray="2 16" opacity=".55"/>`;
+  s += `<path d="${pd}" stroke="${TDc}" stroke-width="38" fill="none" stroke-linecap="round" transform="translate(0 4)"/><path d="${pd}" stroke="${TDc}" stroke-width="38" fill="none" stroke-linecap="round"/><path d="${pd}" stroke="#C99A5A" stroke-width="31" fill="none" stroke-linecap="round" transform="translate(0 3)"/><path d="${pd}" stroke="#F0D296" stroke-width="27" fill="none" stroke-linecap="round"/>`;
+  s += `<path d="${pd}" stroke="#FFF0C8" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 22" transform="translate(-5 -3)"/>`;
+  // Pont sur la rivière
+  let bi = 0, bd = 1e9; P.forEach((p, i) => { const d = near(p, RV); if (d < bd) { bd = d; bi = i; } });
+  const bp = P[bi], bq = P[Math.min(P.length - 1, bi + 2)], ang = Math.atan2(bq[1] - bp[1], bq[0] - bp[0]) * 180 / Math.PI;
+  s += `<g transform="translate(${bp[0]} ${bp[1]}) rotate(${ang})"><rect x="-52" y="-22" width="104" height="44" rx="6" fill="#3A2010" opacity=".35" transform="translate(0 6)"/>`
+    + Array.from({length:9}, (_, i) => `<rect x="${-48 + i * 10.8}" y="-20" width="10" height="40" rx="2" fill="url(#woodg)" stroke="${TDc}" stroke-width="2"/>`).join("")
+    + `<rect x="-54" y="-25" width="108" height="6" rx="3" fill="#8A5A30" stroke="${TDc}" stroke-width="2"/><rect x="-54" y="19" width="108" height="6" rx="3" fill="#8A5A30" stroke="${TDc}" stroke-width="2"/></g>`;
+  // Éléments triés par profondeur (y)
+  const items = [];
+  items.push([1342, taverne(...tav)], [1250, hut(40, 1250, .95, 1)], [1222, hut(180, 1222, .85, 2)], [1392, hut(34, 1392, .8, 3)]);
+  items.push([830, arch(200, 830)], [905, column(30, 905, 50, true)], [800, column(350, 790, 44, false)], [770, column(56, 772, 38, true, .9)]);
+  items.push([690, cave(352, 690)], [530, sanctuary(242, 530)], [300, bossTree(200, 250)], [1520, campfire(150, 1530)]);
+  items.push([clearing[1], `<g data-sec="clear" style="cursor:pointer"><circle cx="${clearing[0]}" cy="${clearing[1] - 10}" r="44" fill="#E8EEF8" opacity=".55" class="fog"/><circle cx="${clearing[0] + 18}" cy="${clearing[1] - 24}" r="30" fill="#E8EEF8" opacity=".5" class="fog" style="animation-delay:-2s"/><text x="${clearing[0]}" y="${clearing[1] - 2}" text-anchor="middle" style="font:800 30px 'Bricolage Grotesque',sans-serif" fill="#fff" stroke="${TDc}" stroke-width="2.4" paint-order="stroke">?</text></g>`]);
+  // Coffres cachés : des buissons qui scintillent
+  CHESTS.forEach(([x, y, k]) => items.push([y, `<g data-chest="${k}" style="cursor:pointer">${bush(x, y, 1.15, k * 7)}<path d="${starP(x + 10, y - 22, 5)}" fill="#FFF6B0" class="twinkle" style="animation-delay:-${k * .7}s"/><g id="chest${k}"></g></g>`]));
+  // Relique dans les ruines
+  items.push([826, `<g><circle cx="200" cy="806" r="14" fill="url(#glowY)" class="pulse"/><path d="${starP(200, 806, 6)}" fill="#FFF6B0" class="twinkle"/></g>`]);
+  // Arbres de remplissage
+  const rt = rnd(1234);
+  for (let y = 30; y < H - 10; y += 27) for (let x = -10; x < W + 20; x += 31){
+    const px = x + (rt() - .5) * 20 + (Math.floor(y / 27) % 2) * 15, py = y + (rt() - .5) * 14, pt = [px, py];
+    const edge = Math.min(px, W - px) < 70, top = py < 440;
+    if (rt() < (edge || top ? .1 : .58)) continue;
+    if (near(pt, P) < 46 || near(pt, RV) < 50 || near(pt, SP) < 26 || dist(pt, [262, 1392]) < 30) continue;
+    if (STRUCT.some(([sx, sy, sr]) => dist(pt, [sx, sy]) < sr)) continue;
+    if (CHESTS.some(([cx, cy]) => dist(pt, [cx, cy]) < 32)) continue;
+    const s0 = (edge || top ? 1.05 : .85) + rt() * .35, k = rt();
+    const kind = top ? (k < .5 ? "pine" : 2) : k < .18 ? "pine" : k < .26 ? 3 : k < .6 ? 0 : k < .85 ? 1 : 2;
+    items.push([py, (k > .93 && !top ? mush(px, py, 1.1) : tree(px, py, s0, kind, Math.floor(rt() * 1e4)))]);
+  }
+  items.sort((a, b) => a[0] - b[0]).forEach(it => s += it[1]);
+  // Brume violette autour du repaire du boss
+  s += `<ellipse class="fog" cx="120" cy="330" rx="120" ry="30" fill="url(#mist)" opacity=".35"/><ellipse class="fog" style="animation-delay:-3s" cx="300" cy="360" rx="110" ry="26" fill="url(#mist)" opacity=".3"/>`;
+  // Nœuds des niveaux
+  NODES.forEach((p, i) => s += node(i, p));
+  // Le héros sur le niveau en cours
+  const c = NODES[PROG.cur];
+  s += `<g class="bob" style="pointer-events:none">${nest(creatureSVG(HERO, 62), c[0] - 46, c[1] - 92)}${PET ? nest(creatureSVG(PET, 32), c[0] + 6, c[1] - 56) : ""}</g>`;
+  // Lucioles et rayons de lumière
+  const rf = rnd(77);
+  for (let i = 0; i < 46; i++){ const x = rf() * W, y = 300 + rf() * (H - 320); s += `<g class="ff" style="animation-delay:-${(rf() * 4).toFixed(1)}s;animation-duration:${(3 + rf() * 3).toFixed(1)}s"><circle cx="${x}" cy="${y}" r="7" fill="url(#glowY)" opacity=".7"/><circle cx="${x}" cy="${y}" r="1.8" fill="#FFFBD0"/></g>`; }
+  s += [[-40, 520], [60, 980], [-20, 1300]].map(([x, y]) => `<path d="M${x} ${y - 300} L${x + 70} ${y - 300} L${x + 260} ${y + 200} L${x + 150} ${y + 200}Z" fill="#FFF6C8" opacity=".07"/>`).join("");
+  $("map-svg").innerHTML = s;
+}
+function node(i, [x, y]){
+  const L = LV[i], st = PROG.stars[i], done = st > 0, cur = i === PROG.cur, lock = i > PROG.cur, boss = L.mode === "boss", R = boss ? 31 : 24;
+  const [a, b, dk] = lock ? ["#A8A4BC", "#6A6680", "#3A3650"] : boss ? ["#D8A0FF", "#7A2AB8", "#3A1060"] : cur ? ["#FF9ACA", "#FF4F9A", "#A01A5A"] : ["#FFE88A", "#F0A21A", "#9A5A10"];
+  const id = "nd" + i;
+  let g = `<g class="node" data-node="${i}"><defs>${lg(id, a, b)}</defs>`;
+  if (cur) g += `<circle class="cur-ring" cx="${x}" cy="${y}" r="${R + 4}" fill="none" stroke="#FFD23F" stroke-width="4"/>`;
+  g += `<ellipse cx="${x}" cy="${y + R * .55}" rx="${R + 6}" ry="${R * .45}" fill="rgba(20,30,10,.35)"/>`;
+  g += `<circle cx="${x}" cy="${y + 5}" r="${R}" fill="${dk}" stroke="${TDc}" stroke-width="3"/><circle class="nd" cx="${x}" cy="${y}" r="${R}" fill="url(#${id})" stroke="${TDc}" stroke-width="3"/>`;
+  g += `<circle cx="${x}" cy="${y}" r="${R - 7}" fill="none" stroke="#fff" stroke-width="2" opacity=".35"/><path d="M${x - R * .6} ${y - R * .35} Q${x - R * .4} ${y - R * .75} ${x} ${y - R * .78}" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>`;
+  if (boss) g += `<g transform="translate(${x} ${y + 1})"><path d="M-13 -2 Q-13 -16 0 -16 Q13 -16 13 -2 Q13 5 8 7 L8 12 L-8 12 L-8 7 Q-13 5 -13 -2Z" fill="#F4ECFF" stroke="${TDc}" stroke-width="2.4"/><circle cx="-5" cy="-3" r="3.6" fill="${TDc}"/><circle cx="5" cy="-3" r="3.6" fill="${TDc}"/><path d="M-3 12 V8 M0 12 V8 M3 12 V8" stroke="${TDc}" stroke-width="1.6"/></g>`;
+  else g += `<text x="${x}" y="${y + 7.5}" text-anchor="middle" style="font:800 21px 'Bricolage Grotesque',sans-serif" fill="#fff" stroke="${TDc}" stroke-width="4.5" paint-order="stroke">${i + 1}</text>`;
+  if (lock) g += `<g transform="translate(${x + R * .72} ${y + R * .6})"><circle r="10" fill="#4A4466" stroke="${TDc}" stroke-width="2.2"/><rect x="-4.6" y="-1.6" width="9.2" height="7" rx="1.6" fill="#FFD23F"/><path d="M-2.8 -1.6 V-4 a2.8 2.8 0 0 1 5.6 0 V-1.6" stroke="#FFD23F" stroke-width="1.8" fill="none"/></g>`;
+  if (L.mode === "chrono" || L.mode === "surv") {
+    const ic = L.mode === "chrono" ? `<circle r="5.6" fill="#fff" stroke="${TDc}" stroke-width="1.6"/><path d="M0 -3.4 V0 L2.4 1.6" stroke="${TDc}" stroke-width="1.6" fill="none" stroke-linecap="round"/>` : `<path d="M0 5 C-8 -1 -5 -7 0 -3.2 C5 -7 8 -1 0 5Z" fill="#fff" stroke="${TDc}" stroke-width="1.5"/>`;
+    g += `<g transform="translate(${x - R * .78} ${y - R * .68})"><circle r="11" fill="${L.mode === "chrono" ? "#2A7AD8" : "#E2283A"}" stroke="${TDc}" stroke-width="2.4"/>${ic}</g>`;
+  }
+  if (done || cur) for (let k = 0; k < 3; k++){ const sx = x + (k - 1) * 15, sy = y - R - 9 + (k === 1 ? -4 : 0); g += `<path d="${starP(sx, sy, 7.5)}" fill="${k < st ? "#FFD23F" : "#E6DCC4"}" stroke="${TDc}" stroke-width="2" stroke-linejoin="round"/>`; }
+  return g + `</g>`;
+}
+
+/* ---------- Panneau d'un niveau ---------- */
+function openSheet(i){
+  const L = LV[i], st = PROG.stars[i], lock = i > PROG.cur, boss = L.mode === "boss";
+  const objs = boss ? ["Vaincre le Gardien Sylvestre", "9 bonnes réponses sur 10 ou plus", L.sp]
+    : L.mode === "chrono" ? ["8 bonnes réponses en 60 secondes", "12 bonnes réponses", L.sp]
+    : L.mode === "surv" ? ["Survivre aux 15 questions", "Perdre une vie au maximum", L.sp]
+    : ["Réussir le niveau (6/10)", "Maîtrise : 8/10 ou plus", L.sp];
+  const art = boss ? `<svg viewBox="40 -40 320 320" width="76" height="76">${`<defs>${forestDefs()}</defs>` + bossTree(200, 250)}</svg>` : monSVG(L.mons[0], 66);
+  $("sheet").innerHTML = `<div class="sheet-in"><button class="sh-x" data-act="close-sheet" aria-label="Fermer">✕</button><div class="parch">
+    <div class="ribbon ${boss ? "boss" : ""}">${boss ? "NIVEAU 7 · BOSS" : "NIVEAU " + (i + 1)}</div>
+    <div class="sh-h"><div class="art ${boss ? "boss" : ""}">${art}</div><div><h2>${L.n}</h2>
+      <div class="chips"><span class="chip mode ${L.mode}">${MODE_N[L.mode]}</span><span class="chip">${DIFF_N[L.diff]} ${"●".repeat(L.diff)}${"○".repeat(3 - L.diff)}</span></div></div></div>
+    ${lock ? `<p class="lockmsg">🔒 Termine le niveau ${PROG.cur + 1} pour ouvrir celui-ci.</p>` : ""}
+    <div class="objs">${objs.map((o, k) => `<div class="obj ${k < st ? "got" : ""}">${starSVG(k < st, 20)}<span>${o}</span></div>`).join("")}</div>
+    ${!boss ? `<div class="mons">Monstres :</div><div class="chips">${[...new Set(L.mons)].map(m => `<span class="chip" style="padding:1px 8px 1px 2px">${monSVG(m, 24)}${MON_N[m]}</span>`).join("")}</div>` : `<div class="mons">Combat en 3 phases · 3 vies · le boss change de forme à 66 % et 33 %</div>`}
+    <div class="sh-foot"><div class="rw"><span>Meilleur : <b>${PROG.best[i] != null ? PROG.best[i] + "/10" : "—"}</b></span><span><span class="coin"></span>${boss ? 300 : 30} pièces · +10 par étoile</span></div>
+      <button class="b3 pink" data-act="play" data-i="${i}" ${lock ? "disabled" : ""}>${st ? "Rejouer" : "Jouer"}</button></div>
+  </div></div>`;
+  $("sheet").classList.add("on"); $("dock").style.opacity = 0;
+}
+function closeSheet(){ $("sheet").classList.remove("on"); $("dock").style.opacity = 1; }
+
+/* ---------- Taverne-Casino ---------- */
+const GAMES = [
+  ["Roulette", "Rouge ou noir, mise de 10 à 300", `<circle r="20" fill="#2A1A14" stroke="#FFD23F" stroke-width="3"/>${Array.from({length:12}, (_, k) => `<path d="M0 0 L${20 * Math.cos(k * Math.PI / 6)} ${20 * Math.sin(k * Math.PI / 6)} A20 20 0 0 1 ${20 * Math.cos((k + 1) * Math.PI / 6)} ${20 * Math.sin((k + 1) * Math.PI / 6)}Z" fill="${k % 2 ? "#E2323A" : "#1A1A1A"}"/>`).join("")}<circle r="7" fill="#FFD23F" stroke="${TDc}" stroke-width="2"/><circle cx="10" cy="-10" r="3" fill="#fff"/>`],
+  ["Blackjack", "Approche-toi de 21", `<rect x="-20" y="-16" width="22" height="30" rx="3" fill="#fff" stroke="${TDc}" stroke-width="2.4" transform="rotate(-12)"/><rect x="-4" y="-16" width="22" height="30" rx="3" fill="#fff" stroke="${TDc}" stroke-width="2.4" transform="rotate(10)"/><text x="6" y="4" text-anchor="middle" transform="rotate(10)" style="font:800 13px 'Bricolage Grotesque'" fill="#E2323A">A♥</text>`],
+  ["Courses", "5 chevaux, 5 cotes", `<path d="M-18 10 Q-16 -6 0 -8 L8 -16 L12 -10 L16 -12 L14 -2 Q18 8 10 12 L6 4 L-8 6 L-10 14Z" fill="#C88A50" stroke="${TDc}" stroke-width="2.4" stroke-linejoin="round"/><circle cx="9" cy="-9" r="1.6" fill="${TDc}"/><path d="M-4 -8 L-6 -14 L2 -12Z" fill="#E84A5A" stroke="${TDc}" stroke-width="1.6"/>`],
+  ["Roue du jour", "Un tour gratuit par jour", `<g class="spin">${Array.from({length:8}, (_, k) => `<path d="M0 0 L${20 * Math.cos(k * Math.PI / 4)} ${20 * Math.sin(k * Math.PI / 4)} A20 20 0 0 1 ${20 * Math.cos((k + 1) * Math.PI / 4)} ${20 * Math.sin((k + 1) * Math.PI / 4)}Z" fill="${["#E84A5A", "#F2C440", "#5AA9F0", "#6CC27A", "#B48CF2", "#F27BA8", "#FF8A3D", "#3FD8C8"][k]}" stroke="${TDc}" stroke-width="1.2"/>`).join("")}</g><circle r="20" fill="none" stroke="#FFD23F" stroke-width="3"/><path d="M0 -26 L-5 -17 L5 -17Z" fill="#FFD23F" stroke="${TDc}" stroke-width="1.6"/>`]
+];
+function openTav(){
+  $("tav").innerHTML = `<div class="tav"><div class="tav-h"><b>☘ La Taverne du Trèfle d'Or</b><span>Le Casino de Lumen, caché dans la forêt</span></div>
+    <div class="tav-g">${GAMES.map((g, k) => `<button class="tav-c ${k === 3 ? "wheel" : ""}" data-act="game"><svg width="60" height="56" viewBox="-30 -28 60 56">${g[2]}</svg><b>${g[0]}</b><span>${g[1]}</span></button>`).join("")}</div>
+    <p class="tav-note">Maquette : ce sont les jeux actuels du Casino, avec les mêmes règles. Seul le décor change.</p>
+    <div style="display:flex;justify-content:center;margin-top:8px"><button class="b3 wood" data-act="close-tav">Retour à la forêt</button></div></div>`;
+  $("tav").classList.add("on");
+}
+
+/* ---------- Combat ---------- */
+let F = null;
+function arenaBG(){
+  let s = `<defs>${forestDefs()}${lg("sky", "#3E8A5A", "#C8F0A0")}${rg("sun", "#FFF6C8", "#FFF6C8")}</defs><rect width="400" height="300" fill="url(#sky)"/><circle cx="300" cy="40" r="120" fill="url(#sun)" opacity=".55"/>`;
+  const r = rnd(9);
+  s += `<path d="M0 170 ${Array.from({length:12}, (_, i) => `Q${i * 36 + 18} ${120 + r() * 30} ${(i + 1) * 36} 165`).join(" ")} L400 300 L0 300Z" fill="#2E6A3E"/>`;
+  for (let i = 0; i < 9; i++) s += tree(i * 50 + r() * 20, 200 + r() * 10, 1.1 + r() * .3, i % 3 === 0 ? "pine" : 2, i + 3);
+  s += `<path d="M0 205 Q200 185 400 205 L400 300 L0 300Z" fill="#5AAA4A" stroke="${TDc}" stroke-width="3"/><path d="M0 214 Q200 196 400 214" stroke="#8ED86A" stroke-width="5" fill="none" opacity=".7"/>`;
+  s += `<ellipse cx="200" cy="262" rx="190" ry="34" fill="#7FCB5A" stroke="${TDc}" stroke-width="3"/><ellipse cx="200" cy="258" rx="170" ry="24" fill="#9BE070" opacity=".6"/>`;
+  for (let i = 0; i < 18; i++) s += flower(20 + r() * 360, 236 + r() * 50, ["#FF8AC0", "#FFE07A", "#fff"][i % 3]);
+  s += [[20, 0], [140, 0], [260, 0]].map(([x]) => `<path d="M${x} 0 L${x + 50} 0 L${x + 140} 300 L${x + 80} 300Z" fill="#FFF6C8" opacity=".09"/>`).join("");
+  for (let i = 0; i < 12; i++) s += `<g class="ff" style="animation-delay:-${(r() * 4).toFixed(1)}s"><circle cx="${r() * 400}" cy="${60 + r() * 160}" r="5" fill="url(#glowY)"/></g>`;
+  return s;
+}
+function startFight(i){
+  i = Math.min(i, 5); const L = LV[i].mode === "c" ? LV[i] : LV[0];
+  const pool = Q.slice().sort(() => Math.random() - .5).slice(0, 10);
+  const mons = L.mons.map((k, j) => ({k, hp:j === L.mons.length - 1 ? 4 : 2, max:j === L.mons.length - 1 ? 4 : 2, chief:j === L.mons.length - 1}));
+  F = {lv:LV.indexOf(L), qs:pool, n:0, ok:0, streak:0, best:0, mons, m:0, t0:0, timer:null, lock:false};
+  $("f-name").textContent = `Niveau ${F.lv + 1} · ${L.n}`; $("f-sub").textContent = "Classique · 10 questions" + (LV[i].mode !== "c" ? " (démo)" : "");
+  $("arena-bg").innerHTML = arenaBG();
+  $("hero").innerHTML = creatureSVG(HERO, 999).replace(/width="\d+" height="[\d.]+"/, 'style="width:100%;height:auto"') + (PET ? `<div class="pet">${creatureSVG(PET, 999).replace(/width="\d+" height="[\d.]+"/, 'style="width:100%;height:auto"')}</div>` : "");
+  $("poster").classList.remove("on"); $("f-ok").textContent = 0;
+  showMon(true); go("fight"); nextQ();
+}
+function showMon(enter){
+  const m = F.mons[F.m], el = $("mon");
+  el.className = "mon" + (m.chief ? " chief" : "") + (enter ? " enter" : "");
+  el.innerHTML = monSVG(m.k, 999, "mon-svg").replace(/width="999" height="[\d.]+"/, 'style="width:100%;height:auto;overflow:visible"');
+  $("m-name").textContent = MON_N[m.k] + (m.chief ? " · chef" : ""); paintHP();
+  $("waves").innerHTML = F.mons.map((x, j) => `<i class="${x.chief ? "chief " : ""}${j < F.m ? "dead" : j === F.m ? "now" : ""}"></i>`).join("");
+}
+function paintHP(){ const m = F.mons[F.m]; $("m-hp").textContent = `${m.hp}/${m.max}`; $("m-bar").style.width = m.hp / m.max * 100 + "%"; }
+function nextQ(){
+  if ($("poster").classList.contains("on")) return;
+  if (F.n >= 10) return endFight();
+  const q = F.qs[F.n], opts = [q.a, ...q.w].sort(() => Math.random() - .5);
+  $("q-n").textContent = `Question ${F.n + 1}/10`; $("q-text").textContent = q.q;
+  $("q-ans").innerHTML = opts.map(o => `<button data-ans="${encodeURIComponent(o)}">${o.replace(/</g, "&lt;")}</button>`).join("");
+  const bar = $("q-bar"); bar.style.transition = "none"; bar.style.transform = "scaleX(1)"; void bar.offsetWidth; bar.style.transition = "transform 20s linear"; bar.style.transform = "scaleX(0)";
+  F.t0 = Date.now(); F.lock = false; clearInterval(F.timer);
+  F.timer = setInterval(() => { const left = Math.max(0, 20 - Math.floor((Date.now() - F.t0) / 1000)); $("q-t").textContent = left + " s"; if (left <= 0) pick(null); }, 250);
+}
+function fx(el, cls, ms){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(() => el.classList.remove(cls), ms); }
+function pick(v){
+  if (F.lock) return; F.lock = true; clearInterval(F.timer);
+  const q = F.qs[F.n], ok = v === q.a; const bar = $("q-bar"); bar.style.transform = getComputedStyle(bar).transform; bar.style.transition = "none";
+  [...$("q-ans").children].forEach(b => { const t = decodeURIComponent(b.dataset.ans); b.disabled = true; if (t === q.a) b.classList.add("ok"); else if (t === v) b.classList.add("ko"); });
+  F.n++;
+  if (ok){
+    F.ok++; F.streak++; F.best = Math.max(F.best, F.streak); $("f-ok").textContent = F.ok;
+    fx($("hero"), "atk", 450);
+    setTimeout(() => { fx($("slash"), "on", 400); const m = F.mons[F.m]; if (!m) return; m.hp--; paintHP(); fx($("mon"), "hit", 420); dmg("-1");
+      if (m.hp <= 0){ $("mon").classList.add("die"); setTimeout(() => { if (F.m < F.mons.length - 1) { F.m++; showMon(true); } else { $("mon").innerHTML = ""; $("waves").innerHTML = F.mons.map(x => `<i class="dead ${x.chief ? "chief" : ""}"></i>`).join(""); } }, 560); } }, 170);
+    setTimeout(nextQ, 1250);
+  } else {
+    F.streak = 0;
+    fx($("mon"), "atk", 460);
+    setTimeout(() => { fx($("hero"), "hurt", 460); fx($("redflash"), "on", 460); fx($("arena"), "shake", 360); }, 200);
+    setTimeout(nextQ, 1900);
+  }
+}
+function dmg(t){ const d = document.createElement("div"); d.className = "dmg"; d.textContent = t; d.style.right = (18 + Math.random() * 14) + "%"; d.style.bottom = "48%"; $("arena").appendChild(d); setTimeout(() => d.remove(), 820); }
+function endFight(demo){
+  clearInterval(F.timer);
+  const win = F.ok >= 6, i = F.lv, L = LV[i];
+  const got = [F.ok >= 6, F.ok >= 8, F.best >= 5];
+  const nst = got.filter(Boolean).length, before = PROG.stars[i];
+  if (win) { PROG.stars[i] = Math.max(before, nst); PROG.best[i] = Math.max(PROG.best[i] || 0, F.ok); if (i === PROG.cur) PROG.cur = Math.min(6, i + 1); }
+  const newStars = Math.max(0, nst - before), firstWin = win && before === 0;
+  const coins = (firstWin ? 30 : 0) + newStars * 10 + Math.round(F.ok * .7);
+  const alive = F.mons.filter(m => m.hp > 0);
+  const objs = ["Réussir le niveau (6/10)", "Maîtrise : 8/10 ou plus", L.sp];
+  const banner = `<svg viewBox="0 0 300 70"><path d="M8 22 L40 22 L40 58 L22 50 L4 58 L14 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TDc}" stroke-width="3" stroke-linejoin="round"/><path d="M292 22 L260 22 L260 58 L278 50 L296 58 L286 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TDc}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M30 8 L270 8 Q276 30 270 52 L30 52 Q24 30 30 8Z" fill="${win ? "url(#bnr)" : "#6A6680"}" stroke="${TDc}" stroke-width="3.4"/><defs>${lg("bnr", "#FF6A7A", "#C8243A")}</defs><path d="M40 16 L260 16" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+    <text x="150" y="41" text-anchor="middle" style="font:800 30px 'Bricolage Grotesque',sans-serif;letter-spacing:.04em" fill="#FFD23F" stroke="${TDc}" stroke-width="5" paint-order="stroke">${win ? "VICTOIRE !" : "DÉFAITE…"}</text></svg>`;
+  const bigStar = (on, k) => `<svg class="${k === 1 ? "mid" : ""}" width="${k === 1 ? 64 : 52}" height="${k === 1 ? 64 : 52}" viewBox="0 0 40 40"><path d="${starP(20, 21, 18)}" fill="${on ? "#FFD23F" : "#CDBF9E"}" stroke="${TDc}" stroke-width="2.6" stroke-linejoin="round"/>${on ? `<path d="M13 13 L17 11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>` : ""}</svg>`;
+  $("poster").innerHTML = `<div class="board"><div class="banner">${banner}</div><div class="p-paper">
+    ${win ? `<div class="p-heroes"><span class="w">${creatureSVG(HERO, 74)}</span>${PET ? `<span class="w w2">${creatureSVG(PET, 40)}</span>` : ""}</div>` : ""}
+    <div class="p-stars">${got.map((g, k) => bigStar(win && g, k)).join("")}</div>
+    <div class="p-score">${F.ok} / 10<small>bonnes réponses · ${L.n}</small></div>
+    ${win && alive.length ? `<p class="p-flee">${alive.some(m => m.chief) ? "Le chef de bande s'enfuit dans les fourrés…" : "Les derniers monstres s'enfuient !"}</p>` : win ? `<p class="p-flee">Toute la bande est vaincue, même le chef !</p>` : `<p class="p-flee">Il faut 6 bonnes réponses pour passer. Retente ta chance !</p>`}
+    <div class="p-objs">${objs.map((o, k) => `<div class="obj ${win && got[k] ? "got" : ""}">${starSVG(win && got[k], 18)}<span>${o}</span></div>`).join("")}</div>
+    ${win ? `<div class="p-rw"><span class="chip"><span class="coin"></span>+${coins} pièces</span><span class="chip">+${F.ok * 12} XP</span>${newStars ? `<span class="chip">+${newStars} ★ nouvelle${newStars > 1 ? "s" : ""}</span>` : ""}</div>` : ""}
+  </div><div class="p-btns"><button class="b3 wood" data-act="replay">Rejouer</button><button class="b3 ${win ? "green" : "pink"}" data-act="tomap">${win ? "Continuer" : "Retour à la carte"}</button></div></div>`;
+  $("poster").classList.add("on");
+  if (win) [...$("poster").querySelectorAll(".p-stars svg")].forEach((s, k) => setTimeout(() => s.classList.add("in"), 350 + k * 380));
+  else [...$("poster").querySelectorAll(".p-stars svg")].forEach(s => s.classList.add("in"));
+}
+
+/* ---------- Navigation ---------- */
+function go(id){
+  document.querySelectorAll(".scr").forEach(s => s.classList.toggle("on", s.id === id));
+  document.querySelectorAll(".proto button").forEach(b => b.classList.toggle("on", b.dataset.go === id));
+  if (id === "map"){ closeSheet(); drawMap(); const sc = $("m-scroll"), k = sc.clientWidth / 400; sc.scrollTop = NODES[PROG.cur][1] * k - sc.clientHeight * .6; }
+  if (id !== "fight" && F) clearInterval(F.timer);
+  const tot = PROG.stars.reduce((a, b) => a + b, 0); $("st-map").textContent = tot; $("st-isl").textContent = tot;
+}
+let tt; function toast(t){ const e = $("toast"); e.innerHTML = t; e.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => e.classList.remove("on"), 2400); }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-go],[data-act],[data-node],[data-world],[data-chest],[data-sec],[data-ans]"); if (!b) return;
+  const d = b.dataset;
+  if (d.ans !== undefined) return pick(decodeURIComponent(d.ans));
+  if (d.go) { if (d.go === "fight") return startFight(PROG.cur > 5 ? 0 : (LV[PROG.cur].mode === "c" ? PROG.cur : 0)); return go(d.go); }
+  if (d.world) return d.world === "1" ? go("map") : toast("🔒 Bats le boss du monde précédent pour ouvrir cette île.");
+  if (d.node !== undefined) return openSheet(+d.node);
+  if (d.chest){ if (opened[d.chest]) return toast("Coffre déjà ouvert."); opened[d.chest] = 1; const p = b.querySelector("path.twinkle"); if (p) p.remove();
+    const bb = b.getBBox(); b.insertAdjacentHTML("beforeend", chest(bb.x + bb.width / 2, bb.y + 4, true)); return toast(`Coffre caché trouvé ! <span class="coin" style="vertical-align:-2px"></span> +${[0, 80, 120, 60][d.chest]} pièces · ${Object.keys(opened).length}/3`); }
+  if (d.sec) return toast("Chemin secret : fais 3 étoiles au niveau 4 pour dissiper la brume.");
+  const a = d.act;
+  if (a === "close-sheet") return closeSheet();
+  if (a === "play") return startFight(+d.i);
+  if (a === "friends") return $("friends").classList.toggle("on");
+  if (a === "friends2") { go("isl"); return $("friends").classList.add("on"); }
+  if (a === "journal") return toast("📜 Journal de quêtes : il s'ouvre après le niveau 4.");
+  if (a === "info") return toast("Monde 1 · 7 niveaux · 3 coffres cachés · 1 chemin secret · 1 relique");
+  if (a === "close-tav") return $("tav").classList.remove("on");
+  if (a === "game") return toast("Maquette : ici s'ouvrira le jeu actuel du Casino.");
+  if (a === "quit") { clearInterval(F && F.timer); return go("map"); }
+  if (a === "replay") return startFight(F.lv);
+  if (a === "tomap") return go("map");
+  if (a === "demo-win") { PROG.stars[0] = 0; startFight(0); F.ok = 8; F.best = 5; F.n = 10; F.mons.forEach((m, j) => { if (j < 3) m.hp = 0; }); return endFight(); }
+});
+document.getElementById("map-svg").addEventListener("click", e => { if (e.target.closest("[data-node],[data-chest],[data-sec]")) return; const p = e.target.closest("svg"); const pt = p.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const m = pt.matrixTransform(p.getScreenCTM().inverse()); if (dist([m.x, m.y], [318, 1320]) < 60) openTav(); });
+$("mus").addEventListener("click", () => { const on = $("mus").classList.toggle("off"); $("mus").textContent = on ? "🔇" : "♪"; toast(on ? "Musique coupée" : "Musique de la Forêt (fichier à fournir)"); });
+drawIslands();
+</script>
+</body></html>

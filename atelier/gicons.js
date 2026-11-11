@@ -84,6 +84,13 @@ const I = {
     ${shine("M16 30 L18 46")}
     <g>${coin(32,40,8.5)}</g>
     <g class="pop">${coin(32,14,6.5)}</g>`; },
+  adv(){ const u=uid++; return `<defs>${lg("am"+u,"#FFF4D6","#F0C070")}</defs>${sh()}
+    <path d="M9 17 L23 12 L41 17 L55 12 L55 50 L41 55 L23 50 L9 55Z" fill="#B8803A" transform="translate(0 3)" ${S}/><path d="M9 17 L23 12 L41 17 L55 12 L55 50 L41 55 L23 50 L9 55Z" fill="url(#am${u})" ${S}/>
+    <path d="M23 12 V50 M41 17 V55" stroke="#C8964A" stroke-width="2"/>
+    <path d="M13 36 q3 -7 9 -4 q4 3 -1 8 q-6 3 -8 -4Z" fill="#7AD04A" stroke="${D}" stroke-width="1.8"/><path d="M44 40 q4 -5 8 -1 q1 5 -4 6 q-5 0 -4 -5Z" fill="#5AC8FF" stroke="${D}" stroke-width="1.8"/>
+    <path d="M17 46 Q24 38 29 31 T43 23" fill="none" stroke="#E2283A" stroke-width="2.6" stroke-dasharray="1.6 4.4" stroke-linecap="round"/>
+    <path d="M40 18 l8 8 M48 18 l-8 8" stroke="${D}" stroke-width="5.4" stroke-linecap="round"/><path d="M40 18 l8 8 M48 18 l-8 8" stroke="#E2283A" stroke-width="2.8" stroke-linecap="round"/>
+    ${shine("M13 20 L20 17.5")}`; },
   parc(){ const u=uid++; const cols=["#FF6A8A","#5AC8FF","#FFD045","#5AE8A0","#B48AFF","#FF9A3D"]; let spokes="",cabs="";
     for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2,x=32+Math.cos(a)*18,y=27+Math.sin(a)*18; spokes+=`<path d="M32 27 L${x.toFixed(1)} ${y.toFixed(1)}" stroke="${D}" stroke-width="1.6"/>`; cabs+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.6" fill="${cols[i]}" stroke="${D}" stroke-width="2"/><circle cx="${(x-1.4).toFixed(1)}" cy="${(y-1.5).toFixed(1)}" r="1.3" fill="#fff" opacity=".85"/>`;}
     return `${sh()}

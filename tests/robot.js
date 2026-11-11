@@ -9,8 +9,8 @@ const THREE_DIR = path.dirname(require.resolve('three/package.json'));
  const errs=[]; p.on('pageerror',e=>errs.push(e.message+' | '+(e.stack||'').split('\n').slice(1,3).join(' ')));
  await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(3500);
  await p.fill('#p-name','Erwan'); await p.fill('#p-age','20'); await p.click('[data-av-pick="0"]'); await p.click('#pform button[type=submit]');
- // visit parc first
- await p.click('[data-tab="parc"]'); await p.waitForTimeout(1500); await p.click('#back'); await p.waitForTimeout(300);
+ // visit aventure first
+ await p.click('[data-tab="aventure"]'); await p.waitForTimeout(1200); await p.click('[data-tab="accueil"]'); await p.waitForTimeout(300);
  const modes=['daily','serie','serie','mix','survie','revoir','serie','chrono'];
  for (const m of modes){
    await p.evaluate(()=>{ const s=window.__app.state(); s.session=null; s.tab='jouer'; window.__app.save(); });
