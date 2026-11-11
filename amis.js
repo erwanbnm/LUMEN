@@ -76,7 +76,7 @@ const Amis = (function(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
     db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
-      st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null}}).catch(() => {});
+      st:{lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null, cd:typeof Profil !== "undefined" ? Profil.pub() : null}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
   function stop(){ unsub.forEach(f => f()); unsub = []; clearInterval(seenTimer); users = {}; duels = []; }
@@ -324,6 +324,8 @@ const Amis = (function(){
     return 0;
   }
   const finished = () => duels.filter(d => d.res && Object.values(d.res).filter(r => r.done).length >= 2);
+  // Face-à-face entre moi et un joueur : victoires, nuls, défaites (de mon point de vue)
+  function h2h(id){ const r = {w:0, d:0, l:0}; finished().filter(d => (d.from === uid() && d.to === id) || (d.to === uid() && d.from === id)).forEach(d => { const o = outcome(d, uid()); if (o === 1) r.w++; else if (o === 0) r.d++; else if (o === -1) r.l++; }); return r; }
 
   /* --- Réactions aux changements --- */
   function onDuels(before){
@@ -390,7 +392,18 @@ const Amis = (function(){
       if (modeOf(d) === "classic" && d.n >= 10 && r.ok === d.n) perfect++; });
     const top = duelBoard()[0];
     return {played:mine.length, wins, best, live, perfect, big, modes:Object.keys(modes).length, accepted:mine.filter(d => d.to === uid()).length,
-      top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0)};
+      top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0), crowns:crowns()};
+  }
+  // Nombre de semaines terminées où j'ai fini n°1 du classement « Cette semaine » (collection du Compétiteur)
+  function crowns(){
+    const wkOf = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); };
+    const now = weekStart(), by = {}; let n = 0;
+    finished().forEach(d => { const w = wkOf(d.created); if (w < now) (by[w] = by[w] || []).push(d); });
+    Object.values(by).forEach(list => { const t = {};
+      list.forEach(d => [d.from, d.to].forEach(p => { const o = outcome(d, p), r = t[p] = t[p] || {id:p, pts:0, w:0}; if (o === 1) { r.pts += 3; r.w++; } else if (o === 0) r.pts++; }));
+      const b = Object.values(t).sort((x, y) => y.pts - x.pts || y.w - x.w);
+      if (b[0] && b[0].id === uid() && b[0].pts > 0 && !(b[1] && b[1].pts === b[0].pts && b[1].w === b[0].w)) n++; });
+    return Math.max(n, (S.online && S.online.crowns) || 0);
   }
   // Lundi 0 h de la semaine en cours
   const weekStart = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); };
@@ -405,14 +418,14 @@ const Amis = (function(){
   const BOARDS = {
     semaine:{n:"Cette semaine", unit:"pts", rows:() => duelBoard(weekStart()).map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
     duels:{n:"Duels", unit:"pts", rows:() => duelBoard().map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
-    lvl:{n:"Niveau", unit:"", pre:"Niv. ", rows:() => solo(st => st.lvl)},
+    lvl:{n:"Niveau", unit:"", rows:() => solo(st => Profil.txpOf(st), st => Profil.boardTxt(st))},
     ok:{n:"Bonnes réponses", unit:"", rows:() => solo(st => st.ok)},
     streak:{n:"Série de jours", unit:"j", rows:() => solo(st => st.streak)},
     avap:{n:"Avant ou après", unit:"", rows:() => solo(st => st.avap)}
   };
-  function solo(f){
-    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
-      return {id, v:f(st) || 0}; }).sort((a, b) => b.v - a.v);
+  function solo(f, txt){
+    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
+      return {id, v:f(st) || 0, txt:txt && txt(st)}; }).sort((a, b) => b.v - a.v);
   }
 
   /* --- Affichage --- */
@@ -501,14 +514,14 @@ const Amis = (function(){
   }
   function viewBoard(){
     const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
-    const unit = v => `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
-    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
+    const unit = (v, r) => r && r.txt ? r.txt : `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
+    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} am-see ${top[i].id === uid() ? "me" : ""}" data-see="${top[i].id}" role="button" tabindex="0">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v, top[i])}</span><div class="step">${i + 1}</div></div>`).join("");
     return `<section class="stack">
       <div class="row between"><button class="quit" data-am="back">Retour</button><span class="label">Entre amis</span></div>
       <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
-      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row am-see ${r.id === uid() ? "me" : ""}" data-see="${r.id}" role="button" tabindex="0" aria-label="Voir le profil de ${esc(pseudoOf(r.id))}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v, r)}</b></div>`).join("")}</div>
       <p class="muted" style="font-size:13px;text-align:center">${ui.board === "semaine" ? "Duels joués depuis lundi : 3 points par victoire, 1 par égalité. Le n°1 porte la couronne 👑 jusqu'à lundi prochain." : ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
@@ -620,7 +633,7 @@ const Amis = (function(){
   // Accès partagé pour les salons privés (salons.js)
   // Titre d'un ami (le LOOSER DU JOUR ne compte que le jour même)
   const titleOf = (id, cls) => { const u = users[id]; if (!u || !u.ti || (u.ti === "looser" && u.tid !== today())) return ""; return titleTag(u.ti, cls || "sm"); };
-  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
+  const api = {stats, h2h, db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
   return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 

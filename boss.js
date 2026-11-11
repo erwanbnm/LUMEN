@@ -102,7 +102,7 @@ const Boss = (() => {
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
       tx.update(ref(), up); }).catch(() => {});
   }
-  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
+  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
 
   /* --- Récompenses (une seule fois par semaine) --- */
   function claim(){

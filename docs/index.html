@@ -513,6 +513,151 @@ details.tb[open] summary{margin-bottom:12px}
 .hav{position:relative;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--lamp) calc(var(--p)*1%),var(--line) 0);flex:none}
 .hav>svg{background:var(--surface);border-radius:50%;width:44px!important;height:44px!important;padding:2px}
 .hlv{position:absolute;right:-6px;bottom:-4px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--lamp);color:var(--lamp-ink);font-family:var(--f-display);font-weight:800;font-size:12.5px;display:grid;place-items:center;border:2px solid var(--bg)}
+/* Prestige et maîtrise (atelier/profil_art.js, profil.js) */
+.pa{overflow:visible}
+.pa .spin{animation:pa-spin 30s linear infinite;transform-origin:100px 100px}
+.pa .spinr{animation:pa-spin 24s linear infinite reverse;transform-origin:100px 100px}
+.pa .pulse{animation:pa-pulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.pa .flick{animation:pa-flick .9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.pa .spark{animation:pa-spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.pa .float{animation:pa-float 3s ease-in-out infinite}
+.pa .breathe{animation:pa-breathe 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.pa .zap{animation:pa-zap .5s steps(2,jump-none) infinite}
+.pa .rise{animation:pa-rise 3.2s linear infinite}
+.pa .sweep{animation:pa-sweep 3s ease-in-out infinite}
+.pa .dash{animation:pa-dash 6s linear infinite}
+.pa.still *{animation:none!important}
+@keyframes pa-spin{to{transform:rotate(360deg)}}
+@keyframes pa-pulse{50%{opacity:.5;transform:scale(1.08)}}
+@keyframes pa-flick{to{transform:scale(1.08,.92)}}
+@keyframes pa-spark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+@keyframes pa-float{50%{transform:translateY(-3px)}}
+@keyframes pa-breathe{50%{opacity:.55;transform:scale(1.1)}}
+@keyframes pa-zap{50%{opacity:.15}}
+@keyframes pa-rise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-120px);opacity:0}}
+@keyframes pa-sweep{0%{transform:translateX(-60px) rotate(20deg)}60%,100%{transform:translateX(160px) rotate(20deg)}}
+@keyframes pa-dash{to{stroke-dashoffset:-80}}
+@media (prefers-reduced-motion:reduce){.pa *{animation:none!important}}
+/* Carte de visite (profil.js) */
+.pa .fogx{animation:pa-fogx 9s ease-in-out infinite}
+@keyframes pa-fogx{50%{transform:translateX(30px);opacity:.3}}
+.pa .mm-ember{animation:pa-ember 6s linear infinite}
+@keyframes pa-ember{0%{transform:translateY(20px);opacity:0}20%{opacity:1}100%{transform:translate(14px,-120px);opacity:0}}
+.pa .av-wave{animation:pa-wave 3.2s ease-in-out infinite}
+@keyframes pa-wave{50%{transform:translateX(7px)}}
+.vc{position:relative;border-radius:20px;overflow:hidden;border:3px solid #2B1D3A;box-shadow:0 5px 0 #2B1D3A;color:#fff;background:#1A1030}
+.vc.legend{border-color:#E8F4FF;box-shadow:0 0 26px rgba(232,244,255,.25),0 5px 0 #000}
+.vc .bnr{position:absolute;inset:0;width:100%;height:100%}
+.vc-in{position:relative;background:linear-gradient(90deg,rgba(10,4,24,.45),rgba(10,4,24,.15) 60%,rgba(10,4,24,.3));display:grid;grid-template-columns:96px 1fr;gap:6px 10px;align-items:center;padding:12px 12px 6px;min-height:170px}
+.vc-emb svg{width:96px;height:96px;display:block}
+.vc-mid{display:flex;gap:26px;align-items:center;min-width:0}
+.vc .fr{position:relative;flex:none;width:96px;height:96px;margin-left:4px}
+.vc .frsvg{position:absolute;inset:-15%;width:130%;height:130%;overflow:visible}
+.vc .fr.roi .frsvg{inset:-22%;width:144%;height:144%}
+.vc .frin{position:absolute;inset:16%;display:flex;align-items:center;justify-content:center}
+.vc-ava{position:relative}.vc-ava>svg{width:70px!important;height:70px!important}
+.vc-ava .vc-pet{position:absolute;right:-24px;bottom:-8px}.vc-ava .vc-pet svg{width:30px!important;height:30px!important}
+.vc-id{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.vc-nm{display:block;font:800 23px var(--f-display);text-shadow:0 3px 0 #2B1D3A;line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vc-lv{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font:700 12px var(--f-mono,"IBM Plex Mono",monospace);text-shadow:0 1px 0 #000}
+.vc-lv b{color:#FFE58A}.vc.legend .vc-lv b{color:#E8F4FF;text-shadow:0 0 8px #E8F4FF}
+.vc-xp{width:100%;max-width:200px;height:8px;border-radius:99px;background:rgba(0,0,0,.45);border:2px solid #2B1D3A;overflow:hidden}
+.vc-xp i{display:block;height:100%;background:linear-gradient(90deg,#FF5FA2,#FFD23F)}
+.vc.legend .vc-xp i{background:linear-gradient(90deg,#5A5A6E,#E8F4FF)}
+.vc-bds{grid-column:1/-1;display:flex;justify-content:space-around;gap:4px}
+.vc-bd{display:flex;flex-direction:column;align-items:center;gap:1px;font:700 10px var(--f-mono,"IBM Plex Mono",monospace);color:#F0E8FF;text-align:center;max-width:90px;text-shadow:0 1px 0 #000}
+.vc-bd svg{width:44px!important;height:44px!important}
+.vc-st{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px 8px;background:rgba(10,4,24,.6);border-top:2px solid rgba(255,255,255,.12)}
+.vc-st div{position:relative;display:flex;flex-direction:column;align-items:center;padding:5px 2px;border-radius:11px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.12);overflow:hidden;min-width:0}
+.vc-st span{font:700 9.5px var(--f-mono,"IBM Plex Mono",monospace);letter-spacing:.08em;text-transform:uppercase;color:#C8B0F8}
+.vc-st b{font:800 19px var(--f-display);color:#FFE58A;text-shadow:0 2px 0 #2B1D3A;line-height:1.15;white-space:nowrap}
+.vc-st small{font:500 9.5px var(--f-mono,"IBM Plex Mono",monospace);color:#C8B8E8;text-align:center;line-height:1.1}
+.vc-st i{position:absolute;left:0;bottom:0;height:4px;background:linear-gradient(90deg,#3FCB6A,#FFD23F)}
+.vc.legend .vc-st b{color:#F4FAFF;text-shadow:0 0 10px rgba(232,244,255,.6),0 2px 0 #000}
+.vc-rks{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:0;padding:4px 4px 8px;background:rgba(10,4,24,.75);border-top:2px solid rgba(255,255,255,.12)}
+.vc-rk{display:flex;flex-direction:column;align-items:center;min-width:0;font:700 8px var(--f-mono,"IBM Plex Mono",monospace);color:#D8C8FF}
+.vc-rk svg{width:118%;height:auto;margin:-4% -9% -2%}
+.vc-rk span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.vc-rk.off svg{filter:grayscale(1) brightness(.6);opacity:.4}
+.vc-edit{align-self:center;margin-top:10px}
+.vc-ed .label{margin-top:4px}
+.vc-opts{display:flex;gap:10px;flex-wrap:wrap}
+.vc-opt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px;border-radius:14px;background:var(--surface);border:3px solid var(--line);font:inherit;color:inherit;cursor:pointer}
+.vc-opt.on{border-color:var(--lamp);box-shadow:0 0 0 2px var(--lamp)}
+.vc-opt.lock{opacity:.55}.vc-opt small{font-size:11px;color:var(--muted)}
+.vc-thumb{position:relative;display:block;overflow:hidden;border-radius:10px}
+.vc-thumb.bn{width:120px;height:40px}.vc-thumb.bn svg{position:absolute;inset:0;width:100%;height:100%}
+.vc-thumb.fr{width:64px;height:64px;overflow:visible}.vc-thumb.fr .fr{width:64px;height:64px;margin:0}
+.vc-thumb .fr{position:relative}.vc-thumb .frsvg{position:absolute;inset:-15%;width:130%;height:130%;overflow:visible}.vc-thumb .fr.roi .frsvg{inset:-22%;width:144%;height:144%}
+.vc-picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;max-height:330px;overflow:auto;padding:2px}
+.vc-pick{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:12px;background:var(--surface);border:3px solid transparent;font:600 10.5px var(--f-mono,"IBM Plex Mono",monospace);color:inherit;text-align:center;cursor:pointer}
+.vc-pick.on{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 14%,var(--surface))}
+.vc-pick svg{width:48px!important;height:48px!important}
+@media (min-width:560px){.vc-in{grid-template-columns:130px 1fr auto}.vc-emb svg{width:130px;height:130px}.vc-bds{grid-column:auto;flex-direction:column}}
+/* Collections (profil.js) */
+.co{border:3px solid #2B1D3A;border-radius:18px;overflow:hidden;background:linear-gradient(#1E1238,#120826);color:#fff;box-shadow:0 4px 0 #2B1D3A,0 0 18px color-mix(in srgb,var(--c) 22%,transparent)}
+.co-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:9px 12px;border-bottom:3px solid var(--c)}
+.co-h b{font:800 17px var(--f-display)}.co-h span{font:700 10.5px var(--f-mono,"IBM Plex Mono",monospace);color:var(--c);text-transform:uppercase;letter-spacing:.1em;text-align:right}
+.co-bn{position:relative;height:140px;overflow:hidden}
+.co-bn .bnr{position:absolute;inset:0;width:100%;height:100%}
+.co-fr{position:absolute;left:18px;bottom:14px}
+.co .fr{position:relative;width:92px;height:92px}.co .frsvg{position:absolute;inset:-15%;width:130%;height:130%;overflow:visible}
+.co .frin{position:absolute;inset:16%;display:flex;align-items:center;justify-content:center}
+.co .vc-ava>svg{width:56px!important;height:56px!important}
+.co-it{display:grid;grid-template-columns:1fr;gap:8px;padding:10px}
+.co-i{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:9px 10px;border-radius:12px;background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.1)}
+.co-i.own{border-color:color-mix(in srgb,var(--c) 70%,transparent);background:color-mix(in srgb,var(--c) 14%,rgba(0,0,0,.3))}
+.co-i b{font:800 15px var(--f-display)}.co-c{font:500 12px var(--f-mono,"IBM Plex Mono",monospace);color:#D0C0F0}
+.co-i .meter{width:100%}
+.co-i .btn.small{align-self:flex-start;color:#2B1D3A;background:#FFF4FA}.co-i .btn.small[disabled]{opacity:.7}
+.co-r{padding:2px 9px;border-radius:99px;background:var(--r);color:#fff;font:800 10px var(--f-mono,"IBM Plex Mono",monospace);letter-spacing:.08em;text-transform:uppercase;border:2px solid #2B1D3A}
+@media (min-width:560px){.co-it{grid-template-columns:repeat(3,1fr)}.co-bn{height:180px}}
+/* Fiche d'un joueur et comparaison (profil.js) */
+.am-see{cursor:pointer}
+.pv{position:fixed;inset:0;z-index:60;background:rgba(10,4,24,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow:auto;padding:max(16px,env(safe-area-inset-top)) 12px 30px;animation:pvIn .2s ease-out}
+@keyframes pvIn{from{opacity:0}}
+.pv-box{position:relative;max-width:640px;margin:34px auto 0;display:flex;flex-direction:column;gap:12px}
+.pv-x{position:absolute;right:0;top:-40px;width:36px;height:36px;border-radius:50%;border:2px solid #2B1D3A;background:#fff;color:#2B1D3A;font:800 16px var(--f-display);box-shadow:0 3px 0 #2B1D3A;cursor:pointer}
+.pv-back{position:absolute;left:0;top:-42px;color:#2B1D3A;background:#FFF4FA}
+.pv-cmp{align-self:center}
+.pv-old{color:#E8DCFF;text-align:center;font-size:13.5px;margin:0}
+.cp{display:flex;flex-direction:column;gap:10px;color:#fff}
+.cp-h{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center}
+.cp-h>div{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}.cp-h b{font:800 16px var(--f-display);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cp-vs{font:900 26px var(--f-display);color:#FFD23F;text-shadow:0 3px 0 #2B1D3A}
+.cp-box{background:linear-gradient(#22123E,#140A2A);border:3px solid #2B1D3A;border-radius:16px;padding:10px 12px;box-shadow:0 4px 0 #2B1D3A}
+.cp-box .label{color:#FFE58A;margin-bottom:4px}
+.cp-r{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}
+.cp-r span{font:600 11.5px var(--f-mono,"IBM Plex Mono",monospace);color:#C8B8E8;text-align:center}
+.cp-r b{font:800 15px var(--f-display);color:#D8CCF0;white-space:nowrap}.cp-r b:last-child{text-align:right}
+.cp-r b.win,.cp-h2h b.win{color:#FFE58A;text-shadow:0 0 10px rgba(255,210,63,.5)}
+.cp-h2h{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.cp-h2h b{font:900 30px var(--f-display);color:#D8CCF0}.cp-h2h b:last-child{text-align:right}
+.cp-h2h span{font:600 12px var(--f-mono,"IBM Plex Mono",monospace);color:#C8B8E8;text-align:center}
+.cp-d{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:6px;border-top:1px solid rgba(255,255,255,.08)}
+.cp-rk svg{width:72px;height:72px;margin:-4px;display:block}
+.cp-rk.off svg{filter:grayscale(1) brightness(.6);opacity:.4}
+.cp-rk.win{filter:drop-shadow(0 0 8px rgba(255,210,63,.7))}
+.cp-dn{display:flex;flex-direction:column;align-items:center;text-align:center;font:800 13.5px var(--f-display)}.cp-dn small{font:600 11px var(--f-mono,"IBM Plex Mono",monospace);color:#C8B8E8}
+.who .hav,.who .hpr,.who .hlv{overflow:visible}
+.hpr{position:absolute;left:-9px;bottom:-8px;width:30px;height:30px;pointer-events:none}
+.hpr svg{width:100%;height:100%;display:block}
+.pr-card{position:relative;display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center;padding:14px 18px 14px 8px;border-radius:var(--r);background:linear-gradient(#2A1850,#160A2C);color:#fff;border:3px solid #2B1D3A;box-shadow:0 4px 0 var(--edge);overflow:hidden}
+.pr-card .label{color:#FFE58A}.pr-card .muted{color:#D8C8F0}
+.pr-emb svg{width:132px;height:132px;display:block}
+.pr-name{font-family:var(--f-display);font-size:22px;line-height:1.1}
+.pr-lv{font-family:var(--f-display);font-weight:800;font-size:16px;color:#FFE58A}
+.pr-card.legend{background:radial-gradient(circle at 20% 40%,#2A2A3A,#000 75%);border-color:#E8F4FF;box-shadow:0 0 26px rgba(232,244,255,.25),0 4px 0 #000}
+.pr-card.legend .pr-lv,.pr-card.legend .label{color:#F4FAFF;text-shadow:0 0 8px rgba(232,244,255,.6)}
+.pm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 6px}
+.pm-dom{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1px;min-width:0}
+.pm-dom svg{width:122%;max-width:none;height:auto;display:block;margin:-6% -11% -4%}
+.pm-dom b{font-size:12.5px;line-height:1.15;font-family:var(--f-display)}
+.pm-dom span{font:600 11px var(--f-mono,"IBM Plex Mono",monospace);color:var(--muted)}
+.pm-dom small{display:none}
+.pm-dom.off svg{filter:grayscale(1) brightness(.7);opacity:.45}
+@media (max-width:420px){.pm-grid{grid-template-columns:repeat(4,1fr)}.pr-card{grid-template-columns:104px 1fr}.pr-emb svg{width:104px;height:104px}}
+.lv-badge.lv-pres{width:190px;margin-top:-96px}
+.lv-badge.lv-pres svg{filter:none}
 .who{gap:12px;font-size:17px}
 .who>span:last-child{font-weight:800}
 .pills{gap:8px;align-items:center}
@@ -4038,6 +4183,505 @@ const gIcon = (k, size, cls) => GI3[k] ? `<svg class="gi g3 ${cls||""}" viewBox=
 // Icône de thème : pastille arrondie à la couleur du thème, pictogramme blanc
 const thIcon = (k, size) => `<span class="thi" style="--h:${THEMES[k].h};width:${size||40}px;height:${size||40}px"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="#FFFFFF">${ICONS[k]||""}</g></svg></span>`;
 
+/* Lumen · Emblèmes de prestige, rangs de maîtrise, bannières et cadres de la carte de visite.
+   Généré depuis prototypes/prestiges.html, maitrise.html, carte.html et collections.html (validés par Erwan). */
+const PArt = (() => {
+
+const TD = "#2B1D3A";
+let U = 0;
+let NS = 0, PF = "pa0_";
+const uid = () => PF + (U++);
+const ns = () => { U = 0; PF = "pa" + (NS++) + "_"; };
+const lg = (a, b, id = uid()) => [id, `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`];
+const rg = (a, b, o = 0, id = uid()) => [id, `<radialGradient id="${id}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}" stop-opacity="${o}"/></radialGradient>`];
+// Pièce en relief : copie sombre décalée + dégradé + contour épais (recette « jouet » de Lumen)
+function part(d, a, b, dark, o = {}){ const [id, def] = lg(a, b); const dy = o.dy === undefined ? 4 : o.dy, w = o.w || 3;
+  return `<defs>${def}</defs>${dy ? `<path d="${d}" transform="translate(0 ${dy})" fill="${dark}" stroke="${TD}" stroke-width="${w}" stroke-linejoin="round"/>` : ""}<path d="${d}" fill="url(#${id})" stroke="${TD}" stroke-width="${w}" stroke-linejoin="round"${o.cls ? ` class="${o.cls}"` : ""}/>`; }
+const shine = (d, w = 3.2, o = .75) => `<path d="${d}" fill="none" stroke="#fff" stroke-width="${w}" stroke-linecap="round" opacity="${o}"/>`;
+const glow = (cx, cy, r, c, o = .7, cls = "pulse") => { const [id, def] = rg(c, c); return `<defs>${def}</defs><circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${id})" opacity="${o}" class="${cls}"/>`; };
+
+/* Palettes : bronze, argent, or, améthyste, rubis, obsidienne */
+const PAL = {
+  bronze:["#F4C08A", "#B8672E", "#6A3412"], silver:["#FFFFFF", "#9AA6C0", "#4A5470"], gold:["#FFF0A0", "#E0A21A", "#8A5806"],
+  violet:["#E0B8FF", "#8A3AE8", "#3A0E7A"], crimson:["#FF8A9A", "#C8142E", "#5A0412"], obsidian:["#8A7AA8", "#2A1E3E", "#0E0818"], fire:["#FFF4A0", "#FF8A1A", "#C8260A"]
+};
+const P = (k, o = {}) => (d) => part(d, PAL[k][0], PAL[k][1], PAL[k][2], o);
+
+/* --- Pièces d'armure --- */
+const shieldD = (s = 1, cy = 100) => { const w = 48 * s, h = 62 * s, t = cy - h * .62;
+  return `M100 ${t} Q${100 + w * .55} ${t + h * .02} ${100 + w} ${t + h * .12} L${100 + w} ${t + h * .62} Q${100 + w} ${t + h * 1.18} 100 ${t + h * 1.42} Q${100 - w} ${t + h * 1.18} ${100 - w} ${t + h * .62} L${100 - w} ${t + h * .12} Q${100 - w * .55} ${t + h * .02} 100 ${t}Z`; };
+const circleD = (cx, cy, r) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0Z`;
+function wings(span, n, k, o = {}){ // n plumes par aile, palette k ; deux couches (grandes plumes derrière, petites devant)
+  let g = "";
+  const layer = (len, cnt, kk, y0, wf) => { let out = "";
+    for (const sd of [-1, 1]) for (let i = cnt - 1; i >= 0; i--) {
+      const t = i / Math.max(1, cnt - 1), ang = (.15 + t * 1.05) * (o.up || 1), L = len * (.7 + t * .3);
+      const bx = 100 + sd * 34, by = y0 - t * 10, ex = bx + sd * Math.cos(ang) * L, ey = by - Math.sin(ang) * L;
+      const mx = (bx + ex) / 2, my = (by + ey) / 2, px = Math.sin(ang) * L * wf, py = sd * Math.cos(ang) * L * wf;
+      const d = `M${bx.toFixed(1)} ${by.toFixed(1)} Q${(mx - sd * px).toFixed(1)} ${(my - py * sd * sd).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)} Q${(mx + sd * px * .55).toFixed(1)} ${(my + py * .55 * sd * sd + 6).toFixed(1)} ${bx.toFixed(1)} ${(by + 10).toFixed(1)}Z`;
+      out += P(i % 2 && o.alt ? o.alt : kk, {dy:2.5, w:2.4})(d) + `<path d="M${bx.toFixed(1)} ${(by + 4).toFixed(1)} L${(bx + (ex - bx) * .8).toFixed(1)} ${(by + (ey - by) * .8).toFixed(1)}" stroke="#fff" stroke-width="1.6" opacity=".45" stroke-linecap="round"/>`;
+    }
+    return out; };
+  g += layer(span, n, k, 104, .2);
+  g += layer(span * .6, Math.max(2, n - 2), o.alt || k, 112, .24);
+  return g;
+}
+function laurel(k, r = 70, n = 7){
+  let g = "";
+  for (const sd of [-1, 1]) for (let i = 0; i < n; i++) {
+    const a = Math.PI * (.62 + i * .075) , x = 100 + sd * Math.cos(a) * -r, y = 104 + Math.sin(a) * r, rot = sd * (i * 9 + 40);
+    g += `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot})">${P(k, {dy:1.5, w:2})("M0 -10 Q7 -2 0 10 Q-7 -2 0 -10Z")}</g>`;
+  }
+  return g;
+}
+function gem(x, y, r, k){
+  return P(k, {dy:2, w:2.4})(`M${x} ${y - r} L${x + r * .8} ${y - r * .2} L${x + r * .5} ${y + r} L${x - r * .5} ${y + r} L${x - r * .8} ${y - r * .2}Z`)
+    + `<path d="M${x - r * .8} ${y - r * .2} L${x + r * .8} ${y - r * .2} M${x} ${y - r} L${x - r * .3} ${y - r * .2} L${x} ${y + r} L${x + r * .3} ${y - r * .2}Z" fill="none" stroke="#fff" stroke-width="1.2" opacity=".55"/>`
+    + `<path d="M${x - r * .35} ${y - r * .55} L${x - r * .05} ${y - r * .75}" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`;
+}
+function crown(y, w, k, gems){
+  const d = `M${100 - w} ${y} L${100 - w * 1.08} ${y - 22} L${100 - w * .55} ${y - 10} L${100 - w * .28} ${y - 30} L100 ${y - 14} L${100 + w * .28} ${y - 30} L${100 + w * .55} ${y - 10} L${100 + w * 1.08} ${y - 22} L${100 + w} ${y}Z`;
+  return P(k, {dy:3, w:2.6})(d) + `<rect x="${100 - w}" y="${y - 4}" width="${w * 2}" height="9" rx="3" fill="url(#${lg(PAL[k][0], PAL[k][1])[0]})" stroke="${TD}" stroke-width="2.4"/>`.replace(/url\(#(e\d+)\)/, (m, id) => `url(#${id})`) + (gems || []).map(([dx, gk]) => gem(100 + dx * w, y - 22, 5, gk)).join("");
+}
+// le rect de la couronne a besoin de son dégradé : on le déclare à part
+function crownBand(y, w, k){ const [id, def] = lg(PAL[k][0], PAL[k][1]); return `<defs>${def}</defs><rect x="${100 - w}" y="${y - 4}" width="${w * 2}" height="10" rx="3" fill="url(#${id})" stroke="${TD}" stroke-width="2.4"/>`; }
+function crownFull(y, w, k, gems){
+  const d = `M${100 - w} ${y} L${100 - w * 1.1} ${y - 22} L${100 - w * .55} ${y - 9} L${100 - w * .28} ${y - 32} L100 ${y - 14} L${100 + w * .28} ${y - 32} L${100 + w * .55} ${y - 9} L${100 + w * 1.1} ${y - 22} L${100 + w} ${y}Z`;
+  return P(k, {dy:3, w:2.6})(d) + crownBand(y, w, k) + (gems || []).map(([dx, dy, gk]) => gem(100 + dx * w, y + dy, 5, gk)).join("") + shine(`M${100 - w * .9} ${y - 14} L${100 - w * .7} ${y - 6}`, 2.4, .7);
+}
+function ribbon(y, txt, k){
+  const d = `M40 ${y} L160 ${y} L152 ${y + 11} L160 ${y + 22} L40 ${y + 22} L48 ${y + 11}Z`;
+  return P(k, {dy:3, w:2.6})(`M28 ${y + 6} L48 ${y + 6} L48 ${y + 24} L28 ${y + 24} L36 ${y + 15}Z`) + P(k, {dy:3, w:2.6})(`M172 ${y + 6} L152 ${y + 6} L152 ${y + 24} L172 ${y + 24} L164 ${y + 15}Z`)
+    + P(k, {dy:3, w:2.6})(d) + `<text x="100" y="${y + 16.5}" text-anchor="middle" style="font:800 15px 'Bricolage Grotesque',sans-serif;letter-spacing:.12em" fill="#fff" stroke="${TD}" stroke-width="3.4" paint-order="stroke">${txt}</text>`;
+}
+function swords(k){ let g = "";
+  for (const sd of [-1, 1]) g += `<g transform="rotate(${sd * 38} 100 104)">${P(k, {dy:2, w:2.4})("M96 30 L104 30 L106 150 L100 162 L94 150Z")}${P("gold", {dy:2, w:2.4})("M82 140 L118 140 L118 148 L82 148Z")}${P("crimson", {dy:1, w:2.2})("M96 148 L104 148 L104 170 L96 170Z")}</g>`;
+  return g; }
+function spikes(n, r, k, len = 18){ let g = "";
+  for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + (i - (n - 1) / 2) * .28, x = 100 + Math.cos(a) * r, y = 104 + Math.sin(a) * r, ex = 100 + Math.cos(a) * (r + len), ey = 104 + Math.sin(a) * (r + len), nx = -Math.sin(a) * 6, ny = Math.cos(a) * 6;
+    g += P(k, {dy:2, w:2.2})(`M${x + nx} ${y + ny} L${ex} ${ey} L${x - nx} ${y - ny}Z`); }
+  return g; }
+function tentacles(k){ let g = "";
+  for (const [sx, a] of [[-1, 0], [1, 0], [-1, 1], [1, 1]]) { const y0 = 128 + a * 10, x0 = 100 + sx * (24 + a * 6);
+    const d = `M${x0} ${y0} Q${x0 + sx * 34} ${y0 + 8} ${x0 + sx * 40} ${y0 + 34 + a * 6} Q${x0 + sx * 42} ${y0 + 46} ${x0 + sx * 30} ${y0 + 44}`;
+    g += `<path d="${d}" stroke="${TD}" stroke-width="14" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${PAL[k][1]}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${PAL[k][0]}" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="2 7" opacity=".9"/>`; }
+  return g; }
+
+/* --- Créatures (au centre du blason) --- */
+const eyes = (x1, x2, y, r, c = "#FFE07A", sl) => [x1, x2].map(x => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${sl ? r * .7 : r}" fill="${c}" stroke="${TD}" stroke-width="2.2"/><ellipse cx="${x}" cy="${y}" rx="${r * .35}" ry="${r * .8}" fill="${TD}"/><circle cx="${x - r * .35}" cy="${y - r * .35}" r="${r * .25}" fill="#fff"/>`).join("");
+const CRE = {
+  hibou(){ return P("bronze", {dy:3})("M70 96 Q68 66 82 62 L76 48 L92 60 Q100 57 108 60 L124 48 L118 62 Q132 66 130 96 Q128 128 100 132 Q72 128 70 96Z")
+    + `<circle cx="87" cy="92" r="13" fill="#FFF4DA" stroke="${TD}" stroke-width="2.4"/><circle cx="113" cy="92" r="13" fill="#FFF4DA" stroke="${TD}" stroke-width="2.4"/>` + eyes(87, 113, 92, 7, "#FFB020")
+    + `<path d="M96 104 L104 104 L100 114Z" fill="#FFB020" stroke="${TD}" stroke-width="2"/>` + [0, 1, 2].map(i => `<path d="M${88 + i * 8} 120 q4 4 8 0" stroke="#8A4A1A" stroke-width="2" fill="none"/>`).join("") + shine("M76 84 Q78 72 88 68"); },
+  loup(){ return P("silver", {dy:3})("M68 70 L64 42 L86 60 Q100 54 114 60 L136 42 L132 70 Q140 92 126 112 L112 132 Q100 140 88 132 L74 112 Q60 92 68 70Z")
+    + `<path d="M70 52 L72 64 L80 60Z M130 52 L128 64 L120 60Z" fill="#FF9AB8"/>` + `<path d="M76 84 L92 92 M124 84 L108 92" stroke="${TD}" stroke-width="4" stroke-linecap="round"/>` + eyes(86, 114, 94, 5.4, "#7AE8FF", 1)
+    + P("silver", {dy:2, w:2.4})("M86 108 Q100 102 114 108 L108 128 Q100 134 92 128Z") + `<ellipse cx="100" cy="112" rx="7" ry="5" fill="${TD}"/><path d="M92 124 l3 6 l3 -6 M102 124 l3 6 l3 -6" fill="#fff" stroke="${TD}" stroke-width="1.2"/>` + shine("M74 76 Q78 64 88 62"); },
+  serpent(){ return `<path d="M64 128 Q60 104 84 100 Q118 96 120 116 Q122 138 96 136 Q78 134 82 122" fill="none" stroke="${TD}" stroke-width="18" stroke-linecap="round"/><path d="M64 128 Q60 104 84 100 Q118 96 120 116 Q122 138 96 136 Q78 134 82 122" fill="none" stroke="#3AB88A" stroke-width="12" stroke-linecap="round"/><path d="M64 128 Q60 104 84 100 Q118 96 120 116 Q122 138 96 136" fill="none" stroke="#B8F8D8" stroke-width="3" stroke-dasharray="3 6" stroke-linecap="round"/>`
+    + `<path d="M84 100 Q86 80 100 74" fill="none" stroke="${TD}" stroke-width="16" stroke-linecap="round"/><path d="M84 100 Q86 80 100 74" fill="none" stroke="#3AB88A" stroke-width="10" stroke-linecap="round"/>`
+    + part("M80 74 Q82 52 104 50 Q126 52 126 70 Q124 84 106 86 Q86 88 80 74Z", "#7AF8B8", "#2A9A6A", "#0E4A30") + `<path d="M84 64 L96 68 M122 62 L112 68" stroke="${TD}" stroke-width="3.4" stroke-linecap="round"/>` + eyes(94, 114, 70, 4.4, "#FFE07A", 1)
+    + `<path d="M104 86 v10 l-4 4 M104 96 l4 4" stroke="#E2283A" stroke-width="2.4" fill="none" stroke-linecap="round"/>` + shine("M86 62 Q92 54 102 54"); },
+  corbeau(){ return P("obsidian", {dy:3})("M66 112 Q62 76 80 62 L74 40 L92 54 Q100 50 108 54 L126 40 L120 62 Q138 76 134 112 Q118 132 100 132 Q82 132 66 112Z")
+    + `<path d="M80 50 L88 30 L96 50 M104 50 L112 30 L120 50" fill="#3A2E5A" stroke="${TD}" stroke-width="2"/>` + `<path d="M74 82 L92 90 M126 82 L108 90" stroke="#C890FF" stroke-width="3.4" stroke-linecap="round"/>` + eyes(86, 114, 94, 5.6, "#C890FF", 1)
+    + P("gold", {dy:2, w:2.4})("M90 104 L110 104 L100 132Z") + `<path d="M100 104 V128" stroke="#8A5806" stroke-width="1.6"/>` + shine("M74 80 Q76 68 86 62", 2.6, .45); },
+  lion(){ let mane = ""; for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, x = 100 + Math.cos(a) * 34, y = 98 + Math.sin(a) * 34; mane += `M${(x + Math.cos(a + 1.57) * 10).toFixed(1)} ${(y + Math.sin(a + 1.57) * 10).toFixed(1)} Q${(100 + Math.cos(a) * 50).toFixed(1)} ${(98 + Math.sin(a) * 50).toFixed(1)} ${(x - Math.cos(a + 1.57) * 10).toFixed(1)} ${(y - Math.sin(a + 1.57) * 10).toFixed(1)}Z `; }
+    return P("crimson", {dy:3})(mane) + P("gold", {dy:3})("M72 92 Q72 66 100 64 Q128 66 128 92 Q128 120 112 128 Q100 134 88 128 Q72 120 72 92Z")
+    + `<path d="M78 84 L94 90 M122 84 L106 90" stroke="${TD}" stroke-width="4" stroke-linecap="round"/>` + eyes(87, 113, 94, 5.4, "#FFF4DA", 1)
+    + P("gold", {dy:1, w:2.2})("M88 104 Q100 98 112 104 Q112 118 100 120 Q88 118 88 104Z") + `<path d="M94 104 L106 104 L100 110Z" fill="${TD}"/><path d="M100 110 V116 M92 118 Q100 124 108 118" stroke="${TD}" stroke-width="2.2" fill="none"/>` + shine("M78 80 Q82 70 92 68"); },
+  hydre(){ let g = "";
+    for (const [dx, h, s] of [[-26, 18, .78], [26, 18, .78], [0, 0, 1]]) { const x = 100 + dx, top = 62 + h;
+      g += `<path d="M${100 + dx * .4} 136 Q${x - dx * .3} 112 ${x} ${top + 22}" fill="none" stroke="${TD}" stroke-width="${15 * s}" stroke-linecap="round"/><path d="M${100 + dx * .4} 136 Q${x - dx * .3} 112 ${x} ${top + 22}" fill="none" stroke="#5AC86A" stroke-width="${9 * s}" stroke-linecap="round"/>`;
+      g += part(`M${x - 16 * s} ${top + 14 * s} Q${x - 16 * s} ${top - 6 * s} ${x} ${top - 8 * s} Q${x + 16 * s} ${top - 6 * s} ${x + 16 * s} ${top + 14 * s} Q${x + 8 * s} ${top + 30 * s} ${x} ${top + 30 * s} Q${x - 8 * s} ${top + 30 * s} ${x - 16 * s} ${top + 14 * s}Z`, "#9AF87A", "#3A9A3A", "#14501A", {dy:2.5, w:2.4})
+        + `<path d="M${x - 12 * s} ${top - 2 * s} L${x - 16 * s} ${top - 16 * s} L${x - 6 * s} ${top - 6 * s} M${x + 12 * s} ${top - 2 * s} L${x + 16 * s} ${top - 16 * s} L${x + 6 * s} ${top - 6 * s}" fill="#E8D8A0" stroke="${TD}" stroke-width="1.8"/>`
+        + eyes(x - 6 * s, x + 6 * s, top + 8 * s, 3.4 * s, "#FF3A4A", 1) + `<path d="M${x - 6 * s} ${top + 20 * s} Q${x} ${top + 24 * s} ${x + 6 * s} ${top + 20 * s}" stroke="${TD}" stroke-width="2" fill="none"/>`; }
+    return g; },
+  griffon(){ return wings(40, 4, "gold", {up:.8}).replace(/<g/g, "<g")
+    + P("silver", {dy:3})("M74 100 Q70 70 92 60 L88 44 L100 54 L112 44 L108 60 Q130 70 126 100 Q122 122 100 126 Q78 122 74 100Z")
+    + `<path d="M80 86 L94 92 M120 86 L106 92" stroke="${TD}" stroke-width="4" stroke-linecap="round"/>` + eyes(88, 112, 94, 5, "#FFB020", 1)
+    + P("gold", {dy:2, w:2.4})("M92 100 Q100 96 108 100 L106 112 Q102 124 100 126 Q98 116 92 100Z") + shine("M80 82 Q84 70 94 66"); },
+  kraken(){ return tentacles("violet") + P("violet", {dy:3})("M70 100 Q66 58 100 54 Q134 58 130 100 Q128 126 100 128 Q72 126 70 100Z")
+    + [[84, 72], [116, 72], [100, 64]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.4" fill="#F0D8FF" stroke="${TD}" stroke-width="1.4"/>`).join("")
+    + `<path d="M76 88 L94 96 M124 88 L106 96" stroke="${TD}" stroke-width="4.4" stroke-linecap="round"/>` + eyes(86, 114, 100, 6.4, "#FFF26A", 1)
+    + `<path d="M90 116 Q100 112 110 116" stroke="${TD}" stroke-width="3" fill="none" stroke-linecap="round"/>` + shine("M78 80 Q82 64 96 60"); },
+  dragon(){ return P("obsidian", {dy:2, w:2.4})("M74 74 Q58 50 62 26 Q74 46 86 58Z") + P("obsidian", {dy:2, w:2.4})("M126 74 Q142 50 138 26 Q126 46 114 58Z")
+    + P("crimson", {dy:3})("M68 96 Q66 62 100 56 Q134 62 132 96 Q130 112 118 118 L116 132 Q100 140 84 132 L82 118 Q70 112 68 96Z")
+    + `<path d="M74 82 L94 92 M126 82 L106 92" stroke="${TD}" stroke-width="5" stroke-linecap="round"/>` + glow(86, 96, 12, "#FFB020", .8) + glow(114, 96, 12, "#FFB020", .8) + eyes(86, 114, 96, 5.6, "#FFE07A", 1)
+    + P("crimson", {dy:1, w:2.2})("M84 112 Q100 104 116 112 L114 128 Q100 134 86 128Z") + `<circle cx="93" cy="116" r="2.6" fill="${TD}"/><circle cx="107" cy="116" r="2.6" fill="${TD}"/>`
+    + `<path d="M86 128 l4 6 l4 -6 l4 6 l4 -6 l4 6 l4 -6 l4 6" stroke="#FFF4DA" stroke-width="2" fill="none"/>` + [[80, 64], [100, 58], [120, 64]].map(([x, y]) => `<path d="M${x - 4} ${y} L${x} ${y - 10} L${x + 4} ${y}Z" fill="#3A1A2A" stroke="${TD}" stroke-width="1.6"/>`).join("") + shine("M74 80 Q78 66 92 60"); },
+  phenix(){ let g = "";
+    // ailes de flammes : langues larges et ondulées, qui vacillent
+    for (const sd of [-1, 1]) for (let i = 5; i >= 0; i--) { const ang = .05 + i * .24, L = 70 + i * 3, bx = 100 + sd * 16, by = 112;
+      const ex = bx + sd * Math.cos(ang) * L, ey = by - Math.sin(ang) * L, px = Math.sin(ang) * L * .24, py = Math.cos(ang) * L * .24;
+      const d = `M${bx} ${by} Q${(bx + ex) / 2 - sd * px - sd * 4} ${(by + ey) / 2 - py - 6} ${ex.toFixed(1)} ${ey.toFixed(1)} Q${(bx + ex) / 2 + sd * px * .2} ${(by + ey) / 2 + py * .2} ${(bx + (ex - bx) * .7).toFixed(1)} ${(by + (ey - by) * .55 + 10).toFixed(1)} Q${(bx + ex) / 2} ${(by + ey) / 2 + py + 10} ${bx} ${by + 16}Z`;
+      g += P(i % 3 === 0 ? "crimson" : i % 3 === 1 ? "fire" : "gold", {dy:2, w:2.2, cls:"flick"})(d); }
+    // queue de flammes sous le corps
+    g += P("crimson", {dy:2, w:2.2, cls:"flick"})("M88 130 Q80 156 92 176 Q96 158 100 150 Q104 158 108 176 Q120 156 112 130Z") + P("fire", {dy:1, w:2, cls:"flick"})("M94 132 Q90 150 98 164 Q100 150 102 164 Q110 150 106 132Z");
+    // corps et poitrine en plumes
+    g += P("fire", {dy:3})("M78 112 Q76 92 100 88 Q124 92 122 112 Q120 136 100 142 Q80 136 78 112Z");
+    g += [0, 1, 2].map(r => [0, 1, 2, 3].slice(0, 4 - r).map(c => { const x = 88 + c * 8 + r * 4, y = 106 + r * 9; return `<path d="M${x - 4} ${y} Q${x} ${y + 7} ${x + 4} ${y}" stroke="#C8260A" stroke-width="2" fill="none" opacity=".75"/>`; }).join("")).join("");
+    // tête
+    g += P("fire", {dy:3})("M82 80 Q80 58 100 54 Q120 58 118 80 Q116 96 100 98 Q84 96 82 80Z");
+    // crête de flammes
+    g += P("gold", {dy:2, w:2.2, cls:"flick"})("M90 60 Q82 40 90 24 Q94 40 100 42 Q100 26 108 14 Q114 34 106 44 Q114 40 120 30 Q122 48 110 60Z");
+    // yeux en amande lumineux, sourcils
+    g += glow(91, 76, 9, "#FFF4A0", .9) + glow(109, 76, 9, "#FFF4A0", .9);
+    g += `<path d="M84 70 L96 74 M116 70 L104 74" stroke="${TD}" stroke-width="3.6" stroke-linecap="round"/>`;
+    g += [91, 109].map(x => `<path d="M${x - 6} 77 Q${x} 71 ${x + 6} 77 Q${x} 81 ${x - 6} 77Z" fill="#FFFFFF" stroke="${TD}" stroke-width="2"/><ellipse cx="${x}" cy="77" rx="1.6" ry="3" fill="${TD}"/>`).join("");
+    // bec doré crochu
+    g += P("gold", {dy:2, w:2.2})("M93 82 Q100 78 107 82 Q106 92 100 100 Q98 92 93 82Z") + `<path d="M100 84 V96" stroke="#8A5806" stroke-width="1.4"/>`;
+    g += shine("M86 66 Q88 58 96 56", 2.8, .7);
+    return g; }
+};
+
+/* --- Pièces sombres des grands prestiges --- */
+PAL.blood = ["#FF4A4A", "#8A0010", "#2A0004"];
+PAL.bone = ["#FFFBEE", "#D8C8A0", "#7A6A48"];
+PAL.shadow = ["#7A4AC8", "#24083E", "#08020E"];
+// Tête de mort : crâne, orbites rougeoyantes, dents ; cornes et couronne en option
+function skull(cx, cy, s, o = {}){
+  const k = o.k || "bone", eye = o.eye || "#FF2A2A";
+  let g = "";
+  if (o.horns) for (const sd of [-1, 1]) g += P(o.horns, {dy:2, w:2.6})(`M${cx + sd * 22 * s} ${cy - 10 * s} Q${cx + sd * 62 * s} ${cy - 6 * s} ${cx + sd * 70 * s} ${cy - 48 * s} Q${cx + sd * 72 * s} ${cy - 64 * s} ${cx + sd * 64 * s} ${cy - 72 * s} Q${cx + sd * 60 * s} ${cy - 34 * s} ${cx + sd * 24 * s} ${cy - 26 * s}Z`);
+  g += P(k, {dy:3 * s, w:2.6})(`M${cx - 26 * s} ${cy} Q${cx - 28 * s} ${cy - 34 * s} ${cx} ${cy - 36 * s} Q${cx + 28 * s} ${cy - 34 * s} ${cx + 26 * s} ${cy} Q${cx + 24 * s} ${cy + 10 * s} ${cx + 16 * s} ${cy + 14 * s} L${cx + 16 * s} ${cy + 26 * s} L${cx - 16 * s} ${cy + 26 * s} L${cx - 16 * s} ${cy + 14 * s} Q${cx - 24 * s} ${cy + 10 * s} ${cx - 26 * s} ${cy}Z`);
+  g += `<path d="M${cx - 10 * s} ${cy - 30 * s} Q${cx - 2 * s} ${cy - 22 * s} ${cx - 6 * s} ${cy - 14 * s} M${cx + 14 * s} ${cy - 28 * s} L${cx + 8 * s} ${cy - 18 * s}" stroke="${PAL[k][2]}" stroke-width="${1.6 * s}" fill="none" opacity=".7"/>`;
+  for (const sd of [-1, 1]) g += glow(cx + sd * 11 * s, cy - 2 * s, 13 * s, eye, .9) + `<path d="M${cx + sd * 4 * s} ${cy - 10 * s} Q${cx + sd * 20 * s} ${cy - 12 * s} ${cx + sd * 20 * s} ${cy} Q${cx + sd * 18 * s} ${cy + 8 * s} ${cx + sd * 8 * s} ${cy + 6 * s} Q${cx + sd * 2 * s} ${cy} ${cx + sd * 4 * s} ${cy - 10 * s}Z" fill="#14020A" stroke="${TD}" stroke-width="2"/><circle cx="${cx + sd * 11 * s}" cy="${cy - 1 * s}" r="${3.4 * s}" fill="${eye}" class="pulse"/><circle cx="${cx + sd * 11 * s}" cy="${cy - 1 * s}" r="${1.4 * s}" fill="#FFF4E0"/>`;
+  g += `<path d="M${cx} ${cy + 4 * s} L${cx - 4 * s} ${cy + 12 * s} L${cx + 4 * s} ${cy + 12 * s}Z" fill="#14020A" stroke="${TD}" stroke-width="1.6"/>`;
+  // arcades sourcilières en V (regard furieux) et pommettes creusées
+  g += `<path d="M${cx - 24 * s} ${cy - 16 * s} L${cx - 3 * s} ${cy - 7 * s} L${cx - 4 * s} ${cy - 12 * s} L${cx - 22 * s} ${cy - 20 * s}Z M${cx + 24 * s} ${cy - 16 * s} L${cx + 3 * s} ${cy - 7 * s} L${cx + 4 * s} ${cy - 12 * s} L${cx + 22 * s} ${cy - 20 * s}Z" fill="${PAL[k][2]}" stroke="${TD}" stroke-width="2" stroke-linejoin="round"/>`;
+  g += `<path d="M${cx - 24 * s} ${cy + 6 * s} Q${cx - 18 * s} ${cy + 12 * s} ${cx - 12 * s} ${cy + 8 * s} M${cx + 24 * s} ${cy + 6 * s} Q${cx + 18 * s} ${cy + 12 * s} ${cx + 12 * s} ${cy + 8 * s}" stroke="${PAL[k][2]}" stroke-width="${2 * s}" fill="none" opacity=".8"/>`;
+  g += `<path d="M${cx - 14 * s} ${cy + 18 * s} H${cx + 14 * s}" stroke="${TD}" stroke-width="${2 * s}"/>` + [-9, -3, 3, 9].map(x => `<path d="M${cx + x * s} ${cy + 15 * s} V${cy + 26 * s}" stroke="${TD}" stroke-width="${1.6 * s}"/>`).join("");
+  g += shine(`M${cx - 20 * s} ${cy - 18 * s} Q${cx - 16 * s} ${cy - 30 * s} ${cx - 4 * s} ${cy - 32 * s}`, 3 * s, .7);
+  return g;
+}
+// Ailes de chauve-souris / démon : membrane et doigts osseux
+function batWings(span, k, bone = "bone"){
+  let g = "";
+  for (const sd of [-1, 1]) {
+    const bx = 100 + sd * 34, by = 86;
+    // épaule haute puis doigts osseux en éventail ; membrane creusée entre chaque doigt
+    const sh = [bx + sd * span * .42, by - span * .62];
+    const tips = [[1.02, -.78], [1.08, -.28], [.96, .12], [.72, .44], [.42, .6]].map(([a, b]) => [bx + sd * a * span, by + b * span]);
+    let d = `M${bx} ${by} L${sh[0]} ${sh[1]} L${tips[0][0]} ${tips[0][1]}`;
+    for (let t = 1; t < tips.length; t++) { const [px, py] = tips[t - 1], [qx, qy] = tips[t];
+      const mx = (px + qx) / 2, my = (py + qy) / 2; d += ` Q${(mx * .62 + sh[0] * .2 + bx * .18).toFixed(1)} ${(my * .62 + sh[1] * .2 + by * .18).toFixed(1)} ${qx.toFixed(1)} ${qy.toFixed(1)}`; }
+    d += ` Q${bx + sd * span * .2} ${by + span * .3} ${bx} ${by + 26}Z`;
+    g += P(k, {dy:3, w:2.8})(d);
+    g += `<path d="M${bx} ${by} L${sh[0]} ${sh[1]}" stroke="${TD}" stroke-width="8" stroke-linecap="round"/><path d="M${bx} ${by} L${sh[0]} ${sh[1]}" stroke="${PAL[bone][1]}" stroke-width="4.4" stroke-linecap="round"/>`;
+    g += tips.map(([x, y]) => `<path d="M${sh[0]} ${sh[1]} Q${((sh[0] + x) / 2 + sd * 4).toFixed(1)} ${((sh[1] + y) / 2 - 4).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}" stroke="${TD}" stroke-width="5.4" fill="none" stroke-linecap="round"/><path d="M${sh[0]} ${sh[1]} Q${((sh[0] + x) / 2 + sd * 4).toFixed(1)} ${((sh[1] + y) / 2 - 4).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}" stroke="${PAL[bone][1]}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`).join("");
+    g += P(bone, {dy:1, w:2})(`M${sh[0]} ${sh[1]} l${sd * 4} -16 l${sd * 6} 14Z`);
+  }
+  return g;
+}
+// Aura d'ombre : couronne de flammes noires et rouges qui tourne autour de l'emblème
+function aura(r, n, inner, outer, speed = "spin", o = .95){
+  let g = "";
+  for (let k = 0; k < n; k++) {
+    const a = k / n * Math.PI * 2, L = r * (.34 + (k % 3) * .1), wa = Math.PI / n * 1.2;
+    const x1 = 100 + Math.cos(a - wa) * r, y1 = 100 + Math.sin(a - wa) * r, x2 = 100 + Math.cos(a + wa) * r, y2 = 100 + Math.sin(a + wa) * r;
+    const tx = 100 + Math.cos(a + .18) * (r + L), ty = 100 + Math.sin(a + .18) * (r + L), cx = 100 + Math.cos(a - .1) * (r + L * .6), cy = 100 + Math.sin(a - .1) * (r + L * .6);
+    g += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${tx.toFixed(1)} ${ty.toFixed(1)} Q${(100 + Math.cos(a + .3) * (r + L * .4)).toFixed(1)} ${(100 + Math.sin(a + .3) * (r + L * .4)).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}Z" fill="${k % 2 ? outer : inner}" opacity="${o}"/>`;
+  }
+  return `<g class="${speed}">${g}</g>`;
+}
+function scythes(){ let g = "";
+  for (const sd of [-1, 1]) g += `<g transform="rotate(${sd * 32} 100 104)">${P("shadow", {dy:2, w:2.4})("M97 18 L103 18 L104 184 L96 184Z")}${P("silver", {dy:2, w:2.6})(sd < 0 ? "M100 20 Q60 6 30 30 Q62 22 100 34Z" : "M100 20 Q140 6 170 30 Q138 22 100 34Z")}${P("blood", {dy:1, w:2})("M95 60 L105 60 L105 70 L95 70Z")}</g>`;
+  return g; }
+const boneRing = (r, n) => Array.from({length:n}, (_, k) => { const a = k / n * Math.PI * 2; return `<g transform="translate(${(100 + Math.cos(a) * r).toFixed(1)} ${(100 + Math.sin(a) * r).toFixed(1)}) scale(.32)">${skull(0, 0, 1, {eye:"#FF3A3A"})}</g>`; }).join("");
+
+// Créatures supplémentaires
+CRE.faucheur = () => P("shadow", {dy:3})("M58 132 Q54 70 100 50 Q146 70 142 132 Q120 120 100 124 Q80 120 58 132Z") + `<path d="M70 120 Q72 78 100 64 Q128 78 130 120 Q100 108 70 120Z" fill="#0A0210" stroke="${TD}" stroke-width="2.4"/>` + skull(100, 100, .82, {eye:"#FF1A3A"});
+CRE.roi = () => skull(100, 104, 1.12, {horns:"shadow", eye:"#FF1A1A"}) + crownFull(66, 32, "gold", [[0, -28, "blood"], [-.6, -18, "shadow"], [.6, -18, "shadow"]]);
+
+/* --- Palettes : une couleur par prestige --- */
+PAL.sapphire = ["#C8F0FF", "#2A86F0", "#0A2A7A"];
+PAL.teal = ["#A8FFF4", "#14B8A8", "#04484A"];
+PAL.void = ["#5A5A6E", "#101018", "#000000"];
+PAL.holy = ["#FFFFFF", "#F4DC9A", "#9A7A2A"];
+PAL.emerald = ["#C8FFA8", "#22C85A", "#03461A"];
+PAL.soul = ["#F0FFC0", "#6AF83A", "#0A5A14"];
+// Éclairs qui crépitent
+function bolts(n, r, c){ let g = "";
+  for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2 + .3, x0 = 100 + Math.cos(a) * r, y0 = 100 + Math.sin(a) * r; let d = `M${x0.toFixed(1)} ${y0.toFixed(1)}`, x = x0, y = y0;
+    for (let t = 0; t < 4; t++) { x += Math.cos(a) * 12 + (t % 2 ? 7 : -7) * Math.sin(a); y += Math.sin(a) * 12 - (t % 2 ? 7 : -7) * Math.cos(a); d += ` L${x.toFixed(1)} ${y.toFixed(1)}`; }
+    g += `<path class="zap" style="animation-delay:-${(k * .23).toFixed(2)}s" d="${d}" stroke="${c}" stroke-width="3.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>`; }
+  return `<g filter="url(#${PF}bg)">${g}</g>`; }
+// Bulles qui montent
+const bubbles = (n, c) => Array.from({length:n}, (_, k) => `<circle class="rise" style="animation-delay:-${(k * .41).toFixed(2)}s" cx="${(40 + (k * 37) % 120)}" cy="${150 - (k * 13) % 30}" r="${2 + k % 4}" fill="none" stroke="${c}" stroke-width="1.8"/>`).join("");
+// Cristaux qui tournent autour de l'emblème
+function crystals(n, r, k){ let g = "";
+  for (let t = 0; t < n; t++) { const a = t / n * Math.PI * 2, x = 100 + Math.cos(a) * r, y = 100 + Math.sin(a) * r;
+    g += `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(a * 180 / Math.PI + 90).toFixed(0)})">${P(k, {dy:1.5, w:2})("M0 -14 L6 -2 L0 12 L-6 -2Z")}<path d="M0 -14 L0 12" stroke="#fff" stroke-width="1.2" opacity=".6"/></g>`; }
+  return `<g class="spin">${g}</g>`; }
+// Visage céleste : casque d'or ailé, visière lumineuse, auréole
+CRE.ange = () => `<ellipse cx="100" cy="46" rx="30" ry="8" fill="none" stroke="#FFF4C0" stroke-width="5" class="pulse"/><ellipse cx="100" cy="46" rx="30" ry="8" fill="none" stroke="#C8A040" stroke-width="1.6"/>`
+  + wings(30, 3, "holy", {up:1.1}).replace(/translate\(0 2\.5\)/g, "translate(0 2.5)")
+  + P("holy", {dy:3})("M70 104 Q68 66 100 60 Q132 66 130 104 Q128 124 116 132 L84 132 Q72 124 70 104Z")
+  + P("gold", {dy:2, w:2.4})("M98 60 L102 60 L104 132 L96 132Z")
+  + `<path d="M76 92 L124 92 L120 102 L80 102Z" fill="#14100A" stroke="${TD}" stroke-width="2.4"/>` + glow(100, 97, 22, "#FFFFFF", .9) + `<path d="M80 96 L120 96" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" class="pulse"/>`
+  + shine("M76 84 Q78 70 92 64", 3, .8);
+// Roi-liche : crâne aux flammes d'âme vertes
+CRE.liche = () => {
+  let fl = "";
+  for (let k = 0; k < 7; k++) { const x = 70 + k * 10, h = 22 + (k % 3) * 10 + (k === 3 ? 14 : 0); fl += `<path class="flick" style="animation-delay:-${k * .13}s" d="M${x - 7} 72 Q${x - 9} ${72 - h * .6} ${x} ${72 - h} Q${x + 9} ${72 - h * .6} ${x + 7} 72Z" fill="${k % 2 ? "#14141E" : "#3A3A4E"}" stroke="#E8F4FF" stroke-width="1.6"/>`; }
+  return fl + skull(100, 104, 1.12, {horns:"void", eye:"#E8FFFF", k:"bone"}) + crownFull(66, 32, "gold", [[0, -28, "void"], [-.6, -18, "void"], [.6, -18, "void"]]);
+};
+CRE.ombre = () => P("emerald", {dy:3})("M54 136 Q50 70 100 46 Q150 70 146 136 Q122 122 100 126 Q78 122 54 136Z")
+  + `<path d="M68 122 Q70 76 100 60 Q130 76 132 122 Q100 108 68 122Z" fill="#000" stroke="${TD}" stroke-width="2.4"/>`
+  + glow(88, 96, 12, "#7AFF4A", .9) + glow(112, 96, 12, "#7AFF4A", .9)
+  + `<path d="M80 94 L94 99 L82 101Z M120 94 L106 99 L118 101Z" fill="#E8FFC0" class="pulse"/>`
+  + `<path d="M86 112 Q100 118 114 112" stroke="#9AA8C0" stroke-width="2" fill="none" opacity=".7"/>` + shine("M62 96 Q66 70 88 56", 2.6, .25);
+
+/* --- Les 10 prestiges (version 3 : une couleur par prestige, du mouvement, de grosses auras) --- */
+const PRE = [
+  {n:"Apprenti", c:"hibou", col:"Bronze", note:"Médaillon de bronze, simple et net."},
+  {n:"Éclaireur", c:"loup", col:"Argent", note:"Médaillon d'argent cerclé, laurier, reflet qui passe."},
+  {n:"Lettré", c:"serpent", col:"Or", note:"Premier blason, en or, ailes dorées, lueur dorée qui respire."},
+  {n:"Seigneur des Tempêtes", c:"griffon", col:"Saphir", note:"Griffon sur blason saphir, ailes bleues, éclairs qui crépitent tout autour."},
+  {n:"Gardien de Cristal", c:"lion", col:"Améthyste", note:"Lion sur blason améthyste, couronne de cristaux qui tourne, aura violette."},
+  {n:"Seigneur des Cendres", c:"dragon", col:"Rubis", note:"Dragon, ailes de démon, aura de flammes rouges qui tourne."},
+  {n:"Archimage des Abysses", c:"kraken", col:"Turquoise", note:"Kraken, tentacules, bulles qui montent, aura turquoise."},
+  {n:"Faucheur des Âmes", c:"ombre", col:"Émeraude", note:"Silhouette encapuchonnée aux yeux verts, faux, ailes de démon et aura verte qui tourne."},
+  {n:"Archange", c:"ange", col:"Blanc et or", note:"Casque ailé, auréole, immenses ailes blanches, rayons de lumière qui tournent."},
+  {n:"Maître Prestige", c:"liche", col:"Noir absolu", note:"Roi-liche couronné aux flammes noires et aux yeux blancs glacés, ailes de démon noires, crânes, triple aura de fumée noire immense. Le plus sombre de tous."}
+];
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+function rays(n, r, c, cls, o = .25){ let d = ""; for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2; d += `M100 100 L${(100 + Math.cos(a - .05) * r).toFixed(1)} ${(100 + Math.sin(a - .05) * r).toFixed(1)} L${(100 + Math.cos(a + .05) * r).toFixed(1)} ${(100 + Math.sin(a + .05) * r).toFixed(1)}Z `; } return `<g class="${cls}"><path d="${d}" fill="${c}" opacity="${o}"/></g>`; }
+function emblem(i){
+  ns(); const p = PRE[i], L = i + 1;
+  let back = "", front = "";
+  const big = (c, r, o) => glow(100, 100, r, c, o, "breathe");
+  // --- auras lumineuses (de plus en plus grosses) ---
+  if (L === 3) back += big("#FFD23F", 92, .55);
+  if (L === 4) back += big("#3A9AFF", 118, .8) + aura(70, 18, "#0A2A7A", "#3A9AFF", "spin", .7) + bolts(8, 66, "#C8F4FF");
+  if (L === 5) back += big("#B060FF", 122, .85) + aura(72, 20, "#3A0E7A", "#B060FF", "spinr", .75);
+  if (L === 6) back += big("#FF3A1A", 126, .85) + aura(78, 24, "#4A0004", "#FF3A1A", "spin", .9) + aura(64, 18, "#FFB020", "#C8142E", "spinr", .7);
+  if (L === 7) back += big("#14E8D0", 128, .85) + aura(76, 22, "#04484A", "#2AE8D8", "spin", .85) + bubbles(14, "#C8FFF8");
+  if (L === 8) back += big("#3AFF6A", 140, .9) + aura(84, 28, "#022A0A", "#2AE84A", "spin", .95) + aura(70, 22, "#0A0A12", "#7AFF3A", "spinr", .85);
+  if (L === 9) back += big("#FFF8D8", 140, .95) + rays(24, 136, "#FFF4C0", "spin", .35) + rays(12, 120, "#FFFFFF", "spinr", .25);
+  if (L === 10) back += big("#000000", 156, .98) + big("#8A9AC0", 128, .3) + rays(20, 140, "#E8F4FF", "spinr", .18) + aura(94, 30, "#000000", "#1A1A26", "spin", .98) + aura(80, 24, "#000000", "#3A3A4E", "spinr", .92) + aura(66, 18, "#0A0A12", "#5A5A6E", "spin", .8) + `<circle cx="100" cy="100" r="100" fill="none" stroke="#E8F4FF" stroke-width="1.6" opacity=".45" stroke-dasharray="3 9" class="spinr"/>`;
+  // --- ailes, armes, ornements ---
+  if (L === 3) back += wings(40, 3, "gold");
+  if (L === 4) back += wings(68, 5, "sapphire", {alt:"silver"});
+  if (L === 5) back += wings(66, 5, "violet", {alt:"silver"}) + crystals(10, 78, "violet");
+  if (L === 6) back += batWings(86, "crimson", "gold") + spikes(7, 64, "gold", 22);
+  if (L === 7) back += swords("silver") + wings(72, 6, "teal", {alt:"silver"});
+  if (L === 8) back += scythes() + batWings(94, "emerald", "emerald");
+  if (L === 9) back += wings(108, 8, "holy", {alt:"gold"});
+  if (L === 10) back += batWings(108, "void", "gold") + spikes(9, 68, "gold", 26);
+  if (L === 2) back += laurel("silver", 64, 5);
+  if (L === 3) back += laurel("gold", 66, 6);
+  // --- corps du blason ---
+  const body = {1:"bronze", 2:"silver", 3:"gold", 4:"sapphire", 5:"violet", 6:"crimson", 7:"teal", 8:"emerald", 9:"holy", 10:"void"}[L];
+  let shell = "";
+  if (L <= 2) {
+    shell += P(body, {dy:4})(circleD(100, 100, 52)) + `<circle cx="100" cy="100" r="42" fill="none" stroke="${PAL[body][2]}" stroke-width="3" opacity=".6"/>`;
+    if (L === 2) shell += `<circle cx="100" cy="100" r="47" fill="none" stroke="#FFFFFF" stroke-width="3"/>` + Array.from({length:12}, (_, k) => { const a = k / 12 * Math.PI * 2; return `<circle cx="${(100 + Math.cos(a) * 47).toFixed(1)}" cy="${(100 + Math.sin(a) * 47).toFixed(1)}" r="2.4" fill="#FFF" stroke="${TD}" stroke-width="1"/>`; }).join("")
+      + `<clipPath id="${PF}cl2"><circle cx="100" cy="100" r="52"/></clipPath><g clip-path="url(#${PF}cl2)"><rect class="sweep" x="20" y="30" width="18" height="140" fill="#FFFFFF" opacity=".5" transform="rotate(20 100 100)"/></g>`;
+    shell += shine("M62 80 Q70 58 92 52", 4, .6);
+  } else {
+    const sc = L >= 8 ? 1.16 : L >= 4 ? 1.08 : 1;
+    shell += P(body, {dy:5})(shieldD(sc));
+    const rim = {3:"#FFF4C0", 4:"#E8F8FF", 5:"#F0D8FF", 6:"#FFD23F", 7:"#C8FFF8", 8:"#7AFF4A", 9:"#FFD23F", 10:"#E8F4FF"}[L];
+    shell += `<path d="${shieldD(sc * .86)}" fill="none" stroke="${rim}" stroke-width="${L >= 4 ? 4 : 3}" opacity=".9"/>`;
+    if (L >= 4) shell += `<path d="${shieldD(sc * .93)}" fill="none" stroke="${rim}" stroke-width="2" stroke-dasharray="2 6" opacity=".8" class="dash"/>`;
+    shell += shine(`M${100 - 40 * sc} 70 Q${100 - 36 * sc} 56 ${100 - 14 * sc} 52`, 4, L === 8 ? .2 : .5);
+  }
+  front += CRE[p.c]();
+  // --- gemmes et finitions ---
+  const gk = {4:"sapphire", 5:"violet", 6:"crimson", 7:"teal", 8:"emerald", 9:"holy", 10:"void"}[L];
+  if (gk) front += glow(100, 162, 18 + L, {4:"#7AC8FF", 5:"#C890FF", 6:"#FF5A3A", 7:"#5AF8E8", 8:"#7AFF4A", 9:"#FFFFFF", 10:"#E8F4FF"}[L], .85) + gem(100, 162, 8 + L * .4, gk);
+  if (L === 6) front += crownFull(48, 32, "bone", [[0, -26, "crimson"]]);
+  if (L === 8) front += boneRing(92, 10).replace(/#FF3A3A/g, "#7AFF4A");
+  if (L === 10) front += boneRing(104, 12).replace(/#FF3A3A/g, "#E8FFFF")
+    + [[24, 30], [176, 36], [30, 168], [172, 162], [100, -10], [4, 100], [196, 104], [60, 0], [142, -2]].map(([x, y], k) => `<path class="spark" style="animation-delay:-${k * .3}s" d="M${x} ${y - 8} L${x + 2} ${y - 2} L${x + 8} ${y} L${x + 2} ${y + 2} L${x} ${y + 8} L${x - 2} ${y + 2} L${x - 8} ${y} L${x - 2} ${y - 2}Z" fill="#FFFFFF"/>`).join("");
+  if (L === 9) front += [[30, 30], [170, 30], [20, 150], [180, 150], [100, -14]].map(([x, y], k) => `<path class="spark" style="animation-delay:-${k * .4}s" d="M${x} ${y - 8} L${x + 2} ${y - 2} L${x + 8} ${y} L${x + 2} ${y + 2} L${x} ${y + 8} L${x - 2} ${y + 2} L${x - 8} ${y} L${x - 2} ${y - 2}Z" fill="#FFFFFF"/>`).join("");
+  const rk = {1:"bronze", 2:"silver", 3:"gold", 4:"sapphire", 5:"violet", 6:"crimson", 7:"teal", 8:"emerald", 9:"gold", 10:"void"}[L];
+  const rib = ribbon(L <= 2 ? 146 : L >= 8 ? 178 : 170, L === 10 ? "MAÎTRE" : ROMAN[i], rk);
+  return `<svg class="pa" viewBox="-36 -36 272 272" role="img" aria-label="Prestige ${L} : ${p.n}"><defs><filter id="${PF}bg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g class="${L >= 4 ? "float" : ""}">${back}${shell}${front}${rib}</g></svg>`;
+}
+
+
+/* ---------- Rangs de maîtrise (8 paliers) et symboles des 8 domaines ---------- */
+PAL.stone = ["#D8D4CC", "#8A847A", "#4A4640"];
+PAL.legend = ["#FFFFFF", "#FFD86A", "#A87A10"];
+const RANKS = [
+  {n:"Pierre", k:"stone", cond:"Premières bonnes réponses dans le domaine.", pct:0},
+  {n:"Bronze", k:"bronze", cond:"Premières bonnes réponses dans le domaine.", pct:0},
+  {n:"Argent", k:"silver", cond:"8 % de la maîtrise du domaine.", pct:8},
+  {n:"Or", k:"gold", cond:"18 % de la maîtrise du domaine.", pct:18},
+  {n:"Améthyste", k:"violet", cond:"32 % de la maîtrise du domaine.", pct:32},
+  {n:"Rubis", k:"crimson", cond:"48 % de la maîtrise du domaine.", pct:48},
+  {n:"Obsidienne", k:"void", cond:"66 % de la maîtrise et 60 % de réussite aux questions pointues.", pct:66},
+  {n:"Légende", k:"legend", cond:"85 % de la maîtrise et 75 % de réussite aux questions pointues. Très rare.", pct:85}
+];
+/* Symboles des domaines, dessinés en relief au centre de l'emblème */
+const DOM = {
+  his:{n:"Histoire", draw:(k) => P(k, {dy:2, w:2.4})("M84 82 L116 82 L112 88 L88 88Z") + P(k, {dy:2, w:2.4})("M88 88 L94 88 L94 116 L88 116Z M97 88 L103 88 L103 116 L97 116Z M106 88 L112 88 L112 116 L106 116Z") + P(k, {dy:2, w:2.4})("M82 116 L118 116 L120 124 L80 124Z") + P(k, {dy:2, w:2.4})("M80 82 L100 70 L120 82Z")},
+  geo:{n:"Géographie", draw:(k) => P(k, {dy:2, w:2.4})(circleD(100, 98, 22)) + `<path d="M78 98 H122 M100 76 Q86 98 100 120 Q114 98 100 76 M82 86 Q100 92 118 86 M82 110 Q100 104 118 110" stroke="${TD}" stroke-width="2" fill="none"/>` + P("emerald", {dy:1, w:1.6})("M86 90 Q92 84 98 90 Q96 98 90 100 Q84 96 86 90Z M104 102 Q112 98 114 106 Q108 112 104 108Z")},
+  sci:{n:"Sciences", draw:(k) => `<ellipse cx="100" cy="98" rx="26" ry="9" fill="none" stroke="${TD}" stroke-width="6"/><ellipse cx="100" cy="98" rx="26" ry="9" fill="none" stroke="${PAL[k][0]}" stroke-width="3"/>` + [60, -60].map(a => `<ellipse cx="100" cy="98" rx="26" ry="9" fill="none" stroke="${TD}" stroke-width="6" transform="rotate(${a} 100 98)"/><ellipse cx="100" cy="98" rx="26" ry="9" fill="none" stroke="${PAL[k][0]}" stroke-width="3" transform="rotate(${a} 100 98)"/>`).join("") + P(k, {dy:1, w:2})(circleD(100, 98, 6))},
+  spo:{n:"Sport", draw:(k) => P(k, {dy:2, w:2.4})("M84 76 L116 76 Q116 100 100 104 Q84 100 84 76Z") + `<path d="M84 80 Q72 80 74 90 Q76 96 86 94 M116 80 Q128 80 126 90 Q124 96 114 94" stroke="${TD}" stroke-width="5" fill="none"/><path d="M84 80 Q72 80 74 90 Q76 96 86 94 M116 80 Q128 80 126 90 Q124 96 114 94" stroke="${PAL[k][0]}" stroke-width="2.4" fill="none"/>` + P(k, {dy:2, w:2.4})("M96 104 L104 104 L106 114 L94 114Z") + P(k, {dy:2, w:2.4})("M86 114 L114 114 L116 122 L84 122Z") + `<path d="M100 82 l2 4 l4 .6 l-3 3 l.8 4 l-3.8 -2 l-3.8 2 l.8 -4 l-3 -3 l4 -.6Z" fill="#fff"/>`},
+  art:{n:"Arts & littérature", draw:(k) => P(k, {dy:2, w:2.4})("M116 72 Q124 90 104 112 L96 120 L94 116 Q98 94 116 72Z") + `<path d="M114 78 Q104 96 96 116" stroke="${TD}" stroke-width="2" fill="none"/>` + `<path d="M94 116 L86 126" stroke="${TD}" stroke-width="3.4" stroke-linecap="round"/>` + P("void", {dy:1, w:2})("M76 118 Q84 112 92 118 L90 128 L78 128Z")},
+  cin:{n:"Cinéma & séries", draw:(k) => P(k, {dy:2, w:2.4})("M76 92 L124 92 L124 124 L76 124Z") + P("void", {dy:2, w:2.4})("M76 80 L122 70 L124 80 L78 90Z") + [0, 1, 2, 3].map(t => `<path d="M${84 + t * 10} 88 L${90 + t * 10} 76" stroke="#fff" stroke-width="4"/>`).join("") + `<path d="M88 104 L112 104 M88 112 L104 112" stroke="${TD}" stroke-width="3" stroke-linecap="round"/>`},
+  jeu:{n:"Jeux vidéo & mangas", draw:(k) => P(k, {dy:2, w:2.4})("M74 96 Q74 84 86 84 L114 84 Q126 84 126 96 L130 112 Q132 122 122 120 L112 110 L88 110 L78 120 Q68 122 70 112Z") + `<path d="M84 94 V104 M79 99 H89" stroke="${TD}" stroke-width="3.4" stroke-linecap="round"/><circle cx="112" cy="94" r="3" fill="${TD}"/><circle cx="118" cy="100" r="3" fill="${TD}"/>`},
+  cul:{n:"Culture générale", draw:(k) => P(k, {dy:2, w:2.4})("M100 72 Q120 72 120 92 Q120 102 110 110 L110 116 L90 116 L90 110 Q80 102 80 92 Q80 72 100 72Z") + P("silver", {dy:1, w:2})("M90 116 L110 116 L108 126 L92 126Z") + `<path d="M94 106 Q96 94 100 98 Q104 94 106 106" stroke="${TD}" stroke-width="2" fill="none"/>` + glow(100, 92, 26, "#FFF4A0", .5)}
+};
+// Cadre d'un rang : il grandit et se pare à chaque palier (esprit des rangs de jeux compétitifs, dessins originaux)
+function rankEmblem(r, dom = "his"){
+  ns();
+  const R = RANKS[r], k = R.k, T = r + 1;
+  let back = "", front = "";
+  const big = (c, rr, o) => glow(100, 100, rr, c, o, "breathe");
+  if (T >= 4) back += big({4:"#FFD23F", 5:"#B060FF", 6:"#FF3A3A", 7:"#5A3A8A", 8:"#FFF0A0"}[T], 70 + T * 8, .55 + T * .04);
+  if (T === 7) back += aura(70, 22, "#000000", "#3A1A5A", "spin", .9);
+  if (T === 8) back += rays(24, 130, "#FFE58A", "spin", .3) + aura(74, 24, "#FFD23F", "#FFFFFF", "spinr", .55);
+  // ailerons / ailes de côté qui grandissent
+  const fin = (len, kk, n) => { let g = ""; for (const sd of [-1, 1]) for (let t = 0; t < n; t++) { const y = 84 + t * 14, L = len * (1 - t * .18);
+    g += P(kk, {dy:2, w:2.4})(`M${100 + sd * 34} ${y - 8} L${100 + sd * (34 + L)} ${y - 16 - t * 2} L${100 + sd * (30 + L * .7)} ${y + 2} L${100 + sd * 34} ${y + 8}Z`); } return g; };
+  if (T === 2) back += fin(16, k, 1);
+  if (T === 3) back += fin(26, k, 2);
+  if (T === 4) back += fin(36, k, 3) + spikes(3, 52, k, 16);
+  if (T === 5) back += crystals(8, 70, "violet") + fin(40, k, 3) + spikes(5, 54, k, 18);
+  if (T === 6) back += wings(58, 5, "crimson", {alt:"gold"}) + spikes(5, 56, "gold", 20);
+  if (T === 7) back += batWings(70, "void", "violet") + spikes(7, 58, "violet", 22);
+  if (T === 8) back += wings(84, 7, "legend", {alt:"gold"}) + spikes(9, 60, "legend", 26);
+  // corps : hexagone de pierre → blason à facettes
+  const hex = (rr) => Array.from({length:6}, (_, t) => { const a = Math.PI / 6 + t * Math.PI / 3; return `${t ? "L" : "M"}${(100 + Math.cos(a) * rr).toFixed(1)} ${(100 + Math.sin(a) * rr).toFixed(1)}`; }).join(" ") + "Z";
+  const crest = (s) => `M100 ${100 - 50 * s} L${100 + 40 * s} ${100 - 30 * s} L${100 + 44 * s} ${100 + 14 * s} L100 ${100 + 56 * s} L${100 - 44 * s} ${100 + 14 * s} L${100 - 40 * s} ${100 - 30 * s}Z`;
+  const shape = T <= 2 ? hex(44) : crest(T >= 6 ? 1.12 : 1);
+  back += P(k, {dy:5})(shape);
+  back += `<path d="${T <= 2 ? hex(36) : crest((T >= 6 ? 1.12 : 1) * .84)}" fill="none" stroke="${T === 7 ? "#B060FF" : PAL[k][0]}" stroke-width="3" opacity=".8"/>`;
+  if (T === 1) back += `<path d="M78 86 L88 96 L84 108 M118 80 L110 92 M104 124 L110 114" stroke="${PAL.stone[2]}" stroke-width="2.4" fill="none"/>`;
+  if (T >= 5) back += `<path d="${crest((T >= 6 ? 1.12 : 1) * .92)}" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-dasharray="2 6" opacity=".7" class="dash"/>`;
+  back += shine(T <= 2 ? "M70 86 Q74 70 90 64" : "M70 76 Q72 66 86 58", 3.4, .55);
+  // médaillon central avec le symbole du domaine
+  const mk = T === 7 ? "violet" : T === 8 ? "gold" : k;
+  front += P(T >= 7 ? "void" : "void", {dy:2, w:2.6})(circleD(100, 98, 30)) + `<circle cx="100" cy="98" r="27" fill="none" stroke="${PAL[mk][0]}" stroke-width="2.4"/>`;
+  front += DOM[dom].draw(mk === "void" ? "silver" : mk);
+  // gemme du haut
+  if (T >= 3) front += gem(100, 50 - (T >= 6 ? 6 : 0), 6 + T * .4, {3:"silver", 4:"gold", 5:"violet", 6:"crimson", 7:"violet", 8:"legend"}[T]);
+  if (T === 8) front += crownFull(36, 22, "gold", [[0, -20, "crimson"]]) + [[24, 40], [176, 44], [30, 160], [170, 158], [100, -2]].map(([x, y], t) => `<path class="spark" style="animation-delay:-${t * .4}s" d="M${x} ${y - 8} L${x + 2} ${y - 2} L${x + 8} ${y} L${x + 2} ${y + 2} L${x} ${y + 8} L${x - 2} ${y + 2} L${x - 8} ${y} L${x - 2} ${y - 2}Z" fill="#FFFFFF"/>`).join("");
+  const rk = {1:"stone", 2:"bronze", 3:"silver", 4:"gold", 5:"violet", 6:"crimson", 7:"void", 8:"gold"}[T];
+  front += ribbon(T <= 2 ? 140 : 156, R.n.toUpperCase(), rk);
+  return `<svg class="pa" viewBox="-30 -30 260 260" role="img" aria-label="Rang ${R.n}"><defs><filter id="${PF}bg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g class="${T >= 6 ? "float" : ""}">${back}${front}</g></svg>`;
+}
+
+
+// Bannières (illustrations de fond)
+function banner(kind, w = 400, h = 160){
+  const id = uid();
+  if (kind === "aube") return `<svg class="bnr" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A2A8A"/><stop offset="1" stop-color="#E86AA8"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#${id})"/>`
+    + Array.from({length:30}, (_, k) => `<circle cx="${(k * 53) % w}" cy="${(k * 29) % (h * .6)}" r="${1 + k % 3 * .6}" fill="#fff" opacity=".7" class="pulse" style="animation-delay:-${k * .2}s"/>`).join("")
+    + `<path d="M0 ${h * .78} Q${w * .2} ${h * .6} ${w * .4} ${h * .74} T${w * .8} ${h * .7} T${w} ${h * .72} V${h} H0Z" fill="#2A1A5A" opacity=".8"/><path d="M0 ${h * .9} Q${w * .3} ${h * .78} ${w * .6} ${h * .88} T${w} ${h * .86} V${h} H0Z" fill="#1A0E3A"/></svg>`;
+  if (kind === "neant") {
+    let g = `<defs><radialGradient id="${id}" cx="70%" cy="40%" r="80%"><stop offset="0" stop-color="#3A3A4E"/><stop offset=".5" stop-color="#0E0E16"/><stop offset="1" stop-color="#000"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#${id})"/>`;
+    for (let k = 0; k < 9; k++) g += `<ellipse class="fogx" style="animation-delay:-${k * 1.3}s" cx="${(k * 71) % w}" cy="${h * (.3 + (k % 4) * .18)}" rx="${70 + k % 3 * 30}" ry="${14 + k % 2 * 8}" fill="#5A5A6E" opacity=".18"/>`;
+    for (let k = 0; k < 6; k++) g += `<g transform="translate(${30 + k * (w / 6)} ${h * .62}) scale(.42)" opacity=".18">${skull(0, 0, 1, {eye:"#E8F4FF"})}</g>`;
+    g += Array.from({length:14}, (_, k) => `<path class="spark" style="animation-delay:-${k * .3}s" d="M${(k * 61) % w} ${(k * 37) % h} l2 -6 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2Z" fill="#E8F4FF" opacity=".8"/>`).join("");
+    g += `<path d="M0 ${h} L0 ${h * .82} Q${w * .5} ${h * .7} ${w} ${h * .82} L${w} ${h}Z" fill="#000" opacity=".7"/>`;
+    return `<svg class="bnr" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice">${g}</svg>`;
+  }
+}
+// Cadres de l'avatar
+function frame(kind, inner){
+  if (kind === "bronze") return `<div class="fr"><svg viewBox="0 0 200 200" class="frsvg">${P("bronze", {dy:3})(circleD(100, 100, 92))}<circle cx="100" cy="100" r="78" fill="#2A1A4A" stroke="${TD}" stroke-width="3"/>${Array.from({length:8}, (_, k) => { const a = k / 8 * Math.PI * 2; return `<circle cx="${(100 + Math.cos(a) * 85).toFixed(1)}" cy="${(100 + Math.sin(a) * 85).toFixed(1)}" r="3.4" fill="#FFE0B0" stroke="${TD}" stroke-width="1.4"/>`; }).join("")}</svg><div class="frin">${inner}</div></div>`;
+  return `<div class="fr roi"><svg viewBox="-40 -40 280 280" class="frsvg">${glow(100, 100, 130, "#000", .9, "breathe")}${aura(92, 26, "#000", "#3A3A4E", "spin", .95)}${spikes(9, 92, "gold", 22).replace(/104/g, "100")}${P("void", {dy:3})(circleD(100, 100, 94))}<circle cx="100" cy="100" r="80" fill="#14141E" stroke="#FFD23F" stroke-width="4"/><circle cx="100" cy="100" r="86" fill="none" stroke="#E8F4FF" stroke-width="1.6" stroke-dasharray="3 7" class="dash"/>${[0, 90, 180, 270].map(a => `<g transform="rotate(${a} 100 100) translate(100 6) scale(.34)">${skull(0, 0, 1, {eye:"#E8F4FF"})}</g>`).join("")}</svg><div class="frin">${inner}</div></div>`;
+}
+
+const W = 640, H = 210;
+const sparkle = (x, y, r, c, k) => `<path class="spark" style="animation-delay:-${(k * .37).toFixed(2)}s" d="M${x} ${y - r} L${x + r * .25} ${y - r * .25} L${x + r} ${y} L${x + r * .25} ${y + r * .25} L${x} ${y + r} L${x - r * .25} ${y + r * .25} L${x - r} ${y} L${x - r * .25} ${y - r * .25}Z" fill="${c}"/>`;
+const svgB = (inner) => `<svg class="bnr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">${inner}</svg>`;
+function sky(a, b, c){ const [id, def] = lg(a, b); return `<defs>${def}</defs><rect width="${W}" height="${H}" fill="url(#${id})"/>` + (c ? `<rect width="${W}" height="${H}" fill="${c}"/>` : ""); }
+
+const BANNERS = {
+  // Conquérant : la Tour dans l'orage, fenêtres allumées, éclairs, étendards
+  tour(){ let s = sky("#14082A", "#5A1A3A");
+    s += Array.from({length:5}, (_, k) => `<ellipse class="fogx" style="animation-delay:-${k * 2}s" cx="${80 + k * 130}" cy="${40 + (k % 2) * 30}" rx="120" ry="26" fill="#2A1A3A" opacity=".7"/>`).join("");
+    s += `<path class="zap" d="M120 0 L104 46 L122 46 L98 104" stroke="#E8D8FF" stroke-width="3" fill="none"/><path class="zap" style="animation-delay:-.3s" d="M560 10 L548 50 L566 52 L546 96" stroke="#E8D8FF" stroke-width="3" fill="none"/>`;
+    // tour
+    const tw = (x, w, h, y0) => P("obsidian", {dy:3})(`M${x - w} ${H} L${x - w} ${y0 + 20} L${x - w - 6} ${y0 + 20} L${x - w - 6} ${y0} ${Array.from({length:5}, (_, k) => `L${x - w - 6 + k * (w + 6) * .5} ${y0} L${x - w - 6 + k * (w + 6) * .5} ${y0 - 10} L${x - w - 6 + (k + .5) * (w + 6) * .5} ${y0 - 10} L${x - w - 6 + (k + .5) * (w + 6) * .5} ${y0}`).join(" ")} L${x + w + 6} ${y0} L${x + w + 6} ${y0 + 20} L${x + w} ${y0 + 20} L${x + w} ${H}Z`);
+    s += tw(320, 54, 0, 30);
+    for (let r = 0; r < 6; r++) for (let c = -1; c <= 1; c++) s += `<rect x="${314 + c * 26}" y="${66 + r * 24}" width="12" height="16" rx="5" fill="${(r + c) % 3 ? "#FFB040" : "#3A2A1A"}" stroke="${TD}" stroke-width="1.6" class="${(r + c) % 3 ? "pulse" : ""}" style="animation-delay:-${r * .3}s"/>`;
+    s += [[250, 40], [390, 40]].map(([x, y], k) => `<path d="M${x} ${y} V${y - 30}" stroke="${TD}" stroke-width="3"/><path class="flick" d="M${x} ${y - 30} L${x + (k ? -40 : 40)} ${y - 22} L${x} ${y - 12}Z" fill="#E2283A" stroke="${TD}" stroke-width="2"/>`).join("");
+    s += `<path d="M0 ${H} L0 170 Q160 150 260 176 L380 176 Q480 150 640 168 L640 ${H}Z" fill="#0A0414"/>`;
+    return svgB(s); },
+  // Champion : arène, silhouette géante du boss aux yeux rouges, épées croisées, braises
+  boss(){ let s = sky("#2A0408", "#6A1410");
+    s += glow(320, 90, 170, "#FF3A1A", .45, "breathe");
+    s += `<path d="M180 ${H} Q190 60 320 40 Q450 60 460 ${H}Z" fill="#14020A"/><path d="M230 70 L210 20 L260 56 M410 70 L430 20 L380 56" fill="#14020A" stroke="#14020A" stroke-width="10" stroke-linejoin="round"/>`;
+    s += glow(288, 96, 22, "#FF2A1A", .9) + glow(352, 96, 22, "#FF2A1A", .9) + `<path d="M272 92 L300 100 L276 104Z M368 92 L340 100 L364 104Z" fill="#FFE0A0" class="pulse"/>`;
+    s += `<path d="M280 130 Q320 150 360 130" stroke="#FF5A2A" stroke-width="4" fill="none" class="pulse"/>`;
+    s += [-1, 1].map(sd => `<g transform="translate(${320 + sd * 210} 120) rotate(${sd * 28})">${P("silver", {dy:2, w:2.4})("M-5 -80 L5 -80 L7 40 L0 52 L-7 40Z")}${P("gold", {dy:2, w:2.4})("M-26 34 L26 34 L26 42 L-26 42Z")}</g>`).join("");
+    s += `<path d="M0 ${H} L0 176 Q320 150 640 176 L640 ${H}Z" fill="#1A0404" stroke="${TD}" stroke-width="3"/>`;
+    s += Array.from({length:22}, (_, k) => `<circle class="mm-ember" style="animation-delay:-${(k * .4).toFixed(1)}s" cx="${(k * 29) % W}" cy="${150 + (k % 4) * 12}" r="${1.4 + k % 3 * .6}" fill="${k % 2 ? "#FF8A3A" : "#FFD23F"}"/>`).join("");
+    return svgB(s); },
+  // Savant : bibliothèque des arcanes, livres qui flottent, cercles de runes
+  savant(){ let s = sky("#14083A", "#3A1A7A");
+    s += `<g class="spin" style="transform-origin:320px 105px">${Array.from({length:3}, (_, k) => `<circle cx="320" cy="105" r="${50 + k * 26}" fill="none" stroke="#C890FF" stroke-width="2" stroke-dasharray="${4 + k * 3} 10" opacity=".7"/>`).join("")}</g>`;
+    s += glow(320, 105, 80, "#B060FF", .6, "breathe");
+    for (let k = 0; k < 7; k++) { const x = 60 + k * 86, y = 60 + (k % 3) * 34, c = ["#E2283A", "#3A86F0", "#22C85A", "#FFD23F"][k % 4];
+      s += `<g class="float" style="animation-delay:-${k * .5}s"><g transform="translate(${x} ${y}) rotate(${(k % 2 ? -12 : 10)})">${part("M-18 -12 L18 -12 L18 12 L-18 12Z", c, "#2B1D3A", "#14082A", {dy:3, w:2.4})}<path d="M-18 -12 L-18 12" stroke="#FFF4DA" stroke-width="4"/><path d="M-10 -4 H10 M-10 2 H6" stroke="#FFF4DA" stroke-width="1.6" opacity=".7"/></g></g>`; }
+    s += `<g transform="translate(320 105)">${P("legend", {dy:3})("M-34 -22 Q0 -30 0 -18 Q0 -30 34 -22 L34 24 Q0 16 0 28 Q0 16 -34 24Z")}<path d="M0 -18 V28" stroke="${TD}" stroke-width="2"/>${["-24 -10 -6 -12", "-24 -2 -6 -4", "6 -12 24 -10", "6 -4 24 -2"].map(d => `<path d="M${d.split(" ").slice(0, 2).join(" ")} L${d.split(" ").slice(2).join(" ")}" stroke="#7A5AE8" stroke-width="1.8"/>`).join("")}</g>`;
+    s += Array.from({length:14}, (_, k) => sparkle((k * 47) % W, (k * 31) % H, 5, "#E8D8FF", k)).join("");
+    return svgB(s); },
+  // Vétéran : couronne de laurier d'or, rayons, velours cramoisi et filigrane
+  veteran(){ let s = sky("#3A0414", "#14020A");
+    s += `<g transform="translate(220 5)">${rays(28, 420, "#FFD86A", "spin", .14)}</g>`;
+    s += `<g transform="translate(220 5)">${laurel("gold", 78, 8)}</g>` + glow(320, 105, 70, "#FFD23F", .5, "breathe");
+    s += `<g transform="translate(320 104)">${P("gold", {dy:3})("M0 -40 L12 -12 L42 -12 L18 6 L28 36 L0 18 L-28 36 L-18 6 L-42 -12 L-12 -12Z")}<path d="M-8 -26 L-2 -30" stroke="#fff" stroke-width="3" stroke-linecap="round"/></g>`;
+    s += [0, 1].map(k => `<path d="M${k ? W : 0} 0 Q${k ? W - 80 : 80} ${H / 2} ${k ? W : 0} ${H}" stroke="#FFD23F" stroke-width="3" fill="none" opacity=".6"/><path d="M${k ? W - 14 : 14} 20 q${k ? -30 : 30} 30 0 60 q${k ? 30 : -30} 30 0 60" stroke="#FFD23F" stroke-width="2" fill="none" opacity=".45"/>`).join("");
+    return svgB(s); },
+  // Compétiteur : duel, deux camps qui s'affrontent, éclair « VS »
+  duel(){ let s = `<defs>${lg("#1A4AC8", "#0A1A5A", PF + "dA")[1]}${lg("#C81E6A", "#5A0A2A", PF + "dB")[1]}</defs><path d="M0 0 L370 0 L270 ${H} L0 ${H}Z" fill="url(#${PF}dA)"/><path d="M370 0 L${W} 0 L${W} ${H} L270 ${H}Z" fill="url(#${PF}dB)"/>`;
+    s += Array.from({length:10}, (_, k) => `<path d="M${-20 + k * 40} ${H} L${80 + k * 40} 0" stroke="#5AA8FF" stroke-width="2" opacity=".18"/><path d="M${380 + k * 40} ${H} L${480 + k * 40} 0" stroke="#FF8AC0" stroke-width="2" opacity=".18"/>`).join("");
+    s += glow(320, 105, 90, "#FFFFFF", .5, "breathe");
+    s += `<path class="zap" d="M360 0 L300 92 L344 92 L276 ${H}" stroke="#FFF4A0" stroke-width="10" fill="none" stroke-linejoin="round"/><path d="M360 0 L300 92 L344 92 L276 ${H}" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linejoin="round"/>`;
+    s += `<text x="320" y="122" text-anchor="middle" style="font:800 64px 'Bricolage Grotesque',sans-serif;font-style:italic" fill="#FFD23F" stroke="${TD}" stroke-width="7" paint-order="stroke">VS</text>`;
+    s += [[110, "#5AA8FF"], [530, "#FF8AC0"]].map(([x, c]) => `<g transform="translate(${x} 110)">${part("M-14 -40 L14 -40 L18 30 L0 46 L-18 30Z", "#FFFFFF", c, TD, {dy:2, w:2.4})}</g>`).join("");
+    return svgB(s); },
+  // Explorateur : mer, îles, voilier et rose des vents
+  aventure(){ let s = sky("#7AC8F0", "#0E3A78");
+    s += Array.from({length:24}, (_, k) => `<path class="av-wave" style="animation-delay:-${k * .3}s" d="M${(k * 53) % W} ${70 + (k * 23) % 130} q6 -5 12 0 q6 5 12 0" stroke="#fff" stroke-width="2" fill="none" opacity=".35"/>`).join("");
+    s += [[90, 150, 70, "#5AB04A"], [250, 70, 50, "#E8B050"], [560, 140, 66, "#E8F4FF"], [440, 60, 44, "#6A3A6A"]].map(([x, y, r, c]) => `<ellipse cx="${x}" cy="${y + 10}" rx="${r + 14}" ry="${r * .32 + 8}" fill="#5AD0F0" opacity=".4"/><ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * .34}" fill="#F8E2A8" stroke="${TD}" stroke-width="2.4"/><ellipse cx="${x}" cy="${y - 4}" rx="${r * .78}" ry="${r * .26}" fill="${c}" stroke="${TD}" stroke-width="2.4"/>`).join("");
+    s += `<g class="float"><g transform="translate(340 140)"><path d="M-30 0 L30 0 L22 16 L-22 16Z" fill="#A8784A" stroke="${TD}" stroke-width="2.6"/><path d="M0 0 V-52" stroke="${TD}" stroke-width="3"/><path d="M2 -50 L34 -12 L2 -10Z" fill="#fff" stroke="${TD}" stroke-width="2.4"/><path d="M-2 -44 L-24 -12 L-2 -12Z" fill="#FF5FA2" stroke="${TD}" stroke-width="2.4"/></g></g>`;
+    s += `<g class="spin" style="transform-origin:590px 50px"><g transform="translate(590 50)">${[0, 90, 180, 270].map(a => `<path d="M0 0 L-6 -8 L0 -34 L6 -8Z" fill="${a ? "#FFF4DA" : "#E2283A"}" stroke="${TD}" stroke-width="2" transform="rotate(${a})"/>`).join("")}<circle r="6" fill="#FFD23F" stroke="${TD}" stroke-width="2"/></g></g>`;
+    return svgB(s); }
+};
+// variable lg() avec id imposé : lg(a, b, id) renvoie [id, def]
+/* --- Cadres d'avatar --- */
+const FRAMES = {
+  tour(){ let s = P("obsidian", {dy:3})(circleD(100, 100, 94));
+    for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; s += `<g transform="translate(${(100 + Math.cos(a) * 92).toFixed(1)} ${(100 + Math.sin(a) * 92).toFixed(1)}) rotate(${(a * 180 / Math.PI + 90).toFixed(0)})">${P("obsidian", {dy:1.5, w:2})("M-9 -8 L9 -8 L9 8 L-9 8Z")}</g>`; }
+    s += [[-1, 0], [1, 0]].map(([sd]) => `<path d="M${100 + sd * 94} 40 V8" stroke="${TD}" stroke-width="3"/><path class="flick" d="M${100 + sd * 94} 8 L${100 + sd * 94 + sd * 30} 16 L${100 + sd * 94} 26Z" fill="#E2283A" stroke="${TD}" stroke-width="2"/>`).join("");
+    return s; },
+  boss(){ let s = glow(100, 100, 120, "#FF3A1A", .6, "breathe") + spikes(12, 92, "silver", 22).replace(/104/g, "100") + P("crimson", {dy:3})(circleD(100, 100, 94)) + `<circle cx="100" cy="100" r="86" fill="none" stroke="#FFD23F" stroke-width="3"/>`;
+    s += [-1, 1].map(sd => `<g transform="translate(100 186) rotate(${sd * 50})">${P("silver", {dy:1.5, w:2})("M-4 -60 L4 -60 L5 4 L0 12 L-5 4Z")}</g>`).join("");
+    return s; },
+  savant(){ return glow(100, 100, 118, "#B060FF", .6, "breathe") + `<g class="spin">${Array.from({length:16}, (_, k) => { const a = k / 16 * Math.PI * 2; return `<text x="${(100 + Math.cos(a) * 104).toFixed(1)}" y="${(104 + Math.sin(a) * 104).toFixed(1)}" text-anchor="middle" style="font:800 14px serif" fill="#E8D8FF">${"ᚠᚢᚦᚨᚱᚲᚷᚹ"[k % 8]}</text>`; }).join("")}</g>` + P("violet", {dy:3})(circleD(100, 100, 94)) + `<circle cx="100" cy="100" r="86" fill="none" stroke="#E8D8FF" stroke-width="2" stroke-dasharray="3 6" class="dash"/>` + [0, 120, 240].map(a => `<g transform="rotate(${a} 100 100) translate(100 4)">${gem(0, 0, 8, "violet")}</g>`).join(""); },
+  veteran(){ return glow(100, 100, 118, "#FFD23F", .55, "breathe") + `<g transform="translate(0 -4) scale(1)">${laurel("gold", 96, 9).replace(/104/g, "100")}</g>` + P("gold", {dy:3})(circleD(100, 100, 92)) + `<circle cx="100" cy="100" r="84" fill="none" stroke="#FFF4C0" stroke-width="3"/>` + gem(100, 10, 9, "crimson") + gem(100, 192, 8, "crimson"); },
+  duel(){ return `<g class="spin">${Array.from({length:8}, (_, k) => { const a = k / 8 * Math.PI * 2, x = 100 + Math.cos(a) * 106, y = 100 + Math.sin(a) * 106; return `<path class="zap" style="animation-delay:-${k * .2}s" d="M${x.toFixed(1)} ${y.toFixed(1)} l${k % 2 ? 6 : -6} 10 l${k % 2 ? -8 : 8} 2 l${k % 2 ? 6 : -6} 10" stroke="${k % 2 ? "#FF8AC0" : "#5AA8FF"}" stroke-width="3" fill="none"/>`; }).join("")}</g>`
+    + `<path d="${circleD(100, 100, 94)}" fill="none" stroke="${TD}" stroke-width="14"/><path d="M100 6 A94 94 0 0 0 100 194" fill="none" stroke="#3A86F0" stroke-width="9"/><path d="M100 6 A94 94 0 0 1 100 194" fill="none" stroke="#E2287A" stroke-width="9"/>` + glow(100, 100, 120, "#FFFFFF", .25, "breathe")
+    + `<g transform="translate(100 190)">${part("M-16 -10 L16 -10 L12 10 L-12 10Z", "#FFD23F", "#C8860A", TD, {dy:2, w:2.2})}<text y="5" text-anchor="middle" style="font:800 11px 'Bricolage Grotesque'" fill="${TD}">VS</text></g>`; },
+  aventure(){ return P("teal", {dy:3})(circleD(100, 100, 94)) + `<circle cx="100" cy="100" r="88" fill="none" stroke="#C8A06A" stroke-width="6" stroke-dasharray="7 4"/><circle cx="100" cy="100" r="88" fill="none" stroke="${TD}" stroke-width="1"/>`
+    + [0, 90, 180, 270].map(a => `<g transform="rotate(${a} 100 100) translate(100 0)">${P(a ? "silver" : "crimson", {dy:1.5, w:2})("M0 -14 L7 4 L0 0 L-7 4Z")}</g>`).join("")
+    + `<g transform="translate(168 168)"><path d="M0 -16 V14 M-12 2 Q0 20 12 2 M-6 -10 H6" stroke="${TD}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M0 -16 V14 M-12 2 Q0 20 12 2 M-6 -10 H6" stroke="#C8D4E8" stroke-width="3" fill="none" stroke-linecap="round"/><circle cy="-20" r="4" fill="none" stroke="#C8D4E8" stroke-width="3"/></g>`; }
+};
+function frameOf(k, inner){ return `<div class="fr cf"><svg viewBox="-30 -30 260 260" class="frsvg">${FRAMES[k]()}<circle cx="100" cy="100" r="80" fill="#1A1030" stroke="${TD}" stroke-width="3"/></svg><div class="frin">${inner}</div></div>`; }
+
+const COLL = [
+  {k:"tour", n:"Collection du Conquérant", w:"La Tour", col:"#E2283A", items:[["Bannière « Tour d'orage »", "Atteindre l'étage 60 de la Tour", "Épique"], ["Cadre « Remparts »", "Atteindre le sommet (étage 100)", "Légendaire"], ["Titre CONQUÉRANT DES CIMES", "Atteindre le sommet 3 semaines différentes", "Mythique"]]},
+  {k:"boss", n:"Collection du Champion", w:"Boss de la semaine", col:"#FF5A2A", items:[["Bannière « Arène »", "Infliger 50 PV au total aux Boss de la semaine", "Épique"], ["Cadre « Lames croisées »", "Finir 1er des dégâts sur un boss", "Légendaire"], ["Titre CHAMPION DE L'ARÈNE", "Participer à la victoire de 10 boss", "Mythique"]]},
+  {k:"savant", n:"Collection du Savant", w:"Rangs de maîtrise", col:"#B060FF", items:[["Bannière « Bibliothèque des arcanes »", "3 domaines au rang Or", "Épique"], ["Cadre « Cercle des runes »", "Un domaine au rang Légende", "Légendaire"], ["Titre MAÎTRE DES CONNAISSANCES", "4 domaines au rang Légende", "Mythique"]]},
+  {k:"veteran", n:"Collection du Vétéran", w:"Prestiges", col:"#FFD23F", items:[["Bannière « Laurier d'or »", "Atteindre le Prestige 3", "Épique"], ["Cadre « Couronne de laurier »", "Atteindre le Prestige 6", "Légendaire"], ["Titre LÉGENDE", "Atteindre le Prestige 9", "Mythique"]]},
+  {k:"duel", n:"Collection du Compétiteur", w:"Multijoueur", col:"#5AA8FF", items:[["Bannière « Face à face »", "Gagner 25 duels", "Épique"], ["Cadre « Électrique »", "Gagner 100 duels avec au moins 60 % de victoires", "Légendaire"], ["Titre CHAMPION", "Finir n°1 du classement de la semaine 4 fois", "Mythique"]]},
+  {k:"aventure", n:"Collection de l'Explorateur", w:"L'Aventure", col:"#2AC8B8", items:[["Bannière « Cinq îles »", "Vaincre 3 boss de l'Aventure", "Épique"], ["Cadre « Rose des vents »", "Gagner les 105 étoiles", "Légendaire"], ["Titre EXPLORATEUR DES CINQ MONDES", "Compléter les 5 mondes à 100 %", "Mythique"]]}
+];
+
+// Bannière et cadre d'une carte de visite : défaut (aube, bronze), Maître Prestige (neant, roi), collections (COLL)
+function bannerArt(k){ ns(); const s = BANNERS[k] ? BANNERS[k]() : banner(k === "neant" ? "neant" : "aube", W, H); return s.replace('<svg class="bnr"', '<svg class="bnr pa"'); }
+function frameArt(k, inner){ ns(); const s = FRAMES[k] ? frameOf(k, inner) : frame(k === "roi" ? "roi" : "bronze", inner); return s.replace('class="frsvg"', 'class="frsvg pa"'); }
+
+return {emblem, rankEmblem, PRE, RANKS, DOM, ROMAN, bannerArt, frameArt, COLL};
+})();
+
 /* ---------- Musique d'ambiance générée ---------- */
 const Music = (function(){
   let ctx = null, master = null, timer = null, next = 0, step = 0, mode = "calm", heat = 0;
@@ -4476,7 +5120,7 @@ const lvQueue = []; let lvOpen = false;
 // En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
 const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen()) || (typeof Tuto !== "undefined" && Tuto.open());
 const bdQueue = [];
-function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); flushLevelUp(); }
+function levelUp(n, what, sub, x){ lvQueue.push(Object.assign({n, what, sub}, x || {})); flushLevelUp(); }
 function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
 function lvBadge(n){
   const D = "#2B1D3A", u = "lv" + Math.random().toString(36).slice(2, 7);
@@ -4519,7 +5163,7 @@ function showLevelUp(){
   if (!lvQueue.length) { if (bdQueue.length) return showBadgeUp(); lvOpen = false; return; }
   // Le niveau de thème le plus haut en vedette, les autres en petites pastilles
   const all = lvQueue.splice(0), latest = new Map(); all.forEach(v => latest.set(v.what, v));
-  const list = [...latest.values()].sort((a, b) => (a.what === "Ton profil") - (b.what === "Ton profil") || b.n - a.n);
+  const list = [...latest.values()].sort((a, b) => (b.what === "Prestige") - (a.what === "Prestige") || (a.what === "Ton profil") - (b.what === "Ton profil") || b.n - a.n);
   const x = list[0], more = list.slice(1);
   if (S.settings.sfx !== false) { try { Music.sfx("level"); } catch(e){} try { navigator.vibrate && navigator.vibrate([30,50,30,50,90]); } catch(e){} }
   const cols = ["#FF5FA2","#FFD23F","#5AE8A0","#7FC8FF","#C9A2FF","#FF9E6E"];
@@ -4527,8 +5171,8 @@ function showLevelUp(){
   const el = document.createElement("div");
   el.className = "lvup"; el.setAttribute("role", "alertdialog"); el.setAttribute("aria-label", `Niveau ${x.n} en ${x.what}`);
   el.innerHTML = `<div class="lv-card"><div class="lv-rays" aria-hidden="true"></div><div class="lv-bits" aria-hidden="true">${bits}</div>
-    <div class="lv-badge">${lvBadge(x.n)}</div><span class="lv-kicker">Niveau supérieur !</span>
-    <b class="lv-title">${esc(x.what)} · niveau ${x.n}</b><span class="lv-sub">${esc(x.sub)}</span>
+    <div class="lv-badge ${x.big ? "lv-pres" : ""}">${x.art || lvBadge(x.n)}</div><span class="lv-kicker">${x.kick || "Niveau supérieur !"}</span>
+    <b class="lv-title">${esc(x.title || x.what + " · niveau " + x.n)}</b><span class="lv-sub">${esc(x.sub)}</span>
     ${more.length ? `<div class="lv-more">${more.map(m => `<span class="chip lamp">${esc(m.what)} · niv. ${m.n}</span>`).join("")}</div>` : ""}
     <button class="btn lv-ok" type="button">Trop bien !</button></div>`;
   document.body.appendChild(el);
@@ -4563,14 +5207,15 @@ function answer(id, ok, combo){
   if (typeof Evenements !== "undefined") Evenements.onAnswer(ok);   // serveur : tirage d'un fragment (bonne réponse) et défi « questions »
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
-  const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
+  const th = qTheme(id), before = themeLvl(th).L, accBefore = Profil.pres();
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
   const coins = (firstWin ? 1 : 0.5) * mult * (S.session && S.session.diff === "expert" ? 1.5 : 1) * PM("coin");
   S.xp[th] = (S.xp[th]||0) + xp; S.coins += coins;
-  const after = themeLvl(th).L, accAfter = acctLvl().L;
+  const after = themeLvl(th).L, accAfter = Profil.pres();
   if (after > before) levelUp(after, THEMES[th].n, `Tu deviens ${rank(after)}.`);
-  if (accAfter > accBefore) levelUp(accAfter, "Ton profil", "Tu montes en grade. Continue comme ça !");
+  if (accAfter.P > accBefore.P) Profil.check();
+  else if (accAfter.L > accBefore.L) levelUp(accAfter.L, "Ton profil", "Tu montes en grade. Continue comme ça !");
   checkBadges();
   return {xp, coins};
 }
@@ -4698,8 +5343,8 @@ function tapSparkle(el){
 }
 function header(){
   const p = S.profile;
-  const A = acctLvl(), st = streak();
-  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
+  const A = Profil.pres(), st = streak();
+  return `<div class="top hud"><button class="who" data-tab="profil" aria-label="Mon profil, ${Profil.label(A.P)}, niveau ${A.L}"><span class="hav" style="--p:${Math.round(A.p*100)}">${meSVG(40)}<span class="hpr">${Profil.mini()}</span><span class="hlv">${A.L}</span></span><span class="who-n"><span>${esc(p.name)}</span>${titleTag(myTitle(), "sm")}</span></button>
     <div class="pills">${typeof Potions !== "undefined" ? Potions.pill() : ""}<span class="pill streak ${st?"":"off"}" title="Défis d'affilée">${gIcon("flame",20)}${st}</span><button class="pill coins" data-tab="boutique" aria-label="${Math.floor(S.coins)} pièces, aller à la boutique"><span class="bigcoin"></span>${Math.floor(S.coins)}<span class="plus">+</span></button></div></div>`;
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
@@ -4709,6 +5354,7 @@ function render(){
   renderTabs();
   if (typeof flushLevelUp === "function") flushLevelUp();
   if (!S.profile) { app.innerHTML = `<div class="fade">${renderWelcome()}</div>`; return; }
+  if (typeof Profil !== "undefined") { Profil.check(); Profil.checkColl(); }
   const s = S.session;
   let html = S.tab === "aventure" && !(s && s.duel) ? "" : header();
   if (toasts.length) { html += toasts.map(t=>`<div class="toast" role="status">${t}</div>`).join(""); toasts = []; }
@@ -4772,11 +5418,11 @@ function dailyCard(){
     <button class="btn" data-start="daily">${p?`Reprendre · question ${p.pos}/10`:"Lancer le défi"}</button></div>`;
 }
 function renderHome(){
-  const A = acctLvl(), next = nextGoal();
+  const A = Profil.pres(), next = nextGoal();
   return `<section class="stack">
     <div class="me">${typeof Evenements !== "undefined" ? Evenements.homeBtn() : ""}<div class="me-av">${meSVG(72)}${typeof Familiers !== "undefined" ? Familiers.beside(40) : ""}</div><div class="stack" style="gap:4px;min-width:0">
-      <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
-      <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
+      <span class="label">${Profil.label(A.P)} · niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
+      <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP ${A.cycle ? "pour le " + Profil.label(A.P+1) : "pour le niveau " + (A.L+1)}</span></div></div>
     ${typeof Evenements !== "undefined" ? Evenements.card() : ""}
     ${portalCard()}
     ${typeof Calendrier !== "undefined" ? Calendrier.card() : ""}
@@ -4863,7 +5509,7 @@ const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B886
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
 const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : (typeof Aventure !== "undefined" && Aventure.titles[id]) ? Aventure.titles[id] : TITLES.find(t => t.id === id);
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : (typeof Aventure !== "undefined" && Aventure.titles[id]) ? Aventure.titles[id] : (typeof Profil !== "undefined" && Profil.titles[id]) ? Profil.titles[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché (celui que je porte)
 const myTitle = () => (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -4884,7 +5530,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
-      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"], ["adv2", "Vaincre le Sphinx Oublié (Aventure, Monde 2)"], ["adv3", "Vaincre le Léviathan (Aventure, Monde 3)"], ["adv4", "Vaincre le Roi des Glaces (Aventure, Monde 4)"], ["adv5", "Vaincre le Seigneur de la Corruption (Aventure, Monde 5)"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"], ["adv2", "Vaincre le Sphinx Oublié (Aventure, Monde 2)"], ["adv3", "Vaincre le Léviathan (Aventure, Monde 3)"], ["adv4", "Vaincre le Roi des Glaces (Aventure, Monde 4)"], ["adv5", "Vaincre le Seigneur de la Corruption (Aventure, Monde 5)"], ["cimes", "Collection du Conquérant : atteindre le sommet de la Tour 3 fois"], ["arene", "Collection du Champion : participer à la victoire de 10 boss"], ["savant", "Collection du Savant : 4 domaines au rang Légende"], ["legende", "Collection du Vétéran : atteindre le Prestige 9"], ["champion", "Collection du Compétiteur : finir n°1 de la semaine 4 fois"], ["explorateur", "Collection de l'Explorateur : les 5 mondes à 100 %"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
@@ -5167,8 +5813,7 @@ function renderProgress(){
       <span class="meter"><i style="width:${Math.round(L.p*100)}%"></i></span>
       <span class="sub">${S.xp[k]||0} XP · ${correctIn(k)}/${list.length} réussies · ${m} maîtrisées</span></div>`;
   }).join("");
-  return `${petCard()}<div class="acct"><div class="ring" style="--p:${Math.round(A.p*100)}"><div>${A.L}</div></div>
-      <div class="stack" style="gap:4px"><span class="label">Niveau de compte</span><b style="font-family:var(--f-display);font-size:19px">${totalXp()} XP au total</b><span class="muted" style="font-size:14.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}.</span></div></div>
+  return `${Profil.myCardBlock()}${petCard()}${Profil.progress()}
     <div class="stats">
       <div class="stat"><div class="v">${streak()}</div><div class="label">Défis d'affilée</div></div>
       <div class="stat"><div class="v">${acc}<small style="font-size:15px">%</small></div><div class="label">Réussite</div></div>
@@ -5184,7 +5829,7 @@ function renderProgress(){
 function badgeTile(b, size){ const own = S.badges[b.id], cur = Math.min(b.cur(), b.goal);
   return `<div class="bt ${own?"own":"lock"}" title="${esc(b.desc)}">${badge2(b.tier, b.icon, size||74)}<b>${esc(b.name.replace(/^.* · /, "") === b.name ? b.name : TIER_N[b.tier])}</b><span>${own ? "Obtenu" : `${cur}/${b.goal}`}</span><span class="bc"><span class="coin" aria-hidden="true"></span>${b.coins}</span></div>`; }
 function renderBadges(){
-  return renderSucces() + renderBadges0();
+  return (typeof Profil !== "undefined" ? Profil.collections() : "") + renderSucces() + renderBadges0();
 }
 function renderBadges0(){
   const got = BADGES.filter(b => S.badges[b.id]).length;
@@ -5333,9 +5978,11 @@ function onClick(e){
   if (e.target.closest && e.target.closest("#av-fight,#casino")) return;
   const av = e.target.closest && e.target.closest("[data-adv]");
   if (av && av.tagName !== "BUTTON" && typeof Aventure !== "undefined") return Aventure.click(av);
+  const see = e.target.closest("[data-see]"); if (see && !e.target.closest("button") && typeof Profil !== "undefined") return Profil.see(see.dataset.see);
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }
+  if (d.pc) return Profil.click(b);
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
   if (d.adv !== undefined) { if (S.settings.sfx !== false && !b.closest("#av-fight")) try { Music.sfx("tap"); } catch(err){} return Aventure.click(b); }
   if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
@@ -5497,6 +6144,245 @@ document.addEventListener("submit", e => {
 window.__app = {state:() => S, save, checkBadges, event:gameEvent, hero:heroChar};
 load();
 
+/* ---------- Profil : prestige (10 emblèmes) et maîtrise des 8 domaines ----------
+   Prestige : calculé depuis l'XP totale (rétroactif). Chaque cycle compte 9 niveaux ;
+   le 10e fait passer au prestige suivant. Cycle k (0 à 8) : 9 000 XP × 1,1^k.
+   Au Prestige 10 (Maître Prestige), les niveaux continuent sans fin.
+   Maîtrise : par domaine, 1/2/3 points par question réussie (facile/moyen/pointu), +2 si maîtrisée ;
+   rapportée au total possible du domaine. Les deux plus hauts paliers demandent aussi
+   un bon taux de réussite aux questions pointues. Dessins : atelier/profil_art.js (PArt). */
+const Profil = (() => {
+  const DOMS = ["his", "geo", "sci", "spo", "art", "cin", "jeu", "cul"];
+  const DMAP = {his:["his", "per", "myt"], geo:["geo", "cap"], sci:["sci", "esp", "cor", "ani", "tec"], spo:["spo"], art:["art", "lan", "mus"], cin:["cin"], jeu:["jeu", "bdm"], cul:["mon", "ins", "gas", "eco"]};
+  const D_OF = {}; DOMS.forEach(d => DMAP[d].forEach(t => D_OF[t] = d));
+  const COST = k => 9000 * Math.pow(1.1, k), BASE = k => 200 * Math.pow(1.1, k);
+  const NAMES = PArt.PRE.map(p => p.n);
+  // Paliers de maîtrise (1 à 7) ; l'indice 0 = pas encore classé
+  const TIERS = [null, {pct:0}, {pct:8}, {pct:18}, {pct:32}, {pct:48}, {pct:66, acc:60}, {pct:85, acc:75}];
+  const RN = PArt.RANKS.map(r => r.n);
+
+  // Prestige et niveau depuis une XP totale
+  function pres(x){
+    if (x === undefined) x = totalXp();
+    let k = 0; while (k < 9 && x >= COST(k)) { x -= COST(k); k++; }
+    const b = BASE(k);
+    if (k < 9 || x < 45 * b) { const l = lvl(x, b); return {P:k + 1, L:l.L, p:l.p, need:l.need, cycle:k < 9 && l.L === 9}; }
+    const s = 10 * b, y = x - 45 * b, n = Math.floor(y / s);
+    return {P:10, L:10 + n, p:(y % s) / s, need:s - (y % s), cycle:false};
+  }
+  const name = P => NAMES[Math.max(1, Math.min(10, P)) - 1];
+  const label = P => P >= 10 ? "Maître Prestige" : "Prestige " + P;
+
+  // Maîtrise : total possible par domaine (calculé une fois)
+  let MAX = null;
+  function maxes(){
+    if (MAX) return MAX; MAX = {}; DOMS.forEach(d => MAX[d] = 0);
+    for (const id in Q) { const d = D_OF[Q[id][0]]; if (d) MAX[d] += (Q[id][1] || 1) + 2; }
+    return MAX;
+  }
+  function mast(){
+    const M = maxes(), o = {}; DOMS.forEach(d => o[d] = {pts:0, hok:0, hko:0, n:0});
+    for (const id in S.q) { const q = Q[id], e = S.q[id]; if (!q || !e) continue; const d = D_OF[q[0]]; if (!d) continue; const r = o[d];
+      if (e.ok > 0) { r.pts += (q[1] || 1) + (e.b >= 3 ? 2 : 0); r.n++; }
+      if (q[1] === 3) { r.hok += e.ok || 0; r.hko += e.ko || 0; } }
+    DOMS.forEach(d => { const r = o[d]; r.pct = M[d] ? r.pts / M[d] * 100 : 0; r.acc = r.hok + r.hko ? r.hok / (r.hok + r.hko) * 100 : 0;
+      r.r = 0; if (r.n) for (let t = 1; t < TIERS.length; t++) { const T = TIERS[t]; if (r.pct >= T.pct && (!T.acc || r.acc >= T.acc)) r.r = t; } });
+    return o;
+  }
+  // Ce qu'il manque pour le palier suivant
+  function nextTxt(r){
+    if (r.r >= 7) return "Palier maximum atteint";
+    const T = TIERS[r.r + 1];
+    if (!r.r) return "Réussis une question pour entrer au rang Bronze";
+    return `${RN[r.r + 1]} : ${T.pct} % de maîtrise${T.acc ? ` et ${T.acc} % de réussite aux questions pointues` : ""}`;
+  }
+
+  // Dessins, gardés en mémoire (un dessin complet pèse lourd)
+  const cache = {};
+  const emblem = (P, still) => { const k = "e" + P + (still ? "s" : ""); return cache[k] || (cache[k] = PArt.emblem(Math.max(1, Math.min(10, P)) - 1).replace('class="pa"', `class="pa${still ? " still" : ""}"`)); };
+  const rankArt = (r, d) => { const k = "r" + r + d; return cache[k] || (cache[k] = PArt.rankEmblem(Math.max(1, r), d)); };
+
+  // Bloc « Prestige » et « Maîtrise » de Profil > Progrès
+  function progress(){
+    const A = pres(), x = totalXp(), mx = mast();
+    const nextL = A.cycle ? `Encore ${Math.ceil(A.need)} XP pour passer ${label(A.P + 1)} : ${name(A.P + 1)}` : `Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L + 1}`;
+    const tiles = DOMS.map(d => { const r = mx[d];
+      return `<div class="pm-dom ${r.r ? "" : "off"}" title="${esc(nextTxt(r))}">${rankArt(r.r, d)}<b>${esc(PArt.DOM[d].n)}</b><span>${r.r ? RN[r.r] : "Non classé"} · ${r.pct < 10 && r.pct > 0 ? r.pct.toFixed(1).replace(".", ",") : Math.floor(r.pct)} %</span><small>${esc(nextTxt(r))}</small></div>`; }).join("");
+    return `<div class="pr-card ${A.P >= 10 ? "legend" : ""} pr-p${A.P}"><div class="pr-emb">${emblem(A.P)}</div>
+      <div class="stack" style="gap:4px;min-width:0"><span class="label">Prestige ${A.P}</span><b class="pr-name">${esc(name(A.P))}</b>
+        <span class="pr-lv">Niveau ${A.L}</span><span class="meter"><i style="width:${Math.round(A.p * 100)}%"></i></span>
+        <span class="muted" style="font-size:13.5px">${nextL}</span><span class="muted" style="font-size:13px">${x} XP au total</span></div></div>
+    <div class="card stack"><div class="label">Maîtrise des domaines</div><div class="pm-grid">${tiles}</div>
+      <p class="muted" style="font-size:13.5px">Chaque question réussie compte (pointue = plus de points), et encore plus quand elle est maîtrisée. Obsidienne et Légende demandent aussi de bien réussir les questions pointues.</p></div>`;
+  }
+  // En-tête : petit emblème immobile
+  const mini = () => emblem(pres().P, true);
+
+  // Passage de prestige (et révélation du prestige actuel lors de la mise à jour)
+  function check(){
+    if (!S.profile) return;
+    const P = pres().P;
+    if (S.pres === undefined) { S.pres = P; if (P > 1) prestigeUp(P, true); return; }
+    if (P > S.pres) { S.pres = P; prestigeUp(P, false); }
+  }
+  function prestigeUp(P, reveal){
+    levelUp(P, "Prestige", reveal ? "Toute ton XP compte : voici ton rang de prestige." : "Ton niveau repart à 1 avec un nouvel emblème. Bravo !", {art:emblem(P), kick:reveal ? "Ton prestige" : "Nouveau prestige !", title:P >= 10 ? name(P) : `${label(P)} · ${name(P)}`, big:true});
+  }
+
+  // Pour le classement : XP totale (ancienne fiche sans XP : estimée depuis l'ancien niveau)
+  const txpOf = st => st.txp || (st.lvl ? 200 * st.lvl * (st.lvl - 1) / 2 : 0);
+  const boardTxt = st => { const A = pres(txpOf(st)); return `${A.P >= 10 ? "MP" : "P" + A.P} · niv. ${A.L}`; };
+
+  /* ---------- Carte de visite (mise en page A validée) ---------- */
+  const TIER_ORD = {maitre:6, diamant:5, platine:4, or:3, argent:2, bronze:1};
+  const C = () => (S.card = S.card || {bn:"aube", fr:"bronze", bd:[]});
+  const badgeOf = id => BADGES.find(b => b.id === id);
+  // Badges en vitrine : ceux choisis, sinon les 3 plus prestigieux
+  function showBadges(){
+    const own = Object.keys(S.badges).map(badgeOf).filter(Boolean), pick = C().bd.filter(id => S.badges[id] && badgeOf(id));
+    if (pick.length) return pick.slice(0, 3);
+    return own.sort((a, b) => (TIER_ORD[b.tier] || 0) - (TIER_ORD[a.tier] || 0) || String(S.badges[b.id]).localeCompare(String(S.badges[a.id]))).slice(0, 3).map(b => b.id);
+  }
+  /* ---------- Collections : bannière (Épique), cadre (Légendaire), titre (Mythique) gagnés par les exploits ---------- */
+  const TI = (id, n, a, b, f) => ({id, n, a, b, f});
+  const TITLES_C = {
+    cimes:TI("cimes", "CONQUÉRANT DES CIMES", "#FF6A7A", "#5A0A1A", "#FFF0F0"), arene:TI("arene", "CHAMPION DE L'ARÈNE", "#FF9A3A", "#7A1A0A", "#FFF4E0"),
+    savant:TI("savant", "MAÎTRE DES CONNAISSANCES", "#D0A0FF", "#3A0E7A", "#FFFFFF"), legende:TI("legende", "LÉGENDE", "#FFE58A", "#14141E", "#FFE58A"),
+    champion:TI("champion", "CHAMPION", "#7AC0FF", "#0A2A7A", "#FFFFFF"), explorateur:TI("explorateur", "EXPLORATEUR DES CINQ MONDES", "#5AF0E0", "#04484A", "#FFFFFF")};
+  const N = v => v || 0;
+  const tw = () => (S.tour || {}), bs = () => (S.boss || {}), on = () => (S.online || {}), adv = () => { try { return typeof Aventure !== "undefined" ? Aventure.stats() : {}; } catch(e){ return {}; } };
+  let mc = null, mt = 0; const mastC = () => (Date.now() - mt < 1500 && mc) || (mt = Date.now(), mc = mast());
+  const lvlCount = t => { const m = mastC(); return DOMS.filter(d => m[d].r >= t).length; };
+  const advAll = () => typeof Aventure !== "undefined" && [1, 2, 3, 4, 5].every(w => Aventure.pctOf(w) >= 100);
+  // Chaque objet : progression [actuel, but] ; le titre porte l'id du titre gagné
+  const RULES = {
+    tour:[() => [N(tw().best), 60], () => [N(tw().best), 100], () => [N(tw().tops), 3]],
+    boss:[() => [N(bs().total), 50], () => [N(bs().tops), 1], () => [N(bs().wins), 10]],
+    savant:[() => [lvlCount(3), 3], () => [lvlCount(7), 1], () => [lvlCount(7), 4]],
+    veteran:[() => [pres().P, 3], () => [pres().P, 6], () => [pres().P, 9]],
+    duel:[() => [N(on().wins), 25], () => { const o = on(), wr = o.played ? o.wins / o.played * 100 : 0; return [wr >= 60 ? N(o.wins) : Math.min(N(o.wins), 99), 100]; }, () => [N(on().crowns), 4]],
+    aventure:[() => [N(adv().boss), 3], () => [N(adv().stars), 105], () => [advAll() ? 1 : 0, 1]]
+  };
+  const CT = {tour:"cimes", boss:"arene", savant:"savant", veteran:"legende", duel:"champion", aventure:"explorateur"};
+  const RAR = ["Épique", "Légendaire", "Mythique"], RARC = ["#B060FF", "#FFB020", "#FF3A5A"];
+  const got = (k, i) => !!(S.coll && S.coll[k + i]);
+  // Vérifie les exploits (hors partie) ; les gains sont définitifs
+  function checkColl(){
+    if (!S.profile || (typeof inPlay === "function" && inPlay())) return;
+    S.coll = S.coll || {}; const news = [];
+    PArt.COLL.forEach(c => RULES[c.k].forEach((f, i) => { if (got(c.k, i)) return; const [a, b] = f(); if (a < b) return;
+      S.coll[c.k + i] = today();
+      if (i === 2) { S.titles = S.titles || {}; S.titles[CT[c.k]] = S.titles[CT[c.k]] || today(); }
+      news.push(c.items[i][0]); }));
+    if (news.length) { news.forEach(n => toasts.push(`<b>Collection</b> · ${esc(n)} débloqué !`)); save(); }
+  }
+  // Page Collections (Profil > Badges)
+  function collections(){
+    const own = PArt.COLL.reduce((a, c) => a + [0, 1, 2].filter(i => got(c.k, i)).length, 0);
+    return `<div class="card stack" style="gap:12px"><div class="label">Collections · ${own}/18</div>
+      <p class="muted" style="margin:0;font-size:14px">Les exploits débloquent une bannière et un cadre pour ta carte de visite, puis un titre très rare. Rien ne s'achète.</p>
+      ${PArt.COLL.map(c => `<section class="co" style="--c:${c.col}"><div class="co-h"><b>${esc(c.n)}</b><span>${esc(c.w)}</span></div>
+        <div class="co-bn">${PArt.bannerArt(c.k)}<div class="co-fr">${PArt.frameArt(c.k, `<div class="vc-ava">${meSVG(52)}</div>`)}</div></div>
+        <div class="co-it">${c.items.map(([n, cond], i) => { const g = got(c.k, i), [a, b] = RULES[c.k][i](), act = !g ? "" : i === 0 ? `<button class="btn small ghost" data-pc="bn" data-v="${c.k}" ${C().bn === c.k ? "disabled" : ""}>${C().bn === c.k ? "Sur ma carte" : "Mettre sur ma carte"}</button>` : i === 1 ? `<button class="btn small ghost" data-pc="fr" data-v="${c.k}" ${C().fr === c.k ? "disabled" : ""}>${C().fr === c.k ? "Sur ma carte" : "Mettre sur ma carte"}</button>` : (S.profile.title === CT[c.k] ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${CT[c.k]}">Porter</button>`);
+          return `<div class="co-i ${g ? "own" : ""}"><span class="co-r" style="--r:${RARC[i]}">${RAR[i]}</span><b>${esc(n)}</b><span class="co-c">${esc(cond)}</span>
+            ${g ? act : `<span class="meter"><i style="width:${Math.min(100, Math.round(a / b * 100))}%"></i></span><span class="co-c">${Math.min(a, b)} / ${b}</span>`}</div>`; }).join("")}</div></section>`).join("")}</div>`;
+  }
+  // Bannières et cadres disponibles
+  const BANS = () => [{k:"aube", n:"Aube", ok:true}, {k:"neant", n:"Néant", ok:pres().P >= 10, how:"Maître Prestige"}].concat(PArt.COLL.map(c => ({k:c.k, n:c.items[0][0].replace(/^Bannière « (.*) »$/, "$1"), ok:got(c.k, 0), how:c.items[0][1]})));
+  const FRS = () => [{k:"bronze", n:"Bronze", ok:true}, {k:"roi", n:"Roi-liche", ok:pres().P >= 10, how:"Maître Prestige"}].concat(PArt.COLL.map(c => ({k:c.k, n:c.items[1][0].replace(/^Cadre « (.*) »$/, "$1"), ok:got(c.k, 1), how:c.items[1][1]})));
+  const okBan = k => BANS().some(b => b.k === k && b.ok), okFr = k => FRS().some(f => f.k === k && f.ok);
+  function duelStats(){ let a = null; try { a = typeof Amis !== "undefined" && Amis.api.stats ? Amis.api.stats() : null; } catch(e){} const b = S.online; return a && (!b || N(a.played) >= N(b.played)) ? a : b || a; }
+  // Données de ma carte (même forme que celles publiées pour les autres joueurs)
+  function myCard(){
+    const A = pres(), mx = mast(), ds = duelStats(), tw = typeof Tour !== "undefined" ? Tour.stats() : {best:0};
+    return {name:S.profile.name, ti:myTitle(), P:A.P, L:A.L, p:A.p, bn:okBan(C().bn) ? C().bn : "aube", fr:okFr(C().fr) ? C().fr : "bronze", bd:showBadges(),
+      rk:DOMS.map(d => mx[d].r), wr:ds && ds.played ? Math.round(ds.wins / ds.played * 100) : null, pl:ds ? ds.played : 0, tw:tw.best || 0, ok:totalOk()};
+  }
+  const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  function cardHTML(c, avatar){
+    const bd = (c.bd || []).map(badgeOf).filter(Boolean).map(b => `<div class="vc-bd">${badge2(b.tier, b.icon, 56)}<span>${esc(b.name.replace(" · ", " "))}</span></div>`).join("");
+    const st = [["Victoires", c.wr === null || c.wr === undefined ? "—" : c.wr + " %", "en duel", true], ["Tour", c.tw ? fmt(c.tw) : "—", "meilleur étage"], ["Réponses", fmt(c.ok || 0), "bonnes réponses"], ["Duels", fmt(c.pl || 0), "joués"]];
+    const rk = DOMS.map((d, i) => { const r = (c.rk || [])[i] || 0; return `<div class="vc-rk ${r ? "" : "off"}" title="${esc(PArt.DOM[d].n)} : ${r ? RN[r] : "non classé"}">${rankArt(r, d)}<span>${SHORT[d]}</span></div>`; }).join("");
+    return `<div class="vc ${c.P >= 10 ? "legend" : ""}">${PArt.bannerArt(c.bn || "aube")}
+      <div class="vc-in"><div class="vc-emb">${emblem(c.P)}</div>
+        <div class="vc-mid">${PArt.frameArt(c.fr || "bronze", `<div class="vc-ava">${avatar}</div>`)}
+          <div class="vc-id"><b class="vc-nm">${esc(c.name)}</b>${c.ti ? titleTag(c.ti, "") : ""}<div class="vc-lv"><b>${label(c.P)}</b><span>Niveau ${c.L}</span></div><div class="vc-xp"><i style="width:${Math.round((c.p || 0) * 100)}%"></i></div></div></div>
+        ${bd ? `<div class="vc-bds">${bd}</div>` : ""}</div>
+      <div class="vc-st">${st.map(([k, v, u, w]) => `<div><span>${k}</span><b>${v}</b><small>${u}</small>${w && c.wr ? `<i style="width:${c.wr}%"></i>` : ""}</div>`).join("")}</div>
+      <div class="vc-rks">${rk}</div></div>`;
+  }
+  const SHORT = {his:"Histoire", geo:"Géo", sci:"Sciences", spo:"Sport", art:"Arts", cin:"Ciné", jeu:"Jeux", cul:"Culture"};
+  let editing = false;
+  function myCardBlock(){
+    const card = cardHTML(myCard(), meSVG(74) + (typeof Familiers !== "undefined" ? Familiers.beside(30, "vc-pet") : ""));
+    if (!editing) return `${card}<button class="btn ghost small vc-edit" data-pc="edit">${typeof gIcon === "function" ? gIcon("gear", 20) : ""} Personnaliser ma carte</button>`;
+    const c = C(), chosen = showBadges();
+    const opt = (kind, list, cur) => list.map(o => `<button class="vc-opt ${o.k === cur ? "on" : ""} ${o.ok ? "" : "lock"}" data-pc="${kind}" data-v="${o.k}" ${o.ok ? "" : "disabled"} aria-pressed="${o.k === cur}">
+        <span class="vc-thumb ${kind}">${kind === "bn" ? PArt.bannerArt(o.k) : PArt.frameArt(o.k, "")}</span><b>${esc(o.n)}</b>${o.ok ? "" : `<small>${esc(o.how)}</small>`}</button>`).join("");
+    const own = Object.keys(S.badges).map(badgeOf).filter(Boolean).sort((a, b) => (TIER_ORD[b.tier] || 0) - (TIER_ORD[a.tier] || 0));
+    const bds = own.map(b => `<button class="vc-pick ${chosen.includes(b.id) && c.bd.length ? "on" : ""}" data-pc="bd" data-v="${b.id}" title="${esc(b.name)}">${badge2(b.tier, b.icon, 48)}<span>${esc(b.name)}</span></button>`).join("");
+    return `${card}<div class="card stack vc-ed">
+      <div class="row between"><b style="font-family:var(--f-display);font-size:18px">Personnaliser ma carte</b><button class="btn small" data-pc="edit">Terminé</button></div>
+      <div class="label">Bannière</div><div class="vc-opts">${opt("bn", BANS(), myCard().bn)}</div>
+      <div class="label">Cadre</div><div class="vc-opts">${opt("fr", FRS(), myCard().fr)}</div>
+      <div class="label">Badges en vitrine (3 au choix)</div>
+      ${own.length ? `<p class="muted" style="font-size:13.5px;margin:0">${c.bd.length ? `${c.bd.length}/3 choisis. Touche un badge pour l'ajouter ou le retirer.` : "Pour l'instant, tes 3 plus beaux badges s'affichent tout seuls. Touche un badge pour choisir toi-même."}</p><div class="vc-picks">${bds}</div>` : `<p class="muted" style="margin:0">Gagne ton premier badge pour l'afficher ici.</p>`}
+      <p class="muted" style="font-size:13.5px;margin:0">Ton titre se choisit dans la Boutique, onglet Titres. D'autres bannières et cadres se gagneront avec les collections.</p></div>`;
+  }
+  /* ---------- Fiche d'un autre joueur (depuis les classements) et comparaison ---------- */
+  // Ce que je publie pour les autres (avec le ping) : listes simples, pas de listes dans des listes (Firestore)
+  function pub(){ const c = myCard(); return {bn:c.bn, fr:c.fr, bd:c.bd, rk:c.rk, wr:c.wr, pl:c.pl, tw:c.tw}; }
+  const API = () => (typeof Amis !== "undefined" && Amis.api) || null;
+  const clampR = r => Math.min(7, Math.max(0, Math.floor(+r || 0)));
+  function theirCard(id){
+    const U = (API() && API().users()[id]) || {}, st = U.st || {}, cd = st.cd || {}, A = pres(txpOf(st));
+    return {name:U.pseudo || "Joueur", ti:U.ti || "", P:A.P, L:A.L, p:A.p, txp:txpOf(st), bn:typeof cd.bn === "string" ? cd.bn : "aube", fr:typeof cd.fr === "string" ? cd.fr : "bronze",
+      bd:Array.isArray(cd.bd) ? cd.bd.filter(x => typeof x === "string").slice(0, 3) : [], rk:Array.isArray(cd.rk) ? cd.rk.slice(0, 8).map(clampR) : [],
+      wr:typeof cd.wr === "number" ? cd.wr : null, pl:+cd.pl || 0, tw:+cd.tw || +(st.tw && st.tw.best) || 0, ok:+st.ok || 0, stars:+(st.adv && st.adv.stars) || 0, old:!st.cd};
+  }
+  let pv = null; // {id, mode:"card"|"cmp", el}
+  function see(id){ if (!id) return; closePv(); const el = document.createElement("div"); el.className = "pv"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+    el.addEventListener("click", e => { if (e.target === el) closePv(); }); document.body.appendChild(el); pv = {id, mode:"card", el}; paintPv(); try { Music.sfx("tap"); } catch(e){} }
+  function closePv(){ if (pv && pv.el) pv.el.remove(); pv = null; }
+  function paintPv(){
+    if (!pv) return; const me = API() && pv.id === API().uid(), c = me ? Object.assign(myCard(), {txp:totalXp()}) : theirCard(pv.id);
+    const av = me ? meSVG(74) : API() ? API().avatar(pv.id, 74) : "";
+    const body = pv.mode === "cmp" && !me ? compare(c) : cardHTML(c, av) + (c.old ? `<p class="muted pv-old">Ce joueur n'a pas encore la dernière version de Lumen : sa carte se complétera quand il ouvrira l'appli.</p>` : "")
+      + (me ? "" : `<button class="btn pv-cmp" data-pc="cmp">${typeof gIcon === "function" ? gIcon("sword", 22) : ""} Comparer avec moi</button>`);
+    pv.el.innerHTML = `<div class="pv-box"><button class="pv-x" data-pc="close" aria-label="Fermer">✕</button>${pv.mode === "cmp" && !me ? `<button class="btn small ghost pv-back" data-pc="card">← Sa carte</button>` : ""}${body}</div>`;
+  }
+  function compare(o){
+    const m = Object.assign(myCard(), {txp:totalXp(), stars:(() => { try { return Aventure.stats().stars || 0; } catch(e){ return 0; } })()});
+    const row = (lab, a, b, va, vb) => { const w = va === vb ? 0 : va > vb ? 1 : -1; return `<div class="cp-r"><b class="${w > 0 ? "win" : ""}">${a}</b><span>${lab}</span><b class="${w < 0 ? "win" : ""}">${b}</b></div>`; };
+    const pr = c => `${c.P >= 10 ? "MP" : "P" + c.P} · niv. ${c.L}`;
+    const rows = [
+      row("Prestige", pr(m), pr(o), m.txp, o.txp), row("XP totale", fmt(m.txp), fmt(o.txp), m.txp, o.txp), row("Bonnes réponses", fmt(m.ok), fmt(o.ok), m.ok, o.ok),
+      row("Tour · meilleur étage", m.tw || "—", o.tw || "—", m.tw, o.tw), row("Victoires en duel", m.wr === null ? "—" : m.wr + " %", o.wr === null ? "—" : o.wr + " %", m.wr || 0, o.wr || 0),
+      row("Duels joués", m.pl, o.pl, m.pl, o.pl), row("Étoiles de l'Aventure", m.stars, o.stars, m.stars, o.stars)].join("");
+    const dom = DOMS.map((d, i) => { const a = m.rk[i] || 0, b = o.rk[i] || 0, w = a === b ? 0 : a > b ? 1 : -1;
+      return `<div class="cp-d"><span class="cp-rk ${w > 0 ? "win" : ""} ${a ? "" : "off"}">${rankArt(a, d)}</span><span class="cp-dn">${esc(PArt.DOM[d].n)}<small>${a ? RN[a] : "—"} · ${b ? RN[b] : "—"}</small></span><span class="cp-rk ${w < 0 ? "win" : ""} ${b ? "" : "off"}">${rankArt(b, d)}</span></div>`; }).join("");
+    const score = DOMS.reduce((t, d, i) => t + Math.sign((m.rk[i] || 0) - (o.rk[i] || 0)), 0);
+    const h = API() && API().h2h ? API().h2h(pv.id) : {w:0, d:0, l:0};
+    return `<div class="cp"><div class="cp-h"><div>${meSVG(56)}<b>${esc(m.name)}</b></div><span class="cp-vs">VS</span><div>${API() ? API().avatar(pv.id, 56) : ""}<b>${esc(o.name)}</b></div></div>
+      <div class="cp-box"><div class="label">Face-à-face en duel</div>${h.w + h.d + h.l ? `<div class="cp-h2h"><b class="${h.w > h.l ? "win" : ""}">${h.w}</b><span>${h.w > 1 ? "victoires" : "victoire"} · ${h.d} nul${h.d > 1 ? "s" : ""}</span><b class="${h.l > h.w ? "win" : ""}">${h.l}</b></div>` : `<p class="muted" style="margin:4px 0 0">Vous ne vous êtes jamais affrontés. Lance-lui un duel !</p>`}</div>
+      <div class="cp-box"><div class="label">Records</div>${rows}</div>
+      <div class="cp-box"><div class="label">Maîtrise des domaines · ${score > 0 ? "tu mènes" : score < 0 ? (esc(o.name) + " mène") : "égalité"}</div>${dom}</div></div>`;
+  }
+
+  function click(b){
+    const d = b.dataset, c = C();
+    if (d.pc === "close") return closePv();
+    if (d.pc === "cmp" || d.pc === "card") { if (pv) { pv.mode = d.pc; paintPv(); pv.el.scrollTop = 0; } return; }
+    if (d.pc === "edit") editing = !editing;
+    else if (d.pc === "bn" && okBan(d.v)) c.bn = d.v;
+    else if (d.pc === "fr" && okFr(d.v)) c.fr = d.v;
+    else if (d.pc === "bd" && S.badges[d.v]) { if (!c.bd.length) c.bd = []; const i = c.bd.indexOf(d.v); if (i >= 0) c.bd.splice(i, 1); else { c.bd.push(d.v); if (c.bd.length > 3) c.bd.shift(); } }
+    save(); render();
+  }
+
+  return {DOMS, pres, mast, name, label, emblem, mini, rankArt, progress, check, checkColl, collections, titles:TITLES_C, txpOf, boardTxt, myCard, cardHTML, myCardBlock, click, pub, see};
+})();
+
 /* ---------- Mode en ligne : onglet JcJ (Firebase) ----------
    Comptes pseudo + mot de passe, défis entre amis dans tous les modes du jeu (Classique par thème,
    Chrono, Survie, Avant ou après, Qui a dit ?), en différé ou en direct, classements, badges « En ligne ».
@@ -5575,7 +6461,7 @@ const Amis = (function(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
     db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
-      st:{lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null}}).catch(() => {});
+      st:{lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null, cd:typeof Profil !== "undefined" ? Profil.pub() : null}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
   function stop(){ unsub.forEach(f => f()); unsub = []; clearInterval(seenTimer); users = {}; duels = []; }
@@ -5823,6 +6709,8 @@ const Amis = (function(){
     return 0;
   }
   const finished = () => duels.filter(d => d.res && Object.values(d.res).filter(r => r.done).length >= 2);
+  // Face-à-face entre moi et un joueur : victoires, nuls, défaites (de mon point de vue)
+  function h2h(id){ const r = {w:0, d:0, l:0}; finished().filter(d => (d.from === uid() && d.to === id) || (d.to === uid() && d.from === id)).forEach(d => { const o = outcome(d, uid()); if (o === 1) r.w++; else if (o === 0) r.d++; else if (o === -1) r.l++; }); return r; }
 
   /* --- Réactions aux changements --- */
   function onDuels(before){
@@ -5889,7 +6777,18 @@ const Amis = (function(){
       if (modeOf(d) === "classic" && d.n >= 10 && r.ok === d.n) perfect++; });
     const top = duelBoard()[0];
     return {played:mine.length, wins, best, live, perfect, big, modes:Object.keys(modes).length, accepted:mine.filter(d => d.to === uid()).length,
-      top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0)};
+      top1:Math.max((S.online && S.online.top1) || 0, top && top.id === uid() && top.n >= 5 ? 1 : 0), crowns:crowns()};
+  }
+  // Nombre de semaines terminées où j'ai fini n°1 du classement « Cette semaine » (collection du Compétiteur)
+  function crowns(){
+    const wkOf = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); };
+    const now = weekStart(), by = {}; let n = 0;
+    finished().forEach(d => { const w = wkOf(d.created); if (w < now) (by[w] = by[w] || []).push(d); });
+    Object.values(by).forEach(list => { const t = {};
+      list.forEach(d => [d.from, d.to].forEach(p => { const o = outcome(d, p), r = t[p] = t[p] || {id:p, pts:0, w:0}; if (o === 1) { r.pts += 3; r.w++; } else if (o === 0) r.pts++; }));
+      const b = Object.values(t).sort((x, y) => y.pts - x.pts || y.w - x.w);
+      if (b[0] && b[0].id === uid() && b[0].pts > 0 && !(b[1] && b[1].pts === b[0].pts && b[1].w === b[0].w)) n++; });
+    return Math.max(n, (S.online && S.online.crowns) || 0);
   }
   // Lundi 0 h de la semaine en cours
   const weekStart = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); };
@@ -5904,14 +6803,14 @@ const Amis = (function(){
   const BOARDS = {
     semaine:{n:"Cette semaine", unit:"pts", rows:() => duelBoard(weekStart()).map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
     duels:{n:"Duels", unit:"pts", rows:() => duelBoard().map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
-    lvl:{n:"Niveau", unit:"", pre:"Niv. ", rows:() => solo(st => st.lvl)},
+    lvl:{n:"Niveau", unit:"", rows:() => solo(st => Profil.txpOf(st), st => Profil.boardTxt(st))},
     ok:{n:"Bonnes réponses", unit:"", rows:() => solo(st => st.ok)},
     streak:{n:"Série de jours", unit:"j", rows:() => solo(st => st.streak)},
     avap:{n:"Avant ou après", unit:"", rows:() => solo(st => st.avap)}
   };
-  function solo(f){
-    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
-      return {id, v:f(st) || 0}; }).sort((a, b) => b.v - a.v);
+  function solo(f, txt){
+    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
+      return {id, v:f(st) || 0, txt:txt && txt(st)}; }).sort((a, b) => b.v - a.v);
   }
 
   /* --- Affichage --- */
@@ -6000,14 +6899,14 @@ const Amis = (function(){
   }
   function viewBoard(){
     const B = BOARDS[ui.board], rows = B.rows(), top = rows.slice(0, 3);
-    const unit = v => `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
-    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} ${top[i].id === uid() ? "me" : ""}">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v)}</span><div class="step">${i + 1}</div></div>`).join("");
+    const unit = (v, r) => r && r.txt ? r.txt : `${B.pre || ""}${v}${B.unit ? " " + B.unit : ""}`;
+    const podium = [1, 0, 2].filter(i => top[i]).map(i => `<div class="pod p${i + 1} am-see ${top[i].id === uid() ? "me" : ""}" data-see="${top[i].id}" role="button" tabindex="0">${avatar(top[i].id, i ? 52 : 66)}<b>${esc(pseudoOf(top[i].id))}</b>${titleOf(top[i].id, "xs")}<span>${unit(top[i].v, top[i])}</span><div class="step">${i + 1}</div></div>`).join("");
     return `<section class="stack">
       <div class="row between"><button class="quit" data-am="back">Retour</button><span class="label">Entre amis</span></div>
       <div class="row" style="gap:10px;align-items:center">${gIcon("trophy", 48)}<h1 class="big" style="margin:0">Classement</h1></div>
       <div class="am-tabs">${Object.keys(BOARDS).map(k => chip("bd", k, BOARDS[k].n, ui.board === k)).join("")}</div>
       <div class="podium">${podium}</div>
-      <div class="card stack">${rows.map((r, i) => `<div class="am-row ${r.id === uid() ? "me" : ""}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v)}</b></div>`).join("")}</div>
+      <div class="card stack">${rows.map((r, i) => `<div class="am-row am-see ${r.id === uid() ? "me" : ""}" data-see="${r.id}" role="button" tabindex="0" aria-label="Voir le profil de ${esc(pseudoOf(r.id))}"><span class="am-pos ${i < 3 ? "gold" : ""}">${i + 1}</span>${avatar(r.id)}<div class="stack grow" style="gap:0"><b>${esc(pseudoOf(r.id))} ${titleOf(r.id, "xs")} ${r.id === uid() ? "" : `<i class="st-dot ${online(r.id) ? "on" : "off"}" title="${online(r.id) ? "En ligne" : "Hors ligne"}"></i>`}</b>${r.sub ? `<span class="muted" style="font-size:13px">${r.sub}</span>` : ""}</div><b class="am-pts">${unit(r.v, r)}</b></div>`).join("")}</div>
       <p class="muted" style="font-size:13px;text-align:center">${ui.board === "semaine" ? "Duels joués depuis lundi : 3 points par victoire, 1 par égalité. Le n°1 porte la couronne 👑 jusqu'à lundi prochain." : ui.board === "duels" ? "3 points par victoire, 1 par égalité." : "Classement en solo : il se met à jour quand chacun ouvre l'appli."}</p>
     </section>`;
   }
@@ -6119,7 +7018,7 @@ const Amis = (function(){
   // Accès partagé pour les salons privés (salons.js)
   // Titre d'un ami (le LOOSER DU JOUR ne compte que le jour même)
   const titleOf = (id, cls) => { const u = users[id]; if (!u || !u.ti || (u.ti === "looser" && u.tid !== today())) return ""; return titleTag(u.ti, cls || "sm"); };
-  const api = {db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
+  const api = {stats, h2h, db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
   return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 
@@ -7058,7 +7957,7 @@ const Boss = (() => {
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
       tx.update(ref(), up); }).catch(() => {});
   }
-  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
+  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
 
   /* --- Récompenses (une seule fois par semaine) --- */
   function claim(){
