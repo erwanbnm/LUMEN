@@ -172,3 +172,8 @@
 3|Vrai ou faux : « pallier à un problème » est correct.|Faux|Vrai|Le verbe pallier se construit sans « à » : on pallie un problème, comme on remédie à un problème.
 1|Vrai ou faux : le mot « kayak » se lit pareil dans les deux sens.|Vrai|Faux|C'est un palindrome, comme « radar », « rotor » ou « ressasser ».
 3|Vrai ou faux : « après-midi » peut être masculin ou féminin.|Vrai|Faux|Les deux sont acceptés : on peut dire « un après-midi » comme « une après-midi ».
+3|Lequel de ces mots est bien orthographié ?|Rémunération|Rénumération|Rémunérassion|Rémmunération|Il vient du latin « munus », le cadeau, et non de « numéro ».
+3|Que veut dire « une condition sine qua non » ?|Une condition indispensable|Une condition facultative|Une condition secrète|Une condition provisoire|En latin : « sans laquelle non ».
+3|Quel est le passé simple de « vaincre » à la 3e personne du singulier ?|Il vainquit|Il vainquat|Il vaincut|Il vaina|On écrit aussi « nous vainquîmes ».
+3|Que signifie « tirer le diable par la queue » ?|Avoir du mal à vivre avec peu d'argent|Prendre de grands risques|Se mettre en colère|Avoir beaucoup de chance|L'expression évoque des fins de mois difficiles.
+3|Lequel de ces mots est un palindrome ?|Kayak|Radio|Canot|Kiosque|Un palindrome se lit de la même façon dans les deux sens.

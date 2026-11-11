@@ -166,3 +166,4 @@
 3|Vrai ou faux : Méduse était un monstre dès sa naissance.|Faux|Vrai|Selon le poète Ovide, c'était une belle jeune femme qu'Athéna a transformée en Gorgone à la chevelure de serpents.
 1|Vrai ou faux : Thor est un dieu grec.|Faux|Vrai|C'est un dieu de la mythologie nordique, fils d'Odin, armé de son marteau Mjöllnir.
 3|Vrai ou faux : dans le mythe, Pandore ouvre une boîte.|Faux|Vrai|Dans les textes grecs, c'est une jarre. La « boîte » vient d'une erreur de traduction de l'humaniste Érasme au XVIe siècle.
+3|Quelle déesse nordique de l'amour voyage sur un char tiré par des chats ?|Freyja|Frigg|Hel|Sif|Elle est aussi liée à la guerre et à la magie.

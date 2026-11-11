@@ -156,3 +156,7 @@
 3|Vrai ou faux : Le Penseur de Rodin devait au départ représenter le poète Dante.|Vrai|Faux|Il faisait partie de La Porte de l'Enfer, inspirée de la Divine Comédie : il représentait Dante méditant devant son œuvre.
 1|Vrai ou faux : Shakespeare a écrit Don Quichotte.|Faux|Vrai|C'est l'Espagnol Miguel de Cervantes. Les deux écrivains sont morts la même année, en 1616.
 2|Vrai ou faux : il existe plusieurs versions du Cri d'Edvard Munch.|Vrai|Faux|Munch en a fait plusieurs peintures, des pastels et des lithographies entre 1893 et 1910.
+3|Dans quelle ville se trouve la galerie des Offices ?|Florence|Rome|Venise|Milan|On y admire « La Naissance de Vénus » de Botticelli.
+3|Dans quelle ville se trouve le musée du Prado ?|Madrid|Barcelone|Lisbonne|Séville|Il abrite notamment des chefs-d'œuvre de Velázquez et de Goya.
+3|Qui a sculpté « Le Penseur » ?|Auguste Rodin|Camille Claudel|Michel-Ange|Antoine Bourdelle|Il faisait d'abord partie de la grande œuvre « La Porte de l'Enfer ».
+3|Quel courant artistique Claude Monet a-t-il fait naître avec « Impression, soleil levant » ?|L'impressionnisme|Le cubisme|Le fauvisme|Le romantisme|Un critique moqueur a tiré le mot « impressionnistes » du titre de ce tableau de 1872.

@@ -157,3 +157,5 @@
 2|Vrai ou faux : le Vatican est le plus petit État du monde.|Vrai|Faux|Il fait environ 0,44 km², soit moins que la plupart des parcs d'attractions.
 2|Vrai ou faux : le Japon a encore un empereur.|Vrai|Faux|C'est même le seul pays au monde dont le souverain porte le titre d'empereur, avec un rôle surtout symbolique.
 3|Vrai ou faux : le roi Charles III est aussi roi d'Australie.|Vrai|Faux|L'Australie est une monarchie constitutionnelle : le souverain britannique est son chef d'État, représenté sur place par un gouverneur général.
+3|Quelle agence de l'ONU s'occupe de la santé dans le monde ?|L'OMS|L'Unesco|L'OMC|Le FMI|L'Organisation mondiale de la santé siège à Genève.
+3|Dans quelle ville se trouve le siège du Comité international olympique ?|Lausanne|Genève|Paris|Zurich|Il y est installé depuis 1915.

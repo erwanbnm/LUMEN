@@ -151,3 +151,4 @@
 2|Vrai ou faux : le son va plus vite dans l'eau que dans l'air.|Vrai|Faux|Environ 1 500 m/s dans l'eau contre 340 m/s dans l'air : plus de quatre fois plus vite.
 2|Vrai ou faux : pour un botaniste, la tomate est un fruit.|Vrai|Faux|Elle se forme à partir de la fleur et contient les graines : c'est un fruit. On la classe pourtant parmi les légumes en cuisine.
 2|Vrai ou faux : dans le vide, une plume et un marteau lâchés ensemble touchent le sol en même temps.|Vrai|Faux|L'astronaute David Scott l'a montré sur la Lune en 1971 (Apollo 15) : sans air pour freiner la plume, tout tombe à la même vitesse.
+3|Quel nombre approche le nombre d'Avogadro ?|6,02 × 10²³|3,14 × 10⁸|9,81 × 10²|1,6 × 10⁻¹⁹|C'est le nombre d'entités contenues dans une mole.

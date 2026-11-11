@@ -164,3 +164,6 @@
 3|Vrai ou faux : il y a plus d'arbres sur Terre que d'étoiles dans notre galaxie.|Vrai|Faux|On estime qu'il y a environ 3 000 milliards d'arbres, contre 100 à 400 milliards d'étoiles dans la Voie lactée.
 3|Vrai ou faux : l'ours polaire a la peau blanche.|Faux|Vrai|Sa peau est noire pour absorber la chaleur du soleil. Ses poils sont transparents et creux : ils paraissent blancs.
 3|Vrai ou faux : Big Ben est le nom de la tour de l'horloge de Londres.|Faux|Vrai|Big Ben est le surnom de la grosse cloche. La tour s'appelle Elizabeth Tower depuis 2012.
+3|Combien de fois environ le cœur humain bat-il en une journée ?|100 000 fois|10 000 fois|1 million de fois|1 000 fois|Soit environ 70 battements par minute.
+3|Sur quel continent ne trouve-t-on aucune fourmi ?|L'Antarctique|L'Océanie|L'Europe|L'Asie|Il y fait trop froid pour elles.
+3|Combien de temps dure environ un clignement d'œil ?|0,3 seconde|1 seconde|0,01 seconde|2 secondes|Il dure en général entre 0,1 et 0,4 seconde.

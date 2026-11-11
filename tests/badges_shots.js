@@ -1,7 +1,7 @@
 // Ouvre l'onglet Badges du profil et capture les erreurs
 const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
-(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:430,height:900}}); await p.addInitScript(() => { window.__noPortal = true; });
+(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:430,height:900}}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; });
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message+' | '+(e.stack||'').split(String.fromCharCode(10)).slice(1,4).join(' ')));
  p.on('console', m => { if (m.type()==='error') errs.push('console: '+m.text()); });

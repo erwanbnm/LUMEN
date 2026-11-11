@@ -262,7 +262,7 @@ let toasts = [];
 // plusieurs niveaux gagnés d'un coup sont réunis sur une seule carte.
 const lvQueue = []; let lvOpen = false;
 // En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
-const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen());
+const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen()) || (typeof Tuto !== "undefined" && Tuto.open());
 const bdQueue = [];
 function levelUp(n, what, sub){ lvQueue.push({n, what, sub}); flushLevelUp(); }
 function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
@@ -1276,7 +1276,7 @@ document.addEventListener("submit", e => {
   const first = !S.profile;
   const keep = S.profile && S.profile.avatar === draft.avatar ? S.profile.skin : null;
   S.profile = {name, age, avatar:draft.avatar, skin:keep}; draft = null;
-  if (first) { S.tab = "accueil"; toasts.push(`<b>Bienvenue, ${esc(name)} !</b> Lance le Défi du jour pour gagner tes premières pièces.`); }
+  if (first) { S.tab = "accueil"; toasts.push(`<b>Bienvenue, ${esc(name)} !</b> Lance le Défi du jour pour gagner tes premières pièces.`); if (typeof Tuto !== "undefined") setTimeout(Tuto.show, 500); }
   else toasts.push("<b>Profil enregistré.</b>");
   save(); render(); window.scrollTo(0,0);
 });

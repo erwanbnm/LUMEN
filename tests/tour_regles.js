@@ -1,7 +1,7 @@
 // Règles de la Tour : montée réelle, palier payé une seule fois, chute au palier, pas de question répétée dans une montée
 const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..');
-(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:400,height:860}}); await p.addInitScript(() => { window.__noPortal = true; });
+(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:400,height:860}}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; });
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message)); const log=[];
  await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(3300);

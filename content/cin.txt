@@ -167,3 +167,6 @@
 2|Vrai ou faux : Titanic et Avatar ont été réalisés par la même personne.|Vrai|Faux|James Cameron a réalisé les deux, et ils figurent tous deux parmi les plus gros succès de l'histoire du cinéma.
 3|Vrai ou faux : Walt Disney a dessiné lui-même le premier Mickey.|Faux|Vrai|Disney a imaginé le personnage, mais c'est son ami Ub Iwerks qui l'a dessiné et animé en 1928.
 3|Vrai ou faux : dans le film Le Magicien d'Oz (1939), Dorothy porte des chaussures argentées.|Faux|Vrai|Elles sont en rubis dans le film, pour profiter de la couleur. Dans le livre, elles étaient argentées.
+3|Dans quelle série suit-on la famille Roy et son empire Waystar Royco ?|Succession|Billions|Dallas|Mad Men|Une série HBO diffusée de 2018 à 2023.
+3|Qui a réalisé « Parasite », Palme d'or 2019 ?|Bong Joon-ho|Park Chan-wook|Hirokazu Kore-eda|Kim Ki-duk|Le film remporte aussi l'Oscar du meilleur film en 2020.
+3|Quelle actrice incarne Clarice Starling dans « Le Silence des agneaux » (1991) ?|Jodie Foster|Julianne Moore|Sigourney Weaver|Meryl Streep|Ce rôle lui vaut l'Oscar de la meilleure actrice.

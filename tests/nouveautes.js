@@ -2,7 +2,7 @@ const {chromium} = require('playwright');
 const path = require('path'), fs = require('fs');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out'); fs.mkdirSync(OUT, {recursive:true});
 const THREE_DIR = path.dirname(require.resolve('three/package.json'));
-(async()=>{ const b = await chromium.launch({args:['--use-gl=swiftshader']}); const p = await b.newPage({viewport:{width:400,height:860}, colorScheme:'dark'}); await p.addInitScript(() => { window.__noPortal = true; window.__noCal = true; }); // pas de pop-up du Portail pendant les tests
+(async()=>{ const b = await chromium.launch({args:['--use-gl=swiftshader']}); const p = await b.newPage({viewport:{width:400,height:860}, colorScheme:'dark'}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; window.__noCal = true; }); // pas de pop-up du Portail pendant les tests
  await p.route('**/three.min.js', r => r.fulfill({path:path.join(THREE_DIR,'build/three.min.js'), contentType:'application/javascript'})); await p.route('**/OrbitControls.js', r => r.fulfill({path:path.join(THREE_DIR,'examples/js/controls/OrbitControls.js'), contentType:'application/javascript'}));
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message+' | '+(e.stack||'').split('\n')[1]));

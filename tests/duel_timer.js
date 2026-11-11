@@ -1,7 +1,7 @@
 // Vérifie le chrono de 10 s par question en duel : sans réponse, la question compte comme fausse et le jeu avance seul.
 const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..');
-(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:430,height:900}}); await p.addInitScript(() => { window.__noPortal = true; });
+(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:430,height:900}}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; });
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message));
  await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(3000);

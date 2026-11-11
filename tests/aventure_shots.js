@@ -3,7 +3,7 @@ const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
 (async () => {
   const b = await chromium.launch({channel:'msedge'}); const p = await b.newPage({viewport:{width:400, height:860}});
-  await p.addInitScript(() => { window.__noPortal = true; window.__noCal = true; });
+  await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; window.__noCal = true; });
   await p.route('**/fonts.googleapis.com/**', r => r.abort());
   const errs = [], log = []; p.on('pageerror', e => errs.push(e.message));
   const shot = n => p.screenshot({path:path.join(OUT, 'av_' + n + '.png')});
@@ -52,6 +52,9 @@ const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
   // Questions : pas de doublon dans une partie, difficulté
   log.push('listes : ' + JSON.stringify(await p.evaluate(() => { const L = {mode:'c', mix:[.85, .15, 0], sp:{k:'hard'}}; let dup = 0, lv = {1:0, 2:0, 3:0}; for (let k = 0; k < 50; k++) { const l = Aventure._test.makeList(L, 10).map(x => x.id); if (new Set(l).size !== l.length) dup++; l.forEach(id => lv[Q[id][1]]++); } return {doublons:dup, niveaux:lv}; })));
   // Casino
+  // après le boss de la Forêt, le bateau mène au Désert : on revient dans la Forêt pour le Casino
+  await p.evaluate(() => { const b = document.querySelector('[data-adv="isl"]'); if (b) b.click(); }); await p.waitForTimeout(300);
+  await p.evaluate(() => document.querySelector('.av-isl[data-v="1"]').dispatchEvent(new MouseEvent('click', {bubbles:true}))); await p.waitForTimeout(600);
   await p.evaluate(() => { scrollTo(0, 0); document.querySelector('[data-adv="casino"]').dispatchEvent(new MouseEvent('click', {bubbles:true})); }); await p.waitForTimeout(500); await shot('15_casino');
   await p.click('[data-g="open"][data-v="roue"]'); await p.waitForTimeout(300); const c0 = await p.evaluate(() => S.coins); await p.click('[data-g="spin"]'); await p.waitForTimeout(4600); await shot('16_roue');
   log.push('roue : +' + (await p.evaluate(() => S.coins) - c0) + ' · 2e tour bloqué : ' + await p.$eval('[data-g="spin"]', x => x.disabled));

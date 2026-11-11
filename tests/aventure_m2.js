@@ -3,7 +3,7 @@ const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
 (async () => {
   const b = await chromium.launch({channel:'msedge'}); const p = await b.newPage({viewport:{width:400, height:860}});
-  await p.addInitScript(() => { window.__noPortal = true; window.__noCal = true; });
+  await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; window.__noCal = true; });
   await p.route('**/fonts.googleapis.com/**', r => r.abort());
   const errs = [], log = []; p.on('pageerror', e => errs.push(e.message));
   const shot = n => p.screenshot({path:path.join(OUT, 'm2_' + n + '.png')});

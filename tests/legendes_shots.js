@@ -1,7 +1,7 @@
 // Planche de comparaison : nouveaux personnages Légendes à côté du Veilleur du Nord et du Capitaine de Paille
 const {chromium} = require('playwright'); const path = require('path');
 const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
-(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:1000,height:900}}); await p.addInitScript(() => { window.__noPortal = true; });
+(async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:1000,height:900}}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; });
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message));
  await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(2500);

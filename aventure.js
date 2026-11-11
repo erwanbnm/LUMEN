@@ -325,7 +325,8 @@ const Aventure = (() => {
       g += tf(blob(x, y + 4, rx + 8, ry + 8, seed + 1, 11, .1), "avIS", "#B8904A", 6, 3);
       g += tf(blob(x, y - 2, rx, ry, seed, 11, .13), land, dark, 5, 3) + deco;
       if (!on) g = `<g style="filter:grayscale(.45) brightness(.82)">${g}</g>${fog(x, y)}${lock(x, y - 8)}`;
-      return `<g class="av-isl" data-adv="world" data-v="${w}" role="button" aria-label="${name}">${g}${label(x, y + ry + 26, name, sub, on)}</g>`;
+      const crown = on && pct(w) >= 100 ? `<g class="av-crown" transform="translate(${x} ${y - ry - 22})"><circle r="30" fill="#FFE07A" opacity=".35" class="av-pulse"/><path d="M-18 8 L-20 -12 L-9 -2 L0 -16 L9 -2 L20 -12 L18 8Z" fill="#FFD23F" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><rect x="-18" y="6" width="36" height="7" rx="2" fill="#F0A21A" stroke="${TD}" stroke-width="2.2"/><circle cy="-2" r="3" fill="#E2283A" stroke="${TD}" stroke-width="1.4"/></g>` : "";
+      return `<g class="av-isl" data-adv="world" data-v="${w}" role="button" aria-label="${name}">${g}${crown}${label(x, y + ry + 26, name, sub, on)}</g>`;
     };
     let f = ""; const rr = rnd(11);
     for (let i = 0; i < 16; i++){ const a = rr() * 6.28, d = rr() * .8; const tx = 118 + Math.cos(a) * 62 * d, ty = 650 + Math.sin(a) * 38 * d; if (Math.abs(tx - 118) < 18 && ty < 646) continue; f += tf(bumpy(tx, ty - 10, 12, 10, 9, i + 1), "avIA", "#22602A", 2.5, 2); }
@@ -335,7 +336,7 @@ const Aventure = (() => {
     s += isl(118, 650, 86, 58, 3, "avIA", "#22602A", f, "La Forêt des Anciens", `${w1.done.filter(Boolean).length}/7 niveaux · ${worldStars(1)} ★ · ${pct(1)} %`, true, 1);
     let d2 = `<path d="M262 528 L292 476 L322 528Z" fill="#F2C060" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M292 476 L322 528 L300 528Z" fill="#C88A3A" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/>`;
     d2 += `<ellipse cx="248" cy="540" rx="16" ry="6" fill="#4FC0E8" stroke="${TD}" stroke-width="2"/><path d="M340 540 q2 -16 -2 -26 M338 514 q-10 -4 -16 2 M338 514 q10 -6 16 0 M338 514 q-2 -10 -10 -12 M338 514 q4 -10 12 -10" stroke="#2E8A3A" stroke-width="3.4" fill="none" stroke-linecap="round"/>`;
-    const sub = w => worldOpen(w) && built(w) ? `${WS(w).done.filter(Boolean).length}/7 niveaux · ${worldStars(w)} ★ · ${pct(w)} %` : WS(w - 1).done[6] ? "Bientôt disponible" : `Bats ${WORLDS[w - 2].boss || "le boss précédent"}`;
+    const sub = w => worldOpen(w) && built(w) ? `${WS(w).done.filter(Boolean).length}/7 niveaux · ${worldStars(w)} ★ · ${pct(w)} %` : WS(w - 1).done[6] ? "Bientôt disponible" : `Bats ${(WORLDS[w - 2].boss || "le boss précédent").replace(/^Le /, "le ").replace(/^La /, "la ")}`;
     const on = w => worldOpen(w) && built(w);
     s += isl(292, 520, 78, 52, 8, "avID", "#9A6A2A", d2, "Le Désert des Rois", sub(2), on(2), 2);
     let a3 = `<ellipse cx="112" cy="390" rx="46" ry="28" fill="url(#avIB)" stroke="${TD}" stroke-width="2.4"/><g class="av-spin"><path d="M112 390 m-30 0 a30 18 0 1 1 60 0 M112 390 m-18 0 a18 10 0 1 1 36 0" stroke="#BFF4FF" stroke-width="2.4" fill="none" opacity=".8"/></g><path d="M100 392 Q112 370 124 392Z" fill="#9AF8FF" stroke="${TD}" stroke-width="2"/><circle cx="112" cy="378" r="14" fill="url(#avIW)" class="av-pulse"/>`;
@@ -565,7 +566,7 @@ const Aventure = (() => {
 
   /* ===================== Combat ===================== */
   let F = null, layer = null, qtimer = null;
-  const playing = () => !!(F && !F.over);
+  const playing = () => !!(F && !F.over) || !!document.querySelector(".av-sail");
   function start(w, i){
     const L = WORLDS[w - 1].levels[i];
     const n = L.mode === "c" ? 10 : L.mode === "surv" ? 15 : L.mode === "boss" ? 10 : 80;
@@ -583,7 +584,17 @@ const Aventure = (() => {
     paintScene();
     if (F.mode === "chrono") F.ends = Date.now() + 60000;
     try { Music.sfx("tab2"); } catch(e){}
+    if (isBoss()) return bossIntro(() => { if (F && !F.over) nextQ(); });
     nextQ();
+  }
+  // Écran « BOSS » : nom, portrait et points de vie, puis le combat commence
+  function bossIntro(done){
+    const D = WORLDS[F.w - 1], el = document.createElement("div"); el.className = "af-intro";
+    el.innerHTML = `<div class="af-intro-in"><span class="af-intro-k">BOSS · Monde ${F.w}</span><div class="af-intro-art">${D.bossSVG(1)}</div>
+      <b class="af-intro-n">${esc(D.boss)}</b><span class="af-intro-hp">100 PV · 3 phases · 3 vies pour toi</span></div>`;
+    document.getElementById("af-arena").appendChild(el);
+    try { Music.sfx("level"); navigator.vibrate && navigator.vibrate([60, 40, 120]); } catch(e){}
+    setTimeout(() => { el.classList.add("out"); setTimeout(() => { el.remove(); done(); }, 380); }, 2100);
   }
   const isBoss = () => F.mode === "boss";
   function arenaBG(boss){
@@ -751,6 +762,7 @@ const Aventure = (() => {
     if (pct(F.w) >= 100 && !W.full) { W.full = today(); coins += FULL_COINS; full = true; }
     S.coins += coins;
     let title = false;
+    if (r.win && isBoss() && first && built(F.w + 1)) F.sail = F.w + 1;
     if (r.win && isBoss() && first) { S.titles = S.titles || {}; if (!S.titles[WORLDS[F.w - 1].title]) { S.titles[WORLDS[F.w - 1].title] = today(); title = true; } }
     save(); try { checkBadges(); } catch(e){}
     try { Amis.api.ping(); } catch(e){}
@@ -786,9 +798,26 @@ const Aventure = (() => {
     document.body.classList.remove("in-adv-fight"); F = null; scr = "map"; lastScroll = null;
     render(); try { flushLevelUp(); } catch(e){}
   }
+  // Traversée vers l'île suivante : le personnage navigue, la brume se lève sur la nouvelle île
+  const ISLC = {1:"#5AB04A", 2:"#E8B050", 3:"#3AA0D8", 4:"#E8F4FF", 5:"#6A3A6A"};
+  function sail(to){
+    const el = document.createElement("div"); el.className = "av-sail";
+    const isl = (x, c, fog) => `<g transform="translate(${x} 150)"><ellipse rx="70" ry="22" cy="18" fill="#5AD0F0" opacity=".45"/><ellipse rx="62" ry="26" fill="#F8E2A8" stroke="#2B1D3A" stroke-width="3"/><ellipse rx="50" ry="20" cy="-6" fill="${c}" stroke="#2B1D3A" stroke-width="3"/>${fog ? `<g class="av-sail-fog"><circle cx="-30" cy="-10" r="30" fill="#E8EEF8"/><circle cx="10" cy="-20" r="34" fill="#E8EEF8"/><circle cx="40" cy="0" r="26" fill="#E8EEF8"/></g>` : ""}</g>`;
+    el.innerHTML = `<svg viewBox="0 0 400 260" class="av-sail-svg"><defs><linearGradient id="avSeaS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7AC8F0"/><stop offset=".45" stop-color="#2A7AC8"/><stop offset="1" stop-color="#0E3A78"/></linearGradient></defs>
+      <rect width="400" height="260" fill="url(#avSeaS)"/><circle cx="330" cy="40" r="22" fill="#FFF4C0"/>
+      ${Array.from({length:14}, (_, i) => `<path class="av-wave" style="animation-delay:-${i * .3}s" d="M${(i * 53) % 380} ${120 + (i * 37) % 120} q5 -4 10 0 q5 4 10 0" stroke="#fff" stroke-width="2" fill="none" opacity=".35"/>`).join("")}
+      ${isl(70, ISLC[to - 1], false)}${isl(330, ISLC[to], true)}
+      <g class="av-sail-boat"><path d="M-26 0 L26 0 L18 14 L-18 14Z" fill="#A8784A" stroke="#2B1D3A" stroke-width="2.6" stroke-linejoin="round"/><path d="M0 0 V-44" stroke="#2B1D3A" stroke-width="3"/><path d="M2 -42 L30 -10 L2 -8Z" fill="#fff" stroke="#2B1D3A" stroke-width="2.4" stroke-linejoin="round"/><path d="M-2 -38 L-22 -10 L-2 -10Z" fill="#FF5FA2" stroke="#2B1D3A" stroke-width="2.4" stroke-linejoin="round"/>
+        <g transform="translate(-14 -30)">${nest(meSVG(28), 0, 0)}</g></g></svg>
+      <div class="av-sail-txt"><span>Nouvelle île</span><b>${esc(WORLDS[to - 1].n)}</b></div>`;
+    document.body.appendChild(el);
+    try { Music.sfx("level"); } catch(e){}
+    const go = () => { if (!el.isConnected) return; el.classList.add("out"); setTimeout(() => el.remove(), 400); cw = to; scr = "map"; sheet = -1; lastScroll = null; render(); setTimeout(() => { try { flushLevelUp(); } catch(e){} }, 500); };
+    el.addEventListener("click", go); setTimeout(go, 4200);
+  }
   function fightClick(a){
     if (a === "quit") { if (F && !F.over) { F.over = true; } return closeFight(); }
-    if (a === "tomap") return closeFight();
+    if (a === "tomap") { const to = F && F.sail; if (to) document.body.appendChild(Object.assign(document.createElement("i"), {className:"av-sail"})); closeFight(); if (to) { document.querySelectorAll("i.av-sail").forEach(e => e.remove()); sail(to); } return; }
     if (a === "replay") { const w = F.w, i = F.i; clearInterval(qtimer); F = null; return start(w, i); }
   }
 
@@ -817,7 +846,7 @@ const Aventure = (() => {
     if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
   }
   const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
-  return {register, kit, track, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
+  return {register, kit, track, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{sail, start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}

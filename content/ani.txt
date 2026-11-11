@@ -156,3 +156,6 @@
 3|Vrai ou faux : l'hippopotame transpire du sang.|Faux|Vrai|Il sécrète un liquide rougeâtre qui n'est ni du sang ni de la sueur : il le protège du soleil et des microbes.
 2|Vrai ou faux : les dauphins dorment avec un œil ouvert.|Vrai|Faux|Ils endorment une moitié du cerveau à la fois, ce qui leur permet de continuer à respirer et à surveiller les alentours.
 3|Vrai ou faux : le paresseux peut retenir sa respiration plus longtemps qu'un dauphin.|Vrai|Faux|Jusqu'à 40 minutes en ralentissant son cœur, alors qu'un dauphin remonte en général toutes les 8 à 10 minutes.
+3|Quel mammifère peut vivre plus de 200 ans ?|La baleine boréale|L'éléphant d'Afrique|Le cachalot|La baleine bleue|C'est le mammifère connu qui vit le plus longtemps.
+3|De quelle couleur est le sang des pieuvres ?|Bleu|Vert|Violet|Transparent|Il contient de l'hémocyanine, une molécule à base de cuivre.
+3|Quel oiseau construit le nid le plus lourd connu ?|Le pygargue à tête blanche|L'autruche|Le flamant rose|Le cygne|Un nid a été pesé à près de 3 tonnes.

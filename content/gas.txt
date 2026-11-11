@@ -155,3 +155,6 @@
 3|Vrai ou faux : en Europe, on a longtemps cru que la tomate était toxique.|Vrai|Faux|Elle appartient à la même famille que certaines plantes vénéneuses : elle a d'abord été cultivée comme plante décorative.
 3|Vrai ou faux : les premières carottes cultivées étaient orange.|Faux|Vrai|Elles étaient violettes ou jaunes. La carotte orange s'est imposée aux Pays-Bas au XVIIe siècle.
 3|Vrai ou faux : le wasabi servi avec les sushis est presque toujours du vrai wasabi.|Faux|Vrai|La plante est rare et chère : on sert souvent un mélange de raifort, de moutarde et de colorant vert.
+3|De quel pays le goulash est-il originaire ?|La Hongrie|L'Autriche|La Pologne|La Roumanie|C'est un ragoût de bœuf parfumé au paprika.
+3|De quel pays vient le plat appelé « ceviche » ?|Le Pérou|Le Mexique|L'Espagne|Le Chili|Du poisson cru « cuit » dans du jus de citron vert.
+3|Avec quelle céréale fabrique-t-on le saké japonais ?|Le riz|L'orge|Le blé|Le millet|C'est une boisson à base de riz fermenté.

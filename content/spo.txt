@@ -167,3 +167,5 @@
 2|Vrai ou faux : le tennis de table est un sport olympique depuis les premiers Jeux de 1896.|Faux|Vrai|Il n'est entré au programme olympique qu'en 1988, aux Jeux de Séoul.
 2|Vrai ou faux : un gardien de but de football peut marquer un but.|Vrai|Faux|Rien ne l'interdit : le Brésilien Rogério Ceni en a marqué plus de 100, surtout sur coups francs et penaltys.
 2|Vrai ou faux : la première Coupe du monde de football a eu lieu en France.|Faux|Vrai|Elle a eu lieu en Uruguay en 1930, et c'est l'Uruguay qui l'a gagnée. C'est pourtant le Français Jules Rimet qui l'a imaginée.
+3|Dans quel sport se dispute la Ryder Cup ?|Le golf|Le tennis|La voile|Le polo|Elle oppose l'Europe aux États-Unis.
+3|Dans quel sport parle-t-on d'un « albatros » ?|Le golf|Le tennis|Le cricket|Le polo|Un albatros, c'est finir un trou trois coups sous le par.

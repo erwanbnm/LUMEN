@@ -161,3 +161,6 @@
 3|Vrai ou faux : Gandhi a reçu le prix Nobel de la paix.|Faux|Vrai|Il a été proposé cinq fois sans jamais le recevoir. Le comité Nobel l'a regretté publiquement plus tard.
 3|Vrai ou faux : Léonard de Vinci écrivait souvent à l'envers, comme dans un miroir.|Vrai|Faux|Gaucher, il écrivait de droite à gauche dans ses carnets : il faut un miroir pour les lire facilement.
 3|Vrai ou faux : Jules César était empereur romain.|Faux|Vrai|Il était dictateur. Le premier empereur romain est son fils adoptif Octave, devenu Auguste en 27 av. J.-C.
+3|Quel savant polonais a placé le Soleil au centre de l'Univers ?|Nicolas Copernic|Tycho Brahe|Johannes Kepler|Galilée|Son ouvrage paraît en 1543, l'année de sa mort.
+3|Qui a rédigé la Déclaration d'indépendance des États-Unis ?|Thomas Jefferson|George Washington|Benjamin Franklin|John Adams|Elle est adoptée le 4 juillet 1776.
+3|Quel savant grec se serait écrié « Eurêka ! » dans son bain ?|Archimède|Pythagore|Euclide|Thalès|Il venait de comprendre la poussée qui porte son nom.

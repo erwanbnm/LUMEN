@@ -177,3 +177,6 @@
 2|Vrai ou faux : un piano classique a 88 touches.|Vrai|Faux|52 blanches et 36 noires, sur un peu plus de sept octaves.
 2|Vrai ou faux : la chanson « Joyeux anniversaire » vient de France.|Faux|Vrai|Elle vient des États-Unis : sa mélodie a été écrite à la fin du XIXe siècle par les sœurs Mildred et Patty Hill.
 1|Vrai ou faux : les Beatles venaient de Londres.|Faux|Vrai|Ils venaient de Liverpool, une grande ville portuaire du nord-ouest de l'Angleterre.
+3|Quel duo français a sorti l'album « Random Access Memories » ?|Daft Punk|Justice|Air|Cassius|Il contient le tube « Get Lucky » (2013).
+3|Dans quelle ville est né Wolfgang Amadeus Mozart ?|Salzbourg|Vienne|Munich|Prague|Il y naît en 1756.
+3|De quel pays vient le groupe ABBA ?|La Suède|La Norvège|Le Danemark|La Finlande|Il remporte l'Eurovision 1974 avec « Waterloo ».

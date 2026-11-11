@@ -174,3 +174,7 @@
 2|Vrai ou faux : Minecraft est le jeu vidéo le plus vendu de l'histoire.|Vrai|Faux|Il a dépassé les 300 millions d'exemplaires vendus, devant Tetris et GTA V.
 1|Vrai ou faux : Sonic a été créé par Nintendo.|Faux|Vrai|C'est la mascotte de Sega, créée en 1991 pour concurrencer Mario.
 2|Vrai ou faux : Tetris est le premier jeu vidéo à avoir eu un grand succès commercial.|Faux|Vrai|C'est Pong, sorti par Atari en 1972. Tetris n'est arrivé qu'en 1984.
+3|Dans quel jeu explore-t-on la province de Bordeciel en affrontant des dragons ?|Skyrim|Oblivion|Dragon Age|Morrowind|The Elder Scrolls V : Skyrim est sorti en 2011.
+3|Quelle ressource sert de monnaie avec les villageois dans Minecraft ?|L'émeraude|Le diamant|L'or|Le rubis|Les villageois échangent leurs objets contre des émeraudes.
+3|Quelle entreprise a fabriqué la console Dreamcast ?|Sega|Nintendo|Sony|Atari|Sortie en 1998 au Japon, ce fut la dernière console de salon de Sega.
+3|En quelle année la première PlayStation est-elle sortie au Japon ?|1994|1990|1996|1998|Sony la lance en décembre 1994.

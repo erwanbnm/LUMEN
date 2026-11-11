@@ -109,3 +109,8 @@
 2|Vrai ou faux : les Schtroumpfs sont nés en Belgique.|Vrai|Faux|Ils ont été créés par le Belge Peyo en 1958, dans une aventure de Johan et Pirlouit.
 2|Vrai ou faux : Goku vient de la planète Namek.|Faux|Vrai|Goku est un Saiyan, venu de la planète Vegeta. Namek est la planète de Piccolo.
 1|Vrai ou faux : un manga se lit de droite à gauche.|Vrai|Faux|Il garde le sens de lecture japonais : on commence par ce qui serait, pour nous, la dernière page.
+3|Dans « Naruto », comment s'appelle le démon renard à neuf queues ?|Kurama|Shukaku|Gyûki|Matatabi|Il est scellé dans le corps de Naruto.
+3|Quel manga de Takehiko Inoue suit une équipe de basket de lycée ?|Slam Dunk|Kuroko's Basket|Haikyū!!|Ace of Diamond|Il est publié de 1990 à 1996.
+3|Dans « Hunter × Hunter », comment s'appelle le jeune héros parti à la recherche de son père ?|Gon Freecss|Killua Zoldyck|Kurapika|Leorio|Il veut devenir Hunter comme lui.
+3|Dans « One Piece », quel navire remplace le Vogue Merry pour l'équipage du Chapeau de paille ?|Le Thousand Sunny|Le Moby Dick|Le Red Force|L'Oro Jackson|Il est construit par Franky.
+3|Quel mangaka a créé « Astro Boy » ?|Osamu Tezuka|Akira Toriyama|Hayao Miyazaki|Rumiko Takahashi|On le surnomme le « dieu du manga ».

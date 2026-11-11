@@ -163,3 +163,5 @@
 3|Vrai ou faux : l'être humain n'a que cinq sens.|Faux|Vrai|En plus des cinq classiques, on perçoit l'équilibre, la position de son corps, la température ou la douleur.
 2|Vrai ou faux : le plus petit os du corps se trouve dans l'oreille.|Vrai|Faux|C'est l'étrier, dans l'oreille moyenne : il mesure environ 3 mm.
 2|Vrai ou faux : de vrais jumeaux ont les mêmes empreintes digitales.|Faux|Vrai|Elles se forment dans le ventre de la mère et dépendent de nombreux petits hasards : même les vrais jumeaux ont des empreintes différentes.
+3|Quelle hormone est surnommée « l'hormone du stress » ?|Le cortisol|L'insuline|La mélatonine|L'ocytocine|Elle est produite par les glandes surrénales.
+3|Où se trouve l'étrier, le plus petit os du corps humain ?|Dans l'oreille|Dans le nez|Dans la main|Dans le pied|Il mesure environ 3 millimètres.

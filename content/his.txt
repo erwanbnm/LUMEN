@@ -151,3 +151,7 @@
 2|Vrai ou faux : la guerre de Cent Ans a duré exactement cent ans.|Faux|Vrai|Elle a duré 116 ans, de 1337 à 1453, avec de longues trêves entre les combats.
 2|Vrai ou faux : au Moyen Âge, les savants pensaient que la Terre était plate.|Faux|Vrai|Les savants savaient depuis l'Antiquité qu'elle était ronde : Ératosthène avait même estimé sa circonférence vers 240 av. J.-C.
 3|Vrai ou faux : Marie-Antoinette a vraiment dit « Qu'ils mangent de la brioche ».|Faux|Vrai|Aucune preuve. Rousseau cite cette phrase d'une « grande princesse » dans ses Confessions, écrites quand Marie-Antoinette était encore une enfant en Autriche.
+3|Quel pharaon a fait bâtir la plus grande pyramide de Gizeh ?|Khéops|Khéphren|Mykérinos|Ramsès II|Haute d'environ 146 mètres à l'origine, elle date d'environ 2560 avant J.-C.
+3|En quelle année a eu lieu la révolution des Œillets au Portugal ?|1974|1968|1981|1956|Elle met fin à la dictature de l'Estado Novo.
+3|Sous quel empereur byzantin la basilique Sainte-Sophie de Constantinople a-t-elle été bâtie ?|Justinien Ier|Constantin Ier|Théodose II|Basile II|Elle est consacrée en 537, sous le règne de Justinien.
+3|En quelle année le mur de Berlin a-t-il été construit ?|1961|1949|1956|1968|La RDA l'élève dans la nuit du 12 au 13 août 1961 ; il tombe en 1989.

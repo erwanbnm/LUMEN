@@ -157,3 +157,4 @@
 3|Vrai ou faux : mesuré depuis sa base, l'Everest est la plus haute montagne du monde.|Faux|Vrai|Le Mauna Kea, à Hawaï, dépasse 10 000 m si on le mesure depuis le fond de l'océan. L'Everest reste le plus haut sommet au-dessus du niveau de la mer.
 2|Vrai ou faux : l'Amazone se jette dans l'océan Pacifique.|Faux|Vrai|Elle se jette dans l'océan Atlantique, au nord du Brésil, avec un débit énorme qui adoucit la mer sur des dizaines de kilomètres.
 2|Vrai ou faux : la France a une frontière commune avec le Brésil.|Vrai|Faux|Grâce à la Guyane : environ 730 km, la plus longue frontière terrestre de la France.
+3|Quel est le point culminant de l'Afrique ?|Le Kilimandjaro|Le mont Kenya|Le Ras Dashen|Le mont Stanley|Le Kilimandjaro, en Tanzanie, culmine à 5 895 mètres.

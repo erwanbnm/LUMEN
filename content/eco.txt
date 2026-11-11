@@ -171,3 +171,5 @@
 2|Vrai ou faux : Amazon a commencé en vendant des livres.|Vrai|Faux|Jeff Bezos l'a lancé en 1994 comme une librairie en ligne, avant de tout vendre.
 3|Vrai ou faux : Nokia fabriquait du papier à ses débuts.|Vrai|Faux|L'entreprise finlandaise est née en 1865 comme papeterie, avant de fabriquer des bottes, des câbles puis des téléphones.
 2|Vrai ou faux : la recette d'origine du Coca-Cola contenait de la coca.|Vrai|Faux|Elle contenait des extraits de feuilles de coca, retirés au début du XXe siècle.
+3|Que mesure le PIB d'un pays ?|La richesse produite en un an|Sa dette publique|Son nombre d'habitants|Ses exportations|Le produit intérieur brut additionne la valeur de ce qui est produit dans le pays.
+3|Comment appelle-t-on une hausse générale et durable des prix ?|L'inflation|La déflation|La récession|La stagflation|La déflation est au contraire une baisse durable des prix.

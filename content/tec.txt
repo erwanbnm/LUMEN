@@ -169,3 +169,8 @@
 2|Vrai ou faux : Graham Bell a déposé le brevet du téléphone.|Vrai|Faux|En 1876, quelques heures seulement avant un autre inventeur, Elisha Gray, d'après la légende.
 3|Vrai ou faux : le premier SMS a été envoyé dans les années 1990.|Vrai|Faux|Le 3 décembre 1992, un ingénieur britannique a envoyé « Merry Christmas » depuis un ordinateur vers un téléphone.
 3|Vrai ou faux : le code QR a été inventé pour l'industrie automobile.|Vrai|Faux|Il a été créé en 1994 par Denso Wave, une filiale de Toyota, pour suivre les pièces dans les usines.
+3|En quelle année le premier SMS a-t-il été envoyé ?|1992|1985|1999|2001|Le message « Merry Christmas » part le 3 décembre 1992.
+3|Qui a créé le langage de programmation Python ?|Guido van Rossum|Bjarne Stroustrup|James Gosling|Dennis Ritchie|La première version sort en 1991.
+3|Que signifie le sigle « HTML » ?|HyperText Markup Language|High Tech Modern Language|HyperTransfer Main Link|Home Tool Markup Language|C'est le langage qui décrit le contenu des pages web.
+3|Selon le Système international, combien d'octets contient un kilooctet ?|1 000|1 024|100|10 000|Les 1 024 octets forment, eux, un « kibioctet ».
+3|En quelle année le premier iPhone a-t-il été présenté ?|2007|2005|2008|2010|Steve Jobs le dévoile le 9 janvier 2007.
