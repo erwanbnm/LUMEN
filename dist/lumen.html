@@ -678,15 +678,37 @@ body.stress::after{content:"";position:fixed;inset:0;pointer-events:none;z-index
 @keyframes stressPulse{50%{box-shadow:inset 0 0 30px 2px rgba(255,40,70,.18)}}
 @media (prefers-reduced-motion:reduce){body.stress::after{animation:none}}
 /* Le Portail (événement surprise) */
-.portal-ic{flex:none;width:44px;height:44px;border-radius:50%;background:conic-gradient(from 0deg,#8A5AFF,#FF5FA2,#FFD23F,#5AD8FF,#8A5AFF);border:3px solid #2B1D3A;box-shadow:0 0 18px rgba(160,110,255,.8);animation:portalSpin 2.4s linear infinite;position:relative}
-.portal-ic::after{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(#1A0A2E 30%,#3A1A6A);border:2px solid #2B1D3A}
-.portal-ic.big{width:58px;height:58px}
+/* Portail : une faille rouge, ténébreuse et dangereuse (refonte demandée par Erwan, novembre 2026) */
+.portal-ic{flex:none;position:relative;width:44px;height:44px;border-radius:50%;isolation:isolate}
+.portal-ic::before{content:"";position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from 0deg,#1A0002,#E0102A 12%,#2A0004 24%,#FF3A3A 36%,#120001 50%,#B8001A 64%,#2A0004 76%,#FF2030 88%,#1A0002);
+  -webkit-mask:radial-gradient(circle,transparent 30%,#000 32%,#000 68%,transparent 72%);mask:radial-gradient(circle,transparent 30%,#000 32%,#000 68%,transparent 72%);animation:portalSpin 3s linear infinite;filter:blur(.4px)}
+.portal-ic::after{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle,#FFF0F2 0,#FF8A9A 18%,#E0102A 38%,#5A0008 62%,#0A0002 78%);box-shadow:0 0 18px 6px rgba(255,20,40,.75),0 0 40px 10px rgba(160,0,20,.45);animation:portalCore 1.8s ease-in-out infinite}
+.portal-ic.big{width:62px;height:62px}
 @keyframes portalSpin{to{transform:rotate(360deg)}}
-.am-inv.portal{border-color:#A07AFF;box-shadow:0 0 0 3px rgba(160,122,255,.35),0 10px 30px rgba(0,0,0,.5)}
-.portal-card{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border-radius:18px;border:2px solid #A07AFF;color:inherit;background:linear-gradient(120deg,rgba(138,90,255,.35),rgba(255,95,162,.25));box-shadow:0 4px 0 #5A3AB8,0 0 24px rgba(160,122,255,.35);margin-bottom:4px;font:inherit}
-.portal-card span span{font-size:13.5px;opacity:.85}
-.portal-card:active{transform:translateY(3px);box-shadow:0 1px 0 #5A3AB8}
-@media (prefers-reduced-motion:reduce){.portal-ic{animation:none}}
+@keyframes portalCore{50%{transform:scale(1.12);box-shadow:0 0 26px 9px rgba(255,30,50,.9),0 0 56px 14px rgba(160,0,20,.55)}}
+.am-inv.portal{background:linear-gradient(160deg,#1E0408,#070103);color:#F6E2E4;border-color:#8A0A18;box-shadow:0 0 0 2px rgba(255,30,50,.35),0 0 34px rgba(200,0,30,.45),0 10px 30px rgba(0,0,0,.6)}
+.am-inv.portal .am-x{color:#F6E2E4}
+.portal-card{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;min-height:104px;padding:16px;border-radius:18px;border:2px solid #6A0A14;color:#F8E6E8;text-align:left;
+  background:radial-gradient(90px 90px at 46px 50%,rgba(255,40,60,.55),transparent 70%),radial-gradient(120% 140% at 0% 100%,#3A0008,transparent 60%),linear-gradient(180deg,#160306,#050102 85%);
+  box-shadow:0 4px 0 #2A0006,0 0 26px rgba(200,10,30,.35);animation:portalDanger 2.6s ease-in-out infinite}
+@keyframes portalDanger{50%{box-shadow:0 4px 0 #2A0006,0 0 38px rgba(255,20,40,.6)}}
+.portal-card b{font:800 17px var(--f-display);color:#FFE8EA;text-shadow:0 0 12px rgba(255,40,60,.7)}
+.portal-card span span{font-size:13.5px;color:#E2B4BA;opacity:1}
+.portal-card:active{transform:translateY(3px);box-shadow:0 1px 0 #2A0006}
+.portal-card .portal-figs{position:absolute;left:18px;bottom:6px;z-index:2;pointer-events:none}
+.portal-card .portal-ember{position:absolute;bottom:-4px;width:3px;height:3px;border-radius:50%;background:#FF4A5A;box-shadow:0 0 6px #FF2030;animation:portalEmber 3.2s linear infinite;opacity:0}
+@keyframes portalEmber{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translate(8px,-110px);opacity:0}}
+.portal-card .portal-ic{z-index:1}
+/* Écran de jeu du portail : tout passe en noir et rouge sang */
+body.in-portal{--surface:#1A060A;--surface-2:#2A0A10;--ink:#F6E6E8;--muted:#C8969E;--line:#5A1420;--lamp:#FF3A4A;--lamp-ink:#fff;color:#F6E6E8;
+  background:radial-gradient(120% 55% at 50% 0%,#6A0012,#160306 55%,#050102) fixed!important}
+body.in-portal .card{background:linear-gradient(180deg,#1E070C,#12030A);border-color:#5A1420;box-shadow:0 4px 0 #2A0006,0 0 22px rgba(160,0,20,.25)}
+body.in-portal .choice{background:#22080E;color:#F6E6E8;border-color:#6A1A26}
+body.in-portal .tabs,body.in-portal .top{background:rgba(10,2,4,.85)}
+body.in-portal .pill{color:#F6E6E8;background:#22080E;border-color:#5A1420}
+.am-inv.portal .btn:not(.ghost){background:linear-gradient(#E0102A,#8A0010);color:#fff;box-shadow:0 4px 0 #3A0006}
+.am-inv.portal .btn.ghost{background:transparent;color:#F6E2E4;border-color:#8A0A18}
+@media (prefers-reduced-motion:reduce){.portal-ic::before,.portal-ic::after,.portal-card,.portal-ember{animation:none!important}}
 /* Mode en ligne : onglet JcJ (amis.js) */
 .am-trophy{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:0;color:inherit;font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;padding:2px 4px}
 .am-trophy svg{transition:transform .2s cubic-bezier(.3,1.6,.5,1)}.am-trophy:active svg{transform:scale(.9)}
@@ -4185,6 +4207,7 @@ function render(){
   // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
   app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
   document.body.classList.toggle("in-tour", S.tab === "tour");
+  document.body.classList.toggle("in-portal", !!(S.tab === "jouer" && S.session && S.session.mode === "portail"));
   if (S.tab === "tour") Tour.after();
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
@@ -4709,7 +4732,7 @@ function portalBanner(){
 function portalCard(){
   if (!portalOpen()) return "";
   const left = PORTAL_SKINS.filter(s => !S.skins[s.id]).length;
-  return `<button class="portal-card" data-portal-go><span class="portal-ic big"></span><span class="stack" style="gap:3px;min-width:0;text-align:left"><b>Le portail est ouvert jusqu'à minuit</b><span>10 questions très difficiles · ${PORTAL_GOAL}/10 pour gagner ${left ? "un personnage secret" : "300 pièces"}</span></span></button>`;
+  return `<button class="portal-card" data-portal-go>${[8, 22, 36, 70, 88].map((l, i) => `<i class="portal-ember" style="left:${l}%;animation-delay:${-i * .7}s"></i>`).join("")}<svg class="portal-figs" width="58" height="22" viewBox="0 0 58 22" aria-hidden="true">${[4,16,30,44].map((x, i) => `<g fill="#050102"><circle cx="${x+4}" cy="${5 + i % 2}" r="3.2"/><path d="M${x} ${22} L${x+1} ${10 + i % 2} Q${x+4} ${7 + i % 2} ${x+7} ${10 + i % 2} L${x+8} 22Z"/></g>`).join("")}</svg><span class="portal-ic big"></span><span class="stack" style="gap:3px;min-width:0;text-align:left"><b>Une faille s'est ouverte</b><span>Jusqu'à minuit · 10 questions très difficiles · ${PORTAL_GOAL}/10 pour gagner ${left ? "un personnage secret" : "300 pièces"}</span></span></button>`;
 }
 function portalFinish(s, ok){
   S.portal.tried = true; s.portalWin = ok >= PORTAL_GOAL;

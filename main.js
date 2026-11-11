@@ -510,6 +510,7 @@ function render(){
   // Simple mise à jour venue du serveur (salon, mode en ligne) : pas d'animation d'apparition, sinon l'écran clignote
   app.innerHTML = `<div class="${window.__quiet ? "" : "fade"}">${html}</div>`; window.__quiet = false;
   document.body.classList.toggle("in-tour", S.tab === "tour");
+  document.body.classList.toggle("in-portal", !!(S.tab === "jouer" && S.session && S.session.mode === "portail"));
   if (S.tab === "tour") Tour.after();
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
@@ -1034,7 +1035,7 @@ function portalBanner(){
 function portalCard(){
   if (!portalOpen()) return "";
   const left = PORTAL_SKINS.filter(s => !S.skins[s.id]).length;
-  return `<button class="portal-card" data-portal-go><span class="portal-ic big"></span><span class="stack" style="gap:3px;min-width:0;text-align:left"><b>Le portail est ouvert jusqu'à minuit</b><span>10 questions très difficiles · ${PORTAL_GOAL}/10 pour gagner ${left ? "un personnage secret" : "300 pièces"}</span></span></button>`;
+  return `<button class="portal-card" data-portal-go>${[8, 22, 36, 70, 88].map((l, i) => `<i class="portal-ember" style="left:${l}%;animation-delay:${-i * .7}s"></i>`).join("")}<svg class="portal-figs" width="58" height="22" viewBox="0 0 58 22" aria-hidden="true">${[4,16,30,44].map((x, i) => `<g fill="#050102"><circle cx="${x+4}" cy="${5 + i % 2}" r="3.2"/><path d="M${x} ${22} L${x+1} ${10 + i % 2} Q${x+4} ${7 + i % 2} ${x+7} ${10 + i % 2} L${x+8} 22Z"/></g>`).join("")}</svg><span class="portal-ic big"></span><span class="stack" style="gap:3px;min-width:0;text-align:left"><b>Une faille s'est ouverte</b><span>Jusqu'à minuit · 10 questions très difficiles · ${PORTAL_GOAL}/10 pour gagner ${left ? "un personnage secret" : "300 pièces"}</span></span></button>`;
 }
 function portalFinish(s, ok){
   S.portal.tried = true; s.portalWin = ok >= PORTAL_GOAL;
