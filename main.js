@@ -976,7 +976,7 @@ function renderBadges(){
 }
 function renderBadges0(){
   const got = BADGES.filter(b => S.badges[b.id]).length;
-  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
+  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["L'Aventure","L'Aventure : boss, monstres et étoiles"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
   const themes = ORDER.map(k => { const bs = BADGES.filter(b=>b.th===k), n = bs.filter(b=>S.badges[b.id]).length;
     return `<details class="card tb"><summary><span class="nm">${dot(k)}${esc(THEMES[k].n)}</span><span class="label">${n}/6 · ${correctIn(k)}/${byTheme(k).length} réussies</span></summary><div class="bgrid">${bs.map(b => badgeTile(b, 64)).join("")}</div></details>`; }).join("");
   return `<p class="muted">${got}/${BADGES.length} badges obtenus. Chaque badge rapporte des pièces, une seule fois. Plus le palier est haut, plus la médaille impressionne.</p>${groups}<div class="label">Badges de thème · bronze 5, argent 10, or 20, platine 30, diamant 40, Maître 50 maîtrisées</div>${themes}`;

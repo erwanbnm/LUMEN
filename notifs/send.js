@@ -1,6 +1,6 @@
 // Envoi des notifications de Lumen, lancé par GitHub Actions toutes les 10 minutes (.github/workflows/notifs.yml).
 //   - vers 8 h (heure de Paris) : le défi du jour, une fois par jour
-//   - vers 16 h : rappel pour venir jouer (sauf si le défi du jour est déjà fait)
+//   - rappels à 12 h, 16 h, 18 h (Aventure), 20 h et 22 h, à tout le monde ; le Portail dès qu'il s'ouvre
 //   - à chaque passage : les défis lancés par un ami depuis le dernier passage
 // Mode « test » (lancement à la main) : une notification de test à tous les appareils inscrits.
 // La clé du compte de service Firebase est dans le secret GitHub FIREBASE_SA (jamais dans le code).
@@ -75,14 +75,41 @@ async function send(uid, t, msg){
     console.log(`matin (${th}) : ${sent}`);
   }
 
-  // Rappel de l'après-midi, entre 16 h et 19 h, à tout le monde (choix d'Erwan)
-  if (HOUR >= 16 && HOUR < 19 && meta.aprem !== DATE) {
-    await metaRef.set({ aprem: DATE }, { merge: true });
+  // Rappels de la journée (choix d'Erwan, novembre 2026) : 12 h, 16 h, 18 h, 20 h et 22 h, à tout le monde,
+  // chacun envoyé une seule fois par jour, dans les 2 heures qui suivent (GitHub peut lancer avec du retard).
+  // Les textes changent d'un jour à l'autre ; celui de 18 h parle de l'Aventure, avec la progression du joueur.
+  const dayN = Math.round(Date.UTC(...DATE.split("-").map((v, i) => i === 1 ? v - 1 : +v)) / 864e5);
+  const pick = list => list[dayN % list.length];
+  const SLOTS = [
+    {h:12, k:"midi", msg:() => pick([
+      {title:"Pause de midi 🍽️", body:"Viens te cultiver, tocard ! 10 questions le temps d'un café."},
+      {title:"Il est midi 📚", body:"Viens te cultiver, tocard ! Ta série du jour t'attend."},
+      {title:"Lumen t'attend 🧠", body:"Une petite partie avant de retourner bosser ?"}])},
+    {h:16, k:"aprem", msg:() => ({title:"Lumen t'attend 📚", body:"Viens te cultiver si tu veux pas finir comme Dwayne !"})},
+    {h:18, k:"aventure", msg:(u) => { const a = u && u.st && u.st.adv;
+      const where = a && a.w ? (a.lv > 7 ? ` Le Monde ${a.w} est terminé : la suite t'attend !` : ` Tu en es au Monde ${a.w}, niveau ${a.lv}.`) : " Cinq mondes et leurs boss t'attendent.";
+      return pick([{title:"⚔️ L'Aventure t'attend", body:"Viens progresser dans le mode Aventure !" + where},
+        {title:"🗺️ Ta quête continue", body:"Les monstres ne vont pas se battre tout seuls." + where}]); }},
+    {h:20, k:"soir", msg:() => pick([
+      {title:"🏰 La Tour t'attend", body:"Grimpe quelques étages avant le classement de lundi !"},
+      {title:"Viens te cultiver, tocard ! 📚", body:"Une série, un duel ou un étage de la Tour ?"},
+      {title:"⚔️ Défie tes amis", body:"Lance un duel dans l'onglet Multi et montre qui est le plus cultivé."}])},
+    {h:22, k:"nuit", msg:() => pick([
+      {title:"🌙 Dors moins bête ce soir", body:"Viens te cultiver, tocard ! Une dernière série avant de dormir."},
+      {title:"🌙 Avant de dormir…", body:"Un « Le savais-tu ? » et quelques questions pour finir la journée."}])}
+  ];
+  const userData = {};
+  const userOf = async uid => uid in userData ? userData[uid] : (userData[uid] = (await db.doc("users/" + uid).get()).data() || null);
+  for (const sl of SLOTS) {
+    if (HOUR < sl.h || HOUR >= sl.h + 2 || meta[sl.k] === DATE) continue;
+    await metaRef.set({ [sl.k]: DATE }, { merge: true }); meta[sl.k] = DATE;
+    let n = 0;
     for (const uid of Object.keys(toks)) {
       if (!pref(uid, "remind")) continue;
-      sent += await send(uid, toks[uid], { title: "Lumen t'attend 📚", body: "Viens te cultiver si tu veux pas finir comme Dwayne !", url: "./", tag: "remind" });
+      const m = sl.msg(await userOf(uid));
+      n += await send(uid, toks[uid], Object.assign({ url: "./", tag: "remind-" + sl.k }, m));
     }
-    console.log(`après-midi : ${sent}`);
+    sent += n; console.log(`rappel de ${sl.h} h : ${n}`);
   }
 
   // Le Portail vient de s'ouvrir : on prévient tout le monde (une fois par jour)

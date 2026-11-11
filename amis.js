@@ -193,11 +193,11 @@ const Amis = (function(){
 
   /* --- Notifications (Firebase Cloud Messaging) ---
      L'appli enregistre l'adresse de notification de l'appareil dans tokens/{uid} avec les préférences.
-     L'envoi est fait par GitHub Actions (notifs/send.js) : défi du jour vers 8 h, rappel vers 16 h,
+     L'envoi est fait par GitHub Actions (notifs/send.js) : défi du jour vers 8 h, rappels à 12 h, 16 h, 18 h, 20 h et 22 h,
      défis des amis (avec quelques minutes de retard). */
   const VAPID = "BMQcXZtdaWMx7i6whc7SsDDysk_hmAJ1laF7PD2xdCyls7SnEXOR43LJFDxu57Ye99AA2sg8R7EGRFqKI55i8Fo"; // clé publique « Certificats Web Push » (console Firebase > Paramètres > Cloud Messaging)
   const notifOK = () => "Notification" in window && "serviceWorker" in navigator && "PushManager" in window;
-  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappel pour venir jouer (vers 16 h)", duels:"Quand un ami me défie", portal:"Ouverture du Portail"};
+  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappels pour venir jouer (12 h, 16 h, 18 h, 20 h, 22 h)", duels:"Quand un ami me défie", portal:"Ouverture du Portail"};
   let msgLoaded = false;
   async function saveToken(prefs){
     if (!msgLoaded) { await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-messaging-compat.js`); msgLoaded = true; }

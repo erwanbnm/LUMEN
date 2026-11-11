@@ -5188,7 +5188,7 @@ function renderBadges(){
 }
 function renderBadges0(){
   const got = BADGES.filter(b => S.badges[b.id]).length;
-  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
+  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["L'Aventure","L'Aventure : boss, monstres et étoiles"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
   const themes = ORDER.map(k => { const bs = BADGES.filter(b=>b.th===k), n = bs.filter(b=>S.badges[b.id]).length;
     return `<details class="card tb"><summary><span class="nm">${dot(k)}${esc(THEMES[k].n)}</span><span class="label">${n}/6 · ${correctIn(k)}/${byTheme(k).length} réussies</span></summary><div class="bgrid">${bs.map(b => badgeTile(b, 64)).join("")}</div></details>`; }).join("");
   return `<p class="muted">${got}/${BADGES.length} badges obtenus. Chaque badge rapporte des pièces, une seule fois. Plus le palier est haut, plus la médaille impressionne.</p>${groups}<div class="label">Badges de thème · bronze 5, argent 10, or 20, platine 30, diamant 40, Maître 50 maîtrisées</div>${themes}`;
@@ -5692,11 +5692,11 @@ const Amis = (function(){
 
   /* --- Notifications (Firebase Cloud Messaging) ---
      L'appli enregistre l'adresse de notification de l'appareil dans tokens/{uid} avec les préférences.
-     L'envoi est fait par GitHub Actions (notifs/send.js) : défi du jour vers 8 h, rappel vers 16 h,
+     L'envoi est fait par GitHub Actions (notifs/send.js) : défi du jour vers 8 h, rappels à 12 h, 16 h, 18 h, 20 h et 22 h,
      défis des amis (avec quelques minutes de retard). */
   const VAPID = "BMQcXZtdaWMx7i6whc7SsDDysk_hmAJ1laF7PD2xdCyls7SnEXOR43LJFDxu57Ye99AA2sg8R7EGRFqKI55i8Fo"; // clé publique « Certificats Web Push » (console Firebase > Paramètres > Cloud Messaging)
   const notifOK = () => "Notification" in window && "serviceWorker" in navigator && "PushManager" in window;
-  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappel pour venir jouer (vers 16 h)", duels:"Quand un ami me défie", portal:"Ouverture du Portail"};
+  const NPREFS = {daily:"Défi du jour (vers 8 h)", remind:"Rappels pour venir jouer (12 h, 16 h, 18 h, 20 h, 22 h)", duels:"Quand un ami me défie", portal:"Ouverture du Portail"};
   let msgLoaded = false;
   async function saveToken(prefs){
     if (!msgLoaded) { await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-messaging-compat.js`); msgLoaded = true; }
@@ -9401,11 +9401,11 @@ const Aventure = (() => {
         <span class="av-chip">${starIco}<b>${worldStars(cw)}</b>/21</span>
         ${questBtn()}
         <button class="av-rb wood" data-adv="music" aria-label="Musique">${S.settings.music ? "♪" : "🔇"}</button></div>
-      <div class="av-scroll" id="av-scroll">${mapSVG()}</div>
+      <div class="av-scroll" id="av-scroll"></div>
       ${sheet >= 0 ? sheetHTML(sheet) : contBtn()}</div>`;
     return `<div class="av-scr av-sea">
       <div class="av-itop"><h1>Aventure</h1><span class="av-chip">${starIco}<b>${totalStars()}</b>/105</span><button class="av-rb wood" data-adv="rank" aria-label="Classement des amis">🏆</button></div>
-      <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : contBtn()}</div>`;
+      <div class="av-scroll">${islandsSVG()}</div>${overlay()}</div>`;
   }
   function sheetHTML(i){
     const L = WD().levels[i], W = WS(cw), st = W.st[i], lock = !unlocked(cw, i), boss = L.mode === "boss";
@@ -9422,10 +9422,26 @@ const Aventure = (() => {
         <button class="av-play" data-adv="play" data-v="${i}" ${lock ? "disabled" : ""}>${W.done[i] ? "Rejouer" : "Jouer"}</button></div>
     </div></div></div>`;
   }
+  // Fluidité : la carte (des centaines de dessins) est gardée toute prête et remise en place à chaque affichage ;
+  // elle n'est redessinée que si quelque chose a changé dessus (étoiles, niveau en cours, personnage, familier).
+  let mapCache = {key:"", el:null};
+  function mapEl(){
+    const p = pet(), key = JSON.stringify([cw, WS(cw).st, WS(cw).done, S.profile && [S.profile.skin, S.profile.avatar], S.acc && S.acc.eq, p && p.id]);
+    if (mapCache.key !== key || !mapCache.el) { const t = document.createElement("div"); t.innerHTML = mapSVG(); mapCache = {key, el:t.firstElementChild}; }
+    return mapCache.el;
+  }
+  // Panneau du bas (niveau, classement ou bouton « Continuer ») : changé seul, sans toucher à la carte
+  const overlay = () => scr === "map" ? (sheet >= 0 ? sheetHTML(sheet) : contBtn()) : (rankOpen ? rankHTML() : contBtn());
+  function paintOverlay(){
+    const root = document.querySelector(".av-scr"); if (!root) return render();
+    root.querySelectorAll(".av-sheet,.av-cont,.av-rank").forEach(e => e.remove());
+    root.insertAdjacentHTML("beforeend", overlay());
+  }
   function after(){
     document.body.classList.add("in-adv");
     const sc = document.getElementById("av-scroll");
     if (sc && scr === "map") {
+      sc.appendChild(mapEl());
       const k = sc.clientWidth / 400;
       sc.scrollTop = lastScroll !== null ? lastScroll : WD().nodes[curLevel(cw)][1] * k - sc.clientHeight * .6;
       sc.onscroll = () => { lastScroll = sc.scrollTop; };
@@ -9441,16 +9457,17 @@ const Aventure = (() => {
       return render();
     }
     if (a === "isl") { scr = "isl"; sheet = -1; return render(); }
-    if (a === "rank") { rankOpen = !rankOpen; return render(); }
-    if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return render(); }
-    if (a === "close") { sheet = -1; return render(); }
+    if (a === "rank") { rankOpen = !rankOpen; return paintOverlay(); }
+    if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return paintOverlay(); }
+    if (a === "close") { sheet = -1; return paintOverlay(); }
     if (a === "play") { const i = +v; if (!unlocked(cw, i)) return; sheet = -1; return start(cw, i); }
     if (a === "cont") { const n = nextStep(); if (!n) return; cw = n.w; scr = "map"; sheet = -1; lastScroll = null; return start(n.w, n.i); }
     if (a === "quests") { if (!questsOpen()) { toasts.push("<b>📜 Tableau de quêtes</b> · Il s'ouvre quand tu as réussi le niveau 4 de la Forêt."); return render(); } scr = "quests"; return render(); }
     if (a === "qmap") { scr = "map"; return render(); }
     if (a === "claim") return claim(v);
     if (a === "casino") return Casino.open();
-    if (a === "music") { S.settings.music = !S.settings.music; save(); try { S.settings.music ? Music.start() : Music.stop(); } catch(e){} return render(); }
+    if (a === "music") { S.settings.music = !S.settings.music; save(); try { S.settings.music ? Music.start() : Music.stop(); } catch(e){}
+      b.textContent = S.settings.music ? "♪" : "🔇"; if (typeof MusiqueFichier !== "undefined") MusiqueFichier.set(track()); return; }
     if (a) return fightClick(a, b);
   }
 
@@ -9739,10 +9756,27 @@ const Aventure = (() => {
     if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
   }
   const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
-  return {register, kit, track, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{sail, start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
+  // Chiffres pour les badges d'Aventure
+  const bstats = () => { const ws = [1, 2, 3, 4, 5].filter(w => A().w[w]).map(w => WS(w));
+    return {boss:ws.filter(W => W.done[6]).length, kills:ws.reduce((a, W) => a + (W.kills || 0), 0), stars:totalStars(),
+      nolife:ws.filter(W => W.st[6] & 4).length, full:ws.filter(W => W.full).length}; };
+  return {register, kit, track, bstats, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{sail, start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}
+
+/* --- Badges de l'Aventure (choix d'Erwan, novembre 2026) --- */
+ICONS.adv = `<path fill-rule="evenodd" d="M20 6 L32 10.5 V20 Q32 29.5 20 35 Q8 29.5 8 20 V10.5Z M19 11 V24 H16.5 V26.5 H19 V30 H21 V26.5 H23.5 V24 H21 V11Z"/>`;
+[["advb1", "bronze", 1, "boss", "Premier boss", "Vaincre ton premier boss de l'Aventure", 30],
+ ["advb3", "argent", 3, "boss", "Tueur de géants", "Vaincre 3 boss de l'Aventure", 80],
+ ["advb5", "or", 5, "boss", "Héros de Lumen", "Vaincre les 5 boss de l'Aventure", 200],
+ ["advk100", "bronze", 100, "kills", "Chasseur de monstres", "Vaincre 100 monstres dans l'Aventure", 40],
+ ["advk500", "platine", 500, "kills", "Fléau des monstres", "Vaincre 500 monstres dans l'Aventure", 150],
+ ["advs50", "argent", 50, "stars", "Collectionneur d'étoiles", "Gagner 50 étoiles dans l'Aventure", 80],
+ ["advs105", "diamant", 105, "stars", "Toutes les étoiles", "Gagner les 105 étoiles de l'Aventure", 300],
+ ["advnl", "or", 1, "nolife", "Sans une égratignure", "Vaincre un boss sans perdre une seule vie", 100],
+ ["advfull", "platine", 1, "full", "Explorateur accompli", "Compléter un monde de l'Aventure à 100 %", 150]
+].forEach(([id, tier, goal, k, name, desc, coins]) => BADGES.push({id, g:"L'Aventure", tier, icon:"adv", name, desc, coins, goal, cur:() => { try { return Aventure.bstats()[k]; } catch(e){ return 0; } }}));
 
 /* ---------- Aventure · Monde 2 : Le Désert des Rois ----------
    Dunes, oasis, marché aux épices, canyon rouge, cité ensablée, temple du scarabée, tombeau des rois et la grande pyramide.

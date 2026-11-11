@@ -1,4 +1,4 @@
-# Notifications de Lumen : défi du jour (~8 h), rappel (~16 h), défis des amis.
+# Notifications de Lumen : défi du jour (~8 h), rappels (12 h, 16 h, 18 h, 20 h, 22 h), portail, défis des amis.
 # GitHub lance ce travail toutes les 10 minutes (avec parfois quelques minutes de retard).
 # Lancement à la main : onglet Actions > Notifications > Run workflow (mode « test » pour essayer).
 name: Notifications
