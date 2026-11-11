@@ -8796,7 +8796,7 @@ const Casino = (() => {
    Pendant qu'un fichier joue, la musique générée de l'appli (music.js) se tait ; si le fichier manque, elle reprend.
    main.js appelle MusiqueFichier.set(liste) à chaque affichage : la même liste ne relance pas le morceau. */
 const MusiqueFichier = (() => {
-  let audio = null, cur = "", list = [], idx = 0;
+  let audio = null, cur = "", list = [], idx = 0, silent = false;
   const bad = {};
   const vol = () => Math.min(1, ((S.settings && S.settings.vol) || 55) / 100);
   const gen = on => { try { on ? (S.settings.music && Music.start()) : Music.stop(); } catch(e){} };
@@ -8805,15 +8805,17 @@ const MusiqueFichier = (() => {
     const key = want.join("|");
     if (key === cur) { if (audio) audio.volume = vol(); return; }
     const had = !!audio; cur = key; if (audio) { audio.pause(); audio = null; }
-    if (!want.length) { if (had) gen(true); return; }
+    if (!want.length) { if (had || silent) gen(true); silent = false; return; }
+    // Choix d'Erwan : dans la Tour et l'Aventure, plus jamais la musique générée (même pendant le chargement du fichier)
+    gen(false); silent = true;
     list = want; idx = Math.floor(Math.random() * list.length); play();
   }
   function play(){
     const src = list[idx], a = new Audio(src); audio = a; a.volume = vol(); a.loop = list.length === 1;
-    a.addEventListener("playing", () => { if (audio === a) gen(false); });
+    a.addEventListener("playing", () => { if (audio === a) gen(false); });   // au cas où la musique générée aurait été relancée entre-temps
     a.addEventListener("ended", () => { if (audio !== a) return; idx = (idx + 1) % list.length; play(); });
     a.addEventListener("error", () => { if (audio !== a) return; bad[src] = 1; list = list.filter(x => x !== src);
-      if (list.length) { idx = idx % list.length; play(); } else { audio = null; cur = ""; gen(true); } });
+      if (list.length) { idx = idx % list.length; play(); } else { audio = null; } });
     a.play().catch(() => {});
   }
   return {set, playing:() => !!audio};
