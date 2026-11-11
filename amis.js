@@ -48,7 +48,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0), typeof Calendrier !== "undefined" && setTimeout(Calendrier.sync, 800)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0), typeof Calendrier !== "undefined" && setTimeout(Calendrier.sync, 800), typeof Evenements !== "undefined" && setTimeout(Evenements.listen, 0)) : (stop(), typeof Evenements !== "undefined" && Evenements.stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
@@ -108,7 +108,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView", "calSeen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView", "calSeen", "evOpen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;

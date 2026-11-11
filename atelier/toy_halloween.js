@@ -1,7 +1,7 @@
 /* ---------- Édition Halloween : 4 personnages originaux en style jouet ----------
    Des clins d'œil aux grands monstres du cinéma d'horreur, sans reprendre leurs noms ni leurs traits :
    des personnages Lumen déguisés. En vente du 1er octobre au 30 novembre ; une fois achetés, ils restent. */
-const HALLOWEEN_SKINS = [
+const HALLOWEEN_ALL = [
 { id:"masque", n:"Le Masque Blanc", e:"Édition Halloween", p:900, toy:true, anim:"", draw(){
   return tPerson({
     skin:["#F6F3EC", "#D9D3C6", "#000"], torso:["#4A6698", "#30497A", "#14213E"], shoes:["#3A3A42", "#1E1E24", "#000"], sleeve:"#30497A",
@@ -61,6 +61,13 @@ const HALLOWEEN_SKINS = [
 } }
 ];
 const HALLOWEEN_HAT = { masque:{at:[60, 20], k:1}, croque:{at:[60, 18], k:1}, zombie:{at:[60, 24], k:1} };
-HALLOWEEN_SKINS.forEach(s => { if (HALLOWEEN_HAT[s.id]) s.hat = HALLOWEEN_HAT[s.id]; if (s.id === "campeur") s.noHat = true; s.season = "halloween"; SHOP_SKINS.push(s); });
+HALLOWEEN_ALL.forEach(s => { if (HALLOWEEN_HAT[s.id]) s.hat = HALLOWEEN_HAT[s.id]; if (s.id === "campeur") s.noHat = true; s.season = "halloween"; });
+// Novembre 2026 (choix d'Erwan) : seul le Masque Blanc reste en boutique. Le Campeur du Lac et le Zombie deviennent
+// des personnages de l'événement « La Nuit des Ombres » (toy_events.js). Le Croque-Rêves est retiré du jeu :
+// il n'est plus visible nulle part, son dessin reste seulement pour afficher les anciens profils (pièces remboursées).
+const HALLOWEEN_SKINS = HALLOWEEN_ALL.filter(s => s.id === "masque");
+const HALLOWEEN_EVENT = HALLOWEEN_ALL.filter(s => s.id === "campeur" || s.id === "zombie");
+const RETIRED_SKINS = HALLOWEEN_ALL.filter(s => s.id === "croque");
+HALLOWEEN_SKINS.forEach(s => SHOP_SKINS.push(s));
 // Saison d'Halloween : du 1er octobre au 30 novembre (mois 9 et 10 en JavaScript)
 const halloweenSeason = (d = new Date()) => d.getMonth() === 9 || d.getMonth() === 10;

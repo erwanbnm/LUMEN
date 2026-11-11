@@ -9,7 +9,7 @@
 const Boutique = (() => {
   const RAR = {com:{n:"Commun", c:"#8A96AA", w:6}, rare:{n:"Rare", c:"#3A7AE0", w:5}, epic:{n:"Épique", c:"#9A4AD8", w:3}, leg:{n:"Légendaire", c:"#E8960A", w:2}, myth:{n:"Mythique", c:"#E2283A", w:1}};
   const RORD = ["myth", "leg", "epic", "rare", "com"];
-  const HOW = {shop:"Boutique du jour", prestige:"Prestige", quest:"Défi permanent", week:"Défi de la semaine", portal:"Portail et Boss", secret:"Secret", season:"Édition Halloween", start:"Départ"};
+  const HOW = {shop:"Boutique du jour", prestige:"Prestige", quest:"Défi permanent", week:"Défi de la semaine", portal:"Portail et Boss", secret:"Secret", season:"Édition Halloween", event:"Événement temporaire", start:"Départ"};
   const REVEAL_PRICE = 3000;
   const towerBest = () => { try { return Tour.stats().best || 0; } catch(e){ return 0; } };
   // Les nouvelles Légendes : comment on les obtient
@@ -45,6 +45,7 @@ const Boutique = (() => {
     if (portalIds().includes(id)) return {id, sk, r:"leg", how:"portal", cond:"Gagné au Portail ou contre le Boss de la semaine"};
     if (id === "lumen") return Object.assign({id, sk, r:"myth", how:"secret"}, SECRET_COND.lumen);
     if (SECRET_SKINS.some(s => s.id === id)) return {id, sk, r:"epic", how:"secret", cond:sk.hint};
+    if (sk.event) { const e = EV_DATA.EVENTS.find(x => x.chars.includes(id)); return {id, sk, r:"leg", how:"event", cond:`Événement temporaire · ${e ? e.n : ""} (${e ? e.need : 6} fragments)`}; }
     if (HALLOWEEN_SKINS.some(s => s.id === id)) return {id, sk, r:"epic", how:"season", p:sk.p};
     if (sk.free) return {id, sk, r:"rare", how:"quest", cond:sk.hint, goal:id === "nord" ? 1 : 0, cur:id === "nord" ? () => (S.online && S.online.wins) || 0 : null};
     if (sk.unlock && !sk.p) return {id, sk, r:"rare", how:"quest", cond:`${sk.unlock.n} bonnes réponses en ${THEMES[sk.unlock.th].n}`, goal:sk.unlock.n, cur:() => correctIn(sk.unlock.th)};
@@ -53,7 +54,7 @@ const Boutique = (() => {
     if (sk.unlock) { o.alt = `ou ${sk.unlock.n} bonnes réponses en ${THEMES[sk.unlock.th].n}`; o.goal = sk.unlock.n; o.cur = () => correctIn(sk.unlock.th); }
     return o;
   }
-  const allIds = () => CHARS.map((c, i) => "b" + i).concat(SHOP_SKINS.map(s => s.id), SECRETS.map(s => s.id), LEGEND_SKINS.map(s => s.id)).filter((x, i, a) => a.indexOf(x) === i);
+  const allIds = () => CHARS.map((c, i) => "b" + i).concat(SHOP_SKINS.map(s => s.id), SECRETS.map(s => s.id), LEGEND_SKINS.map(s => s.id), typeof EVENT_SKINS !== "undefined" ? EVENT_SKINS.map(s => s.id) : []).filter((x, i, a) => a.indexOf(x) === i);
   const own = id => ownsSkin(id);
 
   /* --- Boutique du jour : 4 personnages, mêmes pour tous, tirés selon la date --- */
@@ -129,6 +130,7 @@ const Boutique = (() => {
       <div class="bq-week r-${wk.r}" style="--rc:${RAR[wk.r].c}"><div class="bq-art">${creatureSVG(wk.sk, 92)}</div><div class="stack" style="gap:5px;min-width:0">${rTag(wk.r)}<b>${esc(wk.sk.n)}</b><span class="muted" style="font-size:13.5px">${esc(wk.cond)}</span>
         ${own(wk.id) ? `<span class="chip lamp">Obtenu</span>` : `<span class="meter"><i style="width:${Math.round(wp.v / wp.goal * 100)}%"></i></span><span class="bq-pv">${wp.v} / ${wp.goal} · jusqu'à dimanche soir</span>`}</div></div>
       ${halloweenSeason() ? `<div class="label">🎃 Édition Halloween · jusqu'au 30 novembre</div><div class="bq-grid">${HALLOWEEN_SKINS.map(s => card(info(s.id), "season")).join("")}</div>` : ""}
+      ${typeof Evenements !== "undefined" ? Evenements.shopBlock() : ""}
       <div class="label">Prestige · achetables à tout moment</div>
       <div class="bq-grid">${prest.map(i => card(i, "prestige")).join("")}</div>
       <div class="bq-scroll"><div class="bq-scroll-ic">${scrollSVG(64)}</div><div class="stack" style="gap:4px;min-width:0"><b>Parchemin de révélation</b><span class="muted" style="font-size:13px">Dévoile le défi d'un personnage secret que tu n'as pas encore. ${secretsLeft.length} secret${secretsLeft.length > 1 ? "s" : ""} encore caché${secretsLeft.length > 1 ? "s" : ""}.</span>
@@ -149,7 +151,7 @@ const Boutique = (() => {
     const chip = (k, v, lab, cur) => `<button class="chip-btn ${cur === v ? "on" : ""}" data-bq="${k}" data-v="${v}">${lab}</button>`;
     return `<div class="bq-col-top"><b>${n} / ${all.length} personnages</b><span class="meter"><i style="width:${Math.round(n / all.length * 100)}%"></i></span></div>
       <div class="bq-filters">${[["all", "Tous"], ["own", "Possédés"], ["no", "Manquants"]].map(([v, l]) => chip("own", v, l, fOwn)).join("")}</div>
-      <div class="bq-filters">${[["all", "Toutes origines"], ["shop", "Boutique"], ["prestige", "Prestige"], ["quest", "Défis"], ["portal", "Portail"], ["secret", "Secrets"], ["season", "Halloween"], ["start", "Départ"]].map(([v, l]) => chip("how", v, l, fHow)).join("")}</div>
+      <div class="bq-filters">${[["all", "Toutes origines"], ["shop", "Boutique"], ["prestige", "Prestige"], ["quest", "Défis"], ["portal", "Portail"], ["secret", "Secrets"], ["season", "Halloween"], ["event", "Événements"], ["start", "Départ"]].map(([v, l]) => chip("how", v, l, fHow)).join("")}</div>
       <div class="bq-filters">${chip("rar", "all", "Toutes raretés", fRar)}${RORD.map(r => chip("rar", r, RAR[r].n, fRar)).join("")}</div>
       <div class="bq-grid col">${list.map(i => card(i, "col")).join("") || `<p class="muted">Aucun personnage avec ces filtres.</p>`}</div>`;
   }

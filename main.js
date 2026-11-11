@@ -26,8 +26,8 @@ const UPGRADES = {
 const CHARS = CREATURES.concat([RIXY, SOMNI]);
 const avatarSVG = (i, size) => creatureSVG(CHARS[i] || CHARS[0], size);
 const SECRETS = SECRET_SKINS.concat([ULTRA_SKIN]);
-const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS, typeof LEGEND_SKINS !== "undefined" ? LEGEND_SKINS : []).find(s => s.id===id);
-const ownsSkin = id => /^b\d+$/.test(id) || !!(S.skins && S.skins[id]);
+const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS, typeof LEGEND_SKINS !== "undefined" ? LEGEND_SKINS : [], typeof EVENT_SKINS !== "undefined" ? EVENT_SKINS : [], typeof RETIRED_SKINS !== "undefined" ? RETIRED_SKINS : []).find(s => s.id===id);
+const ownsSkin = id => /^b\d+$/.test(id) || (!!(S.skins && S.skins[id]) && !(typeof RETIRED_SKINS !== "undefined" && RETIRED_SKINS.some(s => s.id === id)));
 const heroChar = () => (S.profile && S.profile.skin && ownsSkin(S.profile.skin) && skinOf(S.profile.skin)) || (S.profile && CHARS[S.profile.avatar]) || CHARS[0];
 const hasAcc = () => S.acc && Object.values(S.acc.eq).some(Boolean);
 const meSVG = size => hasAcc() ? dressedSVG(heroChar(), S.acc.eq, size) : creatureSVG(heroChar(), size);
@@ -350,6 +350,7 @@ function answer(id, ok, combo){
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
+  if (typeof Evenements !== "undefined") Evenements.onCorrect();   // tirage d'un fragment par le serveur (pendant un événement)
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
@@ -502,7 +503,7 @@ function render(){
   const active = s && S.tab === "jouer";
   if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
   else if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
-  else if (S.tab==="accueil") html += (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
+  else if (S.tab==="accueil") html += (typeof Evenements !== "undefined" && Evenements.open()) ? Evenements.view() : (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
   else if (S.tab==="jouer") html += (typeof Boss !== "undefined" && Boss.open()) ? Boss.view() : renderPlay();
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
@@ -558,9 +559,10 @@ function dailyCard(){
 function renderHome(){
   const A = acctLvl(), next = nextGoal();
   return `<section class="stack">
-    <div class="me"><div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
+    <div class="me">${typeof Evenements !== "undefined" ? Evenements.homeBtn() : ""}<div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
+    ${typeof Evenements !== "undefined" ? Evenements.card() : ""}
     ${portalCard()}
     ${typeof Calendrier !== "undefined" ? Calendrier.card() : ""}
     ${rescueCard()}
@@ -787,9 +789,11 @@ function renderGame(){
   const lvlName = ["","Facile","Moyen","Pointu"][q[1]];
   let tools = "";
   if (ans === undefined) {
-    const j = s.joker > 0 && n > 2 ? `<button class="joker" data-joker>${gIcon("joker",24)}Joker 50/50</button>` : "<span></span>";
+    const fifty = typeof Potions !== "undefined" && (s.mode === "survie" || s.mode === "daily") && !s.duel && n > 2 && !hide.length && Potions.has("fifty");
+    const j = s.joker > 0 && n > 2 && !hide.length ? `<button class="joker" data-joker>${gIcon("joker",24)}Joker 50/50</button>` : "<span></span>";
+    const tk = fifty ? `<button class="joker tok" data-fifty>${Potions.svg("fifty", 22)}Jeton 50/50</button>` : "";
     const c = s.combo >= 2 ? `<span class="combo">Combo ${s.combo}${multTxt(s.combo+1)?" · prochaine "+multTxt(s.combo+1):""}</span>` : "<span></span>";
-    tools = `<div class="tools">${j}${c}</div>`;
+    tools = `<div class="tools">${tk ? `<span class="row" style="gap:6px">${j}${tk}</span>` : j}${c}</div>`;
   }
   let after = "";
   if (ans !== undefined) {
@@ -1128,6 +1132,12 @@ function onClick(e){
   if (d.mode) return start(d.mode);
   if (d.serie) return start("serie", {theme:d.serie});
   if (d.quit !== undefined) { leaveSession(); save(); return render(); }
+  if (d.fifty !== undefined) {   // jeton rare 50/50 : consommé seulement ici, une fois par question
+    const st = s.steps[s.pos]; if (!st || !st.id || !Q[st.id] || st.ans !== undefined || (st.hide && st.hide.length) || !(s.mode === "survie" || s.mode === "daily")) return;
+    if (!Potions.use("fifty")) return render();
+    const wrong = shuffle([1,2,3].filter(i=>i<Q[st.id][2].length), rng(s.seed+hash(st.id)+11));
+    st.hide = wrong.slice(0,2); toasts.push("<b>Jeton 50/50 utilisé</b> · deux mauvaises réponses disparaissent."); save(); return render();
+  }
   if (d.joker !== undefined) {
     const st = s.steps[s.pos]; if (s.joker <= 0 || st.ans !== undefined) return;
     const wrong = shuffle([1,2,3].filter(i=>i<Q[st.id][2].length), rng(s.seed+hash(st.id)+9));
@@ -1189,6 +1199,8 @@ function onClick(e){
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
   if (d.cal === "open") return Calendrier.open();
+  if (d.ev !== undefined) return Evenements.click(b);
+  if (d.evb) return Evenements.buy(d.evb);
   if (d.pot === "open") return Potions.sheet();
   if (d.bq !== undefined) return Boutique.click(b);
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }

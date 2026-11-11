@@ -1317,6 +1317,7 @@ body.in-tour .tw{background:transparent}
 .cal-win b{font:800 20px var(--f-display);color:#3A2410}.cal-win span{font-size:12.5px;color:#7A5430}
 .pill.pot{display:inline-flex;align-items:center;gap:3px;padding:4px 6px}
 .pot-i{display:inline-flex;align-items:center;gap:2px}
+.pot-n{font:800 11px "IBM Plex Mono",monospace;color:var(--ink,#2B1D3A)}
 .pot-i.on b{font:800 11px "IBM Plex Mono",monospace;color:#9A4AD8}
 .pot-i.on svg{filter:drop-shadow(0 0 4px rgba(255,210,63,.9))}
 .pot-svg.off{filter:grayscale(1) opacity(.45)}
@@ -1341,6 +1342,65 @@ body.in-tour .tw{background:transparent}
 .qs-go:active{transform:translateY(2px);box-shadow:0 1px 0 #8A1E5A}
 .qs-done{font:800 11px "Nunito",sans-serif;color:#2BB673}
 .qs-lock{max-width:110px;text-align:right;font:700 11px/1.2 "Nunito",sans-serif;color:var(--muted)}
+
+/* ---------- Événements temporaires (evenements.js) ---------- */
+.me{position:relative}
+.ev-hbtn{position:absolute;top:-4px;right:0;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 8px 4px;border-radius:14px;border:2px solid #2B1D3A;background:linear-gradient(#5A1E6A,#2A0C38);color:#FFD88A;font:800 10.5px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;box-shadow:0 3px 0 #2B1D3A,0 0 18px rgba(255,120,40,.45);cursor:pointer;animation:evPulse 2.4s ease-in-out infinite}
+.ev-hbtn:active{transform:translateY(2px);box-shadow:0 1px 0 #2B1D3A}
+.ev-dot{position:absolute;top:-4px;right:-4px;width:12px;height:12px;border-radius:50%;background:#FF5FA2;border:2px solid #2B1D3A}
+@keyframes evPulse{50%{box-shadow:0 3px 0 #2B1D3A,0 0 28px rgba(255,120,40,.75)}}
+.me .stack{padding-right:64px}
+.ev-card{display:grid;grid-template-columns:118px 1fr;gap:12px;align-items:center;padding:0;overflow:hidden;text-align:left;background:linear-gradient(100deg,#2A0C38,#5A1E4A);color:#FFF4E8;border:2px solid #2B1D3A;cursor:pointer}
+.ev-card-art{height:82px;overflow:hidden}.ev-card-art svg{width:100%;height:100%;display:block}
+.ev-card-txt{display:flex;flex-direction:column;gap:2px;padding:8px 10px 8px 0;min-width:0}
+.ev-card-txt b{font-family:var(--f-display);font-size:18px}.ev-card-txt span:last-child{font-size:12.5px;opacity:.85}
+.ev-card .tw-kicker,.ev-banner .tw-kicker{color:#FFB84A}
+.ev-hub{gap:12px}
+.ev-banner{position:relative;border-radius:20px;overflow:hidden;border:2.5px solid #2B1D3A;box-shadow:0 5px 0 #2B1D3A;aspect-ratio:36/19}
+.ev-banner-art{width:100%;height:100%;display:block}
+.ev-banner-txt{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;display:flex;flex-direction:column;gap:3px;background:linear-gradient(transparent,rgba(10,4,18,.85));color:#FFF4E8}
+.ev-title{font-family:var(--f-display);font-size:26px;line-height:1.05;text-shadow:0 2px 0 #2B1D3A}
+.ev-time{display:inline-flex;align-items:center;gap:6px;font-size:13px;opacity:.95}
+.ev-desc{margin:0;font-size:14.5px;line-height:1.45}
+.ev-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ev-stats div{background:var(--surface);border:2px solid var(--line,rgba(0,0,0,.1));border-radius:14px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.ev-stats span{font:600 10.5px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;opacity:.75}
+.ev-stats b{display:flex;align-items:center;gap:4px;font-family:var(--f-display);font-size:19px}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ev-ch{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 8px 12px;border-radius:18px;background:linear-gradient(#3A1448,#1E0A28);color:#FFF4E8;border:2.5px solid #2B1D3A;box-shadow:0 4px 0 #2B1D3A;text-align:center}
+.ev-ch.own{background:linear-gradient(#6A3A0E,#3A1A08);box-shadow:0 4px 0 #2B1D3A,0 0 0 2px #E8960A inset}
+.ev-ch-art{width:104px;height:104px;border-radius:50%;background:radial-gradient(circle,rgba(255,150,60,.35),transparent 70%)}
+.ev-ch:not(.own) .ev-ch-art svg{filter:saturate(.75) brightness(.9)}
+.ev-ch-n{font-family:var(--f-display);font-size:15px;line-height:1.1;min-height:2.2em;display:flex;align-items:center}
+.ev-pips{display:flex;gap:4px}.ev-pips i{width:14px;height:18px;clip-path:polygon(50% 0,100% 30%,80% 100%,20% 100%,0 30%);background:rgba(255,255,255,.18)}
+.ev-pips i.on{background:linear-gradient(#FFC46A,#FF6A2A 60%,#8A2AD8)}
+.ev-ch-p{font:600 12px var(--f-mono);opacity:.9}
+.ev-ch .chip{font-size:12px}
+.ev-how{display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.ev-warn{display:flex;flex-direction:column;gap:6px;align-items:flex-start;border:2px dashed #E8960A}
+.ev-frag{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:8px;padding:8px 14px 8px 10px;border-radius:999px;background:#2A0C38;color:#FFF4E8;border:2px solid #FFB84A;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,.35);animation:evFragIn .45s cubic-bezier(.2,1.4,.4,1);pointer-events:none;white-space:nowrap;max-width:calc(100vw - 32px)}
+.ev-frag span{overflow:hidden;text-overflow:ellipsis}.ev-frag i{font-style:normal;opacity:.8;font-family:var(--f-mono);font-size:12px}
+.ev-frag .ev-shard{animation:evSpin .9s ease-out}
+.ev-frag.big{border-color:#FF5FA2}.ev-frag.out{opacity:0;transform:translate(-50%,10px);transition:.4s}
+@keyframes evFragIn{from{opacity:0;transform:translate(-50%,24px) scale(.8)}}
+@keyframes evSpin{from{transform:rotate(-200deg) scale(.3)}}
+.ev-unlock .ev-ul-box{position:relative;overflow:hidden;width:min(340px,100%);display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 16px 18px;border-radius:24px;background:linear-gradient(#3A1448,#14061E);color:#FFF4E8;border:3px solid #2B1D3A;box-shadow:0 6px 0 #2B1D3A}
+.ev-ul-rays{position:absolute;inset:-40%;background:repeating-conic-gradient(rgba(255,180,80,.16) 0 10deg,transparent 10deg 20deg);animation:evRays 14s linear infinite}
+.ev-ul-box>*:not(.ev-ul-rays){position:relative}
+.ev-ul-art{animation:evPop .6s cubic-bezier(.2,1.5,.4,1)}
+@keyframes evRays{to{transform:rotate(360deg)}}@keyframes evPop{from{transform:scale(.3);opacity:0}}
+.ev-bat{animation:evBat 3.2s ease-in-out infinite}.ev-glow{animation:evGlow 2.2s ease-in-out infinite}.ev-star{animation:evGlow 3s ease-in-out infinite}
+@keyframes evBat{50%{transform:translate(6px,-5px)}}@keyframes evGlow{50%{opacity:.55}}
+.ev-toks{display:flex;flex-direction:column;gap:10px}
+.ev-tok{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.joker.tok{background:linear-gradient(#7AE0FF,#2A7AD8);color:#fff}
+.joker.tok svg{margin-right:2px}
+
+/* Barre du haut sur petit écran : le pseudo reste toujours lisible (au moins le début, avec « … ») */
+.top.hud .who{flex:1 1 auto}.top.hud .pills{flex:0 0 auto}.top.hud .who{min-width:0}
+.who-n{flex:1 1 auto;min-width:58px}.who-n>span:first-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+@media (max-width:400px){.top.hud .pill.coins .plus{display:none}.top.hud .pill .bigcoin{transform:scale(.85)}}
+@media (max-width:420px){.top.hud .pills{gap:5px}.top.hud .pill{padding:4px 8px 4px 5px;font-size:14px;gap:4px}.top.hud .pill.pot{padding:4px 6px}.top.hud .who{gap:8px}}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
@@ -2989,7 +3049,7 @@ PORTAL_SKINS.forEach(s => { s.toy = true; s.anim = ""; s.portal = true; s.hint =
 /* ---------- Édition Halloween : 4 personnages originaux en style jouet ----------
    Des clins d'œil aux grands monstres du cinéma d'horreur, sans reprendre leurs noms ni leurs traits :
    des personnages Lumen déguisés. En vente du 1er octobre au 30 novembre ; une fois achetés, ils restent. */
-const HALLOWEEN_SKINS = [
+const HALLOWEEN_ALL = [
 { id:"masque", n:"Le Masque Blanc", e:"Édition Halloween", p:900, toy:true, anim:"", draw(){
   return tPerson({
     skin:["#F6F3EC", "#D9D3C6", "#000"], torso:["#4A6698", "#30497A", "#14213E"], shoes:["#3A3A42", "#1E1E24", "#000"], sleeve:"#30497A",
@@ -3049,7 +3109,14 @@ const HALLOWEEN_SKINS = [
 } }
 ];
 const HALLOWEEN_HAT = { masque:{at:[60, 20], k:1}, croque:{at:[60, 18], k:1}, zombie:{at:[60, 24], k:1} };
-HALLOWEEN_SKINS.forEach(s => { if (HALLOWEEN_HAT[s.id]) s.hat = HALLOWEEN_HAT[s.id]; if (s.id === "campeur") s.noHat = true; s.season = "halloween"; SHOP_SKINS.push(s); });
+HALLOWEEN_ALL.forEach(s => { if (HALLOWEEN_HAT[s.id]) s.hat = HALLOWEEN_HAT[s.id]; if (s.id === "campeur") s.noHat = true; s.season = "halloween"; });
+// Novembre 2026 (choix d'Erwan) : seul le Masque Blanc reste en boutique. Le Campeur du Lac et le Zombie deviennent
+// des personnages de l'événement « La Nuit des Ombres » (toy_events.js). Le Croque-Rêves est retiré du jeu :
+// il n'est plus visible nulle part, son dessin reste seulement pour afficher les anciens profils (pièces remboursées).
+const HALLOWEEN_SKINS = HALLOWEEN_ALL.filter(s => s.id === "masque");
+const HALLOWEEN_EVENT = HALLOWEEN_ALL.filter(s => s.id === "campeur" || s.id === "zombie");
+const RETIRED_SKINS = HALLOWEEN_ALL.filter(s => s.id === "croque");
+HALLOWEEN_SKINS.forEach(s => SHOP_SKINS.push(s));
 // Saison d'Halloween : du 1er octobre au 30 novembre (mois 9 et 10 en JavaScript)
 const halloweenSeason = (d = new Date()) => d.getMonth() === 9 || d.getMonth() === 10;
 
@@ -3388,6 +3455,62 @@ const LEGEND_SKINS = [
   });
 } }
 ];
+
+/* ---------- Personnages des événements temporaires (style jouet) ----------
+   « La Nuit des Ombres » (Halloween, novembre 2026, choix d'Erwan) : le Campeur du Lac et le Zombie
+   (anciens personnages de l'édition Halloween, plus en boutique) + 2 personnages originaux Lumen, clins d'œil
+   à l'univers des carnets maudits, sans noms de marque. Ils ne s'achètent pas : on les obtient avec 6 fragments
+   pendant l'événement, puis ils restent dans la collection pour toujours. */
+const EVENT_NEW = [
+{ id:"ev_pomme", n:"Le Spectre à la Pomme", toy:true, anim:"", noHat:true, draw(){
+  // Grandes ailes en plumes (3 rangées), cape déchirée, yeux luisants, pomme qui flotte
+  const wing = side => { const m = side < 0 ? "" : "translate(120 0) scale(-1 1)";
+    const rows = [[8, 18, 30], [14, 30, 22], [22, 44, 16]].map(([x, y, l], i) => [0, 1, 2, 3].map(k => `<path d="M${30 - k * 3} ${66 + k * 4} Q${x - k * 2} ${y + k * 9} ${x - 6 - k * 2} ${y + l + k * 9} Q${x + 6 - k} ${y + l - 4 + k * 9} ${32 - k * 2} ${72 + k * 4}Z" fill="${["#4A3C6A", "#5E4E84", "#7464A0"][i]}" stroke="${TD}" stroke-width="1.6" stroke-linejoin="round"/>`).join("")).join("");
+    return `<g transform="${m}">${toy("M34 74 Q10 60 2 22 Q14 30 18 26 Q14 40 24 46 Q20 56 36 66Z", "#3E3258", "#2A2240", "#08060E", {dy:3})}${rows}<path d="M6 28 Q16 48 32 68" stroke="#A898D0" stroke-width="1.6" fill="none" opacity=".8"/></g>`; };
+  const aura = `<ellipse cx="60" cy="62" rx="58" ry="54" fill="#B05AFF" opacity=".16"/><ellipse cx="60" cy="60" rx="40" ry="38" fill="#FF7AD8" opacity=".08"/>`;
+  const rag = `<path d="M22 112 L28 128 L34 116 L40 130 L47 117 L54 131 L60 118 L66 131 L73 117 L80 130 L86 116 L92 128 L98 112" fill="#1E1830" stroke="${TD}" stroke-width="2" stroke-linejoin="round"/>`;
+  return tPerson({
+    skin:["#A8B4D8", "#7884AC", "#000"], torso:["#3A3050", "#241E36", "#0A0812"], shoes:["#241E36", "#16121E", "#000"], sleeve:"#241E36", gloves:["#A8B4D8", "#7884AC", "#2A3050"],
+    armR:"M92 88 Q106 80 104 66", handR:[104, 64],
+    back: aura + wing(-1) + wing(1),
+    body: rag + `<path d="M28 78 Q60 92 92 78 L88 86 Q60 100 32 86Z" fill="#4A3E66" stroke="${TD}" stroke-width="2"/>`
+      + [36, 46, 56, 66, 76, 84].map((x, i) => `<path d="M${x} 82 l3 ${i % 2 ? 9 : 12} l3 ${i % 2 ? -9 : -12}" fill="#2E2640" stroke="${TD}" stroke-width="1.4" stroke-linejoin="round"/>`).join("")
+      + `<path d="M34 104 Q60 112 86 104" stroke="#9A8AB8" stroke-width="2.6" fill="none" stroke-dasharray="3 3"/>` + toy(tC(60, 110, 5), "#D8D0E8", "#A89AC0", "#3A3050", {dy:1, w:2})
+      + `<path d="M57 108 h6 M58 112 h4" stroke="${TD}" stroke-width="1.2"/>`,
+    held: `<g class="tbreath"><ellipse cx="110" cy="52" rx="13" ry="4" fill="#FF4A52" opacity=".25"/>${toy("M110 30 Q100 26 98 36 Q96 48 106 52 Q110 50 114 52 Q124 48 122 36 Q120 26 110 30Z", "#FF4A52", "#D41E2A", "#6A0A10", {dy:2, w:2.4})}`
+      + `<path d="M110 30 q0 -6 3 -8" stroke="#5A3A1E" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M112 26 q7 -5 10 0 q-6 3 -10 0Z" fill="#5ACB5A" stroke="${TD}" stroke-width="1.4"/>` + tShine("M102 36 Q103 32 107 31", 2.2, .85)
+      + `<path d="M120 22 l1.5 3 l3 1.5 l-3 1.5 l-1.5 3 l-1.5 -3 l-3 -1.5 l3 -1.5Z" fill="#FFF6C8" class="ta-twinkle"/></g>`,
+    face: `<path d="M36 52 Q34 66 46 70 M84 52 Q86 66 74 70" stroke="#5A6488" stroke-width="2" fill="none" opacity=".7"/>`
+      + `<path d="M37 38 L53 44 M83 38 L67 44" stroke="${TD}" stroke-width="3.4" stroke-linecap="round"/>`,
+    eyes: `<g class="tblink"><circle cx="49" cy="49" r="8" fill="#FFF36A" stroke="${TD}" stroke-width="2.6"/><circle cx="49" cy="49" r="8" fill="#FFB800" opacity=".35"/><ellipse cx="49.5" cy="49" rx="1.8" ry="5" fill="#B0101E"/>`
+      + `<circle cx="71" cy="49" r="8" fill="#FFF36A" stroke="${TD}" stroke-width="2.6"/><circle cx="71" cy="49" r="8" fill="#FFB800" opacity=".35"/><ellipse cx="70.5" cy="49" rx="1.8" ry="5" fill="#B0101E"/><circle cx="52" cy="46" r="1.5" fill="#fff"/><circle cx="74" cy="46" r="1.5" fill="#fff"/></g>`,
+    noBlush:true,
+    mouth: `<path d="M36 58 Q60 80 84 58 Q72 64 60 64 Q48 64 36 58Z" fill="#3A0A16" stroke="${TD}" stroke-width="2.4" stroke-linejoin="round"/>`
+      + `<path d="M40 60 l3 5 l3 -4 l3 5 l3 -4 l3 5 l3 -4 l3 5 l3 -4 l3 5 l3 -4 l3 5 l3 -4 l3 4" fill="#FFF8E8" stroke="${TD}" stroke-width="1.2" stroke-linejoin="round"/>`
+      + `<path d="M46 70 Q60 76 74 70" stroke="#C8183A" stroke-width="1.6" fill="none" opacity=".6"/>`,
+    hair: toy("M28 44 L14 34 L28 32 L16 16 L34 22 L32 4 L46 16 L52 0 L60 14 L68 0 L74 16 L88 4 L86 22 L104 16 L92 32 L106 34 L92 44 Q86 26 60 24 Q34 26 28 44Z", "#4A3C6A", "#2E2444", "#06040A", {dy:2})
+      + `<path d="M34 30 L42 34 M46 18 L50 28 M60 12 L60 24 M74 18 L70 28 M86 30 L78 34" stroke="#8A78B8" stroke-width="1.8" stroke-linecap="round"/>`
+  });
+} },
+{ id:"ev_carnet", n:"L'Élève au Carnet Noir", toy:true, anim:"", noHat:true, draw(){
+  return tPerson({
+    skin:["#FFE4D0", "#F2B898", "#000"], torso:["#7A5A44", "#5A402E", "#24160C"], shoes:["#3A2A22", "#22160E", "#000"], sleeve:"#5A402E",
+    armR:"M92 88 Q106 86 108 74", handR:[108, 72],
+    body: `<path d="M48 70 L60 84 L72 70 Z" fill="#F6F4F0" stroke="${TD}" stroke-width="2"/><path d="M57 76 L63 76 L62 100 L60 104 L58 100Z" fill="#C8202E" stroke="${TD}" stroke-width="1.8" stroke-linejoin="round"/>`
+      + `<path d="M48 70 L42 96 M72 70 L78 96" stroke="#24160C" stroke-width="2" opacity=".6"/><rect x="70" y="92" width="12" height="9" rx="1.5" fill="#6A4C38" stroke="${TD}" stroke-width="1.8"/>`
+      + `<circle cx="60" cy="110" r="2" fill="#E8C24A" stroke="${TD}" stroke-width="1.2"/><circle cx="60" cy="118" r="2" fill="#E8C24A" stroke="${TD}" stroke-width="1.2"/>`,
+    held: toy("M98 56 H118 Q120 56 120 58 V84 Q120 86 118 86 H98 Q96 86 96 84 V58 Q96 56 98 56Z", "#3A3644", "#1E1A26", "#06040A", {dy:2, w:2.6})
+      + `<path d="M100 60 V82" stroke="#5A5468" stroke-width="2"/><path d="M104 64 h12 M104 69 h12" stroke="#E8E4F0" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>` + tShine("M101 59 Q108 58 114 59", 1.8, .5),
+    face: `<path d="M42 41 L55 43 M78 41 L65 43" stroke="#5A3A22" stroke-width="3" stroke-linecap="round"/>`,
+    eyes: `<g class="tblink">${tEye(50, 48, .85)}${tEye(70, 48, .85)}</g><path d="M44 51 Q50 53 56 51 M64 51 Q70 53 76 51" stroke="#C8182A" stroke-width="1.4" fill="none" opacity=".7"/>`,
+    mouth: `<path d="M53 60 Q62 64 68 58" fill="none" stroke="${TD}" stroke-width="2.4" stroke-linecap="round"/>`,
+    hair: toy("M32 46 Q26 14 60 12 Q94 14 88 46 Q86 30 78 28 Q72 38 60 32 Q58 40 50 36 Q44 42 38 34 Q34 38 32 46Z", "#8A5A36", "#6A4026", "#2A160A", {dy:2})
+      + `<path d="M60 14 Q54 24 50 36 M66 16 Q66 26 60 32" stroke="#5A3A22" stroke-width="1.8" fill="none" opacity=".7"/>` + tShine("M42 22 Q50 16 60 15", 2.4, .5)
+  });
+} }
+];
+const EVENT_SKINS = HALLOWEEN_EVENT.concat(EVENT_NEW);
+EVENT_SKINS.forEach(s => { s.event = true; s.ev = "hw26"; s.e = "Événement Halloween"; s.r = "leg"; delete s.p; });
 
 /* ---------- Icônes « jeu mobile » : pleines, colorées, contour sombre, reflet ---------- */
 const GO = "#2B1D3A";
@@ -3758,8 +3881,8 @@ const UPGRADES = {
 const CHARS = CREATURES.concat([RIXY, SOMNI]);
 const avatarSVG = (i, size) => creatureSVG(CHARS[i] || CHARS[0], size);
 const SECRETS = SECRET_SKINS.concat([ULTRA_SKIN]);
-const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS, typeof LEGEND_SKINS !== "undefined" ? LEGEND_SKINS : []).find(s => s.id===id);
-const ownsSkin = id => /^b\d+$/.test(id) || !!(S.skins && S.skins[id]);
+const skinOf = id => !id ? null : id[0]==="b" && /^b\d+$/.test(id) ? CHARS[+id.slice(1)] : SHOP_SKINS.concat(SECRETS, typeof LEGEND_SKINS !== "undefined" ? LEGEND_SKINS : [], typeof EVENT_SKINS !== "undefined" ? EVENT_SKINS : [], typeof RETIRED_SKINS !== "undefined" ? RETIRED_SKINS : []).find(s => s.id===id);
+const ownsSkin = id => /^b\d+$/.test(id) || (!!(S.skins && S.skins[id]) && !(typeof RETIRED_SKINS !== "undefined" && RETIRED_SKINS.some(s => s.id === id)));
 const heroChar = () => (S.profile && S.profile.skin && ownsSkin(S.profile.skin) && skinOf(S.profile.skin)) || (S.profile && CHARS[S.profile.avatar]) || CHARS[0];
 const hasAcc = () => S.acc && Object.values(S.acc.eq).some(Boolean);
 const meSVG = size => hasAcc() ? dressedSVG(heroChar(), S.acc.eq, size) : creatureSVG(heroChar(), size);
@@ -4082,6 +4205,7 @@ function answer(id, ok, combo){
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
+  if (typeof Evenements !== "undefined") Evenements.onCorrect();   // tirage d'un fragment par le serveur (pendant un événement)
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
@@ -4234,7 +4358,7 @@ function render(){
   const active = s && S.tab === "jouer";
   if (active && s.duel && s.duel.live && !s.done && Date.now() < s.duel.start) html += Amis.countdown(s);
   else if (active) html += s.mode==="avap" ? renderAvap() : renderGame();
-  else if (S.tab==="accueil") html += (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
+  else if (S.tab==="accueil") html += (typeof Evenements !== "undefined" && Evenements.open()) ? Evenements.view() : (typeof Quetes !== "undefined" && Quetes.open()) ? Quetes.view() : renderHome();
   else if (S.tab==="jouer") html += (typeof Boss !== "undefined" && Boss.open()) ? Boss.view() : renderPlay();
   else if (S.tab==="amis") html += Amis.view();
   else if (S.tab==="boutique") html += renderShop();
@@ -4290,9 +4414,10 @@ function dailyCard(){
 function renderHome(){
   const A = acctLvl(), next = nextGoal();
   return `<section class="stack">
-    <div class="me"><div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
+    <div class="me">${typeof Evenements !== "undefined" ? Evenements.homeBtn() : ""}<div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
+    ${typeof Evenements !== "undefined" ? Evenements.card() : ""}
     ${portalCard()}
     ${typeof Calendrier !== "undefined" ? Calendrier.card() : ""}
     ${rescueCard()}
@@ -4519,9 +4644,11 @@ function renderGame(){
   const lvlName = ["","Facile","Moyen","Pointu"][q[1]];
   let tools = "";
   if (ans === undefined) {
-    const j = s.joker > 0 && n > 2 ? `<button class="joker" data-joker>${gIcon("joker",24)}Joker 50/50</button>` : "<span></span>";
+    const fifty = typeof Potions !== "undefined" && (s.mode === "survie" || s.mode === "daily") && !s.duel && n > 2 && !hide.length && Potions.has("fifty");
+    const j = s.joker > 0 && n > 2 && !hide.length ? `<button class="joker" data-joker>${gIcon("joker",24)}Joker 50/50</button>` : "<span></span>";
+    const tk = fifty ? `<button class="joker tok" data-fifty>${Potions.svg("fifty", 22)}Jeton 50/50</button>` : "";
     const c = s.combo >= 2 ? `<span class="combo">Combo ${s.combo}${multTxt(s.combo+1)?" · prochaine "+multTxt(s.combo+1):""}</span>` : "<span></span>";
-    tools = `<div class="tools">${j}${c}</div>`;
+    tools = `<div class="tools">${tk ? `<span class="row" style="gap:6px">${j}${tk}</span>` : j}${c}</div>`;
   }
   let after = "";
   if (ans !== undefined) {
@@ -4860,6 +4987,12 @@ function onClick(e){
   if (d.mode) return start(d.mode);
   if (d.serie) return start("serie", {theme:d.serie});
   if (d.quit !== undefined) { leaveSession(); save(); return render(); }
+  if (d.fifty !== undefined) {   // jeton rare 50/50 : consommé seulement ici, une fois par question
+    const st = s.steps[s.pos]; if (!st || !st.id || !Q[st.id] || st.ans !== undefined || (st.hide && st.hide.length) || !(s.mode === "survie" || s.mode === "daily")) return;
+    if (!Potions.use("fifty")) return render();
+    const wrong = shuffle([1,2,3].filter(i=>i<Q[st.id][2].length), rng(s.seed+hash(st.id)+11));
+    st.hide = wrong.slice(0,2); toasts.push("<b>Jeton 50/50 utilisé</b> · deux mauvaises réponses disparaissent."); save(); return render();
+  }
   if (d.joker !== undefined) {
     const st = s.steps[s.pos]; if (s.joker <= 0 || st.ans !== undefined) return;
     const wrong = shuffle([1,2,3].filter(i=>i<Q[st.id][2].length), rng(s.seed+hash(st.id)+9));
@@ -4921,6 +5054,8 @@ function onClick(e){
   if (d.rescue !== undefined) { const r = rescue(); if (r && S.coins >= r.price) { S.coins -= r.price; spend(r.price); S.frozen[r.day] = true; toasts.push(`<b>Série sauvée !</b> · ${r.n} jours, et ça continue ce soir.`); save(); } return render(); }
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
   if (d.cal === "open") return Calendrier.open();
+  if (d.ev !== undefined) return Evenements.click(b);
+  if (d.evb) return Evenements.buy(d.evb);
   if (d.pot === "open") return Potions.sheet();
   if (d.bq !== undefined) return Boutique.click(b);
   if (d.shopseg) { shopSeg = d.shopseg; return render(); }
@@ -5039,7 +5174,7 @@ const Amis = (function(){
     try {
       for (const m of ["app", "auth", "firestore"]) await loadScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-${m}-compat.js`);
       fb = window.firebase; fb.initializeApp(FIREBASE_CONFIG); auth = fb.auth(); auth.languageCode = "fr"; db = fb.firestore();
-      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0), typeof Calendrier !== "undefined" && setTimeout(Calendrier.sync, 800)) : (stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
+      auth.onAuthStateChanged(u => { me = u; S.amis = S.amis || {}; S.amis.on = !!u; save(); u ? (listen(), cloudCheck(), notifRefresh(), typeof Guildes !== "undefined" && setTimeout(Guildes.listen, 0), typeof Calendrier !== "undefined" && setTimeout(Calendrier.sync, 800), typeof Evenements !== "undefined" && setTimeout(Evenements.listen, 0)) : (stop(), typeof Evenements !== "undefined" && Evenements.stop(), cloud = {ready:false, offer:null, timer:null, last:"", err:false}); rerender(); });
     } catch(e){ err = "Impossible de joindre le serveur. Vérifie ta connexion."; failAt = Date.now(); }
     loading = false; rerender();
   }
@@ -5099,7 +5234,7 @@ const Amis = (function(){
   /* --- Sauvegarde de la progression sur le compte (téléphone, PC…) ---
      syncAt = date de la sauvegarde en ligne que cet appareil connaît. Si la sauvegarde en ligne est plus récente,
      c'est qu'on a joué ailleurs : on la récupère. Sinon, cet appareil envoie la sienne (quelques secondes après chaque changement). */
-  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView", "calSeen"]; // propre à chaque appareil
+  const LOCAL = ["session", "amis", "settings", "tab", "pausedDaily", "salonCode", "tourRun", "bossOpen", "questOpen", "multiView", "calSeen", "evOpen"]; // propre à chaque appareil
   function snapshot(){ const o = {}; Object.keys(S).forEach(k => { if (!LOCAL.includes(k)) o[k] = S[k]; }); return JSON.stringify(o); }
   // Fusion de deux sauvegardes (cet appareil + celle du compte) : on ne perd jamais rien.
   // Nombres : le plus grand (pièces, XP, compteurs) ; listes : tout ce qui est dans l'une ou l'autre ;
@@ -6184,7 +6319,7 @@ const Tour = (() => {
   function next(){
     const r = run(); if (!r) return;
     const used = new Set(r.used), id = pickFor(r.floor, used);
-    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.dl = Date.now() + qTime(r.floor) * 1000; r.ans = undefined;
+    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.hide = []; r.dl = Date.now() + qTime(r.floor) * 1000; r.ans = undefined;
     markSeen(id); view = "q"; save(); render(); startTimer();
   }
   function startTimer(){
@@ -6216,6 +6351,7 @@ const Tour = (() => {
       t.cp = Math.max(t.cp || 0, f);
       let coins = 0;
       if (!t.claimed[f]) { t.claimed[f] = today(); coins = CP_REWARD[f] || 0; S.coins += coins; } // une seule fois par compte
+      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton rare (une seule fois par compte)
       if (f === 100) { t.tops = (t.tops || 0) + 1; S.titles = S.titles || {}; S.titles.tour100 = S.titles.tour100 || today(); }
       S.tourRun = f < 100 ? {floor:f + 1, used:r.used, t0:r.t0} : null;
       save(); checkBadges(); pushStats();
@@ -6352,8 +6488,10 @@ const Tour = (() => {
   }
   function qView(){
     const r = run(), q = Q[r.qid], f = r.floor, ans = r.ans, left = Math.max(0, r.dl - Date.now());
-    const ch = r.ord.map(o => { let c = "choice"; if (ans !== undefined) c += o === 0 ? " right" : o === ans ? " wrong" : " dim";
-      return `<button class="${c}" data-tw="ans" data-v="${o}" ${ans === undefined ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
+    const hide = r.hide || [];
+    const ch = r.ord.map(o => { let c = "choice"; if (ans !== undefined) c += o === 0 ? " right" : o === ans ? " wrong" : " dim"; else if (hide.includes(o)) c += " gone";
+      return `<button class="${c}" data-tw="ans" data-v="${o}" ${ans === undefined && !hide.includes(o) ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
+    const tk = ans === undefined && !hide.length && q[2].length > 2 && typeof Potions !== "undefined" && Potions.has("fifty") ? `<div class="tools"><button class="joker tok" data-tw="fifty">${Potions.svg("fifty", 22)}Jeton 50/50</button><span></span></div>` : "";
     const cpNext = Math.ceil(f / 10) * 10;
     return `<section class="tw tw-play">${sky()}
       <div class="tw-row-h"><span class="tw-floor">Étage <b>${f}</b><i>/100</i></span><button class="quit" data-tw="quit">Abandonner</button></div>
@@ -6361,7 +6499,7 @@ const Tour = (() => {
       <div class="tw-row-h"><span class="tw-band">Difficulté : ${BANDS[band(f) - 1]}</span><span class="tw-muted">Palier ${cpNext}${T().claimed[cpNext] ? "" : " · " + CP_REWARD[cpNext] + " pièces"}</span></div>
       <article class="card q tw-q"><div class="row between"><span class="chip">${dot(q[0])}${esc(THEMES[q[0]].n)}</span><span class="label" id="tw-left">${ans === undefined ? Math.ceil(left / 1000) + " s" : ""}</span></div>
         <div class="timer" style="margin:8px 0 0"><i id="tw-bar" style="width:${ans === undefined ? left / (qTime(f) * 10) : 0}%"></i></div>
-        <h2>${esc(q[4])}</h2><div class="choices">${ch}</div>
+        <h2>${esc(q[4])}</h2>${tk}<div class="choices">${ch}</div>
         ${ans !== undefined ? `<div class="verdict ${ans === 0 ? "ok" : "ko"}" role="status"><b>${ans === 0 ? "La porte s'ouvre…" : ans === -1 ? "Temps écoulé ! La réponse était : " + esc(q[2][0]) : "Raté ! La réponse était : " + esc(q[2][0])}</b>${ans !== 0 ? `<p>${esc(q[3])}</p>` : ""}</div>` : ""}
       </article></section>`;
   }
@@ -6384,6 +6522,8 @@ const Tour = (() => {
     if (a === "rank") { view = "rank"; render(); return window.scrollTo(0, 0); }
     if (a === "tower") { view = "tower"; lastScroll = null; render(); return window.scrollTo(0, 0); }
     if (a === "ans") return choose(+b.dataset.v);
+    if (a === "fifty") { const r = run(); if (!r || r.ans !== undefined || (r.hide && r.hide.length) || !Potions.use("fifty")) return render();
+      r.hide = [1, 2, 3].filter(i => i < Q[r.qid][2].length).sort(() => Math.random() - .5).slice(0, 2); save(); return render(); }
     if (a === "quit") return quit();
   }
   // Relancer l'appli en pleine montée = retomber au palier (sinon on pourrait recharger pour éviter une question)
@@ -6526,6 +6666,7 @@ const Boss = (() => {
     const top = Object.keys(doc.dmg || {}).sort((a, b) => doc.dmg[b] - doc.dmg[a])[0];
     if (top === uid()) { s.tops = (s.tops || 0) + 1; S.titles = S.titles || {}; if (!S.titles.fleau) { S.titles.fleau = today(); lines.push("Titre rare débloqué : FLÉAU DES BOSS"); } }
     if (doc.killer === uid()) { s.kills = (s.kills || 0) + 1; lines.push("Tu as porté le coup fatal !"); }
+    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton rare t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
     save(); checkBadges();
     setTimeout(() => rewardFx(lines), 600);
   }
@@ -7382,7 +7523,7 @@ const Guildes = (() => {
 const Boutique = (() => {
   const RAR = {com:{n:"Commun", c:"#8A96AA", w:6}, rare:{n:"Rare", c:"#3A7AE0", w:5}, epic:{n:"Épique", c:"#9A4AD8", w:3}, leg:{n:"Légendaire", c:"#E8960A", w:2}, myth:{n:"Mythique", c:"#E2283A", w:1}};
   const RORD = ["myth", "leg", "epic", "rare", "com"];
-  const HOW = {shop:"Boutique du jour", prestige:"Prestige", quest:"Défi permanent", week:"Défi de la semaine", portal:"Portail et Boss", secret:"Secret", season:"Édition Halloween", start:"Départ"};
+  const HOW = {shop:"Boutique du jour", prestige:"Prestige", quest:"Défi permanent", week:"Défi de la semaine", portal:"Portail et Boss", secret:"Secret", season:"Édition Halloween", event:"Événement temporaire", start:"Départ"};
   const REVEAL_PRICE = 3000;
   const towerBest = () => { try { return Tour.stats().best || 0; } catch(e){ return 0; } };
   // Les nouvelles Légendes : comment on les obtient
@@ -7418,6 +7559,7 @@ const Boutique = (() => {
     if (portalIds().includes(id)) return {id, sk, r:"leg", how:"portal", cond:"Gagné au Portail ou contre le Boss de la semaine"};
     if (id === "lumen") return Object.assign({id, sk, r:"myth", how:"secret"}, SECRET_COND.lumen);
     if (SECRET_SKINS.some(s => s.id === id)) return {id, sk, r:"epic", how:"secret", cond:sk.hint};
+    if (sk.event) { const e = EV_DATA.EVENTS.find(x => x.chars.includes(id)); return {id, sk, r:"leg", how:"event", cond:`Événement temporaire · ${e ? e.n : ""} (${e ? e.need : 6} fragments)`}; }
     if (HALLOWEEN_SKINS.some(s => s.id === id)) return {id, sk, r:"epic", how:"season", p:sk.p};
     if (sk.free) return {id, sk, r:"rare", how:"quest", cond:sk.hint, goal:id === "nord" ? 1 : 0, cur:id === "nord" ? () => (S.online && S.online.wins) || 0 : null};
     if (sk.unlock && !sk.p) return {id, sk, r:"rare", how:"quest", cond:`${sk.unlock.n} bonnes réponses en ${THEMES[sk.unlock.th].n}`, goal:sk.unlock.n, cur:() => correctIn(sk.unlock.th)};
@@ -7426,7 +7568,7 @@ const Boutique = (() => {
     if (sk.unlock) { o.alt = `ou ${sk.unlock.n} bonnes réponses en ${THEMES[sk.unlock.th].n}`; o.goal = sk.unlock.n; o.cur = () => correctIn(sk.unlock.th); }
     return o;
   }
-  const allIds = () => CHARS.map((c, i) => "b" + i).concat(SHOP_SKINS.map(s => s.id), SECRETS.map(s => s.id), LEGEND_SKINS.map(s => s.id)).filter((x, i, a) => a.indexOf(x) === i);
+  const allIds = () => CHARS.map((c, i) => "b" + i).concat(SHOP_SKINS.map(s => s.id), SECRETS.map(s => s.id), LEGEND_SKINS.map(s => s.id), typeof EVENT_SKINS !== "undefined" ? EVENT_SKINS.map(s => s.id) : []).filter((x, i, a) => a.indexOf(x) === i);
   const own = id => ownsSkin(id);
 
   /* --- Boutique du jour : 4 personnages, mêmes pour tous, tirés selon la date --- */
@@ -7502,6 +7644,7 @@ const Boutique = (() => {
       <div class="bq-week r-${wk.r}" style="--rc:${RAR[wk.r].c}"><div class="bq-art">${creatureSVG(wk.sk, 92)}</div><div class="stack" style="gap:5px;min-width:0">${rTag(wk.r)}<b>${esc(wk.sk.n)}</b><span class="muted" style="font-size:13.5px">${esc(wk.cond)}</span>
         ${own(wk.id) ? `<span class="chip lamp">Obtenu</span>` : `<span class="meter"><i style="width:${Math.round(wp.v / wp.goal * 100)}%"></i></span><span class="bq-pv">${wp.v} / ${wp.goal} · jusqu'à dimanche soir</span>`}</div></div>
       ${halloweenSeason() ? `<div class="label">🎃 Édition Halloween · jusqu'au 30 novembre</div><div class="bq-grid">${HALLOWEEN_SKINS.map(s => card(info(s.id), "season")).join("")}</div>` : ""}
+      ${typeof Evenements !== "undefined" ? Evenements.shopBlock() : ""}
       <div class="label">Prestige · achetables à tout moment</div>
       <div class="bq-grid">${prest.map(i => card(i, "prestige")).join("")}</div>
       <div class="bq-scroll"><div class="bq-scroll-ic">${scrollSVG(64)}</div><div class="stack" style="gap:4px;min-width:0"><b>Parchemin de révélation</b><span class="muted" style="font-size:13px">Dévoile le défi d'un personnage secret que tu n'as pas encore. ${secretsLeft.length} secret${secretsLeft.length > 1 ? "s" : ""} encore caché${secretsLeft.length > 1 ? "s" : ""}.</span>
@@ -7522,7 +7665,7 @@ const Boutique = (() => {
     const chip = (k, v, lab, cur) => `<button class="chip-btn ${cur === v ? "on" : ""}" data-bq="${k}" data-v="${v}">${lab}</button>`;
     return `<div class="bq-col-top"><b>${n} / ${all.length} personnages</b><span class="meter"><i style="width:${Math.round(n / all.length * 100)}%"></i></span></div>
       <div class="bq-filters">${[["all", "Tous"], ["own", "Possédés"], ["no", "Manquants"]].map(([v, l]) => chip("own", v, l, fOwn)).join("")}</div>
-      <div class="bq-filters">${[["all", "Toutes origines"], ["shop", "Boutique"], ["prestige", "Prestige"], ["quest", "Défis"], ["portal", "Portail"], ["secret", "Secrets"], ["season", "Halloween"], ["start", "Départ"]].map(([v, l]) => chip("how", v, l, fHow)).join("")}</div>
+      <div class="bq-filters">${[["all", "Toutes origines"], ["shop", "Boutique"], ["prestige", "Prestige"], ["quest", "Défis"], ["portal", "Portail"], ["secret", "Secrets"], ["season", "Halloween"], ["event", "Événements"], ["start", "Départ"]].map(([v, l]) => chip("how", v, l, fHow)).join("")}</div>
       <div class="bq-filters">${chip("rar", "all", "Toutes raretés", fRar)}${RORD.map(r => chip("rar", r, RAR[r].n, fRar)).join("")}</div>
       <div class="bq-grid col">${list.map(i => card(i, "col")).join("") || `<p class="muted">Aucun personnage avec ces filtres.</p>`}</div>`;
   }
@@ -7552,19 +7695,29 @@ const Boutique = (() => {
    refuse une 2e récupération le même jour. Le jour change à minuit (heure d'hiver de Paris ; 1 h en été). */
 const Potions = (() => {
   const T = {xp:{n:"Potion Double XP", d:"Double l'XP des bonnes réponses pendant 30 minutes.", a:"#B48AFF", b:"#5A2AC8", t:"XP"},
-             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"}};
+             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"},
+             fifty:{n:"Jeton 50/50", d:"Retire deux mauvaises réponses sur une question. Dans la Tour, en Survie et au Défi du jour.", a:"#7AE0FF", b:"#2A7AD8", t:"50", once:true}};
   const DUR = 30 * 60 * 1000;
   const inv = () => (S.inv = S.inv || {});
-  const has = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
-  const left = t => Math.max(0, ((inv()[t] || {}).until || 0) - Date.now());
+  // Avec un compte : les jetons sont gardés par le serveur (evenements.js) ; sans compte : sur l'appareil
+  const srv = () => typeof Evenements !== "undefined" && Evenements.live();
+  const localHas = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
+  const has = t => srv() ? Evenements.has(t) : localHas(t);
+  const left = t => Math.max(0, Math.max((inv()[t] || {}).until || 0, srv() ? Evenements.until(t) : 0) - Date.now());
   const active = t => left(t) > 0;
   const mult = t => active(t) ? 2 : 1;
   // Donne une potion ; renvoie false si le joueur l'a déjà (la récompense est alors remplacée par l'appelant)
-  function give(t){ if (has(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }
-  function use(t){ if (!has(t) || active(t)) return; const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now, until:now + DUR}); save();
-    toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+  function give(t){ if (localHas(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }   // sans compte seulement
+  function use(t){ if (!has(t) || (active(t) && !T[t].once)) return false;
+    if (srv()) Evenements.use(t);
+    else { const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now}, T[t].once ? {} : {until:now + DUR}); save(); }
+    if (!T[t].once) { toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+    return true; }
   const mmss = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
   function svg(t, z, off){ const c = T[t], id = "pt" + t + Math.random().toString(36).slice(2, 6);
+    if (t === "fifty") return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
+      <circle cx="30" cy="40" r="25" fill="${TD}"/><circle cx="30" cy="36" r="25" fill="url(#${id})" stroke="${TD}" stroke-width="2.8"/><circle cx="30" cy="36" r="18" fill="none" stroke="#fff" stroke-width="2" opacity=".55" stroke-dasharray="4 3"/>
+      <path d="M14 26 Q20 16 30 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1.2" font-family="sans-serif">50</text></svg>`;
     return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
       <rect x="22" y="4" width="16" height="8" rx="2" fill="#C8965A" stroke="${TD}" stroke-width="2.4"/><path d="M24 12 V22 Q8 30 8 46 Q8 66 30 66 Q52 66 52 46 Q52 30 36 22 V12Z" fill="#EAF6FF" fill-opacity=".55" stroke="${TD}" stroke-width="2.8" stroke-linejoin="round"/>
       <path d="M10 42 Q30 36 50 42 Q52 64 30 64 Q8 64 10 42Z" fill="url(#${id})"/><path d="M15 36 Q12 46 16 54" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
@@ -7573,6 +7726,9 @@ const Potions = (() => {
   // Pastille dans la barre du haut : potions possédées et temps restant
   function pill(){
     const ks = Object.keys(T).filter(t => has(t) || active(t)); if (!ks.length) return "";
+    // Plusieurs objets : une seule icône + le nombre (et le temps du booster actif), pour ne pas couper le pseudo
+    if (ks.length > 1) { const on = ks.find(t => active(t) && !T[t].once), first = on || ks[0];
+      return `<button class="pill pot" data-pot="open" aria-label="Mes objets rares (${ks.length})"><span class="pot-i ${on ? "on" : ""}">${svg(first, 16, false)}${on ? `<b data-pot-min="${on}">${Math.ceil(left(on) / 6e4)}′</b>` : ""}<b class="pot-n">×${ks.length}</b></span></button>`; }
     return `<button class="pill pot" data-pot="open" aria-label="Mes potions">${ks.map(t => `<span class="pot-i ${active(t) ? "on" : ""}">${svg(t, 16, false)}${active(t) ? `<b data-pot-min="${t}">${Math.ceil(left(t) / 6e4)}′</b>` : ""}</span>`).join("")}</button>`;
   }
   function sheet(){
@@ -7580,9 +7736,9 @@ const Potions = (() => {
     const el = document.createElement("div"); el.className = "pot-sheet cal-veil"; el.setAttribute("role", "dialog");
     el.innerHTML = `<div class="cal-box pot-box"><button class="am-x" data-pot="close" aria-label="Fermer">×</button><b class="cal-title">Mes potions</b>
       ${Object.keys(T).map(t => `<div class="pot-row">${svg(t, 46, !has(t) && !active(t))}<div class="stack grow" style="gap:2px;min-width:0"><b>${T[t].n}</b><span class="muted" style="font-size:13px">${T[t].d}</span>
-        <span class="pot-st">${active(t) ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
-        ${has(t) && !active(t) ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
-      <p class="muted" style="font-size:12.5px;margin:0">Une potion de chaque type au maximum. Le calendrier de connexion en offre aux jours 3 et 4.</p></div>`;
+        <span class="pot-st">${active(t) && !T[t].once ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
+        ${has(t) && !active(t) && !T[t].once ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
+      <p class="muted" style="font-size:12.5px;margin:0">Un objet de chaque type au maximum. Le 50/50 s'utilise pendant une question (Tour, Survie, Défi du jour). On en gagne avec le calendrier (jours 3 et 4), la Tour (paliers 30, 60, 90) et le Boss de la semaine, ou en boutique.</p></div>`;
     el.addEventListener("click", e => { const b = e.target.closest("[data-pot]"); if (e.target === el || (b && b.dataset.pot === "close")) el.remove();
       else if (b && b.dataset.pot === "use") { use(b.dataset.v); el.remove(); render(); } });
     document.body.appendChild(el);
@@ -7619,6 +7775,7 @@ const Calendrier = (() => {
     const s = st(); if ((s.paid || 0) >= n) return null; s.paid = n;
     const r = reward(stepOf(n)); let out;
     if (typeof r === "number") { S.coins += r; out = {kind:"coin", v:r}; }
+    else if (online() && typeof Evenements !== "undefined") { out = Potions.has(r) ? {kind:"coin", v:100, swap:r} : {kind:"pot", t:r}; Evenements.cal(n); }  // le serveur verse (pièces de remplacement comprises)
     else if (Potions.give(r)) out = {kind:"pot", t:r};
     else { S.coins += 100; out = {kind:"coin", v:100, swap:r}; }
     save(); checkBadges();
@@ -7696,6 +7853,252 @@ const Calendrier = (() => {
     const d = nowDay(); if (S.calSeen === d) return; S.calSeen = d; save(); open();
   }
   return {card, open, close, claim, sync, auto, state:st, _reset:() => { srv = null; }};
+})();
+
+/* ---------- Réglages des événements temporaires et des jetons rares (novembre 2026) ----------
+   Ce fichier est lu à la fois par l'appli et par le serveur (functions/, copié au moment de l'envoi
+   avec « npm run deploy-fn »). Pour lancer un nouvel événement : ajouter une entrée à la fin de EVENTS
+   (nouvel id, dates, personnages, taux, fragments nécessaires), dessiner ses personnages dans
+   atelier/toy_events.js, puis envoyer le serveur et l'appli. Les fragments déjà obtenus restent
+   enregistrés par événement (id) : relancer un événement = réutiliser le même id avec de nouvelles dates. */
+const EV_DATA = {
+  EVENTS: [
+    { id:"hw26", n:"La Nuit des Ombres", kicker:"Événement Halloween",
+      d:"Halloween joue les prolongations ! Chaque bonne réponse peut te faire trouver un fragment de l'un des 4 personnages de la nuit. Réunis-en 6 du même pour l'adopter pour toujours.",
+      start:"2026-11-11T00:00:00+01:00", end:"2026-11-30T23:59:59+01:00",
+      rate:0.03, need:6, chars:["campeur", "zombie", "ev_pomme", "ev_carnet"], look:"halloween" }
+  ],
+  // Jetons rares : un exemplaire maximum de chaque type
+  TOKENS: { coin:{n:"Double pièces", dur:30}, xp:{n:"Double XP", dur:30}, fifty:{n:"Jeton 50/50"} },
+  PRICE: 1000,                                  // prix en boutique de chaque jeton
+  SWAP: 300,                                    // pièces données à la place d'un jeton déjà possédé
+  TOWER: { 30:"fifty", 60:"xp", 90:"coin" },    // paliers de la Tour qui donnent un jeton (une seule fois par compte)
+  BOSS_MIN: 5,                                  // PV de dégâts minimum sur un boss vaincu pour gagner un jeton (une fois par semaine)
+  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
+  DAY_MAX: 300                                  // tirages de fragments au plus par jour et par joueur
+};
+if (typeof module !== "undefined") module.exports = EV_DATA;
+
+/* ---------- Événements temporaires, fragments de personnages et jetons rares (novembre 2026) ----------
+   Réglages : evenements_data.js (EV_DATA). Serveur : functions/index.js (Firebase Cloud Functions).
+   - Pendant un événement, chaque bonne réponse (tous les modes) envoie une clé unique au serveur, par petits paquets.
+     Le serveur tire au sort (3 %) et, en cas de chance, donne un fragment d'un des personnages de l'événement
+     pas encore adoptés. 6 fragments du même personnage = il est débloqué (les 6 fragments sont consommés).
+   - Jetons rares (Double pièces, Double XP, 50/50) : un seul de chaque type, gardés par le serveur dans inv/{uid}.
+     Le téléphone ne fait que lire ce document. Les pièces de remplacement (jeton déjà possédé) et les achats
+     sont appliqués une seule fois grâce à leur clé (S.ev.paid / S.ev.spent).
+   - Sans compte : pas de fragments ; les jetons restent sur l'appareil (S.inv), comme les potions du calendrier. */
+const Evenements = (() => {
+  const D = EV_DATA, REG = "europe-west1";
+  let inv = null, unsub = null, who = null, fnLoad = null, q = [], qTimer = null, sending = false, asked = {};
+  const st = () => { S.ev = S.ev || {}; ["paid", "spent", "seen", "migr", "frag"].forEach(k => S.ev[k] = S.ev[k] || {}); return S.ev; };
+  const online = () => { try { return !!(Amis.api.uid() && Amis.api.db()); } catch(e){ return false; } };
+  const live = () => online() && !!inv;                      // l'inventaire du serveur est chargé
+  const now = () => Date.now();
+  const cur = () => D.EVENTS.find(e => now() >= Date.parse(e.start) && now() <= Date.parse(e.end)) || null;
+  const lastEv = () => cur() || D.EVENTS.slice().reverse().find(e => now() > Date.parse(e.end)) || D.EVENTS[0];
+  const evOf = id => D.EVENTS.find(e => e.chars.includes(id));
+  const skin = id => skinOf(id);
+
+  /* --- Appels au serveur --- */
+  async function call(name, data){
+    if (!fnLoad) fnLoad = (async () => { const f = Amis.api.fb(); if (!f.functions) await new Promise((ok, ko) => { const s = document.createElement("script"); s.src = `https://www.gstatic.com/firebasejs/${FB_VER}/firebase-functions-compat.js`; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); })();
+    try { await fnLoad; } catch(e){ fnLoad = null; throw e; }
+    const r = await Amis.api.fb().app().functions(REG).httpsCallable(name)(data || {}); return r.data;
+  }
+  const key = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+  /* --- Inventaire du serveur (lecture en direct) --- */
+  function listen(){
+    if (!online()) return; const uid = Amis.api.uid(); if (unsub && who === uid) return;
+    stop(); who = uid;
+    unsub = Amis.api.db().doc("inv/" + uid).onSnapshot(s => {
+      inv = Object.assign({frag:{}, evSkins:{}, tok:{}, grants:{}, pay:{}, spent:{}, fragTot:{}}, s.exists ? s.data() : {});
+      reconcile(); migrate(); retro(); refresh();
+    }, () => {});
+  }
+  function stop(){ if (unsub) { try { unsub(); } catch(e){} } unsub = null; inv = null; who = null; asked = {}; }
+  // Applique une seule fois ce que le serveur a décidé : pièces de remplacement, achats, personnages débloqués
+  function reconcile(){
+    const s = st(); let ch = false;
+    Object.keys(inv.pay || {}).forEach(k => { if (s.paid[k]) return; s.paid[k] = 1; const v = +inv.pay[k] || 0; if (v > 0) { S.coins += v; } ch = true; });
+    Object.keys(inv.spent || {}).forEach(k => { if (s.spent[k]) return; s.spent[k] = 1; const v = +inv.spent[k] || 0; S.coins = Math.max(0, S.coins - v); spend(v); ch = true; });
+    Object.keys(inv.frag || {}).forEach(e => { s.frag[e] = Object.assign({}, inv.frag[e]); });
+    Object.keys(inv.evSkins || {}).forEach(id => { if (!S.skins[id] && skin(id) && !s.seen[id]) { S.skins[id] = today(); s.seen[id] = s.seen[id] || 0; ch = true; } });
+    if (ch) { save(); checkBadges(); }
+  }
+  // Potions gagnées avec le calendrier avant le serveur : transférées une seule fois
+  function migrate(){
+    const s = st(), loc = S.inv || {};
+    ["xp", "coin"].forEach(t => { const x = loc[t] || {}; if (s.migr[t] || !((x.got || 0) > (x.used || 0))) return; s.migr[t] = 1; save();
+      call("grant", {src:"migr", t}).then(() => { loc[t] = Object.assign({}, x, {used:Date.now()}); save(); }).catch(() => { s.migr[t] = 0; }); });
+  }
+  // Récompenses déjà méritées avant l'arrivée des jetons : paliers de la Tour, boss vaincu cette semaine
+  function retro(){
+    const t = S.tour || {};
+    Object.keys(D.TOWER).forEach(f => { if ((t.cp || 0) >= +f && !inv.grants["tour:" + f]) tower(+f, true); });
+    try { const wk = Boss.current().wk; if (S.boss && S.boss.claimed && S.boss.claimed[wk] && !inv.grants["boss:" + wk]) boss(wk, true); } catch(e){}
+  }
+  // Mise à jour de l'écran sans casser une partie en cours
+  function refresh(){
+    if (!S.profile) return;
+    if (inPlay() || (typeof Boss !== "undefined" && Boss.open && Boss.open())) { const p = document.querySelector(".hud .pills"); if (p) { const old = p.querySelector(".pill.pot"); const html = Potions.pill(); if (old) old.outerHTML = html || ""; else if (html) p.insertAdjacentHTML("afterbegin", html); } return; }
+    window.__quiet = true; render();
+  }
+
+  /* --- Fragments : une clé par bonne réponse, envoyées toutes les 2 secondes --- */
+  function onCorrect(){
+    if (!cur() || !online()) return;
+    q.push({k:key("a"), n:0}); if (q.length > 40) q = q.slice(-40);
+    if (!qTimer) qTimer = setTimeout(flush, 2000);
+  }
+  async function flush(){
+    qTimer = null; if (sending || !q.length) return; sending = true;
+    const pack = q.slice(0, 5);
+    try {
+      const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), own:e ? e.chars.filter(c => S.skins[c]) : []});
+      q = q.filter(x => !pack.includes(x));
+      (r.won || []).forEach((w, i) => setTimeout(() => fragFx(w), i * 900));
+    } catch(e){ pack.forEach(x => x.n++); q = q.filter(x => x.n < 3); }
+    sending = false; if (q.length) qTimer = setTimeout(flush, 2000);
+  }
+  // Petite notification discrète, sans interrompre la partie
+  function fragFx(w){
+    const sk = skin(w.c), ev = evOf(w.c); if (!sk || !ev) return;
+    const n = w.unlocked ? ev.need : ((inv && inv.frag[ev.id] && inv.frag[ev.id][w.c]) || 0);
+    const el = document.createElement("div"); el.className = "ev-frag" + (w.unlocked ? " big" : ""); el.setAttribute("role", "status");
+    el.innerHTML = `${shard(26, ev.look)}<span><b>+1 fragment</b> · ${esc(sk.n)}${w.unlocked ? " · complet !" : ` <i>${Math.min(n, ev.need)}/${ev.need}</i>`}</span>`;
+    document.body.appendChild(el); try { Music.sfx("ok"); } catch(e){}
+    setTimeout(() => el.classList.add("out"), 2600); setTimeout(() => el.remove(), 3100);
+    if (w.unlocked) setTimeout(celebrate, 3200);
+  }
+  // Grande annonce d'un personnage débloqué, dès qu'on n'est plus en pleine partie
+  function celebrate(){
+    const s = st(); const id = Object.keys(s.seen).find(k => !s.seen[k] && S.skins[k]); if (!id) return;
+    if (inPlay() || document.querySelector(".ev-unlock")) return;
+    s.seen[id] = Date.now(); save();
+    const sk = skin(id), el = document.createElement("div"); el.className = "ev-unlock cal-veil"; el.setAttribute("role", "dialog");
+    el.innerHTML = `<div class="ev-ul-box"><div class="ev-ul-rays"></div><span class="tw-kicker">Événement · 6 fragments réunis</span><div class="ev-ul-art">${creatureSVG(sk, 150)}</div>
+      <b class="cal-title">${esc(sk.n)}</b><span class="muted" style="text-align:center">rejoint ta collection pour toujours.</span>
+      <div class="row" style="gap:8px;justify-content:center"><button class="btn" data-evu="wear">Le porter</button><button class="btn ghost" data-evu="ok">Génial !</button></div></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-evu]"); if (!b && e.target !== el) return;
+      if (b && b.dataset.evu === "wear") { S.profile.skin = id; save(); try { Amis.api.ping(); } catch(x){} }
+      el.remove(); render(); });
+    document.body.appendChild(el); try { Music.sfx("level"); } catch(e){}
+  }
+
+  /* --- Jetons --- */
+  const has = t => !!(inv && inv.tok[t] && inv.tok[t].n > 0);
+  const until = t => (inv && inv.tok[t] && inv.tok[t].until) || 0;
+  const label = got => { if (!got) return ""; if (got.startsWith("tok:")) return D.TOKENS[got.slice(4)].n; if (got.startsWith("coins:")) return "+" + got.slice(6) + " pièces (jeton déjà possédé)"; return ""; };
+  async function grant(data, k, quiet, intro){
+    if (!online() || asked[k]) return null; asked[k] = 1;
+    try { const r = await call("grant", data); if (!quiet || !r.dup) { const l = label(r.got); if (l && !r.dup) { toasts.push(`<b>${intro}</b> · ${esc(l)}`); if (!inPlay()) render(); } } return r; }
+    catch(e){ asked[k] = 0; return null; }
+  }
+  function tower(f, quiet){
+    const t = D.TOWER[f]; if (!t) return;
+    if (online()) return grant({src:"tour", f}, "tour:" + f, quiet, `Palier ${f} de la Tour`);
+    const s = S.tour = S.tour || {}; s.tok = s.tok || {}; if (s.tok[f]) return; s.tok[f] = today();   // sans compte
+    if (Potions.give(t)) toasts.push(`<b>Palier ${f} de la Tour</b> · ${D.TOKENS[t].n}`); else { S.coins += D.SWAP; toasts.push(`<b>Palier ${f} de la Tour</b> · +${D.SWAP} pièces (jeton déjà possédé)`); }
+    save();
+  }
+  const boss = (wk, quiet) => grant({src:"boss", wk}, "boss:" + wk, quiet, "Boss vaincu");
+  const cal = n => grant({src:"cal", n}, "cal:" + n, true, "Calendrier");
+  async function use(t){
+    if (!has(t)) return false;
+    const x = inv.tok[t], back = Object.assign({}, x);
+    inv.tok[t] = Object.assign({}, x, {n:0}, D.TOKENS[t].dur ? {until:Date.now() + D.TOKENS[t].dur * 6e4} : {});   // affichage immédiat
+    call("use", {t}).then(r => { if (!r.ok) { inv.tok[t] = back; refresh(); } }).catch(() => { inv.tok[t] = back; toasts.push("<b>Jeton non utilisé</b> · vérifie ta connexion."); refresh(); });
+    return true;
+  }
+  let buying = false;
+  async function buy(t){
+    if (buying || !D.TOKENS[t] || S.coins < D.PRICE) return;
+    if (!online()) { // sans compte : achat sur l'appareil
+      if (Potions.has(t)) return; S.coins -= D.PRICE; spend(D.PRICE); Potions.give(t); toasts.push(`<b>${D.TOKENS[t].n}</b> · acheté`); save(); return render();
+    }
+    if (!live() || has(t)) return;
+    buying = true; render();
+    try { const r = await call("buy", {t, key:key("b")}); toasts.push(r.ok ? `<b>${D.TOKENS[t].n}</b> · acheté pour ${D.PRICE.toLocaleString("fr-FR")} pièces` : "<b>Tu as déjà ce jeton</b> · utilise-le d'abord."); }
+    catch(e){ toasts.push("<b>Achat impossible pour l'instant</b> · vérifie ta connexion. Aucune pièce n'a été retirée."); }
+    buying = false; render();
+  }
+  // Bloc de la boutique : les 3 jetons
+  function shopBlock(){
+    const rows = Object.keys(D.TOKENS).map(t => { const own = Potions.has(t), wait = online() && !live();
+      const btn = own ? `<span class="chip lamp">Possédé</span>` : `<button class="btn small" data-evb="${t}" ${S.coins >= D.PRICE && !buying && !wait ? "" : "disabled"}>${coinIco}${D.PRICE.toLocaleString("fr-FR")}</button>`;
+      return `<div class="ev-tok">${Potions.svg(t, 44)}<div class="stack grow" style="gap:2px;min-width:0"><b>${Potions.T[t].n}</b><span class="muted" style="font-size:12.5px">${Potions.T[t].d}</span></div>${btn}</div>`; }).join("");
+    return `<div class="label">Objets rares · un seul de chaque</div><div class="card ev-toks">${rows}<span class="muted" style="font-size:12px">Aussi offerts aux paliers 30, 60 et 90 de la Tour et contre le Boss de la semaine (5 PV de dégâts).</span></div>`;
+  }
+
+  /* --- Affichage --- */
+  const left = e => Math.max(0, Date.parse(e.end) - now());
+  const leftTxt = e => { const ms = left(e), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
+    return d > 0 ? `${d} j ${h} h` : h > 0 ? `${h} h ${m} min` : `${m} min`; };
+  const fragOf = (e, c) => (inv ? (inv.frag[e.id] || {})[c] : (st().frag[e.id] || {})[c]) || 0;
+  const totOf = e => (inv && inv.fragTot && inv.fragTot[e.id]) || 0;
+  function shard(z, look){ const id = "evs" + Math.random().toString(36).slice(2, 6);
+    return `<svg viewBox="0 0 40 40" width="${z}" height="${z}" class="ev-shard" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC46A"/><stop offset=".55" stop-color="#FF6A2A"/><stop offset="1" stop-color="#8A2AD8"/></linearGradient></defs>
+      <path d="M20 3 L33 15 L27 37 L10 31 L6 13Z" fill="url(#${id})" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 3 L20 22 L33 15 M20 22 L27 37 M20 22 L10 31 M20 22 L6 13" stroke="${TD}" stroke-width="1.2" opacity=".35" fill="none"/><path d="M12 14 L18 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></svg>`; }
+  // Bannière : nuit d'Halloween (lune, manoir, chauves-souris, citrouilles, brume)
+  function banner(e){
+    const bats = [[60, 40, 1, 0], [250, 28, .8, -1.2], [300, 62, .6, -2.1], [110, 22, .55, -.6]].map(([x, y, s, d]) => `<g class="ev-bat" style="animation-delay:${d}s"><path transform="translate(${x} ${y}) scale(${s})" d="M0 0 Q-6 -8 -16 -6 Q-12 -2 -14 4 Q-8 0 -4 4 Q-2 -2 0 2 Q2 -2 4 4 Q8 0 14 4 Q12 -2 16 -6 Q6 -8 0 0Z" fill="#0C0614"/></g>`).join("");
+    const pump = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -14 q2 -8 7 -9" stroke="#3A6A2A" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="0" rx="18" ry="14" fill="#F07A1E" stroke="${TD}" stroke-width="2.4"/><path d="M-6 -13 Q-10 0 -6 13 M6 -13 Q10 0 6 13" stroke="#B84A0A" stroke-width="1.6" fill="none"/><path d="M-9 -4 l4 -4 l4 4Z M5 -4 l4 -4 l4 4Z M-10 4 Q0 12 10 4 L7 6 L4 4 L0 7 L-4 4 L-7 6Z" fill="#FFE36A" class="ev-glow"/></g>`;
+    return `<svg viewBox="0 0 360 190" class="ev-banner-art" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>
+        <linearGradient id="evsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#160A2E"/><stop offset=".6" stop-color="#4A1A5A"/><stop offset="1" stop-color="#8A2A3A"/></linearGradient>
+        <radialGradient id="evmoon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF6D8"/><stop offset=".7" stop-color="#FFD88A"/><stop offset="1" stop-color="#FFB84A" stop-opacity="0"/></radialGradient></defs>
+      <rect width="360" height="190" fill="url(#evsky)"/>
+      ${[[30, 20], [90, 50], [150, 14], [200, 40], [330, 24], [280, 12], [20, 70]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff" opacity=".7" class="ev-star"/>`).join("")}
+      <circle cx="268" cy="62" r="56" fill="url(#evmoon)" opacity=".55"/><circle cx="268" cy="62" r="34" fill="#FFF0C8"/><circle cx="258" cy="54" r="5" fill="#F2DCA8"/><circle cx="278" cy="72" r="7" fill="#F2DCA8"/>
+      ${bats}
+      <path d="M0 150 Q60 120 120 140 Q180 112 250 136 Q310 118 360 132 V190 H0Z" fill="#1E0C26"/>
+      <g fill="#0C0614"><path d="M150 140 V96 L170 76 L190 96 V140Z"/><path d="M176 96 V60 L188 46 L200 60 V140 H176Z"/><path d="M196 140 V104 L214 88 L232 104 V140Z"/><rect x="183" y="40" width="3" height="10"/></g>
+      <g fill="#FFC84A" class="ev-glow"><rect x="160" y="106" width="6" height="8"/><rect x="185" y="72" width="6" height="8"/><rect x="210" y="112" width="6" height="8"/></g>
+      <path d="M0 166 Q90 150 180 164 Q270 150 360 162 V190 H0Z" fill="#12061A"/>
+      ${pump(54, 162, 1.1)}${pump(92, 172, .7)}${pump(320, 168, .9)}
+      <g class="ev-fog"><ellipse cx="80" cy="176" rx="120" ry="12" fill="#C8B8E8" opacity=".14"/><ellipse cx="280" cy="180" rx="140" ry="12" fill="#C8B8E8" opacity=".12"/></g></svg>`;
+  }
+  // Bouton en haut à droite de l'accueil
+  function homeBtn(){
+    const e = cur(); if (!e) return "";
+    return `<button class="ev-hbtn" data-ev="open" aria-label="Événement : ${esc(e.n)}">${shard(30, e.look)}<span>Événement</span><i class="ev-dot"></i></button>`;
+  }
+  // Petite bannière sur l'accueil
+  function card(){
+    const e = cur(); if (!e) return "";
+    const got = e.chars.filter(c => S.skins[c]).length;
+    return `<button class="card ev-card" data-ev="open"><div class="ev-card-art">${banner(e)}</div><div class="ev-card-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b>${esc(e.n)}</b><span>${got}/${e.chars.length} personnages · fin dans ${leftTxt(e)}</span></div></button>`;
+  }
+  function view(){
+    const e = lastEv(), on = !!cur() && e === cur(), got = e.chars.filter(c => S.skins[c]).length;
+    const cards = e.chars.map(c => { const sk = skin(c), o = !!S.skins[c], n = o ? e.need : Math.min(fragOf(e, c), e.need);
+      return `<div class="ev-ch ${o ? "own" : ""}"><div class="ev-ch-art">${creatureSVG(sk, 104)}</div><span class="bq-r" style="--rc:#E8960A">Légendaire · Événement</span><b class="ev-ch-n">${esc(sk.n)}</b>
+        <div class="ev-pips">${Array.from({length:e.need}, (_, i) => `<i class="${i < n ? "on" : ""}"></i>`).join("")}</div><span class="ev-ch-p">${o ? "Obtenu ✓" : `${n} / ${e.need} fragments`}</span>
+        ${o ? (S.profile.skin === c ? `<span class="chip lamp">Équipé</span>` : `<button class="btn small ghost" data-equip="${c}">Équiper</button>`) : `<span class="chip">Non débloqué</span>`}</div>`; }).join("");
+    return `<section class="stack ev-hub"><div class="row between"><button class="quit" data-ev="close">← Accueil</button><span class="label">Événement temporaire</span></div>
+      <div class="ev-banner">${banner(e)}<div class="ev-banner-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b class="ev-title">${esc(e.n)}</b>${on ? `<span class="ev-time">${gIcon("chrono", 18)}Fin dans <b>${leftTxt(e)}</b></span>` : `<span class="ev-time">Événement terminé</span>`}</div></div>
+      <p class="ev-desc">${esc(e.d)}</p>
+      <div class="ev-stats"><div><span>Fragments trouvés</span><b>${shard(18, e.look)}${totOf(e)}</b></div><div><span>Personnages</span><b>${got} / ${e.chars.length}</b></div><div><span>Chance</span><b>${Math.round(e.rate * 100)} %</b></div></div>
+      ${!online() ? `<div class="card ev-warn"><b>Connecte-toi pour participer</b><span class="muted" style="font-size:13px">Les fragments sont tirés par le serveur : il faut un compte (onglet Multi).</span><button class="btn small" data-tab="amis">Me connecter</button></div>` : ""}
+      <div class="label">Les personnages de la nuit</div><div class="ev-grid">${cards}</div>
+      <div class="card ev-how"><b>Comment ça marche ?</b><span>Réponds normalement, dans n'importe quel mode. À chaque bonne réponse, tu as ${Math.round(e.rate * 100)} % de chances de trouver un fragment d'un des personnages que tu n'as pas encore. Il faut ${e.need} fragments du même personnage pour l'adopter : il reste alors dans ta collection pour toujours.</span><span class="muted" style="font-size:12.5px">Les fragments ne disparaissent pas à la fin de l'événement.</span></div></section>`;
+  }
+  function click(b){
+    const a = b.dataset.ev;
+    if (a === "open") { S.evOpen = true; S.tab = "accueil"; S.questOpen = false; save(); render(); return window.scrollTo(0, 0); }
+    if (a === "close") { S.evOpen = false; save(); render(); return window.scrollTo(0, 0); }
+  }
+  const open = () => !!S.evOpen;
+  // Personnages retirés du jeu (le Croque-Rêves, novembre 2026) : prix remboursé une seule fois, on ne le porte plus
+  function retire(){
+    if (typeof RETIRED_SKINS === "undefined" || !S || !S.profile) return; const s = st(); s.refund = s.refund || {};
+    RETIRED_SKINS.forEach(sk => { if (S.profile.skin === sk.id) S.profile.skin = null;
+      if (S.skins[sk.id] && !s.refund[sk.id]) { s.refund[sk.id] = 1; const v = sk.p || 0; S.coins += v; toasts.push(`<b>${esc(sk.n)} quitte Lumen</b> · tes ${v.toLocaleString("fr-FR")} pièces te sont rendues.`); save(); if (!inPlay()) render(); } });
+  }
+  setTimeout(retire, 3000);
+  setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
+  return {listen, stop, live, onCorrect, has, until, use, buy, tower, boss, cal, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();
 
 const Parc = (function(){

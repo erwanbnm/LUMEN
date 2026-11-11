@@ -9,19 +9,29 @@
    refuse une 2e récupération le même jour. Le jour change à minuit (heure d'hiver de Paris ; 1 h en été). */
 const Potions = (() => {
   const T = {xp:{n:"Potion Double XP", d:"Double l'XP des bonnes réponses pendant 30 minutes.", a:"#B48AFF", b:"#5A2AC8", t:"XP"},
-             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"}};
+             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"},
+             fifty:{n:"Jeton 50/50", d:"Retire deux mauvaises réponses sur une question. Dans la Tour, en Survie et au Défi du jour.", a:"#7AE0FF", b:"#2A7AD8", t:"50", once:true}};
   const DUR = 30 * 60 * 1000;
   const inv = () => (S.inv = S.inv || {});
-  const has = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
-  const left = t => Math.max(0, ((inv()[t] || {}).until || 0) - Date.now());
+  // Avec un compte : les jetons sont gardés par le serveur (evenements.js) ; sans compte : sur l'appareil
+  const srv = () => typeof Evenements !== "undefined" && Evenements.live();
+  const localHas = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
+  const has = t => srv() ? Evenements.has(t) : localHas(t);
+  const left = t => Math.max(0, Math.max((inv()[t] || {}).until || 0, srv() ? Evenements.until(t) : 0) - Date.now());
   const active = t => left(t) > 0;
   const mult = t => active(t) ? 2 : 1;
   // Donne une potion ; renvoie false si le joueur l'a déjà (la récompense est alors remplacée par l'appelant)
-  function give(t){ if (has(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }
-  function use(t){ if (!has(t) || active(t)) return; const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now, until:now + DUR}); save();
-    toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+  function give(t){ if (localHas(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }   // sans compte seulement
+  function use(t){ if (!has(t) || (active(t) && !T[t].once)) return false;
+    if (srv()) Evenements.use(t);
+    else { const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now}, T[t].once ? {} : {until:now + DUR}); save(); }
+    if (!T[t].once) { toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+    return true; }
   const mmss = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
   function svg(t, z, off){ const c = T[t], id = "pt" + t + Math.random().toString(36).slice(2, 6);
+    if (t === "fifty") return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
+      <circle cx="30" cy="40" r="25" fill="${TD}"/><circle cx="30" cy="36" r="25" fill="url(#${id})" stroke="${TD}" stroke-width="2.8"/><circle cx="30" cy="36" r="18" fill="none" stroke="#fff" stroke-width="2" opacity=".55" stroke-dasharray="4 3"/>
+      <path d="M14 26 Q20 16 30 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1.2" font-family="sans-serif">50</text></svg>`;
     return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
       <rect x="22" y="4" width="16" height="8" rx="2" fill="#C8965A" stroke="${TD}" stroke-width="2.4"/><path d="M24 12 V22 Q8 30 8 46 Q8 66 30 66 Q52 66 52 46 Q52 30 36 22 V12Z" fill="#EAF6FF" fill-opacity=".55" stroke="${TD}" stroke-width="2.8" stroke-linejoin="round"/>
       <path d="M10 42 Q30 36 50 42 Q52 64 30 64 Q8 64 10 42Z" fill="url(#${id})"/><path d="M15 36 Q12 46 16 54" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
@@ -30,6 +40,9 @@ const Potions = (() => {
   // Pastille dans la barre du haut : potions possédées et temps restant
   function pill(){
     const ks = Object.keys(T).filter(t => has(t) || active(t)); if (!ks.length) return "";
+    // Plusieurs objets : une seule icône + le nombre (et le temps du booster actif), pour ne pas couper le pseudo
+    if (ks.length > 1) { const on = ks.find(t => active(t) && !T[t].once), first = on || ks[0];
+      return `<button class="pill pot" data-pot="open" aria-label="Mes objets rares (${ks.length})"><span class="pot-i ${on ? "on" : ""}">${svg(first, 16, false)}${on ? `<b data-pot-min="${on}">${Math.ceil(left(on) / 6e4)}′</b>` : ""}<b class="pot-n">×${ks.length}</b></span></button>`; }
     return `<button class="pill pot" data-pot="open" aria-label="Mes potions">${ks.map(t => `<span class="pot-i ${active(t) ? "on" : ""}">${svg(t, 16, false)}${active(t) ? `<b data-pot-min="${t}">${Math.ceil(left(t) / 6e4)}′</b>` : ""}</span>`).join("")}</button>`;
   }
   function sheet(){
@@ -37,9 +50,9 @@ const Potions = (() => {
     const el = document.createElement("div"); el.className = "pot-sheet cal-veil"; el.setAttribute("role", "dialog");
     el.innerHTML = `<div class="cal-box pot-box"><button class="am-x" data-pot="close" aria-label="Fermer">×</button><b class="cal-title">Mes potions</b>
       ${Object.keys(T).map(t => `<div class="pot-row">${svg(t, 46, !has(t) && !active(t))}<div class="stack grow" style="gap:2px;min-width:0"><b>${T[t].n}</b><span class="muted" style="font-size:13px">${T[t].d}</span>
-        <span class="pot-st">${active(t) ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
-        ${has(t) && !active(t) ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
-      <p class="muted" style="font-size:12.5px;margin:0">Une potion de chaque type au maximum. Le calendrier de connexion en offre aux jours 3 et 4.</p></div>`;
+        <span class="pot-st">${active(t) && !T[t].once ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
+        ${has(t) && !active(t) && !T[t].once ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
+      <p class="muted" style="font-size:12.5px;margin:0">Un objet de chaque type au maximum. Le 50/50 s'utilise pendant une question (Tour, Survie, Défi du jour). On en gagne avec le calendrier (jours 3 et 4), la Tour (paliers 30, 60, 90) et le Boss de la semaine, ou en boutique.</p></div>`;
     el.addEventListener("click", e => { const b = e.target.closest("[data-pot]"); if (e.target === el || (b && b.dataset.pot === "close")) el.remove();
       else if (b && b.dataset.pot === "use") { use(b.dataset.v); el.remove(); render(); } });
     document.body.appendChild(el);
@@ -76,6 +89,7 @@ const Calendrier = (() => {
     const s = st(); if ((s.paid || 0) >= n) return null; s.paid = n;
     const r = reward(stepOf(n)); let out;
     if (typeof r === "number") { S.coins += r; out = {kind:"coin", v:r}; }
+    else if (online() && typeof Evenements !== "undefined") { out = Potions.has(r) ? {kind:"coin", v:100, swap:r} : {kind:"pot", t:r}; Evenements.cal(n); }  // le serveur verse (pièces de remplacement comprises)
     else if (Potions.give(r)) out = {kind:"pot", t:r};
     else { S.coins += 100; out = {kind:"coin", v:100, swap:r}; }
     save(); checkBadges();

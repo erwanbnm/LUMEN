@@ -51,7 +51,7 @@ const Tour = (() => {
   function next(){
     const r = run(); if (!r) return;
     const used = new Set(r.used), id = pickFor(r.floor, used);
-    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.dl = Date.now() + qTime(r.floor) * 1000; r.ans = undefined;
+    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.hide = []; r.dl = Date.now() + qTime(r.floor) * 1000; r.ans = undefined;
     markSeen(id); view = "q"; save(); render(); startTimer();
   }
   function startTimer(){
@@ -83,6 +83,7 @@ const Tour = (() => {
       t.cp = Math.max(t.cp || 0, f);
       let coins = 0;
       if (!t.claimed[f]) { t.claimed[f] = today(); coins = CP_REWARD[f] || 0; S.coins += coins; } // une seule fois par compte
+      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton rare (une seule fois par compte)
       if (f === 100) { t.tops = (t.tops || 0) + 1; S.titles = S.titles || {}; S.titles.tour100 = S.titles.tour100 || today(); }
       S.tourRun = f < 100 ? {floor:f + 1, used:r.used, t0:r.t0} : null;
       save(); checkBadges(); pushStats();
@@ -219,8 +220,10 @@ const Tour = (() => {
   }
   function qView(){
     const r = run(), q = Q[r.qid], f = r.floor, ans = r.ans, left = Math.max(0, r.dl - Date.now());
-    const ch = r.ord.map(o => { let c = "choice"; if (ans !== undefined) c += o === 0 ? " right" : o === ans ? " wrong" : " dim";
-      return `<button class="${c}" data-tw="ans" data-v="${o}" ${ans === undefined ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
+    const hide = r.hide || [];
+    const ch = r.ord.map(o => { let c = "choice"; if (ans !== undefined) c += o === 0 ? " right" : o === ans ? " wrong" : " dim"; else if (hide.includes(o)) c += " gone";
+      return `<button class="${c}" data-tw="ans" data-v="${o}" ${ans === undefined && !hide.includes(o) ? "" : "disabled"}>${esc(q[2][o])}</button>`; }).join("");
+    const tk = ans === undefined && !hide.length && q[2].length > 2 && typeof Potions !== "undefined" && Potions.has("fifty") ? `<div class="tools"><button class="joker tok" data-tw="fifty">${Potions.svg("fifty", 22)}Jeton 50/50</button><span></span></div>` : "";
     const cpNext = Math.ceil(f / 10) * 10;
     return `<section class="tw tw-play">${sky()}
       <div class="tw-row-h"><span class="tw-floor">Étage <b>${f}</b><i>/100</i></span><button class="quit" data-tw="quit">Abandonner</button></div>
@@ -228,7 +231,7 @@ const Tour = (() => {
       <div class="tw-row-h"><span class="tw-band">Difficulté : ${BANDS[band(f) - 1]}</span><span class="tw-muted">Palier ${cpNext}${T().claimed[cpNext] ? "" : " · " + CP_REWARD[cpNext] + " pièces"}</span></div>
       <article class="card q tw-q"><div class="row between"><span class="chip">${dot(q[0])}${esc(THEMES[q[0]].n)}</span><span class="label" id="tw-left">${ans === undefined ? Math.ceil(left / 1000) + " s" : ""}</span></div>
         <div class="timer" style="margin:8px 0 0"><i id="tw-bar" style="width:${ans === undefined ? left / (qTime(f) * 10) : 0}%"></i></div>
-        <h2>${esc(q[4])}</h2><div class="choices">${ch}</div>
+        <h2>${esc(q[4])}</h2>${tk}<div class="choices">${ch}</div>
         ${ans !== undefined ? `<div class="verdict ${ans === 0 ? "ok" : "ko"}" role="status"><b>${ans === 0 ? "La porte s'ouvre…" : ans === -1 ? "Temps écoulé ! La réponse était : " + esc(q[2][0]) : "Raté ! La réponse était : " + esc(q[2][0])}</b>${ans !== 0 ? `<p>${esc(q[3])}</p>` : ""}</div>` : ""}
       </article></section>`;
   }
@@ -251,6 +254,8 @@ const Tour = (() => {
     if (a === "rank") { view = "rank"; render(); return window.scrollTo(0, 0); }
     if (a === "tower") { view = "tower"; lastScroll = null; render(); return window.scrollTo(0, 0); }
     if (a === "ans") return choose(+b.dataset.v);
+    if (a === "fifty") { const r = run(); if (!r || r.ans !== undefined || (r.hide && r.hide.length) || !Potions.use("fifty")) return render();
+      r.hide = [1, 2, 3].filter(i => i < Q[r.qid][2].length).sort(() => Math.random() - .5).slice(0, 2); save(); return render(); }
     if (a === "quit") return quit();
   }
   // Relancer l'appli en pleine montée = retomber au palier (sinon on pourrait recharger pour éviter une question)

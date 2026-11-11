@@ -54,6 +54,8 @@ service cloud.firestore {
       allow read: if signed() && request.auth.uid == u;
       allow write: if signed() && request.auth.uid == u && request.resource.data.t == request.time;
     }
+    // Inventaire des événements et jetons rares : écrit seulement par le serveur (Cloud Functions), lu par son joueur
+    match /inv/{u} { allow read: if signed() && request.auth.uid == u; allow write: if false; }
     match /logins/{u} {
       function today() { return int((request.time.toMillis() + 3600000) / 86400000); }
       allow read: if signed() && request.auth.uid == u;

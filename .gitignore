@@ -3,3 +3,4 @@ tests/out/
 __pycache__/
 prototypes/amis.html
 prototypes/bombe.html
+functions/evenements_data.js

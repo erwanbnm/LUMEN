@@ -118,6 +118,7 @@ const Boss = (() => {
     const top = Object.keys(doc.dmg || {}).sort((a, b) => doc.dmg[b] - doc.dmg[a])[0];
     if (top === uid()) { s.tops = (s.tops || 0) + 1; S.titles = S.titles || {}; if (!S.titles.fleau) { S.titles.fleau = today(); lines.push("Titre rare débloqué : FLÉAU DES BOSS"); } }
     if (doc.killer === uid()) { s.kills = (s.kills || 0) + 1; lines.push("Tu as porté le coup fatal !"); }
+    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton rare t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
     save(); checkBadges();
     setTimeout(() => rewardFx(lines), 600);
   }
