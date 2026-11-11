@@ -516,6 +516,7 @@ function render(){
   document.body.classList.toggle("in-portal", !!(S.tab === "jouer" && S.session && S.session.mode === "portail"));
   if (S.tab === "tour") Tour.after();
   if (typeof Aventure !== "undefined") { if (S.tab === "aventure" && !active) Aventure.after(); else Aventure.leave(); }
+  if (typeof MusiqueFichier !== "undefined") MusiqueFichier.set(S.tab === "aventure" && !active && typeof Aventure !== "undefined" ? Aventure.track() : S.tab === "tour" ? TOUR_TRACKS : null);
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();

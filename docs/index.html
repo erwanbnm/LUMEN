@@ -4688,6 +4688,7 @@ function render(){
   document.body.classList.toggle("in-portal", !!(S.tab === "jouer" && S.session && S.session.mode === "portail"));
   if (S.tab === "tour") Tour.after();
   if (typeof Aventure !== "undefined") { if (S.tab === "aventure" && !active) Aventure.after(); else Aventure.leave(); }
+  if (typeof MusiqueFichier !== "undefined") MusiqueFichier.set(S.tab === "aventure" && !active && typeof Aventure !== "undefined" ? Aventure.track() : S.tab === "tour" ? TOUR_TRACKS : null);
   if (active && s.mode==="chrono" && !s.done) startTick();
   if (active && s.duel && s.mode!=="chrono" && s.mode!=="avap" && !s.done) startQTick();
   stressUpdate();
@@ -8633,6 +8634,7 @@ const Casino = (() => {
     if (!root) { root = document.createElement("div"); root.id = "casino"; document.body.appendChild(root);
       root.addEventListener("click", e => { const b = e.target.closest("[data-g]"); if (!b || b.disabled) return; act(b.dataset.g, b.dataset); }); }
     G_.game = null; G_.msg = ""; root.hidden = false; document.body.classList.add("in-casino"); paint();
+    if (typeof MusiqueFichier !== "undefined") MusiqueFichier.set(null);
     try { Music.sfx("tab1"); } catch(e){}
   }
   function close(){ if (G_.busy) return; root.hidden = true; document.body.classList.remove("in-casino"); try { checkBadges(); save(); } catch(e){} if (typeof render === "function" && !Aventure.playing()) render(); try { flushLevelUp(); } catch(e){} }
@@ -8788,6 +8790,35 @@ const Casino = (() => {
   };
   return {open, close, isOpen:() => !!(root && !root.hidden)};
 })();
+
+/* ---------- Musiques en fichiers (choisies par Erwan, novembre 2026) ----------
+   web/musique/ (copié dans docs/musique/) : monde1.mp3 à monde5.mp3 pour l'Aventure, tour1.mp3 à tour3.mp3 pour la Tour (enchaînées).
+   Pendant qu'un fichier joue, la musique générée de l'appli (music.js) se tait ; si le fichier manque, elle reprend.
+   main.js appelle MusiqueFichier.set(liste) à chaque affichage : la même liste ne relance pas le morceau. */
+const MusiqueFichier = (() => {
+  let audio = null, cur = "", list = [], idx = 0;
+  const bad = {};
+  const vol = () => Math.min(1, ((S.settings && S.settings.vol) || 55) / 100);
+  const gen = on => { try { on ? (S.settings.music && Music.start()) : Music.stop(); } catch(e){} };
+  function set(tracks){
+    const want = tracks && S.settings && S.settings.music ? tracks.filter(t => !bad[t]) : [];
+    const key = want.join("|");
+    if (key === cur) { if (audio) audio.volume = vol(); return; }
+    const had = !!audio; cur = key; if (audio) { audio.pause(); audio = null; }
+    if (!want.length) { if (had) gen(true); return; }
+    list = want; idx = Math.floor(Math.random() * list.length); play();
+  }
+  function play(){
+    const src = list[idx], a = new Audio(src); audio = a; a.volume = vol(); a.loop = list.length === 1;
+    a.addEventListener("playing", () => { if (audio === a) gen(false); });
+    a.addEventListener("ended", () => { if (audio !== a) return; idx = (idx + 1) % list.length; play(); });
+    a.addEventListener("error", () => { if (audio !== a) return; bad[src] = 1; list = list.filter(x => x !== src);
+      if (list.length) { idx = idx % list.length; play(); } else { audio = null; cur = ""; gen(true); } });
+    a.play().catch(() => {});
+  }
+  return {set, playing:() => !!audio};
+})();
+const TOUR_TRACKS = ["musique/tour1.mp3", "musique/tour2.mp3", "musique/tour3.mp3"];
 
 /* ---------- L'Aventure (remplace le Parc, novembre 2026) ----------
    Règles validées par Erwan :
@@ -9315,9 +9346,8 @@ const Aventure = (() => {
       sc.scrollTop = lastScroll !== null ? lastScroll : WD().nodes[curLevel(cw)][1] * k - sc.clientHeight * .6;
       sc.onscroll = () => { lastScroll = sc.scrollTop; };
     }
-    music(true);
   }
-  function leave(){ document.body.classList.remove("in-adv"); music(false); }
+  function leave(){ document.body.classList.remove("in-adv"); }
   function click(b){
     const a = b.dataset.adv, v = b.dataset.v;
     if (a === "world") {
@@ -9335,26 +9365,12 @@ const Aventure = (() => {
     if (a === "qmap") { scr = "map"; return render(); }
     if (a === "claim") return claim(v);
     if (a === "casino") return Casino.open();
-    if (a === "music") { S.settings.music = !S.settings.music; save(); if (!S.settings.music) { music(false); try { Music.stop(); } catch(e){} } else { try { Music.start(); } catch(e){} music(true); } return render(); }
+    if (a === "music") { S.settings.music = !S.settings.music; save(); try { S.settings.music ? Music.start() : Music.stop(); } catch(e){} return render(); }
     if (a) return fightClick(a, b);
   }
 
-  /* --- Musique de chaque monde (fichier fourni par Erwan, sinon la musique générée de l'appli) --- */
-  let audio = null, audioOk = null, audioW = 0;
-  function music(on){
-    const want = on && S.settings.music && S.tab === "aventure" && !(typeof Casino !== "undefined" && Casino.isOpen());
-    if (!want) { if (audio && !audio.paused) { audio.pause(); try { if (S.settings.music) Music.start(); } catch(e){} } return; }
-    const w = scr === "isl" ? 1 : cw;
-    if (audio && audioW !== w) { audio.pause(); audio = null; audioOk = null; }
-    if (audioOk === false) return;
-    if (!audio) {
-      audioW = w; audio = new Audio(`musique/monde${w}.mp3`); audio.loop = true;
-      audio.addEventListener("error", () => { audioOk = false; try { Music.start(); } catch(e){} });
-      audio.addEventListener("playing", () => { audioOk = true; try { Music.stop(); } catch(e){} });
-    }
-    audio.volume = Math.min(1, (S.settings.vol || 55) / 100);
-    if (audio.paused) audio.play().catch(() => {});
-  }
+  /* --- Musique de chaque monde (musique_fichiers.js) : la Forêt sur les îles, puis celle du monde ouvert ; rien dans le Casino --- */
+  const track = () => typeof Casino !== "undefined" && Casino.isOpen() ? null : [`musique/monde${scr === "isl" ? 1 : cw}.mp3`];
 
   /* ===================== Combat ===================== */
   let F = null, layer = null, qtimer = null;
@@ -9610,7 +9626,7 @@ const Aventure = (() => {
     if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
   }
   const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
-  return {register, kit, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
+  return {register, kit, track, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}

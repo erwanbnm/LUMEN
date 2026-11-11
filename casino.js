@@ -22,6 +22,7 @@ const Casino = (() => {
     if (!root) { root = document.createElement("div"); root.id = "casino"; document.body.appendChild(root);
       root.addEventListener("click", e => { const b = e.target.closest("[data-g]"); if (!b || b.disabled) return; act(b.dataset.g, b.dataset); }); }
     G_.game = null; G_.msg = ""; root.hidden = false; document.body.classList.add("in-casino"); paint();
+    if (typeof MusiqueFichier !== "undefined") MusiqueFichier.set(null);
     try { Music.sfx("tab1"); } catch(e){}
   }
   function close(){ if (G_.busy) return; root.hidden = true; document.body.classList.remove("in-casino"); try { checkBadges(); save(); } catch(e){} if (typeof render === "function" && !Aventure.playing()) render(); try { flushLevelUp(); } catch(e){} }

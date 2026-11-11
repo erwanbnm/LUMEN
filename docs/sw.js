@@ -1,6 +1,6 @@
 // Service worker de Lumen : l'appli marche hors connexion.
 // La page est chargée « réseau d'abord » (pour recevoir les mises à jour), le reste « cache d'abord ».
-const CACHE = "lumen-36a2523674";
+const CACHE = "lumen-f1ecf45f04";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-180.png"];
 
 self.addEventListener("install", e => {
@@ -32,6 +32,7 @@ self.addEventListener("fetch", e => {
   // Mode en ligne (Firebase) : jamais de cache, sinon les duels ne se mettraient plus à jour
   const host = new URL(req.url).hostname;
   if (/googleapis\.com$|firebaseio\.com$|firebaseapp\.com$/.test(host) && !/^fonts\./.test(host)) return;
+  if (/\.mp3$/.test(new URL(req.url).pathname)) return;   // musiques : directement par le réseau
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(r => { const copy = r.clone(); caches.open(CACHE).then(c => c.put("./index.html", copy)); return r; })
       .catch(() => caches.match("./index.html")));

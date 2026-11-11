@@ -524,9 +524,8 @@ const Aventure = (() => {
       sc.scrollTop = lastScroll !== null ? lastScroll : WD().nodes[curLevel(cw)][1] * k - sc.clientHeight * .6;
       sc.onscroll = () => { lastScroll = sc.scrollTop; };
     }
-    music(true);
   }
-  function leave(){ document.body.classList.remove("in-adv"); music(false); }
+  function leave(){ document.body.classList.remove("in-adv"); }
   function click(b){
     const a = b.dataset.adv, v = b.dataset.v;
     if (a === "world") {
@@ -544,26 +543,12 @@ const Aventure = (() => {
     if (a === "qmap") { scr = "map"; return render(); }
     if (a === "claim") return claim(v);
     if (a === "casino") return Casino.open();
-    if (a === "music") { S.settings.music = !S.settings.music; save(); if (!S.settings.music) { music(false); try { Music.stop(); } catch(e){} } else { try { Music.start(); } catch(e){} music(true); } return render(); }
+    if (a === "music") { S.settings.music = !S.settings.music; save(); try { S.settings.music ? Music.start() : Music.stop(); } catch(e){} return render(); }
     if (a) return fightClick(a, b);
   }
 
-  /* --- Musique de chaque monde (fichier fourni par Erwan, sinon la musique générée de l'appli) --- */
-  let audio = null, audioOk = null, audioW = 0;
-  function music(on){
-    const want = on && S.settings.music && S.tab === "aventure" && !(typeof Casino !== "undefined" && Casino.isOpen());
-    if (!want) { if (audio && !audio.paused) { audio.pause(); try { if (S.settings.music) Music.start(); } catch(e){} } return; }
-    const w = scr === "isl" ? 1 : cw;
-    if (audio && audioW !== w) { audio.pause(); audio = null; audioOk = null; }
-    if (audioOk === false) return;
-    if (!audio) {
-      audioW = w; audio = new Audio(`musique/monde${w}.mp3`); audio.loop = true;
-      audio.addEventListener("error", () => { audioOk = false; try { Music.start(); } catch(e){} });
-      audio.addEventListener("playing", () => { audioOk = true; try { Music.stop(); } catch(e){} });
-    }
-    audio.volume = Math.min(1, (S.settings.vol || 55) / 100);
-    if (audio.paused) audio.play().catch(() => {});
-  }
+  /* --- Musique de chaque monde (musique_fichiers.js) : la Forêt sur les îles, puis celle du monde ouvert ; rien dans le Casino --- */
+  const track = () => typeof Casino !== "undefined" && Casino.isOpen() ? null : [`musique/monde${scr === "isl" ? 1 : cw}.mp3`];
 
   /* ===================== Combat ===================== */
   let F = null, layer = null, qtimer = null;
@@ -819,7 +804,7 @@ const Aventure = (() => {
     if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
   }
   const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
-  return {register, kit, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
+  return {register, kit, track, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}
