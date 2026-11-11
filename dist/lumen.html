@@ -1374,7 +1374,7 @@ body.in-adv .app > .fade{animation:none;transform:none}
 .av-scr{position:fixed;inset:0;display:flex;flex-direction:column;z-index:3;color:#fff}
 .av-scr.av-sea{background:#0E3A78}
 .av-scr.av-w1{background:#2A5A2E}
-.av-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.av-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
 .av-scroll::-webkit-scrollbar{display:none}
 .av-isl-svg,.av-map-svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
 .av-itop{position:relative;z-index:2;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 8px;display:flex;align-items:center;gap:10px;background:linear-gradient(#0B2C5E,rgba(11,44,94,0))}
@@ -1643,6 +1643,14 @@ body.in-casino .tabs{display:none}
 .mm-smoke{animation:mmsmoke 5s ease-out infinite}@keyframes mmsmoke{0%{transform:translateY(0) scale(.6);opacity:.6}100%{transform:translateY(-70px) scale(1.6);opacity:0}}
 .mm-pop{animation:mmpop 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes mmpop{0%,60%{transform:scale(0)}80%{transform:scale(1)}100%{transform:scale(1.3);opacity:0}}
 .mm-dragon{animation:mmdragon 12s linear infinite}@keyframes mmdragon{to{transform:rotate(-360deg)}}
+
+.av-cont{position:fixed;left:0;right:0;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;justify-content:center;pointer-events:none;padding:0 12px}
+.av-contb{pointer-events:auto;display:flex;align-items:center;gap:12px;max-width:100%;border:4px solid #2B1D3A;border-radius:22px;padding:10px 20px 10px 12px;color:#fff;text-align:left;background:linear-gradient(#FF5A5A,#C8142A);box-shadow:0 6px 0 #2B1D3A,inset 0 3px 0 rgba(255,255,255,.35);cursor:pointer;animation:avcont 1.8s ease-in-out infinite}
+.av-contb:active{transform:translateY(4px);box-shadow:0 2px 0 #2B1D3A}
+@keyframes avcont{50%{transform:scale(1.04)}}
+.av-cplay{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#C8142A;font-size:20px;border:3px solid #2B1D3A;padding-left:3px}
+.av-contb b{display:block;font:800 19px var(--f-display);text-shadow:0 2px 0 #2B1D3A}
+.av-contb small{display:block;font:600 11.5px var(--f-mono);opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62vw}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
@@ -9232,7 +9240,19 @@ const Aventure = (() => {
   function mapSVG(){
     const MAPS_ = MAPS[cw] || (MAPS[cw] = WD().mapDraw()), B = MAPS_, N = WD().nodes, c = N[curLevel(cw)], p = pet();
     const hero = `<g class="av-bob" style="pointer-events:none">${nest(meSVG(62), c[0] - 46, c[1] - 92)}${p ? nest(creatureSVG(p, 32), c[0] + 6, c[1] - 56) : ""}</g>`;
-    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}<g style="pointer-events:none">${B.top}</g></svg>`;
+  }
+
+  /* --- Bouton rouge « Continuer la quête » : lance directement le prochain niveau à faire --- */
+  function nextStep(){
+    const w = scr === "map" ? cw : [5, 4, 3, 2, 1].find(x => built(x) && worldOpen(x)) || 1;
+    const W = WS(w), i = W.done.findIndex(x => !x);
+    return i < 0 ? null : {w, i};
+  }
+  function contBtn(){
+    const n = nextStep(); if (!n) return "";
+    const L = WORLDS[n.w - 1].levels[n.i];
+    return `<div class="av-cont"><button class="av-contb" data-adv="cont"><span class="av-cplay">▶</span><span><b>Continuer la quête</b><small>${scr === "isl" ? `Monde ${n.w} · ` : ""}Niveau ${n.i + 1} · ${esc(L.n)}</small></span></button></div>`;
   }
 
   /* ===================== Tableau de quêtes ===================== */
@@ -9305,10 +9325,10 @@ const Aventure = (() => {
         ${questBtn()}
         <button class="av-rb wood" data-adv="music" aria-label="Musique">${S.settings.music ? "♪" : "🔇"}</button></div>
       <div class="av-scroll" id="av-scroll">${mapSVG()}</div>
-      ${sheet >= 0 ? sheetHTML(sheet) : ""}</div>`;
+      ${sheet >= 0 ? sheetHTML(sheet) : contBtn()}</div>`;
     return `<div class="av-scr av-sea">
       <div class="av-itop"><h1>Aventure</h1><span class="av-chip">${starIco}<b>${totalStars()}</b>/105</span><button class="av-rb wood" data-adv="rank" aria-label="Classement des amis">🏆</button></div>
-      <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : ""}</div>`;
+      <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : contBtn()}</div>`;
   }
   function sheetHTML(i){
     const L = WD().levels[i], W = WS(cw), st = W.st[i], lock = !unlocked(cw, i), boss = L.mode === "boss";
@@ -9348,6 +9368,7 @@ const Aventure = (() => {
     if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return render(); }
     if (a === "close") { sheet = -1; return render(); }
     if (a === "play") { const i = +v; if (!unlocked(cw, i)) return; sheet = -1; return start(cw, i); }
+    if (a === "cont") { const n = nextStep(); if (!n) return; cw = n.w; scr = "map"; sheet = -1; lastScroll = null; return start(n.w, n.i); }
     if (a === "quests") { if (!questsOpen()) { toasts.push("<b>📜 Tableau de quêtes</b> · Il s'ouvre quand tu as réussi le niveau 4 de la Forêt."); return render(); } scr = "quests"; return render(); }
     if (a === "qmap") { scr = "map"; return render(); }
     if (a === "claim") return claim(v);

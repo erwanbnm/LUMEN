@@ -423,7 +423,19 @@ const Aventure = (() => {
   function mapSVG(){
     const MAPS_ = MAPS[cw] || (MAPS[cw] = WD().mapDraw()), B = MAPS_, N = WD().nodes, c = N[curLevel(cw)], p = pet();
     const hero = `<g class="av-bob" style="pointer-events:none">${nest(meSVG(62), c[0] - 46, c[1] - 92)}${p ? nest(creatureSVG(p, 32), c[0] + 6, c[1] - 56) : ""}</g>`;
-    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}<g style="pointer-events:none">${B.top}</g></svg>`;
+  }
+
+  /* --- Bouton rouge « Continuer la quête » : lance directement le prochain niveau à faire --- */
+  function nextStep(){
+    const w = scr === "map" ? cw : [5, 4, 3, 2, 1].find(x => built(x) && worldOpen(x)) || 1;
+    const W = WS(w), i = W.done.findIndex(x => !x);
+    return i < 0 ? null : {w, i};
+  }
+  function contBtn(){
+    const n = nextStep(); if (!n) return "";
+    const L = WORLDS[n.w - 1].levels[n.i];
+    return `<div class="av-cont"><button class="av-contb" data-adv="cont"><span class="av-cplay">▶</span><span><b>Continuer la quête</b><small>${scr === "isl" ? `Monde ${n.w} · ` : ""}Niveau ${n.i + 1} · ${esc(L.n)}</small></span></button></div>`;
   }
 
   /* ===================== Tableau de quêtes ===================== */
@@ -496,10 +508,10 @@ const Aventure = (() => {
         ${questBtn()}
         <button class="av-rb wood" data-adv="music" aria-label="Musique">${S.settings.music ? "♪" : "🔇"}</button></div>
       <div class="av-scroll" id="av-scroll">${mapSVG()}</div>
-      ${sheet >= 0 ? sheetHTML(sheet) : ""}</div>`;
+      ${sheet >= 0 ? sheetHTML(sheet) : contBtn()}</div>`;
     return `<div class="av-scr av-sea">
       <div class="av-itop"><h1>Aventure</h1><span class="av-chip">${starIco}<b>${totalStars()}</b>/105</span><button class="av-rb wood" data-adv="rank" aria-label="Classement des amis">🏆</button></div>
-      <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : ""}</div>`;
+      <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : contBtn()}</div>`;
   }
   function sheetHTML(i){
     const L = WD().levels[i], W = WS(cw), st = W.st[i], lock = !unlocked(cw, i), boss = L.mode === "boss";
@@ -539,6 +551,7 @@ const Aventure = (() => {
     if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return render(); }
     if (a === "close") { sheet = -1; return render(); }
     if (a === "play") { const i = +v; if (!unlocked(cw, i)) return; sheet = -1; return start(cw, i); }
+    if (a === "cont") { const n = nextStep(); if (!n) return; cw = n.w; scr = "map"; sheet = -1; lastScroll = null; return start(n.w, n.i); }
     if (a === "quests") { if (!questsOpen()) { toasts.push("<b>📜 Tableau de quêtes</b> · Il s'ouvre quand tu as réussi le niveau 4 de la Forêt."); return render(); } scr = "quests"; return render(); }
     if (a === "qmap") { scr = "map"; return render(); }
     if (a === "claim") return claim(v);
