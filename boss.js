@@ -392,7 +392,7 @@ const Boss = (() => {
     if (a === "callall") return call(Object.keys(A().users()).filter(id => id !== uid()));
   }
   // En pleine partie, quitter l'onglet ne relance rien : la partie du jour est déjà comptée
-  return {card, view:viewAll, click, listen, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG, current:cur};
+  return {card, view:viewAll, click, listen, foughtToday:playedToday, open:() => !!S.bossOpen, playing:() => !!(run && view === "fight" && S.tab === "jouer"), svg:bossSVG, current:cur};
 })();
 
 /* --- Badges du Boss --- */

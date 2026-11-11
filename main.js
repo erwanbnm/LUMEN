@@ -385,15 +385,16 @@ function newSession(mode, extra){
     const main = pick(byTheme(th), 5, rr, used); main.forEach(x=>used.add(x));
     const mix = pick(allIds().filter(id=>qTheme(id)!==th), 10-main.length, rr, used);
     const facts = F.map((_,i)=>i).filter(i=>F[i][0]===th);
-    s.steps = [{k:"fact", i:facts[Math.floor(n/ORDER.length) % facts.length]}].concat(main.map(qStep), mix.map(qStep));
+    // (sécurité : un thème sans « fait du jour » ne doit jamais bloquer le Défi du jour)
+    s.steps = (facts.length ? [{k:"fact", i:facts[Math.floor(n/ORDER.length) % facts.length]}] : []).concat(main.map(qStep), mix.map(qStep));
   } else if (mode === "portail") {
     // Jamais deux fois la même question : seulement des questions jamais vues, dans un ordre qui dépend du jour
     // (le même pour tous les joueurs qui ont le même historique)
     s.steps = portalFresh().sort((a, b) => hash(a + s.date) - hash(b + s.date)).slice(0, 10).map(qStep);
   } else if (mode === "serie") {
-    s.diff = S.diff || "mix"; s.steps = diffPick(byTheme(s.theme), 10, r, used, s.diff).map(qStep);
+    s.diff = s.forceDiff || S.diff || "mix"; s.steps = diffPick(byTheme(s.theme), 10, r, used, s.diff).map(qStep);
   } else if (mode === "mix") {
-    s.diff = S.diff || "mix"; s.steps = diffPick(allIds(), 10, r, used, s.diff).map(qStep);
+    s.diff = s.forceDiff || S.diff || "mix"; s.steps = diffPick(allIds(), 10, r, used, s.diff).map(qStep);
   } else if (mode === "qad") {
     s.steps = pick(quoteIds(), 10, r, used).map(qStep);
   } else if (mode === "revoir") {

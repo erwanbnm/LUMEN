@@ -140,12 +140,33 @@ const Quetes = (() => {
   const left = kind => { const n = parisNow(); let s = 86400 - n.sec; if (kind === "w") s += ((7 - (new Date(n.day + "T12:00:00Z").getUTCDay() + 6) % 7) - 1) * 86400;
     const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d ? `${d} j ${h} h` : h ? `${h} h ${String(m).padStart(2, "0")}` : `${m} min`; };
   function icon(d, m, z){ if (d.ic === "theme") return thIcon(m.th || "his", z); if (d.ic === "boss") return typeof Boss !== "undefined" ? Boss.svg(Boss.current().b.id, z) : gIcon("trophy", z); return gIcon(d.ic, z); }
+  // Accès direct : chaque quête ouvre le mode qui la fait avancer (aucun effet sur la progression elle-même)
+  const GO = {ok:["Jouer", "mix"], th:["Accéder", "theme"], hard:["Jouer", "hard"], run:["Jouer", "survie"], combo:["Jouer", "survie"],
+    mp:["Défier", "jcj"], mpw:["Défier", "jcj"], tower:["Grimper", "tower"], boss:["Combattre", "boss"], serie:["Jouer", "serie"]};
+  function goBtn(m, wk){
+    const g = GO[m.k]; if (!g || m.done) return "";
+    if (g[1] === "boss") { if (!online()) return `<span class="qs-lock">Connexion au mode en ligne requise</span>`;
+      try { if (Boss.foughtToday()) return `<span class="qs-lock">Déjà combattu aujourd'hui · reviens demain</span>`; } catch(e){} }
+    return `<button class="qs-go" data-qs="go" data-v="${m.k}" data-w="${wk ? 1 : 0}">${g[0]}<span aria-hidden="true">→</span></button>`;
+  }
+  function go(m){
+    const g = GO[m.k]; if (!g) return; S.questOpen = false;
+    if (g[1] === "mix") return start("mix");
+    if (g[1] === "theme") return start("serie", {theme:m.th});
+    if (g[1] === "hard") { toasts.push("<b>Partie en difficulté Pointues</b> · seules les questions pointues comptent pour cette quête"); return start("mix", {forceDiff:"expert"}); }
+    if (g[1] === "survie") return start("survie");
+    if (g[1] === "serie") { const seen = m.seen || {}, th = BIG.concat(ORDER).find(t => !seen[t]) || BIG[0]; return start("serie", {theme:th}); }
+    if (g[1] === "jcj") { S.tab = "amis"; S.multiView = "jcj"; }
+    else if (g[1] === "tower") S.tab = "tour";
+    else if (g[1] === "boss") { S.tab = "jouer"; S.bossOpen = true; }
+    save(); render(); window.scrollTo(0, 0);
+  }
   function row(m, DEF, wk){
     const d = DEF[m.k], pct = Math.round(m.p / d.goal * 100);
     const name = d.ic === "theme" && m.k === "serie" ? d.n(m) : d.n(m);
     return `<div class="qs-row ${m.done ? "done" : ""}"><div class="qs-ic">${icon(d, m, 40)}</div>
       <div class="qs-mid"><b>${esc(name)}</b><div class="qs-bar"><i style="width:${pct}%"></i><span>${m.p}/${d.goal}</span></div></div>
-      <div class="qs-rw">${m.done ? `<span class="qs-ok">✓</span>` : `<span class="qs-coin">${coinIco}${wk ? d.c : D_REWARD}</span>`}</div></div>`;
+      <div class="qs-rw">${m.done ? `<span class="qs-ok">✓</span><span class="qs-done">Atteint</span>` : `<span class="qs-coin">${coinIco}${wk ? d.c : D_REWARD}</span>${goBtn(m, wk)}`}</div></div>`;
   }
   function chestBlock(kind){
     const q = Qs(), box = kind === "w" ? q.w : q.d, ok = allDone(box.list), n = box.list.filter(m => m.done).length;
@@ -183,6 +204,7 @@ const Quetes = (() => {
     if (a === "back") { S.questOpen = false; return render(); }
     if (a === "tab") { tab = b.dataset.v; return render(); }
     if (a === "open") return openChest(b.dataset.v);
+    if (a === "go") { const q = Qs(), m = (b.dataset.w === "1" ? q.w : q.d).list.find(x => x.k === b.dataset.v); if (m && !m.done) go(m); }
   }
   return {ev, newRun, mpDone, view:viewAll, card, click, open:() => !!S.questOpen, state:Qs, chestSVG};
 })();

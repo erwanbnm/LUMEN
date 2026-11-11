@@ -148,7 +148,7 @@ const Calendrier = (() => {
   }
   // Fenêtre automatique à la première ouverture du jour (une fois par jour et par appareil, jamais en pleine partie)
   function auto(){
-    if (!S.profile || claimedToday() || inPlay() || document.querySelector(".cal-modal,.am-inv.portal,.lvup") || window.__noCal) return;
+    if (!S.profile || S.tab !== "accueil" || claimedToday() || inPlay() || document.querySelector(".cal-modal,.am-inv.portal,.lvup") || window.__noCal) return;
     if (online() && !srv) return;                 // on attend l'heure du serveur
     const d = nowDay(); if (S.calSeen === d) return; S.calSeen = d; save(); open();
   }

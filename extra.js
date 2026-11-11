@@ -133,5 +133,8 @@ F.push(
 ["cap","Les drapeaux de l'Indonésie et de Monaco sont presque identiques","Deux bandes, rouge en haut et blanc en bas. Seules les proportions changent : celui de Monaco est un peu moins allongé."],
 ["eco","Le premier billet de banque est chinois","Il a été utilisé en Chine dès le XIe siècle. En Europe, la Suède a émis les premiers billets officiels en 1661."],
 ["eco","Une pizza payée 10 000 bitcoins","En 2010, un programmeur a acheté deux pizzas pour 10 000 bitcoins. Quelques années plus tard, cette somme valait des centaines de millions de dollars."],
-["eco","Le mot « banque » vient d'un banc","Les changeurs d'argent italiens du Moyen Âge travaillaient sur des bancs. Un changeur ruiné voyait son banc cassé : « banca rotta », la banqueroute."]
+["eco","Le mot « banque » vient d'un banc","Les changeurs d'argent italiens du Moyen Âge travaillaient sur des bancs. Un changeur ruiné voyait son banc cassé : « banca rotta », la banqueroute."],
+["bdm","Tintin a voyagé jusqu'à la Lune avant les astronautes","Dans « On a marché sur la Lune », paru en album en 1954, Hergé fait marcher Tintin sur la Lune quinze ans avant Neil Armstrong, avec un réalisme technique étonnant pour l'époque."],
+["bdm","Le premier « One Piece » est sorti en 1997","Le manga d'Eiichiro Oda a commencé dans le magazine Weekly Shōnen Jump en juillet 1997. C'est aujourd'hui l'une des bandes dessinées les plus vendues au monde."],
+["bdm","Astérix a été créé en 1959","René Goscinny et Albert Uderzo ont lancé le petit Gaulois dans le premier numéro du magazine Pilote, le 29 octobre 1959."],
 );

@@ -1309,6 +1309,23 @@ body.in-tour .tw{background:transparent}
 .pot-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,246,222,.75);border:2px solid rgba(138,84,40,.45)}
 .pot-st{font-size:12px;font-weight:800;color:#7A5430}
 @media (prefers-reduced-motion:reduce){.cal-card,.cal-t.now,.cal-t.opening,.cal-box,.cal-win{animation:none!important}}
+
+/* ---------- Boutons de retour, de fermeture et accès direct aux quêtes (novembre 2026) ---------- */
+.quit{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:8px 15px;border-radius:999px;cursor:pointer;
+  font:800 13.5px "Nunito",sans-serif;letter-spacing:0;color:var(--ink);background:var(--surface);border:2px solid color-mix(in srgb,var(--lamp) 55%,var(--line));
+  box-shadow:0 3px 0 color-mix(in srgb,var(--lamp) 40%,transparent),0 2px 10px rgba(30,10,50,.18)}
+.quit:active{transform:translateY(2px);box-shadow:0 1px 0 color-mix(in srgb,var(--lamp) 40%,transparent)}
+.quit:focus-visible,.am-x:focus-visible,.qs-go:focus-visible{outline:3px solid var(--lamp);outline-offset:2px}
+.am-x{width:36px;height:36px;display:grid;place-items:center;font-size:22px;font-weight:900;color:var(--ink);background:var(--surface);border:2px solid color-mix(in srgb,var(--lamp) 50%,var(--line));box-shadow:0 2px 8px rgba(30,10,50,.25);cursor:pointer}
+.am-inv.portal .am-x{background:#2A0A10;color:#FFE8EA;border-color:#C8101E}
+.cal-box .am-x{background:#FFF6DE;color:#3A2410;border-color:#8A5428}
+.qs-rw{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:76px}
+.qs-go{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:999px;border:0;cursor:pointer;font:800 12.5px "Nunito",sans-serif;color:#fff;
+  background:linear-gradient(180deg,#FF6FB0,#C83A8A);box-shadow:0 3px 0 #8A1E5A;white-space:nowrap}
+.qs-go span{font-weight:900}
+.qs-go:active{transform:translateY(2px);box-shadow:0 1px 0 #8A1E5A}
+.qs-done{font:800 11px "Nunito",sans-serif;color:#2BB673}
+.qs-lock{max-width:110px;text-align:right;font:700 11px/1.2 "Nunito",sans-serif;color:var(--muted)}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
