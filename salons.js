@@ -15,6 +15,10 @@ const Salons = (() => {
   const now = () => Date.now() + offset; // les téléphones sont à l'heure (réglage automatique) : on s'y fie
   const isHost = () => room && room.host === uid();
   const seats = () => room ? Object.keys(room.players || {}).filter(id => !room.players[id].out).sort((a, b) => room.players[a].j - room.players[b].j) : [];
+  // Présence mesurée avec MON horloge : on note quand le signal de vie d'un joueur change (les téléphones peuvent ne pas être à la même heure)
+  const lastHb = {}, seenAt = {};
+  const quiet = id => id === uid() ? 0 : Date.now() - (seenAt[id] || Date.now());
+  const live = () => seats().filter(id => quiet(id) < 35000);
   const pName = id => (room && room.players[id] && room.players[id].p) || A().pseudoOf(id);
   const letters = () => Array.from({length:4}, () => "ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random()*24)]).join("");
   const lvls = d => d === "facile" ? [1] : d === "difficile" ? [2,3] : [1,2];
@@ -70,11 +74,13 @@ const Salons = (() => {
       s.docChanges().forEach(ch => { const m = ch.doc.data(); if (ch.type === "added" && m.e && before) showBubble(m.u, m.e); });
       paintChat();
     }, () => {});
-    clearInterval(hbTimer); hbTimer = setInterval(heartbeat, 8000);
+    clearInterval(hbTimer); hbTimer = setInterval(heartbeat, 15000); heartbeat();
     clearInterval(tick); tick = setInterval(loop, 250);
     render(); window.scrollTo(0, 0);
   }
   function heartbeat(){ if (code && uid() && document.visibilityState === "visible") db().doc("rooms/" + code).update({["players." + uid() + ".hb"]: Date.now()}).catch(() => {}); }
+  // De retour dans l'appli (après être allé envoyer le code à un ami, par exemple) : signal de vie tout de suite
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") heartbeat(); });
   async function leave(){
     const c = code, r = room;
     leaveListeners(); room = null; code = null; S.salonCode = null; save();
@@ -93,6 +99,7 @@ const Salons = (() => {
     if (!s.exists) { room = null; msg = "Ce salon n'existe plus."; return render(); }
     const r = s.data(), me = r.players[uid()];
     const prev = room; room = r;
+    Object.keys(r.players || {}).forEach(id => { const hb = r.players[id].hb; if (lastHb[id] !== hb || !seenAt[id]) { lastHb[id] = hb; seenAt[id] = Date.now(); } });
     if (!me || me.out) { leaveListeners(); room = null; code = null; S.salonCode = null; save(); msg = "Tu as quitté le salon."; return render(); }
     if (r.state === "play" && (!prev || prev.state !== "play" || prev.gid !== r.gid)) { view = "game"; jumpTop = true; if (typeof Quetes !== "undefined") Quetes.newRun(); }
     if (r.state === "end" && prev && prev.state === "play") { jumpTop = true; setTimeout(podium, r.mode === "bombe" ? 1800 : 300); }
@@ -137,10 +144,10 @@ const Salons = (() => {
     if (room.state === "play" && (room.mode === "quiz" || room.mode === "pm")) quizTick();
     // Plus de nouvelles d'un joueur depuis 40 s : la partie s'arrête (l'hôte s'en charge)
     if (room.state === "play" && isHost() && !drive) {
-      const gone = seats().find(id => id !== uid() && Date.now() - (room.players[id].hb || 0) > 40000);
+      const gone = (g.seats || seats()).find(id => id !== uid() && room.players[id] && !room.players[id].out && !(g.hearts && g.hearts[id] <= 0) && quiet(id) > 50000);
       if (gone) upd({state:"end", "g.over":true, "g.why":pName(gone) + " a quitté la partie."});
     }
-    if (room.state === "play" && !isHost() && room.players[room.host] && Date.now() - (room.players[room.host].hb || 0) > 45000 && !g.over) {
+    if (room.state === "play" && !isHost() && room.players[room.host] && quiet(room.host) > 55000 && !g.over) {
       room.state = "end"; room.g = Object.assign({}, g, {over:true, why:"L'hôte ne répond plus."}); rewards(); repaint();
     }
   }
@@ -150,7 +157,7 @@ const Salons = (() => {
 
   /* --- La Bombe --- */
   function startBomb(){
-    const ids = seats(), hearts = {}, ok = {};
+    const ids = live(), hearts = {}, ok = {};
     ids.forEach(id => { hearts[id] = 3; ok[id] = 0; });
     const holder = ids[Math.floor(Math.random()*ids.length)], qid = pickOne(room.diff, []);
     return upd({state:"play", gid:(room.gid || 0) + 1, g:{holder, fuse:3, turn:1, qid, ord:shuffle4(), dl:now() + Q_TIME*1000, phase:"ask", ans:null, hearts, ok, used:[qid], seats:ids, over:false}});
@@ -198,7 +205,7 @@ const Salons = (() => {
   const evOf = id => EV[+id.slice(2)];
   const yr = y => y < 0 ? -y + " av. J.-C." : String(y);
   function startQuiz(){
-    const ids = seats(), used = new Set(), qids = [];
+    const ids = live(), used = new Set(), qids = [];
     const avoid = avoidSet(); let pool = fresh(room.diff, avoid); if (pool.length < room.nq) pool = fresh(room.diff);
     pool.sort(() => Math.random() - .5);
     for (let i = 0; i < room.nq; i++) { const q = pool[i]; used.add(q); qids.push(q); }
@@ -206,7 +213,7 @@ const Salons = (() => {
     return upd({state:"play", gid:(room.gid || 0) + 1, sc, g:{qids, start:now() + 3500, seats:ids, ords:qids.map(() => shuffle4().join("")), over:false}}); // Firestore refuse les listes dans des listes : l'ordre est stocké en texte (« 2031 »)
   }
   function startPM(){
-    const ids = seats(), avoid = avoidSet(), n = Math.min(30, room.nq || 10);
+    const ids = live(), avoid = avoidSet(), n = Math.min(30, room.nq || 10);
     // Environ 20 % de « Plus ou moins » (au moins un), jamais en première manche
     const np = Math.max(1, Math.round(n * .2)), kinds = Array(n).fill("a");
     const spots = Array.from({length:n - 1}, (_, i) => i + 1).sort(() => Math.random() - .5).slice(0, np); spots.forEach(i => kinds[i] = "p");
@@ -495,7 +502,8 @@ const Salons = (() => {
       else if (a === "leave") return await leave();
       else if (a === "set" && isHost()) await upd({[b.dataset.k]: b.dataset.k === "nq" ? +v : v});
       else if (a === "inv" && isHost()) await upd({inv:FV().arrayUnion(v)});
-      else if (a === "start" && isHost() && seats().length >= 2) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : room.mode === "pm" ? startPM() : startQuiz()); }
+      else if (a === "start" && isHost() && live().length < 2) msg = "Tes amis ne répondent plus : attends qu'ils reviennent dans l'appli.";
+      else if (a === "start" && isHost()) { await db().collection("rooms/" + code + "/chat").add({u:uid(), p:"Lumen", t:"La partie commence !", at:Date.now()}).catch(() => {}); await (room.mode === "bombe" ? startBomb() : room.mode === "pm" ? startPM() : startQuiz()); }
       else if (a === "ans") { room.mode === "bombe" ? bombAnswer(+v) : quizAnswer(+v); return; }
       else if (a === "av") { avAnswer(+v); return; }
       else if (a === "emo") return send(null, v);
