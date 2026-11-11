@@ -252,7 +252,7 @@ const Boss = (() => {
     while (t.length < 2 && own.length) { const k = own.splice(Math.floor(Math.random() * own.length), 1)[0]; t.push({sk:k, name:skinOf(k).n}); }
     return [t[0], {me:true, name:S.profile.name}, t[1]];
   }
-  const heroSVG = (h, z) => h.me ? meSVG(z) : h.id ? A().avatar(h.id, z) : creatureSVG(skinOf(h.sk), z);
+  const heroSVG = (h, z) => h.me ? `<span class="pet-wrap">${meSVG(z)}${typeof Familiers !== "undefined" ? Familiers.beside(Math.round(z * .5), view === "done" ? "win" : "") : ""}</span>` : h.id ? A().avatar(h.id, z) : creatureSVG(skinOf(h.sk), z);
   const SWORD = `<svg class="ar-sword" viewBox="0 0 40 80" aria-hidden="true"><path d="M18 6 L22 6 L23 52 L17 52Z" fill="#E8F2FF" stroke="#1E1030" stroke-width="2"/><path d="M20 2 L23 8 L17 8Z" fill="#E8F2FF" stroke="#1E1030" stroke-width="2"/><path d="M20 8 V50" stroke="#9AB8E0" stroke-width="1.5"/><rect x="9" y="51" width="22" height="6" rx="3" fill="#FFD23F" stroke="#1E1030" stroke-width="2"/><rect x="17" y="57" width="6" height="14" rx="2" fill="#7A4A2A" stroke="#1E1030" stroke-width="2"/><circle cx="20" cy="74" r="4" fill="#FFD23F" stroke="#1E1030" stroke-width="2"/></svg>`;
   function arenaBG(c){
     let arches = "", crowd = "", pillars = "";

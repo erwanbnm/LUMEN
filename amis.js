@@ -21,7 +21,11 @@ const Amis = (function(){
   let fb = null, auth = null, db = null, me = null, loading = false, err = ""; let failAt = 0;
   let users = {}, duels = [], unsub = [], seenTimer = null;
   let cloud = {ready:false, offer:null, timer:null, last:"", err:false};
-  const ui = { seg:"signup", friend:"", mode:"classic", theme:"mix", n:10, kind:"async", busy:false, msg:"", view:"main", board:"duels" };
+  const ui = { seg:"signup", friend:"", mode:"classic", theme:"mix", n:10, kind:"async", busy:false, msg:"", view:"main", board:"duels", bet:0, betOk:false };
+  // Paris en duel 1 contre 1 (facultatifs) : mises gardées et pot versé par le serveur (evenements.js → functions/index.js)
+  const BETS = [25, 50, 100];   // mêmes montants que EV_DATA.BETS (vérifiés par le serveur)
+  const betsOn = () => typeof Evenements !== "undefined" && Evenements.live();
+  const betChip = d => d && d.bet ? `<span class="bet-chip">${coinIco}${d.bet} · pot ${2 * d.bet}</span>` : "";
   // Modes jouables en duel (les règles sont les mêmes pour les deux joueurs : pas d'améliorations de la boutique)
   const MODES = {
     classic:{n:"Classique", icon:"mix", d:"Un thème, de 5 à 20 questions"},
@@ -253,11 +257,18 @@ const Amis = (function(){
   async function challenge(){
     if (!ui.friend) { ui.msg = "Choisis d'abord un adversaire."; return render(); }
     if (ui.kind === "live" && !online(ui.friend)) { ui.msg = "Ton ami n'est pas en ligne : envoie-lui plutôt un défi en différé."; return render(); }
+    const bet = BETS.includes(ui.bet) && betsOn() ? ui.bet : 0;
+    if (bet && S.coins < bet) { ui.msg = "Tu n'as pas assez de pièces pour cette mise."; return render(); }
+    if (bet && !ui.betOk) { ui.betOk = true; return render(); }   // 1er appui : on demande confirmation
     const m = ui.mode, qids = hasN(m) ? pickQids(m, ui.theme, ui.n) : [];
     const d = {kind:ui.kind, from:uid(), to:ui.friend, mode:m, theme:m === "classic" ? ui.theme : "mix", n:qids.length, qids, seed:Math.floor(Math.random()*1e7),
       state:ui.kind === "live" ? "invite" : "open", created:Date.now(), start:0, res:{}};
+    if (bet) d.bet = bet;
     const ref = await db.collection("duels").add(d);
-    ui.msg = "";
+    ui.msg = ""; ui.betOk = false;
+    if (bet) { try { await Evenements.betJoin(ref.id); toasts.push(`<b>Mise engagée</b> · ${bet} pièces. Le gagnant remporte ${2 * bet} pièces.`); }
+      catch(e){ await db.doc("duels/" + ref.id).update({state:"cancelled"}).catch(() => {}); ui.msg = "La mise n'a pas pu être engagée (connexion ?). Le duel est annulé."; return render(); } }
+    ui.bet = 0;
     if (ui.kind === "async") play(Object.assign({id:ref.id}, d));
     else { setTimeout(() => { const x = duels.find(y => y.id === ref.id); if (x && x.state === "invite") db.doc("duels/" + x.id).update({state:"expired"}).catch(() => {}); }, 60000); render(); }
   }
@@ -274,11 +285,17 @@ const Amis = (function(){
     const m = modeOf(d), mode = m === "classic" ? (d.theme === "mix" ? "mix" : "serie") : m;
     const extra = {seed:d.seed || 1, duel:{id:d.id, live:d.kind === "live", start:d.start || 0, opp:d.from === uid() ? d.to : d.from}};
     if (d.qids && d.qids.length) extra.qids = d.qids;
+    if (d.bet) extra.duel.bet = d.bet;
     if (mode === "serie") extra.theme = d.theme;
     start(mode, extra);
   }
   async function accept(id){
     const d = duels.find(x => x.id === id); if (!d) return;
+    if (d.bet) {
+      if (!betsOn()) { toasts.push("<b>Duel avec mise</b> · patiente un instant, connexion au serveur…"); return render(); }
+      if (S.coins < d.bet) { toasts.push(`<b>Pas assez de pièces</b> · il faut ${d.bet} pièces pour relever ce duel.`); return render(); }
+      try { await Evenements.betJoin(id); } catch(e){ toasts.push("<b>Mise impossible</b> · le duel a peut-être été annulé. Réessaie."); return render(); }
+    }
     if (d.kind === "live") await db.doc("duels/" + id).update({state:"live", start:Date.now() + 5000});
     else play(d);
   }
@@ -326,7 +343,20 @@ const Amis = (function(){
       if (typeof Quetes !== "undefined" && Date.now() - d.created < 7 * 864e5) Quetes.mpDone("d" + d.id, o === 1);
       if (before.length) toasts.push(`<b>Duel contre ${esc(opp)}</b> · ${o === 1 ? "victoire !" : o === -1 ? "défaite." : "égalité."}`);
     });
+    settleBets();
     S.online = stats(); if (S.online.wins >= 1) unlockSkin("nord"); save(); checkBadges();
+  }
+  const betTry = {};
+  function settleBets(){
+    if (!betsOn()) return; S.amis.bets = S.amis.bets || {};
+    duels.filter(d => d.bet && (d.from === uid() || d.to === uid()) && !S.amis.bets[d.id] && Date.now() - (betTry[d.id] || 0) > 60000).forEach(d => {
+      const over = ["cancelled", "declined", "expired"].includes(d.state) || (d.res && Object.values(d.res).filter(r => r.done).length >= 2)
+        || Date.now() > (d.kind === "live" ? (d.start || d.created) + 15 * 6e4 : d.created + 3 * 864e5);
+      if (!over) return; betTry[d.id] = Date.now();
+      Evenements.betSettle(d.id).then(r => { if (!r || !(r.done || r.none)) return; S.amis.bets[d.id] = r.res || "none"; save();
+        if (r.res === uid()) toasts.push(`<b>Pari gagné !</b> · +${2 * d.bet} pièces`); else if (r.res === "tie" || r.res === "refund") toasts.push(`<b>Mise rendue</b> · ${d.bet} pièces`);
+        if (!inPlay()) render(); }).catch(() => {});
+    });
   }
   // Pop-up en haut de l'écran quand un ami nous défie : petit son, vibration, et on peut le fermer
   function inviteBanner(d){
@@ -336,9 +366,9 @@ const Amis = (function(){
     el.className = "am-inv"; el.dataset.duel = d.id; el.setAttribute("role", "alertdialog");
     const score = !live && d.res && d.res[d.from] && d.res[d.from].done ? ` · score à battre : ${d.res[d.from].ok}` : "";
     el.innerHTML = `<button class="am-x" data-am="later" data-id="${d.id}" aria-label="Fermer">×</button>
-      <div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap">${avatar(d.from, 40)}<div class="stack" style="gap:2px;min-width:0"><b>${esc(pseudoOf(d.from))} te défie${live ? " en direct" : ""} !</b><span>${esc(duelLabel(d))}${score}</span></div></div>
-      <div class="row">${live ? `<button class="btn small" data-am="accept" data-id="${d.id}">Accepter</button><button class="btn small ghost" data-am="refuse" data-id="${d.id}">Refuser</button>`
-        : `<button class="btn small" data-am="accept" data-id="${d.id}">Jouer</button><button class="btn small ghost" data-am="later" data-id="${d.id}">Plus tard</button>`}</div>`;
+      <div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap">${avatar(d.from, 40)}<div class="stack" style="gap:2px;min-width:0"><b>${esc(pseudoOf(d.from))} te défie${live ? " en direct" : ""} !</b><span>${esc(duelLabel(d))}${score}</span>${betChip(d)}</div></div>
+      <div class="row">${live ? `<button class="btn small" data-am="accept" data-id="${d.id}">${d.bet ? "Accepter · mise " + d.bet : "Accepter"}</button><button class="btn small ghost" data-am="refuse" data-id="${d.id}">Refuser</button>`
+        : `<button class="btn small" data-am="accept" data-id="${d.id}">${d.bet ? "Miser " + d.bet + " et jouer" : "Jouer"}</button><button class="btn small ghost" data-am="later" data-id="${d.id}">Plus tard</button>`}</div>`;
     document.body.appendChild(el); setTimeout(() => el.remove(), live ? 60000 : 30000);
   }
   // Défis en différé reçus et pas encore montrés : on les montre dès qu'on n'est pas en pleine partie
@@ -402,7 +432,7 @@ const Amis = (function(){
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
   // Écran d'accueil de l'onglet Multi : deux portes (Joueur contre joueur, Guildes)
   function viewHub(){
-    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !(d.res && d.res[uid()] && d.res[uid()].done) && d.state !== "declined").length;
+    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !(d.res && d.res[uid()] && d.res[uid()].done) && !["declined", "cancelled", "expired"].includes(d.state)).length;
     const G = typeof Guildes !== "undefined" ? Guildes.mine() : null, inv = typeof Guildes !== "undefined" ? Guildes.invites() : 0;
     const door = (v, art, t, d, n) => `<button class="mh-door mh-${v}" data-am="multi" data-v="${v}"><span class="mh-arch">${art}</span><span class="mh-txt"><b>${t}</b><span>${d}</span></span>${n ? `<i class="mh-n">${n}</i>` : ""}</button>`;
     return `<section class="stack"><h1 class="big" style="margin:0">Multi</h1>
@@ -422,7 +452,7 @@ const Amis = (function(){
     if (ui.view === "board") return viewBoard();
     const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
     const mineDone = d => d.res && d.res[uid()] && d.res[uid()].done;
-    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !mineDone(d) && d.state !== "declined");
+    const recv = duels.filter(d => d.kind === "async" && d.to === uid() && !mineDone(d) && !["declined", "cancelled", "expired"].includes(d.state));
     const sent = duels.filter(d => d.from === uid() && d.kind === "async" && mineDone(d) && !(d.res[d.to] && d.res[d.to].done));
     const p = pending(), hist = finished().filter(d => d.from === uid() || d.to === uid()).slice(0, 8);
     const m = ui.mode;
@@ -430,7 +460,7 @@ const Amis = (function(){
       <div class="row between"><div class="stack" style="gap:2px"><button class="quit" data-am="multi" data-v="home">← Multi</button><h1 class="big" style="margin:0">Joueur contre joueur</h1></div><button class="am-trophy" data-am="board">${gIcon("trophy", 46)}<span>Classement</span></button></div>
       ${typeof Salons !== "undefined" ? Salons.entry() : ""}
       ${p ? `<div class="card stack banner-am"><b>En attente de ${esc(pseudoOf(p.to))}…</b><span class="muted">Le duel démarre dès qu'il accepte.</span><button class="btn small ghost" data-am="cancel" data-id="${p.id}">Annuler</button></div>` : ""}
-      ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span></div><button class="btn small" data-am="accept" data-id="${d.id}">Relever</button></div>`).join("")}</div>` : ""}
+      ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span>${betChip(d)}</div><button class="btn small" data-am="accept" data-id="${d.id}">${d.bet ? "Miser " + d.bet : "Relever"}</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
         <div class="label">1 · Ton adversaire</div>
         ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${titleOf(id, "xs")}${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
@@ -441,8 +471,11 @@ const Amis = (function(){
         ${hasN(m) ? `<div class="label">${m === "classic" ? "4" : "3"} · Nombre de questions</div><div class="row">${[5,10,15,20].map(n => chip("n", n, n, ui.n === n)).join("")}</div>` : ""}
         <div class="label">Quand ?</div><div class="row">${chip("kind", "async", "En différé", ui.kind === "async")}${chip("kind", "live", "En direct", ui.kind === "live")}</div>
         <p class="muted" style="font-size:13.5px">${ui.kind === "async" ? "Tu joues maintenant, ton ami joue la même partie quand il veut." : "Vous jouez en même temps la même partie. À score égal, le plus rapide gagne."}</p>
+        ${betsOn() ? `<div class="label">Miser des pièces ? (facultatif)</div><div class="bet-box"><div class="row">${chip("bet", 0, "Sans mise", !ui.bet)}${BETS.map(v => `<button class="chip-btn ${ui.bet === v ? "on" : ""}" data-am="bet" data-v="${v}" ${S.coins >= v ? "" : "disabled"}>${coinIco}${v}</button>`).join("")}</div>
+          ${ui.bet ? `<span class="bet-pot">Pot : ${2 * ui.bet} pièces · le gagnant prend tout</span><span class="muted" style="font-size:12.5px">Ton ami doit accepter la même mise. Égalité ou duel annulé : chacun récupère sa mise. Quitter le duel = défaite.</span>` : `<span class="muted" style="font-size:12.5px">Mise identique pour les deux joueurs, le gagnant remporte le pot.</span>`}</div>` : ""}
         ${ui.msg ? `<p class="am-err">${esc(ui.msg)}</p>` : ""}
-        <button class="btn" data-am="go" ${p ? "disabled" : ""}>Lancer le défi</button>
+        ${ui.bet && ui.betOk ? `<p class="am-err" style="color:inherit"><b>Tu mises ${ui.bet} pièces.</b> Elles sont réservées jusqu'à la fin du duel.</p>` : ""}
+        <button class="btn" data-am="go" ${p ? "disabled" : ""}>${ui.bet ? (ui.betOk ? `Confirmer la mise de ${ui.bet} pièces` : `Lancer le défi · mise ${ui.bet}`) : "Lancer le défi"}</button>
       </div>
       ${sent.length ? `<div class="card stack"><div class="label">En attente</div>${sent.map(d => `<div class="am-row">${avatar(d.to)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.to))}</b><span class="muted">${esc(duelLabel(d))} · ton score : ${d.res[uid()].ok}</span></div></div>`).join("")}</div>` : ""}
       ${hist.length ? `<div class="card stack"><div class="label">Derniers duels</div>${hist.map(d => { const o = outcome(d, uid()), opp = d.from === uid() ? d.to : d.from;
@@ -524,7 +557,7 @@ const Amis = (function(){
   function duelBarInner(s){
     const d = duels.find(x => x.id === s.duel.id), r = d && d.res && d.res[s.duel.opp];
     const info = s.duel.live ? (r && r.done ? " <small>(fini)</small>" : "") : (r && r.done ? "" : " <small>(pas encore joué)</small>");
-    return `<span>Toi <b>${score(s).ok}</b></span><span class="vs">contre</span><span>${esc(pseudoOf(s.duel.opp))} <b>${r ? r.ok : 0}</b>${info}</span>`;
+    return `<span>Toi <b>${score(s).ok}</b></span><span class="vs">${s.duel.bet ? `<span class="bet-chip">${coinIco}${2 * s.duel.bet}</span>` : "contre"}</span><span>${esc(pseudoOf(s.duel.opp))} <b>${r ? r.ok : 0}</b>${info}</span>`;
   }
   function updateDuelBar(){ const s = S.session, el = document.getElementById("duelbar"); if (s && s.duel && el) el.innerHTML = duelBarInner(s); }
   function countdown(s){
@@ -535,7 +568,8 @@ const Amis = (function(){
   function recap(s){
     const d = duels.find(x => x.id === s.duel.id), o = d && outcome(d, uid()), r = d && d.res && d.res[s.duel.opp];
     if (o === null || o === undefined) return `<div class="card"><b>${r && !r.done && s.duel.live ? esc(pseudoOf(s.duel.opp)) + " n'a pas encore fini…" : "Ton score est envoyé à " + esc(pseudoOf(s.duel.opp)) + "."}</b><p class="muted">Tu verras le résultat dans l'onglet JcJ.</p></div>`;
-    return `<div class="card banner-am"><b>${o === 1 ? "Victoire !" : o === -1 ? "Défaite…" : "Égalité"}</b><p class="muted">Score de ${esc(pseudoOf(s.duel.opp))} : ${r.ok}.</p><button class="btn small" data-am="rematch" data-id="${d.id}">${o === 1 ? "Rejouer contre " + esc(pseudoOf(s.duel.opp)) : "Revanche !"}</button></div>`;
+    const bt = d.bet ? `<div class="bet-res ${o === 1 ? "win" : o === -1 ? "lose" : ""}">${coinIco}${o === 1 ? "+" + 2 * d.bet + " pièces" : o === -1 ? "−" + d.bet + " pièces" : "Mise rendue"}</div>` : "";
+    return `<div class="card banner-am"><b>${o === 1 ? "Victoire !" : o === -1 ? "Défaite…" : "Égalité"}</b>${bt}<p class="muted">Score de ${esc(pseudoOf(s.duel.opp))} : ${r.ok}.</p><button class="btn small" data-am="rematch" data-id="${d.id}">${o === 1 ? "Rejouer contre " + esc(pseudoOf(s.duel.opp)) : "Revanche !"}</button></div>`;
   }
 
   /* --- Clics et formulaires --- */
@@ -549,6 +583,7 @@ const Amis = (function(){
       else if (a === "theme") ui.theme = v;
       else if (a === "n") ui.n = +v;
       else if (a === "kind") ui.kind = v;
+      else if (a === "bet") { ui.bet = +v || 0; ui.betOk = false; }
       else if (a === "multi") { S.multiView = v; ui.view = "main"; save(); render(); return window.scrollTo(0, 0); }
       else if (a === "board") { ui.view = "board"; render(); return window.scrollTo(0, 0); }
       else if (a === "back") ui.view = "main";

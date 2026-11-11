@@ -18,7 +18,7 @@ const KEY_RE = /^[A-Za-z0-9:_-]{4,64}$/;
 const parisDay = ms => new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date(ms));
 const calDay = ms => Math.floor((ms + 36e5) / 864e5);          // même calcul que la règle « logins »
 const activeEvent = now => D.EVENTS.find(e => now >= Date.parse(e.start) && now <= Date.parse(e.end)) || null;
-const blank = () => ({frag:{}, evSkins:{}, tok:{}, grants:{}, pay:{}, spent:{}, recent:[], last:0, day:"", dayN:0});
+const blank = () => ({frag:{}, evSkins:{}, tok:{}, grants:{}, pay:{}, spent:{}, stake:{}, ch:{}, pets:{}, recent:[], last:0, day:"", dayN:0});
 const has = (inv, t) => !!(inv.tok[t] && inv.tok[t].n > 0);
 function need(req){ if (!req.auth) throw new HttpsError("unauthenticated", "Connexion nécessaire."); return req.auth.uid; }
 // Transaction sur inv/{uid}
@@ -39,20 +39,31 @@ function give(inv, key, t, swap){
   inv.grants[key] = got; return {got};
 }
 
-/* --- Tirages de fragments : une liste de clés (une par bonne réponse), envoyée par paquets --- */
+/* --- Réponses : une clé par question répondue (« a… » bonne réponse, « w… » mauvaise), envoyées par paquets.
+   Bonne réponse pendant un événement à fragments : tirage (3 %). Toute réponse pendant un défi « questions » : +1. --- */
+const activeCh = now => (D.CHALLENGES || []).filter(e => now >= Date.parse(e.start) && now <= Date.parse(e.end));
+function chUnlock(inv, e, now){ // défi atteint : familier débloqué pour toujours
+  const c = inv.ch[e.id] || {}; inv.pets = inv.pets || {}; const got = [];
+  e.goals.forEach(g => { if ((c[g.k] || 0) >= g.n && !inv.pets[g.pet]) { inv.pets[g.pet] = now; got.push(g.pet); } });
+  return got;
+}
 exports.draw = onCall(async req => {
-  const uid = need(req), now = Date.now(), ev = activeEvent(now);
+  const uid = need(req), now = Date.now(), ev = activeEvent(now), chs = activeCh(now);
   const owned = new Set(Array.isArray(req.data && req.data.own) ? req.data.own.slice(0, 20) : []);
-  const keys = [...new Set((req.data && req.data.keys) || [])].filter(k => typeof k === "string" && KEY_RE.test(k)).slice(0, 6);
-  if (!ev || !keys.length) return {won:[]};
+  const keys = [...new Set((req.data && req.data.keys) || [])].filter(k => typeof k === "string" && KEY_RE.test(k)).slice(0, 8);
+  if ((!ev && !chs.length) || !keys.length) return {won:[], pets:[]};
   return withInv(uid, async inv => {
-    const today = parisDay(now); if (inv.day !== today) { inv.day = today; inv.dayN = 0; }
-    // Pas plus d'une bonne réponse par seconde depuis le dernier envoi (les vraies parties sont plus lentes)
-    const room = Math.max(1, Math.floor((now - (inv.last || 0)) / 1000));
+    const today = parisDay(now); if (inv.day !== today) { inv.day = today; inv.dayN = 0; inv.dayA = 0; }
+    inv.ch = inv.ch || {};
+    // Pas plus d'une réponse toutes les 0,7 seconde depuis le dernier envoi (les vraies parties sont plus lentes)
+    const room = Math.max(1, Math.floor((now - (inv.last || 0)) / 700));
     const fresh = keys.filter(k => !inv.recent.includes(k)).slice(0, room);
-    inv.last = now; const won = [];
+    inv.last = now; const won = []; let pets = [];
     for (const k of fresh) {
       inv.recent.push(k);
+      if ((inv.dayA || 0) < D.DAY_ANS) { inv.dayA = (inv.dayA || 0) + 1;
+        chs.forEach(e => { if (e.goals.some(g => g.k === "q")) { const c = inv.ch[e.id] = inv.ch[e.id] || {}; c.q = (c.q || 0) + 1; } }); }
+      if (k[0] !== "a" || !ev) continue;
       if (inv.dayN >= D.DAY_MAX) continue; inv.dayN++;
       const f = inv.frag[ev.id] = inv.frag[ev.id] || {};
       const open = ev.chars.filter(c => !inv.evSkins[c] && !owned.has(c));           // les personnages déjà adoptés ne donnent plus de fragments
@@ -63,8 +74,79 @@ exports.draw = onCall(async req => {
       if (f[c] >= ev.need) { f[c] -= ev.need; inv.evSkins[c] = now; unlocked = true; }   // 6 fragments consommés
       won.push({c, unlocked});
     }
-    inv.recent = inv.recent.slice(-120);
-    return {won};
+    chs.forEach(e => { pets = pets.concat(chUnlock(inv, e, now)); });
+    inv.recent = inv.recent.slice(-160);
+    return {won, pets};
+  });
+});
+
+/* --- Pièces dépensées (défi de l'événement) : achats en boutique, améliorations, parc… Les mises des paris n'en font pas partie.
+   Chaque dépense a une clé unique ; plafonds par envoi et par jour. --- */
+exports.spent = onCall(async req => {
+  const uid = need(req), now = Date.now(), chs = activeCh(now).filter(e => e.goals.some(g => g.k === "spend"));
+  const d = req.data || {}, key = String(d.key || ""), v = Math.floor(+d.v || 0);
+  if (!chs.length || !KEY_RE.test(key) || !(v > 0)) return {ok:false, pets:[]};
+  return withInv(uid, async inv => {
+    inv.ch = inv.ch || {}; inv.spRecent = inv.spRecent || [];
+    if (inv.spRecent.includes(key)) return {dup:true, pets:[]};
+    const today = parisDay(now); if (inv.spDay !== today) { inv.spDay = today; inv.spN = 0; }
+    const add = Math.max(0, Math.min(v, D.SPEND_ONE, D.SPEND_DAY - (inv.spN || 0)));
+    inv.spRecent = inv.spRecent.concat(key).slice(-120); inv.spN = (inv.spN || 0) + add;
+    let pets = [];
+    chs.forEach(e => { const c = inv.ch[e.id] = inv.ch[e.id] || {}; c.spend = (c.spend || 0) + add; pets = pets.concat(chUnlock(inv, e, now)); });
+    return {ok:true, add, pets};
+  });
+});
+
+/* --- Paris en duel 1 contre 1 : mise de 25, 50 ou 100 pièces, identique pour les deux joueurs.
+   betJoin : le joueur engage sa mise (une seule fois par duel). betSettle : le serveur lit le résultat du duel et verse
+   le pot une seule fois (bets/{duel}.settled). Égalité ou duel jamais commencé : chacun récupère sa mise.
+   Abandon : quitter un duel rend sa copie (perdu) ; un joueur qui ne finit jamais perd après le délai. --- */
+const OFF = ["cancelled", "declined", "expired"];
+exports.betJoin = onCall(async req => {
+  const uid = need(req), id = String((req.data || {}).duel || "");
+  if (!/^[A-Za-z0-9]{10,40}$/.test(id)) throw new HttpsError("invalid-argument", "Duel inconnu.");
+  const dref = db.doc("duels/" + id), bref = db.doc("bets/" + id), iref = db.doc("inv/" + uid);
+  return db.runTransaction(async tx => {
+    const [ds, bs, is] = await Promise.all([tx.get(dref), tx.get(bref), tx.get(iref)]);
+    const d = ds.exists ? ds.data() : null;
+    if (!d || !D.BETS.includes(d.bet) || (uid !== d.from && uid !== d.to)) throw new HttpsError("failed-precondition", "Pas de mise sur ce duel.");
+    if (OFF.includes(d.state)) throw new HttpsError("failed-precondition", "Duel annulé.");
+    const b = bs.exists ? bs.data() : {duel:id, from:d.from, to:d.to, bet:d.bet, st:{}, created:Date.now()};
+    if (b.settled) throw new HttpsError("failed-precondition", "Pari déjà réglé.");
+    if (d.res && d.res[uid] && d.res[uid].done) throw new HttpsError("failed-precondition", "Trop tard pour miser.");
+    if (b.st[uid]) return {ok:true, dup:true};
+    const inv = Object.assign(blank(), is.exists ? is.data() : {}); inv.stake = inv.stake || {};
+    b.st[uid] = d.bet; inv.stake["bet:" + id] = d.bet;
+    tx.set(bref, b); tx.set(iref, inv); return {ok:true};
+  });
+});
+exports.betSettle = onCall(async req => {
+  need(req); const id = String((req.data || {}).duel || ""), now = Date.now();
+  if (!/^[A-Za-z0-9]{10,40}$/.test(id)) throw new HttpsError("invalid-argument", "Duel inconnu.");
+  const dref = db.doc("duels/" + id), bref = db.doc("bets/" + id);
+  return db.runTransaction(async tx => {
+    const [ds, bs] = await Promise.all([tx.get(dref), tx.get(bref)]);
+    if (!bs.exists) return {none:true};
+    const b = bs.data(); if (b.settled) return {done:true, res:b.result};
+    const d = ds.data() || {}, res = d.res || {}, A = d.from, B = d.to, ra = res[A], rb = res[B];
+    const iA = db.doc("inv/" + A), iB = db.doc("inv/" + B);
+    const [sa, sb] = await Promise.all([tx.get(iA), tx.get(iB)]);
+    const dead = now > (d.kind === "live" ? (d.start || d.created || 0) + 15 * 6e4 : (d.created || 0) + 3 * 864e5);
+    const both = !!(b.st[A] && b.st[B]), doneA = !!(ra && ra.done), doneB = !!(rb && rb.done);
+    let pay = {}, result;
+    if (!both) {
+      if (!(OFF.includes(d.state) || dead || (doneA && doneB))) return {wait:true};
+      Object.keys(b.st).forEach(u => pay[u] = b.st[u]); result = "refund";
+    } else if (doneA && doneB) {
+      const o = ra.ok !== rb.ok ? (ra.ok > rb.ok ? 1 : -1) : (d.kind === "live" && ra.t !== rb.t ? (ra.t < rb.t ? 1 : -1) : 0);
+      if (o === 0) { pay[A] = b.bet; pay[B] = b.bet; result = "tie"; } else { pay[o === 1 ? A : B] = 2 * b.bet; result = o === 1 ? A : B; }
+    } else if (dead) {
+      if (doneA || doneB) { pay[doneA ? A : B] = 2 * b.bet; result = doneA ? A : B; } else { pay[A] = b.bet; pay[B] = b.bet; result = "tie"; }
+    } else return {wait:true};
+    [[A, iA, sa], [B, iB, sb]].forEach(([u, ref, snap]) => { if (!pay[u]) return; const inv = Object.assign(blank(), snap.exists ? snap.data() : {}); inv.pay["bet:" + id] = pay[u]; tx.set(ref, inv); });
+    tx.set(bref, Object.assign({}, b, {settled:now, result, paid:pay}));
+    return {done:true, res:result};
   });
 });
 

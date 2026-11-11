@@ -11,6 +11,18 @@ const EV_DATA = {
       start:"2026-11-11T00:00:00+01:00", end:"2026-11-30T23:59:59+01:00",
       rate:0.03, need:6, chars:["campeur", "zombie", "ev_pomme", "ev_carnet"], look:"halloween" }
   ],
+  // Événements à défis (familiers) : progression comptée par le serveur ; à la fin, ce qui n'est pas fini s'arrête.
+  // Pour les refaire revenir : ajouter une entrée avec un nouvel id (ou le même pour garder la progression) et de nouvelles dates.
+  CHALLENGES: [
+    { id:"fam1", n:"La Semaine des Familiers", kicker:"Événement de la semaine",
+      d:"Deux défis, deux familiers exclusifs. Ils ne s'achètent pas : relève les défis avant la fin de la semaine !",
+      start:"2026-11-11T00:00:00+01:00", end:"2026-11-18T23:59:59+01:00",
+      goals:[ {k:"q", n:2000, pet:"pet_scie", t:"Répondre à 2 000 questions", u:"questions"},
+              {k:"spend", n:10000, pet:"pet_renne", t:"Dépenser 10 000 pièces", u:"pièces"} ] }
+  ],
+  DAY_ANS: 800,                                 // réponses comptées au plus par jour et par joueur
+  SPEND_ONE: 10000, SPEND_DAY: 25000,           // plafonds des dépenses comptées (par achat, par jour)
+  BETS: [25, 50, 100],                          // mises possibles en duel 1 contre 1
   // Jetons rares : un exemplaire maximum de chaque type
   TOKENS: { coin:{n:"Double pièces", dur:30}, xp:{n:"Double XP", dur:30}, fifty:{n:"Jeton 50/50"} },
   PRICE: 1000,                                  // prix en boutique de chaque jeton

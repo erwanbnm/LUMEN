@@ -38,7 +38,7 @@ function unlockSkin(id){
   toasts.push(`<span class="sec">${creatureSVG(sk, 44)}<span><b>${id==="lumen"?"Personnage ultra secret débloqué !":sk.free||sk.unlock||sk.r?"Nouveau personnage débloqué !":"Personnage secret débloqué !"}</b> ${esc(sk.n)} t'attend dans ta Collection.</span></span>`);
   return sk.n;
 }
-function spend(n){ S.st.spent = Math.max(0, (S.st.spent||0) + n); if (S.st.spent >= 1000) unlockSkin("lingot"); }
+function spend(n){ S.st.spent = Math.max(0, (S.st.spent||0) + n); if (S.st.spent >= 1000) unlockSkin("lingot"); if (n > 0 && typeof Evenements !== "undefined") Evenements.onSpend(n); }
 function checkSecrets(){
   if ((S.st.spent||0) >= 1000) unlockSkin("lingot");
   if (totalOk() >= 1000) unlockSkin("lumen");
@@ -348,9 +348,9 @@ function answer(id, ok, combo){
   const firstWin = ok && !e.ok;
   if (ok) { e.b = Math.min(e.b+1, 5); e.ok++; } else { e.b = 0; e.ko++; }
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
+  if (typeof Evenements !== "undefined") Evenements.onAnswer(ok);   // serveur : tirage d'un fragment (bonne réponse) et défi « questions »
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
-  if (typeof Evenements !== "undefined") Evenements.onCorrect();   // tirage d'un fragment par le serveur (pendant un événement)
   const th = qTheme(id), before = themeLvl(th).L, accBefore = acctLvl().L;
   const mult = combo >= 5 ? 2 : combo >= 3 ? 1.5 : 1;
   const xp = Math.round(XP_LVL[Q[id][1]] * mult * (firstWin ? 1 : 0.35)) * PM("xp");
@@ -559,7 +559,7 @@ function dailyCard(){
 function renderHome(){
   const A = acctLvl(), next = nextGoal();
   return `<section class="stack">
-    <div class="me">${typeof Evenements !== "undefined" ? Evenements.homeBtn() : ""}<div class="me-av">${meSVG(72)}</div><div class="stack" style="gap:4px;min-width:0">
+    <div class="me">${typeof Evenements !== "undefined" ? Evenements.homeBtn() : ""}<div class="me-av">${meSVG(72)}${typeof Familiers !== "undefined" ? Familiers.beside(40) : ""}</div><div class="stack" style="gap:4px;min-width:0">
       <span class="label">Niveau ${A.L} · ${totalXp()} XP</span><b class="me-name">${esc(S.profile.name)}</b>
       <span class="meter"><i style="width:${Math.round(A.p*100)}%"></i></span><span class="muted" style="font-size:13.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}</span></div></div>
     ${typeof Evenements !== "undefined" ? Evenements.card() : ""}
@@ -673,11 +673,12 @@ function renderTitles(){
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
-  const segs = {skins:"Personnages", acc:"Accessoires", titres:"Titres", collection:"Collection", ameliorations:"Améliorations"};
-  const SI = {skins:"user", acc:"crown", titres:"trophy", collection:"book", ameliorations:"up"};
-  const tabs = `<div class="seg gseg s5" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
+  const segs = {skins:"Personnages", pets:"Familiers", acc:"Accessoires", titres:"Titres", collection:"Collection", ameliorations:"Améliorations"};
+  const SI = {skins:"user", pets:"gift", acc:"crown", titres:"trophy", collection:"book", ameliorations:"up"};
+  const tabs = `<div class="seg gseg s6" role="group" aria-label="Sections de la boutique">${Object.keys(segs).map(k=>`<button data-shopseg="${k}" aria-pressed="${shopSeg===k}">${gIcon(SI[k],26)}<span>${segs[k]}</span></button>`).join("")}</div>`;
   let body;
-  if (shopSeg === "collection" && typeof Boutique !== "undefined") body = Boutique.collectionView();
+  if (shopSeg === "pets" && typeof Familiers !== "undefined") body = Familiers.view();
+  else if (shopSeg === "collection" && typeof Boutique !== "undefined") body = Boutique.collectionView();
   else if (shopSeg === "skins" && typeof Boutique !== "undefined") body = Boutique.shopView();
   else if (shopSeg === "collection") {
     const nOwn = CHARS.length + SHOP_SKINS.filter(s=>S.skins[s.id]).length + SECRETS.filter(s=>S.skins[s.id]).length;
@@ -936,6 +937,11 @@ function renderProfile(){
   else body = renderProgress();
   return `<section class="stack">${tabs}${body}</section>`;
 }
+function petCard(){
+  if (typeof Familiers === "undefined") return "";
+  const p = Familiers.eq();
+  return `<div class="card pet-me"><div class="pet-stage">${meSVG(70)}${p ? `<span class="pet-by big">${creatureSVG(p, 52)}</span>` : ""}</div><div class="stack" style="gap:3px;min-width:0"><span class="label">Mon familier</span><b>${p ? esc(p.n) : "Aucun pour l'instant"}</b><span class="muted" style="font-size:13px">${p ? "Il t'accompagne partout, juste pour le style." : "Adopte-en un dans la boutique."}</span></div><button class="btn small ghost" data-tab="boutique" data-shopseg="pets">${p ? "Changer" : "Voir"}</button></div>`;
+}
 function renderProgress(){
   const A = acctLvl(), ids = Object.keys(S.q).filter(id=>Q[id]);
   const ok = ids.reduce((a,id)=>a+S.q[id].ok,0), ko = ids.reduce((a,id)=>a+S.q[id].ko,0);
@@ -946,7 +952,7 @@ function renderProgress(){
       <span class="meter"><i style="width:${Math.round(L.p*100)}%"></i></span>
       <span class="sub">${S.xp[k]||0} XP · ${correctIn(k)}/${list.length} réussies · ${m} maîtrisées</span></div>`;
   }).join("");
-  return `<div class="acct"><div class="ring" style="--p:${Math.round(A.p*100)}"><div>${A.L}</div></div>
+  return `${petCard()}<div class="acct"><div class="ring" style="--p:${Math.round(A.p*100)}"><div>${A.L}</div></div>
       <div class="stack" style="gap:4px"><span class="label">Niveau de compte</span><b style="font-family:var(--f-display);font-size:19px">${totalXp()} XP au total</b><span class="muted" style="font-size:14.5px">Encore ${Math.ceil(A.need)} XP pour le niveau ${A.L+1}.</span></div></div>
     <div class="stats">
       <div class="stat"><div class="v">${streak()}</div><div class="label">Défis d'affilée</div></div>
@@ -1122,6 +1128,7 @@ function onClick(e){
   if (S.settings && S.settings.sfx !== false && d.ans === undefined && !d.av && d.avyear === undefined) {
     try { Music.sfx(fromBar ? "tab" + ["accueil","jouer","amis","boutique","parc","profil","tour"].indexOf(d.tab) % 5 : "tap"); } catch(err){}
   }
+  if (d.tab && d.shopseg) shopSeg = d.shopseg;
   if (d.tab === "parc") { leaveSession(); save(); if (fromBar) { tabFx("parc"); setTimeout(() => Parc.open(), 480); } else Parc.open(); return; }
   if (d.tab) {
     if (d.tab !== "jouer") leaveSession();
@@ -1200,6 +1207,7 @@ function onClick(e){
   if (d.nb) { libFilter = d.nb; libQuery = ""; render(); return window.scrollTo(0,0); }
   if (d.cal === "open") return Calendrier.open();
   if (d.ev !== undefined) return Evenements.click(b);
+  if (d.pet !== undefined) return Familiers.click(b);
   if (d.evb) return Evenements.buy(d.evb);
   if (d.pot === "open") return Potions.sheet();
   if (d.bq !== undefined) return Boutique.click(b);

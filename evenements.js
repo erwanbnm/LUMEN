@@ -10,13 +10,19 @@
 const Evenements = (() => {
   const D = EV_DATA, REG = "europe-west1";
   let inv = null, unsub = null, who = null, fnLoad = null, q = [], qTimer = null, sending = false, asked = {};
-  const st = () => { S.ev = S.ev || {}; ["paid", "spent", "seen", "migr", "frag"].forEach(k => S.ev[k] = S.ev[k] || {}); return S.ev; };
+  const st = () => { S.ev = S.ev || {}; ["paid", "spent", "seen", "migr", "frag", "stake", "petSeen", "ch"].forEach(k => S.ev[k] = S.ev[k] || {}); return S.ev; };
   const online = () => { try { return !!(Amis.api.uid() && Amis.api.db()); } catch(e){ return false; } };
   const live = () => online() && !!inv;                      // l'inventaire du serveur est chargé
   const now = () => Date.now();
   const cur = () => D.EVENTS.find(e => now() >= Date.parse(e.start) && now() <= Date.parse(e.end)) || null;
   const lastEv = () => cur() || D.EVENTS.slice().reverse().find(e => now() > Date.parse(e.end)) || D.EVENTS[0];
   const evOf = id => D.EVENTS.find(e => e.chars.includes(id));
+  // Événements à défis (familiers)
+  const curCh = () => (D.CHALLENGES || []).find(e => now() >= Date.parse(e.start) && now() <= Date.parse(e.end)) || null;
+  const lastCh = () => curCh() || (D.CHALLENGES || []).slice().reverse().find(e => now() > Date.parse(e.end)) || null;
+  const chVal = (e, k) => Math.max((inv && inv.ch && inv.ch[e.id] && inv.ch[e.id][k]) || 0, (st().ch[e.id] && st().ch[e.id][k]) || 0);
+  function petGoal(pet){ const e = (D.CHALLENGES || []).slice().reverse().find(x => x.goals.some(g => g.pet === pet)); if (!e) return null;
+    const g = e.goals.find(x => x.pet === pet); return {t:g.t, n:g.n, v:Math.min(g.n, chVal(e, g.k)), live:curCh() === e, e}; }
   const skin = id => skinOf(id);
 
   /* --- Appels au serveur --- */
@@ -43,6 +49,9 @@ const Evenements = (() => {
     Object.keys(inv.pay || {}).forEach(k => { if (s.paid[k]) return; s.paid[k] = 1; const v = +inv.pay[k] || 0; if (v > 0) { S.coins += v; } ch = true; });
     Object.keys(inv.spent || {}).forEach(k => { if (s.spent[k]) return; s.spent[k] = 1; const v = +inv.spent[k] || 0; S.coins = Math.max(0, S.coins - v); spend(v); ch = true; });
     Object.keys(inv.frag || {}).forEach(e => { s.frag[e] = Object.assign({}, inv.frag[e]); });
+    Object.keys(inv.stake || {}).forEach(k => { if (s.stake[k]) return; s.stake[k] = 1; S.coins = Math.max(0, S.coins - (+inv.stake[k] || 0)); ch = true; });   // mises des paris (pas des dépenses)
+    Object.keys(inv.ch || {}).forEach(e => { s.ch[e] = Object.assign({}, inv.ch[e]); });
+    Object.keys(inv.pets || {}).forEach(id => { if (typeof Familiers !== "undefined" && Familiers.give(id)) { s.petSeen[id] = 0; ch = true; } });
     Object.keys(inv.evSkins || {}).forEach(id => { if (!S.skins[id] && skin(id) && !s.seen[id]) { S.skins[id] = today(); s.seen[id] = s.seen[id] || 0; ch = true; } });
     if (ch) { save(); checkBadges(); }
   }
@@ -66,21 +75,30 @@ const Evenements = (() => {
   }
 
   /* --- Fragments : une clé par bonne réponse, envoyées toutes les 2 secondes --- */
-  function onCorrect(){
-    if (!cur() || !online()) return;
-    q.push({k:key("a"), n:0}); if (q.length > 40) q = q.slice(-40);
+  function onAnswer(ok){
+    if (!online() || !(curCh() || (ok && cur()))) return;
+    q.push({k:key(ok ? "a" : "w"), n:0}); if (q.length > 60) q = q.slice(-60);
     if (!qTimer) qTimer = setTimeout(flush, 2000);
   }
   async function flush(){
     qTimer = null; if (sending || !q.length) return; sending = true;
-    const pack = q.slice(0, 5);
+    const pack = q.slice(0, 8);
     try {
       const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), own:e ? e.chars.filter(c => S.skins[c]) : []});
       q = q.filter(x => !pack.includes(x));
       (r.won || []).forEach((w, i) => setTimeout(() => fragFx(w), i * 900));
+      if ((r.pets || []).length) setTimeout(celebrate, 1500);
     } catch(e){ pack.forEach(x => x.n++); q = q.filter(x => x.n < 3); }
     sending = false; if (q.length) qTimer = setTimeout(flush, 2000);
   }
+  function onSpend(v){
+    const e = curCh(); if (!e || !online() || !e.goals.some(g => g.k === "spend") || !(v > 0)) return;
+    const k = key("s"), go = n => call("spent", {key:k, v}).then(r => { if ((r.pets || []).length) setTimeout(celebrate, 800); }).catch(() => { if (n < 3) setTimeout(() => go(n + 1), 4000); });
+    go(0);
+  }
+  /* --- Paris en duel (le serveur garde les mises et verse le pot) --- */
+  const betJoin = duel => call("betJoin", {duel});
+  const betSettle = duel => call("betSettle", {duel});
   // Petite notification discrète, sans interrompre la partie
   function fragFx(w){
     const sk = skin(w.c), ev = evOf(w.c); if (!sk || !ev) return;
@@ -93,8 +111,10 @@ const Evenements = (() => {
   }
   // Grande annonce d'un personnage débloqué, dès qu'on n'est plus en pleine partie
   function celebrate(){
-    const s = st(); const id = Object.keys(s.seen).find(k => !s.seen[k] && S.skins[k]); if (!id) return;
-    if (inPlay() || document.querySelector(".ev-unlock")) return;
+    const s = st(); if (inPlay() || document.querySelector(".ev-unlock")) return;
+    const pid = Object.keys(s.petSeen).find(k => !s.petSeen[k] && typeof Familiers !== "undefined" && Familiers.own(k));
+    if (pid) return petFx(pid);
+    const id = Object.keys(s.seen).find(k => !s.seen[k] && S.skins[k]); if (!id) return;
     s.seen[id] = Date.now(); save();
     const sk = skin(id), el = document.createElement("div"); el.className = "ev-unlock cal-veil"; el.setAttribute("role", "dialog");
     el.innerHTML = `<div class="ev-ul-box"><div class="ev-ul-rays"></div><span class="tw-kicker">Événement · 6 fragments réunis</span><div class="ev-ul-art">${creatureSVG(sk, 150)}</div>
@@ -102,6 +122,18 @@ const Evenements = (() => {
       <div class="row" style="gap:8px;justify-content:center"><button class="btn" data-evu="wear">Le porter</button><button class="btn ghost" data-evu="ok">Génial !</button></div></div>`;
     el.addEventListener("click", e => { const b = e.target.closest("[data-evu]"); if (!b && e.target !== el) return;
       if (b && b.dataset.evu === "wear") { S.profile.skin = id; save(); try { Amis.api.ping(); } catch(x){} }
+      el.remove(); render(); });
+    document.body.appendChild(el); try { Music.sfx("level"); } catch(e){}
+  }
+
+  function petFx(id){
+    const s = st(); s.petSeen[id] = Date.now(); save();
+    const p = petOf(id), el = document.createElement("div"); el.className = "ev-unlock cal-veil"; el.setAttribute("role", "dialog");
+    el.innerHTML = `<div class="ev-ul-box"><div class="ev-ul-rays"></div><span class="tw-kicker">Défi réussi · nouveau familier</span><div class="ev-ul-art">${creatureSVG(p, 150)}</div>
+      <b class="cal-title">${esc(p.n)}</b><span class="muted" style="text-align:center">rejoint ta collection pour toujours.</span>
+      <div class="row" style="gap:8px;justify-content:center"><button class="btn" data-evu="pet">L'équiper</button><button class="btn ghost" data-evu="ok">Génial !</button></div></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-evu]"); if (!b && e.target !== el) return;
+      if (b && b.dataset.evu === "pet") { S.pets.eq = id; save(); try { Amis.api.ping(); } catch(x){} }
       el.remove(); render(); });
     document.body.appendChild(el); try { Music.sfx("level"); } catch(e){}
   }
@@ -180,22 +212,63 @@ const Evenements = (() => {
   }
   // Bouton en haut à droite de l'accueil
   function homeBtn(){
-    const e = cur(); if (!e) return "";
-    return `<button class="ev-hbtn" data-ev="open" aria-label="Événement : ${esc(e.n)}">${shard(30, e.look)}<span>Événement</span><i class="ev-dot"></i></button>`;
+    const e = cur() || curCh(); if (!e) return "";
+    return `<button class="ev-hbtn" data-ev="open" aria-label="Événements">${shard(30, e.look)}<span>Événement</span><i class="ev-dot"></i></button>`;
   }
   // Petite bannière sur l'accueil
   function card(){
+    return chCard() + fragCard();
+  }
+  function chCard(){
+    const e = curCh(); if (!e) return "";
+    const done = e.goals.filter(g => Familiers.own(g.pet)).length;
+    return `<button class="card ev-card fam" data-ev="open" data-v="ch"><div class="ev-card-art">${famBanner(e)}</div><div class="ev-card-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b>${esc(e.n)}</b><span>${done}/${e.goals.length} familiers · fin dans ${leftTxt(e)}</span></div></button>`;
+  }
+  function fragCard(){
     const e = cur(); if (!e) return "";
     const got = e.chars.filter(c => S.skins[c]).length;
     return `<button class="card ev-card" data-ev="open"><div class="ev-card-art">${banner(e)}</div><div class="ev-card-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b>${esc(e.n)}</b><span>${got}/${e.chars.length} personnages · fin dans ${leftTxt(e)}</span></div></button>`;
   }
+  // Bannière de la Semaine des Familiers : clairière enchantée avec les deux familiers à gagner
+  function famBanner(e){
+    const pets = e.goals.map(g => petOf(g.pet)).filter(Boolean);
+    return `<svg viewBox="0 0 360 190" class="ev-banner-art" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>
+        <linearGradient id="fmsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A1A6A"/><stop offset=".65" stop-color="#7A3AB8"/><stop offset="1" stop-color="#FF7AB8"/></linearGradient>
+        <radialGradient id="fmglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE88A" stop-opacity=".9"/><stop offset="1" stop-color="#FFE88A" stop-opacity="0"/></radialGradient></defs>
+      <rect width="360" height="190" fill="url(#fmsky)"/>
+      ${[[24, 22], [70, 50], [130, 18], [220, 30], [300, 16], [340, 54], [180, 60]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.4" fill="#fff" opacity=".8" class="ev-star"/>`).join("")}
+      <path d="M0 140 Q50 110 110 128 Q170 100 240 124 Q300 106 360 120 V190 H0Z" fill="#3A1A6A"/>
+      <path d="M0 160 Q90 140 180 156 Q270 140 360 152 V190 H0Z" fill="#24104A"/>
+      <circle cx="120" cy="130" r="54" fill="url(#fmglow)" opacity=".5"/><circle cx="240" cy="130" r="54" fill="url(#fmglow)" opacity=".5"/>
+      ${pets.map((p, i) => `<g transform="translate(${70 + i * 120} 60) scale(.85)">${p.draw()}</g>`).join("")}
+      ${[[40, 100], [180, 90], [320, 96], [150, 150], [260, 160]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="2.2" fill="#FFE88A" class="ev-glow" style="animation-delay:${i * .4}s"/>`).join("")}</svg>`;
+  }
+  function chView(e){
+    const on = curCh() === e, got = e.goals.filter(g => Familiers.own(g.pet)).length;
+    const cards = e.goals.map(g => { const p = petOf(g.pet), o = Familiers.own(g.pet), v = Math.min(g.n, chVal(e, g.k));
+      return `<div class="ev-ch ev-goal ${o ? "own" : ""}"><div class="ev-ch-art">${creatureSVG(p, 104)}</div><span class="bq-r" style="--rc:#E8960A">Légendaire · Familier</span><b class="ev-ch-n">${esc(p.n)}</b>
+        <span class="ev-goal-t">${esc(g.t)}</span><span class="meter ev-meter"><i style="width:${Math.round(v / g.n * 100)}%"></i></span>
+        <span class="ev-ch-p">${o ? "Obtenu ✓" : `${v.toLocaleString("fr-FR")} / ${g.n.toLocaleString("fr-FR")} ${g.u}`}</span>
+        ${o ? (S.pets && S.pets.eq === g.pet ? `<span class="chip lamp">Équipé</span>` : `<button class="btn small ghost" data-pet="eq" data-v="${g.pet}">Équiper</button>`) : `<span class="chip">${on ? "En cours" : "Terminé"}</span>`}</div>`; }).join("");
+    return `<div class="ev-banner">${famBanner(e)}<div class="ev-banner-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b class="ev-title">${esc(e.n)}</b>${on ? `<span class="ev-time">${gIcon("chrono", 18)}Fin dans <b>${leftTxt(e)}</b></span>` : `<span class="ev-time">Événement terminé</span>`}</div></div>
+      <p class="ev-desc">${esc(e.d)}</p>
+      ${!online() ? `<div class="card ev-warn"><b>Connecte-toi pour participer</b><span class="muted" style="font-size:13px">La progression est comptée par le serveur : il faut un compte (onglet Multi).</span><button class="btn small" data-tab="amis">Me connecter</button></div>` : ""}
+      <div class="label">Les défis · ${got}/${e.goals.length}</div><div class="ev-grid">${cards}</div>
+      <div class="card ev-how"><b>Comment ça marche ?</b><span>Chaque question répondue compte (bonne ou mauvaise), dans tous les modes. Chaque pièce dépensée compte aussi : boutique, améliorations, parc… Les mises des paris ne comptent pas.</span><span class="muted" style="font-size:12.5px">Les deux défis avancent en même temps. À la fin de la semaine, ce qui n'est pas terminé s'arrête ; un familier gagné reste pour toujours.</span></div>`;
+  }
   function view(){
+    const c = lastCh(), f = lastEv(), tab = !c ? "frag" : (S.evTab === "ch" || S.evTab === "frag") ? S.evTab : (curCh() ? "ch" : "frag");
+    const seg = c && f ? `<div class="seg ev-seg">${[["ch", c.n], ["frag", f.n]].map(([k, l]) => `<button data-ev="tab" data-v="${k}" aria-pressed="${tab === k}">${esc(l)}</button>`).join("")}</div>` : "";
+    if (tab === "ch" && c) return `<section class="stack ev-hub"><div class="row between"><button class="quit" data-ev="close">← Accueil</button><span class="label">Événements</span></div>${seg}${chView(c)}</section>`;
+    return fragView(seg);
+  }
+  function fragView(seg){
     const e = lastEv(), on = !!cur() && e === cur(), got = e.chars.filter(c => S.skins[c]).length;
     const cards = e.chars.map(c => { const sk = skin(c), o = !!S.skins[c], n = o ? e.need : Math.min(fragOf(e, c), e.need);
       return `<div class="ev-ch ${o ? "own" : ""}"><div class="ev-ch-art">${creatureSVG(sk, 104)}</div><span class="bq-r" style="--rc:#E8960A">Légendaire · Événement</span><b class="ev-ch-n">${esc(sk.n)}</b>
         <div class="ev-pips">${Array.from({length:e.need}, (_, i) => `<i class="${i < n ? "on" : ""}"></i>`).join("")}</div><span class="ev-ch-p">${o ? "Obtenu ✓" : `${n} / ${e.need} fragments`}</span>
         ${o ? (S.profile.skin === c ? `<span class="chip lamp">Équipé</span>` : `<button class="btn small ghost" data-equip="${c}">Équiper</button>`) : `<span class="chip">Non débloqué</span>`}</div>`; }).join("");
-    return `<section class="stack ev-hub"><div class="row between"><button class="quit" data-ev="close">← Accueil</button><span class="label">Événement temporaire</span></div>
+    return `<section class="stack ev-hub"><div class="row between"><button class="quit" data-ev="close">← Accueil</button><span class="label">Événements</span></div>${seg || ""}
       <div class="ev-banner">${banner(e)}<div class="ev-banner-txt"><span class="tw-kicker">${esc(e.kicker)}</span><b class="ev-title">${esc(e.n)}</b>${on ? `<span class="ev-time">${gIcon("chrono", 18)}Fin dans <b>${leftTxt(e)}</b></span>` : `<span class="ev-time">Événement terminé</span>`}</div></div>
       <p class="ev-desc">${esc(e.d)}</p>
       <div class="ev-stats"><div><span>Fragments trouvés</span><b>${shard(18, e.look)}${totOf(e)}</b></div><div><span>Personnages</span><b>${got} / ${e.chars.length}</b></div><div><span>Chance</span><b>${Math.round(e.rate * 100)} %</b></div></div>
@@ -205,7 +278,8 @@ const Evenements = (() => {
   }
   function click(b){
     const a = b.dataset.ev;
-    if (a === "open") { S.evOpen = true; S.tab = "accueil"; S.questOpen = false; save(); render(); return window.scrollTo(0, 0); }
+    if (a === "open") { S.evOpen = true; if (b.dataset.v) S.evTab = b.dataset.v; S.tab = "accueil"; S.questOpen = false; save(); render(); return window.scrollTo(0, 0); }
+    if (a === "tab") { S.evTab = b.dataset.v; save(); render(); return; }
     if (a === "close") { S.evOpen = false; save(); render(); return window.scrollTo(0, 0); }
   }
   const open = () => !!S.evOpen;
@@ -217,5 +291,5 @@ const Evenements = (() => {
   }
   setTimeout(retire, 3000);
   setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
-  return {listen, stop, live, onCorrect, has, until, use, buy, tower, boss, cal, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
+  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();
