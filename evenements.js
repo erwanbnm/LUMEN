@@ -156,6 +156,7 @@ const Evenements = (() => {
   }
   const boss = (wk, quiet) => grant({src:"boss", wk}, "boss:" + wk, quiet, "Boss vaincu");
   const cal = n => grant({src:"cal", n}, "cal:" + n, true, "Calendrier");
+  const adv = q => grant({src:"adv", q}, "adv:" + q, false, "Quête d'Aventure");
   async function use(t){
     if (!has(t)) return false;
     const x = inv.tok[t], back = Object.assign({}, x);
@@ -291,5 +292,5 @@ const Evenements = (() => {
   }
   setTimeout(retire, 3000);
   setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
-  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
+  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();

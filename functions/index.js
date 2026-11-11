@@ -172,6 +172,10 @@ exports.grant = onCall(async req => {
     const l = await db.doc("logins/" + uid).get(); if (!l.exists || l.data().n < n) throw new HttpsError("failed-precondition", "Case pas encore récupérée.");
     return withInv(uid, async inv => give(inv, "cal:" + n, t, D.CAL_SWAP));
   }
+  if (src === "adv") { // quête de l'Aventure (progression gardée sur le téléphone, comme les pièces)
+    const q = String(d.q || ""), t = (D.ADVQ || {})[q]; if (!t) throw new HttpsError("invalid-argument", "Quête inconnue.");
+    return withInv(uid, async inv => give(inv, "adv:" + q, t, D.ADVQ_SWAP || 100));
+  }
   if (src === "migr") { // potions gagnées avant le passage au serveur (une seule fois par type)
     const t = d.t; if (t !== "xp" && t !== "coin") throw new HttpsError("invalid-argument", "Potion inconnue.");
     return withInv(uid, async inv => { if (inv.grants["migr:" + t]) return {dup:true}; if (has(inv, t)) { inv.grants["migr:" + t] = "none"; return {got:"none"}; } return give(inv, "migr:" + t, t, 0); });

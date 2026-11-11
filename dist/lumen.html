@@ -1373,7 +1373,7 @@ body.in-adv .app{max-width:none;padding:0}
 body.in-adv .app > .fade{animation:none;transform:none}
 .av-scr{position:fixed;inset:0;display:flex;flex-direction:column;z-index:3;color:#fff}
 .av-scr.av-sea{background:#0E3A78}
-.av-scr.av-forest{background:#2A5A2E}
+.av-scr.av-w1{background:#2A5A2E}
 .av-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .av-scroll::-webkit-scrollbar{display:none}
 .av-isl-svg,.av-map-svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
@@ -1549,6 +1549,47 @@ body.in-casino .tabs{display:none}
 .av-pos{font:800 16px var(--f-display);text-align:center}
 .av-rk-n{display:flex;flex-direction:column;min-width:0}.av-rk-n b{font:800 14.5px var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.av-rk-n span{font:600 12px var(--f-mono);opacity:.8}
 .av-rank-p{font:500 13px var(--f-body);margin:8px 2px 0;opacity:.85}
+
+/* Aventure : couleurs de chaque monde */
+.av-scr.av-w2{background:#E8B868}
+.av-w2 .av-top{background:linear-gradient(#F0B050,#C07A2A);box-shadow:inset 0 -6px 0 #8A5020}
+.av-w2 .av-sheet-in{background:#B87A3A;box-shadow:0 -4px 0 rgba(0,0,0,.25),inset 0 3px 0 #D8A060}
+.av-w2 .av-ribbon{background:linear-gradient(#FFC040,#D07A10)}
+.av-w2 .av-art{background:radial-gradient(circle at 50% 40%,#FFE8A8,#E0A050)}
+.af.w2{background:#5A3418}
+.af.w2 .af-top{background:rgba(110,60,20,.94)}
+.af.w2 .af-q{background:#B87A3A;box-shadow:0 -3px 0 rgba(0,0,0,.3),inset 0 3px 0 #D8A060}
+.af.w2.boss .af-top{background:rgba(60,24,60,.94)}
+.af.w2.boss .af-q{background:#6A3A5A}
+.af.w2 .af-bosshp .bar i{background:linear-gradient(#FFD870,#D88A1A)}
+.dv-sand{animation:dvsand 6s linear infinite}@keyframes dvsand{0%{transform:translateX(-20px);opacity:0}20%{opacity:.9}100%{transform:translateX(60px);opacity:0}}
+.dv-fly{animation:dvfly 9s linear infinite}@keyframes dvfly{to{transform:rotate(360deg)}}
+/* Aventure : tableau de quêtes */
+.av-qbtn{position:relative}
+.av-qbtn i{position:absolute;right:-6px;top:-6px;min-width:20px;height:20px;border-radius:99px;background:#E2283A;color:#fff;font:800 11px var(--f-mono);display:grid;place-items:center;border:2px solid #2B1D3A;font-style:normal}
+.av-qbtn i.lk{background:#4A4466;font-size:9px}
+.av-qboard{max-width:560px;margin:12px auto 0;padding:14px 12px 18px;border:4px solid #2B1D3A;border-radius:18px;background:repeating-linear-gradient(90deg,#9A6236 0 46px,#8A5630 46px 49px);box-shadow:0 6px 0 #2B1D3A,inset 0 0 0 5px #6A3A1E}
+.av-w2 .av-qboard{background:repeating-linear-gradient(90deg,#C8925A 0 46px,#B07A44 46px 49px)}
+.av-qsec{display:flex;justify-content:center;margin:4px 0 12px}
+.av-qsec span{background:linear-gradient(#E2283A,#9A1424);color:#FFE58A;border:3px solid #2B1D3A;border-radius:10px;padding:4px 16px;font:800 14px var(--f-display);box-shadow:0 3px 0 #2B1D3A;text-shadow:0 2px 0 #2B1D3A}
+.av-qgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;margin-bottom:16px}
+.av-qp{position:relative;background:linear-gradient(#FFF6DC,#EED6A0);color:#2B1D3A;border:2.5px solid #2B1D3A;border-radius:6px 10px 8px 12px;padding:16px 10px 10px;display:flex;flex-direction:column;gap:5px;transform:rotate(var(--rot));box-shadow:0 4px 0 rgba(43,29,58,.5)}
+.av-qp b{font:800 14.5px/1.15 var(--f-display)}
+.av-qd{font:500 12.5px/1.3 var(--f-body)}
+.av-qn{font:700 11px var(--f-mono);opacity:.75}
+.av-qrw{display:flex;align-items:center;gap:5px;font:700 11.5px var(--f-mono);color:#7A4A10}
+.av-qrw .coin{display:inline-block;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF0A8,#FFC93A 55%,#D88A1A);border:2px solid #2B1D3A;flex:none}
+.av-qbar{height:8px;border-radius:99px;background:#E2CFA0;border:2px solid #2B1D3A;overflow:hidden}
+.av-qbar i{display:block;height:100%;background:linear-gradient(90deg,#3FCB6A,#FFD23F)}
+.av-qst{font:700 11px var(--f-mono);opacity:.7}
+.av-qp .av-btn{font-size:14px;padding:7px 8px}
+.av-qp.ready{box-shadow:0 0 0 3px #FFD23F,0 4px 0 rgba(43,29,58,.5);animation:avqready 1.4s ease-in-out infinite}
+@keyframes avqready{50%{box-shadow:0 0 0 6px rgba(255,210,63,.55),0 4px 0 rgba(43,29,58,.5)}}
+.av-qp.claimed{filter:saturate(.55) brightness(.95)}
+.av-pin{position:absolute;left:50%;top:-8px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FF9A9A,#C8202E);border:2px solid #2B1D3A;font-style:normal}
+.av-stamp{align-self:flex-start;transform:rotate(-8deg);border:3px solid #2AA85A;color:#2AA85A;border-radius:6px;padding:1px 8px;font:800 13px var(--f-display);text-transform:uppercase;letter-spacing:.05em}
+@media (max-width:360px){.av-qgrid{grid-template-columns:1fr}}
+.av-qp .av-btn{flex:none;font-size:13.5px;padding:6px 8px;margin-top:2px}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">
@@ -4734,7 +4775,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
-      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"], ["adv2", "Vaincre le Sphinx Oublié (Aventure, Monde 2)"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
@@ -7787,7 +7828,10 @@ const Boutique = (() => {
   // Les nouvelles Légendes : comment on les obtient
   const LEG = {
     numero7:{how:"shop", p:2500}, pulga:{how:"shop", p:2500}, pop:{how:"shop", p:2500, r:"leg"}, pirate:{how:"shop", p:2200}, clown:{how:"shop", p:2200}, goule:{how:"shop", p:2000}, corbeau:{how:"shop", p:2200},
-    fleaux:{how:"prestige", p:10000}, seigneur:{how:"prestige", p:8000}, sparte:{how:"prestige", p:7000}, empereur:{how:"prestige", p:6000},
+    fleaux:{how:"prestige", p:10000}, seigneur:{how:"prestige", p:8000},
+    // Choix d'Erwan (novembre 2026) : retirés de la boutique, gagnés seulement avec 100 % d'un monde de l'Aventure (ceux qui les ont achetés les gardent)
+    sparte:{how:"quest", cond:"Compléter à 100 % le Monde 3 de l'Aventure", goal:100, cur:() => typeof Aventure !== "undefined" ? Aventure.pctOf(3) : 0},
+    empereur:{how:"quest", cond:"Compléter à 100 % le Monde 5 de l'Aventure", goal:100, cur:() => typeof Aventure !== "undefined" ? Aventure.pctOf(5) : 0},
     sabreur:{how:"quest", cond:"Atteindre l'étage 50 de la Tour", goal:50, cur:towerBest},
     dragon:{how:"quest", cond:"30 bonnes réponses d'affilée dans une partie solo", goal:30, cur:() => (S.st && S.st.bestCombo) || 0},
     agent:{how:"quest", cond:"Gagner 25 duels en ligne", goal:25, cur:() => (S.online && S.online.wins) || 0},
@@ -8192,7 +8236,10 @@ const EV_DATA = {
   SWAP: 300,                                    // pièces données à la place d'un jeton déjà possédé
   TOWER: { 30:"fifty", 60:"xp", 90:"coin" },    // paliers de la Tour qui donnent un jeton (une seule fois par compte)
   BOSS_MIN: 5,                                  // PV de dégâts minimum sur un boss vaincu pour gagner un jeton (une fois par semaine)
-  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
+  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,
+  // Quêtes de l'Aventure qui donnent une potion (une seule fois par compte ; déjà possédée = ADVQ_SWAP pièces)
+  ADVQ: { f1_boss:"xp", f1_stars:"coin", f1_chrono:"fifty", d2_boss:"xp", d2_stars:"coin", d2_chrono:"fifty",
+    a3_boss:"xp", a3_stars:"coin", a3_chrono:"fifty", g4_boss:"xp", g4_stars:"coin", g4_chrono:"fifty", m5_boss:"xp", m5_stars:"coin", m5_chrono:"fifty" }, ADVQ_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
   DAY_MAX: 300                                  // tirages de fragments au plus par jour et par joueur
 };
 if (typeof module !== "undefined") module.exports = EV_DATA;
@@ -8355,6 +8402,7 @@ const Evenements = (() => {
   }
   const boss = (wk, quiet) => grant({src:"boss", wk}, "boss:" + wk, quiet, "Boss vaincu");
   const cal = n => grant({src:"cal", n}, "cal:" + n, true, "Calendrier");
+  const adv = q => grant({src:"adv", q}, "adv:" + q, false, "Quête d'Aventure");
   async function use(t){
     if (!has(t)) return false;
     const x = inv.tok[t], back = Object.assign({}, x);
@@ -8490,7 +8538,7 @@ const Evenements = (() => {
   }
   setTimeout(retire, 3000);
   setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
-  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
+  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();
 
 /* ---------- Le Casino : La Taverne du Trèfle d'Or (Monde 1 de l'Aventure) ----------
@@ -8699,11 +8747,15 @@ const Aventure = (() => {
     ]},
     {id:2, n:"Le Désert des Rois"}, {id:3, n:"Le Royaume des Abysses"}, {id:4, n:"Le Royaume de Glace"}, {id:5, n:"Les Terres Maudites"}
   ];
+  // Monde affiché sur la carte ; les mondes 2 à 5 sont ajoutés par leurs propres fichiers (aventure_m2.js…) avec register()
+  let cw = 1;
+  const WD = () => WORLDS[cw - 1];
+  const built = w => !!(WORLDS[w - 1] && WORLDS[w - 1].levels && WORLDS[w - 1].mapDraw);
   const MODE_N = {c:"Classique · 10 questions", chrono:"Chrono · 60 secondes", surv:"Survie · 15 questions, 3 vies", boss:"Boss · 3 phases, 3 vies"};
   const DIFF_N = ["", "Facile", "Moyen", "Difficile"];
   const MON_N = {gluant:"Gluant de mousse", champi:"Champichon", souche:"Souche grognonne"};
-  const LV_COINS = {1:30};  // pièces du premier succès d'un niveau, par monde (le boss : 300)
-  const BOSS_COINS = {1:300};
+  const LV_COINS = {1:30, 2:40, 3:50, 4:60, 5:70};  // pièces du premier succès d'un niveau, par monde
+  const BOSS_COINS = {1:300, 2:400, 3:500, 4:600, 5:700};
   const STAR_COINS = 10;
   const SEEN_MAX = 1500;
   const spText = sp => sp.k === "streak" ? `${sp.n} bonnes réponses d'affilée` : sp.k === "first5" ? "Aucune erreur sur les 5 premières questions"
@@ -8723,7 +8775,7 @@ const Aventure = (() => {
   const totalStars = () => [1, 2, 3, 4, 5].reduce((a, w) => a + (A().w[w] ? worldStars(w) : 0), 0);
   const curLevel = w => { const d = WS(w).done; const i = d.findIndex(x => !x); return i < 0 ? 6 : i; };
   const unlocked = (w, i) => i === 0 || !!WS(w).done[i - 1];
-  const worldOpen = w => w === 1 || (!!WORLDS[w - 1].levels && !!WS(w - 1).done[6]);
+  const worldOpen = w => w === 1 || (built(w) && !!WS(w - 1).done[6]);
   // Complétion d'un monde (choix d'Erwan : pas de secrets ni de reliques) : niveaux 50 %, étoiles 50 %. 100 % = 500 pièces, une fois.
   const pct = w => { const s = WS(w); return Math.round(s.done.filter(Boolean).length / 7 * 50 + worldStars(w) / 21 * 50); };
   const FULL_COINS = 500;
@@ -9006,20 +9058,22 @@ const Aventure = (() => {
     s += isl(118, 650, 86, 58, 3, "avIA", "#22602A", f, "La Forêt des Anciens", `${w1.done.filter(Boolean).length}/7 niveaux · ${worldStars(1)} ★ · ${pct(1)} %`, true, 1);
     let d2 = `<path d="M262 528 L292 476 L322 528Z" fill="#F2C060" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M292 476 L322 528 L300 528Z" fill="#C88A3A" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/>`;
     d2 += `<ellipse cx="248" cy="540" rx="16" ry="6" fill="#4FC0E8" stroke="${TD}" stroke-width="2"/><path d="M340 540 q2 -16 -2 -26 M338 514 q-10 -4 -16 2 M338 514 q10 -6 16 0 M338 514 q-2 -10 -10 -12 M338 514 q4 -10 12 -10" stroke="#2E8A3A" stroke-width="3.4" fill="none" stroke-linecap="round"/>`;
-    s += isl(292, 520, 78, 52, 8, "avID", "#9A6A2A", d2, "Le Désert des Rois", open2 ? "Bientôt disponible" : "Bats le Gardien Sylvestre", false, 2);
+    const sub = w => worldOpen(w) && built(w) ? `${WS(w).done.filter(Boolean).length}/7 niveaux · ${worldStars(w)} ★ · ${pct(w)} %` : WS(w - 1).done[6] ? "Bientôt disponible" : `Bats ${WORLDS[w - 2].boss || "le boss précédent"}`;
+    const on = w => worldOpen(w) && built(w);
+    s += isl(292, 520, 78, 52, 8, "avID", "#9A6A2A", d2, "Le Désert des Rois", sub(2), on(2), 2);
     let a3 = `<ellipse cx="112" cy="390" rx="46" ry="28" fill="url(#avIB)" stroke="${TD}" stroke-width="2.4"/><g class="av-spin"><path d="M112 390 m-30 0 a30 18 0 1 1 60 0 M112 390 m-18 0 a18 10 0 1 1 36 0" stroke="#BFF4FF" stroke-width="2.4" fill="none" opacity=".8"/></g><path d="M100 392 Q112 370 124 392Z" fill="#9AF8FF" stroke="${TD}" stroke-width="2"/><circle cx="112" cy="378" r="14" fill="url(#avIW)" class="av-pulse"/>`;
-    s += isl(112, 392, 80, 50, 13, "avIS", "#B8904A", a3, "Le Royaume des Abysses", "Monde 3", false, 3);
+    s += isl(112, 392, 80, 50, 13, "avIS", "#B8904A", a3, "Le Royaume des Abysses", sub(3), on(3), 3);
     let i4 = `<path d="M252 270 L272 228 L292 270Z M282 270 L306 216 L330 270Z" fill="#FFFFFF" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M296 238 L306 216 L316 238 L306 232Z" fill="#CDEBFF"/><rect x="316" y="248" width="10" height="24" fill="#B8E0FF" stroke="${TD}" stroke-width="2"/><path d="M314 248 l7 -14 l7 14z" fill="#7AB8F0" stroke="${TD}" stroke-width="2"/>`;
-    s += isl(292, 262, 78, 50, 21, "avII", "#6A9AC8", i4, "Le Royaume de Glace", "Monde 4", false, 4);
+    s += isl(292, 262, 78, 50, 21, "avII", "#6A9AC8", i4, "Le Royaume de Glace", sub(4), on(4), 4);
     let c5 = `<circle cx="150" cy="96" r="40" fill="url(#avIL)" opacity=".5" class="av-lava"/><path d="M118 132 L140 86 L160 86 L182 132Z" fill="#4A2A3A" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M140 86 L160 86 L156 96 Q150 90 144 96Z" fill="#FF6A2A" stroke="${TD}" stroke-width="2" class="av-lava"/><path d="M146 94 Q144 112 136 128 M156 96 Q160 112 168 126" stroke="#FF6A2A" stroke-width="3" fill="none" class="av-lava"/><circle cx="150" cy="70" r="9" fill="#5A4A5A" opacity=".7" class="av-fog"/><circle cx="160" cy="58" r="7" fill="#5A4A5A" opacity=".6" class="av-fog"/>`;
-    s += isl(150, 120, 84, 50, 31, "avIC", "#140A1A", c5, "Les Terres Maudites", "Monde 5", false, 5);
+    s += isl(150, 120, 84, 50, 31, "avIC", "#140A1A", c5, "Les Terres Maudites", sub(5), on(5), 5);
     return `<svg viewBox="0 0 400 800" class="av-isl-svg">${s}</svg>`;
   }
 
   /* ===================== Carte de la Forêt ===================== */
   const NODES = [[205, 1405], [98, 1270], [282, 1042], [108, 860], [288, 690], [118, 505], [200, 300]];
   const TAV = [318, 1360];
-  let MAP_BASE = null;
+  let MAP_BASE = null; const MAPS = {};
   function mapBase(){
     if (MAP_BASE) return MAP_BASE;
     const W = 400, H = 1580, start = [200, 1520], pts = [start, ...NODES], P = sample(pts, 30);
@@ -9071,9 +9125,9 @@ const Aventure = (() => {
     return MAP_BASE;
   }
   function node(i, [x, y]){
-    const L = WORLDS[0].levels[i], W = WS(1), st = W.st[i], done = !!W.done[i], cur = i === curLevel(1) && !done, lock = !unlocked(1, i), boss = L.mode === "boss", R = boss ? 31 : 24;
+    const L = WD().levels[i], W = WS(cw), st = W.st[i], done = !!W.done[i], cur = i === curLevel(cw) && !done, lock = !unlocked(cw, i), boss = L.mode === "boss", R = boss ? 31 : 24;
     const [a, b, dk] = lock ? ["#A8A4BC", "#6A6680", "#3A3650"] : boss ? ["#D8A0FF", "#7A2AB8", "#3A1060"] : cur ? ["#FF9ACA", "#FF4F9A", "#A01A5A"] : ["#FFE88A", "#F0A21A", "#9A5A10"];
-    const id = "avNd" + i;
+    const id = "avNd" + cw + "_" + i;
     let g = `<g class="av-node" data-adv="node" data-v="${i}" role="button" aria-label="Niveau ${i + 1} : ${L.n}${lock ? " (verrouillé)" : ""}"><defs>${lg(id, a, b)}</defs>`;
     if (cur) g += `<circle class="av-ring" cx="${x}" cy="${y}" r="${R + 4}" fill="none" stroke="#FFD23F" stroke-width="4"/>`;
     g += `<ellipse cx="${x}" cy="${y + R * .55}" rx="${R + 6}" ry="${R * .45}" fill="rgba(20,30,10,.35)"/>`;
@@ -9090,9 +9144,66 @@ const Aventure = (() => {
     return g + `</g>`;
   }
   function mapSVG(){
-    const B = mapBase(), c = NODES[curLevel(1)], p = pet();
+    const MAPS_ = MAPS[cw] || (MAPS[cw] = WD().mapDraw()), B = MAPS_, N = WD().nodes, c = N[curLevel(cw)], p = pet();
     const hero = `<g class="av-bob" style="pointer-events:none">${nest(meSVG(62), c[0] - 46, c[1] - 92)}${p ? nest(creatureSVG(p, 32), c[0] + 6, c[1] - 56) : ""}</g>`;
-    return `<svg viewBox="0 0 400 1580" class="av-map-svg">${B.bg}${NODES.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+  }
+
+  /* ===================== Tableau de quêtes ===================== */
+  // Les mêmes 10 quêtes dans chaque monde (3 principales, 7 secondaires), avec les noms du monde. Récompenses : pièces ou potions.
+  // Potions : par le serveur quand le joueur est connecté (EV_DATA.ADVQ, une seule fois), sinon sur l'appareil.
+  const QT = [
+    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50}},
+    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80}},
+    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{p:"xp"}},
+    {k:"sec", g:(W, w) => worldStars(w), n:10, d:() => "Gagner 10 étoiles dans ce monde", rw:{c:60}},
+    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{p:"coin"}},
+    {k:"sec", g:(W) => W.ok || 0, n:60, d:() => "Donner 60 bonnes réponses dans ce monde", rw:{c:60}},
+    {k:"sec", g:(W) => W.kills || 0, n:30, d:() => "Vaincre 30 monstres", rw:{c:60}},
+    {k:"sec", g:(W) => W.perfect ? 1 : 0, n:1, d:() => "Faire 10/10 à un niveau classique", rw:{c:80}},
+    {k:"sec", id:"chrono", g:(W, w) => W.best[WORLDS[w - 1].levels.findIndex(l => l.mode === "chrono")] || 0, n:12, d:() => "12 bonnes réponses au niveau Chrono", rw:{p:"fifty"}},
+    {k:"sec", g:(W) => W.surv3 ? 1 : 0, n:1, d:() => "Réussir la Survie sans perdre de vie", rw:{c:80}}
+  ];
+  function questsOf(w){
+    const D = WORLDS[w - 1], W = WS(w); W.q = W.q || {};
+    return QT.map((t, i) => { const id = `${D.qp}_${t.id || i}`, v = Math.min(t.n, t.g(W, w));
+      return {id, k:t.k, t:D.qn[i], d:t.d(w), v, n:t.n, rw:t.rw, done:v >= t.n, claimed:!!W.q[id]}; });
+  }
+  const questsOpen = () => !!WS(1).done[3];
+  const claimable = w => questsOf(w).filter(q => q.done && !q.claimed).length;
+  function questBtn(){
+    const n = questsOpen() ? claimable(cw) : 0;
+    return `<button class="av-rb wood av-qbtn" data-adv="quests" aria-label="Tableau de quêtes">📜${n ? `<i>${n}</i>` : !questsOpen() ? `<i class="lk">🔒</i>` : ""}</button>`;
+  }
+  const rwHTML = rw => rw.c ? `<span class="coin"></span>${rw.c} pièces` : typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion";
+  function questsView(){
+    const Q2 = questsOf(cw), sec = (k, t) => `<div class="av-qsec"><span>${t}</span></div><div class="av-qgrid">${Q2.filter(q => q.k === k).map((q, i) => `
+      <div class="av-qp ${q.claimed ? "claimed" : q.done ? "ready" : q.v ? "prog" : ""}" style="--rot:${[-1.6, 1.2, -.6, 1.8][i % 4]}deg">
+        <i class="av-pin"></i><b>${esc(q.t)}</b><span class="av-qd">${esc(q.d)}</span>
+        ${q.n > 1 ? `<div class="av-qbar"><i style="width:${q.v / q.n * 100}%"></i></div><span class="av-qn">${q.v} / ${q.n}</span>` : ""}
+        <span class="av-qrw">${rwHTML(q.rw)}</span>
+        ${q.claimed ? `<span class="av-stamp">Terminée</span>` : q.done ? `<button class="av-btn green" data-adv="claim" data-v="${q.id}">Récupérer</button>` : `<span class="av-qst">${q.v ? "En cours" : "Disponible"}</span>`}
+      </div>`).join("")}</div>`;
+    return `<div class="av-scr av-w${cw}">
+      <div class="av-top"><button class="av-rb wood" data-adv="qmap" aria-label="Retour à la carte">←</button>
+        <div class="av-t"><b>Tableau de quêtes</b><span>${WD().n} · ${Q2.filter(q => q.claimed).length}/10 terminées</span></div></div>
+      <div class="av-scroll"><div class="av-qboard">${sec("main", "Quêtes principales")}${sec("sec", "Quêtes secondaires")}</div></div></div>`;
+  }
+  let claiming = false;
+  async function claim(id){
+    const q = questsOf(cw).find(x => x.id === id); if (!q || !q.done || q.claimed || claiming) return;
+    const t = q.rw.p, swap = (typeof EV_DATA !== "undefined" && EV_DATA.ADVQ_SWAP) || 100;
+    if (q.rw.c) { S.coins += q.rw.c; toasts.push(`<b>Quête terminée</b> · +${q.rw.c} pièces`); }
+    else if (typeof Evenements !== "undefined" && Evenements.live()) {
+      // Potion donnée par le serveur : la quête n'est marquée qu'une fois la réponse reçue (rien n'est perdu si le réseau coupe)
+      claiming = true; let r = null; try { r = await Evenements.adv(id); } catch(e){} claiming = false;
+      if (!r) { toasts.push("<b>Quête</b> · Le serveur ne répond pas, réessaie dans un moment."); return render(); }
+    }
+    else if (typeof Potions !== "undefined" && Potions.give(t)) toasts.push(`<b>Quête terminée</b> · ${Potions.T[t].n}`);
+    else { S.coins += swap; toasts.push(`<b>Quête terminée</b> · +${swap} pièces (tu avais déjà cette potion)`); }
+    WS(cw).q[id] = today();
+    try { Music.sfx("level"); } catch(e){}
+    save(); render();
   }
 
   /* ===================== Vue de l'onglet ===================== */
@@ -9100,10 +9211,12 @@ const Aventure = (() => {
   const starIco = `<svg class="av-star-i" viewBox="0 0 20 20" aria-hidden="true"><path d="${starP(10, 10.6, 9)}" fill="#FFD23F" stroke="${TD}" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
   function view(){
     init();
-    if (scr === "map") return `<div class="av-scr av-forest">
+    if (scr === "quests") return questsView();
+    if (scr === "map") return `<div class="av-scr av-w${cw}">
       <div class="av-top"><button class="av-rb wood" data-adv="isl" aria-label="Retour aux îles">←</button>
-        <div class="av-t"><b>La Forêt des Anciens</b><span>Monde 1 · complété à ${pct(1)} %</span></div>
-        <span class="av-chip">${starIco}<b>${worldStars(1)}</b>/21</span>
+        <div class="av-t"><b>${WD().n}</b><span>Monde ${cw} · complété à ${pct(cw)} %</span></div>
+        <span class="av-chip">${starIco}<b>${worldStars(cw)}</b>/21</span>
+        ${questBtn()}
         <button class="av-rb wood" data-adv="music" aria-label="Musique">${S.settings.music ? "♪" : "🔇"}</button></div>
       <div class="av-scroll" id="av-scroll">${mapSVG()}</div>
       ${sheet >= 0 ? sheetHTML(sheet) : ""}</div>`;
@@ -9112,16 +9225,16 @@ const Aventure = (() => {
       <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : ""}</div>`;
   }
   function sheetHTML(i){
-    const L = WORLDS[0].levels[i], W = WS(1), st = W.st[i], lock = !unlocked(1, i), boss = L.mode === "boss";
-    const art = boss ? `<span style="width:72px">${guardianSVG(1)}</span>` : monSVG(L.mons[0], 64);
-    const reward = W.done[i] ? "Récompense du niveau déjà reçue" : `${boss ? BOSS_COINS[1] : LV_COINS[1]} pièces la 1re fois`;
+    const L = WD().levels[i], W = WS(cw), st = W.st[i], lock = !unlocked(cw, i), boss = L.mode === "boss";
+    const art = boss ? `<span style="width:72px">${WD().bossSVG(1)}</span>` : monSVG(L.mons[0], 64);
+    const reward = W.done[i] ? "Récompense du niveau déjà reçue" : `${boss ? BOSS_COINS[cw] : LV_COINS[cw]} pièces la 1re fois`;
     return `<div class="av-sheet"><div class="av-sheet-in"><button class="av-x" data-adv="close" aria-label="Fermer">✕</button><div class="av-parch">
       <div class="av-ribbon ${boss ? "boss" : ""}">${boss ? "NIVEAU 7 · BOSS" : "NIVEAU " + (i + 1)}</div>
       <div class="av-sh-h"><div class="av-art ${boss ? "boss" : ""}">${art}</div><div><h2>${L.n}</h2>
         <div class="av-chips"><span class="av-chip mode ${L.mode}">${MODE_N[L.mode]}</span><span class="av-chip">${DIFF_N[L.diff]} ${"●".repeat(L.diff)}${"○".repeat(3 - L.diff)}</span></div></div></div>
       ${lock ? `<p class="av-lockmsg">🔒 Termine le niveau ${i} pour ouvrir celui-ci.</p>` : ""}
       <div class="av-objs">${objectives(L).map((o, k) => `<div class="av-obj ${st >> k & 1 ? "got" : ""}">${starSVG(st >> k & 1, 20)}<span>${o}</span></div>`).join("")}</div>
-      ${boss ? `<div class="av-mons">${WORLDS[0].boss} · 3 phases · il change de forme à 66 % et 33 % de sa vie</div>` : `<div class="av-mons">Monstres :</div><div class="av-chips">${[...new Set(L.mons)].map(m => `<span class="av-chip mon">${monSVG(m, 24)}${MON_N[m]}</span>`).join("")}</div>`}
+      ${boss ? `<div class="av-mons">${WD().boss} · 3 phases · il change de forme à 66 % et 33 % de sa vie</div>` : `<div class="av-mons">Monstres :</div><div class="av-chips">${[...new Set(L.mons)].map(m => `<span class="av-chip mon">${monSVG(m, 24)}${MON_N[m]}</span>`).join("")}</div>`}
       <div class="av-foot"><div class="av-rw"><span>Meilleur : <b>${W.done[i] ? (L.mode === "boss" ? `${W.best[i]} vie${W.best[i] > 1 ? "s" : ""} restante${W.best[i] > 1 ? "s" : ""}` : W.best[i] + (L.mode === "chrono" ? " bonnes réponses" : L.mode === "surv" ? "/15" : "/10")) : "—"}</b></span><span><span class="coin"></span>${reward} · +${STAR_COINS} par étoile</span></div>
         <button class="av-play" data-adv="play" data-v="${i}" ${lock ? "disabled" : ""}>${W.done[i] ? "Rejouer" : "Jouer"}</button></div>
     </div></div></div>`;
@@ -9131,7 +9244,7 @@ const Aventure = (() => {
     const sc = document.getElementById("av-scroll");
     if (sc && scr === "map") {
       const k = sc.clientWidth / 400;
-      sc.scrollTop = lastScroll !== null ? lastScroll : NODES[curLevel(1)][1] * k - sc.clientHeight * .6;
+      sc.scrollTop = lastScroll !== null ? lastScroll : WD().nodes[curLevel(cw)][1] * k - sc.clientHeight * .6;
       sc.onscroll = () => { lastScroll = sc.scrollTop; };
     }
     music(true);
@@ -9140,28 +9253,34 @@ const Aventure = (() => {
   function click(b){
     const a = b.dataset.adv, v = b.dataset.v;
     if (a === "world") {
-      if (v === "1") { scr = "map"; sheet = -1; lastScroll = null; try { Music.sfx("tab3"); } catch(e){} return render(); }
-      toasts.push(+v === 2 && WS(1).done[6] ? "<b>Le Désert des Rois</b> · Ce monde arrive bientôt !" : `<b>🔒 Monde ${v}</b> · Bats le boss du monde précédent pour ouvrir cette île.`);
+      const w = +v;
+      if (worldOpen(w) && built(w)) { cw = w; scr = "map"; sheet = -1; lastScroll = null; try { Music.sfx("tab3"); } catch(e){} return render(); }
+      toasts.push(!built(w) && WS(w - 1).done[6] ? `<b>${WORLDS[w - 1].n}</b> · Ce monde arrive bientôt !` : `<b>🔒 ${WORLDS[w - 1].n}</b> · Bats le boss du monde précédent pour ouvrir cette île.`);
       return render();
     }
     if (a === "isl") { scr = "isl"; sheet = -1; return render(); }
     if (a === "rank") { rankOpen = !rankOpen; return render(); }
     if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return render(); }
     if (a === "close") { sheet = -1; return render(); }
-    if (a === "play") { const i = +v; if (!unlocked(1, i)) return; sheet = -1; return start(1, i); }
+    if (a === "play") { const i = +v; if (!unlocked(cw, i)) return; sheet = -1; return start(cw, i); }
+    if (a === "quests") { if (!questsOpen()) { toasts.push("<b>📜 Tableau de quêtes</b> · Il s'ouvre quand tu as réussi le niveau 4 de la Forêt."); return render(); } scr = "quests"; return render(); }
+    if (a === "qmap") { scr = "map"; return render(); }
+    if (a === "claim") return claim(v);
     if (a === "casino") return Casino.open();
     if (a === "music") { S.settings.music = !S.settings.music; save(); if (!S.settings.music) { music(false); try { Music.stop(); } catch(e){} } else { try { Music.start(); } catch(e){} music(true); } return render(); }
     if (a) return fightClick(a, b);
   }
 
   /* --- Musique de chaque monde (fichier fourni par Erwan, sinon la musique générée de l'appli) --- */
-  let audio = null, audioOk = null;
+  let audio = null, audioOk = null, audioW = 0;
   function music(on){
     const want = on && S.settings.music && S.tab === "aventure" && !(typeof Casino !== "undefined" && Casino.isOpen());
     if (!want) { if (audio && !audio.paused) { audio.pause(); try { if (S.settings.music) Music.start(); } catch(e){} } return; }
+    const w = scr === "isl" ? 1 : cw;
+    if (audio && audioW !== w) { audio.pause(); audio = null; audioOk = null; }
     if (audioOk === false) return;
     if (!audio) {
-      audio = new Audio(WORLDS[0].music); audio.loop = true;
+      audioW = w; audio = new Audio(`musique/monde${w}.mp3`); audio.loop = true;
       audio.addEventListener("error", () => { audioOk = false; try { Music.start(); } catch(e){} });
       audio.addEventListener("playing", () => { audioOk = true; try { Music.stop(); } catch(e){} });
     }
@@ -9209,11 +9328,11 @@ const Aventure = (() => {
   function paintScene(){
     const L = F.L, p = pet(), boss = isBoss();
     const sub = boss ? `Boss · ${WORLDS[F.w - 1].boss}` : MODE_N[F.mode];
-    layer.innerHTML = `<div class="af ${boss ? "boss" : ""}">
+    layer.innerHTML = `<div class="af w${F.w} ${boss ? "boss" : ""}">
       <div class="af-top"><button class="av-rb wood" data-adv="quit" aria-label="Quitter le combat">✕</button>
         <div class="av-t"><b>${boss ? "Niveau 7" : "Niveau " + (F.i + 1)} · ${L.n}</b><span>${sub}</span></div>
         ${F.mode === "surv" || boss ? hearts() : ""}<span class="av-chip">✓ <b id="af-ok">0</b></span></div>
-      <div class="af-arena" id="af-arena">${arenaBG(boss)}
+      <div class="af-arena" id="af-arena">${WORLDS[F.w - 1].arena(boss)}
         ${boss ? `<div class="af-bosshp"><div class="n"><b>${WORLDS[F.w - 1].boss}</b><span id="af-phase">Phase 1</span></div><div class="bar"><i id="af-bar" style="width:100%"></i><em style="left:33%"></em><em style="left:66%"></em></div></div>`
           : `<div class="af-waves" id="af-waves"></div><div class="af-hp"><div class="n"><span id="af-mname"></span><span id="af-mhp"></span></div><div class="bar"><i id="af-bar"></i></div></div>`}
         <div class="af-hero" id="af-hero">${fluid(meSVG(200))}${p ? `<div class="af-pet">${fluid(creatureSVG(p, 100))}</div>` : ""}</div>
@@ -9232,7 +9351,7 @@ const Aventure = (() => {
   }
   function showMon(enter){
     const el = document.getElementById("af-mon"); if (!el) return;
-    if (isBoss()) { el.className = "af-mon boss ph" + F.phase + (enter ? " enter" : ""); el.innerHTML = `<div class="af-msvg">${guardianSVG(F.phase)}</div>`; return paintHP(); }
+    if (isBoss()) { el.className = "af-mon boss ph" + F.phase + (enter ? " enter" : ""); el.innerHTML = `<div class="af-msvg">${WORLDS[F.w - 1].bossSVG(F.phase)}</div>`; return paintHP(); }
     const m = F.mons[F.m]; if (!m) { el.innerHTML = ""; return; }
     el.className = "af-mon" + (m.chief ? " chief" : "") + (enter ? " enter" : "");
     el.innerHTML = fluid(monSVG(m.k, 200, "af-msvg"));
@@ -9294,6 +9413,7 @@ const Aventure = (() => {
     const okEl = document.getElementById("af-ok");
     if (ok) {
       F.ok++; F.streak++; F.best = Math.max(F.best, F.streak); if (okEl) okEl.textContent = F.ok;
+      const Wq = WS(F.w); Wq.ok = (Wq.ok || 0) + 1;
       fx(document.getElementById("af-hero"), "atk", 450);
       setTimeout(hit, 170);
       setTimeout(nextQ, F.mode === "chrono" ? 700 : 1250);
@@ -9318,11 +9438,11 @@ const Aventure = (() => {
       const ph = m.hp <= 33.4 ? 3 : m.hp <= 66.7 ? 2 : 1;
       if (m.hp <= 0) { F.won = true; const el = document.getElementById("af-mon"); el.classList.add("die"); setTimeout(end, 900); F.n = F.list.length; return; }
       if (ph !== F.phase) { F.phase = ph; setTimeout(() => { showMon(false); fx(document.getElementById("af-mon"), "morph", 700); fx(document.getElementById("af-arena"), "shake", 360);
-        banner(ph === 2 ? "Phase 2 · Le Gardien s'enrage !" : "Phase 3 · Forme ancestrale !"); try { Music.sfx("level"); } catch(e){} }, 450); }
+        banner(WORLDS[F.w - 1].phase[ph - 2]); try { Music.sfx("level"); } catch(e){} }, 450); }
       return;
     }
     m.hp--; paintHP(); fx(document.getElementById("af-mon"), "hit", 420); dmg("-1");
-    if (m.hp <= 0) {
+    if (m.hp <= 0) { const Wk = WS(F.w); Wk.kills = (Wk.kills || 0) + 1;
       document.getElementById("af-mon").classList.add("die");
       setTimeout(() => { if (!F) return; if (F.m < F.mons.length - 1) { F.m++; showMon(true); } else { document.getElementById("af-mon").innerHTML = ""; paintWaves(); } }, 560);
     }
@@ -9347,6 +9467,8 @@ const Aventure = (() => {
       coins += newStars * STAR_COINS;
       W.done[i] = 1;
       const score = isBoss() ? F.lives : F.ok;
+      if (F.mode === "c" && F.ok >= 10) W.perfect = 1;
+      if (F.mode === "surv" && F.lives === 3) W.surv3 = 1;
       W.best[i] = Math.max(W.best[i] || 0, score);
     }
     W.st[i] = newMask;
@@ -9363,14 +9485,14 @@ const Aventure = (() => {
     const win = r.win, L = F.L, p = pet(), boss = isBoss();
     const alive = F.mons.filter(m => m.hp > 0);
     const flee = !win ? (F.mode === "surv" || boss ? "Tu n'as plus de vie. Retente ta chance !" : F.mode === "chrono" ? "Il faut 8 bonnes réponses en 60 secondes. Retente ta chance !" : "Il faut 6 bonnes réponses pour passer. Retente ta chance !")
-      : boss ? `${WORLDS[F.w - 1].boss} est vaincu ! La forêt retrouve son calme.` : F.mode === "chrono" ? `${F.m} monstres balayés en 60 secondes !`
+      : boss ? WORLDS[F.w - 1].win : F.mode === "chrono" ? `${F.m} monstres balayés en 60 secondes !`
       : alive.length ? (alive.some(m => m.chief) ? "Le chef de bande s'enfuit dans les fourrés…" : "Les derniers monstres s'enfuient !") : "Toute la bande est vaincue, même le chef !";
     const banner = `<svg viewBox="0 0 300 70"><defs>${lg("avBnr", "#FF6A7A", "#C8243A")}</defs><path d="M8 22 L40 22 L40 58 L22 50 L4 58 L14 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TD}" stroke-width="3" stroke-linejoin="round"/><path d="M292 22 L260 22 L260 58 L278 50 L296 58 L286 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TD}" stroke-width="3" stroke-linejoin="round"/>
       <path d="M30 8 L270 8 Q276 30 270 52 L30 52 Q24 30 30 8Z" fill="${win ? "url(#avBnr)" : "#6A6680"}" stroke="${TD}" stroke-width="3.4"/><path d="M40 16 L260 16" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>
       <text x="150" y="41" text-anchor="middle" style="font:800 30px var(--f-display);letter-spacing:.04em" fill="#FFD23F" stroke="${TD}" stroke-width="5" paint-order="stroke">${win ? "VICTOIRE !" : "DÉFAITE…"}</text></svg>`;
     const big = (on, k) => `<svg class="${k === 1 ? "mid" : ""}" width="${k === 1 ? 64 : 52}" height="${k === 1 ? 64 : 52}" viewBox="0 0 40 40"><path d="${starP(20, 21, 18)}" fill="${on ? "#FFD23F" : "#CDBF9E"}" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/>${on ? `<path d="M13 13 L17 11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>` : ""}</svg>`;
     const score = boss ? `${F.ok} coups portés<small>${F.lives} vie${F.lives > 1 ? "s" : ""} restante${F.lives > 1 ? "s" : ""} · ${L.n}</small>` : F.mode === "chrono" ? `${F.ok} bonnes réponses<small>en 60 secondes · ${L.n}</small>` : `${F.ok} / ${F.n}<small>bonnes réponses · ${L.n}</small>`;
-    const nextWorld = win && boss ? `<p class="af-flee"><b>Le Monde 2, le Désert des Rois, arrive bientôt !</b></p>` : "";
+    const nx = WORLDS[F.w], nextWorld = win && boss && nx ? `<p class="af-flee"><b>${built(F.w + 1) ? `Nouvelle île débloquée : ${nx.n} !` : `Le Monde ${F.w + 1}, ${nx.n}, arrive bientôt !`}</b></p>` : "";
     const el = document.getElementById("af-poster");
     el.innerHTML = `<div class="af-board"><div class="af-bnr">${banner}</div><div class="af-paper">
       ${win ? `<div class="af-heroes"><span class="w">${meSVG(74)}</span>${p ? `<span class="w w2">${creatureSVG(p, 40)}</span>` : ""}</div>` : ""}
@@ -9410,10 +9532,262 @@ const Aventure = (() => {
       <p class="av-rank-p">Mis à jour automatiquement. Seuls les amis qui ont joué à l'Aventure apparaissent.</p></div>`;
   }
   const ADV_TITLES = {adv1:{id:"adv1", n:"FLÉAU DE LA FORÊT", a:"#9BE36A", b:"#1E5A2A", f:"#FFFFFF"}};
-  return {init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList}};
+  Object.assign(WORLDS[0], {nodes:NODES, h:1580, mapDraw:mapBase, bossSVG:guardianSVG, arena:arenaBG, qp:"f1",
+    phase:["Phase 2 · Le Gardien s'enrage !", "Phase 3 · Forme ancestrale !"], win:"Le Gardien Sylvestre est vaincu ! La forêt retrouve son calme.",
+    qn:["Ouvrir la route", "Jusqu'au cœur des bois", "Le Gardien vaincu", "Chasseur d'étoiles", "Toutes les étoiles de la forêt", "Érudit des bois", "Nettoyeur de clairières", "Sans faute", "Rapide comme l'éclair", "Intouchable"]});
+  // Un monde de plus (fichiers aventure_m2.js…) : données, dessins de la carte, monstres, boss et arène
+  function register(w, def){
+    Object.assign(WORLDS[w - 1], def);
+    if (def.monsters) { Object.keys(def.monsters).forEach(k => { MON[k] = def.monsters[k].draw; MON_N[k] = def.monsters[k].n; }); }
+    if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
+  }
+  const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
+  return {register, kit, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}
+
+/* ---------- Aventure · Monde 2 : Le Désert des Rois ----------
+   Dunes, oasis, marché aux épices, canyon rouge, cité ensablée, temple du scarabée, tombeau des rois et la grande pyramide.
+   Monstres originaux (style jouet) : Scarabée d'Or, Serpent des Dunes, Petite Momie, Scorpion Rouge. Boss : le Sphinx Oublié. */
+(() => {
+  const {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, flower} = Aventure.kit;
+  const NODES = [[150, 1405], [272, 1250], [128, 1062], [262, 872], [118, 690], [272, 505], [200, 312]];
+  const defs = () => lg("dSand", "#FCE2A8", "#E8B868") + lg("dDune", "#F8D088", "#D89A48") + lg("dRock", "#E8845A", "#A84A2E") + lg("dStone", "#F4DCAA", "#C8A06A") + lg("dPalm", "#8ED86A", "#3A8A3A")
+    + lg("dTrunk", "#C8925A", "#7A5230") + lg("dWater", "#7FE0F0", "#2A9AC8") + lg("dGold", "#FFE58A", "#E0A01A") + lg("dRed", "#FF6A5A", "#C02838") + lg("dBlue", "#6AB8FF", "#2A5AC8") + lg("dCloth", "#FFFFFF", "#E8D8C0")
+    + rg("dGlowY", "#FFF4A0", "#FFB020") + rg("dGlowC", "#B8FFFF", "#3AD8E8") + rg("dGlowO", "#FFC080", "#FF6A2A") + rg("dSun", "#FFFBE0", "#FFE080");
+
+  /* --- Décor --- */
+  function palm(x, y, s, seed){
+    const r = rnd(seed), lean = (r() - .5) * 16 * s;
+    const tr = `M${x - 4 * s} ${y} Q${x - 2 * s + lean * .3} ${y - 30 * s} ${x + lean - 2.5 * s} ${y - 56 * s} L${x + lean + 2.5 * s} ${y - 56 * s} Q${x + 2 * s + lean * .3} ${y - 30 * s} ${x + 4 * s} ${y}Z`;
+    let g = `<ellipse cx="${x}" cy="${y}" rx="${16 * s}" ry="${4.5 * s}" fill="rgba(120,70,20,.25)"/>` + tf(tr, "dTrunk", "#5A3418", 0, 2.2);
+    for (let k = 0; k < 4; k++) g += `<path d="M${x - 4 * s + lean * (.2 + k * .2)} ${y - 12 * s - k * 11 * s} q${4 * s} ${-2 * s} ${8 * s} 0" stroke="#7A5230" stroke-width="1.6" fill="none"/>`;
+    const tx = x + lean, ty = y - 56 * s;
+    [[-34, 6], [-20, -12], [0, -18], [20, -12], [34, 6], [-12, 14], [14, 14]].forEach(([dx, dy], i) => {
+      const ex = tx + dx * s, ey = ty + dy * s + 8 * s, mx = tx + dx * .5 * s, my = ty - 10 * s + dy * .2 * s;
+      g += `<path d="M${tx} ${ty} Q${mx} ${my} ${ex} ${ey} Q${mx + 2} ${my + 8 * s} ${tx} ${ty + 3 * s}Z" fill="url(#dPalm)" stroke="${TD}" stroke-width="2" stroke-linejoin="round"/>`;
+    });
+    g += `<circle cx="${tx - 3 * s}" cy="${ty + 4 * s}" r="${3 * s}" fill="#8A5A2A" stroke="${TD}" stroke-width="1.4"/><circle cx="${tx + 3 * s}" cy="${ty + 5 * s}" r="${3 * s}" fill="#8A5A2A" stroke="${TD}" stroke-width="1.4"/>`;
+    return g;
+  }
+  // Touffe d'herbe sèche
+  const shrub = (x, y, s, seed) => { const r = rnd(seed); let g = `<ellipse cx="${x}" cy="${y}" rx="${11 * s}" ry="${3 * s}" fill="rgba(120,70,20,.22)"/>`;
+    for (let k = 0; k < 7; k++) { const a = -1.1 + k * .37 + (r() - .5) * .2, L = (10 + r() * 8) * s; g += `<path d="M${x} ${y} Q${x + Math.cos(a - 1.57) * L * .3} ${y - L * .6} ${(x + Math.sin(a) * L).toFixed(1)} ${(y - Math.cos(a) * L).toFixed(1)}" stroke="${TD}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M${x} ${y} Q${x + Math.cos(a - 1.57) * L * .3} ${y - L * .6} ${(x + Math.sin(a) * L).toFixed(1)} ${(y - Math.cos(a) * L).toFixed(1)}" stroke="${k % 2 ? "#C8B04A" : "#9AB84A"}" stroke-width="2" fill="none" stroke-linecap="round"/>`; }
+    return g; };
+  const rock = (x, y, s, seed) => `<ellipse cx="${x}" cy="${y + 2}" rx="${16 * s}" ry="${4 * s}" fill="rgba(120,70,20,.25)"/>` + tf(blob(x, y - 8 * s, 15 * s, 10 * s, seed, 8, .18), "dRock", "#7A3018", 3, 2.4) + `<path d="M${x - 9 * s} ${y - 12 * s} q4 -5 9 -6" stroke="#fff" stroke-width="2" fill="none" opacity=".45" stroke-linecap="round"/>`;
+  const skull = (x, y) => `<g opacity=".9"><ellipse cx="${x}" cy="${y}" rx="7" ry="6" fill="#FFF6E0" stroke="${TD}" stroke-width="1.6"/><circle cx="${x - 2.5}" cy="${y - .5}" r="1.6" fill="${TD}"/><circle cx="${x + 2.5}" cy="${y - .5}" r="1.6" fill="${TD}"/><path d="M${x - 14} ${y + 6} l10 -3 M${x + 4} ${y + 4} l12 3" stroke="#FFF6E0" stroke-width="3" stroke-linecap="round"/></g>`;
+  function tent(x, y, c, seed){
+    const stripes = Array.from({length:5}, (_, k) => `<path d="M${x - 30 + k * 12} ${y - 30} L${x - 24 + k * 12} ${y - 30} L${x - 26 + k * 12.6} ${y - 6} L${x - 32 + k * 12.6} ${y - 6}Z" fill="${k % 2 ? "#fff" : c}" opacity=".95"/>`).join("");
+    return `<ellipse cx="${x}" cy="${y + 2}" rx="36" ry="8" fill="rgba(120,70,20,.28)"/>`
+      + `<rect x="${x - 30}" y="${y - 10}" width="60" height="10" rx="2" fill="url(#dTrunk)" stroke="${TD}" stroke-width="2"/>`
+      + [[-26, "#E8A030"], [-10, "#C83A2A"], [8, "#3A9A4A"]].map(([dx, cc]) => `<path d="M${x + dx} ${y - 10} q6 -9 12 0z" fill="${cc}" stroke="${TD}" stroke-width="1.6"/>`).join("")
+      + `<path d="M${x - 28} ${y - 10} L${x - 28} ${y - 30} M${x + 28} ${y - 10} L${x + 28} ${y - 30}" stroke="#7A5230" stroke-width="3"/>`
+      + `<path d="M${x - 36} ${y - 26} L${x} ${y - 46} L${x + 36} ${y - 26} L${x + 30} ${y - 22} L${x - 30} ${y - 22}Z" fill="${c}" stroke="${TD}" stroke-width="2.4" stroke-linejoin="round"/>`
+      + `<path d="M${x - 30} ${y - 22} q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0" fill="#fff" stroke="${TD}" stroke-width="1.6"/>`
+      + `<path d="M${x - 18} ${y - 32} L${x} ${y - 42}" stroke="#fff" stroke-width="2.6" opacity=".55" stroke-linecap="round"/>`;
+  }
+  function jar(x, y, c){ return `<path d="M${x - 6} ${y} Q${x - 10} ${y - 9} ${x - 5} ${y - 15} L${x - 3} ${y - 18} L${x + 3} ${y - 18} L${x + 5} ${y - 15} Q${x + 10} ${y - 9} ${x + 6} ${y}Z" fill="${c}" stroke="${TD}" stroke-width="1.8"/><path d="M${x - 6} ${y - 9} h12" stroke="#FFF6E0" stroke-width="1.6"/>`; }
+  function mesa(x, y, w, h, seed){
+    const r = rnd(seed), pts = [];
+    pts.push([x - w / 2, y]); for (let k = 0; k <= 6; k++) pts.push([x - w / 2 + 4 + k * (w - 8) / 6, y - h + (r() - .5) * 16 + (k === 0 || k === 6 ? 14 : 0)]); pts.push([x + w / 2, y]);
+    const d = "M" + pts.map(p => p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" L") + "Z";
+    let g = `<ellipse cx="${x}" cy="${y + 2}" rx="${w * .55}" ry="12" fill="rgba(120,40,20,.28)"/>` + tf(d, "dRock", "#6A2410", 6, 3);
+    for (let k = 1; k < 4; k++) g += `<path d="M${x - w / 2 + 6} ${y - h * k / 4} Q${x} ${y - h * k / 4 + 6} ${x + w / 2 - 6} ${y - h * k / 4 - 2}" stroke="#B8502E" stroke-width="3" fill="none" opacity=".8"/>`;
+    g += `<path d="M${x - w / 2 + 10} ${y - h + 22} L${x - w / 2 + 14} ${y - 20}" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>`;
+    return g;
+  }
+  function dome(x, y, s, seed){
+    const d = `M${x - 26 * s} ${y} L${x - 26 * s} ${y - 18 * s} Q${x - 26 * s} ${y - 44 * s} ${x} ${y - 46 * s} Q${x + 26 * s} ${y - 44 * s} ${x + 26 * s} ${y - 18 * s} L${x + 26 * s} ${y}Z`;
+    return tf(d, "dStone", "#8A6A3A", 4, 2.6) + `<path d="M${x - 6 * s} ${y - 8 * s} L${x - 6 * s} ${y - 22 * s} Q${x} ${y - 30 * s} ${x + 6 * s} ${y - 22 * s} L${x + 6 * s} ${y - 8 * s}Z" fill="#3A2010" stroke="${TD}" stroke-width="2"/>`
+      + `<path d="M${x - 30 * s} ${y + 2} Q${x - 10 * s} ${y - 12 * s} ${x + 4 * s} ${y - 4 * s} Q${x + 18 * s} ${y - 14 * s} ${x + 32 * s} ${y + 2}Z" fill="url(#dDune)" stroke="${TD}" stroke-width="2"/>`
+      + `<path d="M${x - 16 * s} ${y - 34 * s} Q${x - 8 * s} ${y - 42 * s} ${x + 2 * s} ${y - 43 * s}" stroke="#fff" stroke-width="2.6" fill="none" opacity=".5" stroke-linecap="round"/>`;
+  }
+  function temple(x, y){
+    let g = `<ellipse cx="${x}" cy="${y + 2}" rx="78" ry="12" fill="rgba(120,70,20,.3)"/>`;
+    g += tf(`M${x - 74} ${y} L${x - 74} ${y - 14} L${x + 74} ${y - 14} L${x + 74} ${y}Z`, "dStone", "#8A6A3A", 0, 2.6) + tf(`M${x - 66} ${y - 14} L${x - 66} ${y - 24} L${x + 66} ${y - 24} L${x + 66} ${y - 14}Z`, "dStone", "#8A6A3A", 0, 2.6);
+    [-54, -30, 30, 54].forEach(dx => g += tf(`M${x + dx - 7} ${y - 24} L${x + dx - 6} ${y - 80} L${x + dx + 6} ${y - 80} L${x + dx + 7} ${y - 24}Z`, "dStone", "#8A6A3A", 0, 2.2) + `<path d="M${x + dx - 2} ${y - 30} V${y - 74}" stroke="#fff" stroke-width="2" opacity=".45"/>`);
+    g += tf(`M${x - 68} ${y - 80} L${x + 68} ${y - 80} L${x + 60} ${y - 96} L${x - 60} ${y - 96}Z`, "dGold", "#9A6A10", 3, 2.6);
+    g += `<path d="M${x - 18} ${y - 24} L${x - 18} ${y - 62} Q${x} ${y - 76} ${x + 18} ${y - 62} L${x + 18} ${y - 24}Z" fill="#2A1408" stroke="${TD}" stroke-width="2.4"/>`;
+    // scarabée doré lumineux
+    g += `<circle cx="${x}" cy="${y - 106}" r="22" fill="url(#dGlowC)" class="av-pulse"/><ellipse cx="${x}" cy="${y - 104}" rx="9" ry="11" fill="url(#dGold)" stroke="${TD}" stroke-width="2"/><path d="M${x} ${y - 114} V${y - 94}" stroke="${TD}" stroke-width="1.6"/><path d="M${x - 9} ${y - 108} q-12 -4 -16 4 M${x + 9} ${y - 108} q12 -4 16 4" stroke="url(#dGold)" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="${x}" cy="${y - 118}" r="4" fill="#3AD8E8" stroke="${TD}" stroke-width="1.6"/>`;
+    [-80, 80].forEach((dx, i) => g += `<rect x="${x + dx - 3}" y="${y - 40}" width="6" height="40" fill="url(#dTrunk)" stroke="${TD}" stroke-width="1.8"/><path class="av-flame" style="animation-delay:-${i * .2}s" d="M${x + dx - 6} ${y - 40} Q${x + dx - 8} ${y - 52} ${x + dx} ${y - 60} Q${x + dx + 8} ${y - 52} ${x + dx + 6} ${y - 40}Z" fill="#FF8A3A" stroke="${TD}" stroke-width="1.8"/><circle cx="${x + dx}" cy="${y - 48}" r="16" fill="url(#dGlowO)" opacity=".6" class="av-pulse"/>`);
+    return g;
+  }
+  function obelisk(x, y, h){
+    return `<ellipse cx="${x}" cy="${y + 2}" rx="14" ry="4" fill="rgba(120,70,20,.3)"/>` + tf(`M${x - 8} ${y} L${x - 6} ${y - h} L${x + 6} ${y - h} L${x + 8} ${y}Z`, "dStone", "#8A6A3A", 0, 2.2)
+      + tf(`M${x - 6} ${y - h} L${x} ${y - h - 12} L${x + 6} ${y - h}Z`, "dGold", "#9A6A10", 0, 2) + `<path d="M${x - 2} ${y - h * .8} h4 M${x - 2} ${y - h * .6} l2 -3 l2 3 M${x - 2} ${y - h * .4} h4" stroke="#8A5A2A" stroke-width="1.6"/>`;
+  }
+  function pyramid(x, y){
+    let g = `<circle cx="${x}" cy="${y - 120}" r="190" fill="url(#dGlowY)" opacity=".28" class="av-pulse"/>`;
+    g += `<path d="M${x - 170} ${y} L${x} ${y - 230} L${x + 170} ${y}Z" fill="#B8803A" stroke="${TD}" stroke-width="3" stroke-linejoin="round" transform="translate(0 6)"/>`;
+    g += `<path d="M${x - 170} ${y} L${x} ${y - 230} L${x + 170} ${y}Z" fill="url(#dStone)" stroke="${TD}" stroke-width="3" stroke-linejoin="round"/>`;
+    g += `<path d="M${x} ${y - 230} L${x + 170} ${y} L${x + 40} ${y}Z" fill="#D8A868" opacity=".8"/>`;
+    for (let k = 1; k < 9; k++) { const yy = y - 230 + k * 25.5, hw = k * 18.9; g += `<path d="M${x - hw} ${yy} L${x + hw} ${yy}" stroke="#A8784A" stroke-width="2" opacity=".75"/>`; }
+    g += `<path d="M${x} ${y - 230} L${x - 20} ${y - 203} L${x + 20} ${y - 203}Z" fill="url(#dGold)" stroke="${TD}" stroke-width="2.4"/><circle cx="${x}" cy="${y - 228}" r="14" fill="url(#dGlowY)" class="av-pulse"/>`;
+    g += `<path d="M${x - 16} ${y} L${x - 16} ${y - 30} Q${x} ${y - 44} ${x + 16} ${y - 30} L${x + 16} ${y}Z" fill="#2A1408" stroke="${TD}" stroke-width="2.6"/><circle cx="${x - 5}" cy="${y - 20}" r="2.6" fill="#3AD8E8" class="av-pulse"/><circle cx="${x + 5}" cy="${y - 20}" r="2.6" fill="#3AD8E8" class="av-pulse"/>`;
+    g += `<path d="M${x - 120} ${y - 40} L${x - 30} ${y - 196}" stroke="#fff" stroke-width="4" opacity=".35" stroke-linecap="round"/>`;
+    return g;
+  }
+  function vulture(x, y, i){ return `<g class="dv-fly" style="animation-delay:-${i * 2.3}s;transform-origin:${x}px ${y}px"><path d="M${x - 14} ${y} q7 -8 14 0 q7 -8 14 0" stroke="${TD}" stroke-width="3" fill="none" stroke-linecap="round" transform="translate(${-30 + i * 20} 0)"/></g>`; }
+  function camp(x, y){
+    return `<ellipse cx="${x}" cy="${y}" rx="40" ry="9" fill="rgba(120,70,20,.3)"/>` + tent(x - 40, y - 2, "#3A6AC8", 1)
+      + `<path class="av-flame" d="M${x + 14} ${y - 2} Q${x + 10} ${y - 16} ${x + 20} ${y - 26} Q${x + 30} ${y - 14} ${x + 26} ${y - 2}Z" fill="#FF8A3A" stroke="${TD}" stroke-width="2"/><circle cx="${x + 20}" cy="${y - 10}" r="24" fill="url(#dGlowO)" opacity=".45" class="av-pulse"/>`
+      + `<rect x="${x + 50}" y="${y - 40}" width="5" height="40" fill="url(#dTrunk)" stroke="${TD}" stroke-width="2"/><path d="M${x + 40} ${y - 44} L${x + 82} ${y - 44} L${x + 88} ${y - 36} L${x + 82} ${y - 28} L${x + 40} ${y - 28}Z" fill="url(#dTrunk)" stroke="${TD}" stroke-width="2.2"/><text x="${x + 62}" y="${y - 32.5}" text-anchor="middle" style="font:800 9.5px var(--f-display)" fill="#FFF4DA">DÉPART</text>`;
+  }
+
+  /* --- La carte --- */
+  function mapDraw(){
+    const W = 400, H = 1580, start = [200, 1520], pts = [start, ...NODES], P = sample(pts, 30);
+    let s = `<defs>${defs()}</defs><rect width="${W}" height="${H}" fill="url(#dSand)"/>`;
+    s += `<rect width="${W}" height="460" fill="#E89850" opacity=".35"/>`;
+    const r = rnd(202);
+    // dunes en bandes
+    for (let k = 0; k < 22; k++) { const y = 380 + k * 56 + (r() - .5) * 20, x0 = -40 + r() * 60; let d = `M${x0} ${y}`; for (let j = 0; j < 5; j++) d += ` q${40 + r() * 20} ${-18 - r() * 12} ${90} 0`; s += `<path d="${d} L${W + 40} ${y + 40} L-40 ${y + 40}Z" fill="${k % 2 ? "#F4C47A" : "#FFE4A8"}" opacity=".5"/>`; }
+    for (let i = 0; i < 70; i++) { const x = r() * W, y = 400 + r() * (H - 420); if (near([x, y], P) < 28) continue; s += `<path d="M${x.toFixed(0)} ${y.toFixed(0)} q6 -4 12 0" stroke="#C8904A" stroke-width="1.6" fill="none" opacity=".55"/>`; }
+    // oasis
+    s += `<path d="${blob(64, 1372, 52, 26, 11, 10, .14)}" fill="#3A9AC8" stroke="${TD}" stroke-width="3"/><path d="${blob(64, 1370, 44, 20, 11, 10, .14)}" fill="url(#dWater)"/>`;
+    s += `<path class="av-flow" d="M30 1370 q12 -4 24 0 q12 4 24 0 q12 -4 24 0" stroke="#E8FFFF" stroke-width="2.4" fill="none" stroke-dasharray="8 10" opacity=".8"/>`;
+    s += [[20, 1352], [108, 1360], [96, 1392], [30, 1394]].map(([x, y]) => `<path d="M${x} ${y} q-2 -12 2 -18 M${x + 3} ${y} q2 -10 6 -14" stroke="#3A8A3A" stroke-width="2.4" fill="none" stroke-linecap="round"/>`).join("");
+    // chemin pavé
+    const pd = smooth(pts, false);
+    s += `<path d="${pd}" stroke="${TD}" stroke-width="38" fill="none" stroke-linecap="round" transform="translate(0 4)"/><path d="${pd}" stroke="${TD}" stroke-width="38" fill="none" stroke-linecap="round"/><path d="${pd}" stroke="#B88A50" stroke-width="31" fill="none" stroke-linecap="round" transform="translate(0 3)"/><path d="${pd}" stroke="#E8C890" stroke-width="27" fill="none" stroke-linecap="round"/>`;
+    s += `<path d="${pd}" stroke="#C8A06A" stroke-width="22" fill="none" stroke-dasharray="9 5" opacity=".55"/>`;
+    const items = [];
+    items.push([1520, camp(200, 1528)]);
+    items.push([1236, tent(338, 1236, "#C83A2A", 1)], [1302, tent(346, 1300, "#3A9A4A", 2)], [1196, tent(210, 1188, "#E8A030", 3)]);
+    items.push([1250, jar(312, 1262, "#C86A3A") + jar(322, 1266, "#3A8AC8") + jar(304, 1270, "#E8B030")]);
+    items.push([1110, mesa(40, 1110, 90, 130, 3)], [1012, mesa(352, 1012, 90, 96, 7)], [1150, mesa(330, 1160, 100, 90, 9)]);
+    items.push([880, dome(340, 880, 1, 1)], [826, dome(170, 826, .85, 2)], [922, dome(40, 922, .9, 3)], [790, dome(330, 786, .7, 4)]);
+    items.push([700, temple(282, 700)]);
+    items.push([530, obelisk(196, 530, 70)], [470, obelisk(350, 470, 60)], [560, obelisk(44, 560, 64)]);
+    items.push([300, pyramid(200, 250)]);
+    // sphinx de pierre (gardien du boss) devant la pyramide
+    items.push([292, `<g transform="translate(78 292) scale(.36)">${sphinxBody(1, true)}</g>`]);
+    items.push([1440, skull(330, 1440)], [960, skull(60, 980)], [600, skull(340, 610)]);
+    const STRUCT = [[200, 1500, 60], [64, 1372, 66], [330, 1250, 70], [210, 1186, 46], [40, 1090, 70], [352, 1000, 64], [330, 1150, 60], [340, 860, 40], [170, 810, 40], [40, 905, 38], [330, 776, 34], [282, 660, 100], [196, 500, 30], [350, 440, 26], [44, 530, 26], [200, 170, 190], [120, 270, 70]];
+    const rt = rnd(909);
+    for (let y = 40; y < H - 10; y += 34) for (let x = -10; x < W + 20; x += 40){
+      const px = x + (rt() - .5) * 26, py = y + (rt() - .5) * 18, pt = [px, py], edge = Math.min(px, W - px) < 60;
+      if (rt() < (edge ? .45 : .8)) continue;
+      if (near(pt, P) < 44 || STRUCT.some(([sx, sy, sr]) => dist(pt, [sx, sy]) < sr)) continue;
+      const k = rt(), sc = .8 + rt() * .4, X = +px.toFixed(1), Y = +py.toFixed(1);
+      items.push([Y, k < .45 ? palm(X, Y, sc, Math.floor(rt() * 1e4)) : k < .75 ? shrub(X, Y, sc, Math.floor(rt() * 1e4)) : rock(X, Y, sc * .8, Math.floor(rt() * 1e4))]);
+    }
+    [[30, 1300], [110, 1330], [100, 1420], [16, 1430]].forEach(([x, y], i) => items.push([y, palm(x, y, 1.05, 30 + i)]));
+    items.sort((a, b) => a[0] - b[0]).forEach(it => s += it[1]);
+    // sable qui vole, vautours, chaleur
+    let top = "";
+    const rf = rnd(55);
+    for (let i = 0; i < 40; i++) { const x = (rf() * W).toFixed(0), y = (300 + rf() * (H - 320)).toFixed(0); top += `<circle class="dv-sand" style="animation-delay:-${(rf() * 5).toFixed(1)}s;animation-duration:${(4 + rf() * 4).toFixed(1)}s" cx="${x}" cy="${y}" r="${(1.2 + rf() * 1.6).toFixed(1)}" fill="#FFF4D0" opacity=".85"/>`; }
+    top += vulture(120, 120, 0) + vulture(300, 160, 1) + vulture(240, 620, 2);
+    top += [[-40, 600], [80, 1100]].map(([x, y]) => `<path d="M${x} ${y - 300} L${x + 70} ${y - 300} L${x + 260} ${y + 200} L${x + 150} ${y + 200}Z" fill="#FFF6C8" opacity=".08"/>`).join("");
+    return {bg:s, top};
+  }
+
+  /* --- Monstres du désert --- */
+  const monsters = {
+    scarab:{n:"Scarabée d'Or", draw(){
+      return [[24, 92, 8, 104], [22, 80, 4, 86], [26, 68, 10, 60], [96, 92, 112, 104], [98, 80, 116, 86], [94, 68, 110, 60]].map(([a, b, c, d]) => tLimb(`M${a} ${b} L${c} ${d}`, "#3A2A1A", 5)).join("")
+        + toy("M18 84 Q16 46 60 40 Q104 46 102 84 Q100 108 60 110 Q20 108 18 84Z", "#FFE07A", "#D8960A", "#8A5A06")
+        + `<path d="M60 44 L60 108" stroke="${TD}" stroke-width="2.6"/><path d="M30 60 Q40 48 56 46" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>`
+        + `<circle cx="40" cy="80" r="6" fill="#3AD8E8" stroke="${TD}" stroke-width="2"/><circle cx="80" cy="80" r="6" fill="#3AD8E8" stroke="${TD}" stroke-width="2"/>`
+        + toy("M34 44 Q36 20 60 18 Q84 20 86 44 Q60 50 34 44Z", "#4A3A2A", "#2A1A0A", "#120A04", {dy:3})
+        + `<path d="M44 20 Q36 8 40 2 M76 20 Q84 8 80 2" stroke="${TD}" stroke-width="4" fill="none" stroke-linecap="round"/>`
+        + `<path d="M42 30 L54 35 M78 30 L66 35" stroke="#FFE07A" stroke-width="3" stroke-linecap="round"/><ellipse cx="49" cy="38" rx="4" ry="3.4" fill="#7AF8FF" stroke="${TD}" stroke-width="1.6"/><ellipse cx="71" cy="38" rx="4" ry="3.4" fill="#7AF8FF" stroke="${TD}" stroke-width="1.6"/>`
+        + `<path d="M50 46 Q44 54 48 60 M70 46 Q76 54 72 60" stroke="${TD}" stroke-width="4" fill="none" stroke-linecap="round"/>`; }},
+    serpent:{n:"Serpent des Dunes", draw(){
+      return toy("M16 100 Q14 82 40 80 Q78 78 96 88 Q110 98 96 106 Q60 114 16 100Z", "#F4B860", "#C8783A", "#7A4A1A")
+        + `<path d="M28 92 q10 -6 20 0 q10 6 20 0 q10 -6 20 0" stroke="#3AB8A8" stroke-width="4" fill="none" stroke-linecap="round"/>`
+        + toy("M48 86 Q44 60 52 44 L68 44 Q76 60 72 86Z", "#F4B860", "#C8783A", "#7A4A1A", {dy:3})
+        + toy("M26 50 Q24 16 60 12 Q96 16 94 50 Q78 58 60 50 Q42 58 26 50Z", "#FFC870", "#D8843A", "#8A4A1A", {dy:4})
+        + `<path d="M36 40 Q48 30 60 32 Q72 30 84 40" stroke="#3AB8A8" stroke-width="4" fill="none"/><path d="M60 22 v8" stroke="#3AB8A8" stroke-width="4" stroke-linecap="round"/>`
+        + `<path d="M40 26 L54 32 M80 26 L66 32" stroke="${TD}" stroke-width="4" stroke-linecap="round"/><ellipse cx="49" cy="36" rx="5" ry="6" fill="#FFF26A" stroke="${TD}" stroke-width="2"/><ellipse cx="71" cy="36" rx="5" ry="6" fill="#FFF26A" stroke="${TD}" stroke-width="2"/><rect x="47.6" y="31" width="2.8" height="10" rx="1.4" fill="${TD}"/><rect x="69.6" y="31" width="2.8" height="10" rx="1.4" fill="${TD}"/>`
+        + `<path d="M50 46 Q60 54 70 46" stroke="${TD}" stroke-width="3" fill="#5A1A1A"/><path d="M53 47 l2 5 l2 -4.4 M63 47.6 l2 4.4 l2 -5" fill="#fff" stroke="${TD}" stroke-width="1"/><path d="M60 52 v8 l-4 4 M60 60 l4 4" stroke="#E2283A" stroke-width="2.4" fill="none" stroke-linecap="round"/>`
+        + `<path d="M34 26 Q42 16 56 14" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".65"/>`; }},
+    momie:{n:"Petite Momie", draw(){
+      let g = tFeet(44, 76, 106, "#F4E8D0", "#C8B48A", "#8A7A5A", 9);
+      g += toy("M28 104 Q20 64 30 40 Q42 18 60 18 Q78 18 90 40 Q100 64 92 104 Q60 112 28 104Z", "#FFF6E4", "#D8C8A4", "#9A8A6A");
+      [30, 44, 58, 72, 86].forEach((y, k) => g += `<path d="M${k % 2 ? 22 : 26} ${y} Q60 ${y + (k % 2 ? -8 : 8)} ${k % 2 ? 96 : 94} ${y - 4}" stroke="#C8B48A" stroke-width="2.6" fill="none"/>`);
+      g += `<path d="M32 50 L88 44 L88 60 L32 64Z" fill="#3A2A1A" stroke="${TD}" stroke-width="2"/>`;
+      g += `<circle cx="72" cy="53" r="10" fill="url(#avMGlow)"/><circle cx="72" cy="53" r="4.6" fill="#7AFF9A" stroke="${TD}" stroke-width="1.6"/><path d="M44 54 h8" stroke="#C8B48A" stroke-width="3" stroke-linecap="round"/>`;
+      g += tLimb("M28 70 Q12 66 6 56", "#FFF6E4", 9) + tLimb("M92 70 Q108 66 114 56", "#FFF6E4", 9);
+      g += `<path d="M90 96 q14 4 18 14 M30 30 q-10 -10 -4 -20" stroke="#FFF6E4" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M40 28 Q48 20 60 20" stroke="#fff" stroke-width="3.4" fill="none" opacity=".8" stroke-linecap="round"/>`;
+      return g; }},
+    scorpion:{n:"Scorpion Rouge", draw(){
+      let g = "";
+      [[36, 96, 16, 108], [46, 100, 32, 112], [84, 96, 104, 108], [74, 100, 88, 112]].forEach(([a, b, c, d]) => g += tLimb(`M${a} ${b} L${c} ${d}`, "#A82A2A", 5));
+      g += tLimb("M66 76 Q100 70 104 44 Q106 22 86 18", "#E8443A", 13) + toy("M78 6 Q96 6 94 22 Q84 26 78 18Z", "#FFE07A", "#E0A01A", "#8A5A06", {dy:2, w:2.2});
+      g += toy("M24 96 Q20 70 60 66 Q100 70 96 96 Q60 106 24 96Z", "#FF6A5A", "#C02838", "#6A1018");
+      g += tLimb("M30 84 Q10 76 12 58", "#E8443A", 9) + tLimb("M90 84 Q110 76 108 58", "#E8443A", 9);
+      g += toy("M2 52 Q4 36 18 38 Q26 44 20 56 Q12 52 10 60 Q4 62 2 52Z", "#FF6A5A", "#C02838", "#6A1018", {dy:2, w:2.2}) + toy("M118 52 Q116 36 102 38 Q94 44 100 56 Q108 52 110 60 Q116 62 118 52Z", "#FF6A5A", "#C02838", "#6A1018", {dy:2, w:2.2});
+      g += `<path d="M42 72 L54 78 M78 72 L66 78" stroke="${TD}" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="83" r="4.4" fill="#FFE07A" stroke="${TD}" stroke-width="1.8"/><circle cx="70" cy="83" r="4.4" fill="#FFE07A" stroke="${TD}" stroke-width="1.8"/>`;
+      g += `<path d="M50 92 l4 -3 l4 3 l4 -3 l4 3 l4 -3" stroke="${TD}" stroke-width="2.4" fill="none"/><path d="M32 78 Q40 70 52 68" stroke="#fff" stroke-width="3.4" fill="none" opacity=".6" stroke-linecap="round"/>`;
+      return g; }}
+  };
+
+  /* --- Le Sphinx Oublié (boss), 3 phases --- */
+  function sphinxBody(ph, statue){
+    const eye = ph === 1 ? ["#FFF4A0", "#FFB020"] : ph === 2 ? ["#FFD0C0", "#FF3A2A"] : ["#C8FFFF", "#2AD8F0"], u = "sx" + ph + (statue ? "s" : "");
+    let s = `<defs>${rg(u + "e", eye[0], eye[1])}${rg(u + "a", ph === 3 ? "#7AF8FF" : ph === 2 ? "#FF7A3A" : "#FFE07A", "#000")}${lg(u + "b", statue ? "#E8C890" : "#F4D49A", statue ? "#B08A50" : "#C8965A")}${lg(u + "g", "#FFE58A", "#D8960A")}${lg(u + "n", "#4A8AE8", "#1A3A9A")}</defs>`;
+    if (!statue) s += `<circle cx="100" cy="110" r="${ph === 3 ? 108 : 96}" fill="url(#${u}a)" opacity="${ph === 1 ? .25 : .45}" class="av-pulse"/>`;
+    s += `<ellipse cx="100" cy="212" rx="92" ry="9" fill="rgba(10,6,24,.35)"/>`;
+    // corps de lion couché, pattes avant
+    s += tf(`M22 210 Q14 160 40 140 L160 140 Q186 160 178 210Z`, u + "b", "#7A5230", 5, 3);
+    s += tf(`M44 212 L44 176 Q44 166 56 166 L76 166 Q86 166 86 178 L86 212Z`, u + "b", "#7A5230", 3, 2.8) + tf(`M114 212 L114 178 Q114 166 124 166 L144 166 Q156 166 156 176 L156 212Z`, u + "b", "#7A5230", 3, 2.8);
+    s += `<path d="M52 212 v-8 M62 212 v-8 M72 212 v-8 M124 212 v-8 M134 212 v-8 M144 212 v-8" stroke="${TD}" stroke-width="2.4"/>`;
+    // némès (coiffe rayée bleu et or)
+    s += tf(`M44 156 Q36 104 52 72 Q70 40 100 40 Q130 40 148 72 Q164 104 156 156 L132 156 Q136 120 126 104 L74 104 Q64 120 68 156Z`, u + "g", "#8A5A06", 4, 3);
+    for (let k = 0; k < 7; k++) s += `<path d="M${52 + k * 2} ${80 + k * 11} Q${70} ${76 + k * 9} ${74} ${104 + k * 2}" stroke="url(#${u}n)" stroke-width="6" fill="none"/><path d="M${148 - k * 2} ${80 + k * 11} Q${130} ${76 + k * 9} ${126} ${104 + k * 2}" stroke="url(#${u}n)" stroke-width="6" fill="none"/>`;
+    s += `<path d="M64 60 Q100 36 136 60" stroke="url(#${u}n)" stroke-width="7" fill="none"/>`;
+    // visage
+    s += tf(`M70 74 Q70 58 100 56 Q130 58 130 74 L128 118 Q118 140 100 142 Q82 140 72 118Z`, u + "b", "#7A5230", 3, 3);
+    s += `<path d="M90 142 L92 168 L108 168 L110 142" fill="url(#${u}g)" stroke="${TD}" stroke-width="2.6"/><path d="M92 150 h16 M92 158 h16" stroke="url(#${u}n)" stroke-width="3"/>`;
+    s += `<path d="M100 40 L94 26 L100 14 L106 26Z" fill="url(#${u}g)" stroke="${TD}" stroke-width="2.4"/><circle cx="100" cy="24" r="3.4" fill="${statue ? "#3AD8E8" : eye[1]}" stroke="${TD}" stroke-width="1.4"/>`;
+    s += `<path d="M76 84 L94 92 M124 84 L106 92" stroke="${TD}" stroke-width="${ph === 1 ? 4 : 6}" stroke-linecap="round"/>`;
+    if (statue) s += `<ellipse cx="86" cy="98" rx="6" ry="4" fill="#3AD8E8" stroke="${TD}" stroke-width="2" class="av-pulse"/><ellipse cx="114" cy="98" rx="6" ry="4" fill="#3AD8E8" stroke="${TD}" stroke-width="2" class="av-pulse"/>`;
+    else s += `<circle cx="86" cy="98" r="14" fill="url(#${u}e)" class="av-pulse"/><circle cx="114" cy="98" r="14" fill="url(#${u}e)" class="av-pulse"/><ellipse cx="86" cy="98" rx="7" ry="5.6" fill="${eye[0]}" stroke="${TD}" stroke-width="2.4"/><ellipse cx="114" cy="98" rx="7" ry="5.6" fill="${eye[0]}" stroke="${TD}" stroke-width="2.4"/><ellipse cx="86" cy="98" rx="2.6" ry="4.4" fill="${TD}"/><ellipse cx="114" cy="98" rx="2.6" ry="4.4" fill="${TD}"/>`;
+    s += `<path d="M98 104 L96 116 L104 116 L102 104" stroke="#8A5A2A" stroke-width="2" fill="none"/>`;
+    s += statue ? `<path d="M88 126 Q100 130 112 126" stroke="${TD}" stroke-width="3" fill="none" stroke-linecap="round"/>` : `<path d="M84 124 Q100 ${ph === 1 ? 120 : 116} 116 124 Q100 ${ph === 1 ? 136 : 142} 84 124Z" fill="#2A0A0A" stroke="${TD}" stroke-width="2.6"/><path d="M89 125 l3 6 l3 -7 l3 7 l3 -7 l3 7 l3 -6" stroke="#FFF0D0" stroke-width="2" fill="none" stroke-linejoin="round"/>`;
+    if (ph >= 2) s += `<path d="M78 70 L86 82 L82 92 M120 64 L114 76 M134 120 L124 132" stroke="${ph === 3 ? "#7AF8FF" : "#FF7A3A"}" stroke-width="2.6" fill="none" stroke-linecap="round" class="av-pulse"/>`;
+    if (ph === 3) s += `<g class="av-spin"><ellipse cx="100" cy="100" rx="96" ry="22" fill="none" stroke="#7AF8FF" stroke-width="3" stroke-dasharray="6 10" opacity=".8"/></g>` + [[24, 70], [176, 70], [30, 130], [170, 130]].map(([x, y], i) => `<path d="M${x - 5} ${y} h10 M${x} ${y - 6} v12 M${x - 4} ${y - 4} l8 8" stroke="#7AF8FF" stroke-width="2.4" class="av-pulse" style="animation-delay:-${i * .3}s"/>`).join("");
+    s += `<path d="M58 84 Q62 66 78 58" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".45"/>`;
+    return s;
+  }
+  const bossSVG = ph => `<svg viewBox="0 0 200 222" style="width:100%;height:auto;overflow:visible" aria-label="Le Sphinx Oublié">${sphinxBody(ph, false)}</svg>`;
+
+  /* --- Arène --- */
+  function arena(boss){
+    let s = `<defs>${defs()}${lg("dSky", boss ? "#3A1A4A" : "#FF9A5A", boss ? "#C86A3A" : "#FFE4A0")}</defs><rect width="400" height="300" fill="url(#dSky)"/><circle cx="${boss ? 80 : 300}" cy="${boss ? 60 : 50}" r="${boss ? 26 : 40}" fill="${boss ? "#F4E8FF" : "#FFF8D0"}" opacity=".9"/><circle cx="${boss ? 80 : 300}" cy="${boss ? 60 : 50}" r="110" fill="url(#dSun)" opacity="${boss ? .15 : .5}"/>`;
+    s += `<path d="M150 190 L230 100 L310 190Z" fill="${boss ? "#7A4A3A" : "#E8A868"}" opacity=".7"/><path d="M20 190 L70 140 L120 190Z" fill="${boss ? "#6A3A30" : "#E0A060"}" opacity=".6"/><path d="M290 190 L340 150 L390 190Z" fill="${boss ? "#6A3A30" : "#E0A060"}" opacity=".6"/>`;
+    s += `<path d="M0 190 Q60 160 130 185 Q210 205 280 178 Q340 160 400 182 L400 300 L0 300Z" fill="${boss ? "#B8784A" : "#F0C070"}"/>`;
+    s += palm(30, 205, 1.2, 4) + palm(372, 210, 1.1, 8);
+    s += `<path d="M0 214 Q200 196 400 214 L400 300 L0 300Z" fill="${boss ? "#D8A060" : "#FFD890"}" stroke="${TD}" stroke-width="3"/>`;
+    s += `<ellipse cx="200" cy="262" rx="190" ry="34" fill="${boss ? "#E8B470" : "#FFE4A8"}" stroke="${TD}" stroke-width="3"/><ellipse cx="200" cy="258" rx="170" ry="24" fill="#FFF0C8" opacity=".5"/>`;
+    const r = rnd(boss ? 31 : 13);
+    for (let i = 0; i < 14; i++) s += `<path d="M${(20 + r() * 360).toFixed(0)} ${(236 + r() * 46).toFixed(0)} q6 -4 12 0" stroke="#C8904A" stroke-width="1.8" fill="none"/>`;
+    if (boss) s += [70, 330].map((x, i) => `<rect x="${x - 4}" y="170" width="8" height="70" fill="#7A5230" stroke="${TD}" stroke-width="2"/><path class="av-flame" style="animation-delay:-${i * .25}s" d="M${x - 9} 170 Q${x - 11} 154 ${x} 142 Q${x + 11} 154 ${x + 9} 170Z" fill="#FF8A3A" stroke="${TD}" stroke-width="2"/><circle cx="${x}" cy="158" r="26" fill="url(#dGlowO)" opacity=".5" class="av-pulse"/>`).join("");
+    for (let i = 0; i < 16; i++) s += `<circle class="dv-sand" style="animation-delay:-${(r() * 5).toFixed(1)}s" cx="${(r() * 400).toFixed(0)}" cy="${(80 + r() * 160).toFixed(0)}" r="1.8" fill="#FFF4D0"/>`;
+    return `<svg class="af-bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice">${s}</svg>`;
+  }
+
+  Aventure.register(2, {
+    music:"musique/monde2.mp3", boss:"Le Sphinx Oublié", qp:"d2", nodes:NODES, h:1580, mapDraw, bossSVG, arena, monsters,
+    title:{id:"adv2", n:"ÉNIGME DES SABLES", a:"#FFE58A", b:"#C8781A", f:"#2B1D3A"},
+    phase:["Phase 2 · Le Sphinx se fissure de colère !", "Phase 3 · L'énigme éternelle !"],
+    win:"Le Sphinx Oublié retourne au silence. Le désert t'appartient !",
+    qn:["La route des caravanes", "Aux portes du tombeau", "L'énigme résolue", "Chercheur d'or", "Toutes les étoiles du désert", "Savant des sables", "Chasseur de scorpions", "Sans un grain de travers", "Vif comme le vent", "Mirage parfait"],
+    levels:[
+      {n:"L'Oasis Perdue", mode:"c", diff:1, mix:[.6, .4, 0], sp:{k:"first5"}, mons:["scarab", "serpent", "scarab", "momie"]},
+      {n:"Le Marché aux Épices", mode:"c", diff:2, mix:[.55, .45, 0], sp:{k:"streak", n:5}, mons:["serpent", "scarab", "serpent", "momie"]},
+      {n:"Le Canyon des Vents", mode:"surv", diff:2, mix:[.55, .45, 0], sp:{k:"streak", n:7}, mons:["scarab", "serpent", "scorpion"]},
+      {n:"La Cité Ensablée", mode:"c", diff:2, mix:[.5, .5, 0], sp:{k:"hard"}, mons:["momie", "scarab", "serpent", "scorpion"]},
+      {n:"Le Temple du Scarabée", mode:"chrono", diff:2, mix:[.5, .5, 0], sp:{k:"streak", n:6}, mons:["scarab", "serpent"]},
+      {n:"Le Tombeau des Rois", mode:"c", diff:3, mix:[.4, .6, 0], sp:{k:"fast", n:8}, mons:["momie", "serpent", "momie", "scorpion"]},
+      {n:"La Chambre du Sphinx", mode:"boss", diff:3, mix:[.3, .55, .15], sp:{k:"nolife"}}
+    ]
+  });
+})();
 
 /* --- Lancement --- */
 // Emblème de Lumen : un « L » doré et bombé sous un halo ambre (même dessin que web/icon.html)

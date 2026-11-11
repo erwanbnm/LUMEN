@@ -1373,7 +1373,7 @@ body.in-adv .app{max-width:none;padding:0}
 body.in-adv .app > .fade{animation:none;transform:none}
 .av-scr{position:fixed;inset:0;display:flex;flex-direction:column;z-index:3;color:#fff}
 .av-scr.av-sea{background:#0E3A78}
-.av-scr.av-forest{background:#2A5A2E}
+.av-scr.av-w1{background:#2A5A2E}
 .av-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .av-scroll::-webkit-scrollbar{display:none}
 .av-isl-svg,.av-map-svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
@@ -1549,6 +1549,47 @@ body.in-casino .tabs{display:none}
 .av-pos{font:800 16px var(--f-display);text-align:center}
 .av-rk-n{display:flex;flex-direction:column;min-width:0}.av-rk-n b{font:800 14.5px var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.av-rk-n span{font:600 12px var(--f-mono);opacity:.8}
 .av-rank-p{font:500 13px var(--f-body);margin:8px 2px 0;opacity:.85}
+
+/* Aventure : couleurs de chaque monde */
+.av-scr.av-w2{background:#E8B868}
+.av-w2 .av-top{background:linear-gradient(#F0B050,#C07A2A);box-shadow:inset 0 -6px 0 #8A5020}
+.av-w2 .av-sheet-in{background:#B87A3A;box-shadow:0 -4px 0 rgba(0,0,0,.25),inset 0 3px 0 #D8A060}
+.av-w2 .av-ribbon{background:linear-gradient(#FFC040,#D07A10)}
+.av-w2 .av-art{background:radial-gradient(circle at 50% 40%,#FFE8A8,#E0A050)}
+.af.w2{background:#5A3418}
+.af.w2 .af-top{background:rgba(110,60,20,.94)}
+.af.w2 .af-q{background:#B87A3A;box-shadow:0 -3px 0 rgba(0,0,0,.3),inset 0 3px 0 #D8A060}
+.af.w2.boss .af-top{background:rgba(60,24,60,.94)}
+.af.w2.boss .af-q{background:#6A3A5A}
+.af.w2 .af-bosshp .bar i{background:linear-gradient(#FFD870,#D88A1A)}
+.dv-sand{animation:dvsand 6s linear infinite}@keyframes dvsand{0%{transform:translateX(-20px);opacity:0}20%{opacity:.9}100%{transform:translateX(60px);opacity:0}}
+.dv-fly{animation:dvfly 9s linear infinite}@keyframes dvfly{to{transform:rotate(360deg)}}
+/* Aventure : tableau de quêtes */
+.av-qbtn{position:relative}
+.av-qbtn i{position:absolute;right:-6px;top:-6px;min-width:20px;height:20px;border-radius:99px;background:#E2283A;color:#fff;font:800 11px var(--f-mono);display:grid;place-items:center;border:2px solid #2B1D3A;font-style:normal}
+.av-qbtn i.lk{background:#4A4466;font-size:9px}
+.av-qboard{max-width:560px;margin:12px auto 0;padding:14px 12px 18px;border:4px solid #2B1D3A;border-radius:18px;background:repeating-linear-gradient(90deg,#9A6236 0 46px,#8A5630 46px 49px);box-shadow:0 6px 0 #2B1D3A,inset 0 0 0 5px #6A3A1E}
+.av-w2 .av-qboard{background:repeating-linear-gradient(90deg,#C8925A 0 46px,#B07A44 46px 49px)}
+.av-qsec{display:flex;justify-content:center;margin:4px 0 12px}
+.av-qsec span{background:linear-gradient(#E2283A,#9A1424);color:#FFE58A;border:3px solid #2B1D3A;border-radius:10px;padding:4px 16px;font:800 14px var(--f-display);box-shadow:0 3px 0 #2B1D3A;text-shadow:0 2px 0 #2B1D3A}
+.av-qgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;margin-bottom:16px}
+.av-qp{position:relative;background:linear-gradient(#FFF6DC,#EED6A0);color:#2B1D3A;border:2.5px solid #2B1D3A;border-radius:6px 10px 8px 12px;padding:16px 10px 10px;display:flex;flex-direction:column;gap:5px;transform:rotate(var(--rot));box-shadow:0 4px 0 rgba(43,29,58,.5)}
+.av-qp b{font:800 14.5px/1.15 var(--f-display)}
+.av-qd{font:500 12.5px/1.3 var(--f-body)}
+.av-qn{font:700 11px var(--f-mono);opacity:.75}
+.av-qrw{display:flex;align-items:center;gap:5px;font:700 11.5px var(--f-mono);color:#7A4A10}
+.av-qrw .coin{display:inline-block;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF0A8,#FFC93A 55%,#D88A1A);border:2px solid #2B1D3A;flex:none}
+.av-qbar{height:8px;border-radius:99px;background:#E2CFA0;border:2px solid #2B1D3A;overflow:hidden}
+.av-qbar i{display:block;height:100%;background:linear-gradient(90deg,#3FCB6A,#FFD23F)}
+.av-qst{font:700 11px var(--f-mono);opacity:.7}
+.av-qp .av-btn{font-size:14px;padding:7px 8px}
+.av-qp.ready{box-shadow:0 0 0 3px #FFD23F,0 4px 0 rgba(43,29,58,.5);animation:avqready 1.4s ease-in-out infinite}
+@keyframes avqready{50%{box-shadow:0 0 0 6px rgba(255,210,63,.55),0 4px 0 rgba(43,29,58,.5)}}
+.av-qp.claimed{filter:saturate(.55) brightness(.95)}
+.av-pin{position:absolute;left:50%;top:-8px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FF9A9A,#C8202E);border:2px solid #2B1D3A;font-style:normal}
+.av-stamp{align-self:flex-start;transform:rotate(-8deg);border:3px solid #2AA85A;color:#2AA85A;border-radius:6px;padding:1px 8px;font:800 13px var(--f-display);text-transform:uppercase;letter-spacing:.05em}
+@media (max-width:360px){.av-qgrid{grid-template-columns:1fr}}
+.av-qp .av-btn{flex:none;font-size:13.5px;padding:6px 8px;margin-top:2px}
 </style>
 
 <div id="splash" role="img" aria-label="Lancement de Lumen"><div class="halo"></div><div class="sp">

@@ -29,7 +29,10 @@ const EV_DATA = {
   SWAP: 300,                                    // pièces données à la place d'un jeton déjà possédé
   TOWER: { 30:"fifty", 60:"xp", 90:"coin" },    // paliers de la Tour qui donnent un jeton (une seule fois par compte)
   BOSS_MIN: 5,                                  // PV de dégâts minimum sur un boss vaincu pour gagner un jeton (une fois par semaine)
-  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
+  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,
+  // Quêtes de l'Aventure qui donnent une potion (une seule fois par compte ; déjà possédée = ADVQ_SWAP pièces)
+  ADVQ: { f1_boss:"xp", f1_stars:"coin", f1_chrono:"fifty", d2_boss:"xp", d2_stars:"coin", d2_chrono:"fifty",
+    a3_boss:"xp", a3_stars:"coin", a3_chrono:"fifty", g4_boss:"xp", g4_stars:"coin", g4_chrono:"fifty", m5_boss:"xp", m5_stars:"coin", m5_chrono:"fifty" }, ADVQ_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
   DAY_MAX: 300                                  // tirages de fragments au plus par jour et par joueur
 };
 if (typeof module !== "undefined") module.exports = EV_DATA;

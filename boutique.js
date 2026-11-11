@@ -15,7 +15,10 @@ const Boutique = (() => {
   // Les nouvelles Légendes : comment on les obtient
   const LEG = {
     numero7:{how:"shop", p:2500}, pulga:{how:"shop", p:2500}, pop:{how:"shop", p:2500, r:"leg"}, pirate:{how:"shop", p:2200}, clown:{how:"shop", p:2200}, goule:{how:"shop", p:2000}, corbeau:{how:"shop", p:2200},
-    fleaux:{how:"prestige", p:10000}, seigneur:{how:"prestige", p:8000}, sparte:{how:"prestige", p:7000}, empereur:{how:"prestige", p:6000},
+    fleaux:{how:"prestige", p:10000}, seigneur:{how:"prestige", p:8000},
+    // Choix d'Erwan (novembre 2026) : retirés de la boutique, gagnés seulement avec 100 % d'un monde de l'Aventure (ceux qui les ont achetés les gardent)
+    sparte:{how:"quest", cond:"Compléter à 100 % le Monde 3 de l'Aventure", goal:100, cur:() => typeof Aventure !== "undefined" ? Aventure.pctOf(3) : 0},
+    empereur:{how:"quest", cond:"Compléter à 100 % le Monde 5 de l'Aventure", goal:100, cur:() => typeof Aventure !== "undefined" ? Aventure.pctOf(5) : 0},
     sabreur:{how:"quest", cond:"Atteindre l'étage 50 de la Tour", goal:50, cur:towerBest},
     dragon:{how:"quest", cond:"30 bonnes réponses d'affilée dans une partie solo", goal:30, cur:() => (S.st && S.st.bestCombo) || 0},
     agent:{how:"quest", cond:"Gagner 25 duels en ligne", goal:25, cur:() => (S.online && S.online.wins) || 0},

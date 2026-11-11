@@ -24,11 +24,15 @@ const Aventure = (() => {
     ]},
     {id:2, n:"Le Désert des Rois"}, {id:3, n:"Le Royaume des Abysses"}, {id:4, n:"Le Royaume de Glace"}, {id:5, n:"Les Terres Maudites"}
   ];
+  // Monde affiché sur la carte ; les mondes 2 à 5 sont ajoutés par leurs propres fichiers (aventure_m2.js…) avec register()
+  let cw = 1;
+  const WD = () => WORLDS[cw - 1];
+  const built = w => !!(WORLDS[w - 1] && WORLDS[w - 1].levels && WORLDS[w - 1].mapDraw);
   const MODE_N = {c:"Classique · 10 questions", chrono:"Chrono · 60 secondes", surv:"Survie · 15 questions, 3 vies", boss:"Boss · 3 phases, 3 vies"};
   const DIFF_N = ["", "Facile", "Moyen", "Difficile"];
   const MON_N = {gluant:"Gluant de mousse", champi:"Champichon", souche:"Souche grognonne"};
-  const LV_COINS = {1:30};  // pièces du premier succès d'un niveau, par monde (le boss : 300)
-  const BOSS_COINS = {1:300};
+  const LV_COINS = {1:30, 2:40, 3:50, 4:60, 5:70};  // pièces du premier succès d'un niveau, par monde
+  const BOSS_COINS = {1:300, 2:400, 3:500, 4:600, 5:700};
   const STAR_COINS = 10;
   const SEEN_MAX = 1500;
   const spText = sp => sp.k === "streak" ? `${sp.n} bonnes réponses d'affilée` : sp.k === "first5" ? "Aucune erreur sur les 5 premières questions"
@@ -48,7 +52,7 @@ const Aventure = (() => {
   const totalStars = () => [1, 2, 3, 4, 5].reduce((a, w) => a + (A().w[w] ? worldStars(w) : 0), 0);
   const curLevel = w => { const d = WS(w).done; const i = d.findIndex(x => !x); return i < 0 ? 6 : i; };
   const unlocked = (w, i) => i === 0 || !!WS(w).done[i - 1];
-  const worldOpen = w => w === 1 || (!!WORLDS[w - 1].levels && !!WS(w - 1).done[6]);
+  const worldOpen = w => w === 1 || (built(w) && !!WS(w - 1).done[6]);
   // Complétion d'un monde (choix d'Erwan : pas de secrets ni de reliques) : niveaux 50 %, étoiles 50 %. 100 % = 500 pièces, une fois.
   const pct = w => { const s = WS(w); return Math.round(s.done.filter(Boolean).length / 7 * 50 + worldStars(w) / 21 * 50); };
   const FULL_COINS = 500;
@@ -331,20 +335,22 @@ const Aventure = (() => {
     s += isl(118, 650, 86, 58, 3, "avIA", "#22602A", f, "La Forêt des Anciens", `${w1.done.filter(Boolean).length}/7 niveaux · ${worldStars(1)} ★ · ${pct(1)} %`, true, 1);
     let d2 = `<path d="M262 528 L292 476 L322 528Z" fill="#F2C060" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M292 476 L322 528 L300 528Z" fill="#C88A3A" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/>`;
     d2 += `<ellipse cx="248" cy="540" rx="16" ry="6" fill="#4FC0E8" stroke="${TD}" stroke-width="2"/><path d="M340 540 q2 -16 -2 -26 M338 514 q-10 -4 -16 2 M338 514 q10 -6 16 0 M338 514 q-2 -10 -10 -12 M338 514 q4 -10 12 -10" stroke="#2E8A3A" stroke-width="3.4" fill="none" stroke-linecap="round"/>`;
-    s += isl(292, 520, 78, 52, 8, "avID", "#9A6A2A", d2, "Le Désert des Rois", open2 ? "Bientôt disponible" : "Bats le Gardien Sylvestre", false, 2);
+    const sub = w => worldOpen(w) && built(w) ? `${WS(w).done.filter(Boolean).length}/7 niveaux · ${worldStars(w)} ★ · ${pct(w)} %` : WS(w - 1).done[6] ? "Bientôt disponible" : `Bats ${WORLDS[w - 2].boss || "le boss précédent"}`;
+    const on = w => worldOpen(w) && built(w);
+    s += isl(292, 520, 78, 52, 8, "avID", "#9A6A2A", d2, "Le Désert des Rois", sub(2), on(2), 2);
     let a3 = `<ellipse cx="112" cy="390" rx="46" ry="28" fill="url(#avIB)" stroke="${TD}" stroke-width="2.4"/><g class="av-spin"><path d="M112 390 m-30 0 a30 18 0 1 1 60 0 M112 390 m-18 0 a18 10 0 1 1 36 0" stroke="#BFF4FF" stroke-width="2.4" fill="none" opacity=".8"/></g><path d="M100 392 Q112 370 124 392Z" fill="#9AF8FF" stroke="${TD}" stroke-width="2"/><circle cx="112" cy="378" r="14" fill="url(#avIW)" class="av-pulse"/>`;
-    s += isl(112, 392, 80, 50, 13, "avIS", "#B8904A", a3, "Le Royaume des Abysses", "Monde 3", false, 3);
+    s += isl(112, 392, 80, 50, 13, "avIS", "#B8904A", a3, "Le Royaume des Abysses", sub(3), on(3), 3);
     let i4 = `<path d="M252 270 L272 228 L292 270Z M282 270 L306 216 L330 270Z" fill="#FFFFFF" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M296 238 L306 216 L316 238 L306 232Z" fill="#CDEBFF"/><rect x="316" y="248" width="10" height="24" fill="#B8E0FF" stroke="${TD}" stroke-width="2"/><path d="M314 248 l7 -14 l7 14z" fill="#7AB8F0" stroke="${TD}" stroke-width="2"/>`;
-    s += isl(292, 262, 78, 50, 21, "avII", "#6A9AC8", i4, "Le Royaume de Glace", "Monde 4", false, 4);
+    s += isl(292, 262, 78, 50, 21, "avII", "#6A9AC8", i4, "Le Royaume de Glace", sub(4), on(4), 4);
     let c5 = `<circle cx="150" cy="96" r="40" fill="url(#avIL)" opacity=".5" class="av-lava"/><path d="M118 132 L140 86 L160 86 L182 132Z" fill="#4A2A3A" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/><path d="M140 86 L160 86 L156 96 Q150 90 144 96Z" fill="#FF6A2A" stroke="${TD}" stroke-width="2" class="av-lava"/><path d="M146 94 Q144 112 136 128 M156 96 Q160 112 168 126" stroke="#FF6A2A" stroke-width="3" fill="none" class="av-lava"/><circle cx="150" cy="70" r="9" fill="#5A4A5A" opacity=".7" class="av-fog"/><circle cx="160" cy="58" r="7" fill="#5A4A5A" opacity=".6" class="av-fog"/>`;
-    s += isl(150, 120, 84, 50, 31, "avIC", "#140A1A", c5, "Les Terres Maudites", "Monde 5", false, 5);
+    s += isl(150, 120, 84, 50, 31, "avIC", "#140A1A", c5, "Les Terres Maudites", sub(5), on(5), 5);
     return `<svg viewBox="0 0 400 800" class="av-isl-svg">${s}</svg>`;
   }
 
   /* ===================== Carte de la Forêt ===================== */
   const NODES = [[205, 1405], [98, 1270], [282, 1042], [108, 860], [288, 690], [118, 505], [200, 300]];
   const TAV = [318, 1360];
-  let MAP_BASE = null;
+  let MAP_BASE = null; const MAPS = {};
   function mapBase(){
     if (MAP_BASE) return MAP_BASE;
     const W = 400, H = 1580, start = [200, 1520], pts = [start, ...NODES], P = sample(pts, 30);
@@ -396,9 +402,9 @@ const Aventure = (() => {
     return MAP_BASE;
   }
   function node(i, [x, y]){
-    const L = WORLDS[0].levels[i], W = WS(1), st = W.st[i], done = !!W.done[i], cur = i === curLevel(1) && !done, lock = !unlocked(1, i), boss = L.mode === "boss", R = boss ? 31 : 24;
+    const L = WD().levels[i], W = WS(cw), st = W.st[i], done = !!W.done[i], cur = i === curLevel(cw) && !done, lock = !unlocked(cw, i), boss = L.mode === "boss", R = boss ? 31 : 24;
     const [a, b, dk] = lock ? ["#A8A4BC", "#6A6680", "#3A3650"] : boss ? ["#D8A0FF", "#7A2AB8", "#3A1060"] : cur ? ["#FF9ACA", "#FF4F9A", "#A01A5A"] : ["#FFE88A", "#F0A21A", "#9A5A10"];
-    const id = "avNd" + i;
+    const id = "avNd" + cw + "_" + i;
     let g = `<g class="av-node" data-adv="node" data-v="${i}" role="button" aria-label="Niveau ${i + 1} : ${L.n}${lock ? " (verrouillé)" : ""}"><defs>${lg(id, a, b)}</defs>`;
     if (cur) g += `<circle class="av-ring" cx="${x}" cy="${y}" r="${R + 4}" fill="none" stroke="#FFD23F" stroke-width="4"/>`;
     g += `<ellipse cx="${x}" cy="${y + R * .55}" rx="${R + 6}" ry="${R * .45}" fill="rgba(20,30,10,.35)"/>`;
@@ -415,9 +421,66 @@ const Aventure = (() => {
     return g + `</g>`;
   }
   function mapSVG(){
-    const B = mapBase(), c = NODES[curLevel(1)], p = pet();
+    const MAPS_ = MAPS[cw] || (MAPS[cw] = WD().mapDraw()), B = MAPS_, N = WD().nodes, c = N[curLevel(cw)], p = pet();
     const hero = `<g class="av-bob" style="pointer-events:none">${nest(meSVG(62), c[0] - 46, c[1] - 92)}${p ? nest(creatureSVG(p, 32), c[0] + 6, c[1] - 56) : ""}</g>`;
-    return `<svg viewBox="0 0 400 1580" class="av-map-svg">${B.bg}${NODES.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+    return `<svg viewBox="0 0 400 ${WD().h || 1580}" class="av-map-svg">${B.bg}${N.map((p, i) => node(i, p)).join("")}${hero}${B.top}</svg>`;
+  }
+
+  /* ===================== Tableau de quêtes ===================== */
+  // Les mêmes 10 quêtes dans chaque monde (3 principales, 7 secondaires), avec les noms du monde. Récompenses : pièces ou potions.
+  // Potions : par le serveur quand le joueur est connecté (EV_DATA.ADVQ, une seule fois), sinon sur l'appareil.
+  const QT = [
+    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50}},
+    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80}},
+    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{p:"xp"}},
+    {k:"sec", g:(W, w) => worldStars(w), n:10, d:() => "Gagner 10 étoiles dans ce monde", rw:{c:60}},
+    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{p:"coin"}},
+    {k:"sec", g:(W) => W.ok || 0, n:60, d:() => "Donner 60 bonnes réponses dans ce monde", rw:{c:60}},
+    {k:"sec", g:(W) => W.kills || 0, n:30, d:() => "Vaincre 30 monstres", rw:{c:60}},
+    {k:"sec", g:(W) => W.perfect ? 1 : 0, n:1, d:() => "Faire 10/10 à un niveau classique", rw:{c:80}},
+    {k:"sec", id:"chrono", g:(W, w) => W.best[WORLDS[w - 1].levels.findIndex(l => l.mode === "chrono")] || 0, n:12, d:() => "12 bonnes réponses au niveau Chrono", rw:{p:"fifty"}},
+    {k:"sec", g:(W) => W.surv3 ? 1 : 0, n:1, d:() => "Réussir la Survie sans perdre de vie", rw:{c:80}}
+  ];
+  function questsOf(w){
+    const D = WORLDS[w - 1], W = WS(w); W.q = W.q || {};
+    return QT.map((t, i) => { const id = `${D.qp}_${t.id || i}`, v = Math.min(t.n, t.g(W, w));
+      return {id, k:t.k, t:D.qn[i], d:t.d(w), v, n:t.n, rw:t.rw, done:v >= t.n, claimed:!!W.q[id]}; });
+  }
+  const questsOpen = () => !!WS(1).done[3];
+  const claimable = w => questsOf(w).filter(q => q.done && !q.claimed).length;
+  function questBtn(){
+    const n = questsOpen() ? claimable(cw) : 0;
+    return `<button class="av-rb wood av-qbtn" data-adv="quests" aria-label="Tableau de quêtes">📜${n ? `<i>${n}</i>` : !questsOpen() ? `<i class="lk">🔒</i>` : ""}</button>`;
+  }
+  const rwHTML = rw => rw.c ? `<span class="coin"></span>${rw.c} pièces` : typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion";
+  function questsView(){
+    const Q2 = questsOf(cw), sec = (k, t) => `<div class="av-qsec"><span>${t}</span></div><div class="av-qgrid">${Q2.filter(q => q.k === k).map((q, i) => `
+      <div class="av-qp ${q.claimed ? "claimed" : q.done ? "ready" : q.v ? "prog" : ""}" style="--rot:${[-1.6, 1.2, -.6, 1.8][i % 4]}deg">
+        <i class="av-pin"></i><b>${esc(q.t)}</b><span class="av-qd">${esc(q.d)}</span>
+        ${q.n > 1 ? `<div class="av-qbar"><i style="width:${q.v / q.n * 100}%"></i></div><span class="av-qn">${q.v} / ${q.n}</span>` : ""}
+        <span class="av-qrw">${rwHTML(q.rw)}</span>
+        ${q.claimed ? `<span class="av-stamp">Terminée</span>` : q.done ? `<button class="av-btn green" data-adv="claim" data-v="${q.id}">Récupérer</button>` : `<span class="av-qst">${q.v ? "En cours" : "Disponible"}</span>`}
+      </div>`).join("")}</div>`;
+    return `<div class="av-scr av-w${cw}">
+      <div class="av-top"><button class="av-rb wood" data-adv="qmap" aria-label="Retour à la carte">←</button>
+        <div class="av-t"><b>Tableau de quêtes</b><span>${WD().n} · ${Q2.filter(q => q.claimed).length}/10 terminées</span></div></div>
+      <div class="av-scroll"><div class="av-qboard">${sec("main", "Quêtes principales")}${sec("sec", "Quêtes secondaires")}</div></div></div>`;
+  }
+  let claiming = false;
+  async function claim(id){
+    const q = questsOf(cw).find(x => x.id === id); if (!q || !q.done || q.claimed || claiming) return;
+    const t = q.rw.p, swap = (typeof EV_DATA !== "undefined" && EV_DATA.ADVQ_SWAP) || 100;
+    if (q.rw.c) { S.coins += q.rw.c; toasts.push(`<b>Quête terminée</b> · +${q.rw.c} pièces`); }
+    else if (typeof Evenements !== "undefined" && Evenements.live()) {
+      // Potion donnée par le serveur : la quête n'est marquée qu'une fois la réponse reçue (rien n'est perdu si le réseau coupe)
+      claiming = true; let r = null; try { r = await Evenements.adv(id); } catch(e){} claiming = false;
+      if (!r) { toasts.push("<b>Quête</b> · Le serveur ne répond pas, réessaie dans un moment."); return render(); }
+    }
+    else if (typeof Potions !== "undefined" && Potions.give(t)) toasts.push(`<b>Quête terminée</b> · ${Potions.T[t].n}`);
+    else { S.coins += swap; toasts.push(`<b>Quête terminée</b> · +${swap} pièces (tu avais déjà cette potion)`); }
+    WS(cw).q[id] = today();
+    try { Music.sfx("level"); } catch(e){}
+    save(); render();
   }
 
   /* ===================== Vue de l'onglet ===================== */
@@ -425,10 +488,12 @@ const Aventure = (() => {
   const starIco = `<svg class="av-star-i" viewBox="0 0 20 20" aria-hidden="true"><path d="${starP(10, 10.6, 9)}" fill="#FFD23F" stroke="${TD}" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
   function view(){
     init();
-    if (scr === "map") return `<div class="av-scr av-forest">
+    if (scr === "quests") return questsView();
+    if (scr === "map") return `<div class="av-scr av-w${cw}">
       <div class="av-top"><button class="av-rb wood" data-adv="isl" aria-label="Retour aux îles">←</button>
-        <div class="av-t"><b>La Forêt des Anciens</b><span>Monde 1 · complété à ${pct(1)} %</span></div>
-        <span class="av-chip">${starIco}<b>${worldStars(1)}</b>/21</span>
+        <div class="av-t"><b>${WD().n}</b><span>Monde ${cw} · complété à ${pct(cw)} %</span></div>
+        <span class="av-chip">${starIco}<b>${worldStars(cw)}</b>/21</span>
+        ${questBtn()}
         <button class="av-rb wood" data-adv="music" aria-label="Musique">${S.settings.music ? "♪" : "🔇"}</button></div>
       <div class="av-scroll" id="av-scroll">${mapSVG()}</div>
       ${sheet >= 0 ? sheetHTML(sheet) : ""}</div>`;
@@ -437,16 +502,16 @@ const Aventure = (() => {
       <div class="av-scroll">${islandsSVG()}</div>${rankOpen ? rankHTML() : ""}</div>`;
   }
   function sheetHTML(i){
-    const L = WORLDS[0].levels[i], W = WS(1), st = W.st[i], lock = !unlocked(1, i), boss = L.mode === "boss";
-    const art = boss ? `<span style="width:72px">${guardianSVG(1)}</span>` : monSVG(L.mons[0], 64);
-    const reward = W.done[i] ? "Récompense du niveau déjà reçue" : `${boss ? BOSS_COINS[1] : LV_COINS[1]} pièces la 1re fois`;
+    const L = WD().levels[i], W = WS(cw), st = W.st[i], lock = !unlocked(cw, i), boss = L.mode === "boss";
+    const art = boss ? `<span style="width:72px">${WD().bossSVG(1)}</span>` : monSVG(L.mons[0], 64);
+    const reward = W.done[i] ? "Récompense du niveau déjà reçue" : `${boss ? BOSS_COINS[cw] : LV_COINS[cw]} pièces la 1re fois`;
     return `<div class="av-sheet"><div class="av-sheet-in"><button class="av-x" data-adv="close" aria-label="Fermer">✕</button><div class="av-parch">
       <div class="av-ribbon ${boss ? "boss" : ""}">${boss ? "NIVEAU 7 · BOSS" : "NIVEAU " + (i + 1)}</div>
       <div class="av-sh-h"><div class="av-art ${boss ? "boss" : ""}">${art}</div><div><h2>${L.n}</h2>
         <div class="av-chips"><span class="av-chip mode ${L.mode}">${MODE_N[L.mode]}</span><span class="av-chip">${DIFF_N[L.diff]} ${"●".repeat(L.diff)}${"○".repeat(3 - L.diff)}</span></div></div></div>
       ${lock ? `<p class="av-lockmsg">🔒 Termine le niveau ${i} pour ouvrir celui-ci.</p>` : ""}
       <div class="av-objs">${objectives(L).map((o, k) => `<div class="av-obj ${st >> k & 1 ? "got" : ""}">${starSVG(st >> k & 1, 20)}<span>${o}</span></div>`).join("")}</div>
-      ${boss ? `<div class="av-mons">${WORLDS[0].boss} · 3 phases · il change de forme à 66 % et 33 % de sa vie</div>` : `<div class="av-mons">Monstres :</div><div class="av-chips">${[...new Set(L.mons)].map(m => `<span class="av-chip mon">${monSVG(m, 24)}${MON_N[m]}</span>`).join("")}</div>`}
+      ${boss ? `<div class="av-mons">${WD().boss} · 3 phases · il change de forme à 66 % et 33 % de sa vie</div>` : `<div class="av-mons">Monstres :</div><div class="av-chips">${[...new Set(L.mons)].map(m => `<span class="av-chip mon">${monSVG(m, 24)}${MON_N[m]}</span>`).join("")}</div>`}
       <div class="av-foot"><div class="av-rw"><span>Meilleur : <b>${W.done[i] ? (L.mode === "boss" ? `${W.best[i]} vie${W.best[i] > 1 ? "s" : ""} restante${W.best[i] > 1 ? "s" : ""}` : W.best[i] + (L.mode === "chrono" ? " bonnes réponses" : L.mode === "surv" ? "/15" : "/10")) : "—"}</b></span><span><span class="coin"></span>${reward} · +${STAR_COINS} par étoile</span></div>
         <button class="av-play" data-adv="play" data-v="${i}" ${lock ? "disabled" : ""}>${W.done[i] ? "Rejouer" : "Jouer"}</button></div>
     </div></div></div>`;
@@ -456,7 +521,7 @@ const Aventure = (() => {
     const sc = document.getElementById("av-scroll");
     if (sc && scr === "map") {
       const k = sc.clientWidth / 400;
-      sc.scrollTop = lastScroll !== null ? lastScroll : NODES[curLevel(1)][1] * k - sc.clientHeight * .6;
+      sc.scrollTop = lastScroll !== null ? lastScroll : WD().nodes[curLevel(cw)][1] * k - sc.clientHeight * .6;
       sc.onscroll = () => { lastScroll = sc.scrollTop; };
     }
     music(true);
@@ -465,28 +530,34 @@ const Aventure = (() => {
   function click(b){
     const a = b.dataset.adv, v = b.dataset.v;
     if (a === "world") {
-      if (v === "1") { scr = "map"; sheet = -1; lastScroll = null; try { Music.sfx("tab3"); } catch(e){} return render(); }
-      toasts.push(+v === 2 && WS(1).done[6] ? "<b>Le Désert des Rois</b> · Ce monde arrive bientôt !" : `<b>🔒 Monde ${v}</b> · Bats le boss du monde précédent pour ouvrir cette île.`);
+      const w = +v;
+      if (worldOpen(w) && built(w)) { cw = w; scr = "map"; sheet = -1; lastScroll = null; try { Music.sfx("tab3"); } catch(e){} return render(); }
+      toasts.push(!built(w) && WS(w - 1).done[6] ? `<b>${WORLDS[w - 1].n}</b> · Ce monde arrive bientôt !` : `<b>🔒 ${WORLDS[w - 1].n}</b> · Bats le boss du monde précédent pour ouvrir cette île.`);
       return render();
     }
     if (a === "isl") { scr = "isl"; sheet = -1; return render(); }
     if (a === "rank") { rankOpen = !rankOpen; return render(); }
     if (a === "node") { sheet = +v; try { Music.sfx("tap"); } catch(e){} return render(); }
     if (a === "close") { sheet = -1; return render(); }
-    if (a === "play") { const i = +v; if (!unlocked(1, i)) return; sheet = -1; return start(1, i); }
+    if (a === "play") { const i = +v; if (!unlocked(cw, i)) return; sheet = -1; return start(cw, i); }
+    if (a === "quests") { if (!questsOpen()) { toasts.push("<b>📜 Tableau de quêtes</b> · Il s'ouvre quand tu as réussi le niveau 4 de la Forêt."); return render(); } scr = "quests"; return render(); }
+    if (a === "qmap") { scr = "map"; return render(); }
+    if (a === "claim") return claim(v);
     if (a === "casino") return Casino.open();
     if (a === "music") { S.settings.music = !S.settings.music; save(); if (!S.settings.music) { music(false); try { Music.stop(); } catch(e){} } else { try { Music.start(); } catch(e){} music(true); } return render(); }
     if (a) return fightClick(a, b);
   }
 
   /* --- Musique de chaque monde (fichier fourni par Erwan, sinon la musique générée de l'appli) --- */
-  let audio = null, audioOk = null;
+  let audio = null, audioOk = null, audioW = 0;
   function music(on){
     const want = on && S.settings.music && S.tab === "aventure" && !(typeof Casino !== "undefined" && Casino.isOpen());
     if (!want) { if (audio && !audio.paused) { audio.pause(); try { if (S.settings.music) Music.start(); } catch(e){} } return; }
+    const w = scr === "isl" ? 1 : cw;
+    if (audio && audioW !== w) { audio.pause(); audio = null; audioOk = null; }
     if (audioOk === false) return;
     if (!audio) {
-      audio = new Audio(WORLDS[0].music); audio.loop = true;
+      audioW = w; audio = new Audio(`musique/monde${w}.mp3`); audio.loop = true;
       audio.addEventListener("error", () => { audioOk = false; try { Music.start(); } catch(e){} });
       audio.addEventListener("playing", () => { audioOk = true; try { Music.stop(); } catch(e){} });
     }
@@ -534,11 +605,11 @@ const Aventure = (() => {
   function paintScene(){
     const L = F.L, p = pet(), boss = isBoss();
     const sub = boss ? `Boss · ${WORLDS[F.w - 1].boss}` : MODE_N[F.mode];
-    layer.innerHTML = `<div class="af ${boss ? "boss" : ""}">
+    layer.innerHTML = `<div class="af w${F.w} ${boss ? "boss" : ""}">
       <div class="af-top"><button class="av-rb wood" data-adv="quit" aria-label="Quitter le combat">✕</button>
         <div class="av-t"><b>${boss ? "Niveau 7" : "Niveau " + (F.i + 1)} · ${L.n}</b><span>${sub}</span></div>
         ${F.mode === "surv" || boss ? hearts() : ""}<span class="av-chip">✓ <b id="af-ok">0</b></span></div>
-      <div class="af-arena" id="af-arena">${arenaBG(boss)}
+      <div class="af-arena" id="af-arena">${WORLDS[F.w - 1].arena(boss)}
         ${boss ? `<div class="af-bosshp"><div class="n"><b>${WORLDS[F.w - 1].boss}</b><span id="af-phase">Phase 1</span></div><div class="bar"><i id="af-bar" style="width:100%"></i><em style="left:33%"></em><em style="left:66%"></em></div></div>`
           : `<div class="af-waves" id="af-waves"></div><div class="af-hp"><div class="n"><span id="af-mname"></span><span id="af-mhp"></span></div><div class="bar"><i id="af-bar"></i></div></div>`}
         <div class="af-hero" id="af-hero">${fluid(meSVG(200))}${p ? `<div class="af-pet">${fluid(creatureSVG(p, 100))}</div>` : ""}</div>
@@ -557,7 +628,7 @@ const Aventure = (() => {
   }
   function showMon(enter){
     const el = document.getElementById("af-mon"); if (!el) return;
-    if (isBoss()) { el.className = "af-mon boss ph" + F.phase + (enter ? " enter" : ""); el.innerHTML = `<div class="af-msvg">${guardianSVG(F.phase)}</div>`; return paintHP(); }
+    if (isBoss()) { el.className = "af-mon boss ph" + F.phase + (enter ? " enter" : ""); el.innerHTML = `<div class="af-msvg">${WORLDS[F.w - 1].bossSVG(F.phase)}</div>`; return paintHP(); }
     const m = F.mons[F.m]; if (!m) { el.innerHTML = ""; return; }
     el.className = "af-mon" + (m.chief ? " chief" : "") + (enter ? " enter" : "");
     el.innerHTML = fluid(monSVG(m.k, 200, "af-msvg"));
@@ -619,6 +690,7 @@ const Aventure = (() => {
     const okEl = document.getElementById("af-ok");
     if (ok) {
       F.ok++; F.streak++; F.best = Math.max(F.best, F.streak); if (okEl) okEl.textContent = F.ok;
+      const Wq = WS(F.w); Wq.ok = (Wq.ok || 0) + 1;
       fx(document.getElementById("af-hero"), "atk", 450);
       setTimeout(hit, 170);
       setTimeout(nextQ, F.mode === "chrono" ? 700 : 1250);
@@ -643,11 +715,11 @@ const Aventure = (() => {
       const ph = m.hp <= 33.4 ? 3 : m.hp <= 66.7 ? 2 : 1;
       if (m.hp <= 0) { F.won = true; const el = document.getElementById("af-mon"); el.classList.add("die"); setTimeout(end, 900); F.n = F.list.length; return; }
       if (ph !== F.phase) { F.phase = ph; setTimeout(() => { showMon(false); fx(document.getElementById("af-mon"), "morph", 700); fx(document.getElementById("af-arena"), "shake", 360);
-        banner(ph === 2 ? "Phase 2 · Le Gardien s'enrage !" : "Phase 3 · Forme ancestrale !"); try { Music.sfx("level"); } catch(e){} }, 450); }
+        banner(WORLDS[F.w - 1].phase[ph - 2]); try { Music.sfx("level"); } catch(e){} }, 450); }
       return;
     }
     m.hp--; paintHP(); fx(document.getElementById("af-mon"), "hit", 420); dmg("-1");
-    if (m.hp <= 0) {
+    if (m.hp <= 0) { const Wk = WS(F.w); Wk.kills = (Wk.kills || 0) + 1;
       document.getElementById("af-mon").classList.add("die");
       setTimeout(() => { if (!F) return; if (F.m < F.mons.length - 1) { F.m++; showMon(true); } else { document.getElementById("af-mon").innerHTML = ""; paintWaves(); } }, 560);
     }
@@ -672,6 +744,8 @@ const Aventure = (() => {
       coins += newStars * STAR_COINS;
       W.done[i] = 1;
       const score = isBoss() ? F.lives : F.ok;
+      if (F.mode === "c" && F.ok >= 10) W.perfect = 1;
+      if (F.mode === "surv" && F.lives === 3) W.surv3 = 1;
       W.best[i] = Math.max(W.best[i] || 0, score);
     }
     W.st[i] = newMask;
@@ -688,14 +762,14 @@ const Aventure = (() => {
     const win = r.win, L = F.L, p = pet(), boss = isBoss();
     const alive = F.mons.filter(m => m.hp > 0);
     const flee = !win ? (F.mode === "surv" || boss ? "Tu n'as plus de vie. Retente ta chance !" : F.mode === "chrono" ? "Il faut 8 bonnes réponses en 60 secondes. Retente ta chance !" : "Il faut 6 bonnes réponses pour passer. Retente ta chance !")
-      : boss ? `${WORLDS[F.w - 1].boss} est vaincu ! La forêt retrouve son calme.` : F.mode === "chrono" ? `${F.m} monstres balayés en 60 secondes !`
+      : boss ? WORLDS[F.w - 1].win : F.mode === "chrono" ? `${F.m} monstres balayés en 60 secondes !`
       : alive.length ? (alive.some(m => m.chief) ? "Le chef de bande s'enfuit dans les fourrés…" : "Les derniers monstres s'enfuient !") : "Toute la bande est vaincue, même le chef !";
     const banner = `<svg viewBox="0 0 300 70"><defs>${lg("avBnr", "#FF6A7A", "#C8243A")}</defs><path d="M8 22 L40 22 L40 58 L22 50 L4 58 L14 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TD}" stroke-width="3" stroke-linejoin="round"/><path d="M292 22 L260 22 L260 58 L278 50 L296 58 L286 40Z" fill="${win ? "#B02A3A" : "#4A4466"}" stroke="${TD}" stroke-width="3" stroke-linejoin="round"/>
       <path d="M30 8 L270 8 Q276 30 270 52 L30 52 Q24 30 30 8Z" fill="${win ? "url(#avBnr)" : "#6A6680"}" stroke="${TD}" stroke-width="3.4"/><path d="M40 16 L260 16" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>
       <text x="150" y="41" text-anchor="middle" style="font:800 30px var(--f-display);letter-spacing:.04em" fill="#FFD23F" stroke="${TD}" stroke-width="5" paint-order="stroke">${win ? "VICTOIRE !" : "DÉFAITE…"}</text></svg>`;
     const big = (on, k) => `<svg class="${k === 1 ? "mid" : ""}" width="${k === 1 ? 64 : 52}" height="${k === 1 ? 64 : 52}" viewBox="0 0 40 40"><path d="${starP(20, 21, 18)}" fill="${on ? "#FFD23F" : "#CDBF9E"}" stroke="${TD}" stroke-width="2.6" stroke-linejoin="round"/>${on ? `<path d="M13 13 L17 11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>` : ""}</svg>`;
     const score = boss ? `${F.ok} coups portés<small>${F.lives} vie${F.lives > 1 ? "s" : ""} restante${F.lives > 1 ? "s" : ""} · ${L.n}</small>` : F.mode === "chrono" ? `${F.ok} bonnes réponses<small>en 60 secondes · ${L.n}</small>` : `${F.ok} / ${F.n}<small>bonnes réponses · ${L.n}</small>`;
-    const nextWorld = win && boss ? `<p class="af-flee"><b>Le Monde 2, le Désert des Rois, arrive bientôt !</b></p>` : "";
+    const nx = WORLDS[F.w], nextWorld = win && boss && nx ? `<p class="af-flee"><b>${built(F.w + 1) ? `Nouvelle île débloquée : ${nx.n} !` : `Le Monde ${F.w + 1}, ${nx.n}, arrive bientôt !`}</b></p>` : "";
     const el = document.getElementById("af-poster");
     el.innerHTML = `<div class="af-board"><div class="af-bnr">${banner}</div><div class="af-paper">
       ${win ? `<div class="af-heroes"><span class="w">${meSVG(74)}</span>${p ? `<span class="w w2">${creatureSVG(p, 40)}</span>` : ""}</div>` : ""}
@@ -735,7 +809,17 @@ const Aventure = (() => {
       <p class="av-rank-p">Mis à jour automatiquement. Seuls les amis qui ont joué à l'Aventure apparaissent.</p></div>`;
   }
   const ADV_TITLES = {adv1:{id:"adv1", n:"FLÉAU DE LA FORÊT", a:"#9BE36A", b:"#1E5A2A", f:"#FFFFFF"}};
-  return {init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList}};
+  Object.assign(WORLDS[0], {nodes:NODES, h:1580, mapDraw:mapBase, bossSVG:guardianSVG, arena:arenaBG, qp:"f1",
+    phase:["Phase 2 · Le Gardien s'enrage !", "Phase 3 · Forme ancestrale !"], win:"Le Gardien Sylvestre est vaincu ! La forêt retrouve son calme.",
+    qn:["Ouvrir la route", "Jusqu'au cœur des bois", "Le Gardien vaincu", "Chasseur d'étoiles", "Toutes les étoiles de la forêt", "Érudit des bois", "Nettoyeur de clairières", "Sans faute", "Rapide comme l'éclair", "Intouchable"]});
+  // Un monde de plus (fichiers aventure_m2.js…) : données, dessins de la carte, monstres, boss et arène
+  function register(w, def){
+    Object.assign(WORLDS[w - 1], def);
+    if (def.monsters) { Object.keys(def.monsters).forEach(k => { MON[k] = def.monsters[k].draw; MON_N[k] = def.monsters[k].n; }); }
+    if (def.title) ADV_TITLES[def.title.id] = def.title, WORLDS[w - 1].title = def.title.id;
+  }
+  const kit = {TD, rnd, smooth, sample, dist, near, blob, bumpy, tf, lg, rg, starP, flower, monSVG};
+  return {register, kit, pctOf:w => built(w) ? pct(w) : 0, init, view, after, leave, click, playing, stats, titles:ADV_TITLES, _test:{start, end:() => end(), F:() => F, choose, WS, makeList, show:() => showMon(false)}};
 })();
 
 try { Aventure.init(); } catch(e){}
