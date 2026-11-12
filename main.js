@@ -1123,7 +1123,7 @@ function onClick(e){
   if (e.target.closest && e.target.closest("#av-fight,#casino,#atlas")) return;
   const av = e.target.closest && e.target.closest("[data-adv]");
   if (av && av.tagName !== "BUTTON" && typeof Aventure !== "undefined") return Aventure.click(av);
-  const see = e.target.closest("[data-see]"); if (see && !e.target.closest("button") && typeof Profil !== "undefined") return Profil.see(see.dataset.see);
+  const see = e.target.closest("[data-see]"); if (see && (!e.target.closest("button") || see.classList.contains("am-prof")) && typeof Profil !== "undefined") return Profil.see(see.dataset.see);
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   const d = b.dataset, s = S.session;
   if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }

@@ -217,6 +217,7 @@ const Atlas = (() => {
     if (view === "mymap") initMap([0, 0, ATLAS.w, ATLAS.h]);
   }
   function onClick(e){
+    const see = e.target.closest("[data-see]"); if (see && !e.target.closest("button") && typeof Profil !== "undefined") return Profil.see(see.dataset.see, true);
     const b = e.target.closest("button"); if (!b || b.disabled) return; const d = b.dataset;
     if (d.z !== undefined && M) { if (d.z === "0") { fit(M.box); clamp(); apply(); } else zoomAt(M.w / 2, M.h / 2, M.k * (d.z === "1" ? 1.6 : .62)); return; }
     if (d.set) { A().set[d.set] = d.set === "k" ? d.v : +d.v; save(); return paint(); }

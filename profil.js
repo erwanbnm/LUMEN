@@ -189,47 +189,121 @@ const Profil = (() => {
   }
   /* ---------- Fiche d'un autre joueur (depuis les classements) et comparaison ---------- */
   // Ce que je publie pour les autres (avec le ping) : listes simples, pas de listes dans des listes (Firestore)
-  function pub(){ const c = myCard(); return {bn:c.bn, fr:c.fr, bd:c.bd, rk:c.rk, wr:c.wr, pl:c.pl, tw:c.tw}; }
+  function pub(){ const c = myCard(), R = S.rec || {}, pet = typeof Familiers !== "undefined" && Familiers.eq();
+    return {bn:c.bn, fr:c.fr, bd:c.bd, rk:c.rk, wr:c.wr, pl:c.pl, tw:c.tw,
+      rc:[N(R.chrono), N(R.survie), N(R.avap), Math.max(N(S.bestStreak), typeof streak === "function" ? streak() : 0)],
+      nb:[Object.keys(S.badges || {}).length, Object.keys(S.titles || {}).length], co:Object.keys(S.coll || {}), pt:(pet && pet.id) || ""}; }
   const API = () => (typeof Amis !== "undefined" && Amis.api) || null;
   const clampR = r => Math.min(7, Math.max(0, Math.floor(+r || 0)));
   function theirCard(id){
     const U = (API() && API().users()[id]) || {}, st = U.st || {}, cd = st.cd || {}, A = pres(txpOf(st));
     return {name:U.pseudo || "Joueur", ti:U.ti || "", P:A.P, L:A.L, p:A.p, txp:txpOf(st), bn:typeof cd.bn === "string" ? cd.bn : "aube", fr:typeof cd.fr === "string" ? cd.fr : "bronze",
       bd:Array.isArray(cd.bd) ? cd.bd.filter(x => typeof x === "string").slice(0, 3) : [], rk:Array.isArray(cd.rk) ? cd.rk.slice(0, 8).map(clampR) : [],
-      wr:typeof cd.wr === "number" ? cd.wr : null, pl:+cd.pl || 0, tw:+cd.tw || +(st.tw && st.tw.best) || 0, ok:+st.ok || 0, stars:+(st.adv && st.adv.stars) || 0, old:!st.cd};
+      wr:typeof cd.wr === "number" ? cd.wr : null, pl:+cd.pl || 0, tw:+cd.tw || +(st.tw && st.tw.best) || 0, ok:+st.ok || 0, stars:+(st.adv && st.adv.stars) || 0, old:!st.cd || !cd.rc,
+      rc:Array.isArray(cd.rc) ? cd.rc.map(x => +x || 0) : [0, 0, +st.avap || 0, +st.streak || 0], nb:Array.isArray(cd.nb) ? cd.nb.map(x => +x || 0) : null,
+      co:Array.isArray(cd.co) ? cd.co.filter(x => typeof x === "string") : [], pt:typeof cd.pt === "string" ? cd.pt : "", atl:st.atl || null, av:U.av || ""};
+  }
+  // Mes données sous la même forme
+  function meFull(){ const c = myCard(), p = pub(); let stars = 0; try { stars = Aventure.stats().stars || 0; } catch(e){}
+    return Object.assign(c, {txp:totalXp(), stars, rc:p.rc, nb:p.nb, co:p.co, pt:p.pt, atl:typeof Atlas !== "undefined" ? Atlas.stats() : null});
   }
   let pv = null; // {id, mode:"card"|"cmp", el}
-  function see(id){ if (!id) return; closePv(); const el = document.createElement("div"); el.className = "pv"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+  function see(id, force){ if (!id || (!force && typeof inPlay === "function" && inPlay())) return; closePv(); const el = document.createElement("div"); el.className = "pv"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
     el.addEventListener("click", e => { if (e.target === el) closePv(); }); document.body.appendChild(el); pv = {id, mode:"card", el}; paintPv(); try { Music.sfx("tap"); } catch(e){} }
   function closePv(){ if (pv && pv.el) pv.el.remove(); pv = null; }
   function paintPv(){
-    if (!pv) return; const me = API() && pv.id === API().uid(), c = me ? Object.assign(myCard(), {txp:totalXp()}) : theirCard(pv.id);
-    const av = me ? meSVG(74) : API() ? API().avatar(pv.id, 74) : "";
-    const body = pv.mode === "cmp" && !me ? compare(c) : cardHTML(c, av) + (c.old ? `<p class="muted pv-old">Ce joueur n'a pas encore la dernière version de Lumen : sa carte se complétera quand il ouvrira l'appli.</p>` : "")
-      + (me ? "" : `<button class="btn pv-cmp" data-pc="cmp">${typeof gIcon === "function" ? gIcon("sword", 22) : ""} Comparer avec moi</button>`);
+    if (!pv) return; const me = API() && pv.id === API().uid(), c = me ? meFull() : theirCard(pv.id);
+    const av = me ? meSVG(74) + (typeof Familiers !== "undefined" ? Familiers.beside(30, "vc-pet") : "") : (API() ? API().avatar(pv.id, 74, true) : "") + (c.pt && typeof petOf === "function" && petOf(c.pt) ? `<span class="pet-by vc-pet">${creatureSVG(petOf(c.pt), 30)}</span>` : "");
+    const body = pv.mode === "cmp" && !me ? compare(c) : cardHTML(c, av) + details(c, me);
     pv.el.innerHTML = `<div class="pv-box"><button class="pv-x" data-pc="close" aria-label="Fermer">✕</button>${pv.mode === "cmp" && !me ? `<button class="btn small ghost pv-back" data-pc="card">← Sa carte</button>` : ""}${body}</div>`;
   }
+  const BAN_N = {aube:"Aube", neant:"Néant"}, FR_N = {bronze:"Bronze", roi:"Roi-liche"};
+  PArt.COLL.forEach(c => { BAN_N[c.k] = c.items[0][0].replace(/^Bannière « (.*) »$/, "$1"); FR_N[c.k] = c.items[1][0].replace(/^Cadre « (.*) »$/, "$1"); });
+  const agoTxt = t => { const m = Math.round((Date.now() - (t || 0)) / 60000); return !t ? "Hors ligne" : m < 60 ? `Vu il y a ${m} min` : m < 1440 ? `Vu il y a ${Math.round(m / 60)} h` : `Vu il y a ${Math.round(m / 1440)} j`; };
+  // Sections du profil public : statut, actions, maîtrise, records, distinctions, cosmétiques
+  function details(c, me){
+    const api = API(), U = api && !me ? api.users()[pv.id] || {} : {}, on = me || (api && api.online(pv.id));
+    const G = typeof Guildes !== "undefined" ? Guildes.mine() : null, inG = G && G.g && G.g.members && G.g.members[pv.id];
+    const dom = DOMS.map((d, i) => { const r = (c.rk || [])[i] || 0; return `<div class="pm-dom ${r ? "" : "off"}">${rankArt(r, d)}<b>${esc(PArt.DOM[d].n)}</b><span>${r ? RN[r] : "Non classé"}</span></div>`; }).join("");
+    const rc = c.rc || [0, 0, 0, 0], atl = c.atl || {};
+    const rec = [["Tour", c.tw ? "Étage " + c.tw : "—"], ["Chrono", rc[0] || "—"], ["Survie", rc[1] || "—"], ["Avant ou après", rc[2] || "—"], ["Série de jours", rc[3] ? rc[3] + " j" : "—"], ["Aventure", (c.stars || 0) + " ★"],
+      ["Atlas · pays", (atl.f || 0) + "/197"], ["Atlas · capitales", (atl.c || 0) + "/196"], ["Duels", c.pl ? `${c.pl} · ${c.wr || 0} %` : "—"], ["Bonnes réponses", fmt(c.ok || 0)]];
+    const co = c.co || [], coll = PArt.COLL.map(k => { const n = [0, 1, 2].filter(i => co.includes(k.k + i)).length;
+      return `<div class="pf-co ${n ? "" : "off"}" style="--c:${k.col}"><b>${esc(k.n.replace(/^Collection (du |de la |de l'|des )/, ""))}</b><span>${"●".repeat(n)}<i>${"○".repeat(3 - n)}</i></span></div>`; }).join("");
+    const nb = c.nb || [null, null], pet = c.pt && typeof petOf === "function" ? petOf(c.pt) : null, ch = me ? heroChar() : (typeof skinOf === "function" && skinOf(c.av)) || null;
+    return `<div class="pf-stat"><span class="${on ? "on" : ""}"><i class="st-dot ${on ? "on" : "off"}"></i>${me ? "C'est toi" : on ? "En ligne" : agoTxt(U.seen)}</span>${inG && !me ? `<span>Dans ta guilde</span>` : ""}<span>${fmt(c.txp || 0)} XP</span></div>
+      ${c.old ? `<p class="muted pv-old">Ce joueur n'a pas encore la dernière version de Lumen : son profil se complétera quand il ouvrira l'appli.</p>` : ""}
+      ${me ? "" : `<div class="pf-act"><button class="btn" data-pc="cmp">${typeof gIcon === "function" ? gIcon("sword", 22) : ""} Comparer avec moi</button><button class="btn ghost" data-pc="duel">⚔️ Le défier en duel</button></div>`}
+      <div class="cp-box"><div class="label">Maîtrise des domaines</div><div class="pm-grid">${dom}</div></div>
+      <div class="cp-box"><div class="label">Records</div><div class="pf-rec">${rec.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("")}</div></div>
+      <div class="cp-box"><div class="label">Distinctions</div><div class="pf-dist"><div><b>${nb[0] === null ? "—" : nb[0]}</b><span>badges</span></div><div><b>${nb[1] === null ? "—" : nb[1]}</b><span>titres</span></div><div><b>${co.length}<small>/18</small></b><span>collections</span></div></div><div class="pf-cols">${coll}</div></div>
+      <div class="cp-box"><div class="label">Cosmétiques mis en avant</div><div class="pf-cos">
+        <div><span class="pf-th">${ch ? creatureSVG(ch, 56) : ""}</span><b>Personnage</b><small>${esc((ch && ch.n) || "")}</small></div>
+        <div><span class="pf-th">${pet ? creatureSVG(pet, 50) : "—"}</span><b>Familier</b><small>${pet ? esc(pet.n || "") : "Aucun"}</small></div>
+        <div><span class="pf-th bn">${PArt.bannerArt(c.bn || "aube")}</span><b>Bannière</b><small>${esc(BAN_N[c.bn] || "Aube")}</small></div>
+        <div><span class="pf-th fr">${PArt.frameArt(c.fr || "bronze", "")}</span><b>Cadre</b><small>${esc(FR_N[c.fr] || "Bronze")}</small></div></div></div>`;
+  }
   function compare(o){
-    const m = Object.assign(myCard(), {txp:totalXp(), stars:(() => { try { return Aventure.stats().stars || 0; } catch(e){ return 0; } })()});
+    const m = meFull();
     const row = (lab, a, b, va, vb) => { const w = va === vb ? 0 : va > vb ? 1 : -1; return `<div class="cp-r"><b class="${w > 0 ? "win" : ""}">${a}</b><span>${lab}</span><b class="${w < 0 ? "win" : ""}">${b}</b></div>`; };
     const pr = c => `${c.P >= 10 ? "MP" : "P" + c.P} · niv. ${c.L}`;
     const rows = [
       row("Prestige", pr(m), pr(o), m.txp, o.txp), row("XP totale", fmt(m.txp), fmt(o.txp), m.txp, o.txp), row("Bonnes réponses", fmt(m.ok), fmt(o.ok), m.ok, o.ok),
       row("Tour · meilleur étage", m.tw || "—", o.tw || "—", m.tw, o.tw), row("Victoires en duel", m.wr === null ? "—" : m.wr + " %", o.wr === null ? "—" : o.wr + " %", m.wr || 0, o.wr || 0),
-      row("Duels joués", m.pl, o.pl, m.pl, o.pl), row("Étoiles de l'Aventure", m.stars, o.stars, m.stars, o.stars)].join("");
+      row("Duels joués", m.pl, o.pl, m.pl, o.pl), row("Étoiles de l'Aventure", m.stars, o.stars, m.stars, o.stars),
+      row("Chrono", m.rc[0], o.rc[0], m.rc[0], o.rc[0]), row("Survie", m.rc[1], o.rc[1], m.rc[1], o.rc[1]), row("Avant ou après", m.rc[2], o.rc[2], m.rc[2], o.rc[2]), row("Série de jours", m.rc[3], o.rc[3], m.rc[3], o.rc[3]),
+      row("Atlas · pays", (m.atl || {}).f || 0, (o.atl || {}).f || 0, (m.atl || {}).f || 0, (o.atl || {}).f || 0), row("Atlas · capitales", (m.atl || {}).c || 0, (o.atl || {}).c || 0, (m.atl || {}).c || 0, (o.atl || {}).c || 0),
+      ...(o.nb ? [row("Badges", m.nb[0], o.nb[0], m.nb[0], o.nb[0])] : []), row("Collections", m.co.length, o.co.length, m.co.length, o.co.length)].join("");
     const dom = DOMS.map((d, i) => { const a = m.rk[i] || 0, b = o.rk[i] || 0, w = a === b ? 0 : a > b ? 1 : -1;
       return `<div class="cp-d"><span class="cp-rk ${w > 0 ? "win" : ""} ${a ? "" : "off"}">${rankArt(a, d)}</span><span class="cp-dn">${esc(PArt.DOM[d].n)}<small>${a ? RN[a] : "—"} · ${b ? RN[b] : "—"}</small></span><span class="cp-rk ${w < 0 ? "win" : ""} ${b ? "" : "off"}">${rankArt(b, d)}</span></div>`; }).join("");
     const score = DOMS.reduce((t, d, i) => t + Math.sign((m.rk[i] || 0) - (o.rk[i] || 0)), 0);
     const h = API() && API().h2h ? API().h2h(pv.id) : {w:0, d:0, l:0};
-    return `<div class="cp"><div class="cp-h"><div>${meSVG(56)}<b>${esc(m.name)}</b></div><span class="cp-vs">VS</span><div>${API() ? API().avatar(pv.id, 56) : ""}<b>${esc(o.name)}</b></div></div>
+    return `<div class="cp"><div class="cp-h"><div>${meSVG(56)}<b>${esc(m.name)}</b></div><span class="cp-vs">VS</span><div>${API() ? API().avatar(pv.id, 56, true) : ""}<b>${esc(o.name)}</b></div></div>
       <div class="cp-box"><div class="label">Face-à-face en duel</div>${h.w + h.d + h.l ? `<div class="cp-h2h"><b class="${h.w > h.l ? "win" : ""}">${h.w}</b><span>${h.w > 1 ? "victoires" : "victoire"} · ${h.d} nul${h.d > 1 ? "s" : ""}</span><b class="${h.l > h.w ? "win" : ""}">${h.l}</b></div>` : `<p class="muted" style="margin:4px 0 0">Vous ne vous êtes jamais affrontés. Lance-lui un duel !</p>`}</div>
       <div class="cp-box"><div class="label">Records</div>${rows}</div>
       <div class="cp-box"><div class="label">Maîtrise des domaines · ${score > 0 ? "tu mènes" : score < 0 ? (esc(o.name) + " mène") : "égalité"}</div>${dom}</div></div>`;
   }
 
+  /* ---------- Écran « Joueurs » de l'onglet Multi ---------- */
+  // Point unique pour un futur système d'amis : aujourd'hui, tout le monde est ami avec tout le monde
+  const friends = id => true;
+  const jo = {q:"", f:"all", s:"online"};
+  function players(){
+    const api = API(); if (!api) return "";
+    const users = api.users(), me = api.uid(), G = typeof Guildes !== "undefined" ? Guildes.mine() : null, gm = (G && G.g && G.g.members) || {};
+    const all = Object.keys(users).filter(id => id !== me && friends(id)), on = all.filter(id => api.online(id));
+    const q = jo.q.trim().toLowerCase();
+    let rows = all.filter(id => !q || String(api.pseudoOf(id)).toLowerCase().includes(q)).filter(id => jo.f === "all" || (jo.f === "on" && api.online(id)) || (jo.f === "guild" && gm[id]));
+    const xp = id => txpOf((users[id] && users[id].st) || {});
+    rows.sort(jo.s === "lvl" ? (a, b) => xp(b) - xp(a) : jo.s === "name" ? (a, b) => String(api.pseudoOf(a)).localeCompare(String(api.pseudoOf(b))) : (a, b) => (api.online(b) - api.online(a)) || (((users[b] || {}).seen || 0) - ((users[a] || {}).seen || 0)));
+    const card = (id, isMe) => { const U = users[id] || {}, st = U.st || {}, cd = isMe ? pub() : st.cd || {}, A = pres(isMe ? totalXp() : txpOf(st));
+      const rk = (Array.isArray(cd.rk) ? cd.rk : []).map(clampR), top = DOMS.map((d, i) => [d, rk[i] || 0]).sort((x, y) => y[1] - x[1]).slice(0, 3).filter(x => x[1]);
+      const online = isMe || api.online(id);
+      return `<div class="jl-card ${isMe ? "me" : ""}" data-see="${id}" role="button" tabindex="0" aria-label="Voir le profil de ${esc(api.pseudoOf(id))}">
+        <span class="jl-bn">${PArt.bannerArt(typeof cd.bn === "string" ? cd.bn : "aube")}</span>
+        <span class="jl-av">${isMe ? meSVG(58) : api.avatar(id, 58, true)}<i class="st-dot ${online ? "on" : "off"}"></i></span>
+        <span class="jl-id"><b>${esc(api.pseudoOf(id))}${isMe ? ` <em class="jl-me">Toi</em>` : ""}</b>${api.title(id, "xs")}<span class="jl-lv"><span class="jl-emb">${emblem(A.P, true)}</span>${A.P >= 10 ? "Maître Prestige" : "Prestige " + A.P} · niv. ${A.L}</span><span class="jl-seen ${online ? "on" : ""}">${isMe ? "C'est toi" : online ? "En ligne" : agoTxt(U.seen)}</span></span>
+        <span class="jl-rk">${top.map(([d, r]) => `<span title="${esc(PArt.DOM[d].n)} : ${RN[r]}">${rankArt(r, d)}</span>`).join("")}</span></div>`; };
+    const chip = (k, v, l) => `<button class="chip-btn ${jo[k] === v ? "on" : ""}" data-pc="jo" data-k="${k}" data-v="${v}" aria-pressed="${jo[k] === v}">${l}</button>`;
+    return `<section class="stack">
+      <div class="row between"><button class="quit" data-am="multi" data-v="home">← Multi</button><span class="label">${all.length} joueurs</span></div>
+      <h1 class="big" style="margin:0">Joueurs</h1>
+      <label class="jl-search"><span aria-hidden="true">🔍</span><input id="jo-q" type="search" placeholder="Rechercher un pseudo" value="${esc(jo.q)}" autocomplete="off" aria-label="Rechercher un joueur"></label>
+      <div class="row" style="gap:6px;flex-wrap:wrap">${chip("f", "all", "Tous")}${chip("f", "on", `En ligne · ${on.length}`)}${G ? chip("f", "guild", "Ma guilde") : ""}</div>
+      <div class="row" style="gap:6px;align-items:center;flex-wrap:wrap"><span class="label">Trier</span>${chip("s", "online", "En ligne d'abord")}${chip("s", "lvl", "Niveau")}${chip("s", "name", "Pseudo")}</div>
+      ${!q && jo.f === "all" ? card(me, true) : ""}
+      ${rows.map(id => card(id)).join("") || `<div class="card"><p class="muted" style="margin:0">Aucun joueur ne correspond.</p></div>`}
+      <p class="muted" style="font-size:13px;text-align:center">Touche un joueur pour voir son profil et te comparer à lui. Le statut se met à jour quand chacun ouvre l'appli.</p>
+    </section>`;
+  }
+  document.addEventListener("input", e => { if (e.target.id !== "jo-q") return; jo.q = e.target.value; const pos = e.target.selectionStart; render(); const n = document.getElementById("jo-q"); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch(err){} } });
+  const hubInfo = () => { const api = API(); if (!api) return null; const ids = Object.keys(api.users()).filter(id => id !== api.uid() && friends(id)); return {n:ids.length, on:ids.filter(id => api.online(id)).length, ids}; };
+
   function click(b){
     const d = b.dataset, c = C();
     if (d.pc === "close") return closePv();
+    if (d.pc === "jo") { jo[d.k] = d.v; return render(); }
+    if (d.pc === "duel") { const id = pv && pv.id; closePv(); if (id && API() && API().pickOpponent) API().pickOpponent(id); return; }
     if (d.pc === "cmp" || d.pc === "card") { if (pv) { pv.mode = d.pc; paintPv(); pv.el.scrollTop = 0; } return; }
     if (d.pc === "edit") editing = !editing;
     else if (d.pc === "bn" && okBan(d.v)) c.bn = d.v;
@@ -238,5 +312,5 @@ const Profil = (() => {
     save(); render();
   }
 
-  return {DOMS, pres, mast, name, label, emblem, mini, rankArt, progress, check, checkColl, collections, titles:TITLES_C, txpOf, boardTxt, myCard, cardHTML, myCardBlock, click, pub, see};
+  return {DOMS, pres, mast, name, label, emblem, mini, rankArt, progress, check, checkColl, collections, titles:TITLES_C, txpOf, boardTxt, myCard, cardHTML, myCardBlock, click, pub, see, players, hubInfo};
 })();

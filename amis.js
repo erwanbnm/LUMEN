@@ -440,8 +440,10 @@ const Amis = (function(){
     return crownCache.id;
   }
   const CROWN = `<svg class="am-crown" viewBox="0 0 40 28" aria-label="Couronne du n°1 de la semaine"><path d="M4 24 L2 6 L12 14 L20 2 L28 14 L38 6 L36 24Z" fill="#FFD23F" stroke="#2B1D3A" stroke-width="2.6" stroke-linejoin="round"/><path d="M5 20 H35" stroke="#E8A400" stroke-width="2.4"/><circle cx="20" cy="12" r="2.6" fill="#FF5FA2" stroke="#2B1D3A" stroke-width="1.4"/></svg>`;
-  const avatar = (id, z) => { const u = users[id], sk = u && u.av && skinOf(u.av), svg = creatureSVG(sk || CHARS[0], z || 34);
-    return id && id === crownId() ? `<span class="am-crowned" style="--z:${z || 34}px">${svg}${CROWN}</span>` : svg; };
+  const avatar = (id, z, raw) => { const u = users[id], sk = u && u.av && skinOf(u.av), svg = creatureSVG(sk || CHARS[0], z || 34);
+    if (raw) return svg;
+    const inner = id && id === crownId() ? `<span class="am-crowned" style="--z:${z || 34}px">${svg}${CROWN}</span>` : svg;
+    return id ? `<span class="am-av" data-see="${id}">${inner}</span>` : inner; };
   // Pastille verte « En ligne » ou rouge « Hors ligne »
   const status = id => `<span class="am-st ${online(id) ? "on" : "off"}"><i class="st-dot"></i>${online(id) ? "En ligne" : "Hors ligne"}</span>`;
   const chip = (k, v, label, on) => `<button class="chip-btn ${on ? "on" : ""}" data-am="${k}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
@@ -453,6 +455,8 @@ const Amis = (function(){
     return `<section class="stack"><h1 class="big" style="margin:0">Multi</h1>
       ${door("jcj", gIcon("sword", 64), "Joueur contre joueur", "Duels en direct ou en différé, salons privés et classement", recv)}
       ${door("guild", G ? Guildes.emblem(G.g.emb, 70, G.t.lvl) : Guildes.emblem({s:"ecu", c:"rubis", i:"duel"}, 70, 1), "Guildes", G ? `${esc(G.g.name)} · niveau ${G.t.lvl} · ${Object.keys(G.g.members).length}/5 membres` : "Fonde ou rejoins une guilde de 5 amis maximum", inv)}
+      ${typeof Profil !== "undefined" ? (() => { const h = Profil.hubInfo() || {n:0, on:0, ids:[]}; const faces = h.ids.slice(0, 4).map((id, i) => `<span style="position:absolute;left:${4 + i * 15}px;top:${i % 2 ? 22 : 8}px">${avatar(id, 34, true)}</span>`).join("");
+        return door("players", `<span class="mh-faces">${faces}</span>`, "Joueurs", `${h.n} joueurs · <span class="mh-on">${h.on} en ligne</span> · profils, records et comparaisons`, 0); })() : ""}
     </section>`;
   }
   function view(){
@@ -463,6 +467,7 @@ const Amis = (function(){
     if (typeof Salons !== "undefined" && Salons.active()) return Salons.view();
     const mv = S.multiView || "home";
     if (mv === "guild" && typeof Guildes !== "undefined") return Guildes.view();
+    if (mv === "players" && typeof Profil !== "undefined") return Profil.players();
     if (mv !== "jcj") return viewHub();
     if (ui.view === "board") return viewBoard();
     const others = Object.keys(users).filter(id => id !== uid()).sort((a, b) => online(b) - online(a));
@@ -478,7 +483,7 @@ const Amis = (function(){
       ${recv.length ? `<div class="card stack banner-am"><div class="label">Défis reçus</div>${recv.map(d => `<div class="am-row">${avatar(d.from)}<div class="stack grow" style="gap:2px"><b>${esc(pseudoOf(d.from))}</b><span class="muted">${esc(duelLabel(d))}${d.res && d.res[d.from] && d.res[d.from].done ? " · à battre : " + d.res[d.from].ok : ""}</span>${betChip(d)}</div><button class="btn small" data-am="accept" data-id="${d.id}">${d.bet ? "Miser " + d.bet : "Relever"}</button></div>`).join("")}</div>` : ""}
       <div class="card stack">
         <div class="label">1 · Ton adversaire</div>
-        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44)}<span>${esc(pseudoOf(id))}</span>${titleOf(id, "xs")}${status(id)}</button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
+        ${others.length ? `<div class="am-friends">${others.map(id => `<button class="am-f ${ui.friend === id ? "on" : ""}" data-am="friend" data-v="${id}" aria-pressed="${ui.friend === id}">${avatar(id, 44, true)}<span>${esc(pseudoOf(id))}</span>${titleOf(id, "xs")}${status(id)}<span class="am-prof" data-see="${id}" role="button">Profil</span></button>`).join("")}</div>` : `<p class="muted">Aucun ami inscrit pour l'instant. Envoie-leur le lien de Lumen !</p>`}
         <div class="label">2 · Le mode de jeu</div>
         <div class="am-modes">${Object.keys(MODES).map(k => `<button class="am-mode ${m === k ? "on" : ""}" data-am="mode" data-v="${k}" aria-pressed="${m === k}">${gIcon(MODES[k].icon, 40)}<b>${MODES[k].n}</b><span>${MODES[k].d}</span></button>`).join("")}</div>
         ${m === "classic" ? `<div class="label">3 · Le thème</div>
@@ -635,7 +640,8 @@ const Amis = (function(){
   // Accès partagé pour les salons privés (salons.js)
   // Titre d'un ami (le LOOSER DU JOUR ne compte que le jour même)
   const titleOf = (id, cls) => { const u = users[id]; if (!u || !u.ti || (u.ti === "looser" && u.tid !== today())) return ""; return titleTag(u.ti, cls || "sm"); };
-  const api = {stats, h2h, db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
+  const pickOpponent = id => { ui.friend = id; ui.view = "main"; S.multiView = "jcj"; S.tab = "amis"; save(); render(); window.scrollTo(0, 0); };
+  const api = {stats, h2h, pickOpponent, db:() => db, fb:() => fb, uid, me:() => me, users:() => users, avatar, pseudoOf, online, rerender, ping, title:titleOf};
   return {view, click, sync, duelBar, countdown, recap, enabled, dirty:() => push(false), accountCard, notifCard, welcome, welcomeView, welcoming:() => !!ui.welcome, api};
 })();
 
