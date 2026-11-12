@@ -1,6 +1,6 @@
 2|Où se trouve le siège de l'ONU ?|New York|Genève|Paris|Bruxelles|À Manhattan depuis 1952. Genève accueille son deuxième siège, et Paris celui de l'UNESCO.
 3|Combien de membres permanents compte le Conseil de sécurité de l'ONU ?|5|10|15|7|Chine, États-Unis, France, Royaume-Uni et Russie, chacun avec un droit de veto.
-1|Combien de pays compte l'Union européenne ?|27|28|25|30|28 jusqu'à la sortie du Royaume-Uni, effective en 2020.
+1|Combien de pays compte l'Union européenne en 2025 ?|27|28|25|30|28 jusqu'à la sortie du Royaume-Uni, effective en 2020.
 1|Quelle est la monnaie du Japon ?|Le yen|Le yuan|Le won|Le baht|Le yuan est la monnaie chinoise, le won celle de la Corée du Sud.
 2|Quelle est la langue la plus parlée au monde comme langue maternelle ?|Le mandarin|L'anglais|L'espagnol|L'hindi|Mais en comptant ceux qui l'ont apprise, c'est l'anglais qui a le plus de locuteurs.
 2|Combien de pays ont le français comme langue officielle ?|Une trentaine|Une dizaine|Une cinquantaine|Plus de 80|Dont beaucoup en Afrique. Le français est aussi une langue officielle de l'ONU et des Jeux olympiques.
@@ -35,7 +35,7 @@
 2|Que représentent les 50 étoiles du drapeau américain ?|Les 50 États|Les présidents|Les guerres gagnées|Les grandes villes|Les 13 bandes rappellent les 13 colonies fondatrices.
 2|Quel pays a la plus grande population d'Afrique ?|Le Nigeria|L'Égypte|L'Éthiopie|L'Afrique du Sud|Plus de 220 millions d'habitants. Lagos est l'une des plus grandes villes du continent.
 2|Combien d'habitants compte environ la Terre en 2025 ?|Environ 8 milliards|Environ 6 milliards|Environ 10 milliards|Environ 12 milliards|Le cap des 8 milliards a été franchi fin 2022, selon l'ONU. Nous étions 1 milliard vers 1800.
-2|Combien d'habitants compte environ la France ?|Environ 68 millions|Environ 50 millions|Environ 80 millions|Environ 60 millions|Outre-mer compris. C'est le deuxième pays le plus peuplé de l'UE, après l'Allemagne.
+2|Combien d'habitants comptait environ la France au 1er janvier 2025, outre-mer compris ?|Environ 68 millions|Environ 50 millions|Environ 80 millions|Environ 60 millions|Environ 68,6 millions selon l'Insee. C'est le deuxième pays le plus peuplé de l'UE, après l'Allemagne.
 3|Quel est le pays le plus peuplé de l'Union européenne ?|L'Allemagne|La France|L'Italie|L'Espagne|Environ 84 millions d'habitants.
 2|Que signifie le sigle PIB ?|Produit intérieur brut|Prix indicatif de base|Part individuelle brute|Produit industriel de base|Il mesure la richesse produite dans un pays en un an.
 2|Quelle institution fixe les taux d'intérêt de la zone euro ?|La Banque centrale européenne|La Banque de France|Le Parlement européen|Le FMI|La BCE siège à Francfort, en Allemagne.
@@ -159,3 +159,44 @@
 3|Vrai ou faux : le roi Charles III est aussi roi d'Australie.|Vrai|Faux|L'Australie est une monarchie constitutionnelle : le souverain britannique est son chef d'État, représenté sur place par un gouverneur général.
 3|Quelle agence de l'ONU s'occupe de la santé dans le monde ?|L'OMS|L'Unesco|L'OMC|Le FMI|L'Organisation mondiale de la santé siège à Genève.
 3|Dans quelle ville se trouve le siège du Comité international olympique ?|Lausanne|Genève|Paris|Zurich|Il y est installé depuis 1915.
+1|Combien de sénateurs compte le Sénat des États-Unis ?|100|50|435|538|Deux par État, quel que soit le nombre d'habitants. La Chambre des représentants compte 435 membres.
+1|Combien de voix de grands électeurs faut-il obtenir pour être élu président des États-Unis ?|270|50|100|435|Le collège électoral compte 538 grands électeurs : il faut en avoir la majorité absolue.
+1|Quelle adresse de Londres est la résidence officielle du Premier ministre britannique ?|10 Downing Street|221B Baker Street|Buckingham Palace|Westminster Abbey|La porte noire est célèbre. Un chat, chef chasseur de souris, y a même un titre officiel.
+1|Comment s'appelle le Parlement allemand ?|Le Bundestag|La Knesset|La Douma|Les Cortes|Il siège dans le Reichstag rénové, à Berlin, sous une coupole de verre où le public peut monter.
+1|Comment s'appelle le Parlement d'Israël ?|La Knesset|Le Bundestag|La Diète|Le Majlis|Elle compte 120 députés, comme l'assemblée juive de l'Antiquité dont elle tire son nom.
+1|Comment s'appelle la chambre basse du Parlement russe ?|La Douma|La Knesset|Le Bundestag|Le Storting|Le mot vient d'un verbe russe signifiant « penser ».
+1|Qui sont les deux coprinces d'Andorre ?|Le président de la République française et l'évêque d'Urgell|Le roi d'Espagne et le roi de France|Le pape et le président français|Le roi d'Espagne et l'évêque d'Urgell|Cet arrangement date du Moyen Âge. Le président français est donc aussi chef d'État d'Andorre.
+1|Quel pays a la plus ancienne monarchie d'Europe encore en place ?|Le Danemark|Le Royaume-Uni|L'Espagne|La Suède|Sa lignée royale remonte à plus de mille ans, au roi Gorm l'Ancien.
+1|Combien de membres compte le Conseil fédéral, le gouvernement suisse ?|7|5|9|26|Chaque année, l'un d'eux devient président de la Confédération pour un an, un rôle surtout symbolique.
+1|Quel pays est souvent présenté comme la « plus grande démocratie du monde » par le nombre d'électeurs ?|L'Inde|Les États-Unis|La Chine|L'Indonésie|Près d'un milliard de personnes étaient appelées à voter aux élections générales de 2024.
+1|Quelle fête hindoue du printemps voit les gens se lancer des poudres colorées ?|Holi|Diwali|Ganesh Chaturthi|Navaratri|Elle célèbre l'arrivée du printemps et la victoire du bien sur le mal.
+1|Quel jour l'Église orthodoxe russe fête-t-elle Noël ?|Le 7 janvier|Le 25 décembre|Le 1er janvier|Le 6 janvier|Comme celle de Serbie, elle suit encore le calendrier julien, qui a 13 jours de retard sur notre calendrier.
+1|Quelle fête juive est un jour de jeûne et de pardon ?|Yom Kippour|Pessah|Hanoucca|Pourim|C'est le jour le plus sacré du calendrier juif.
+1|Quel jour sacré hebdomadaire du judaïsme commence le vendredi soir ?|Le shabbat|Le dimanche|Yom Kippour|Le jubilé|Il dure jusqu'au samedi soir. On s'y abstient de travailler.
+1|Comment s'appelle le pèlerinage à La Mecque, l'un des cinq piliers de l'islam ?|Le hajj|Le ramadan|La zakat|La chahada|Tout musulman qui en a les moyens doit l'accomplir au moins une fois dans sa vie.
+1|Quel monument cubique, recouvert d'un tissu noir, se trouve au centre de la Grande Mosquée de La Mecque ?|La Kaaba|Le Dôme du Rocher|La mosquée bleue|Le mur des Lamentations|Les musulmans du monde entier prient dans sa direction.
+1|Comment s'appelle le lieu de culte des sikhs, dont le plus célèbre est le Temple d'or d'Amritsar ?|Un gurdwara|Une pagode|Une synagogue|Un ashram|Ses cuisines servent gratuitement des repas à tous les visiteurs, des dizaines de milliers chaque jour à Amritsar.
+1|Dans quelle ville indienne le dalaï-lama vit-il en exil depuis 1960 ?|Dharamsala|New Delhi|Bombay|Katmandou|Il a fui le Tibet en 1959, après l'échec d'un soulèvement contre la Chine.
+1|Quel prince indien, devenu « l'Éveillé », a fondé le bouddhisme ?|Siddhartha Gautama|Confucius|Lao-tseu|Ashoka|« Bouddha » signifie « l'Éveillé ». Il aurait vécu au Ve siècle av. J.-C., dans le nord de l'Inde actuelle.
+1|Quelle couleur de fumée annonce l'élection d'un nouveau pape ?|Blanche|Noire|Rouge|Jaune|Les cardinaux réunis en conclave brûlent leurs bulletins. La fumée noire signale qu'aucun pape n'est élu.
+1|En quelle année le droit à l'IVG a-t-il été inscrit dans la Constitution française ?|2024|1975|2001|2013|La France devient le premier pays au monde à garantir explicitement cette liberté dans sa Constitution.
+1|Quel président a abaissé la majorité à 18 ans en France, en 1974 ?|Valéry Giscard d'Estaing|Georges Pompidou|François Mitterrand|Charles de Gaulle|Elle était fixée à 21 ans depuis la Révolution.
+1|Quel président a suspendu le service militaire obligatoire en France, en 1997 ?|Jacques Chirac|François Mitterrand|Nicolas Sarkozy|Valéry Giscard d'Estaing|Il a été remplacé par la Journée défense et citoyenneté. Le service militaire n'est pas supprimé, seulement suspendu.
+2|Quelle loi de l'an 2000 a réduit la durée légale du travail en France ?|La loi sur les 35 heures|La loi Travail|La loi Évin|La loi Macron|Elle est portée par Martine Aubry, alors ministre de l'Emploi.
+2|Quel programme européen permet aux étudiants de partir étudier dans un autre pays, depuis 1987 ?|Erasmus|Schengen|Leonardo|Comenius|Il porte le nom de l'humaniste Érasme. Le film L'Auberge espagnole en a fait un symbole.
+2|Quelle agence de l'ONU pour l'alimentation et l'agriculture a son siège à Rome ?|La FAO|L'OMS|L'UNESCO|L'OIT|Le Programme alimentaire mondial, prix Nobel de la paix en 2020, est aussi installé à Rome.
+2|Quelle organisation de l'ONU, la plus ancienne, s'occupe des droits des travailleurs ?|L'OIT|L'OMS|La FAO|L'OMC|Créée en 1919, elle a reçu le prix Nobel de la paix en 1969. Son siège est à Genève.
+2|Combien d'objectifs de développement durable l'ONU a-t-elle adoptés en 2015 ?|17|8|10|25|Ils visent notamment à éliminer la pauvreté et la faim d'ici 2030.
+2|Quel mouvement, lancé sur les réseaux sociaux en 2017, a encouragé les femmes à dénoncer les violences sexuelles ?|#MeToo|#BlackLivesMatter|#JeSuisCharlie|#IceBucketChallenge|En France, il a eu son équivalent avec #BalanceTonPorc.
+3|Quel accord commercial réunit le Brésil, l'Argentine, l'Uruguay et le Paraguay ?|Le Mercosur|L'ALENA|L'ASEAN|L'APEC|Créé en 1991, il a signé un accord commercial avec l'Union européenne qui a beaucoup fait débat en France.
+3|Quelle organisation réunit le Royaume-Uni et la plupart de ses anciennes colonies ?|Le Commonwealth|La Francophonie|L'ASEAN|L'OCDE|Il compte 56 pays. Le Rwanda et le Mozambique l'ont rejoint sans avoir été colonies britanniques.
+3|Quel groupe de pays émergents porte un nom formé de leurs initiales, dont le Brésil, la Russie, l'Inde, la Chine et l'Afrique du Sud ?|Les BRICS|Le G7|L'OPEP|Le G20|Le groupe s'est élargi en 2024 à d'autres pays, comme l'Égypte ou l'Éthiopie.
+3|Quelle autorité française protège les données personnelles des citoyens ?|La CNIL|L'Arcom|Le Conseil d'État|La Cour des comptes|Créée en 1978, elle peut infliger de lourdes amendes, y compris aux géants du numérique.
+3|Quelle institution vérifie le bon usage de l'argent public en France ?|La Cour des comptes|Le Conseil constitutionnel|Le Conseil d'État|La CNIL|Créée en 1807 par Napoléon, elle publie chaque année un rapport très attendu sur les dépenses de l'État.
+3|Quelle autorité indépendante, créée en 2011, défend les citoyens face aux administrations et lutte contre les discriminations ?|Le Défenseur des droits|Le Conseil d'État|La CNIL|Le Médiateur de la République|Il a remplacé le Médiateur de la République, la Halde et le Défenseur des enfants.
+3|En quelle année le salaire minimum, le SMIC, a-t-il été créé en France sous ce nom ?|1970|1950|1981|1945|Il remplace le SMIG, créé en 1950. Le « C » signifie « de croissance ».
+3|Quel schisme a séparé en 1054 l'Église d'Orient et l'Église de Rome ?|Le Grand Schisme|La Réforme|Le schisme d'Occident|Le concile de Trente|On parle depuis d'Églises orthodoxes et d'Église catholique. Les excommunications réciproques ont été levées en 1965.
+3|Quelles sont les deux grandes branches de l'islam ?|Le sunnisme et le chiisme|Le soufisme et le salafisme|Le wahhabisme et l'ibadisme|L'hindouisme et le sikhisme|Elles se sont séparées après la mort du Prophète, sur la question de sa succession. Les sunnites sont largement majoritaires.
+3|Quel portique traditionnel marque l'entrée des sanctuaires shintoïstes au Japon ?|Le torii|La pagode|Le stupa|Le minaret|Le plus célèbre, à Miyajima, semble flotter sur la mer à marée haute.
+3|Quel livre rassemble les commentaires des rabbins sur la loi juive ?|Le Talmud|La Torah|Le Coran|Les Évangiles|La Torah désigne, elle, les cinq premiers livres de la Bible hébraïque.
+3|Quelle Église chrétienne a été fondée quand Henri VIII a rompu avec Rome, au XVIe siècle ?|L'Église anglicane|L'Église luthérienne|L'Église orthodoxe|L'Église calviniste|Le monarque britannique en est toujours le gouverneur suprême.

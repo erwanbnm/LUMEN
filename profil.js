@@ -13,6 +13,10 @@ const Profil = (() => {
   const NAMES = PArt.PRE.map(p => p.n);
   // Paliers de maîtrise (1 à 7) ; l'indice 0 = pas encore classé
   const TIERS = [null, {pct:0}, {pct:8}, {pct:18}, {pct:32}, {pct:48}, {pct:66, acc:60}, {pct:85, acc:75}];
+  // Novembre 2026 : la banque est passée de 3 453 à 4 616 questions. Pour que personne ne perde son rang, les paliers de chaque domaine
+  // sont abaissés dans la même proportion que l'augmentation des points possibles (ancien total / nouveau total).
+  const SCALE = {his:.779, geo:.774, sci:.781, spo:.757, art:.829, cin:.752, jeu:.705, cul:.829};
+  const need = (t, d) => Math.round(TIERS[t].pct * (SCALE[d] || 1));
   const RN = PArt.RANKS.map(r => r.n);
 
   // Prestige et niveau depuis une XP totale
@@ -40,7 +44,7 @@ const Profil = (() => {
       if (e.ok > 0) { r.pts += (q[1] || 1) + (e.b >= 3 ? 2 : 0); r.n++; }
       if (q[1] === 3) { r.hok += e.ok || 0; r.hko += e.ko || 0; } }
     DOMS.forEach(d => { const r = o[d]; r.pct = M[d] ? r.pts / M[d] * 100 : 0; r.acc = r.hok + r.hko ? r.hok / (r.hok + r.hko) * 100 : 0;
-      r.r = 0; if (r.n) for (let t = 1; t < TIERS.length; t++) { const T = TIERS[t]; if (r.pct >= T.pct && (!T.acc || r.acc >= T.acc)) r.r = t; } });
+      r.d = d; r.r = 0; if (r.n) for (let t = 1; t < TIERS.length; t++) { const T = TIERS[t]; if (r.pct >= need(t, d) && (!T.acc || r.acc >= T.acc)) r.r = t; } });
     return o;
   }
   // Ce qu'il manque pour le palier suivant
@@ -48,7 +52,7 @@ const Profil = (() => {
     if (r.r >= 7) return "Palier maximum atteint";
     const T = TIERS[r.r + 1];
     if (!r.r) return "Réussis une question pour entrer au rang Bronze";
-    return `${RN[r.r + 1]} : ${T.pct} % de maîtrise${T.acc ? ` et ${T.acc} % de réussite aux questions pointues` : ""}`;
+    return `${RN[r.r + 1]} : ${need(r.r + 1, r.d)} % de maîtrise${T.acc ? ` et ${T.acc} % de réussite aux questions pointues` : ""}`;
   }
 
   // Dessins, gardés en mémoire (un dessin complet pèse lourd)

@@ -48,6 +48,7 @@ Réponds toujours en français. Erwan n'est pas développeur : explique simpleme
   - `niveau|question|bonne réponse|faux 1|faux 2|faux 3|explication` (7 champs), ou
   - `niveau|question|bonne réponse|faux|explication` (5 champs, vrai/faux).
   - Niveau 1 = facile, 2 = moyen, 3 = pointu. Chaque thème doit garder au moins 25 questions de niveau 1 et 25 de niveau 3 (mode difficulté).
+  - Novembre 2026 : banque enrichie de 3 453 à 4 616 questions (≈ 24 % facile, 47 % moyen, 29 % pointu ; Erwan vise 25/45/30 et refuse les questions trop évidentes, mais a choisi de garder les anciennes questions faciles). Pour ajouter un lot : écrire les lignes « thème|niveau|question|… » dans un fichier, puis `python ajout_questions.py lot.txt` (format, doublons et questions reformulées contre toute la banque, Tour et Portail compris), et `--append` une fois tout corrigé. Les rangs de maîtrise de `profil.js` dépendent du nombre de questions : après un gros ajout, ajuster `SCALE` pour que personne ne perde son rang.
   - L'identifiant d'une question dépend de son numéro de ligne : **ajouter les nouvelles questions à la fin du fichier, ne jamais en insérer au milieu ni en supprimer** (sinon la progression sauvegardée des joueurs est décalée).
 - `content/anec/` : anecdotes « Le savais-tu ? » (`numéro|texte`). `content/extra/mots.txt` : mots du jour. `content/extra/qad.txt` : citations « Qui a dit ? ».
 - `content/geodata.js`, `content/geo_meta.py` : formes et données des pays pour les questions en images.

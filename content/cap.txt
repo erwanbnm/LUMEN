@@ -156,3 +156,61 @@
 2|Vrai ou faux : Rio de Janeiro est la capitale du Brésil.|Faux|Vrai|C'est Brasília depuis 1960, une ville construite au centre du pays. Rio était la capitale avant.
 3|Vrai ou faux : la Bolivie a deux capitales.|Vrai|Faux|Sucre est la capitale constitutionnelle et La Paz le siège du gouvernement.
 2|Vrai ou faux : le drapeau du Népal n'est pas rectangulaire.|Vrai|Faux|Il est formé de deux triangles superposés : c'est le seul drapeau national qui ne soit pas un rectangle.
+1|Quelle ville a été la capitale du Brésil jusqu'en 1960 ?|Rio de Janeiro|São Paulo|Salvador|Recife|La capitale passe à Brasilia, construite en quelques années au centre du pays.
+1|Quelle ville a été la capitale de l'Allemagne de l'Ouest de 1949 à 1990 ?|Bonn|Francfort|Munich|Cologne|Ville natale de Beethoven, elle garde aujourd'hui plusieurs ministères.
+1|Quelle ville a été la capitale du Japon pendant plus de mille ans, avant Tokyo ?|Kyoto|Osaka|Nara|Hiroshima|De 794 à 1868. Son nom signifie « ville capitale ».
+1|Quelle ville a été la capitale de la Russie de 1712 à 1918 ?|Saint-Pétersbourg|Moscou|Kiev|Novgorod|Fondée par Pierre le Grand, elle s'est appelée Petrograd puis Léningrad.
+1|Quelle est la capitale de l'Irlande du Nord ?|Belfast|Dublin|Derry|Cork|Le Titanic y a été construit, dans les chantiers Harland and Wolff.
+1|Quelle est la capitale de la Corée du Nord ?|Pyongyang|Séoul|Pusan|Kaesong|Ses habitants y vivent sous un régime très fermé, dirigé par la famille Kim depuis 1948.
+1|Quelle est la capitale de Taïwan ?|Taipei|Kaohsiung|Taichung|Hong Kong|La tour Taipei 101 a été le plus haut gratte-ciel du monde de 2004 à 2010.
+1|Quelle ville est la capitale de Singapour ?|Singapour|Kuala Lumpur|Jakarta|Bangkok|C'est une cité-État : la ville et le pays ne font qu'un.
+1|Quelle est la capitale de la Libye ?|Tripoli|Benghazi|Tunis|Le Caire|Un Tripoli existe aussi au Liban : le nom signifie « trois villes » en grec.
+1|Quelle est la capitale du Gabon ?|Libreville|Brazzaville|Port-Gentil|Yaoundé|Elle a été fondée en 1849 par des esclaves libérés, d'où son nom.
+1|Quelle est la capitale de la république du Congo ?|Brazzaville|Kinshasa|Libreville|Pointe-Noire|Elle fait face à Kinshasa, de l'autre côté du fleuve Congo : ce sont les deux capitales les plus proches du monde.
+1|Quelle est la capitale de l'Ouganda ?|Kampala|Nairobi|Kigali|Entebbe|Elle s'étend sur plusieurs collines, près du lac Victoria.
+1|Quelle est la capitale du Zimbabwe ?|Harare|Lusaka|Bulawayo|Gaborone|Elle s'appelait Salisbury jusqu'en 1982.
+1|Quelle est la capitale de la Zambie ?|Lusaka|Harare|Lilongwe|Ndola|Le pays tire son nom du fleuve Zambèze et des chutes Victoria, à sa frontière.
+1|Quelle est la capitale du Niger ?|Niamey|Bamako|N'Djamena|Ouagadougou|Elle est traversée par le fleuve Niger, qui a donné son nom au pays.
+1|Quelle est la capitale du Tchad ?|N'Djamena|Niamey|Bangui|Khartoum|Elle s'appelait Fort-Lamy jusqu'en 1973.
+1|Quelle est la capitale de la Centrafrique ?|Bangui|N'Djamena|Brazzaville|Yaoundé|Elle est située sur l'Oubangui, rivière qui marque la frontière avec la RD Congo.
+1|Quel pays a un drapeau avec un bouclier et deux lances masaï ?|Le Kenya|La Tanzanie|L'Ouganda|L'Éthiopie|Le bouclier symbolise la défense de la liberté. Le noir représente le peuple, le rouge le sang versé, le vert la terre.
+1|Quel pays a le temple d'Angkor Vat sur son drapeau ?|Le Cambodge|La Thaïlande|Le Laos|La Birmanie|C'est l'un des rares drapeaux à représenter un bâtiment.
+1|Quel pays a un dragon blanc sur son drapeau jaune et orange ?|Le Bhoutan|La Chine|Le Népal|Le Viêt Nam|Le nom du pays en dzongkha, Druk Yul, signifie « pays du dragon tonnerre ».
+1|Quel pays a un soleil avec un visage au centre de son drapeau bleu et blanc ?|L'Argentine|Le Chili|Le Pérou|Le Paraguay|C'est le « soleil de Mai », souvenir de la révolution de mai 1810. L'Uruguay a aussi un soleil à visage.
+1|Quel pays a un lion tenant une épée sur son drapeau ?|Le Sri Lanka|L'Inde|L'Iran|L'Éthiopie|Le lion rappelle le peuple cinghalais, dont le nom signifie « peuple du lion ».
+1|De quelles couleurs est le drapeau de l'Irlande ?|Vert, blanc, orange|Vert, blanc, rouge|Bleu, blanc, rouge|Vert, jaune, orange|Le vert pour les catholiques, l'orange pour les protestants et le blanc pour la paix entre eux.
+1|Quelle forme figure sur le drapeau d'Israël ?|L'étoile de David|Un croissant|Une croix|Une colombe|Elle est placée entre deux bandes bleues, qui rappellent le châle de prière juif.
+2|Quel pays a un drapeau différent sur ses deux faces ?|Le Paraguay|Le Brésil|L'Uruguay|La Bolivie|Le recto porte les armoiries de l'État, le verso le sceau du Trésor.
+2|Quel pays a un drapeau entièrement vert, de 1977 à 2011 ?|La Libye|L'Arabie saoudite|Le Pakistan|La Mauritanie|C'était le seul drapeau national d'une seule couleur, sans aucun motif, choisi par Kadhafi.
+2|Quelle ville a été la capitale des États-Unis de 1790 à 1800, avant Washington ?|Philadelphie|New York|Boston|Baltimore|New York l'avait été brièvement avant elle. La Déclaration d'indépendance y avait été signée en 1776.
+2|Quelle ville a été la capitale de l'Inde britannique jusqu'en 1911 ?|Calcutta|Bombay|Madras|Delhi|La capitale passe alors à Delhi, puis à New Delhi, inaugurée en 1931.
+2|Quelle ville a été la capitale du Kazakhstan jusqu'en 1997 ?|Almaty|Astana|Tachkent|Bichkek|Elle reste la plus grande ville du pays, au pied des montagnes du Tian Shan.
+2|Quelle ville a été la première capitale de l'Italie unifiée, de 1861 à 1865 ?|Turin|Florence|Rome|Milan|La capitale passe ensuite à Florence, puis à Rome en 1871.
+2|Quelle est la capitale de l'État de New York ?|Albany|New York|Buffalo|Syracuse|Beaucoup d'États américains ont pour capitale une ville moins connue que leur plus grande ville.
+2|Quelle est la capitale de la Californie ?|Sacramento|Los Angeles|San Francisco|San Diego|Elle a été choisie en 1854, au moment de la ruée vers l'or.
+2|Quelle est la capitale de la province canadienne de la Colombie-Britannique ?|Victoria|Vancouver|Edmonton|Calgary|Elle se trouve sur l'île de Vancouver, et non dans la ville de Vancouver.
+2|Quelle est la capitale de la Bavière ?|Munich|Nuremberg|Augsbourg|Stuttgart|Elle accueille chaque automne l'Oktoberfest, la plus grande fête de la bière du monde.
+3|Quelle est la capitale du Liberia, nommée d'après un président américain ?|Monrovia|Freetown|Conakry|Bissau|Elle doit son nom à James Monroe. Le Liberia a été fondé par d'anciens esclaves américains.
+3|Quelle est la capitale de la Sierra Leone ?|Freetown|Monrovia|Banjul|Conakry|Comme son nom l'indique, elle a été fondée en 1792 pour accueillir d'anciens esclaves libérés.
+3|Quelle est la capitale de la Gambie ?|Banjul|Bissau|Dakar|Freetown|La Gambie, le plus petit pays d'Afrique continentale, est presque entièrement entourée par le Sénégal.
+3|Quelle est la capitale de la Guinée-Bissau ?|Bissau|Conakry|Banjul|Praia|Ancienne colonie portugaise, le pays est indépendant depuis 1973-1974.
+3|Quelle est la capitale du Cap-Vert ?|Praia|Mindelo|Bissau|Dakar|Elle se trouve sur l'île de Santiago. La chanteuse Cesária Évora était, elle, de Mindelo.
+3|Quelle est la capitale de la Guinée équatoriale ?|Malabo|Bata|Libreville|Douala|Elle se trouve sur l'île de Bioko, et non sur la partie continentale du pays.
+3|Quelle est la capitale de la Somalie ?|Mogadiscio|Hargeisa|Djibouti|Asmara|C'est un port sur l'océan Indien, fondé il y a plus de mille ans par des marchands.
+3|Quelle est la capitale du Soudan du Sud, le plus jeune pays du monde ?|Djouba|Khartoum|Kampala|Malakal|Le pays est indépendant depuis le 9 juillet 2011.
+3|Quelle est la capitale du Botswana ?|Gaborone|Windhoek|Pretoria|Lusaka|Le pays abrite le delta de l'Okavango, un fleuve qui se perd dans le désert du Kalahari.
+3|Quelle est la capitale de Maurice ?|Port-Louis|Victoria|Saint-Denis|Moroni|Elle porte le nom de Louis XV, du temps où l'île était française, sous le nom d'île de France.
+3|Quelle est la capitale du Tadjikistan ?|Douchanbé|Bichkek|Tachkent|Achgabat|Son nom signifie « lundi » en tadjik : un grand marché s'y tenait ce jour-là.
+3|Quelle est la capitale du Sultanat d'Oman ?|Mascate|Sanaa|Manama|Doha|Le port, entouré de montagnes, était un grand comptoir entre l'Arabie, l'Inde et l'Afrique de l'Est.
+3|Quelle est la capitale du Yémen, l'une des plus anciennes villes habitées du monde ?|Sanaa|Aden|Mascate|Taëz|Sa vieille ville et ses maisons-tours décorées sont inscrites au patrimoine mondial.
+3|Quelle est la capitale de Bahreïn ?|Manama|Doha|Koweït|Mascate|Bahreïn est un archipel relié à l'Arabie saoudite par une chaussée d'environ 25 km.
+3|Quelle est la capitale du Brunei ?|Bandar Seri Begawan|Kuala Lumpur|Dili|Kota Kinabalu|Son village sur pilotis, Kampong Ayer, est l'un des plus grands du monde.
+3|Quelle est la capitale de la Papouasie-Nouvelle-Guinée ?|Port Moresby|Port-Vila|Honiara|Suva|Elle porte le nom de l'explorateur britannique John Moresby, qui y accoste en 1873.
+3|Quelle est la capitale des Fidji ?|Suva|Nadi|Apia|Nuku'alofa|Elle se trouve sur l'île de Viti Levu, la plus grande de l'archipel.
+3|Quelle est la capitale des Samoa ?|Apia|Suva|Pago Pago|Nuku'alofa|L'écrivain Robert Louis Stevenson, auteur de L'Île au trésor, y a passé ses dernières années.
+3|Quelle est la capitale du Nicaragua ?|Managua|Tegucigalpa|San Salvador|San José|Elle est bâtie au bord d'un lac et a été presque détruite par un séisme en 1972.
+3|Quelle est la capitale du Salvador ?|San Salvador|Managua|Guatemala|Tegucigalpa|Le Salvador est le seul pays d'Amérique centrale sans côte sur la mer des Caraïbes.
+3|Quelle est la capitale de la Barbade ?|Bridgetown|Kingston|Nassau|Castries|L'île est devenue une république en 2021, retirant ce rôle de chef d'État à la reine Élisabeth II.
+3|Quelle est la capitale des Bahamas ?|Nassau|Bridgetown|Kingston|La Havane|Elle se trouve sur l'île de New Providence, ancien repaire de pirates au XVIIIe siècle.
+3|Quelle est la capitale de Trinité-et-Tobago ?|Port-d'Espagne|Bridgetown|Kingston|Castries|Son carnaval est l'un des plus célèbres des Caraïbes, berceau du calypso et des steel drums.
+3|Quelle est la capitale du Guyana ?|Georgetown|Paramaribo|Cayenne|Caracas|C'est le seul pays d'Amérique du Sud dont la langue officielle est l'anglais.
