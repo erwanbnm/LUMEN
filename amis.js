@@ -76,7 +76,7 @@ const Amis = (function(){
     if (!uid() || document.visibilityState !== "visible") return;
     // update (et non set) : ne crée jamais de fiche joueur sans pseudo
     db.doc("users/" + uid()).update({seen:Date.now(), ti:(typeof myTitle === "function" && myTitle()) || "", tid:today(), av:(S.profile && S.profile.skin && ownsSkin(S.profile.skin) && S.profile.skin) || ("b" + ((S.profile && S.profile.avatar) || 0)),
-      st:{lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null, cd:typeof Profil !== "undefined" ? Profil.pub() : null}}).catch(() => {});
+      st:{lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak()), tw:typeof Tour !== "undefined" ? Tour.stats() : null, adv:typeof Aventure !== "undefined" ? Aventure.stats() : null, cd:typeof Profil !== "undefined" ? Profil.pub() : null, atl:typeof Atlas !== "undefined" ? Atlas.stats() : null}}).catch(() => {});
   }
   document.addEventListener("visibilitychange", ping);
   function stop(){ unsub.forEach(f => f()); unsub = []; clearInterval(seenTimer); users = {}; duels = []; }
@@ -420,11 +420,13 @@ const Amis = (function(){
     duels:{n:"Duels", unit:"pts", rows:() => duelBoard().map(r => ({id:r.id, v:r.pts, sub:`${r.w}V ${r.d}N ${r.l}D`}))},
     lvl:{n:"Niveau", unit:"", rows:() => solo(st => Profil.txpOf(st), st => Profil.boardTxt(st))},
     ok:{n:"Bonnes réponses", unit:"", rows:() => solo(st => st.ok)},
+    atl:{n:"Atlas · pays", unit:"", rows:() => solo(st => st.atl && st.atl.f, st => st.atl ? `${st.atl.f} pays · ${st.atl.lp} %` : "")},
+    atc:{n:"Atlas · capitales", unit:"", rows:() => solo(st => st.atl && st.atl.c, st => st.atl ? `${st.atl.c} capitales · ${st.atl.cp} %` : "")},
     streak:{n:"Série de jours", unit:"j", rows:() => solo(st => st.streak)},
     avap:{n:"Avant ou après", unit:"", rows:() => solo(st => st.avap)}
   };
   function solo(f, txt){
-    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
+    return Object.keys(users).map(id => { const st = id === uid() ? {lvl:acctLvl().L, txp:totalXp(), pr:Profil.pres().P, atl:typeof Atlas !== "undefined" ? Atlas.stats() : null, ok:totalOk(), avap:(S.rec && S.rec.avap) || 0, streak:Math.max(S.bestStreak || 0, streak())} : (users[id].st || {});
       return {id, v:f(st) || 0, txt:txt && txt(st)}; }).sort((a, b) => b.v - a.v);
   }
 

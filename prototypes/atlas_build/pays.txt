@@ -1,0 +1,198 @@
+# id carte|code|nom avec article|capitale|continent (eu af as am oc)|niveau (1 très connu, 2 moins connu, 3 difficile)
+250|fr|la France|Paris|eu|1
+276|de|l'Allemagne|Berlin|eu|1
+380|it|l'Italie|Rome|eu|1
+724|es|l'Espagne|Madrid|eu|1
+620|pt|le Portugal|Lisbonne|eu|1
+826|gb|le Royaume-Uni|Londres|eu|1
+372|ie|l'Irlande|Dublin|eu|1
+056|be|la Belgique|Bruxelles|eu|1
+528|nl|les Pays-Bas|Amsterdam|eu|1
+756|ch|la Suisse|Berne|eu|1
+040|at|l'Autriche|Vienne|eu|2
+616|pl|la Pologne|Varsovie|eu|1
+752|se|la Suède|Stockholm|eu|1
+578|no|la Norvège|Oslo|eu|1
+246|fi|la Finlande|Helsinki|eu|2
+208|dk|le Danemark|Copenhague|eu|2
+352|is|l'Islande|Reykjavik|eu|2
+300|gr|la Grèce|Athènes|eu|1
+804|ua|l'Ukraine|Kiev|eu|1
+643|ru|la Russie|Moscou|eu|1
+203|cz|la Tchéquie|Prague|eu|2
+703|sk|la Slovaquie|Bratislava|eu|3
+348|hu|la Hongrie|Budapest|eu|2
+642|ro|la Roumanie|Bucarest|eu|2
+100|bg|la Bulgarie|Sofia|eu|2
+191|hr|la Croatie|Zagreb|eu|2
+705|si|la Slovénie|Ljubljana|eu|3
+070|ba|la Bosnie-Herzégovine|Sarajevo|eu|3
+688|rs|la Serbie|Belgrade|eu|2
+499|me|le Monténégro|Podgorica|eu|3
+Kosovo|xk|le Kosovo|Pristina|eu|3
+807|mk|la Macédoine du Nord|Skopje|eu|3
+008|al|l'Albanie|Tirana|eu|3
+498|md|la Moldavie|Chisinau|eu|3
+112|by|la Biélorussie|Minsk|eu|2
+440|lt|la Lituanie|Vilnius|eu|3
+428|lv|la Lettonie|Riga|eu|3
+233|ee|l'Estonie|Tallinn|eu|3
+442|lu|le Luxembourg|Luxembourg|eu|2
+492|mc|Monaco|Monaco|eu|2
+020|ad|Andorre|Andorre-la-Vieille|eu|2
+674|sm|Saint-Marin|Saint-Marin|eu|3
+336|va|le Vatican|Vatican|eu|2
+438|li|le Liechtenstein|Vaduz|eu|3
+470|mt|Malte|La Valette|eu|2
+196|cy|Chypre|Nicosie|eu|2
+840|us|les États-Unis|Washington|am|1
+124|ca|le Canada|Ottawa|am|1
+484|mx|le Mexique|Mexico|am|1
+076|br|le Brésil|Brasilia|am|1
+032|ar|l'Argentine|Buenos Aires|am|1
+152|cl|le Chili|Santiago|am|1
+604|pe|le Pérou|Lima|am|1
+170|co|la Colombie|Bogota|am|1
+862|ve|le Venezuela|Caracas|am|2
+218|ec|l'Équateur|Quito|am|2
+068|bo|la Bolivie|Sucre|am|2
+600|py|le Paraguay|Asuncion|am|2
+858|uy|l'Uruguay|Montevideo|am|2
+328|gy|le Guyana|Georgetown|am|3
+740|sr|le Suriname|Paramaribo|am|3
+192|cu|Cuba|La Havane|am|1
+388|jm|la Jamaïque|Kingston|am|2
+332|ht|Haïti|Port-au-Prince|am|2
+214|do|la République dominicaine|Saint-Domingue|am|2
+044|bs|les Bahamas|Nassau|am|3
+052|bb|la Barbade|Bridgetown|am|3
+780|tt|Trinité-et-Tobago|Port-d'Espagne|am|3
+308|gd|la Grenade|Saint-Georges|am|3
+670|vc|Saint-Vincent-et-les-Grenadines|Kingstown|am|3
+662|lc|Sainte-Lucie|Castries|am|3
+212|dm|la Dominique|Roseau|am|3
+028|ag|Antigua-et-Barbuda|Saint John's|am|3
+659|kn|Saint-Christophe-et-Niévès|Basseterre|am|3
+320|gt|le Guatemala|Guatemala|am|2
+084|bz|le Belize|Belmopan|am|3
+340|hn|le Honduras|Tegucigalpa|am|3
+222|sv|le Salvador|San Salvador|am|3
+558|ni|le Nicaragua|Managua|am|3
+188|cr|le Costa Rica|San José|am|2
+591|pa|le Panama|Panama|am|2
+504|ma|le Maroc|Rabat|af|1
+012|dz|l'Algérie|Alger|af|1
+788|tn|la Tunisie|Tunis|af|1
+434|ly|la Libye|Tripoli|af|2
+818|eg|l'Égypte|Le Caire|af|1
+729|sd|le Soudan|Khartoum|af|2
+728|ss|le Soudan du Sud|Djouba|af|3
+231|et|l'Éthiopie|Addis-Abeba|af|2
+232|er|l'Érythrée|Asmara|af|3
+262|dj|Djibouti|Djibouti|af|3
+706|so|la Somalie|Mogadiscio|af|2
+404|ke|le Kenya|Nairobi|af|2
+800|ug|l'Ouganda|Kampala|af|3
+834|tz|la Tanzanie|Dodoma|af|2
+646|rw|le Rwanda|Kigali|af|3
+108|bi|le Burundi|Gitega|af|3
+180|cd|la République démocratique du Congo|Kinshasa|af|2
+178|cg|le Congo|Brazzaville|af|3
+266|ga|le Gabon|Libreville|af|3
+226|gq|la Guinée équatoriale|Malabo|af|3
+678|st|Sao Tomé-et-Principe|Sao Tomé|af|3
+120|cm|le Cameroun|Yaoundé|af|2
+140|cf|la Centrafrique|Bangui|af|3
+148|td|le Tchad|N'Djamena|af|3
+562|ne|le Niger|Niamey|af|2
+566|ng|le Nigeria|Abuja|af|2
+466|ml|le Mali|Bamako|af|2
+478|mr|la Mauritanie|Nouakchott|af|3
+686|sn|le Sénégal|Dakar|af|1
+270|gm|la Gambie|Banjul|af|3
+624|gw|la Guinée-Bissau|Bissau|af|3
+324|gn|la Guinée|Conakry|af|3
+694|sl|la Sierra Leone|Freetown|af|3
+430|lr|le Liberia|Monrovia|af|3
+384|ci|la Côte d'Ivoire|Yamoussoukro|af|2
+854|bf|le Burkina Faso|Ouagadougou|af|2
+288|gh|le Ghana|Accra|af|2
+768|tg|le Togo|Lomé|af|3
+204|bj|le Bénin|Porto-Novo|af|3
+132|cv|le Cap-Vert|Praia|af|3
+024|ao|l'Angola|Luanda|af|2
+894|zm|la Zambie|Lusaka|af|3
+716|zw|le Zimbabwe|Harare|af|3
+454|mw|le Malawi|Lilongwe|af|3
+508|mz|le Mozambique|Maputo|af|3
+072|bw|le Botswana|Gaborone|af|3
+516|na|la Namibie|Windhoek|af|3
+710|za|l'Afrique du Sud|Pretoria|af|1
+426|ls|le Lesotho|Maseru|af|3
+748|sz|l'Eswatini|Mbabane|af|3
+450|mg|Madagascar|Antananarivo|af|1
+480|mu|Maurice|Port-Louis|af|3
+690|sc|les Seychelles|Victoria|af|3
+174|km|les Comores|Moroni|af|3
+156|cn|la Chine|Pékin|as|1
+392|jp|le Japon|Tokyo|as|1
+410|kr|la Corée du Sud|Séoul|as|1
+408|kp|la Corée du Nord|Pyongyang|as|2
+356|in|l'Inde|New Delhi|as|1
+586|pk|le Pakistan|Islamabad|as|2
+050|bd|le Bangladesh|Dacca|as|2
+144|lk|le Sri Lanka|Sri Jayawardenapura Kotte|as|2
+524|np|le Népal|Katmandou|as|2
+064|bt|le Bhoutan|Thimphou|as|3
+462|mv|les Maldives|Malé|as|3
+004|af|l'Afghanistan|Kaboul|as|2
+364|ir|l'Iran|Téhéran|as|1
+368|iq|l'Irak|Bagdad|as|1
+760|sy|la Syrie|Damas|as|2
+422|lb|le Liban|Beyrouth|as|2
+376|il|Israël|Jérusalem|as|2
+275|ps|la Palestine||as|2
+400|jo|la Jordanie|Amman|as|2
+682|sa|l'Arabie saoudite|Riyad|as|1
+887|ye|le Yémen|Sanaa|as|2
+512|om|Oman|Mascate|as|3
+784|ae|les Émirats arabes unis|Abou Dabi|as|2
+634|qa|le Qatar|Doha|as|2
+048|bh|Bahreïn|Manama|as|3
+414|kw|le Koweït|Koweït|as|3
+792|tr|la Turquie|Ankara|as|1
+268|ge|la Géorgie|Tbilissi|as|2
+051|am|l'Arménie|Erevan|as|3
+031|az|l'Azerbaïdjan|Bakou|as|3
+398|kz|le Kazakhstan|Astana|as|2
+860|uz|l'Ouzbékistan|Tachkent|as|3
+795|tm|le Turkménistan|Achgabat|as|3
+762|tj|le Tadjikistan|Douchanbé|as|3
+417|kg|le Kirghizistan|Bichkek|as|3
+496|mn|la Mongolie|Oulan-Bator|as|2
+764|th|la Thaïlande|Bangkok|as|1
+704|vn|le Viêt Nam|Hanoï|as|1
+418|la|le Laos|Vientiane|as|3
+116|kh|le Cambodge|Phnom Penh|as|2
+104|mm|la Birmanie|Naypyidaw|as|3
+458|my|la Malaisie|Kuala Lumpur|as|2
+702|sg|Singapour|Singapour|as|2
+360|id|l'Indonésie|Jakarta|as|1
+608|ph|les Philippines|Manille|as|1
+096|bn|Brunei|Bandar Seri Begawan|as|3
+626|tl|le Timor oriental|Dili|as|3
+158|tw|Taïwan|Taipei|as|2
+036|au|l'Australie|Canberra|oc|1
+554|nz|la Nouvelle-Zélande|Wellington|oc|1
+598|pg|la Papouasie-Nouvelle-Guinée|Port Moresby|oc|2
+242|fj|les Fidji|Suva|oc|2
+090|sb|les Îles Salomon|Honiara|oc|3
+548|vu|le Vanuatu|Port-Vila|oc|3
+882|ws|les Samoa|Apia|oc|3
+776|to|les Tonga|Nuku'alofa|oc|3
+296|ki|les Kiribati|Tarawa-Sud|oc|3
+798|tv|les Tuvalu|Funafuti|oc|3
+520|nr|Nauru|Yaren|oc|3
+583|fm|la Micronésie|Palikir|oc|3
+584|mh|les Îles Marshall|Majuro|oc|3
+585|pw|les Palaos|Ngerulmud|oc|3

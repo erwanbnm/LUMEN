@@ -262,7 +262,7 @@ let toasts = [];
 // plusieurs niveaux gagnés d'un coup sont réunis sur une seule carte.
 const lvQueue = []; let lvOpen = false;
 // En pleine partie (solo, ou partie de salon, ou podium affiché) : les grandes animations attendent la fin
-const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen()) || (typeof Tuto !== "undefined" && Tuto.open());
+const inPlay = () => !!(S.session && !S.session.done && S.tab === "jouer") || (typeof Salons !== "undefined" && Salons.playing()) || !!document.querySelector(".sl-pod") || (typeof Tour !== "undefined" && Tour.playing()) || !!document.querySelector(".tw-fx") || (typeof Boss !== "undefined" && Boss.playing()) || (typeof Aventure !== "undefined" && Aventure.playing()) || (typeof Casino !== "undefined" && Casino.isOpen()) || (typeof Atlas !== "undefined" && Atlas.isOpen()) || (typeof Tuto !== "undefined" && Tuto.open());
 const bdQueue = [];
 function levelUp(n, what, sub, x){ lvQueue.push(Object.assign({n, what, sub}, x || {})); flushLevelUp(); }
 function flushLevelUp(){ if (lvOpen || (!lvQueue.length && !bdQueue.length) || inPlay()) return; lvOpen = true; setTimeout(showLevelUp, 350); }
@@ -611,6 +611,7 @@ function renderPlay(){
       <button class="mode" data-mode="qad"><span class="mi">${gIcon("quote",44)}</span><h3>Qui a dit ?</h3><p>Des citations célèbres, 4 auteurs au choix.</p><span class="label">${quoteIds().length} citations</span></button>
       <button class="mode wide" data-mode="revoir" ${rv?"":"disabled"}><span class="mi">${gIcon("revoir",44)}</span><h3>Revoir mes erreurs</h3><p>${rv ? plural(Math.min(rv,10),"question")+" à retravailler, quand tu veux." : "Rien à revoir pour l'instant. Tes erreurs viendront se ranger ici."}</p></button>
     </div>
+    ${typeof Atlas !== "undefined" ? `<div class="modes">${Atlas.card()}</div>` : ""}
     <div class="row between" style="margin-top:6px"><span class="label">Séries de 10 par thème</span></div>
     <div class="seg gseg s3 diff" role="group" aria-label="Difficulté">${Object.keys(DIFF).map(k => `<button data-diff="${k}" aria-pressed="${(S.diff||"mix")===k}"><span>${DIFF[k]}</span><small>${k==="facile"?"Questions faciles":k==="expert"?"Pointues · pièces x1,5":"De tout"}</small></button>`).join("")}</div>
     <div class="themes">${themes}</div>
@@ -653,7 +654,7 @@ const TOWER_TITLE = {id:"tour100", n:"MAÎTRE DE LA TOUR", a:"#FFE58A", b:"#B886
 const BOSS_TITLE = {id:"fleau", n:"FLÉAU DES BOSS", a:"#FF6A3A", b:"#6A0A1A", f:"#FFE9C8"};
 const INF_TITLE = {id:"infatigable", n:"INFATIGABLE", a:"#C98AFF", b:"#4A1E8A", f:"#FFFFFF"};
 const GUILD_TITLES = {gardien:{id:"gardien", n:"GARDIEN DE GUILDE", a:"#E8C27A", b:"#6A3A12", f:"#FFF6DE"}, legion:{id:"legion", n:"LÉGION DU SAVOIR", a:"#8AD8FF", b:"#1A3A7A", f:"#FFFFFF"}};
-const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : (typeof Aventure !== "undefined" && Aventure.titles[id]) ? Aventure.titles[id] : (typeof Profil !== "undefined" && Profil.titles[id]) ? Profil.titles[id] : TITLES.find(t => t.id === id);
+const titleById = id => id === "infatigable" ? INF_TITLE : id === "tour100" ? TOWER_TITLE : id === "fleau" ? BOSS_TITLE : GUILD_TITLES[id] ? GUILD_TITLES[id] : (typeof Aventure !== "undefined" && Aventure.titles[id]) ? Aventure.titles[id] : (typeof Profil !== "undefined" && Profil.titles[id]) ? Profil.titles[id] : (typeof Atlas !== "undefined" && Atlas.titles[id]) ? Atlas.titles[id] : TITLES.find(t => t.id === id);
 const titleTag = (id, cls) => { const t = titleById(id); return t ? `<span class="ttl ${cls || ""} ${t.id === "looser" ? "loser" : ""}" style="--ta:${t.a};--tb:${t.b};--tf:${t.f}">${esc(t.n)}</span>` : ""; };
 // Mon titre affiché (celui que je porte)
 const myTitle = () => (S.profile && S.profile.title && S.titles && S.titles[S.profile.title] ? S.profile.title : "");
@@ -674,7 +675,7 @@ function renderTitles(){
       <div class="ttl-row">${titleTag("tour100", "lg")}${S.titles.tour100 ? (S.profile.title === "tour100" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="tour100">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Atteindre l'étage 100 de la Tour</span>`}</div>
       <div class="ttl-row">${titleTag("infatigable", "lg")}${S.titles.infatigable ? (S.profile.title === "infatigable" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="infatigable">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Ouvrir un coffre légendaire de la semaine</span>`}</div>
       <div class="ttl-row">${titleTag("fleau", "lg")}${S.titles.fleau ? (S.profile.title === "fleau" ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="fleau">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">Plus gros contributeur contre un Boss vaincu</span>`}</div>
-      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"], ["adv2", "Vaincre le Sphinx Oublié (Aventure, Monde 2)"], ["adv3", "Vaincre le Léviathan (Aventure, Monde 3)"], ["adv4", "Vaincre le Roi des Glaces (Aventure, Monde 4)"], ["adv5", "Vaincre le Seigneur de la Corruption (Aventure, Monde 5)"], ["cimes", "Collection du Conquérant : atteindre le sommet de la Tour 3 fois"], ["arene", "Collection du Champion : participer à la victoire de 10 boss"], ["savant", "Collection du Savant : 4 domaines au rang Légende"], ["legende", "Collection du Vétéran : atteindre le Prestige 9"], ["champion", "Collection du Compétiteur : finir n°1 de la semaine 4 fois"], ["explorateur", "Collection de l'Explorateur : les 5 mondes à 100 %"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
+      ${[["gardien", "Ta guilde atteint le niveau 5"], ["legion", "Ta guilde atteint 10 000 bonnes réponses"], ["adv1", "Vaincre le Gardien Sylvestre (Aventure, Monde 1)"], ["adv2", "Vaincre le Sphinx Oublié (Aventure, Monde 2)"], ["adv3", "Vaincre le Léviathan (Aventure, Monde 3)"], ["adv4", "Vaincre le Roi des Glaces (Aventure, Monde 4)"], ["adv5", "Vaincre le Seigneur de la Corruption (Aventure, Monde 5)"], ["cimes", "Collection du Conquérant : atteindre le sommet de la Tour 3 fois"], ["arene", "Collection du Champion : participer à la victoire de 10 boss"], ["savant", "Collection du Savant : 4 domaines au rang Légende"], ["legende", "Collection du Vétéran : atteindre le Prestige 9"], ["champion", "Collection du Compétiteur : finir n°1 de la semaine 4 fois"], ["explorateur", "Collection de l'Explorateur : les 5 mondes à 100 %"], ["globe", "Atlas du monde : trouver les 197 pays sur la carte"]].map(([k, d]) => `<div class="ttl-row">${titleTag(k, "lg")}${S.titles[k] ? (S.profile.title === k ? `<span class="chip lamp">Porté</span>` : `<button class="btn small ghost" data-tequip="${k}">Porter</button>`) : `<span class="muted" style="font-size:13px;text-align:right">${d}</span>`}</div>`).join("")}</div></div>`;
 }
 function renderShop(){
   const UPG = `${UPG_HTML()}`;
@@ -977,7 +978,7 @@ function renderBadges(){
 }
 function renderBadges0(){
   const got = BADGES.filter(b => S.badges[b.id]).length;
-  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["L'Aventure","L'Aventure : boss, monstres et étoiles"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
+  const groups = [["Général","Bonnes réponses, tous thèmes"],["Régularité","Défis du jour d'affilée"],["Records","Records des modes"],["La Tour","La Tour"],["L'Aventure","L'Aventure : boss, monstres et étoiles"],["L'Atlas","L'Atlas du monde : pays et capitales"],["En ligne","En ligne : duels et salons"]].filter(([g]) => BADGES.some(b => b.g === g)).map(([g,t]) => `<div class="card stack" style="gap:10px"><div class="label">${t}</div><div class="bgrid">${BADGES.filter(b=>b.g===g).map(b => badgeTile(b)).join("")}</div></div>`).join("");
   const themes = ORDER.map(k => { const bs = BADGES.filter(b=>b.th===k), n = bs.filter(b=>S.badges[b.id]).length;
     return `<details class="card tb"><summary><span class="nm">${dot(k)}${esc(THEMES[k].n)}</span><span class="label">${n}/6 · ${correctIn(k)}/${byTheme(k).length} réussies</span></summary><div class="bgrid">${bs.map(b => badgeTile(b, 64)).join("")}</div></details>`; }).join("");
   return `<p class="muted">${got}/${BADGES.length} badges obtenus. Chaque badge rapporte des pièces, une seule fois. Plus le palier est haut, plus la médaille impressionne.</p>${groups}<div class="label">Badges de thème · bronze 5, argent 10, or 20, platine 30, diamant 40, Maître 50 maîtrisées</div>${themes}`;
@@ -1119,7 +1120,7 @@ function doAnswer(s, v){
 }
 function onClick(e){
   // Aventure : combats et Casino ont leurs propres boutons ; sur la carte, les îles et les niveaux sont des dessins
-  if (e.target.closest && e.target.closest("#av-fight,#casino")) return;
+  if (e.target.closest && e.target.closest("#av-fight,#casino,#atlas")) return;
   const av = e.target.closest && e.target.closest("[data-adv]");
   if (av && av.tagName !== "BUTTON" && typeof Aventure !== "undefined") return Aventure.click(av);
   const see = e.target.closest("[data-see]"); if (see && !e.target.closest("button") && typeof Profil !== "undefined") return Profil.see(see.dataset.see);
@@ -1127,6 +1128,7 @@ function onClick(e){
   const d = b.dataset, s = S.session;
   if (d.gd !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Guildes.click(b); }
   if (d.pc) return Profil.click(b);
+  if (d.atlas) return Atlas.open();
   if (d.am) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Amis.click(b); }
   if (d.adv !== undefined) { if (S.settings.sfx !== false && !b.closest("#av-fight")) try { Music.sfx("tap"); } catch(err){} return Aventure.click(b); }
   if (d.qs !== undefined) { if (S.settings.sfx !== false) try { Music.sfx("tap"); } catch(err){} return Quetes.click(b); }
