@@ -12,7 +12,7 @@ const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
       xp:{his:30000, geo:15000, sci:12000, cin:10000, jeu:8000}, badges:{all50:'2026-11-01', str3:'2026-11-03', his_5:'2026-11-04', his_10:'2026-11-05'},
       tour:{cp:0, best:100, tops:1, claimed:{}, seen:[]}, boss:{played:{}, claimed:{}, seen:[], wins:4, tops:1, total:62}, online:{wins:30, played:50, crowns:1},
       card:{bn:'tour', fr:'boss', bd:[]}})); });
-  await p.goto('file://' + path.join(ROOT, 'dist', 'lumen.html')); await p.waitForTimeout(3500);
+  await p.goto('file://' + path.join(ROOT, 'dist', 'lumen.html')); await p.waitForTimeout(3500); await p.evaluate(() => document.querySelectorAll('.po-drop-v').forEach(e => e.remove())); // potions des paliers déjà atteints
   await p.evaluate(() => { document.querySelectorAll('.lvup').forEach(e => e.remove()); });
   await shot('carte');
   await p.click('[data-seg=badges]'); await p.waitForTimeout(500); await shot('collections');

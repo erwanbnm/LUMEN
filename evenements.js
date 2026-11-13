@@ -3,7 +3,7 @@
    - Pendant un événement, chaque bonne réponse (tous les modes) envoie une clé unique au serveur, par petits paquets.
      Le serveur tire au sort (3 %) et, en cas de chance, donne un fragment d'un des personnages de l'événement
      pas encore adoptés. 6 fragments du même personnage = il est débloqué (les 6 fragments sont consommés).
-   - Jetons rares (Double pièces, Double XP, 50/50) : un seul de chaque type, gardés par le serveur dans inv/{uid}.
+   - Potions à raretés (sac, trouvailles 2 %, récompenses) et jeton 50/50 : gardés par le serveur dans inv/{uid} (voir calendrier.js).
      Le téléphone ne fait que lire ce document. Les pièces de remplacement (jeton déjà possédé) et les achats
      sont appliqués une seule fois grâce à leur clé (S.ev.paid / S.ev.spent).
    - Sans compte : pas de fragments ; les jetons restent sur l'appareil (S.inv), comme les potions du calendrier. */
@@ -58,6 +58,10 @@ const Evenements = (() => {
   // Potions gagnées avec le calendrier avant le serveur : transférées une seule fois
   function migrate(){
     const s = st(), loc = S.inv || {};
+    // Potions du sac gagnées sans compte sur cet appareil : transférées une seule fois
+    const mine = Object.keys(S.pot || {}).filter(p => S.pot[p] > 0);
+    if (mine.length && !s.migrPot) { s.migrPot = 1; const pot = {}; mine.forEach(p => pot[p] = S.pot[p]); save();
+      call("grant", {src:"local", key:key("l"), pot}).then(() => { mine.forEach(p => S.pot[p] = Math.max(0, (S.pot[p] || 0) - pot[p])); s.migrPot = 0; save(); refresh(); }).catch(() => { s.migrPot = 0; }); }
     ["xp", "coin"].forEach(t => { const x = loc[t] || {}; if (s.migr[t] || !((x.got || 0) > (x.used || 0))) return; s.migr[t] = 1; save();
       call("grant", {src:"migr", t}).then(() => { loc[t] = Object.assign({}, x, {used:Date.now()}); save(); }).catch(() => { s.migr[t] = 0; }); });
   }
@@ -75,17 +79,18 @@ const Evenements = (() => {
   }
 
   /* --- Fragments : une clé par bonne réponse, envoyées toutes les 2 secondes --- */
-  function onAnswer(ok){
-    if (!online() || !(curCh() || (ok && cur()))) return;
-    q.push({k:key(ok ? "a" : "w"), n:0}); if (q.length > 60) q = q.slice(-60);
+  function onAnswer(ok, qid){
+    if (!online()) return;
+    q.push({k:key(ok ? "a" : "w"), n:0, q:ok && qid ? String(qid).slice(0, 32) : ""}); if (q.length > 60) q = q.slice(-60);
     if (!qTimer) qTimer = setTimeout(flush, 2000);
   }
   async function flush(){
     qTimer = null; if (sending || !q.length) return; sending = true;
     const pack = q.slice(0, 8);
     try {
-      const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), own:e ? e.chars.filter(c => S.skins[c]) : []});
+      const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), qs:pack.map(x => x.q || ""), own:e ? e.chars.filter(c => S.skins[c]) : []});
       q = q.filter(x => !pack.includes(x));
+      (r.pots || []).forEach((w, i) => setTimeout(() => { if (w.got && w.got.startsWith("pot:")) Potions.found(w.p, "Bonne réponse · bonus"); else toasts.push(`<b>Potion trouvée</b> · sac plein : +${String(w.got || "").slice(6)} pièces`); }, 600 + i * 900));
       (r.won || []).forEach((w, i) => setTimeout(() => fragFx(w), i * 900));
       if ((r.pets || []).length) setTimeout(celebrate, 1500);
     } catch(e){ pack.forEach(x => x.n++); q = q.filter(x => x.n < 3); }
@@ -155,33 +160,46 @@ const Evenements = (() => {
     save();
   }
   const boss = (wk, quiet) => grant({src:"boss", wk}, "boss:" + wk, quiet, "Boss vaincu");
-  const cal = n => grant({src:"cal", n}, "cal:" + n, true, "Calendrier");
   const adv = q => grant({src:"adv", q}, "adv:" + q, false, "Quête d'Aventure");
   async function use(t){
     if (!has(t)) return false;
     const x = inv.tok[t], back = Object.assign({}, x);
-    inv.tok[t] = Object.assign({}, x, {n:0}, D.TOKENS[t].dur ? {until:Date.now() + D.TOKENS[t].dur * 6e4} : {});   // affichage immédiat
+    inv.tok[t] = Object.assign({}, x, {n:0});   // affichage immédiat
     call("use", {t}).then(r => { if (!r.ok) { inv.tok[t] = back; refresh(); } }).catch(() => { inv.tok[t] = back; toasts.push("<b>Jeton non utilisé</b> · vérifie ta connexion."); refresh(); });
     return true;
   }
+  // Potion du sac : affichage immédiat, puis le serveur décide (heure du serveur)
+  function usePot(t, r, end){
+    const p = t + ":" + r, pot = inv.pot = inv.pot || {}, bo = inv.boost = inv.boost || {}, back = {pot:Object.assign({}, pot), bo:Object.assign({}, bo), tok:inv.tok[t]};
+    if (pot[p] > 0) pot[p]--; else if (r === "c" && inv.tok[t]) inv.tok[t] = Object.assign({}, inv.tok[t], {n:0});
+    bo[t] = end;
+    const undo = () => { inv.pot = back.pot; inv.boost = back.bo; if (back.tok) inv.tok[t] = back.tok; refresh(); };
+    call("use", {t, r}).then(x => { if (!x.ok) undo(); else if (x.until && inv.boost) inv.boost[t] = x.until; }).catch(() => { undo(); toasts.push("<b>Potion non activée</b> · vérifie ta connexion."); });
+  }
   let buying = false;
+  // Boutique : potions communes (dans la limite du sac) et jeton 50/50 (un seul)
+  const priceOf = t => t === "fifty" ? D.PRICE : D.POT.PRICE;
+  const full = t => t !== "fifty" && Potions.count(t + ":c") >= D.POT.MAX;
+  const nameOf = t => t === "fifty" ? D.TOKENS.fifty.n : Potions.name(t + ":c");
   async function buy(t){
-    if (buying || !D.TOKENS[t] || S.coins < D.PRICE) return;
+    if (buying || !["xp", "coin", "fifty"].includes(t) || S.coins < priceOf(t)) return;
     if (!online()) { // sans compte : achat sur l'appareil
-      if (Potions.has(t)) return; S.coins -= D.PRICE; spend(D.PRICE); Potions.give(t); toasts.push(`<b>${D.TOKENS[t].n}</b> · acheté`); save(); return render();
+      if (t === "fifty" ? Potions.has(t) : full(t)) return; S.coins -= priceOf(t); spend(priceOf(t));
+      if (t === "fifty") Potions.give(t); else { S.pot = S.pot || {}; S.pot[t + ":c"] = (S.pot[t + ":c"] || 0) + 1; }
+      toasts.push(`<b>${nameOf(t)}</b> · achetée`); save(); return render();
     }
-    if (!live() || has(t)) return;
+    if (!live() || (t === "fifty" ? has(t) : full(t))) return;
     buying = true; render();
-    try { const r = await call("buy", {t, key:key("b")}); toasts.push(r.ok ? `<b>${D.TOKENS[t].n}</b> · acheté pour ${D.PRICE.toLocaleString("fr-FR")} pièces` : "<b>Tu as déjà ce jeton</b> · utilise-le d'abord."); }
+    try { const r = await call("buy", {t, key:key("b")}); toasts.push(r.ok ? `<b>${nameOf(t)}</b> · achat pour ${priceOf(t).toLocaleString("fr-FR")} pièces` : r.why === "full" ? "<b>Sac plein</b> · 20 potions de ce type au maximum." : "<b>Tu as déjà ce jeton</b> · utilise-le d'abord."); }
     catch(e){ toasts.push("<b>Achat impossible pour l'instant</b> · vérifie ta connexion. Aucune pièce n'a été retirée."); }
     buying = false; render();
   }
-  // Bloc de la boutique : les 3 jetons
   function shopBlock(){
-    const rows = Object.keys(D.TOKENS).map(t => { const own = Potions.has(t), wait = online() && !live();
-      const btn = own ? `<span class="chip lamp">Possédé</span>` : `<button class="btn small" data-evb="${t}" ${S.coins >= D.PRICE && !buying && !wait ? "" : "disabled"}>${coinIco}${D.PRICE.toLocaleString("fr-FR")}</button>`;
-      return `<div class="ev-tok">${Potions.svg(t, 44)}<div class="stack grow" style="gap:2px;min-width:0"><b>${Potions.T[t].n}</b><span class="muted" style="font-size:12.5px">${Potions.T[t].d}</span></div>${btn}</div>`; }).join("");
-    return `<div class="label">Objets rares · un seul de chaque</div><div class="card ev-toks">${rows}<span class="muted" style="font-size:12px">Aussi offerts aux paliers 30, 60 et 90 de la Tour et contre le Boss de la semaine (5 PV de dégâts).</span></div>`;
+    const wait = online() && !live();
+    const row = (t, art, n, d, own, ownTxt) => `<div class="ev-tok">${art}<div class="stack grow" style="gap:2px;min-width:0"><b>${n}</b><span class="muted" style="font-size:12.5px">${d}</span></div>${own ? `<span class="chip lamp">${ownTxt}</span>` : `<button class="btn small" data-evb="${t}" ${S.coins >= priceOf(t) && !buying && !wait ? "" : "disabled"}>${coinIco}${priceOf(t).toLocaleString("fr-FR")}</button>`}</div>`;
+    const rows = ["xp", "coin"].map(t => row(t, PotArt.svg(t, "c", 46, "still"), Potions.name(t + ":c"), `${Potions.T[t].d} 30 minutes, à activer quand tu veux. Dans ton sac : ${Potions.count(t + ":c")}.`, full(t), "Sac plein")).join("")
+      + row("fifty", Potions.svg("fifty", 44), D.TOKENS.fifty.n, Potions.T.fifty.d, Potions.has("fifty"), "Possédé");
+    return `<div class="label">Potions et jeton</div><div class="card ev-toks">${rows}<span class="muted" style="font-size:12px">Les potions rares et épiques ne s'achètent pas : quêtes, défis, calendrier, paliers (Survie, Boss, Tour, Atlas, Aventure) et un peu de chance à chaque bonne réponse.</span></div>`;
   }
 
   /* --- Affichage --- */
@@ -292,5 +310,5 @@ const Evenements = (() => {
   }
   setTimeout(retire, 3000);
   setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
-  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
+  return {listen, stop, live, online, call, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, usePot, buy, tower, boss, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();

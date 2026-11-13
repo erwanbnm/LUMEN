@@ -77,13 +77,14 @@ const Tour = (() => {
     const f = r.floor;
     if (typeof Quetes !== "undefined") Quetes.ev("tower", {v:1});
     t.best = Math.max(t.best || 0, f);
+    if (typeof Potions !== "undefined" && EV_DATA.REW.tour[f]) setTimeout(() => Potions.tick(true), 1400);   // palier à potion (10, 25, 50, 75, 100)
     if (t.wk !== weekId()) { t.wk = weekId(); t.wbest = 0; t.wt = 0; }
     if (f > (t.wbest || 0)) { t.wbest = f; t.wt = Date.now(); }
     if (f % 10 === 0) {
       t.cp = Math.max(t.cp || 0, f);
       let coins = 0;
       if (!t.claimed[f]) { t.claimed[f] = today(); coins = CP_REWARD[f] || 0; S.coins += coins; } // une seule fois par compte
-      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton rare (une seule fois par compte)
+      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton 50/50 (une seule fois par compte)
       if (f === 100) { t.tops = (t.tops || 0) + 1; S.titles = S.titles || {}; S.titles.tour100 = S.titles.tour100 || today(); }
       S.tourRun = f < 100 ? {floor:f + 1, used:r.used, t0:r.t0} : null;
       save(); checkBadges(); pushStats();

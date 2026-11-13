@@ -102,7 +102,11 @@ const Boss = (() => {
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
       tx.update(ref(), up); }).catch(() => {});
   }
-  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
+  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg;
+    // Paliers de dégâts du combat du jour : potions et pièces (EV_DATA.REW.boss, vérifiés par le serveur dans bosses/{lundi})
+    if (typeof Potions !== "undefined") { const c = cur(); S.potBoss = {d:c.day, v:run.dmg};
+      Object.keys(EV_DATA.REW.boss).filter(t => run.dmg >= +t).forEach(t => setTimeout(() => Potions.reward("boss", t, {d:c.day}, `Boss · ${t} PV de dégâts`), 2500)); }
+    save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
 
   /* --- Récompenses (une seule fois par semaine) --- */
   function claim(){
@@ -118,7 +122,7 @@ const Boss = (() => {
     const top = Object.keys(doc.dmg || {}).sort((a, b) => doc.dmg[b] - doc.dmg[a])[0];
     if (top === uid()) { s.tops = (s.tops || 0) + 1; S.titles = S.titles || {}; if (!S.titles.fleau) { S.titles.fleau = today(); lines.push("Titre rare débloqué : FLÉAU DES BOSS"); } }
     if (doc.killer === uid()) { s.kills = (s.kills || 0) + 1; lines.push("Tu as porté le coup fatal !"); }
-    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton rare t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
+    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton 50/50 t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
     save(); checkBadges();
     setTimeout(() => rewardFx(lines), 600);
   }

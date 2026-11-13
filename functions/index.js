@@ -1,9 +1,10 @@
 /* ---------- Serveur de Lumen (Firebase Cloud Functions, formule Blaze, novembre 2026) ----------
    Tout ce qui ne doit pas pouvoir être triché depuis le téléphone passe ici :
    - tirage des fragments d'événement (3 % par bonne réponse, côté serveur) ;
-   - jetons rares (Double pièces, Double XP, 50/50) : un exemplaire maximum de chaque type, récompenses
-     de la Tour, du Boss (vérifié dans bosses/{lundi}) et du calendrier (vérifié dans logins/{uid}), achats en boutique ;
-   - activation des boosters (heure du serveur).
+   - potions à raretés (Double XP, Double pièces ; commune, rare, épique) : sac de 20 par case, trouvailles (2 %),
+     récompenses de la table D.REW (quêtes, calendrier, Survie, Boss, Tour, Atlas, Aventure, badges, maîtrise), achats ;
+   - jeton 50/50 (un exemplaire) : Tour, Boss de la semaine, quêtes Chrono de l'Aventure, boutique ;
+   - activation des potions (heure du serveur, 3 h d'avance au plus).
    Les données vivent dans inv/{uid} : le téléphone peut seulement les lire (règle Firestore), seul ce serveur écrit.
    Chaque demande porte une clé unique : la rejouer (double appel, réseau qui coupe) ne donne jamais rien de plus. */
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
@@ -18,18 +19,41 @@ const KEY_RE = /^[A-Za-z0-9:_-]{4,64}$/;
 const parisDay = ms => new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date(ms));
 const calDay = ms => Math.floor((ms + 36e5) / 864e5);          // même calcul que la règle « logins »
 const activeEvent = now => D.EVENTS.find(e => now >= Date.parse(e.start) && now <= Date.parse(e.end)) || null;
-const blank = () => ({frag:{}, evSkins:{}, tok:{}, grants:{}, pay:{}, spent:{}, stake:{}, ch:{}, pets:{}, recent:[], last:0, day:"", dayN:0});
+const blank = () => ({frag:{}, evSkins:{}, tok:{}, grants:{}, pay:{}, spent:{}, stake:{}, ch:{}, pets:{}, pot:{}, boost:{}, recent:[], last:0, day:"", dayN:0});
 const has = (inv, t) => !!(inv.tok[t] && inv.tok[t].n > 0);
 function need(req){ if (!req.auth) throw new HttpsError("unauthenticated", "Connexion nécessaire."); return req.auth.uid; }
+// Anciennes potions (un exemplaire, 30 min) : transformées une seule fois en potions communes du sac
+function norm(inv){
+  inv.pot = inv.pot || {}; inv.boost = inv.boost || {};
+  ["xp", "coin"].forEach(t => { const x = inv.tok[t]; if (!x) return;
+    if (x.n > 0) inv.pot[t + ":c"] = Math.min(P.MAX, (inv.pot[t + ":c"] || 0) + 1);
+    if ((x.until || 0) > (inv.boost[t] || 0)) inv.boost[t] = x.until;
+    delete inv.tok[t]; });
+}
 // Transaction sur inv/{uid}
 async function withInv(uid, fn){
   const ref = db.doc("inv/" + uid);
   return db.runTransaction(async tx => {
     const s = await tx.get(ref), inv = Object.assign(blank(), s.exists ? s.data() : {});
+    norm(inv);
     const out = await fn(inv, tx);
     tx.set(ref, inv); return out;
   });
 }
+
+/* --- Potions à raretés (table : D.POT et D.REW) --- */
+const P = D.POT, RW = D.REW;
+const POT_RE = /^(xp|coin):(c|r|e)$/;
+// Ajoute une potion au sac ; case pleine : pièces à la place (versées par l'appli via inv.pay)
+function putPot(inv, key, p){
+  const n = inv.pot[p] || 0, r = p.slice(-1);
+  if (n < P.MAX) { inv.pot[p] = n + 1; return "pot:" + p; }
+  inv.pay[key] = P.FULL[r]; return "coins:" + P.FULL[r];
+}
+function rollPot(){ const fx = Math.random() < 0.5 ? "xp" : "coin"; let x = Math.random(), r = "c";
+  for (const [k, o] of P.DROP.odds) { if (x < o) { r = k; break; } x -= o; } return fx + ":" + r; }
+const weekOf = day => { const d = new Date(day + "T12:00:00Z"), k = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - k); return d.toISOString().slice(0, 10); };
+const prevDay = day => { const d = new Date(day + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - 1); return d.toISOString().slice(0, 10); };
 // Donne un jeton (ou des pièces de remplacement s'il est déjà possédé), une seule fois par clé
 function give(inv, key, t, swap){
   if (inv.grants[key]) return {dup:true, got:inv.grants[key]};
@@ -50,19 +74,30 @@ function chUnlock(inv, e, now){ // défi atteint : familier débloqué pour touj
 exports.draw = onCall(async req => {
   const uid = need(req), now = Date.now(), ev = activeEvent(now), chs = activeCh(now);
   const owned = new Set(Array.isArray(req.data && req.data.own) ? req.data.own.slice(0, 20) : []);
-  const keys = [...new Set((req.data && req.data.keys) || [])].filter(k => typeof k === "string" && KEY_RE.test(k)).slice(0, 8);
-  if ((!ev && !chs.length) || !keys.length) return {won:[], pets:[]};
+  const raw = (req.data && req.data.keys) || [], qs = (req.data && req.data.qs) || [];
+  const qOf = {}; raw.forEach((k, i) => { if (typeof qs[i] === "string" && /^[A-Za-z0-9_-]{1,32}$/.test(qs[i])) qOf[k] = qs[i]; });
+  const keys = [...new Set(raw)].filter(k => typeof k === "string" && KEY_RE.test(k)).slice(0, 8);
+  if (!keys.length) return {won:[], pets:[], pots:[]};
   return withInv(uid, async inv => {
-    const today = parisDay(now); if (inv.day !== today) { inv.day = today; inv.dayN = 0; inv.dayA = 0; }
-    inv.ch = inv.ch || {};
+    const today = parisDay(now); if (inv.day !== today) { inv.day = today; inv.dayN = 0; inv.dayA = 0; inv.potN = 0; inv.potQ = []; }
+    inv.ch = inv.ch || {}; inv.potQ = inv.potQ || [];
     // Pas plus d'une réponse toutes les 0,7 seconde depuis le dernier envoi (les vraies parties sont plus lentes)
     const room = Math.max(1, Math.floor((now - (inv.last || 0)) / 700));
     const fresh = keys.filter(k => !inv.recent.includes(k)).slice(0, room);
-    inv.last = now; const won = []; let pets = [];
+    inv.last = now; const won = [], pots = []; let pets = [];
     for (const k of fresh) {
       inv.recent.push(k);
       if ((inv.dayA || 0) < D.DAY_ANS) { inv.dayA = (inv.dayA || 0) + 1;
         chs.forEach(e => { if (e.goals.some(g => g.k === "q")) { const c = inv.ch[e.id] = inv.ch[e.id] || {}; c.q = (c.q || 0) + 1; } }); }
+      // Potion trouvée : bonne réponse, une seule chance par question et par jour, 3 au plus par jour
+      const qid = qOf[k];
+      if (k[0] === "a" && qid && (inv.dayA || 0) <= D.DAY_ANS && !inv.potQ.includes(qid)) {
+        inv.potQ.push(qid);
+        if ((inv.potN || 0) < P.DROP.day && Math.random() < P.DROP.rate) {
+          const p = rollPot(), key = "drop:" + today + ":" + qid; inv.potN = (inv.potN || 0) + 1;
+          const got = putPot(inv, key, p); inv.grants[key] = got; pots.push({p, got});
+        }
+      }
       if (k[0] !== "a" || !ev) continue;
       if (inv.dayN >= D.DAY_MAX) continue; inv.dayN++;
       const f = inv.frag[ev.id] = inv.frag[ev.id] || {};
@@ -75,8 +110,8 @@ exports.draw = onCall(async req => {
       won.push({c, unlocked});
     }
     chs.forEach(e => { pets = pets.concat(chUnlock(inv, e, now)); });
-    inv.recent = inv.recent.slice(-160);
-    return {won, pets};
+    inv.recent = inv.recent.slice(-160); inv.potQ = inv.potQ.slice(-D.DAY_ANS);
+    return {won, pets, pots};
   });
 });
 
@@ -161,49 +196,94 @@ exports.grant = onCall(async req => {
     const wk = String(d.wk || ""); if (!/^\d{4}-\d{2}-\d{2}$/.test(wk)) throw new HttpsError("invalid-argument", "Semaine inconnue.");
     const b = await db.doc("bosses/" + wk).get(), bd = b.exists ? b.data() : null;
     if (!bd || !bd.defeatedAt || ((bd.dmg || {})[uid] || 0) < D.BOSS_MIN) throw new HttpsError("failed-precondition", "Pas de jeton pour ce boss.");
-    return withInv(uid, async inv => {
-      const k = "boss:" + wk; if (inv.grants[k]) return {dup:true, got:inv.grants[k]};
-      const free = Object.keys(D.TOKENS).filter(t => !has(inv, t));
-      return give(inv, k, free.length ? free[Math.floor(Math.random() * free.length)] : "fifty", D.SWAP);
-    });
-  }
-  if (src === "cal") {
-    const n = +d.n, step = ((n - 1) % 14) + 1, t = D.CAL[step]; if (!t) throw new HttpsError("invalid-argument", "Case sans jeton.");
-    const l = await db.doc("logins/" + uid).get(); if (!l.exists || l.data().n < n) throw new HttpsError("failed-precondition", "Case pas encore récupérée.");
-    return withInv(uid, async inv => give(inv, "cal:" + n, t, D.CAL_SWAP));
+    return withInv(uid, async inv => give(inv, "boss:" + wk, "fifty", D.SWAP));   // boss vaincu dans la semaine : jeton 50/50
   }
   if (src === "adv") { // quête de l'Aventure (progression gardée sur le téléphone, comme les pièces)
     const q = String(d.q || ""), t = (D.ADVQ || {})[q]; if (!t) throw new HttpsError("invalid-argument", "Quête inconnue.");
     return withInv(uid, async inv => give(inv, "adv:" + q, t, D.ADVQ_SWAP || 100));
   }
-  if (src === "migr") { // potions gagnées avant le passage au serveur (une seule fois par type)
+  if (src === "migr") { // anciennes potions gardées sur le téléphone (une seule fois par type) : potion commune
     const t = d.t; if (t !== "xp" && t !== "coin") throw new HttpsError("invalid-argument", "Potion inconnue.");
-    return withInv(uid, async inv => { if (inv.grants["migr:" + t]) return {dup:true}; if (has(inv, t)) { inv.grants["migr:" + t] = "none"; return {got:"none"}; } return give(inv, "migr:" + t, t, 0); });
+    return withInv(uid, async inv => { const k = "migr:" + t; if (inv.grants[k]) return {dup:true}; const got = putPot(inv, k, t + ":c"); inv.grants[k] = got; return {got}; });
   }
+  if (src === "local") { // potions gagnées sans compte, sur cet appareil, transférées à la connexion (au plus MAX par case)
+    const key = String(d.key || ""), pot = d.pot || {}; if (!KEY_RE.test(key)) throw new HttpsError("invalid-argument", "Clé inconnue.");
+    return withInv(uid, async inv => { if (inv.grants[key]) return {dup:true};
+      const got = []; Object.keys(pot).filter(p => POT_RE.test(p)).forEach(p => { const n = Math.max(0, Math.min(P.MAX, Math.floor(+pot[p] || 0)));
+        for (let i = 0; i < n; i++) got.push(putPot(inv, key + ":" + p + i, p)); });
+      inv.grants[key] = "local:" + got.length; return {got}; });
+  }
+  if (src === "pot") return potGrant(uid, d);
   throw new HttpsError("invalid-argument", "Récompense inconnue.");
 });
 
-/* --- Achat d'un jeton en boutique (1 000 pièces) : refusé si le joueur l'a déjà ; une seule fois par clé d'achat --- */
+/* --- Récompenses en potions (table D.REW), par paquets. Chaque palier n'est donné qu'une fois (clé), avec des contrôles :
+   quêtes du jour/semaine : jour ou semaine en cours ; calendrier : connexion validée (logins/{uid}) ; Boss : dégâts du jour
+   lus dans bosses/{lundi} ; Survie : 3 parties récompensées par jour, épique 1 fois par semaine, assez de réponses aujourd'hui.
+   Paliers permanents (Tour, Atlas, Aventure, badges, maîtrise) : une seule fois par compte. --- */
+async function potGrant(uid, d){
+  const items = Array.isArray(d.items) ? d.items.slice(0, 40) : [], now = Date.now(), today = parisDay(now);
+  // Lectures nécessaires avant la transaction
+  const needCal = items.some(x => x && x.s === "cal"), bossIt = items.find(x => x && x.s === "boss");
+  const login = needCal ? await db.doc("logins/" + uid).get() : null;
+  let bossDay = 0;
+  if (bossIt && /^\d{4}-\d{2}-\d{2}$/.test(String(bossIt.d || "")) && (bossIt.d === today || bossIt.d === prevDay(today))) {
+    const b = await db.doc("bosses/" + weekOf(bossIt.d)).get(); bossDay = b.exists ? +((((b.data().days || {})[uid]) || {})[bossIt.d] || 0) : 0; }
+  return withInv(uid, async inv => {
+    const out = [];
+    for (const it of items) {
+      if (!it || typeof it !== "object") continue;
+      const s = String(it.s || ""), t = String(it.t || ""), tab = RW[s];
+      // Maîtrise : un palier par domaine (« his:5 » = rang 5 en Histoire)
+      const tt = s === "mst" ? (/^[a-z]{3}:\d$/.test(t) ? t.split(":")[1] : "") : t, rw = tab && tab[tt];
+      if (!rw || !rw.p) { out.push({s, t, bad:true}); continue; }
+      let key, ok = true, p = rw.p;
+      const day = String(it.d || ""), okDay = day === today || day === prevDay(today);
+      if (s === "qd") { key = `qd:${day}:${t}`; ok = okDay; }
+      else if (s === "qw") { key = `qw:${weekOf(day)}:${t}`; ok = okDay;
+        if (p[0] === "?") p = (it.e === "coin" ? "coin" : "xp") + p.slice(1); }
+      else if (s === "cal") { key = `pcal:${t}:${+it.n || 0}`; const n = +it.n || 0, L = login && login.exists ? login.data() : null;
+        ok = !!L && L.n >= n && n > 0 && ((n - 1) % 14) + 1 === +t; }
+      else if (s === "boss") { key = `pboss:${day}:${t}`; ok = okDay && bossDay >= +t; }
+      else if (s === "surv") { const g = String(it.g || ""); key = `surv:${today}:${g}:${t}`;
+        inv.surv = inv.surv && inv.surv.day === today ? inv.surv : {day:today, g:[], wk:(inv.surv || {}).wk || ""};
+        const isE = p.slice(-1) === "e", wk = weekOf(today);
+        ok = /^[A-Za-z0-9]{4,20}$/.test(g) && (inv.dayA || 0) >= +t && (inv.surv.g.includes(g) || inv.surv.g.length < P.SURV_DAY) && !(isE && inv.surv.wk === wk);
+        if (ok && !inv.grants[key]) { if (!inv.surv.g.includes(g)) inv.surv.g.push(g); if (isE) inv.surv.wk = wk; } }
+      else key = `${s}:${t}`;                                  // paliers permanents
+      if (inv.grants[key]) { out.push({s, t, dup:true, got:inv.grants[key]}); continue; }
+      if (!ok) { out.push({s, t, no:true}); continue; }
+      const got = putPot(inv, key, p); inv.grants[key] = got; out.push({s, t, p, got});
+    }
+    return {out};
+  });
+}
+
+/* --- Achats en boutique (1 000 pièces) : potion commune (sac plein = refus) ou jeton 50/50 (un seul) ; une fois par clé d'achat --- */
 exports.buy = onCall(async req => {
   const uid = need(req), d = req.data || {}, t = d.t, key = String(d.key || "");
-  if (!D.TOKENS[t] || !KEY_RE.test(key)) throw new HttpsError("invalid-argument", "Achat inconnu.");
+  if (!["xp", "coin", "fifty"].includes(t) || !KEY_RE.test(key)) throw new HttpsError("invalid-argument", "Achat inconnu.");
   return withInv(uid, async inv => {
     if (inv.spent[key]) return {dup:true, ok:true};
-    if (has(inv, t)) return {ok:false, why:"owned"};
-    inv.tok[t] = Object.assign({}, inv.tok[t], {n:1, at:Date.now()}); inv.spent[key] = D.PRICE;
+    if (t === "fifty") { if (has(inv, t)) return {ok:false, why:"owned"}; inv.tok[t] = Object.assign({}, inv.tok[t], {n:1, at:Date.now()}); }
+    else { const p = t + ":c"; if ((inv.pot[p] || 0) >= P.MAX) return {ok:false, why:"full"}; inv.pot[p] = (inv.pot[p] || 0) + 1; }
+    inv.spent[key] = t === "fifty" ? D.PRICE : P.PRICE;
     return {ok:true};
   });
 });
 
-/* --- Utiliser un jeton : boosters (heure du serveur, pas de cumul) et 50/50 --- */
+/* --- Utiliser : potion du sac (durée ajoutée à l'effet en cours, CAP minutes d'avance au plus, heure du serveur) ou 50/50 --- */
 exports.use = onCall(async req => {
-  const uid = need(req), t = (req.data || {}).t, now = Date.now();
-  if (!D.TOKENS[t]) throw new HttpsError("invalid-argument", "Jeton inconnu.");
+  const uid = need(req), d = req.data || {}, t = d.t, r = d.r || "c", now = Date.now();
+  if (t === "fifty") return withInv(uid, async inv => {
+    const x = inv.tok[t] || {}; if (!(x.n > 0)) return {ok:false, why:"none"};
+    inv.tok[t] = Object.assign({}, x, {n:0, used:now}); return {ok:true};
+  });
+  const p = t + ":" + r; if (!POT_RE.test(p)) throw new HttpsError("invalid-argument", "Potion inconnue.");
   return withInv(uid, async inv => {
-    const x = inv.tok[t] || {};
-    if (!(x.n > 0)) return {ok:false, why:"none"};
-    if (D.TOKENS[t].dur && (x.until || 0) > now) return {ok:false, why:"active"};
-    inv.tok[t] = Object.assign({}, x, {n:0, used:now}, D.TOKENS[t].dur ? {until:now + D.TOKENS[t].dur * 60000} : {});
-    return {ok:true, until:inv.tok[t].until || 0};
+    if (!((inv.pot[p] || 0) > 0)) return {ok:false, why:"none"};
+    inv.pot[p]--; const from = Math.max(now, inv.boost[t] || 0);
+    inv.boost[t] = Math.min(now + P.CAP * 60000, from + P.RAR[r].dur * 60000);
+    return {ok:true, until:inv.boost[t]};
   });
 });

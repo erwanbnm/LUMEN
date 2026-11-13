@@ -1470,6 +1470,101 @@ body.in-tour .tw{background:transparent}
 .pot-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,246,222,.75);border:2px solid rgba(138,84,40,.45)}
 .pot-st{font-size:12px;font-weight:800;color:#7A5430}
 @media (prefers-reduced-motion:reduce){.cal-card,.cal-t.now,.cal-t.opening,.cal-box,.cal-win{animation:none!important}}
+/* ---------- Potions à raretés : flacons, pastille, sac, paliers, trouvaille (novembre 2026) ---------- */
+@keyframes po-spark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+@keyframes po-bub{0%{transform:translateY(0);opacity:.7}100%{transform:translateY(-22px);opacity:0}}
+@keyframes po-breathe{0%,100%{opacity:.45;transform:scale(.92)}50%{opacity:.95;transform:scale(1.04)}}
+@keyframes po-spin{to{transform:rotate(360deg)}}
+@keyframes po-rune{0%,100%{opacity:.35}50%{opacity:1}}
+.po{flex:0 0 auto;overflow:visible}
+.po .po-spark{transform-box:fill-box;transform-origin:center;animation:po-spark 2.2s ease-in-out infinite}
+.po .po-bub{animation:po-bub 2.4s ease-in infinite}
+.po .po-breathe{transform-box:fill-box;transform-origin:center;animation:po-breathe 3s ease-in-out infinite}
+.po .po-spin{animation:po-spin 14s linear infinite}
+.po .po-rune{animation:po-rune 2.4s ease-in-out infinite}
+.po.still *{animation:none!important}
+.po.off{filter:grayscale(.7) opacity(.45)}
+.po-rar{display:inline-block;font:800 9.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:6px;color:#2B1D3A;background:#9FB4D8}
+.po-rar.r{background:#4AA8FF;color:#fff}.po-rar.e{background:linear-gradient(90deg,#FFD23F,#FF5FD2)}
+/* Pastille du haut */
+.pill.po-pill{gap:2px;padding:2px 8px 2px 2px}
+.po-ring{position:relative;display:inline-grid;place-items:center;width:30px;height:30px}
+.po-ring .po-rg{position:absolute;inset:0;transform:rotate(-90deg)}
+.po-ring .po{position:relative}
+.po-pt{font:800 11.5px var(--f-mono);font-variant-numeric:tabular-nums;margin-right:3px}
+/* Sac */
+.cal-box.po-box{align-items:stretch;gap:10px;color:#FFF0FA;background:linear-gradient(180deg,#4A2F80,#241544);border-color:#2B1D3A;box-shadow:0 8px 0 #2B1D3A}
+.po-box .am-x{color:#FFF0FA}
+.po-head{display:flex;flex-direction:column;align-items:center;gap:2px}
+.po-head span{font:600 11.5px var(--f-mono);color:#CBB5E8}
+.po-seg{margin:0;background:rgba(0,0,0,.28)!important;box-shadow:none!important}.po-seg button{color:#E8D8F8!important}.po-seg button[aria-pressed=true]{background:#FF5FA2!important;color:#fff!important}
+.po-acts{display:flex;flex-direction:column;gap:6px}
+.po-act{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:14px;background:rgba(0,0,0,.25)}
+.po-act b{font:800 13px var(--f-display);min-width:96px}
+.po-bar{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.po-bar i{display:block;height:100%;border-radius:99px}
+.po-act em{font:800 12.5px var(--f-mono);font-style:normal;font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+.po-lab{font:700 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:#CBB5E8;margin:4px 2px -2px}
+.po-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.po-slot{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 6px;border-radius:16px;border:3px solid #2B1D3A;background:#24124A;box-shadow:0 3px 0 #1A0E30;cursor:pointer;color:#FFF0FA;font:inherit}
+.po-slot.r-r{background:#1C2E66}.po-slot.r-e{background:radial-gradient(circle at 50% 35%,#6A2478,#2A1050);border-color:#B8780E}
+.po-slot.sel{outline:3px solid #fff;outline-offset:2px}
+.po-slot.zero{opacity:.4;filter:grayscale(.6)}
+.po-q{position:absolute;top:4px;right:5px;font:800 12.5px var(--f-mono);background:#2B1D3A;color:#fff;border-radius:8px;padding:1px 6px}
+.po-d{font:700 11px var(--f-mono);color:#CBB5E8}
+.po-go{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:18px;background:rgba(0,0,0,.25)}
+.po-go p{margin:0;font-size:13.5px;line-height:1.35}
+.po-btn{width:100%}
+.po-cap{font:600 11.5px var(--f-mono);color:#FFD23F}
+.po-fifty{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(0,0,0,.2)}
+.po-fifty b{font:800 14px var(--f-display)}.po-fifty span{font-size:12px;color:#CBB5E8}
+.po-src{margin:0;font-size:12px;line-height:1.4;color:#CBB5E8;text-align:center}
+/* Paliers */
+.po-tier{padding:10px 10px 12px;border-radius:16px;background:rgba(0,0,0,.22)}
+.po-th{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.po-th b{font:800 14.5px var(--f-display)}.po-th span{font:700 11.5px var(--f-mono);color:#CBB5E8}
+.po-tl{position:relative;height:66px;margin:0 16px}
+.po-rail,.po-fill{position:absolute;left:0;top:19px;height:9px;border-radius:99px;border:2px solid #2B1D3A}
+.po-rail{right:0;background:rgba(0,0,0,.35)}
+.po-fill{background:linear-gradient(90deg,#FF5FA2,#FFD23F)}
+.po-st{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
+.po-ic{position:relative;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#24124A;border:3px solid #2B1D3A}
+.po-st.got .po-ic{background:#3DDC84}
+.po-st.got .po-ic::after{content:"✓";position:absolute;top:-5px;right:-5px;width:17px;height:17px;border-radius:50%;background:#fff;color:#1B8A4C;font:900 11px/17px var(--f-display);text-align:center;border:2px solid #2B1D3A}
+.po-st.next .po-ic{border-color:#FFD23F;box-shadow:0 0 0 3px rgba(255,210,63,.35)}
+.po-st>span{font:800 11px var(--f-mono)}
+.po-cn{display:flex;flex-direction:column;align-items:center;font:800 10.5px var(--f-mono);color:#FFE36A;line-height:1}
+.po-coin{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#FFF6B0,#FFD23F 45%,#C8860A);border:2px solid #7A5000}
+.po-tf{display:block;margin-top:4px;font-size:12px;color:#CBB5E8}
+/* Trouvaille et choix */
+.po-drop-v{z-index:95}
+.po-drop{position:relative;width:min(320px,88vw);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:24px 16px 18px;border-radius:28px;color:#FFF0FA;border:3px solid #2B1D3A;box-shadow:0 6px 0 #2B1D3A;background:linear-gradient(180deg,#4A2F80,#241544);animation:calPop .5s cubic-bezier(.2,1.6,.4,1)}
+.po-drop.r{background:radial-gradient(circle at 50% 30%,#2A5AB8,#241544 75%)}
+.po-drop.e{background:radial-gradient(circle at 50% 30%,#8A2A90,#2A1050 75%);border-color:#FFD23F;box-shadow:0 6px 0 #8A5A00,0 0 40px rgba(255,95,210,.55)}
+.po-k{font:800 11.5px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:#FFD23F}
+.po-h{font:800 26px var(--f-display);text-shadow:0 3px 0 #2B1D3A}
+.po-fl{position:relative;display:grid;place-items:center;height:168px}
+.po-fl::before{content:"";position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px 0 0 -115px;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.16) 0 10deg,transparent 10deg 30deg);animation:po-spin 10s linear infinite;-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%)}
+.po-fl .po{position:relative;animation:po-up .9s cubic-bezier(.2,1.5,.4,1) .15s both}
+@keyframes po-up{from{transform:translateY(40px) scale(.2)}}
+.po-dd{font:700 12px var(--f-mono);color:#CBB5E8}
+.po-drop p{margin:4px 0 10px;font-size:13.5px;color:#E8D8F8}
+.po-row2{display:flex;gap:8px;width:100%}.po-sum{display:flex;flex-direction:column;gap:6px;width:100%;max-height:44vh;overflow:auto;margin:8px 0 2px;text-align:left}.po-sum>div{display:flex;align-items:center;gap:10px;padding:4px 10px;border-radius:14px;background:rgba(0,0,0,.22)}.po-sum span{display:flex;flex-direction:column;font-size:12px;color:#CBB5E8}.po-sum b{font:800 14px var(--f-display);color:#FFF0FA}.po-row2 .btn{flex:1}
+.po-cf{position:absolute;inset:0;pointer-events:none}
+.po-cf i{position:absolute;top:40%;left:50%;width:8px;height:12px;border-radius:2px;animation:po-cf 1.2s ease-out forwards}
+@keyframes po-cf{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+.po-ch{display:flex;gap:10px;margin-top:8px}
+.po-chb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:18px;border:3px solid #2B1D3A;background:rgba(0,0,0,.25);color:#FFF0FA;font:inherit;cursor:pointer;box-shadow:0 4px 0 #2B1D3A}
+.po-chb b{font:800 14px var(--f-display)}
+.ev-frag.po-toast{border-color:#C9A2FF}.ev-frag.po-toast.big{border-color:#FFD23F}
+/* Calendrier et quêtes */
+.cal-t.pt.pr-r{background:linear-gradient(#DDEBFF,#A8C8F0);border-color:#2A5AA8;box-shadow:0 3px 0 #2A5AA8}
+.cal-t.big.pt{background:radial-gradient(circle at 50% 40%,#C86AD8,#6A2A90);border-color:#FFD23F;box-shadow:0 3px 0 #8A5A00,0 0 14px rgba(255,95,210,.5)}
+.cal-t.big.pt .cal-l,.cal-t.big.pt .cal-d{color:#FFF6E0}
+.cal-ic{gap:2px}
+.qs-pots{display:flex;gap:10px;font:800 12px var(--f-mono);color:#CBB5E8}
+.qs-pots span{display:inline-flex;align-items:center;gap:2px;opacity:.6}.qs-pots span.got{opacity:1;color:#3DDC84}
+@media (prefers-reduced-motion:reduce){.po *,.po-fl::before,.po-fl .po,.po-drop{animation:none!important}}
 
 /* ---------- Boutons de retour, de fermeture et accès direct aux quêtes (novembre 2026) ---------- */
 .quit{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:8px 15px;border-radius:999px;cursor:pointer;
@@ -5232,7 +5327,7 @@ const correctAll = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].ok>0).le
 const BADGES = [];
 const TIER_N = {bronze:"Bronze", argent:"Argent", or:"Or", platine:"Platine", diamant:"Diamant", maitre:"Maître"};
 const masteredIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th && S.q[id].b>=3).length;
-[["bronze",50,50],["argent",100,100],["or",250,150],["platine",500,250],["diamant",1000,500],["maitre",2000,1000]].forEach(([t,n,c]) => BADGES.push({id:"all"+n, g:"Général", tier:t, icon:"bulb", name:`${n} bonnes réponses`, desc:`${n} questions différentes réussies, tous thèmes confondus`, coins:c, goal:n, cur:correctAll}));
+[["bronze",50,50],["argent",100,100],["or",250,150],["platine",500,250],["diamant",1000,500],["maitre",2000,1000],["maitre",5000,2000]].forEach(([t,n,c]) => BADGES.push({id:"all"+n, g:"Général", tier:t, icon:"bulb", name:`${n} bonnes réponses`, desc:`${n} questions différentes réussies, tous thèmes confondus`, coins:c, goal:n, cur:correctAll}));
 [["bronze",3,20],["argent",7,50],["or",14,100],["platine",30,200],["diamant",100,500]].forEach(([t,n,c]) => BADGES.push({id:"str"+n, g:"Régularité", tier:t, icon:"moon", name:`${n} défis d'affilée`, desc:`Réussir le Défi du jour ${n} jours de suite`, coins:c, goal:n, cur:()=>Math.max(S.bestStreak||0, streak())}));
 [["survie","Survie","heart"],["chrono","Chrono","hourglass"],["avap","Avant ou après ?","timeline"]].forEach(([m,nm,ic]) => [["bronze",10,30],["or",20,60]].forEach(([t,n,c]) => BADGES.push({id:m+n, g:"Records", tier:t, icon:ic, name:`${nm} : ${n}`, desc:`Atteindre ${n} en ${nm}`, coins:c, goal:n, cur:()=>S.rec[m]||0})));
 ORDER.forEach(k => [["bronze",5,5],["argent",10,10],["or",20,20],["platine",30,30],["diamant",40,40]].forEach(([t,n,c]) => BADGES.push({id:k+"_"+n, g:"Thèmes", th:k, tier:t, icon:k, name:`${THEMES[k].n} · ${TIER_N[t]}`, desc:`${n} bonnes réponses différentes en ${THEMES[k].n}`, coins:c, goal:n, cur:()=>correctIn(k)}))
@@ -5316,6 +5411,7 @@ function checkBadges(){
   checkThemeSkins();
   if (S.st) checkSecrets();
   checkSucces();
+  if (typeof Potions !== "undefined") setTimeout(() => Potions.tick(true), 0);   // paliers qui donnent des potions
   BADGES.forEach(b => {
     if (S.badges[b.id] || b.cur() < b.goal) return;
     S.badges[b.id] = today(); S.coins += b.coins;
@@ -5331,7 +5427,7 @@ function answer(id, ok, combo){
   const firstWin = ok && !e.ok;
   if (ok) { e.b = Math.min(e.b+1, 5); e.ok++; } else { e.b = 0; e.ko++; }
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
-  if (typeof Evenements !== "undefined") Evenements.onAnswer(ok);   // serveur : tirage d'un fragment (bonne réponse) et défi « questions »
+  if (typeof Evenements !== "undefined") Evenements.onAnswer(ok, id);   // serveur : fragment d'événement, défi « questions », potion trouvée (2 %)
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = Profil.pres();
@@ -5865,6 +5961,9 @@ function finish(){
   if (s.mode === "portail") portalFinish(s, ok);
   if (s.mode === "chrono") misEvent("chr", ok);
   if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
+  // Paliers de Survie (par partie) : pièces et potions (table EV_DATA.REW.surv)
+  if (s.mode === "survie" && !s.duel && typeof Potions !== "undefined") { const g = s.sid || (s.sid = Date.now().toString(36)), d = new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date());
+    Object.keys(EV_DATA.REW.surv).filter(t => ok >= +t).forEach(t => Potions.reward("surv", t, {d, g}, `Survie · ${t} bonnes réponses`)); }
   const nq = itemsOf(s).filter(i=>"id" in i).length;
   if ((s.mode === "serie" || s.mode === "mix" || s.mode === "qad") && nq >= 10 && ok === nq) winSucces("parfait");
   if (s.diff === "expert" && nq >= 10 && ok >= 8) winSucces("expert");
@@ -8122,13 +8221,14 @@ const Tour = (() => {
     const f = r.floor;
     if (typeof Quetes !== "undefined") Quetes.ev("tower", {v:1});
     t.best = Math.max(t.best || 0, f);
+    if (typeof Potions !== "undefined" && EV_DATA.REW.tour[f]) setTimeout(() => Potions.tick(true), 1400);   // palier à potion (10, 25, 50, 75, 100)
     if (t.wk !== weekId()) { t.wk = weekId(); t.wbest = 0; t.wt = 0; }
     if (f > (t.wbest || 0)) { t.wbest = f; t.wt = Date.now(); }
     if (f % 10 === 0) {
       t.cp = Math.max(t.cp || 0, f);
       let coins = 0;
       if (!t.claimed[f]) { t.claimed[f] = today(); coins = CP_REWARD[f] || 0; S.coins += coins; } // une seule fois par compte
-      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton rare (une seule fois par compte)
+      if (typeof Evenements !== "undefined" && EV_DATA.TOWER[f]) setTimeout(() => Evenements.tower(f), 1200); // jeton 50/50 (une seule fois par compte)
       if (f === 100) { t.tops = (t.tops || 0) + 1; S.titles = S.titles || {}; S.titles.tour100 = S.titles.tour100 || today(); }
       S.tourRun = f < 100 ? {floor:f + 1, used:r.used, t0:r.t0} : null;
       save(); checkBadges(); pushStats();
@@ -8427,7 +8527,11 @@ const Boss = (() => {
       if (t >= HP && !dd.defeatedAt) { up.defeatedAt = Date.now(); up.killer = uid(); }
       tx.update(ref(), up); }).catch(() => {});
   }
-  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg; save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
+  function finish(){ clearInterval(timer); view = "done"; window.__quiet = true; st().last = run.dmg; st().total = (st().total || 0) + run.dmg;
+    // Paliers de dégâts du combat du jour : potions et pièces (EV_DATA.REW.boss, vérifiés par le serveur dans bosses/{lundi})
+    if (typeof Potions !== "undefined") { const c = cur(); S.potBoss = {d:c.day, v:run.dmg};
+      Object.keys(EV_DATA.REW.boss).filter(t => run.dmg >= +t).forEach(t => setTimeout(() => Potions.reward("boss", t, {d:c.day}, `Boss · ${t} PV de dégâts`), 2500)); }
+    save(); checkBadges(); render(); window.scrollTo(0, 0); setTimeout(claim, 1500); }
 
   /* --- Récompenses (une seule fois par semaine) --- */
   function claim(){
@@ -8443,7 +8547,7 @@ const Boss = (() => {
     const top = Object.keys(doc.dmg || {}).sort((a, b) => doc.dmg[b] - doc.dmg[a])[0];
     if (top === uid()) { s.tops = (s.tops || 0) + 1; S.titles = S.titles || {}; if (!S.titles.fleau) { S.titles.fleau = today(); lines.push("Titre rare débloqué : FLÉAU DES BOSS"); } }
     if (doc.killer === uid()) { s.kills = (s.kills || 0) + 1; lines.push("Tu as porté le coup fatal !"); }
-    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton rare t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
+    if (mine >= SKIN_MIN && typeof Evenements !== "undefined") { lines.push("Un jeton 50/50 t'attend (annoncé dans un instant)"); setTimeout(() => Evenements.boss(wk), 2500); }
     save(); checkBadges();
     setTimeout(() => rewardFx(lines), 600);
   }
@@ -8818,7 +8922,10 @@ const Quetes = (() => {
       else if (isMax(type)) m.p = Math.max(m.p, info.v || 0);
       else m.p += type === "bossdmg" || type === "tower" ? (info.v || 1) : 1;
       if (m.p >= d.goal) { m.p = d.goal; m.done = true; const c = wk ? d.c : D_REWARD; S.coins += c;
-        toasts.push(`<b>${wk ? "Défi de la semaine réussi !" : "Quête du jour réussie"}</b> · ${esc(d.n(m))} · +${c} pièces`); }
+        toasts.push(`<b>${wk ? "Défi de la semaine réussi !" : "Quête du jour réussie"}</b> · ${esc(d.n(m))} · +${c} pièces`);
+        // Potions : 2e et 4e quêtes du jour, 3e et 5e défis de la semaine (table EV_DATA.REW)
+        const n = list.filter(x => x.done).length;
+        if (typeof Potions !== "undefined") Potions.reward(wk ? "qw" : "qd", n, {d:q.day, w:q.wk}, wk ? `${n} défis de la semaine` : `${n} quêtes du jour`); }
     });
     apply(q.d.list, DAILY, false); apply(q.w.list, WEEKLY, true);
   }
@@ -8831,7 +8938,8 @@ const Quetes = (() => {
     const q = Qs(), box = kind === "w" ? q.w : q.d; if (box.chest || !allDone(box.list)) return;
     box.chest = true; const lines = [];
     if (kind === "w" && typeof Boutique !== "undefined") try { Boutique.ev("wchest"); } catch(e){}
-    if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`);
+    if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`, "+ une potion épique au choix");
+      if (typeof Potions !== "undefined") { const d = q.day, w = q.wk; setTimeout(() => Potions.choose("e", e => Potions.reward("qw", "chest", {d, w, e}, "Coffre légendaire")), 2600); }
       S.titles = S.titles || {}; if (!S.titles.infatigable) { S.titles.infatigable = today(); lines.push("Titre exclusif : INFATIGABLE"); } }
     else { S.coins += D_CHEST; q.tot.d++; lines.push(`+${D_CHEST} pièces`); }
     save(); checkBadges(); chestFx(kind, lines);
@@ -8903,9 +9011,14 @@ const Quetes = (() => {
     const state = box.chest ? "open" : ok ? "ready" : "locked";
     return `<div class="qs-chestbox ${state} ${kind === "w" ? "lg" : ""}">${chestSVG(kind, state, kind === "w" ? 96 : 80)}
       <div class="stack" style="gap:4px;min-width:0;flex:1"><b>${kind === "w" ? "Coffre légendaire" : "Coffre du jour"}</b>
-        <span class="muted" style="font-size:13px">${kind === "w" ? `${W_CHEST} pièces + titre exclusif ${titleTag("infatigable", "xs")} (la 1re fois)` : `${D_CHEST} pièces`} · ${n}/${box.list.length} ${kind === "w" ? "défis" : "quêtes"}</span>
+        <span class="muted" style="font-size:13px">${kind === "w" ? `${W_CHEST} pièces + potion épique au choix + titre exclusif ${titleTag("infatigable", "xs")} (la 1re fois)` : `${D_CHEST} pièces`} · ${n}/${box.list.length} ${kind === "w" ? "défis" : "quêtes"}</span>
+        ${typeof Potions !== "undefined" ? potLine(kind, n) : ""}
         ${state === "ready" ? `<button class="btn small qs-open" data-qs="open" data-v="${kind}">Ouvrir le coffre</button>` : state === "open" ? `<span class="chip lamp">Coffre ouvert</span>` : `<span class="muted" style="font-size:12.5px">Termine tout pour l'ouvrir</span>`}</div></div>`;
   }
+  // Potions gagnées en chemin (2e et 4e quêtes du jour, 3e et 5e défis de la semaine)
+  function potLine(kind, n){ const R = EV_DATA.REW[kind === "w" ? "qw" : "qd"];
+    return `<span class="qs-pots">${Object.keys(R).filter(k => k !== "chest").map(k => { const p = R[k].p;
+      return `<span class="${n >= +k ? "got" : ""}">${PotArt.svg(p.split(":")[0], p.slice(-1), 22, "still")}${k}<sup>${+k === 2 || +k === 3 ? "e" : "e"}</sup></span>`; }).join("")}</span>`; }
   function viewAll(){
     const q = Qs(), isW = tab === "w", box = isW ? q.w : q.d, DEF = isW ? WEEKLY : DAILY;
     return `<section class="stack qs">
@@ -9464,71 +9577,326 @@ const Boutique = (() => {
   return {shopView, collectionView, click, buyable, ev, check, info, daily, featured, RAR};
 })();
 
-/* ---------- Potions (Double XP, Double pièces) et calendrier de connexion de 14 jours (novembre 2026) ----------
-   Potions : un exemplaire maximum de chaque type. Activées quand le joueur le décide, elles durent 30 minutes et
-   doublent l'XP ou les pièces des bonnes réponses (pas les coffres, badges ni paliers). Impossible d'en relancer
-   une du même type tant qu'elle est active. Stockage en dates (obtenue / utilisée / fin) : la synchro entre
-   appareils garde le plus grand nombre, donc des dates ne peuvent pas « ressusciter » une potion utilisée.
+/* ---------- Potions à raretés et calendrier de connexion de 14 jours (novembre 2026) ----------
+   Potions : Double XP et Double pièces, en trois raretés (commune 30 min, rare 1 h, épique 2 h ; toujours ×2).
+   Table unique : EV_DATA.POT et EV_DATA.REW (evenements_data.js), lue aussi par le serveur.
+   Sac : jusqu'à 20 potions par case ; elles ne périment jamais, le temps ne compte qu'une fois activée. Activer ajoute
+   la durée à l'effet en cours (3 h d'avance au plus) ; Double XP et Double pièces peuvent tourner en même temps.
+   L'effet ne touche que les gains des bonnes réponses (pas les coffres, badges ni paliers) et jamais les scores
+   de duel, de salon ou de classement (ils comptent les bonnes réponses, pas l'XP).
+   Avec un compte : sac et effets gardés par le serveur (inv/{uid}) ; sans compte : sur l'appareil (S.pot, S.boost).
+   Récompenses : Potions.reward(source, palier) ; les paliers permanents (Tour, Atlas, Aventure, badges, maîtrise) sont
+   vérifiés par Potions.tick, ce qui donne aussi les paliers déjà dépassés avant la mise à jour.
    Calendrier : une case par jour de connexion, à récupérer avec le bouton. Les jours manqués ne se rattrapent pas :
    on reprend simplement à la case suivante. Après le jour 14, on recommence au jour 1.
    La date vient du serveur Firebase (heure du serveur, pas celle du téléphone) ; la règle Firestore « logins »
    refuse une 2e récupération le même jour. Le jour change à minuit (heure d'hiver de Paris ; 1 h en été). */
+/* Flacons des potions : 2 effets × 3 raretés (commune : fiole et liège ; rare : cristal et argent ; épique : or, ailes, couronne) */
+const PotArt = (() => {
+  const TD = "#2B1D3A";
+  let U = 0; const uid = () => "po" + (U++);
+  const LIQ = {xp:{c:["#E2C8FF", "#A070FF", "#5A2AC8"], glow:"#C9A2FF", t:"XP"}, coin:{c:["#FFF3A8", "#FFC83A", "#D88A0A"], glow:"#FFD23F", t:"×2"}};
+  const RAR = {c:{n:"Commune", col:"#9FB4D8", dur:"30 min"}, r:{n:"Rare", col:"#4AA8FF", dur:"1 h"}, e:{n:"Épique", col:"#FF5FD2", dur:"2 h"}};
+  const lg = (id, stops, x2 = 0, y2 = 1) => `<linearGradient id="${id}" x1="0" y1="0" x2="${x2}" y2="${y2}">${stops.map(([o, c, a]) => `<stop offset="${o}" stop-color="${c}"${a !== undefined ? ` stop-opacity="${a}"` : ""}/>`).join("")}</linearGradient>`;
+  const rg = (id, c, o = 0) => `<radialGradient id="${id}"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity="${o}"/></radialGradient>`;
+  const spark = (x, y, r, d, c = "#fff") => `<path class="po-spark" style="animation-delay:-${d}s" d="M${x} ${y - r} L${x + r * .25} ${y - r * .25} L${x + r} ${y} L${x + r * .25} ${y + r * .25} L${x} ${y + r} L${x - r * .25} ${y + r * .25} L${x - r} ${y} L${x - r * .25} ${y - r * .25}Z" fill="${c}"/>`;
+  // Objet relief : copie sombre décalée + forme
+  const relief = (d, fill, dy = 3, w = 3) => `<path d="${d}" fill="${TD}" transform="translate(0 ${dy})"/><path d="${d}" fill="${fill}" stroke="${TD}" stroke-width="${w}" stroke-linejoin="round"/>`;
+
+  /* --- Commune : fiole ronde, bouchon de liège --- */
+  function common(k){
+    const L = LIQ[k], g = uid(), gl = uid(), cork = uid();
+    const body = "M42 30 V44 Q20 52 20 74 Q20 104 50 104 Q80 104 80 74 Q80 52 58 44 V30Z";
+    return `<defs>${lg(g, [[0, L.c[0]], [.5, L.c[1]], [1, L.c[2]]])}${lg(gl, [[0, "#FFFFFF", .55], [1, "#DDEBFF", .25]])}${lg(cork, [[0, "#E8B87A"], [1, "#A8703A"]])}</defs>
+      ${relief(body, `url(#${gl})`, 4, 3.2)}
+      <path d="M23 70 Q50 60 77 70 Q79 101 50 101 Q21 101 23 70Z" fill="url(#${g})"/>
+      <path d="M26 74 Q50 66 74 74" stroke="#fff" stroke-width="2.4" fill="none" opacity=".55"/>
+      <circle cx="60" cy="86" r="3" fill="#fff" opacity=".6" class="po-bub"/><circle cx="44" cy="92" r="2" fill="#fff" opacity=".5" class="po-bub" style="animation-delay:-1.2s"/>
+      ${relief("M39 18 H61 V32 H39Z", `url(#${cork})`, 3, 2.8)}<path d="M43 22 H57" stroke="#fff" stroke-width="2" opacity=".4"/>
+      <path d="M28 64 Q24 76 28 88" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+      <text x="50" y="91" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="900" font-size="17" fill="#fff" stroke="${TD}" stroke-width="4" paint-order="stroke">${L.t}</text>`;
+  }
+  /* --- Rare : flacon de cristal à facettes, monture d'argent, halo --- */
+  function rare(k){
+    const L = LIQ[k], g = uid(), gl = uid(), ag = uid(), h = uid(), gem = uid();
+    const body = "M50 34 L76 52 L80 84 L50 108 L20 84 L24 52Z";
+    return `<defs>${lg(g, [[0, L.c[0]], [.45, L.c[1]], [1, L.c[2]]])}${lg(gl, [[0, "#FFFFFF", .7], [1, "#CFE4FF", .3]])}${lg(ag, [[0, "#FFFFFF"], [.5, "#C8D4E8"], [1, "#7A88A8"]])}${rg(h, L.glow)}${lg(gem, [[0, "#FFFFFF"], [1, RAR.r.col]])}</defs>
+      <circle cx="50" cy="72" r="50" fill="url(#${h})" class="po-breathe" opacity=".75"/>
+      ${relief(body, `url(#${gl})`, 4, 3.2)}
+      <path d="M22 70 L50 62 L78 70 L80 84 L50 106 L20 84Z" fill="url(#${g})"/>
+      <path d="M50 34 V108 M24 52 L50 62 L76 52 M20 84 L50 76 L80 84" stroke="#fff" stroke-width="1.6" fill="none" opacity=".45"/>
+      <path d="M28 56 L32 80" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+      ${relief("M36 46 Q50 38 64 46 L62 52 Q50 46 38 52Z", `url(#${ag})`, 2, 2.4)}
+      ${relief("M30 92 Q50 104 70 92 L72 98 Q50 112 28 98Z", `url(#${ag})`, 2, 2.4)}
+      ${relief("M43 22 H57 L59 34 H41Z", `url(#${ag})`, 2, 2.6)}
+      ${relief("M50 6 L58 14 L50 24 L42 14Z", `url(#${gem})`, 2, 2.4)}<path d="M46 12 L50 9" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      ${spark(84, 30, 6, 0)}${spark(14, 46, 5, .9)}${spark(88, 96, 4, 1.6)}
+      <text x="50" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="900" font-size="18" fill="#fff" stroke="${TD}" stroke-width="4" paint-order="stroke">${L.t}</text>`;
+  }
+  /* --- Épique : flacon royal en or, ailes, couronne, runes, aura qui tourne --- */
+  function epic(k){
+    const L = LIQ[k], g = uid(), gl = uid(), au = uid(), h = uid(), gem = uid(), wg = uid();
+    const body = "M50 34 Q70 40 74 60 Q80 86 50 110 Q20 86 26 60 Q30 40 50 34Z";
+    const rays = Array.from({length:12}, (_, i) => { const a = i / 12 * Math.PI * 2; return `M50 70 L${(50 + Math.cos(a - .08) * 62).toFixed(1)} ${(70 + Math.sin(a - .08) * 62).toFixed(1)} L${(50 + Math.cos(a + .08) * 62).toFixed(1)} ${(70 + Math.sin(a + .08) * 62).toFixed(1)}Z`; }).join(" ");
+    const wing = sd => { const x = sd < 0 ? 0 : 100; const f = (dx, dy) => `${50 + sd * dx} ${dy}`;
+      return relief(`M${f(22, 58)} Q${f(44, 40)} ${f(50, 30)} Q${f(48, 50)} ${f(40, 56)} Q${f(50, 58)} ${f(48, 68)} Q${f(38, 70)} ${f(30, 70)} Q${f(40, 76)} ${f(36, 84)} Q${f(28, 80)} ${f(24, 74)}Z`, `url(#${wg})`, 2, 2.6); };
+    return `<defs>${lg(g, [[0, L.c[0]], [.4, L.c[1]], [1, L.c[2]]])}${lg(gl, [[0, "#FFFFFF", .75], [1, "#FFE8F8", .35]])}${lg(au, [[0, "#FFF6C8"], [.45, "#FFD23F"], [1, "#B8780E"]])}${rg(h, L.glow)}${lg(gem, [[0, "#FFD0F4"], [1, "#E0249C"]])}${lg(wg, [[0, "#FFFFFF"], [1, "#FFE0F6"]])}</defs>
+      <circle cx="50" cy="70" r="58" fill="url(#${h})" class="po-breathe" opacity=".9"/>
+      <g class="po-spin" style="transform-origin:50px 70px"><path d="${rays}" fill="${L.glow}" opacity=".35"/></g>
+      ${wing(-1)}${wing(1)}
+      ${relief(body, `url(#${gl})`, 4, 3.2)}
+      <path d="M27 66 Q50 58 73 66 Q78 88 50 108 Q22 88 27 66Z" fill="url(#${g})"/>
+      <g class="po-rune" fill="none" stroke="#FFF6C8" stroke-width="2" stroke-linecap="round"><path d="M38 80 l4 -6 l4 6 M54 78 h8 M58 74 v8 M44 94 q6 -4 12 0"/></g>
+      <path d="M33 54 Q30 70 34 84" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+      <path d="M50 34 Q66 40 70 56 M50 34 Q34 40 30 56" stroke="url(#${au})" stroke-width="4" fill="none"/>
+      ${relief("M26 62 Q50 54 74 62 L74 68 Q50 60 26 68Z", `url(#${au})`, 2, 2.4)}
+      ${relief("M36 98 Q50 106 64 98 L62 106 Q50 114 38 106Z", `url(#${au})`, 2, 2.4)}
+      ${relief("M42 22 H58 L60 36 H40Z", `url(#${au})`, 2, 2.6)}
+      ${relief("M36 22 L40 8 L46 16 L50 4 L54 16 L60 8 L64 22Z", `url(#${au})`, 2, 2.6)}
+      ${relief("M50 12 L54 17 L50 22 L46 17Z", `url(#${gem})`, 1.5, 2)}
+      ${spark(10, 28, 7, 0)}${spark(90, 34, 6, .7)}${spark(6, 92, 5, 1.3)}${spark(94, 100, 6, 2)}${spark(50, -2, 5, 1)}
+      <text x="50" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="900" font-size="19" fill="#fff" stroke="${TD}" stroke-width="4" paint-order="stroke">${L.t}</text>`;
+  }
+  function svg(k, r, z, cls){ const inner = r === "e" ? epic(k) : r === "r" ? rare(k) : common(k);
+    return `<svg viewBox="-12 -10 124 132" width="${z}" height="${Math.round(z * 132 / 124)}" class="po po-${r} ${cls || ""}" aria-hidden="true">${inner}</svg>`; }
+  return {svg, RAR, LIQ};
+})();
 const Potions = (() => {
-  const T = {xp:{n:"Potion Double XP", d:"Double l'XP des bonnes réponses pendant 30 minutes.", a:"#B48AFF", b:"#5A2AC8", t:"XP"},
-             coin:{n:"Potion Double pièces", d:"Double les pièces des bonnes réponses pendant 30 minutes.", a:"#FFE36A", b:"#D88A0A", t:"×2"},
+  const P = () => EV_DATA.POT, RW = () => EV_DATA.REW;
+  const FX = ["xp", "coin"], RR = ["c", "r", "e"], COL = {xp:"#A070FF", coin:"#FFC83A"};
+  const T = {xp:{n:"Double XP", t:"XP", d:"Double l'XP des bonnes réponses."}, coin:{n:"Double pièces", t:"×2", d:"Double les pièces des bonnes réponses."},
              fifty:{n:"Jeton 50/50", d:"Retire deux mauvaises réponses sur une question. Dans la Tour, en Survie et au Défi du jour.", a:"#7AE0FF", b:"#2A7AD8", t:"50", once:true}};
-  const DUR = 30 * 60 * 1000;
-  const inv = () => (S.inv = S.inv || {});
-  // Avec un compte : les jetons sont gardés par le serveur (evenements.js) ; sans compte : sur l'appareil
+  const inv = () => (S.inv = S.inv || {});                     // jeton 50/50 et anciennes potions, sans compte
+  const G = () => (S.potG = S.potG || {});                     // récompenses déjà traitées (clé)
+  const acct = () => typeof Evenements !== "undefined" && Evenements.online();
   const srv = () => typeof Evenements !== "undefined" && Evenements.live();
-  const localHas = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
-  const has = t => srv() ? Evenements.has(t) : localHas(t);
-  const left = t => Math.max(0, Math.max((inv()[t] || {}).until || 0, srv() ? Evenements.until(t) : 0) - Date.now());
-  const active = t => left(t) > 0;
+  const sv = () => srv() ? Evenements._inv() : null;
+  const rarN = r => P().RAR[r].n, durOf = r => P().RAR[r].dur;
+  const potName = p => `${T[p.split(":")[0]].n} ${rarN(p.slice(-1)).toLowerCase()}`;
+  const fmtM = m => m >= 60 ? `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")}` : `${m} min`;
+  const mins = ms => Math.ceil(ms / 6e4);
+
+  /* --- Sac --- */
+  // Anciennes potions gardées sur l'appareil (un exemplaire) : potion commune du sac, une seule fois
+  function localNorm(){
+    S.pot = S.pot || {}; S.boost = S.boost || {};
+    FX.forEach(t => { const x = inv()[t]; if (!x || acct()) return;
+      if ((x.got || 0) > (x.used || 0)) { S.pot[t + ":c"] = Math.min(P().MAX, (S.pot[t + ":c"] || 0) + 1); x.used = Date.now(); }
+      if ((x.until || 0) > (S.boost[t] || 0)) S.boost[t] = x.until; delete inv()[t]; });
+  }
+  function count(p){ const x = sv(); if (!x) return acct() ? 0 : (S.pot && S.pot[p]) || 0;
+    const t = p.split(":")[0]; return ((x.pot || {})[p] || 0) + (p.endsWith(":c") && x.tok && x.tok[t] && x.tok[t].n > 0 ? 1 : 0); }
+  const total = () => FX.reduce((s, t) => s + RR.reduce((a, r) => a + count(t + ":" + r), 0), 0);
+  /* --- Effets --- */
+  function until(t){ const x = sv(), loc = Math.max((S.boost && S.boost[t]) || 0, (inv()[t] && inv()[t].until) || 0);
+    return Math.max(loc, x ? Math.max((x.boost || {})[t] || 0, (x.tok && x.tok[t] && x.tok[t].until) || 0) : 0); }
+  const left = t => Math.max(0, until(t) - Date.now());
+  const active = t => FX.includes(t) && left(t) > 0;
   const mult = t => active(t) ? 2 : 1;
-  // Donne une potion ; renvoie false si le joueur l'a déjà (la récompense est alors remplacée par l'appelant)
-  function give(t){ if (localHas(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }   // sans compte seulement
-  function use(t){ if (!has(t) || (active(t) && !T[t].once)) return false;
-    if (srv()) Evenements.use(t);
-    else { const x = inv()[t], now = Date.now(); inv()[t] = Object.assign({}, x, {used:now}, T[t].once ? {} : {until:now + DUR}); save(); }
-    if (!T[t].once) { toasts.push(`<b>${T[t].n} activée</b> · 30 minutes`); try { Music.sfx("level"); } catch(e){} }
+  /* --- Jeton 50/50 --- */
+  const localHas = t => { const x = inv()[t] || {}; return (x.got || 0) > (x.used || 0); };
+  const has = t => t === "fifty" ? (srv() ? Evenements.has(t) : localHas(t)) : FX.includes(t) && RR.some(r => count(t + ":" + r) > 0);
+  function give(t){ if (t !== "fifty" || localHas(t)) return false; inv()[t] = Object.assign({}, inv()[t], {got:Date.now()}); save(); return true; }   // sans compte
+  function use(t){ if (t !== "fifty" || !has(t)) return false;
+    if (srv()) Evenements.use(t); else { inv()[t] = Object.assign({}, inv()[t], {used:Date.now()}); save(); }
     return true; }
-  const mmss = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
-  function svg(t, z, off){ const c = T[t], id = "pt" + t + Math.random().toString(36).slice(2, 6);
-    if (t === "fifty") return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
-      <circle cx="30" cy="40" r="25" fill="${TD}"/><circle cx="30" cy="36" r="25" fill="url(#${id})" stroke="${TD}" stroke-width="2.8"/><circle cx="30" cy="36" r="18" fill="none" stroke="#fff" stroke-width="2" opacity=".55" stroke-dasharray="4 3"/>
-      <path d="M14 26 Q20 16 30 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1.2" font-family="sans-serif">50</text></svg>`;
+  // Activer une potion du sac : sa durée s'ajoute à l'effet en cours, 3 h d'avance au plus
+  const endIf = (t, r) => Math.min(Date.now() + P().CAP * 6e4, Math.max(Date.now(), until(t)) + durOf(r) * 6e4);
+  function activate(t, r){
+    const p = t + ":" + r; if (count(p) <= 0 || (acct() && !srv())) return false;
+    const end = endIf(t, r);
+    if (srv()) Evenements.usePot(t, r, end);
+    else { S.pot[p]--; S.boost[t] = end; save(); }
+    toasts.push(`<b>${T[t].n} activée</b> · encore ${fmtM(mins(end - Date.now()))}`); try { Music.sfx("level"); } catch(e){}
+    return true;
+  }
+
+  /* --- Récompenses (table EV_DATA.REW) --- */
+  const keyOf = (s, t, o) => s === "qd" ? `qd:${o.d}:${t}` : s === "qw" ? `qw:${o.w}:${t}` : s === "cal" ? `pcal:${t}:${o.n}` : s === "boss" ? `pboss:${o.d}:${t}` : s === "surv" ? `surv:${o.d}:${o.g}:${t}` : `${s}:${t}`;
+  const Qd = () => (S.potQ = S.potQ || []);
+  // s = source, t = palier, o = précisions (jour, numéro, partie, effet choisi), intro = texte du bandeau
+  function reward(s, t, o, intro){
+    const rw = (RW()[s] || {})[s === "mst" ? String(t).split(":")[1] : t]; if (!rw) return false;
+    o = o || {}; const k = keyOf(s, t, o), g = G();
+    if (rw.c && !g["c$" + k]) { g["c$" + k] = 1; S.coins += rw.c; if (!rw.p) toasts.push(`<b>${intro}</b> · +${rw.c} pièces`); }
+    if (rw.p && !g[k] && !Qd().some(x => x.k === k)) Qd().push({k, s, t:String(t), o, intro, c:rw.c || 0});
+    save(); later(50); return true;
+  }
+  let busy = false, tmr = null;
+  const later = ms => { clearTimeout(tmr); tmr = setTimeout(flush, ms); };
+  async function flush(){
+    const q = Qd(); if (busy || !q.length) return;
+    if (!acct()) { q.splice(0).forEach(localGive); save(); return; }
+    if (!srv()) return later(5000);
+    busy = true; const pack = q.slice(0, 30);
+    try {
+      const r = await Evenements.call("grant", {src:"pot", items:pack.map(x => Object.assign({s:x.s, t:x.t}, x.o))});
+      (r.out || []).forEach((o, i) => { const x = pack[i]; if (!x) return; G()[x.k] = 1;
+        if (o.got && !o.dup) shown(o.got, x); });
+      S.potQ = Qd().filter(x => !pack.includes(x)); save();
+    } catch(e){ busy = false; return later(20000); }
+    busy = false; if (Qd().length) later(1500);
+  }
+  // Sans compte : sur l'appareil, mêmes limites qu'au serveur pour la Survie
+  function localGive(x){
+    const rw = RW()[x.s][x.s === "mst" ? x.t.split(":")[1] : x.t]; let p = rw.p; if (p[0] === "?") p = (x.o.e === "coin" ? "coin" : "xp") + p.slice(1);
+    if (x.s === "surv") { const L = S.potS = S.potS && S.potS.day === x.o.d ? S.potS : {day:x.o.d, g:[], wk:(S.potS || {}).wk};
+      const isE = p.endsWith(":e"), wk = weekOf(x.o.d);
+      if ((!L.g.includes(x.o.g) && L.g.length >= P().SURV_DAY) || (isE && L.wk === wk)) { G()[x.k] = 1; return; }
+      if (!L.g.includes(x.o.g)) L.g.push(x.o.g); if (isE) L.wk = wk; }
+    G()[x.k] = 1; S.pot = S.pot || {};
+    if ((S.pot[p] || 0) < P().MAX) { S.pot[p] = (S.pot[p] || 0) + 1; shown("pot:" + p, x); }
+    else { const v = P().FULL[p.slice(-1)]; S.coins += v; shown("coins:" + v, x); }
+  }
+  function shown(got, x){
+    if (got.startsWith("coins:")) return toasts.push(`<b>${esc(x.intro || "Récompense")}</b> · sac plein : +${got.slice(6)} pièces à la place`);
+    if (got.startsWith("pot:")) found(got.slice(4), x.intro);
+  }
+  // Paliers permanents : vérifiés régulièrement (et donnés aussi s'ils étaient déjà atteints avant la mise à jour)
+  let lastTick = 0;
+  function tick(force){
+    if (!S || !S.profile || typeof EV_DATA === "undefined") return; const now = Date.now(); if (!force && now - lastTick < 5000) return; lastTick = now;
+    localNorm(); const R = RW(), g = G();
+    const chk = (s, v, lab) => Object.keys(R[s]).forEach(t => { if (v >= +t && !(g[`${s}:${t}`] && (!R[s][t].c || g[`c$${s}:${t}`]))) reward(s, t, {}, lab(t)); });
+    const tw = S.tour || {}; chk("tour", Math.max(tw.best || 0, tw.cp || 0), t => `Palier ${t} de la Tour`);
+    const at = S.atlas || {}; chk("atl", Object.keys(at.found || {}).length, t => `Atlas · ${t} pays trouvés`); chk("atc", Object.keys(at.capOk || {}).length, t => `Atlas · ${t} capitales`);
+    Object.keys(R.bdg).forEach(id => { if (S.badges && S.badges[id] && !g["bdg:" + id]) reward("bdg", id, {}, `Badge · ${id.slice(3)} bonnes réponses`); });
+    const adv = (S.adv && S.adv.w) || {};
+    Object.keys(adv).forEach(w => Object.keys(adv[w].q || {}).forEach(id => { if (R.adv[id] && !g["adv:" + id]) reward("adv", id, {}, "Quête d'Aventure"); }));
+    try { const M = Profil.mast(), RN = PArt.RANKS.map(r => r.n);
+      Object.keys(M).forEach(d => { for (let r = 3; r <= M[d].r; r++) if (R.mst[r] && !g[`mst:${d}:${r}`]) reward("mst", `${d}:${r}`, {}, `Maîtrise · ${RN[r]}`); }); } catch(e){}
+    later(300);
+  }
+  const weekOf = day => { const d = new Date(day + "T12:00:00Z"), k = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - k); return d.toISOString().slice(0, 10); };
+
+  /* --- Affichage --- */
+  const svg = (t, z, off, r) => t === "fifty" ? fiftySVG(z, off) : PotArt.svg(t, r || "c", z, off ? "still off" : "still");
+  function fiftySVG(z, off){ const c = T.fifty, id = "pt50" + Math.random().toString(36).slice(2, 6);
     return `<svg viewBox="0 0 60 70" width="${z}" height="${z * 70 / 60}" class="pot-svg ${off ? "off" : ""}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset="1" stop-color="${c.b}"/></linearGradient></defs>
-      <rect x="22" y="4" width="16" height="8" rx="2" fill="#C8965A" stroke="${TD}" stroke-width="2.4"/><path d="M24 12 V22 Q8 30 8 46 Q8 66 30 66 Q52 66 52 46 Q52 30 36 22 V12Z" fill="#EAF6FF" fill-opacity=".55" stroke="${TD}" stroke-width="2.8" stroke-linejoin="round"/>
-      <path d="M10 42 Q30 36 50 42 Q52 64 30 64 Q8 64 10 42Z" fill="url(#${id})"/><path d="M15 36 Q12 46 16 54" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
-      <circle cx="40" cy="48" r="2.4" fill="#fff" opacity=".7"/><circle cx="34" cy="56" r="1.6" fill="#fff" opacity=".6"/>
-      <text x="30" y="56" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1" font-family="sans-serif">${c.t}</text></svg>`; }
-  // Pastille dans la barre du haut : potions possédées et temps restant
+      <circle cx="30" cy="40" r="25" fill="${TD}"/><circle cx="30" cy="36" r="25" fill="url(#${id})" stroke="${TD}" stroke-width="2.8"/><circle cx="30" cy="36" r="18" fill="none" stroke="#fff" stroke-width="2" opacity=".55" stroke-dasharray="4 3"/>
+      <path d="M14 26 Q20 16 30 14" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" stroke="${TD}" stroke-width="1.2" font-family="sans-serif">50</text></svg>`; }
+  const tag = r => `<span class="po-rar ${r}">${rarN(r)}</span>`;
+  function ring(t){ const p = Math.min(1, left(t) / (P().CAP * 6e4)), c = 2 * Math.PI * 14;
+    return `<span class="po-ring"><svg class="po-rg" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="3"/><circle cx="16" cy="16" r="14" fill="none" stroke="${COL[t]}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(c * p).toFixed(1)} ${c.toFixed(1)}"/></svg>${PotArt.svg(t, "c", 22, "still")}</span>`; }
+  const tLeft = t => { const m = mins(left(t)); return m >= 60 ? `${Math.floor(m / 60)}h${String(m % 60).padStart(2, "0")}` : m + "′"; };
+  // Pastille de la barre du haut : un anneau par effet actif, sinon le nombre de potions du sac
   function pill(){
-    const ks = Object.keys(T).filter(t => has(t) || active(t)); if (!ks.length) return "";
-    // Plusieurs objets : une seule icône + le nombre (et le temps du booster actif), pour ne pas couper le pseudo
-    if (ks.length > 1) { const on = ks.find(t => active(t) && !T[t].once), first = on || ks[0];
-      return `<button class="pill pot" data-pot="open" aria-label="Mes objets rares (${ks.length})"><span class="pot-i ${on ? "on" : ""}">${svg(first, 16, false)}${on ? `<b data-pot-min="${on}">${Math.ceil(left(on) / 6e4)}′</b>` : ""}<b class="pot-n">×${ks.length}</b></span></button>`; }
-    return `<button class="pill pot" data-pot="open" aria-label="Mes potions">${ks.map(t => `<span class="pot-i ${active(t) ? "on" : ""}">${svg(t, 16, false)}${active(t) ? `<b data-pot-min="${t}">${Math.ceil(left(t) / 6e4)}′</b>` : ""}</span>`).join("")}</button>`;
+    const on = FX.filter(active), n = total() + (has("fifty") ? 1 : 0); if (!on.length && !n) return "";
+    if (!on.length) return `<button class="pill pot po-pill" data-pot="open" aria-label="Mes potions (${n})">${PotArt.svg("xp", "c", 22, "still")}<b class="pot-n">${n}</b></button>`;
+    return `<button class="pill pot po-pill" data-pot="open" aria-label="Mes potions">${on.map(t => `${ring(t)}<b class="po-pt" data-pot-min="${t}">${tLeft(t)}</b>`).join("")}</button>`;
+  }
+  let sel = null, tab = "bag";
+  function bagHTML(){
+    if (!sel || !count(sel.join(":"))) { const f = FX.flatMap(t => RR.map(r => [t, r])).find(([t, r]) => count(t + ":" + r) > 0); sel = f || sel || ["xp", "c"]; }
+    const [t, r] = sel, n = count(t + ":" + r), cur = mins(left(t)), end = mins(endIf(t, r) - Date.now()), lost = cur + durOf(r) - end, wait = acct() && !srv();
+    const actv = FX.map(x => `<div class="po-act">${PotArt.svg(x, "c", 26, "still")}<b>${T[x].n}</b><span class="po-bar"><i style="width:${Math.min(100, left(x) / (P().CAP * 6e4) * 100)}%;background:${COL[x]}"></i></span><em data-pot-left="${x}">${active(x) ? fmtM(mins(left(x))) : "—"}</em></div>`).join("");
+    const grid = FX.map(x => `<div class="po-lab">${T[x].n}</div><div class="po-g">${RR.map(y => { const c = count(x + ":" + y);
+      return `<button class="po-slot r-${y} ${t === x && r === y ? "sel" : ""} ${c ? "" : "zero"}" data-pot="sel" data-v="${x}:${y}" aria-label="${potName(x + ":" + y)} : ${c}">${PotArt.svg(x, y, 54, c ? "" : "still")}<span class="po-q">×${c}</span>${tag(y)}<span class="po-d">${fmtM(durOf(y))}</span></button>`; }).join("")}</div>`).join("");
+    const f50 = has("fifty");
+    return `<div class="po-acts">${actv}</div>${grid}
+      <div class="po-go"><p><b>${potName(t + ":" + r)}</b> : ${cur ? `il reste ${fmtM(cur)}, ça passera à <b>${fmtM(end)}</b>` : `<b>${fmtM(durOf(r))}</b> à partir de maintenant`}.</p>
+        <button class="btn po-btn" data-pot="act" ${n && !wait ? "" : "disabled"}>${wait ? "Connexion au serveur…" : n ? `Activer (${fmtM(durOf(r))})` : "Aucune potion de ce type"}</button>
+        ${lost > 0 && n ? `<span class="po-cap">⚠ 3 h d'avance au maximum : ${fmtM(lost)} seraient perdues.</span>` : ""}</div>
+      <div class="po-fifty">${fiftySVG(34, !f50)}<div class="stack grow" style="gap:1px;min-width:0"><b>${T.fifty.n}</b><span>${f50 ? "Prêt · utilise-le pendant une question" : "Aucun · un seul à la fois"}</span></div></div>`;
+  }
+  // Paliers : même barre partout (coche verte = gagné, cercle doré = prochain)
+  function line(s, v, lab, o){
+    const R = RW()[s], ks = Object.keys(R).map(Number).sort((a, b) => a - b), g = G();
+    // Paliers espacés régulièrement ; la barre avance proportionnellement entre deux paliers
+    const X = i => (i + 1) / (ks.length + .15) * 100, pos = x => { if (x <= 0) return 0; const i = ks.findIndex(k => x < k); if (i < 0) return 100;
+      const a = i ? ks[i - 1] : 0, xa = i ? X(i - 1) : 0; return xa + (x - a) / (ks[i] - a) * (X(i) - xa); };
+    const nx = ks.find(k => v < k);
+    return `<div class="po-tier"><div class="po-th"><b>${lab}</b><span>${o.txt}</span></div><div class="po-tl"><div class="po-rail"></div><div class="po-fill" style="width:${pos(v)}%"></div>
+      ${ks.map(k => { const rw = R[k], got = o.got ? o.got(k) : v >= k, p = rw.p;
+        return `<div class="po-st ${got ? "got" : k === nx ? "next" : ""}" style="left:${X(ks.indexOf(k))}%"><div class="po-ic">${p ? PotArt.svg(p.split(":")[0] === "?" ? "xp" : p.split(":")[0], p.slice(-1), 28, "still") : `<span class="po-cn"><i class="po-coin"></i>${rw.c}</span>`}</div><span>${k}</span></div>`; }).join("")}</div>
+      ${o.foot ? `<span class="po-tf">${o.foot}</span>` : ""}</div>`;
+  }
+  function tiersHTML(){
+    const tw = S.tour || {}, at = S.atlas || {}, sv2 = (S.rec && S.rec.survie) || 0;
+    let bd = 0; try { const c = Boss.current(); bd = (S.potBoss && S.potBoss.d === c.day && S.potBoss.v) || 0; } catch(e){}
+    return line("surv", 0, "💀 Survie · par partie", {txt:`record ${sv2}`, got:() => false, foot:"Bonnes réponses dans une même partie. Potions sur 3 parties par jour, épique 1 fois par semaine."})
+      + line("boss", bd, "🐉 Boss · combat du jour", {txt:`${bd} PV aujourd'hui`, foot:"Dégâts infligés pendant ton combat du jour."})
+      + line("tour", Math.max(tw.best || 0, tw.cp || 0), "🗼 Tour · étages", {txt:`étage ${Math.max(tw.best || 0, tw.cp || 0)}`, foot:"Une seule fois par palier, pour toujours."})
+      + line("atl", Object.keys(at.found || {}).length, "🌍 Atlas · pays", {txt:`${Object.keys(at.found || {}).length} / 197`})
+      + line("atc", Object.keys(at.capOk || {}).length, "🏛️ Atlas · capitales", {txt:`${Object.keys(at.capOk || {}).length} / 196`})
+      + `<p class="po-src">Aussi : quêtes du jour (2e et 4e), défis de la semaine (3e, 5e et coffre légendaire : épique au choix), calendrier de connexion, quêtes de l'Aventure, badges de bonnes réponses (500 à 5 000), rangs de maîtrise (Or à Légende), et 2 % de chances à chaque bonne réponse (3 par jour au plus). En boutique : potions communes.</p>`;
+  }
+  function sheetHTML(){
+    return `<div class="cal-box po-box"><button class="am-x" data-pot="close" aria-label="Fermer">×</button>
+      <div class="po-head"><b class="cal-title">🎒 Mes potions</b><span>${total()} potion${total() > 1 ? "s" : ""} · ${P().MAX} max par case</span></div>
+      <div class="seg po-seg"><button data-pot="tab" data-v="bag" aria-pressed="${tab === "bag"}">Sac</button><button data-pot="tab" data-v="tiers" aria-pressed="${tab === "tiers"}">Paliers</button></div>
+      ${tab === "bag" ? bagHTML() : tiersHTML()}
+      <p class="po-src">Une potion ne s'abîme jamais dans le sac : le temps ne compte qu'une fois activée. Double XP et Double pièces peuvent tourner en même temps.</p></div>`;
   }
   function sheet(){
     document.querySelectorAll(".pot-sheet").forEach(e => e.remove());
-    const el = document.createElement("div"); el.className = "pot-sheet cal-veil"; el.setAttribute("role", "dialog");
-    el.innerHTML = `<div class="cal-box pot-box"><button class="am-x" data-pot="close" aria-label="Fermer">×</button><b class="cal-title">Mes potions</b>
-      ${Object.keys(T).map(t => `<div class="pot-row">${svg(t, 46, !has(t) && !active(t))}<div class="stack grow" style="gap:2px;min-width:0"><b>${T[t].n}</b><span class="muted" style="font-size:13px">${T[t].d}</span>
-        <span class="pot-st">${active(t) && !T[t].once ? `Active · encore <b data-pot-left="${t}">${mmss(left(t))}</b>` : has(t) ? "Prête à l'emploi" : "Aucune pour l'instant · une au maximum"}</span></div>
-        ${has(t) && !active(t) && !T[t].once ? `<button class="btn small" data-pot="use" data-v="${t}">Activer</button>` : ""}</div>`).join("")}
-      <p class="muted" style="font-size:12.5px;margin:0">Un objet de chaque type au maximum. Le 50/50 s'utilise pendant une question (Tour, Survie, Défi du jour). On en gagne avec le calendrier (jours 3 et 4), la Tour (paliers 30, 60, 90) et le Boss de la semaine, ou en boutique.</p></div>`;
-    el.addEventListener("click", e => { const b = e.target.closest("[data-pot]"); if (e.target === el || (b && b.dataset.pot === "close")) el.remove();
-      else if (b && b.dataset.pot === "use") { use(b.dataset.v); el.remove(); render(); } });
+    const el = document.createElement("div"); el.className = "pot-sheet cal-veil"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Mes potions");
+    el.innerHTML = sheetHTML();
+    el.addEventListener("click", e => { const b = e.target.closest("[data-pot]"); if (e.target === el || (b && b.dataset.pot === "close")) return el.remove();
+      if (!b) return; const a = b.dataset.pot;
+      if (a === "sel") sel = b.dataset.v.split(":");
+      else if (a === "tab") tab = b.dataset.v;
+      else if (a === "act") { if (activate(sel[0], sel[1])) render(); }
+      const sc = el.querySelector(".cal-box").scrollTop; el.innerHTML = sheetHTML(); el.querySelector(".cal-box").scrollTop = sc; });
     document.body.appendChild(el);
   }
-  setInterval(() => { document.querySelectorAll("[data-pot-min]").forEach(e => { const t = e.dataset.potMin; if (active(t)) e.textContent = Math.ceil(left(t) / 6e4) + "′"; else if (S.profile && !inPlay()) render(); }); document.querySelectorAll("[data-pot-left]").forEach(e => { const t = e.dataset.potLeft; if (active(t)) e.textContent = mmss(left(t)); else { e.closest(".pot-sheet") ? e.closest(".pot-sheet").remove() : 0; if (S.profile && !inPlay()) render(); } }); }, 1000);
-  return {give, use, has, active, mult, svg, pill, sheet, T};
+  // Choix de l'effet d'une potion « au choix » (coffre légendaire)
+  function choose(r, cb){
+    const el = document.createElement("div"); el.className = "po-drop-v cal-veil"; el.setAttribute("role", "dialog");
+    el.innerHTML = `<div class="po-drop e"><span class="po-k">★ Récompense épique ★</span><b class="po-h">Choisis ta potion</b>
+      <div class="po-ch">${FX.map(t => `<button class="po-chb" data-ch="${t}">${PotArt.svg(t, r, 96)}<b>${T[t].n}</b>${tag(r)}</button>`).join("")}</div></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-ch]"); if (!b) return; el.remove(); cb(b.dataset.ch); });
+    document.body.appendChild(el);
+  }
+  // Potion obtenue : petit bandeau en pleine partie, grande fenêtre sinon
+  const waiting = [];
+  function found(p, intro){
+    const [t, r] = p.split(":");
+    if (inPlay() || document.querySelector(".po-drop-v,.lvup,.cal-modal,.qs-fx,.tw-fx")) {
+      const el = document.createElement("div"); el.className = "ev-frag po-toast" + (r === "e" ? " big" : ""); el.setAttribute("role", "status");
+      el.innerHTML = `${PotArt.svg(t, r, 30, "still")}<span><b>${r === "e" ? "Potion épique !" : "Potion trouvée"}</b> · ${esc(potName(p))}</span>`;
+      document.body.appendChild(el); try { Music.sfx("ok"); } catch(e){}
+      setTimeout(() => el.classList.add("out"), 2800); setTimeout(() => el.remove(), 3300);
+      if (!inPlay()) waiting.push([p, intro]);
+      return;
+    }
+    waiting.push([p, intro]); clearTimeout(ftm); ftm = setTimeout(next, 700);   // plusieurs à la fois : une seule fenêtre récapitulative
+  }
+  let ftm = null;
+  function summary(list){
+    const el = document.createElement("div"); el.className = "po-drop-v cal-veil"; el.setAttribute("role", "dialog");
+    const best = list.some(([p]) => p.endsWith(":e")) ? "e" : list.some(([p]) => p.endsWith(":r")) ? "r" : "c";
+    el.innerHTML = `<div class="po-drop ${best}"><span class="po-k">Récompenses</span><b class="po-h">${list.length} potions gagnées !</b>
+      <div class="po-sum">${list.map(([p, i]) => `<div>${PotArt.svg(p.split(":")[0], p.slice(-1), 44, "still")}<span><b>${esc(potName(p))}</b>${esc(i || "")}</span></div>`).join("")}</div>
+      <p>Rangées dans ton sac. Tu les actives quand tu veux.</p>
+      <div class="po-row2"><button class="btn ghost" data-dr="later">Super !</button><button class="btn" data-dr="bag">Voir mon sac</button></div></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-dr]"); if (!b) return; el.remove(); render(); if (b.dataset.dr === "bag") sheet(); else next(); });
+    document.body.appendChild(el); try { Music.sfx("level"); } catch(e){}
+  }
+  function popup(p, intro){
+    const [t, r] = p.split(":"), el = document.createElement("div"); el.className = "po-drop-v cal-veil"; el.setAttribute("role", "dialog");
+    const cf = r === "c" ? "" : `<div class="po-cf">${Array.from({length:r === "e" ? 36 : 18}, (_, i) => `<i style="background:${["#FFD23F", "#FF5FD2", "#4AA8FF", "#3DDC84", "#fff"][i % 5]};--x:${Math.round(Math.cos(i) * (90 + i * 5))}px;--y:${Math.round(Math.sin(i * 1.7) * 140 - 40)}px;--r:${i * 47}deg"></i>`).join("")}</div>`;
+    el.innerHTML = `<div class="po-drop ${r}">${cf}<span class="po-k">${r === "e" ? "★ Extrêmement rare ★" : esc(intro || "Bonne réponse · bonus")}</span><b class="po-h">${r === "e" ? "POTION ÉPIQUE !" : r === "r" ? "Potion rare !" : "Potion trouvée !"}</b>
+      <div class="po-fl">${PotArt.svg(t, r, r === "e" ? 150 : 128)}</div>${tag(r)}<span class="po-dd">${fmtM(durOf(r))}</span>
+      <p>${esc(potName(p))} rangée dans ton sac. Tu l'actives quand tu veux.</p>
+      <div class="po-row2"><button class="btn ghost" data-dr="later">Plus tard</button><button class="btn" data-dr="now">Activer</button></div></div>`;
+    el.addEventListener("click", e => { const b = e.target.closest("[data-dr]"); if (!b) return; el.remove(); if (b.dataset.dr === "now") activate(t, r); render(); next(); });
+    document.body.appendChild(el); try { Music.sfx("level"); } catch(e){}
+  }
+  const next = () => { if (!waiting.length || inPlay() || document.querySelector(".po-drop-v,.lvup,.cal-modal,.qs-fx,.tw-fx")) return;
+    if (waiting.length > 1) return summary(waiting.splice(0)); const [p, i] = waiting.shift(); popup(p, i); };
+  setInterval(() => {
+    document.querySelectorAll("[data-pot-min]").forEach(e => { const t = e.dataset.potMin; if (active(t)) e.textContent = tLeft(t); else if (S.profile && !inPlay()) render(); });
+    document.querySelectorAll("[data-pot-left]").forEach(e => { const t = e.dataset.potLeft; e.textContent = active(t) ? fmtM(mins(left(t))) : "—"; });
+    if (S && S.profile) { next(); if (!inPlay()) tick(); }
+  }, 1000);
+  setTimeout(() => later(2000), 3000);
+  return {give, use, has, active, mult, left, count, total, activate, reward, tick, flush, found, choose, svg, pill, sheet, name:potName, T, FX, RR};
 })();
 
 const Calendrier = (() => {
-  const REW = [100, 100, "xp", "coin", 100, 100, 100, 100, 100, 100, 100, 100, 100, 500];
+  // Cases du calendrier : EV_DATA.REW.cal (pièces et potions en alternance, épique + 500 pièces au jour 14)
+  const REW = () => EV_DATA.REW.cal;
   const calDay = ms => Math.floor((ms + 36e5) / 864e5);           // même calcul que la règle Firestore
   const st = () => (S.cal = S.cal || {n:0, day:0, paid:0});
   let srv = null, busy = false, offset = 0;                        // offset : écart entre l'horloge du serveur et celle du téléphone
@@ -9549,17 +9917,15 @@ const Calendrier = (() => {
       auto();
     } catch(e){}
   }
-  function reward(step){ return REW[step - 1]; }
-  // Verse la récompense de la n-ième récupération ; une potion déjà possédée devient 100 pièces
+  function reward(step){ return REW()[step]; }
+  // Verse la récompense de la n-ième récupération : pièces tout de suite, potion par le serveur (vérifie la connexion du jour)
   function pay(n, quiet){
     const s = st(); if ((s.paid || 0) >= n) return null; s.paid = n;
-    const r = reward(stepOf(n)); let out;
-    if (typeof r === "number") { S.coins += r; out = {kind:"coin", v:r}; }
-    else if (online() && typeof Evenements !== "undefined") { out = Potions.has(r) ? {kind:"coin", v:100, swap:r} : {kind:"pot", t:r}; Evenements.cal(n); }  // le serveur verse (pièces de remplacement comprises)
-    else if (Potions.give(r)) out = {kind:"pot", t:r};
-    else { S.coins += 100; out = {kind:"coin", v:100, swap:r}; }
+    const step = stepOf(n), r = reward(step), out = {kind:r.p ? "pot" : "coin", v:r.c || 0, p:r.p};
+    if (r.c && !r.p) S.coins += r.c;
+    if (r.p) { Potions.reward("cal", step, {n}, "Calendrier"); }   // les pièces du jour 14 sont versées avec la potion
     save(); checkBadges();
-    if (quiet && out) toasts.push(out.kind === "pot" ? `<b>Calendrier</b> · ${Potions.T[out.t].n}` : `<b>Calendrier</b> · +${out.v} pièces`);
+    if (quiet) toasts.push(out.kind === "pot" ? `<b>Calendrier</b> · ${Potions.name(r.p)}` : `<b>Calendrier</b> · +${out.v} pièces`);
     return out;
   }
   async function claim(){
@@ -9583,12 +9949,13 @@ const Calendrier = (() => {
   }
 
   /* --- Affichage --- */
-  const ico = (r, z) => typeof r === "number" ? `<span class="cal-coins" style="--z:${z}px">${r >= 500 ? `<i></i><i></i><i></i>` : `<i></i><i></i>`}</span>` : Potions.svg(r, z * .8);
-  const lab = r => typeof r === "number" ? `${r} pièces` : r === "xp" ? "Potion Double XP" : "Potion Double pièces";
+  const coins = (v, z) => `<span class="cal-coins" style="--z:${z}px">${v >= 400 ? `<i></i><i></i><i></i>` : `<i></i><i></i>`}</span>`;
+  const ico = (r, z) => r.p ? `${PotArt.svg(r.p.split(":")[0], r.p.slice(-1), z * 1.05, "still")}${r.c ? coins(r.c, z * .8) : ""}` : coins(r.c, z);
+  const lab = r => r.p ? `${Potions.name(r.p)}${r.c ? ` + ${r.c} pièces` : ""}` : `${r.c} pièces`;
   function board(){
     const s = st(), done = claimedToday(), k = s.n === 0 ? 0 : done ? stepOf(s.n) : s.n % 14, cur = done ? k : k + 1;
-    return `<div class="cal-grid">${REW.map((r, i) => { const d = i + 1, got = d <= k, now = d === cur && !done, today = d === cur && done;
-      return `<div class="cal-t ${got ? "got" : ""} ${now ? "now" : ""} ${today ? "today" : ""} ${d === 14 ? "big" : ""} ${!got && !now ? "lock" : ""}" data-d="${d}">
+    return `<div class="cal-grid">${Array.from({length:14}, (_, i) => REW()[i + 1]).map((r, i) => { const d = i + 1, got = d <= k, now = d === cur && !done, today = d === cur && done;
+      return `<div class="cal-t ${got ? "got" : ""} ${now ? "now" : ""} ${today ? "today" : ""} ${d === 14 ? "big" : ""} ${r.p ? "pt pr-" + r.p.slice(-1) : ""} ${!got && !now ? "lock" : ""}" data-d="${d}">
         <span class="cal-d">Jour ${d}</span><span class="cal-ic">${ico(r, d === 14 ? 34 : 26)}</span><span class="cal-l">${lab(r)}</span>
         ${got ? `<span class="cal-ok">✓</span>` : !now ? `<span class="cal-lk">🔒</span>` : ""}</div>`; }).join("")}</div>`;
   }
@@ -9618,7 +9985,7 @@ const Calendrier = (() => {
     setTimeout(() => {
       const fxEl = document.createElement("div"); fxEl.className = "cal-burst";
       fxEl.innerHTML = (out.kind === "coin" ? Array.from({length:18}, () => `<i class="tw-coin" style="left:${Math.random() * 100}%;animation-delay:${(Math.random() * .5).toFixed(2)}s"></i>`).join("") : "")
-        + `<div class="cal-win">${out.kind === "pot" ? Potions.svg(out.t, 80) : ico(out.v, 54)}<b>${out.kind === "pot" ? Potions.T[out.t].n : "+" + out.v + " pièces"}</b>${out.swap ? `<span>Tu avais déjà cette potion : 100 pièces à la place</span>` : out.kind === "pot" ? `<span>Active-la quand tu veux depuis la barre du haut</span>` : ""}</div>`;
+        + `<div class="cal-win">${out.kind === "pot" ? PotArt.svg(out.p.split(":")[0], out.p.slice(-1), 90) : coins(out.v, 54)}<b>${out.kind === "pot" ? esc(Potions.name(out.p)) + (out.v ? ` + ${out.v} pièces` : "") : "+" + out.v + " pièces"}</b>${out.kind === "pot" ? `<span>Rangée dans ton sac : active-la quand tu veux</span>` : ""}</div>`;
       box.appendChild(fxEl);
       const g = box.querySelector(".cal-grid"); if (g) g.outerHTML = board();
       const go = box.querySelector(".cal-go"); if (go) { go.disabled = true; go.textContent = "Reviens demain pour le jour " + ((st().n % 14) + 1); }
@@ -9712,13 +10079,41 @@ const EV_DATA = {
   TOKENS: { coin:{n:"Double pièces", dur:30}, xp:{n:"Double XP", dur:30}, fifty:{n:"Jeton 50/50"} },
   PRICE: 1000,                                  // prix en boutique de chaque jeton
   SWAP: 300,                                    // pièces données à la place d'un jeton déjà possédé
-  TOWER: { 30:"fifty", 60:"xp", 90:"coin" },    // paliers de la Tour qui donnent un jeton (une seule fois par compte)
+  TOWER: { 30:"fifty" },                        // palier de la Tour qui donne un jeton 50/50 (une seule fois par compte ; potions : REW.tour)
   BOSS_MIN: 5,                                  // PV de dégâts minimum sur un boss vaincu pour gagner un jeton (une fois par semaine)
-  CAL: { 3:"xp", 4:"coin" }, CAL_SWAP: 100,
+  CAL: {}, CAL_SWAP: 100,                       // ancien calendrier (les cases sont maintenant dans REW.cal)
   // Quêtes de l'Aventure qui donnent une potion (une seule fois par compte ; déjà possédée = ADVQ_SWAP pièces)
-  ADVQ: { f1_boss:"xp", f1_stars:"coin", f1_chrono:"fifty", d2_boss:"xp", d2_stars:"coin", d2_chrono:"fifty",
-    a3_boss:"xp", a3_stars:"coin", a3_chrono:"fifty", g4_boss:"xp", g4_stars:"coin", g4_chrono:"fifty", m5_boss:"xp", m5_stars:"coin", m5_chrono:"fifty" }, ADVQ_SWAP: 100,     // cases du calendrier de connexion qui donnent un jeton
-  DAY_MAX: 300                                  // tirages de fragments au plus par jour et par joueur
+  ADVQ: { f1_chrono:"fifty", d2_chrono:"fifty", a3_chrono:"fifty", g4_chrono:"fifty", m5_chrono:"fifty" }, ADVQ_SWAP: 100,
+  DAY_MAX: 300,                                 // tirages de fragments au plus par jour et par joueur
+
+  /* ---------- Potions à raretés (novembre 2026) : LA table unique des potions et de leurs récompenses ----------
+     Effet toujours ×2 ; la rareté donne la durée. On en garde jusqu'à MAX par case (effet + rareté) ; case pleine = FULL pièces.
+     Activer une potion ajoute sa durée à l'effet en cours, sans dépasser CAP minutes d'avance. Les potions ne périment jamais.
+     Récompenses : p = potion « effet:rareté » (effet « ? » = au choix du joueur), c = pièces (versées par l'appli).
+     Pour changer une récompense : modifier REW ici (appli et serveur la lisent tous les deux), puis envoyer le serveur et l'appli. */
+  POT: { RAR:{ c:{n:"Commune", dur:30}, r:{n:"Rare", dur:60}, e:{n:"Épique", dur:120} },
+    FX:{ xp:"Double XP", coin:"Double pièces" },
+    MAX:20, CAP:180, FULL:{ c:100, r:250, e:600 }, PRICE:1000,
+    DROP:{ rate:0.02, day:3, odds:[["c", 0.85], ["r", 0.13], ["e", 0.02]] },   // 2 % par bonne réponse, 3 par jour, une fois par question et par jour
+    SURV_DAY:3 },                                                              // parties de Survie récompensées en potions par jour (épique : 1 par semaine)
+  REW: {
+    qd:{ 2:{p:"xp:c"}, 4:{p:"coin:c"} },                                       // quêtes du jour réussies (2e, 4e)
+    qw:{ 3:{p:"xp:r"}, 5:{p:"coin:r"}, chest:{p:"?:e"} },                      // défis de la semaine réussis (3e, 5e) et coffre légendaire
+    cal:{ 1:{c:100}, 2:{p:"xp:c"}, 3:{c:150}, 4:{p:"coin:c"}, 5:{c:150}, 6:{p:"xp:r"}, 7:{c:400}, 8:{p:"coin:c"}, 9:{c:150}, 10:{p:"xp:c"},
+          11:{c:200}, 12:{p:"coin:r"}, 13:{c:250}, 14:{p:"xp:e", c:500} },
+    surv:{ 5:{c:20}, 10:{p:"xp:c"}, 15:{c:50}, 20:{p:"coin:r"}, 30:{p:"xp:e"} },        // bonnes réponses dans une partie de Survie
+    boss:{ 5:{p:"coin:c"}, 10:{p:"xp:c"}, 15:{c:200} },                                 // dégâts du combat du jour
+    tour:{ 10:{p:"xp:c"}, 25:{p:"coin:c", c:150}, 50:{p:"xp:r"}, 75:{p:"coin:r"}, 100:{p:"xp:e"} },
+    atl:{ 10:{c:50}, 25:{p:"xp:c"}, 50:{p:"coin:c", c:150}, 100:{p:"xp:r"}, 150:{p:"coin:r"}, 197:{p:"xp:e", c:500} },   // pays trouvés
+    atc:{ 10:{c:50}, 25:{p:"coin:c"}, 50:{p:"xp:r"}, 100:{p:"coin:r"}, 150:{p:"xp:r", c:300}, 196:{p:"coin:e"} },        // capitales
+    adv:{ f1_0:{p:"xp:c"}, f1_1:{p:"coin:c"}, f1_boss:{p:"xp:r"}, f1_stars:{p:"coin:r"},
+          d2_0:{p:"xp:c"}, d2_1:{p:"coin:c"}, d2_boss:{p:"xp:r"}, d2_stars:{p:"coin:r"},
+          a3_0:{p:"xp:c"}, a3_1:{p:"coin:c"}, a3_boss:{p:"xp:r"}, a3_stars:{p:"coin:r"},
+          g4_0:{p:"xp:c"}, g4_1:{p:"coin:c"}, g4_boss:{p:"xp:r"}, g4_stars:{p:"coin:r"},
+          m5_0:{p:"xp:c"}, m5_1:{p:"coin:c"}, m5_boss:{p:"xp:r"}, m5_stars:{p:"coin:e"} },     // quêtes de l'Aventure (monde 5 à 100 % = épique)
+    bdg:{ all500:{p:"xp:r"}, all1000:{p:"coin:r"}, all2000:{p:"xp:e"}, all5000:{p:"coin:e"} },    // badges de bonnes réponses
+    mst:{ 3:{p:"coin:c"}, 4:{p:"xp:r"}, 5:{p:"coin:r"}, 6:{p:"xp:e"}, 7:{p:"coin:e"} }           // rangs de maîtrise (Or… Légende), dans chaque domaine
+  }
 };
 if (typeof module !== "undefined") module.exports = EV_DATA;
 
@@ -9727,7 +10122,7 @@ if (typeof module !== "undefined") module.exports = EV_DATA;
    - Pendant un événement, chaque bonne réponse (tous les modes) envoie une clé unique au serveur, par petits paquets.
      Le serveur tire au sort (3 %) et, en cas de chance, donne un fragment d'un des personnages de l'événement
      pas encore adoptés. 6 fragments du même personnage = il est débloqué (les 6 fragments sont consommés).
-   - Jetons rares (Double pièces, Double XP, 50/50) : un seul de chaque type, gardés par le serveur dans inv/{uid}.
+   - Potions à raretés (sac, trouvailles 2 %, récompenses) et jeton 50/50 : gardés par le serveur dans inv/{uid} (voir calendrier.js).
      Le téléphone ne fait que lire ce document. Les pièces de remplacement (jeton déjà possédé) et les achats
      sont appliqués une seule fois grâce à leur clé (S.ev.paid / S.ev.spent).
    - Sans compte : pas de fragments ; les jetons restent sur l'appareil (S.inv), comme les potions du calendrier. */
@@ -9782,6 +10177,10 @@ const Evenements = (() => {
   // Potions gagnées avec le calendrier avant le serveur : transférées une seule fois
   function migrate(){
     const s = st(), loc = S.inv || {};
+    // Potions du sac gagnées sans compte sur cet appareil : transférées une seule fois
+    const mine = Object.keys(S.pot || {}).filter(p => S.pot[p] > 0);
+    if (mine.length && !s.migrPot) { s.migrPot = 1; const pot = {}; mine.forEach(p => pot[p] = S.pot[p]); save();
+      call("grant", {src:"local", key:key("l"), pot}).then(() => { mine.forEach(p => S.pot[p] = Math.max(0, (S.pot[p] || 0) - pot[p])); s.migrPot = 0; save(); refresh(); }).catch(() => { s.migrPot = 0; }); }
     ["xp", "coin"].forEach(t => { const x = loc[t] || {}; if (s.migr[t] || !((x.got || 0) > (x.used || 0))) return; s.migr[t] = 1; save();
       call("grant", {src:"migr", t}).then(() => { loc[t] = Object.assign({}, x, {used:Date.now()}); save(); }).catch(() => { s.migr[t] = 0; }); });
   }
@@ -9799,17 +10198,18 @@ const Evenements = (() => {
   }
 
   /* --- Fragments : une clé par bonne réponse, envoyées toutes les 2 secondes --- */
-  function onAnswer(ok){
-    if (!online() || !(curCh() || (ok && cur()))) return;
-    q.push({k:key(ok ? "a" : "w"), n:0}); if (q.length > 60) q = q.slice(-60);
+  function onAnswer(ok, qid){
+    if (!online()) return;
+    q.push({k:key(ok ? "a" : "w"), n:0, q:ok && qid ? String(qid).slice(0, 32) : ""}); if (q.length > 60) q = q.slice(-60);
     if (!qTimer) qTimer = setTimeout(flush, 2000);
   }
   async function flush(){
     qTimer = null; if (sending || !q.length) return; sending = true;
     const pack = q.slice(0, 8);
     try {
-      const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), own:e ? e.chars.filter(c => S.skins[c]) : []});
+      const e = cur(), r = await call("draw", {keys:pack.map(x => x.k), qs:pack.map(x => x.q || ""), own:e ? e.chars.filter(c => S.skins[c]) : []});
       q = q.filter(x => !pack.includes(x));
+      (r.pots || []).forEach((w, i) => setTimeout(() => { if (w.got && w.got.startsWith("pot:")) Potions.found(w.p, "Bonne réponse · bonus"); else toasts.push(`<b>Potion trouvée</b> · sac plein : +${String(w.got || "").slice(6)} pièces`); }, 600 + i * 900));
       (r.won || []).forEach((w, i) => setTimeout(() => fragFx(w), i * 900));
       if ((r.pets || []).length) setTimeout(celebrate, 1500);
     } catch(e){ pack.forEach(x => x.n++); q = q.filter(x => x.n < 3); }
@@ -9879,33 +10279,46 @@ const Evenements = (() => {
     save();
   }
   const boss = (wk, quiet) => grant({src:"boss", wk}, "boss:" + wk, quiet, "Boss vaincu");
-  const cal = n => grant({src:"cal", n}, "cal:" + n, true, "Calendrier");
   const adv = q => grant({src:"adv", q}, "adv:" + q, false, "Quête d'Aventure");
   async function use(t){
     if (!has(t)) return false;
     const x = inv.tok[t], back = Object.assign({}, x);
-    inv.tok[t] = Object.assign({}, x, {n:0}, D.TOKENS[t].dur ? {until:Date.now() + D.TOKENS[t].dur * 6e4} : {});   // affichage immédiat
+    inv.tok[t] = Object.assign({}, x, {n:0});   // affichage immédiat
     call("use", {t}).then(r => { if (!r.ok) { inv.tok[t] = back; refresh(); } }).catch(() => { inv.tok[t] = back; toasts.push("<b>Jeton non utilisé</b> · vérifie ta connexion."); refresh(); });
     return true;
   }
+  // Potion du sac : affichage immédiat, puis le serveur décide (heure du serveur)
+  function usePot(t, r, end){
+    const p = t + ":" + r, pot = inv.pot = inv.pot || {}, bo = inv.boost = inv.boost || {}, back = {pot:Object.assign({}, pot), bo:Object.assign({}, bo), tok:inv.tok[t]};
+    if (pot[p] > 0) pot[p]--; else if (r === "c" && inv.tok[t]) inv.tok[t] = Object.assign({}, inv.tok[t], {n:0});
+    bo[t] = end;
+    const undo = () => { inv.pot = back.pot; inv.boost = back.bo; if (back.tok) inv.tok[t] = back.tok; refresh(); };
+    call("use", {t, r}).then(x => { if (!x.ok) undo(); else if (x.until && inv.boost) inv.boost[t] = x.until; }).catch(() => { undo(); toasts.push("<b>Potion non activée</b> · vérifie ta connexion."); });
+  }
   let buying = false;
+  // Boutique : potions communes (dans la limite du sac) et jeton 50/50 (un seul)
+  const priceOf = t => t === "fifty" ? D.PRICE : D.POT.PRICE;
+  const full = t => t !== "fifty" && Potions.count(t + ":c") >= D.POT.MAX;
+  const nameOf = t => t === "fifty" ? D.TOKENS.fifty.n : Potions.name(t + ":c");
   async function buy(t){
-    if (buying || !D.TOKENS[t] || S.coins < D.PRICE) return;
+    if (buying || !["xp", "coin", "fifty"].includes(t) || S.coins < priceOf(t)) return;
     if (!online()) { // sans compte : achat sur l'appareil
-      if (Potions.has(t)) return; S.coins -= D.PRICE; spend(D.PRICE); Potions.give(t); toasts.push(`<b>${D.TOKENS[t].n}</b> · acheté`); save(); return render();
+      if (t === "fifty" ? Potions.has(t) : full(t)) return; S.coins -= priceOf(t); spend(priceOf(t));
+      if (t === "fifty") Potions.give(t); else { S.pot = S.pot || {}; S.pot[t + ":c"] = (S.pot[t + ":c"] || 0) + 1; }
+      toasts.push(`<b>${nameOf(t)}</b> · achetée`); save(); return render();
     }
-    if (!live() || has(t)) return;
+    if (!live() || (t === "fifty" ? has(t) : full(t))) return;
     buying = true; render();
-    try { const r = await call("buy", {t, key:key("b")}); toasts.push(r.ok ? `<b>${D.TOKENS[t].n}</b> · acheté pour ${D.PRICE.toLocaleString("fr-FR")} pièces` : "<b>Tu as déjà ce jeton</b> · utilise-le d'abord."); }
+    try { const r = await call("buy", {t, key:key("b")}); toasts.push(r.ok ? `<b>${nameOf(t)}</b> · achat pour ${priceOf(t).toLocaleString("fr-FR")} pièces` : r.why === "full" ? "<b>Sac plein</b> · 20 potions de ce type au maximum." : "<b>Tu as déjà ce jeton</b> · utilise-le d'abord."); }
     catch(e){ toasts.push("<b>Achat impossible pour l'instant</b> · vérifie ta connexion. Aucune pièce n'a été retirée."); }
     buying = false; render();
   }
-  // Bloc de la boutique : les 3 jetons
   function shopBlock(){
-    const rows = Object.keys(D.TOKENS).map(t => { const own = Potions.has(t), wait = online() && !live();
-      const btn = own ? `<span class="chip lamp">Possédé</span>` : `<button class="btn small" data-evb="${t}" ${S.coins >= D.PRICE && !buying && !wait ? "" : "disabled"}>${coinIco}${D.PRICE.toLocaleString("fr-FR")}</button>`;
-      return `<div class="ev-tok">${Potions.svg(t, 44)}<div class="stack grow" style="gap:2px;min-width:0"><b>${Potions.T[t].n}</b><span class="muted" style="font-size:12.5px">${Potions.T[t].d}</span></div>${btn}</div>`; }).join("");
-    return `<div class="label">Objets rares · un seul de chaque</div><div class="card ev-toks">${rows}<span class="muted" style="font-size:12px">Aussi offerts aux paliers 30, 60 et 90 de la Tour et contre le Boss de la semaine (5 PV de dégâts).</span></div>`;
+    const wait = online() && !live();
+    const row = (t, art, n, d, own, ownTxt) => `<div class="ev-tok">${art}<div class="stack grow" style="gap:2px;min-width:0"><b>${n}</b><span class="muted" style="font-size:12.5px">${d}</span></div>${own ? `<span class="chip lamp">${ownTxt}</span>` : `<button class="btn small" data-evb="${t}" ${S.coins >= priceOf(t) && !buying && !wait ? "" : "disabled"}>${coinIco}${priceOf(t).toLocaleString("fr-FR")}</button>`}</div>`;
+    const rows = ["xp", "coin"].map(t => row(t, PotArt.svg(t, "c", 46, "still"), Potions.name(t + ":c"), `${Potions.T[t].d} 30 minutes, à activer quand tu veux. Dans ton sac : ${Potions.count(t + ":c")}.`, full(t), "Sac plein")).join("")
+      + row("fifty", Potions.svg("fifty", 44), D.TOKENS.fifty.n, Potions.T.fifty.d, Potions.has("fifty"), "Possédé");
+    return `<div class="label">Potions et jeton</div><div class="card ev-toks">${rows}<span class="muted" style="font-size:12px">Les potions rares et épiques ne s'achètent pas : quêtes, défis, calendrier, paliers (Survie, Boss, Tour, Atlas, Aventure) et un peu de chance à chaque bonne réponse.</span></div>`;
   }
 
   /* --- Affichage --- */
@@ -10016,7 +10429,7 @@ const Evenements = (() => {
   }
   setTimeout(retire, 3000);
   setInterval(() => { if (S && S.profile && !inPlay()) { celebrate(); retire(); } }, 4000);
-  return {listen, stop, live, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, buy, tower, boss, cal, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
+  return {listen, stop, live, online, call, onAnswer, onSpend, betJoin, betSettle, petGoal, curCh, has, until, use, usePot, buy, tower, boss, adv, shopBlock, homeBtn, card, view, click, open, cur, info:id => { const e = evOf(id); return e ? {e} : null; }, _flush:flush, _inv:() => inv};
 })();
 
 /* ---------- Le Casino : La Taverne du Trèfle d'Or (Monde 1 de l'Aventure) ----------
@@ -10703,13 +11116,14 @@ const Aventure = (() => {
 
   /* ===================== Tableau de quêtes ===================== */
   // Les mêmes 10 quêtes dans chaque monde (3 principales, 7 secondaires), avec les noms du monde. Récompenses : pièces ou potions.
-  // Potions : par le serveur quand le joueur est connecté (EV_DATA.ADVQ, une seule fois), sinon sur l'appareil.
+  // Potions (niveaux 3 et 6, boss, 21 étoiles) : table EV_DATA.REW.adv, données par Potions.reward (une seule fois par compte).
+  // Jeton 50/50 (Chrono) : EV_DATA.ADVQ, par le serveur quand le joueur est connecté, sinon sur l'appareil.
   const QT = [
-    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50}},
-    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80}},
-    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{p:"xp"}},
+    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50, pot:1}},
+    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80, pot:1}},
+    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{pot:1}},
     {k:"sec", g:(W, w) => worldStars(w), n:10, d:() => "Gagner 10 étoiles dans ce monde", rw:{c:60}},
-    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{p:"coin"}},
+    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{pot:1}},
     {k:"sec", g:(W) => W.ok || 0, n:60, d:() => "Donner 60 bonnes réponses dans ce monde", rw:{c:60}},
     {k:"sec", g:(W) => W.kills || 0, n:30, d:() => "Vaincre 30 monstres", rw:{c:60}},
     {k:"sec", g:(W) => W.perfect ? 1 : 0, n:1, d:() => "Faire 10/10 à un niveau classique", rw:{c:80}},
@@ -10727,13 +11141,16 @@ const Aventure = (() => {
     const n = questsOpen() ? claimable(cw) : 0;
     return `<button class="av-rb wood av-qbtn" data-adv="quests" aria-label="Tableau de quêtes">📜${n ? `<i>${n}</i>` : !questsOpen() ? `<i class="lk">🔒</i>` : ""}</button>`;
   }
-  const rwHTML = rw => rw.c ? `<span class="coin"></span>${rw.c} pièces` : typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion";
+  const potOf = id => typeof EV_DATA !== "undefined" && EV_DATA.REW.adv[id] ? EV_DATA.REW.adv[id].p : "";
+  const rwHTML = (rw, id) => { const p = rw.pot && potOf(id), pp = p ? `${PotArt.svg(p.split(":")[0], p.slice(-1), 24, "still")}${esc(Potions.name(p))}` : "";
+    if (rw.c) return `<span class="coin"></span>${rw.c} pièces${pp ? ` + ${pp}` : ""}`; if (pp) return pp;
+    return typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion"; };
   function questsView(){
     const Q2 = questsOf(cw), sec = (k, t) => `<div class="av-qsec"><span>${t}</span></div><div class="av-qgrid">${Q2.filter(q => q.k === k).map((q, i) => `
       <div class="av-qp ${q.claimed ? "claimed" : q.done ? "ready" : q.v ? "prog" : ""}" style="--rot:${[-1.6, 1.2, -.6, 1.8][i % 4]}deg">
         <i class="av-pin"></i><b>${esc(q.t)}</b><span class="av-qd">${esc(q.d)}</span>
         ${q.n > 1 ? `<div class="av-qbar"><i style="width:${q.v / q.n * 100}%"></i></div><span class="av-qn">${q.v} / ${q.n}</span>` : ""}
-        <span class="av-qrw">${rwHTML(q.rw)}</span>
+        <span class="av-qrw">${rwHTML(q.rw, q.id)}</span>
         ${q.claimed ? `<span class="av-stamp">Terminée</span>` : q.done ? `<button class="av-btn green" data-adv="claim" data-v="${q.id}">Récupérer</button>` : `<span class="av-qst">${q.v ? "En cours" : "Disponible"}</span>`}
       </div>`).join("")}</div>`;
     return `<div class="av-scr av-w${cw}">
@@ -10745,7 +11162,9 @@ const Aventure = (() => {
   async function claim(id){
     const q = questsOf(cw).find(x => x.id === id); if (!q || !q.done || q.claimed || claiming) return;
     const t = q.rw.p, swap = (typeof EV_DATA !== "undefined" && EV_DATA.ADVQ_SWAP) || 100;
+    if (q.rw.pot && typeof Potions !== "undefined") Potions.reward("adv", id, {}, "Quête d'Aventure");   // potion : par le serveur (ou l'appareil sans compte)
     if (q.rw.c) { S.coins += q.rw.c; toasts.push(`<b>Quête terminée</b> · +${q.rw.c} pièces`); }
+    else if (q.rw.pot) {}
     else if (typeof Evenements !== "undefined" && Evenements.live()) {
       // Potion donnée par le serveur : la quête n'est marquée qu'une fois la réponse reçue (rien n'est perdu si le réseau coupe)
       claiming = true; let r = null; try { r = await Evenements.adv(id); } catch(e){} claiming = false;

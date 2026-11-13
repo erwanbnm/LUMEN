@@ -88,7 +88,10 @@ const Quetes = (() => {
       else if (isMax(type)) m.p = Math.max(m.p, info.v || 0);
       else m.p += type === "bossdmg" || type === "tower" ? (info.v || 1) : 1;
       if (m.p >= d.goal) { m.p = d.goal; m.done = true; const c = wk ? d.c : D_REWARD; S.coins += c;
-        toasts.push(`<b>${wk ? "Défi de la semaine réussi !" : "Quête du jour réussie"}</b> · ${esc(d.n(m))} · +${c} pièces`); }
+        toasts.push(`<b>${wk ? "Défi de la semaine réussi !" : "Quête du jour réussie"}</b> · ${esc(d.n(m))} · +${c} pièces`);
+        // Potions : 2e et 4e quêtes du jour, 3e et 5e défis de la semaine (table EV_DATA.REW)
+        const n = list.filter(x => x.done).length;
+        if (typeof Potions !== "undefined") Potions.reward(wk ? "qw" : "qd", n, {d:q.day, w:q.wk}, wk ? `${n} défis de la semaine` : `${n} quêtes du jour`); }
     });
     apply(q.d.list, DAILY, false); apply(q.w.list, WEEKLY, true);
   }
@@ -101,7 +104,8 @@ const Quetes = (() => {
     const q = Qs(), box = kind === "w" ? q.w : q.d; if (box.chest || !allDone(box.list)) return;
     box.chest = true; const lines = [];
     if (kind === "w" && typeof Boutique !== "undefined") try { Boutique.ev("wchest"); } catch(e){}
-    if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`);
+    if (kind === "w") { S.coins += W_CHEST; q.tot.w++; lines.push(`+${W_CHEST} pièces`, "+ une potion épique au choix");
+      if (typeof Potions !== "undefined") { const d = q.day, w = q.wk; setTimeout(() => Potions.choose("e", e => Potions.reward("qw", "chest", {d, w, e}, "Coffre légendaire")), 2600); }
       S.titles = S.titles || {}; if (!S.titles.infatigable) { S.titles.infatigable = today(); lines.push("Titre exclusif : INFATIGABLE"); } }
     else { S.coins += D_CHEST; q.tot.d++; lines.push(`+${D_CHEST} pièces`); }
     save(); checkBadges(); chestFx(kind, lines);
@@ -173,9 +177,14 @@ const Quetes = (() => {
     const state = box.chest ? "open" : ok ? "ready" : "locked";
     return `<div class="qs-chestbox ${state} ${kind === "w" ? "lg" : ""}">${chestSVG(kind, state, kind === "w" ? 96 : 80)}
       <div class="stack" style="gap:4px;min-width:0;flex:1"><b>${kind === "w" ? "Coffre légendaire" : "Coffre du jour"}</b>
-        <span class="muted" style="font-size:13px">${kind === "w" ? `${W_CHEST} pièces + titre exclusif ${titleTag("infatigable", "xs")} (la 1re fois)` : `${D_CHEST} pièces`} · ${n}/${box.list.length} ${kind === "w" ? "défis" : "quêtes"}</span>
+        <span class="muted" style="font-size:13px">${kind === "w" ? `${W_CHEST} pièces + potion épique au choix + titre exclusif ${titleTag("infatigable", "xs")} (la 1re fois)` : `${D_CHEST} pièces`} · ${n}/${box.list.length} ${kind === "w" ? "défis" : "quêtes"}</span>
+        ${typeof Potions !== "undefined" ? potLine(kind, n) : ""}
         ${state === "ready" ? `<button class="btn small qs-open" data-qs="open" data-v="${kind}">Ouvrir le coffre</button>` : state === "open" ? `<span class="chip lamp">Coffre ouvert</span>` : `<span class="muted" style="font-size:12.5px">Termine tout pour l'ouvrir</span>`}</div></div>`;
   }
+  // Potions gagnées en chemin (2e et 4e quêtes du jour, 3e et 5e défis de la semaine)
+  function potLine(kind, n){ const R = EV_DATA.REW[kind === "w" ? "qw" : "qd"];
+    return `<span class="qs-pots">${Object.keys(R).filter(k => k !== "chest").map(k => { const p = R[k].p;
+      return `<span class="${n >= +k ? "got" : ""}">${PotArt.svg(p.split(":")[0], p.slice(-1), 22, "still")}${k}<sup>${+k === 2 || +k === 3 ? "e" : "e"}</sup></span>`; }).join("")}</span>`; }
   function viewAll(){
     const q = Qs(), isW = tab === "w", box = isW ? q.w : q.d, DEF = isW ? WEEKLY : DAILY;
     return `<section class="stack qs">

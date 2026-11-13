@@ -441,13 +441,14 @@ const Aventure = (() => {
 
   /* ===================== Tableau de quêtes ===================== */
   // Les mêmes 10 quêtes dans chaque monde (3 principales, 7 secondaires), avec les noms du monde. Récompenses : pièces ou potions.
-  // Potions : par le serveur quand le joueur est connecté (EV_DATA.ADVQ, une seule fois), sinon sur l'appareil.
+  // Potions (niveaux 3 et 6, boss, 21 étoiles) : table EV_DATA.REW.adv, données par Potions.reward (une seule fois par compte).
+  // Jeton 50/50 (Chrono) : EV_DATA.ADVQ, par le serveur quand le joueur est connecté, sinon sur l'appareil.
   const QT = [
-    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50}},
-    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80}},
-    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{p:"xp"}},
+    {k:"main", g:(W) => W.done[2] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 3 · ${WORLDS[w - 1].levels[2].n}`, rw:{c:50, pot:1}},
+    {k:"main", g:(W) => W.done[5] ? 1 : 0, n:1, d:(w) => `Réussir le niveau 6 · ${WORLDS[w - 1].levels[5].n}`, rw:{c:80, pot:1}},
+    {k:"main", id:"boss", g:(W) => W.done[6] ? 1 : 0, n:1, d:(w) => `Vaincre ${WORLDS[w - 1].boss.replace(/^Le /, "le ").replace(/^La /, "la ").replace(/^Les /, "les ")}`, rw:{pot:1}},
     {k:"sec", g:(W, w) => worldStars(w), n:10, d:() => "Gagner 10 étoiles dans ce monde", rw:{c:60}},
-    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{p:"coin"}},
+    {k:"sec", id:"stars", g:(W, w) => worldStars(w), n:21, d:() => "Gagner les 21 étoiles du monde", rw:{pot:1}},
     {k:"sec", g:(W) => W.ok || 0, n:60, d:() => "Donner 60 bonnes réponses dans ce monde", rw:{c:60}},
     {k:"sec", g:(W) => W.kills || 0, n:30, d:() => "Vaincre 30 monstres", rw:{c:60}},
     {k:"sec", g:(W) => W.perfect ? 1 : 0, n:1, d:() => "Faire 10/10 à un niveau classique", rw:{c:80}},
@@ -465,13 +466,16 @@ const Aventure = (() => {
     const n = questsOpen() ? claimable(cw) : 0;
     return `<button class="av-rb wood av-qbtn" data-adv="quests" aria-label="Tableau de quêtes">📜${n ? `<i>${n}</i>` : !questsOpen() ? `<i class="lk">🔒</i>` : ""}</button>`;
   }
-  const rwHTML = rw => rw.c ? `<span class="coin"></span>${rw.c} pièces` : typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion";
+  const potOf = id => typeof EV_DATA !== "undefined" && EV_DATA.REW.adv[id] ? EV_DATA.REW.adv[id].p : "";
+  const rwHTML = (rw, id) => { const p = rw.pot && potOf(id), pp = p ? `${PotArt.svg(p.split(":")[0], p.slice(-1), 24, "still")}${esc(Potions.name(p))}` : "";
+    if (rw.c) return `<span class="coin"></span>${rw.c} pièces${pp ? ` + ${pp}` : ""}`; if (pp) return pp;
+    return typeof Potions !== "undefined" ? `${Potions.svg(rw.p, 20)}${esc(Potions.T[rw.p].n)}` : "Potion"; };
   function questsView(){
     const Q2 = questsOf(cw), sec = (k, t) => `<div class="av-qsec"><span>${t}</span></div><div class="av-qgrid">${Q2.filter(q => q.k === k).map((q, i) => `
       <div class="av-qp ${q.claimed ? "claimed" : q.done ? "ready" : q.v ? "prog" : ""}" style="--rot:${[-1.6, 1.2, -.6, 1.8][i % 4]}deg">
         <i class="av-pin"></i><b>${esc(q.t)}</b><span class="av-qd">${esc(q.d)}</span>
         ${q.n > 1 ? `<div class="av-qbar"><i style="width:${q.v / q.n * 100}%"></i></div><span class="av-qn">${q.v} / ${q.n}</span>` : ""}
-        <span class="av-qrw">${rwHTML(q.rw)}</span>
+        <span class="av-qrw">${rwHTML(q.rw, q.id)}</span>
         ${q.claimed ? `<span class="av-stamp">Terminée</span>` : q.done ? `<button class="av-btn green" data-adv="claim" data-v="${q.id}">Récupérer</button>` : `<span class="av-qst">${q.v ? "En cours" : "Disponible"}</span>`}
       </div>`).join("")}</div>`;
     return `<div class="av-scr av-w${cw}">
@@ -483,7 +487,9 @@ const Aventure = (() => {
   async function claim(id){
     const q = questsOf(cw).find(x => x.id === id); if (!q || !q.done || q.claimed || claiming) return;
     const t = q.rw.p, swap = (typeof EV_DATA !== "undefined" && EV_DATA.ADVQ_SWAP) || 100;
+    if (q.rw.pot && typeof Potions !== "undefined") Potions.reward("adv", id, {}, "Quête d'Aventure");   // potion : par le serveur (ou l'appareil sans compte)
     if (q.rw.c) { S.coins += q.rw.c; toasts.push(`<b>Quête terminée</b> · +${q.rw.c} pièces`); }
+    else if (q.rw.pot) {}
     else if (typeof Evenements !== "undefined" && Evenements.live()) {
       // Potion donnée par le serveur : la quête n'est marquée qu'une fois la réponse reçue (rien n'est perdu si le réseau coupe)
       claiming = true; let r = null; try { r = await Evenements.adv(id); } catch(e){} claiming = false;

@@ -249,7 +249,7 @@ const correctAll = () => Object.keys(S.q).filter(id => Q[id] && S.q[id].ok>0).le
 const BADGES = [];
 const TIER_N = {bronze:"Bronze", argent:"Argent", or:"Or", platine:"Platine", diamant:"Diamant", maitre:"Maître"};
 const masteredIn = th => Object.keys(S.q).filter(id => Q[id] && Q[id][0]===th && S.q[id].b>=3).length;
-[["bronze",50,50],["argent",100,100],["or",250,150],["platine",500,250],["diamant",1000,500],["maitre",2000,1000]].forEach(([t,n,c]) => BADGES.push({id:"all"+n, g:"Général", tier:t, icon:"bulb", name:`${n} bonnes réponses`, desc:`${n} questions différentes réussies, tous thèmes confondus`, coins:c, goal:n, cur:correctAll}));
+[["bronze",50,50],["argent",100,100],["or",250,150],["platine",500,250],["diamant",1000,500],["maitre",2000,1000],["maitre",5000,2000]].forEach(([t,n,c]) => BADGES.push({id:"all"+n, g:"Général", tier:t, icon:"bulb", name:`${n} bonnes réponses`, desc:`${n} questions différentes réussies, tous thèmes confondus`, coins:c, goal:n, cur:correctAll}));
 [["bronze",3,20],["argent",7,50],["or",14,100],["platine",30,200],["diamant",100,500]].forEach(([t,n,c]) => BADGES.push({id:"str"+n, g:"Régularité", tier:t, icon:"moon", name:`${n} défis d'affilée`, desc:`Réussir le Défi du jour ${n} jours de suite`, coins:c, goal:n, cur:()=>Math.max(S.bestStreak||0, streak())}));
 [["survie","Survie","heart"],["chrono","Chrono","hourglass"],["avap","Avant ou après ?","timeline"]].forEach(([m,nm,ic]) => [["bronze",10,30],["or",20,60]].forEach(([t,n,c]) => BADGES.push({id:m+n, g:"Records", tier:t, icon:ic, name:`${nm} : ${n}`, desc:`Atteindre ${n} en ${nm}`, coins:c, goal:n, cur:()=>S.rec[m]||0})));
 ORDER.forEach(k => [["bronze",5,5],["argent",10,10],["or",20,20],["platine",30,30],["diamant",40,40]].forEach(([t,n,c]) => BADGES.push({id:k+"_"+n, g:"Thèmes", th:k, tier:t, icon:k, name:`${THEMES[k].n} · ${TIER_N[t]}`, desc:`${n} bonnes réponses différentes en ${THEMES[k].n}`, coins:c, goal:n, cur:()=>correctIn(k)}))
@@ -333,6 +333,7 @@ function checkBadges(){
   checkThemeSkins();
   if (S.st) checkSecrets();
   checkSucces();
+  if (typeof Potions !== "undefined") setTimeout(() => Potions.tick(true), 0);   // paliers qui donnent des potions
   BADGES.forEach(b => {
     if (S.badges[b.id] || b.cur() < b.goal) return;
     S.badges[b.id] = today(); S.coins += b.coins;
@@ -348,7 +349,7 @@ function answer(id, ok, combo){
   const firstWin = ok && !e.ok;
   if (ok) { e.b = Math.min(e.b+1, 5); e.ok++; } else { e.b = 0; e.ko++; }
   e.due = t + (ok ? INT[e.b] : 7); e.last = t; S.q[id] = e;
-  if (typeof Evenements !== "undefined") Evenements.onAnswer(ok);   // serveur : tirage d'un fragment (bonne réponse) et défi « questions »
+  if (typeof Evenements !== "undefined") Evenements.onAnswer(ok, id);   // serveur : fragment d'événement, défi « questions », potion trouvée (2 %)
   if (!ok) return {xp:0, coins:0};
   if (typeof Quetes !== "undefined") Quetes.ev("ok", {th:qTheme(id), lvl:Q[id][1]});
   const th = qTheme(id), before = themeLvl(th).L, accBefore = Profil.pres();
@@ -882,6 +883,9 @@ function finish(){
   if (s.mode === "portail") portalFinish(s, ok);
   if (s.mode === "chrono") misEvent("chr", ok);
   if (s.mode === "chrono" && ok >= 15) unlockSkin("analyste"); if (s.mode === "survie") misEvent("surv", ok);
+  // Paliers de Survie (par partie) : pièces et potions (table EV_DATA.REW.surv)
+  if (s.mode === "survie" && !s.duel && typeof Potions !== "undefined") { const g = s.sid || (s.sid = Date.now().toString(36)), d = new Intl.DateTimeFormat("fr-CA", {timeZone:"Europe/Paris", year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date());
+    Object.keys(EV_DATA.REW.surv).filter(t => ok >= +t).forEach(t => Potions.reward("surv", t, {d, g}, `Survie · ${t} bonnes réponses`)); }
   const nq = itemsOf(s).filter(i=>"id" in i).length;
   if ((s.mode === "serie" || s.mode === "mix" || s.mode === "qad") && nq >= 10 && ok === nq) winSucces("parfait");
   if (s.diff === "expert" && nq >= 10 && ok >= 8) winSucces("expert");
