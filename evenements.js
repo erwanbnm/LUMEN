@@ -75,6 +75,7 @@ const Evenements = (() => {
   function refresh(){
     if (!S.profile) return;
     if (inPlay() || (typeof Boss !== "undefined" && Boss.open && Boss.open())) { const p = document.querySelector(".hud .pills"); if (p) { const old = p.querySelector(".pill.pot"); const html = Potions.pill(); if (old) old.outerHTML = html || ""; else if (html) p.insertAdjacentHTML("afterbegin", html); } return; }
+    if (typingNow()) return;   // le joueur écrit : on ne redessine pas sous ses doigts
     window.__quiet = true; render();
   }
 

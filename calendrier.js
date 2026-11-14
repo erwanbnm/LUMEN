@@ -307,7 +307,7 @@ const Potions = (() => {
   const next = () => { if (!waiting.length || inPlay() || document.querySelector(".po-drop-v,.lvup,.cal-modal,.qs-fx,.tw-fx")) return;
     if (waiting.length > 1) return summary(waiting.splice(0)); const [p, i] = waiting.shift(); popup(p, i); };
   setInterval(() => {
-    document.querySelectorAll("[data-pot-min]").forEach(e => { const t = e.dataset.potMin; if (active(t)) e.textContent = tLeft(t); else if (S.profile && !inPlay()) render(); });
+    document.querySelectorAll("[data-pot-min]").forEach(e => { const t = e.dataset.potMin; if (active(t)) e.textContent = tLeft(t); else if (S.profile && !inPlay() && !typingNow()) render(); });
     document.querySelectorAll("[data-pot-left]").forEach(e => { const t = e.dataset.potLeft; e.textContent = active(t) ? fmtM(mins(left(t))) : "—"; });
     if (S && S.profile) { next(); if (!inPlay()) tick(); }
   }, 1000);

@@ -494,7 +494,15 @@ function header(){
 }
 function dateLine(){ const d = new Date(); return `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`; }
 
+const typingNow = () => { const a = document.activeElement; return !!a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA") && !!a.id; };
 function render(){
+  const fe = typingNow() ? document.activeElement : null, fid = fe && fe.id;
+  let pos = null; try { pos = fe ? [fe.selectionStart, fe.selectionEnd] : null; } catch(e){}
+  renderInner();
+  if (fid) { const el = document.getElementById(fid);
+    if (el && el !== document.activeElement) { try { el.focus({preventScroll:true}); const n = el.value.length; el.setSelectionRange(pos && pos[0] !== null ? Math.min(pos[0], n) : n, pos && pos[1] !== null ? Math.min(pos[1], n) : n); } catch(e){} } }
+}
+function renderInner(){
   clearInterval(tick); tick = null;
   renderTabs();
   if (typeof flushLevelUp === "function") flushLevelUp();

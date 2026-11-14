@@ -119,6 +119,7 @@ const Salons = (() => {
   function repaint(){
     if (S.tab !== "amis") return;
     const typing = document.activeElement && document.activeElement.id === "sl-msg", guessing = document.activeElement && document.activeElement.id === "sl-guess", y = window.scrollY;
+    if (guessing && patchPm()) return;
     const ob = document.querySelector(".sl-bomb"), from = ob && ob.getBoundingClientRect();
     window.__quiet = true; render(); window.scrollTo(0, jumpTop ? 0 : y); jumpTop = false;
     const nb = document.querySelector(".sl-bomb");
@@ -250,6 +251,19 @@ const Salons = (() => {
     repaint();
   }
   let pmDraft = "";
+  // Met à jour la manche « Plus ou moins » autour de la case de saisie, sans la toucher (elle garde le focus, le clavier et le curseur)
+  function patchPm(){
+    const old = document.querySelector(".sl-q.pm-bonus"), form = document.getElementById("sl-pm"); if (!old || !form || !room || !room.g) return false;
+    const tmp = document.createElement("div"); tmp.innerHTML = pmView();
+    const nw = tmp.querySelector(".sl-q.pm-bonus"), nf = nw && nw.querySelector("#sl-pm"), h = q => (q.querySelector("h2") || {}).textContent;
+    if (!nf || h(nw) !== h(old)) return false;
+    [...old.children].forEach(c => { if (c !== form) c.remove(); });
+    const kids = [...nw.children], fi = kids.indexOf(nf);
+    kids.forEach((c, i) => { if (c === nf) return; if (i < fi) old.insertBefore(c, form); else old.appendChild(c); });
+    const ob = document.querySelector(".sl-board"), nb = tmp.querySelector(".sl-board"); if (ob && nb) ob.replaceWith(nb);
+    const inp = document.getElementById("sl-guess"); if (inp && inp.value !== pmDraft) inp.value = pmDraft;
+    return true;
+  }
   // Points d'une manche. Plus ou moins : 1er 3 pts, 2e 2 pts, les autres 1 pt. Avant/Après : le plus rapide 2 pts, les autres 1 pt.
   function pmRound(i){ const f = (room.fd && room.fd[i]) || {}, pmK = room.g && room.g.qids && kindOf(room.g.qids[i]) === "p";
     return Object.keys(f).sort((a, b) => f[a] - f[b]).map((id, k) => ({id, t:f[id], pts:pmK ? (k === 0 ? 3 : k === 1 ? 2 : 1) : (k === 0 ? 2 : 1)})); }
@@ -277,7 +291,7 @@ const Salons = (() => {
         const d = DATES[+id.slice(2)];
         const tries = st.tries.slice().reverse().map(v => `<span class="pm-try ${v === d[2] ? "ok" : ""}">${v} ${v === d[2] ? "✓" : v < d[2] ? "↑ c'est plus" : "↓ c'est moins"}</span>`).join("");
         body = `<article class="card q sl-q pm-bonus">${head("🎯 Plus ou moins · bonus", "Trouve l'année exacte")}<h2>${esc(d[1])}</h2>
-          ${p.inQ && !st.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="number" inputmode="numeric" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off"><button class="btn" type="submit">Valider</button></form>` : ""}
+          ${p.inQ && !st.found ? `<form class="pm-form" id="sl-pm"><input id="sl-guess" type="text" inputmode="numeric" maxlength="6" placeholder="Ton année" value="${esc(pmDraft)}" autocomplete="off" autocorrect="off" spellcheck="false"><button class="btn" type="submit">Valider</button></form>` : ""}
           ${p.inQ && st.found ? `<p class="sl-status"><b class="sl-good">Trouvé en ${st.tries.length} essai${st.tries.length > 1 ? "s" : ""} ! Attends les autres…</b></p>` : ""}
           ${!p.inQ ? `<div class="pm-year">${d[2]}</div><p class="sl-status">${st.found ? `<b class="sl-good">Bien joué !</b>` : `<b class="sl-bad">Pas trouvé cette fois.</b>`}</p><p class="muted" style="margin:6px 0 0;text-align:center">${esc(d[3])}</p>` : ""}
           ${tries ? `<div class="pm-tries">${tries}</div>` : ""}${who}</article>`;
@@ -302,7 +316,7 @@ const Salons = (() => {
     const p = quizPos();
     if (p.i >= g.qids.length) { if (isHost() && !drive) upd({state:"end", "g.over":true}); return; }
     const k = p.e < 0 ? -1 : p.i * 2 + (p.inQ ? 0 : 1);
-    if (k !== quizIdx) { quizIdx = k; repaint(); }
+    if (k !== quizIdx) { quizIdx = k; pmDraft = ""; repaint(); }
     if (p.e >= 0) setBar(p.inQ ? p.w - p.r : 0, (p.w || 1000) / 1000);
     else { const t = document.getElementById("sl-left"); if (t) t.textContent = Math.ceil(-p.e / 1000) + " s"; }
   }
@@ -512,11 +526,12 @@ const Salons = (() => {
   }
   document.addEventListener("submit", e => {
     if (e.target.id === "sl-form") { e.preventDefault(); const i = document.getElementById("sl-msg"), t = i.value.trim(); if (!t) return; i.value = ""; draft = ""; send(t); }
-    if (e.target.id === "sl-pm") { e.preventDefault(); const v = parseInt(document.getElementById("sl-guess").value, 10); if (!isNaN(v)) pmGuess(v); return; }
+    if (e.target.id === "sl-pm") { e.preventDefault(); const v = parseInt(document.getElementById("sl-guess").value.replace(/[^\d-]/g, ""), 10); if (!isNaN(v)) pmGuess(v); return; }
     if (e.target.id === "sl-join") { e.preventDefault(); const v = document.getElementById("sl-code").value; busy = true; msg = ""; render();
       join(v).catch(x => { msg = typeof x === "string" ? x : "Impossible de joindre le salon. Vérifie ta connexion."; }).finally(() => { busy = false; render(); }); }
   });
-  document.addEventListener("input", e => { if (e.target.id === "sl-msg") draft = e.target.value; if (e.target.id === "sl-guess") pmDraft = e.target.value; });
+  document.addEventListener("input", e => { if (e.target.id === "sl-msg") draft = e.target.value;
+    if (e.target.id === "sl-guess") { const c = e.target.value.replace(/[^\d-]/g, "").replace(/(?!^)-/g, ""); if (c !== e.target.value) e.target.value = c; pmDraft = c; } });
 
   // Musique : Bombe = stressante (accélère quand la mèche raccourcit), Plus ou moins = tension, Quiz = thème habituel
   function music(){
@@ -526,7 +541,7 @@ const Salons = (() => {
     if (room.mode === "pm") return {k:"tense"};
     return null;
   }
-  return {entry, view:viewAll, click, listen, music, active:() => !!code, playing:() => !!(room && room.state === "play" && view === "game"), _room:() => room};
+  return {entry, view:viewAll, click, listen, music, active:() => !!code, playing:() => !!(room && room.state === "play" && view === "game"), _room:() => room, _test:{set:r => { room = r; code = r.code; view = "game"; }, repaint, tick:() => quizTick(), draft:() => pmDraft}};
 })();
 
 /* --- Badges des salons privés --- */
