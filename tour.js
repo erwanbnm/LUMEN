@@ -4,39 +4,62 @@
    - Mauvaise réponse ou temps écoulé : on retombe au dernier palier franchi, quoi qu'il arrive (pas de vies).
    - Récompense de chaque palier versée une seule fois par compte (S.tour.claimed).
    - Classement de la semaine dans l'onglet : étage le plus haut atteint depuis lundi ; à égalité, le premier arrivé.
-   - Questions : les nouvelles questions de la Tour (content/extra/tour.txt, réservées à ce mode) + celles des thèmes,
-     triées par difficulté. On évite celles déjà vues dans les montées précédentes. */
+   - Questions (rééquilibrage de novembre 2026) : 5 niveaux réels, A accessible · B intermédiaire · C soutenu · D difficile ·
+     E très difficile. A = thèmes niveau 1, B = niveau 2, C = niveau 3, plus les questions de la Tour (content/extra/tour.txt)
+     rangées selon content/extra/tour_niveaux.txt (X = retirée). Chaque tranche de 10 étages mélange les niveaux (table MIX) ;
+     le 10e étage est le « gardien » du palier, plus dur. Jamais deux questions D/E d'affilée, jamais deux fois le même thème
+     de suite. Le temps dépend de la question (A/B 20 s, C 25 s, D/E 30 s). On évite celles déjà vues. */
 const Tour = (() => {
   const CP_REWARD = {10:20, 20:50, 30:100, 40:100, 50:100, 60:100, 70:300, 80:300, 90:300, 100:1000};
-  const BANDS = ["Facile", "Facile à modérée", "Modérée", "Modérée à élevée", "Élevée", "Très élevée", "Extrêmement élevée", "Exceptionnelle", "Extrême", "Ultime"];
+  const BANDS = ["Accessible", "Accessible à intermédiaire", "Intermédiaire", "Intermédiaire à soutenue", "Soutenue", "Élevée", "Très élevée", "Très élevée", "Maximale", "Maximale"];
+  // Mélange de chaque tranche : nombre de questions de chaque niveau sur les 9 premiers étages, puis le gardien (10e étage).
+  // Avec la règle « une erreur = retour au palier », viser 2 à 3 essais en bas et une vingtaine à trentaine tout en haut.
+  const MIX = {1:["AAAAAAAAB", "B"], 2:["AAAAAABBB", "B"], 3:["AAAABBBBB", "C"], 4:["AAAABBBBC", "C"], 5:["AAABBBBBC", "C"],
+               6:["AAABBBBCC", "C"], 7:["AABBBBCCC", "D"], 8:["AABBBBCCD", "D"], 9:["AABBBBCCD", "E"], 10:["AABBBCCDD", "E"]};
   const SEEN_MAX = 900;
   let view = "tower", fx = null, qtimer = null, lastScroll = null;
   const T = () => { S.tour = S.tour || {cp:0, best:0, claimed:{}, seen:[], wk:"", wbest:0, wt:0, runs:0, tops:0}; S.tour.claimed = S.tour.claimed || {}; S.tour.seen = S.tour.seen || []; return S.tour; };
   const band = f => Math.min(10, Math.ceil(f / 10));
-  const qTime = f => f <= 50 ? 20 : 30;
+  const lvlOf = id => { const q = Q[id]; return !q ? "B" : q[6] && q[6].t === "tower" ? (q[6].d || "C") : "ABC"[(q[1] || 2) - 1]; };
+  const qTime = (f, id) => { const r = run(), l = lvlOf(id || (r && r.qid)); return l === "A" || l === "B" ? 20 : l === "C" ? 25 : 30; };
   const weekId = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.toISOString().slice(0, 10); };
   const run = () => S.tourRun || null;
 
-  /* --- Les questions de chaque tranche --- */
-  // Questions des thèmes : niveau 1 → étages 1 à 20, niveau 2 → 11 à 40, niveau 3 → 31 à 60. Les étages 61 à 100 n'ont que des questions de la Tour.
-  const THEME_BANDS = {1:[1, 2], 2:[2, 3, 4], 3:[4, 5, 6]};
+  /* --- Les questions de chaque niveau --- */
   let POOLS = null;
   function pools(){
     if (POOLS) return POOLS;
-    POOLS = {}; for (let b = 1; b <= 10; b++) POOLS[b] = [];
+    POOLS = {A:[], B:[], C:[], D:[], E:[]};
     Object.keys(Q).forEach(id => { const q = Q[id], t = q[6] && q[6].t;
-      if (t === "tower") POOLS[q[6].b].push(id);
-      else if (!t && q[2].length === 4) (THEME_BANDS[q[1]] || []).forEach(b => POOLS[b].push(id)); });
+      if (t === "tower") { if (POOLS[q[6].d || "C"]) POOLS[q[6].d || "C"].push(id); }
+      else if (!t && q[2].length === 4 && q[1] >= 1 && q[1] <= 3) POOLS["ABC"[q[1] - 1]].push(id); });
     return POOLS;
   }
+  // Plan d'une tranche : 9 étages mélangés (un peu plus doux au début), sans deux D/E d'affilée, puis le gardien
+  const hard = l => l === "D" || l === "E";
+  function plan(b){
+    const [m, g] = MIX[b], a = m.split("").sort(() => Math.random() - .5);
+    for (let k = 0; k < 40; k++) { // remet de l'ordre : pas deux durs de suite, pas de dur juste avant le gardien ni au 1er étage
+      const i = a.findIndex((l, j) => hard(l) && (j === 0 || j === a.length - 1 || hard(a[j + 1])));
+      if (i < 0) break; const s = a.findIndex((l, j) => !hard(l) && j > 0 && j < a.length - 1 && !hard(a[j - 1] || "") && !hard(a[j + 1] || ""));
+      if (s < 0) break; [a[i], a[s]] = [a[s], a[i]]; }
+    a.push(g); return a.join("");
+  }
+  function levelFor(f){
+    const r = run(), b = band(f); r.plan = r.plan || {};
+    if (!r.plan[b] || r.plan[b].length !== 10) r.plan[b] = plan(b);
+    return r.plan[b][(f - 1) % 10];
+  }
   function pickFor(f, used){
-    const P = pools()[band(f)], seen = new Set(T().seen);
-    const tw = P.filter(id => Q[id][6] && !used.has(id)), th = P.filter(id => !Q[id][6] && !used.has(id));
-    // Une question de la Tour une fois sur deux quand il y en a (elles sont faites pour l'étage) ; sinon une question de thème
-    const prefer = tw.length && (Math.random() < .5 || !th.length) ? tw : th.length ? th : tw;
-    let fresh = prefer.filter(id => !seen.has(id)); if (!fresh.length) fresh = (prefer === tw ? th : tw).filter(id => !seen.has(id));
-    if (!fresh.length) { // tout a été vu : la plus ancienne
-      const order = new Map(T().seen.map((id, i) => [id, i])); fresh = prefer.slice().sort((a, b) => (order.get(a) || 0) - (order.get(b) || 0)).slice(0, 20); }
+    const lv = levelFor(f), r = run(), prevTh = r && r.qid && Q[r.qid] ? Q[r.qid][0] : null, seen = new Set(T().seen);
+    // Gardien très difficile : parmi les E, et les D quand les E ont toutes été vues
+    let P = pools()[lv].filter(id => !used.has(id));
+    if (lv === "E") P = P.concat(pools().D.filter(id => !used.has(id) && seen.has(id) === false && Math.random() < .3));
+    const okTh = P.filter(id => Q[id][0] !== prevTh); if (okTh.length) P = okTh;   // pas deux fois le même thème de suite
+    let fresh = P.filter(id => !seen.has(id));
+    if (!fresh.length) { // tout a été vu : les plus anciennes
+      const order = new Map(T().seen.map((id, i) => [id, i])); fresh = P.slice().sort((a, b) => (order.get(a) || 0) - (order.get(b) || 0)).slice(0, 20); }
+    if (!fresh.length) fresh = pools().B;
     return fresh[Math.floor(Math.random() * fresh.length)];
   }
   const markSeen = id => { const t = T(); t.seen = t.seen.filter(x => x !== id); t.seen.push(id); if (t.seen.length > SEEN_MAX) t.seen = t.seen.slice(-SEEN_MAX); };
@@ -44,14 +67,14 @@ const Tour = (() => {
   /* --- La montée --- */
   function start(){
     const t = T(); if (t.cp >= 100) return;
-    S.tourRun = {floor:t.cp + 1, used:[], t0:Date.now()}; t.runs = (t.runs || 0) + 1;
+    S.tourRun = {floor:t.cp + 1, used:[], t0:Date.now(), plan:{}}; t.runs = (t.runs || 0) + 1;
     if (typeof Quetes !== "undefined") Quetes.newRun();
     next(); try { Music.sfx("tab2"); } catch(e){}
   }
   function next(){
     const r = run(); if (!r) return;
     const used = new Set(r.used), id = pickFor(r.floor, used);
-    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.hide = []; r.dl = Date.now() + qTime(r.floor) * 1000; r.ans = undefined;
+    r.qid = id; r.used.push(id); r.ord = [0, 1, 2, 3].sort(() => Math.random() - .5); r.hide = []; r.dl = Date.now() + qTime(r.floor, id) * 1000; r.ans = undefined;
     markSeen(id); view = "q"; save(); render(); startTimer();
   }
   function startTimer(){
@@ -229,7 +252,7 @@ const Tour = (() => {
     return `<section class="tw tw-play">${sky()}
       <div class="tw-row-h"><span class="tw-floor">Étage <b>${f}</b><i>/100</i></span><button class="quit" data-tw="quit">Abandonner</button></div>
       <div class="tw-climb">${Array.from({length:10}, (_, i) => { const n = cpNext - 9 + i; return `<i class="${n < f ? "ok" : n === f ? "now" : ""} ${n % 10 === 0 ? "cp" : ""}"></i>`; }).join("")}</div>
-      <div class="tw-row-h"><span class="tw-band">Difficulté : ${BANDS[band(f) - 1]}</span><span class="tw-muted">Palier ${cpNext}${T().claimed[cpNext] ? "" : " · " + CP_REWARD[cpNext] + " pièces"}</span></div>
+      <div class="tw-row-h"><span class="tw-band">${f % 10 === 0 ? "🛡️ Gardien du palier" : "Difficulté : " + BANDS[band(f) - 1]}</span><span class="tw-muted">Palier ${cpNext}${T().claimed[cpNext] ? "" : " · " + CP_REWARD[cpNext] + " pièces"}</span></div>
       <article class="card q tw-q"><div class="row between"><span class="chip">${dot(q[0])}${esc(THEMES[q[0]].n)}</span><span class="label" id="tw-left">${ans === undefined ? Math.ceil(left / 1000) + " s" : ""}</span></div>
         <div class="timer" style="margin:8px 0 0"><i id="tw-bar" style="width:${ans === undefined ? left / (qTime(f) * 10) : 0}%"></i></div>
         <h2>${esc(q[4])}</h2>${tk}<div class="choices">${ch}</div>
@@ -264,7 +287,7 @@ const Tour = (() => {
   // Musique : épique et angoissante, plus intense en montant
   function music(){ if (S.tab !== "tour") return null; const r = run(); return {k:"tower", heat:r ? Math.min(1, (r.floor - 1) / 99) : 0}; }
   const statsForPing = () => { const t = T(); return {wk:t.wk, b:t.wk === weekId() ? t.wbest || 0 : 0, t:t.wk === weekId() ? t.wt || 0 : 0, best:t.best || 0}; };
-  return {view:viewAll, click, after, init, music, stats:statsForPing, playing:() => !!(run() && S.tab === "tour"), REWARD:CP_REWARD};
+  return {view:viewAll, click, after, init, music, stats:statsForPing, playing:() => !!(run() && S.tab === "tour"), REWARD:CP_REWARD, _test:{plan, pickFor, levelFor, lvlOf, qTime, pools, MIX}};
 })();
 
 /* --- Badges de la Tour --- */

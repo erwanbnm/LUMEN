@@ -4,7 +4,7 @@ const ROOT = path.join(__dirname, '..'), OUT = path.join(__dirname, 'out');
 (async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:400,height:860}}); await p.addInitScript(() => { window.__noPortal = true; window.__noTuto = true; });
  await p.route('**/fonts.googleapis.com/**', r => r.abort());
  const errs=[]; p.on('pageerror',e=>errs.push(e.message+' | '+(e.stack||'').split(String.fromCharCode(10))[1]));
- await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(3300);
+ await p.goto('file://'+path.join(ROOT,'dist','lumen.html')); await p.waitForTimeout(3300); await p.addStyleTag({content:'.po-drop-v{display:none!important}'}); // potions des paliers déjà atteints
  await p.fill('#p-name','Erwan'); await p.fill('#p-age','20'); await p.click('[data-av-pick="0"]'); await p.click('#pform button[type=submit]');
  await p.evaluate(()=>{ document.querySelectorAll('.lvup').forEach(e=>e.remove()); S.tour = {cp:30, best:34, claimed:{10:"x",20:"x",30:"x"}, seen:[], wk:"", wbest:0, wt:0}; save(); });
  await p.click('[data-tab="tour"]'); await p.waitForTimeout(800);

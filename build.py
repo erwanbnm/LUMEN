@@ -67,11 +67,15 @@ for i, l in enumerate(open(os.path.join(base, "content", "extra", "qad.txt"), en
 # Questions de la Tour : tranche|thème|question|bonne réponse|faux 1|faux 2|faux 3|explication (tranche 1 = étages 1-10 … 10 = étages 91-100)
 # Ajouter les nouvelles À LA FIN (l'identifiant tw001, tw002… dépend du numéro de ligne)
 _tp = os.path.join(base, "content", "extra", "tour.txt")
+# Niveau réel de chaque question de la Tour (A à E, X = retirée) : content/extra/tour_niveaux.txt, utilisé pour le tirage des étages
+_tn = os.path.join(base, "content", "extra", "tour_niveaux.txt")
+TWN = dict(l.split("|") for l in open(_tn, encoding="utf-8").read().splitlines() if l.strip() and not l.startswith("#")) if os.path.exists(_tn) else {}
 if os.path.exists(_tp):
     for i, l in enumerate(l for l in open(_tp, encoding="utf-8").read().splitlines() if l.strip() and not l.startswith("#")):
         b, th, q, a1, w1, w2, w3, exp = l.split("|")
         assert 1 <= int(b) <= 10 and len({a1, w1, w2, w3}) == 4, l
-        Q[f"tw{i+1:03d}"] = [th, 3 if int(b) > 4 else 2 if int(b) > 2 else 1, [a1, w1, w2, w3], exp.strip(), q.strip(), "", {"t":"tower", "b":int(b)}]
+        k = f"tw{i+1:03d}"; d = TWN.get(k, "C"); assert d in "ABCDEX", (k, d)
+        Q[k] = [th, 3 if int(b) > 4 else 2 if int(b) > 2 else 1, [a1, w1, w2, w3], exp.strip(), q.strip(), "", {"t":"tower", "b":int(b), "d":d}]
 # Questions très difficiles du Portail (événement) : jamais posées dans les autres modes
 for i, l in enumerate(l for l in open(os.path.join(base, "content", "extra", "portail.txt"), encoding="utf-8").read().splitlines() if l.strip()):
     th, q, a1, w1, w2, w3, exp = l.split("|")
