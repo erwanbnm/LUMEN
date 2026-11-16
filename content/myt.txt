@@ -232,3 +232,4 @@
 3|Quel dieu yoruba du tonnerre et de la foudre est aussi vénéré au Brésil et à Cuba ?|Shango|Ogun|Olorun|Eshu|Il a traversé l'Atlantique avec les esclaves et se retrouve dans le candomblé et la santería.
 3|Quel dieu slave du tonnerre était le chef du panthéon des anciens Slaves ?|Perun|Svarog|Veles|Dajbog|Comme Thor ou Zeus, il frappe ses ennemis de la foudre. Son grand adversaire est Veles, dieu des enfers.
 3|Quel sorcier immortel des contes russes cache sa mort dans une aiguille, dans un œuf, dans un canard ?|Kochtcheï|Baba Yaga|Raspoutine|Ilia Mouromets|Pour le tuer, il faut retrouver l'aiguille, cachée dans un emboîtement d'animaux et d'objets.
+3|Quel dieu nordique de la poésie est l'époux d'Idunn, gardienne des pommes de jeunesse ?|Bragi|Heimdall|Forseti|Baldr|On disait que des runes étaient gravées sur sa langue ; il accueillait les héros morts au Valhalla.

@@ -214,3 +214,4 @@
 3|Quelle est la capitale des Bahamas ?|Nassau|Bridgetown|Kingston|La Havane|Elle se trouve sur l'île de New Providence, ancien repaire de pirates au XVIIIe siècle.
 3|Quelle est la capitale de Trinité-et-Tobago ?|Port-d'Espagne|Bridgetown|Kingston|Castries|Son carnaval est l'un des plus célèbres des Caraïbes, berceau du calypso et des steel drums.
 3|Quelle est la capitale du Guyana ?|Georgetown|Paramaribo|Cayenne|Caracas|C'est le seul pays d'Amérique du Sud dont la langue officielle est l'anglais.
+3|Quelle est la capitale du Timor oriental ?|Dili|Baucau|Kupang|Suai|Kupang est la grande ville de la moitié ouest de l'île, restée indonésienne ; le pays est indépendant depuis 2002.

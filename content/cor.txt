@@ -223,3 +223,4 @@
 3|Quel os du poignet, en forme de bateau, est le plus souvent fracturé lors d'une chute ?|Le scaphoïde|Le pisiforme|Le trapèze|Le radius|Son nom vient du grec « skaphê », la barque. Sa fracture passe souvent inaperçue à la première radio.
 3|Quel os de l'avant-bras se trouve du côté du pouce ?|Le radius|Le cubitus|L'humérus|Le péroné|Le cubitus, aujourd'hui appelé ulna, est du côté du petit doigt.
 3|Quel est le nom actuel du péroné, l'os fin de la jambe à côté du tibia ?|La fibula|L'ulna|Le radius|La patella|La rotule s'appelle aujourd'hui la patella, et le cubitus l'ulna.
+3|Quelles grandes cellules nerveuses du cervelet portent le nom d'un savant tchèque ?|Les cellules de Purkinje|Les cellules de Schwann|Les cellules de Kupffer|Les cellules de Leydig|Jan Evangelista Purkinje les a décrites en 1837 ; elles jouent un grand rôle dans la coordination des mouvements.

@@ -210,3 +210,4 @@
 3|Quel chimpanzé a été le premier hominidé envoyé dans l'espace par les États-Unis, en janvier 1961 ?|Ham|Laïka|Albert II|Enos|Il a même dû appuyer sur des leviers pendant le vol pour montrer qu'on pouvait travailler en apesanteur.
 3|Quelle station spatiale américaine, lancée en 1973, est retombée en 1979 sur l'Australie ?|Skylab|Mir|Salyut 1|Tiangong 1|Une ville australienne a envoyé à la NASA une amende symbolique de 400 dollars pour avoir jeté des déchets.
 3|Quelle station spatiale chinoise est occupée en permanence depuis 2022 ?|Tiangong|Mir|Skylab|Salyut|Son nom signifie « palais céleste ». La Chine l'a construite seule, après avoir été exclue de l'ISS.
+2|Comment s'appelait la toute première station spatiale, lancée par l'URSS en 1971 ?|Saliout 1|Mir|Skylab|Almaz 2|Son premier équipage y a passé 23 jours, mais les trois cosmonautes sont morts lors du retour sur Terre.

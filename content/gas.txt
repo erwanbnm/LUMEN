@@ -202,3 +202,4 @@
 3|Quel cuisinier du XIXe siècle, surnommé « le roi des chefs et le chef des rois », a créé la pièce montée ?|Marie-Antoine Carême|Auguste Escoffier|François Vatel|Paul Bocuse|Il dessinait ses gâteaux comme des architectures, inspirées de temples et de ruines antiques.
 3|Quel maître d'hôtel du prince de Condé se serait suicidé en 1671 parce que la marée n'arrivait pas à temps ?|François Vatel|Marie-Antoine Carême|Auguste Escoffier|Guillaume Tirel|Selon Madame de Sévigné, il se donne la mort alors que le poisson arrive quelques instants plus tard.
 3|Quel cuisinier de Charles V a écrit Le Viandier, l'un des plus anciens livres de cuisine en français ?|Taillevent|Vatel|Carême|La Varenne|Guillaume Tirel, dit Taillevent. Un grand restaurant parisien porte aujourd'hui son nom.
+2|À partir de quelle céréale prépare-t-on le boulgour ?|Le blé dur|Le riz|L'orge|Le millet|Les grains sont précuits à l'eau, séchés puis concassés : c'est la base du taboulé libanais.
