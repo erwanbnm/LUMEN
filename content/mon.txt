@@ -200,3 +200,4 @@
 3|Quel portique traditionnel marque l'entrée des sanctuaires shintoïstes au Japon ?|Le torii|La pagode|Le stupa|Le minaret|Le plus célèbre, à Miyajima, semble flotter sur la mer à marée haute.
 3|Quel livre rassemble les commentaires des rabbins sur la loi juive ?|Le Talmud|La Torah|Le Coran|Les Évangiles|La Torah désigne, elle, les cinq premiers livres de la Bible hébraïque.
 3|Quelle Église chrétienne a été fondée quand Henri VIII a rompu avec Rome, au XVIe siècle ?|L'Église anglicane|L'Église luthérienne|L'Église orthodoxe|L'Église calviniste|Le monarque britannique en est toujours le gouverneur suprême.
+2|Dans quelle ville se trouve le siège de l'OCDE ?|Paris|Genève|Bruxelles|Vienne|L'organisation, qui regroupe surtout des pays riches, est installée au château de la Muette.

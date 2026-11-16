@@ -231,3 +231,4 @@
 3|Dans quel opéra de Puccini chante-t-on l'air « Nessun dorma » ?|Turandot|Tosca|La Bohème|Madama Butterfly|Puccini est mort avant de l'achever. Pavarotti a rendu l'air célèbre en le chantant pour la Coupe du monde de football 1990.
 3|Quel instrument à vent n'est ni anglais ni un cor, malgré son nom ?|Le cor anglais|Le cor d'harmonie|Le basson|La clarinette basse|C'est un hautbois plus grave. L'origine de son nom reste discutée.
 3|Quel chanteur castrat italien du XVIIIe siècle était une immense vedette dans toute l'Europe ?|Farinelli|Caruso|Pavarotti|Paganini|Il a chanté chaque soir pendant des années pour soigner la mélancolie du roi d'Espagne Philippe V.
+2|Quel compositeur a écrit l'opéra « Les Pêcheurs de perles », créé en 1863 ?|Georges Bizet|Jules Massenet|Charles Gounod|Ambroise Thomas|Bizet avait 24 ans ; l'opéra est surtout connu pour le duo « Au fond du temple saint ».
