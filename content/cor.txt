@@ -223,3 +223,4 @@
 3|Quel os du poignet, en forme de bateau, est le plus souvent fracturé lors d'une chute ?|Le scaphoïde|Le pisiforme|Le trapèze|Le radius|Son nom vient du grec « skaphê », la barque. Sa fracture passe souvent inaperçue à la première radio.
 3|Quel os de l'avant-bras se trouve du côté du pouce ?|Le radius|Le cubitus|L'humérus|Le péroné|Le cubitus, aujourd'hui appelé ulna, est du côté du petit doigt.
 3|Quel est le nom actuel du péroné, l'os fin de la jambe à côté du tibia ?|La fibula|L'ulna|Le radius|La patella|La rotule s'appelle aujourd'hui la patella, et le cubitus l'ulna.
+3|Quel os du crâne, en forme de papillon, s'articule avec tous les autres os crâniens ?|Le sphénoïde|L'ethmoïde|L'occipital|Le temporal|Il forme une partie du fond des orbites et abrite l'hypophyse dans un creux appelé selle turcique.

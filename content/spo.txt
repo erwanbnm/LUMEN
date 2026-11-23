@@ -237,3 +237,4 @@
 3|Quel gardien de but italien a remporté la Coupe du monde 2006 et joué jusqu'à 45 ans ?|Gianluigi Buffon|Dino Zoff|Gianluigi Donnarumma|Walter Zenga|Dino Zoff, lui, avait remporté la Coupe du monde 1982 comme capitaine, à 40 ans.
 3|Quel gardien soviétique, surnommé « l'Araignée noire », est le seul gardien Ballon d'or ?|Lev Yachine|Dino Zoff|Gordon Banks|Peter Schmeichel|Il reçoit le trophée en 1963. Le prix du meilleur gardien de l'année porte aujourd'hui son nom.
 3|Quel footballeur libérien a remporté le Ballon d'or en 1995, seul Africain à l'avoir gagné ?|George Weah|Didier Drogba|Samuel Eto'o|Roger Milla|Il est ensuite devenu président du Liberia, de 2018 à 2024.
+3|En escrime, avec quelle arme peut-on toucher l'adversaire sur tout le corps ?|L'épée|Le fleuret|Le sabre|La rapière|Au fleuret on ne touche que le tronc ; au sabre, tout le haut du corps, bras et tête compris.

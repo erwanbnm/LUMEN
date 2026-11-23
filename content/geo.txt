@@ -218,3 +218,4 @@
 3|Quelle chaîne de volcans d'Auvergne est inscrite au patrimoine mondial de l'Unesco depuis 2018 ?|La chaîne des Puys|Le massif du Cantal|Le Vivarais|Les monts Dore|Elle compte environ 80 volcans alignés sur une trentaine de kilomètres, dont le puy de Dôme.
 3|Quel cirque glaciaire des Pyrénées, inscrit à l'Unesco, est dominé par une cascade de plus de 400 m ?|Le cirque de Gavarnie|Le cirque de Troumouse|Le cirque de Navacelles|Le cirque de Mafate|Victor Hugo l'a décrit comme « l'objet impossible et extraordinaire ». Sa grande cascade est l'une des plus hautes d'Europe.
 3|Quel cirque volcanique de La Réunion n'est accessible qu'à pied ou en hélicoptère ?|Mafate|Cilaos|Salazie|Gavarnie|Quelques centaines d'habitants y vivent ; même le courrier y arrive par hélicoptère.
+3|Dans quel pays se trouve le plateau du Deccan ?|L'Inde|Le Pakistan|Le Bangladesh|Le Népal|Ce vaste plateau couvre une grande partie du sud de la péninsule indienne.

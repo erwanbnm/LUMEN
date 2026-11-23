@@ -226,3 +226,4 @@
 3|Quel réacteur nucléaire de nouvelle génération a été raccordé au réseau à Flamanville en 2024, après des années de retard ?|L'EPR|Superphénix|ITER|Le Rapsodie|Commencé en 2007, son chantier a duré 17 ans et son coût a été multiplié par plus de quatre.
 3|Quel grand projet international, en construction en Provence, veut produire de l'énergie par fusion nucléaire ?|ITER|L'EPR|Le CERN|Superphénix|Il cherche à reproduire, dans une machine appelée tokamak, ce qui se passe au cœur du Soleil.
 3|Quel type de machine, inventé en URSS, confine un plasma très chaud dans un anneau magnétique ?|Le tokamak|Le cyclotron|Le synchrotron|Le réacteur à eau pressurisée|Le mot est un acronyme russe signifiant à peu près « chambre toroïdale à bobines magnétiques ».
+3|En quelle année le Minitel a-t-il été définitivement arrêté en France ?|2012|2008|2010|2015|Il s'est éteint le 30 juin 2012, après une trentaine d'années de service.

@@ -200,3 +200,4 @@
 3|Comment appelle-t-on les bandes dessinées chinoises ?|Les manhua|Les manhwa|Les fumetti|Les comics|Les manhwa sont coréennes, et les fumetti italiennes.
 3|Quel format de BD coréenne, conçu pour être lu en défilant sur un téléphone, connaît un succès mondial ?|Le webtoon|Le manhua|Le tankōbon|Le yonkoma|Solo Leveling, publié d'abord en webtoon, a été adapté en anime en 2024.
 3|Comment appelle-t-on les mangas en quatre cases, souvent humoristiques ?|Les yonkoma|Les doujinshi|Les tankōbon|Les one-shot|C'est l'équivalent japonais du strip de journal. Azumanga Daioh en est un exemple célèbre.
+3|Quel magazine de BD Gotlib, Claire Bretécher et Nikita Mandryka ont-ils fondé en 1972 ?|L'Écho des savanes|Fluide glacial|Métal hurlant|Charlie Mensuel|Gotlib a ensuite lancé Fluide glacial en 1975, avec Jacques Diament.
