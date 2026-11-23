@@ -208,3 +208,4 @@
 3|Quel artiste hongrois installé en France est le père de l'« op art », qui crée des illusions d'optique ?|Victor Vasarely|Yaacov Agam|Jesús Rafael Soto|Bridget Riley|Une fondation à Aix-en-Provence présente ses grandes œuvres en relief.
 3|Quel sculpteur roumain a créé La Colonne sans fin et L'Oiseau dans l'espace ?|Constantin Brâncuși|Alberto Giacometti|Ossip Zadkine|Jean Arp|En 1926, la douane américaine a refusé de considérer L'Oiseau dans l'espace comme une œuvre d'art. Il a gagné le procès.
 3|Quel sculpteur, élève de Rodin, a réalisé l'Héraklès archer et a un musée à Montparnasse ?|Antoine Bourdelle|Aristide Maillol|Camille Claudel|Charles Despiau|Il a aussi décoré la façade du théâtre des Champs-Élysées.
+3|Quel roman de Balzac a pour héros le jeune Eugène de Rastignac ?|Le Père Goriot|Illusions perdues|Eugénie Grandet|La Peau de chagrin|Il se termine par son célèbre défi lancé à Paris : « À nous deux maintenant ! ».

@@ -216,3 +216,4 @@
 3|Quel grand vautour des Pyrénées et des Alpes se nourrit surtout d'os ?|Le gypaète barbu|Le vautour fauve|L'aigle royal|Le condor|Il lâche les os de haut sur des rochers pour les casser, puis avale les morceaux. Son acide gastrique les dissout.
 3|Quel oiseau européen pond ses œufs dans le nid d'autres oiseaux ?|Le coucou|Le rouge-gorge|La pie|Le moineau|Le poussin du coucou pousse souvent hors du nid les œufs de ses parents adoptifs.
 3|Quel animal fait les plus longues migrations parmi les mammifères terrestres, en Arctique ?|Le caribou|L'élan|Le bœuf musqué|Le loup arctique|Certains troupeaux parcourent plus de 1 000 km par an entre la toundra et la forêt boréale.
+3|Quel petit mammifère d'Afrique, qui ressemble à une marmotte, est un proche cousin de l'éléphant ?|Le daman|Le suricate|Le pangolin|La mangouste|Malgré sa petite taille, il partage avec l'éléphant un ancêtre commun et quelques traits, comme des incisives qui poussent sans arrêt.

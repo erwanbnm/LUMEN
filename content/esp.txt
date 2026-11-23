@@ -210,3 +210,4 @@
 3|Quel chimpanzé a été le premier hominidé envoyé dans l'espace par les États-Unis, en janvier 1961 ?|Ham|Laïka|Albert II|Enos|Il a même dû appuyer sur des leviers pendant le vol pour montrer qu'on pouvait travailler en apesanteur.
 3|Quelle station spatiale américaine, lancée en 1973, est retombée en 1979 sur l'Australie ?|Skylab|Mir|Salyut 1|Tiangong 1|Une ville australienne a envoyé à la NASA une amende symbolique de 400 dollars pour avoir jeté des déchets.
 3|Quelle station spatiale chinoise est occupée en permanence depuis 2022 ?|Tiangong|Mir|Skylab|Salyut|Son nom signifie « palais céleste ». La Chine l'a construite seule, après avoir été exclue de l'ISS.
+3|Comment s'appelle le point de l'orbite d'une planète le plus proche du Soleil ?|Le périhélie|L'aphélie|Le périgée|Le zénith|La Terre y passe début janvier, en plein hiver de l'hémisphère Nord.

@@ -231,3 +231,4 @@
 3|Quel studio danois a créé Limbo et Inside, jeux en clair-obscur sans dialogue ?|Playdead|Tarsier|IO Interactive|Hazelight|IO Interactive, également danois, est le studio de la série Hitman.
 3|Quel studio danois a créé la série Hitman, avec l'agent 47 ?|IO Interactive|Playdead|Remedy|Avalanche|L'agent 47, chauve avec un code-barres tatoué sur la nuque, est un tueur à gages cloné.
 3|Quel studio français, fondé à Lyon, a créé Dishonored ?|Arkane Studios|Ubisoft|Dontnod|Quantic Dream|Il appartient aujourd'hui à Microsoft. Ses jeux sont réputés pour leur liberté d'approche et leur level design.
+3|Au poker, comment s'appelle une main de trois cartes de même valeur et d'une paire ?|Un full|Un brelan|Une quinte|Un carré|Le brelan ne compte que trois cartes de même valeur, et le carré quatre.

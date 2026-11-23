@@ -203,3 +203,4 @@
 3|Dans quelle ville norvégienne de l'Arctique est-il interdit de mourir, car les corps ne se décomposent pas dans le sol gelé ?|Longyearbyen|Tromsø|Hammerfest|Bodø|On évite d'y enterrer les morts depuis les années 1950. Les personnes en fin de vie sont transférées sur le continent.
 3|Quel pays a un hymne national sans paroles officielles ?|L'Espagne|L'Italie|Le Portugal|La Grèce|La Marcha Real n'a pas de paroles officielles : les joueurs de football espagnols restent silencieux pendant l'hymne.
 3|Quel pays a l'hymne national le plus long, avec 158 strophes ?|La Grèce|L'Espagne|L'Uruguay|La France|L'Hymne à la liberté compte 158 strophes, mais on n'en chante heureusement que les deux premières.
+3|Quel objet Walter Hunt a-t-il breveté en 1849 ?|L'épingle de sûreté|Le trombone|La fermeture Éclair|Le tire-bouchon|Il aurait revendu son brevet pour 400 dollars afin de rembourser une dette.
